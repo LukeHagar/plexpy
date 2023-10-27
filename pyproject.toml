@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "plexpy"
+version = "0.0.1"
+license = { text = "MIT" }
+authors = [
+	{ name="Luke Hagar", email="lukeslakemail@gmail.com" }
+]
+description = """An Open API Spec for interacting with Plex.tv and Plex Servers"""
+readme = "README.md"
+requires-python = ">=3.7"
+dependencies = [
+	"requests",
+	"http-exceptions",
+	"pytest",
+	"responses"
+]
+
