@@ -8,8 +8,8 @@ class TestGetDevicesResponseModel(unittest.TestCase):
 
     def test_get_devices_response(self):
         # Create GetDevicesResponse class instance
-        test_model = GetDevicesResponse(MediaContainer={"velit": 1})
-        self.assertEqual(test_model.MediaContainer, {"velit": 1})
+        test_model = GetDevicesResponse(MediaContainer={"est": 3})
+        self.assertEqual(test_model.MediaContainer, {"est": 3})
 
 
 if __name__ == "__main__":

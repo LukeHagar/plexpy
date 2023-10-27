@@ -10,8 +10,8 @@ class TestGetServerCapabilitiesResponseModel(unittest.TestCase):
 
     def test_get_server_capabilities_response(self):
         # Create GetServerCapabilitiesResponse class instance
-        test_model = GetServerCapabilitiesResponse(MediaContainer={"maiores": 3})
-        self.assertEqual(test_model.MediaContainer, {"maiores": 3})
+        test_model = GetServerCapabilitiesResponse(MediaContainer={"nam": 5})
+        self.assertEqual(test_model.MediaContainer, {"nam": 5})
 
 
 if __name__ == "__main__":

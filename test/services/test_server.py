@@ -12,7 +12,7 @@ class TestServer_(unittest.TestCase):
     @responses.activate
     def test_get_server_capabilities(self):
         # Mock the API response
-        responses.get("{protocol}://{ip}:{port}/", json={}, status=200)
+        responses.get("http://10.10.10.47:32400/", json={}, status=200)
         # call the method to test
         test_service = Server("testkey")
         response = test_service.get_server_capabilities()
@@ -22,7 +22,7 @@ class TestServer_(unittest.TestCase):
     @responses.activate
     def test_get_server_capabilities_error_on_non_200(self):
         # Mock the API response
-        responses.get("{protocol}://{ip}:{port}/", json={}, status=404)
+        responses.get("http://10.10.10.47:32400/", json={}, status=404)
         with self.assertRaises(ClientException):
             test_service = Server("testkey")
             test_service.get_server_capabilities()
@@ -31,7 +31,7 @@ class TestServer_(unittest.TestCase):
     @responses.activate
     def test_get_server_preferences(self):
         # Mock the API response
-        responses.get("{protocol}://{ip}:{port}/:/prefs", json={}, status=200)
+        responses.get("http://10.10.10.47:32400/:/prefs", json={}, status=200)
         # call the method to test
         test_service = Server("testkey")
         response = test_service.get_server_preferences()
@@ -41,7 +41,7 @@ class TestServer_(unittest.TestCase):
     @responses.activate
     def test_get_server_preferences_error_on_non_200(self):
         # Mock the API response
-        responses.get("{protocol}://{ip}:{port}/:/prefs", json={}, status=404)
+        responses.get("http://10.10.10.47:32400/:/prefs", json={}, status=404)
         with self.assertRaises(ClientException):
             test_service = Server("testkey")
             test_service.get_server_preferences()
@@ -50,7 +50,7 @@ class TestServer_(unittest.TestCase):
     @responses.activate
     def test_get_available_clients(self):
         # Mock the API response
-        responses.get("{protocol}://{ip}:{port}/clients", json={}, status=200)
+        responses.get("http://10.10.10.47:32400/clients", json={}, status=200)
         # call the method to test
         test_service = Server("testkey")
         response = test_service.get_available_clients()
@@ -60,7 +60,7 @@ class TestServer_(unittest.TestCase):
     @responses.activate
     def test_get_available_clients_error_on_non_200(self):
         # Mock the API response
-        responses.get("{protocol}://{ip}:{port}/clients", json={}, status=404)
+        responses.get("http://10.10.10.47:32400/clients", json={}, status=404)
         with self.assertRaises(ClientException):
             test_service = Server("testkey")
             test_service.get_available_clients()
@@ -69,7 +69,7 @@ class TestServer_(unittest.TestCase):
     @responses.activate
     def test_get_devices(self):
         # Mock the API response
-        responses.get("{protocol}://{ip}:{port}/devices", json={}, status=200)
+        responses.get("http://10.10.10.47:32400/devices", json={}, status=200)
         # call the method to test
         test_service = Server("testkey")
         response = test_service.get_devices()
@@ -79,7 +79,7 @@ class TestServer_(unittest.TestCase):
     @responses.activate
     def test_get_devices_error_on_non_200(self):
         # Mock the API response
-        responses.get("{protocol}://{ip}:{port}/devices", json={}, status=404)
+        responses.get("http://10.10.10.47:32400/devices", json={}, status=404)
         with self.assertRaises(ClientException):
             test_service = Server("testkey")
             test_service.get_devices()
@@ -88,7 +88,7 @@ class TestServer_(unittest.TestCase):
     @responses.activate
     def test_get_server_identity(self):
         # Mock the API response
-        responses.get("{protocol}://{ip}:{port}/identity", json={}, status=200)
+        responses.get("http://10.10.10.47:32400/identity", json={}, status=200)
         # call the method to test
         test_service = Server("testkey")
         response = test_service.get_server_identity()
@@ -98,7 +98,7 @@ class TestServer_(unittest.TestCase):
     @responses.activate
     def test_get_server_identity_error_on_non_200(self):
         # Mock the API response
-        responses.get("{protocol}://{ip}:{port}/identity", json={}, status=404)
+        responses.get("http://10.10.10.47:32400/identity", json={}, status=404)
         with self.assertRaises(ClientException):
             test_service = Server("testkey")
             test_service.get_server_identity()
@@ -107,7 +107,7 @@ class TestServer_(unittest.TestCase):
     @responses.activate
     def test_get_my_plex_account(self):
         # Mock the API response
-        responses.get("{protocol}://{ip}:{port}/myplex/account", json={}, status=200)
+        responses.get("http://10.10.10.47:32400/myplex/account", json={}, status=200)
         # call the method to test
         test_service = Server("testkey")
         response = test_service.get_my_plex_account()
@@ -117,7 +117,7 @@ class TestServer_(unittest.TestCase):
     @responses.activate
     def test_get_my_plex_account_error_on_non_200(self):
         # Mock the API response
-        responses.get("{protocol}://{ip}:{port}/myplex/account", json={}, status=404)
+        responses.get("http://10.10.10.47:32400/myplex/account", json={}, status=404)
         with self.assertRaises(ClientException):
             test_service = Server("testkey")
             test_service.get_my_plex_account()
@@ -126,17 +126,19 @@ class TestServer_(unittest.TestCase):
     @responses.activate
     def test_get_resized_photo(self):
         # Mock the API response
-        responses.get("{protocol}://{ip}:{port}/photo/:/transcode", json={}, status=200)
+        responses.get("http://10.10.10.47:32400/photo/:/transcode", json={}, status=200)
         # call the method to test
         test_service = Server("testkey")
-        response = test_service.get_resized_photo("saepe", 6, 6, 3, 4, 6, 6805299528)
+        response = test_service.get_resized_photo(
+            "exercitationem", 3, 7, 6, 4, 6, 8564501568
+        )
         self.assertEqual(response.data, {})
         responses.reset(),
 
     @responses.activate
     def test_get_resized_photo_required_fields_missing(self):
         # Mock the API response
-        responses.get("{protocol}://{ip}:{port}/photo/:/transcode", json={}, status=202)
+        responses.get("http://10.10.10.47:32400/photo/:/transcode", json={}, status=202)
         with self.assertRaises(TypeError):
             test_service = Server("testkey")
             test_service.get_resized_photo()
@@ -145,16 +147,16 @@ class TestServer_(unittest.TestCase):
     @responses.activate
     def test_get_resized_photo_error_on_non_200(self):
         # Mock the API response
-        responses.get("{protocol}://{ip}:{port}/photo/:/transcode", json={}, status=404)
+        responses.get("http://10.10.10.47:32400/photo/:/transcode", json={}, status=404)
         with self.assertRaises(ClientException):
             test_service = Server("testkey")
-            test_service.get_resized_photo("asperiores", 3, 2, 3, 5, 4, 8443664162)
+            test_service.get_resized_photo("eos", 5, 4, 2, 3, 7, 1237684478)
         responses.reset()
 
     @responses.activate
     def test_get_server_list(self):
         # Mock the API response
-        responses.get("{protocol}://{ip}:{port}/servers", json={}, status=200)
+        responses.get("http://10.10.10.47:32400/servers", json={}, status=200)
         # call the method to test
         test_service = Server("testkey")
         response = test_service.get_server_list()
@@ -164,7 +166,7 @@ class TestServer_(unittest.TestCase):
     @responses.activate
     def test_get_server_list_error_on_non_200(self):
         # Mock the API response
-        responses.get("{protocol}://{ip}:{port}/servers", json={}, status=404)
+        responses.get("http://10.10.10.47:32400/servers", json={}, status=404)
         with self.assertRaises(ClientException):
             test_service = Server("testkey")
             test_service.get_server_list()

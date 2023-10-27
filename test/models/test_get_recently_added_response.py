@@ -8,8 +8,8 @@ class TestGetRecentlyAddedResponseModel(unittest.TestCase):
 
     def test_get_recently_added_response(self):
         # Create GetRecentlyAddedResponse class instance
-        test_model = GetRecentlyAddedResponse(MediaContainer={"numquam": 1})
-        self.assertEqual(test_model.MediaContainer, {"numquam": 1})
+        test_model = GetRecentlyAddedResponse(MediaContainer={"possimus": 4})
+        self.assertEqual(test_model.MediaContainer, {"possimus": 4})
 
 
 if __name__ == "__main__":

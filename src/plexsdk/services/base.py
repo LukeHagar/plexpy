@@ -31,7 +31,7 @@ class BaseService:
         Sets the base url
     """
 
-    _url_prefix = "{protocol}://{ip}:{port}"
+    _url_prefix = "http://10.10.10.47:32400"
 
     _http = HTTPClient(None)
 

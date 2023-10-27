@@ -8,8 +8,8 @@ class TestGetTranscodeSessionsResponseModel(unittest.TestCase):
 
     def test_get_transcode_sessions_response(self):
         # Create GetTranscodeSessionsResponse class instance
-        test_model = GetTranscodeSessionsResponse(MediaContainer={"eaque": 9})
-        self.assertEqual(test_model.MediaContainer, {"eaque": 9})
+        test_model = GetTranscodeSessionsResponse(MediaContainer={"ab": 3})
+        self.assertEqual(test_model.MediaContainer, {"ab": 3})
 
 
 if __name__ == "__main__":
