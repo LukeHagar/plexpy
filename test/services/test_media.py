@@ -12,17 +12,17 @@ class TestMedia_(unittest.TestCase):
     @responses.activate
     def test_mark_played(self):
         # Mock the API response
-        responses.get("{protocol}://{ip}:{port}/:/scrobble", json={}, status=200)
+        responses.get("http://10.10.10.47:32400/:/scrobble", json={}, status=200)
         # call the method to test
         test_service = Media("testkey")
-        response = test_service.mark_played(1)
+        response = test_service.mark_played(6)
         self.assertEqual(response.data, {})
         responses.reset(),
 
     @responses.activate
     def test_mark_played_required_fields_missing(self):
         # Mock the API response
-        responses.get("{protocol}://{ip}:{port}/:/scrobble", json={}, status=202)
+        responses.get("http://10.10.10.47:32400/:/scrobble", json={}, status=202)
         with self.assertRaises(TypeError):
             test_service = Media("testkey")
             test_service.mark_played()
@@ -31,26 +31,26 @@ class TestMedia_(unittest.TestCase):
     @responses.activate
     def test_mark_played_error_on_non_200(self):
         # Mock the API response
-        responses.get("{protocol}://{ip}:{port}/:/scrobble", json={}, status=404)
+        responses.get("http://10.10.10.47:32400/:/scrobble", json={}, status=404)
         with self.assertRaises(ClientException):
             test_service = Media("testkey")
-            test_service.mark_played(9)
+            test_service.mark_played(8)
         responses.reset()
 
     @responses.activate
     def test_mark_unplayed(self):
         # Mock the API response
-        responses.get("{protocol}://{ip}:{port}/:/unscrobble", json={}, status=200)
+        responses.get("http://10.10.10.47:32400/:/unscrobble", json={}, status=200)
         # call the method to test
         test_service = Media("testkey")
-        response = test_service.mark_unplayed(9)
+        response = test_service.mark_unplayed(8)
         self.assertEqual(response.data, {})
         responses.reset(),
 
     @responses.activate
     def test_mark_unplayed_required_fields_missing(self):
         # Mock the API response
-        responses.get("{protocol}://{ip}:{port}/:/unscrobble", json={}, status=202)
+        responses.get("http://10.10.10.47:32400/:/unscrobble", json={}, status=202)
         with self.assertRaises(TypeError):
             test_service = Media("testkey")
             test_service.mark_unplayed()
@@ -59,26 +59,26 @@ class TestMedia_(unittest.TestCase):
     @responses.activate
     def test_mark_unplayed_error_on_non_200(self):
         # Mock the API response
-        responses.get("{protocol}://{ip}:{port}/:/unscrobble", json={}, status=404)
+        responses.get("http://10.10.10.47:32400/:/unscrobble", json={}, status=404)
         with self.assertRaises(ClientException):
             test_service = Media("testkey")
-            test_service.mark_unplayed(7)
+            test_service.mark_unplayed(8)
         responses.reset()
 
     @responses.activate
     def test_update_play_progress(self):
         # Mock the API response
-        responses.post("{protocol}://{ip}:{port}/:/progress", json={}, status=200)
+        responses.post("http://10.10.10.47:32400/:/progress", json={}, status=200)
         # call the method to test
         test_service = Media("testkey")
-        response = test_service.update_play_progress("esse", 7, "nesciunt")
+        response = test_service.update_play_progress("eos", 6, "vitae")
         self.assertEqual(response.data, {})
         responses.reset(),
 
     @responses.activate
     def test_update_play_progress_required_fields_missing(self):
         # Mock the API response
-        responses.post("{protocol}://{ip}:{port}/:/progress", json={}, status=202)
+        responses.post("http://10.10.10.47:32400/:/progress", json={}, status=202)
         with self.assertRaises(TypeError):
             test_service = Media("testkey")
             test_service.update_play_progress()
@@ -87,10 +87,10 @@ class TestMedia_(unittest.TestCase):
     @responses.activate
     def test_update_play_progress_error_on_non_200(self):
         # Mock the API response
-        responses.post("{protocol}://{ip}:{port}/:/progress", json={}, status=404)
+        responses.post("http://10.10.10.47:32400/:/progress", json={}, status=404)
         with self.assertRaises(ClientException):
             test_service = Media("testkey")
-            test_service.update_play_progress("quo", 7, "dolorum")
+            test_service.update_play_progress("praesentium", 5, "asperiores")
         responses.reset()
 
 

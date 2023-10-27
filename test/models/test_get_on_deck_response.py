@@ -8,8 +8,8 @@ class TestGetOnDeckResponseModel(unittest.TestCase):
 
     def test_get_on_deck_response(self):
         # Create GetOnDeckResponse class instance
-        test_model = GetOnDeckResponse(MediaContainer={"quisquam": 1})
-        self.assertEqual(test_model.MediaContainer, {"quisquam": 1})
+        test_model = GetOnDeckResponse(MediaContainer={"doloremque": 5})
+        self.assertEqual(test_model.MediaContainer, {"doloremque": 5})
 
 
 if __name__ == "__main__":

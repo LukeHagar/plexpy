@@ -12,17 +12,17 @@ class TestLog_(unittest.TestCase):
     @responses.activate
     def test_log_line(self):
         # Mock the API response
-        responses.get("{protocol}://{ip}:{port}/log", json={}, status=200)
+        responses.get("http://10.10.10.47:32400/log", json={}, status=200)
         # call the method to test
         test_service = Log("testkey")
-        response = test_service.log_line("adipisci", "reprehenderit", 1)
+        response = test_service.log_line("recusandae", "quos", 2)
         self.assertEqual(response.data, {})
         responses.reset(),
 
     @responses.activate
     def test_log_line_required_fields_missing(self):
         # Mock the API response
-        responses.get("{protocol}://{ip}:{port}/log", json={}, status=202)
+        responses.get("http://10.10.10.47:32400/log", json={}, status=202)
         with self.assertRaises(TypeError):
             test_service = Log("testkey")
             test_service.log_line()
@@ -31,16 +31,16 @@ class TestLog_(unittest.TestCase):
     @responses.activate
     def test_log_line_error_on_non_200(self):
         # Mock the API response
-        responses.get("{protocol}://{ip}:{port}/log", json={}, status=404)
+        responses.get("http://10.10.10.47:32400/log", json={}, status=404)
         with self.assertRaises(ClientException):
             test_service = Log("testkey")
-            test_service.log_line("eaque", "ea", 4)
+            test_service.log_line("labore", "aliquid", 3)
         responses.reset()
 
     @responses.activate
     def test_log_multi_line(self):
         # Mock the API response
-        responses.post("{protocol}://{ip}:{port}/log", json={}, status=200)
+        responses.post("http://10.10.10.47:32400/log", json={}, status=200)
         # call the method to test
         test_service = Log("testkey")
         response = test_service.log_multi_line()
@@ -50,7 +50,7 @@ class TestLog_(unittest.TestCase):
     @responses.activate
     def test_log_multi_line_error_on_non_200(self):
         # Mock the API response
-        responses.post("{protocol}://{ip}:{port}/log", json={}, status=404)
+        responses.post("http://10.10.10.47:32400/log", json={}, status=404)
         with self.assertRaises(ClientException):
             test_service = Log("testkey")
             test_service.log_multi_line()
@@ -59,7 +59,7 @@ class TestLog_(unittest.TestCase):
     @responses.activate
     def test_enable_paper_trail(self):
         # Mock the API response
-        responses.get("{protocol}://{ip}:{port}/log/networked", json={}, status=200)
+        responses.get("http://10.10.10.47:32400/log/networked", json={}, status=200)
         # call the method to test
         test_service = Log("testkey")
         response = test_service.enable_paper_trail()
@@ -69,7 +69,7 @@ class TestLog_(unittest.TestCase):
     @responses.activate
     def test_enable_paper_trail_error_on_non_200(self):
         # Mock the API response
-        responses.get("{protocol}://{ip}:{port}/log/networked", json={}, status=404)
+        responses.get("http://10.10.10.47:32400/log/networked", json={}, status=404)
         with self.assertRaises(ClientException):
             test_service = Log("testkey")
             test_service.enable_paper_trail()

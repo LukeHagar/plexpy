@@ -12,7 +12,7 @@ class TestUpdater_(unittest.TestCase):
     @responses.activate
     def test_get_update_status(self):
         # Mock the API response
-        responses.get("{protocol}://{ip}:{port}/updater/status", json={}, status=200)
+        responses.get("http://10.10.10.47:32400/updater/status", json={}, status=200)
         # call the method to test
         test_service = Updater("testkey")
         response = test_service.get_update_status()
@@ -22,7 +22,7 @@ class TestUpdater_(unittest.TestCase):
     @responses.activate
     def test_get_update_status_error_on_non_200(self):
         # Mock the API response
-        responses.get("{protocol}://{ip}:{port}/updater/status", json={}, status=404)
+        responses.get("http://10.10.10.47:32400/updater/status", json={}, status=404)
         with self.assertRaises(ClientException):
             test_service = Updater("testkey")
             test_service.get_update_status()
@@ -31,7 +31,7 @@ class TestUpdater_(unittest.TestCase):
     @responses.activate
     def test_check_for_updates(self):
         # Mock the API response
-        responses.put("{protocol}://{ip}:{port}/updater/check", json={}, status=200)
+        responses.put("http://10.10.10.47:32400/updater/check", json={}, status=200)
         # call the method to test
         test_service = Updater("testkey")
         response = test_service.check_for_updates("foo")
@@ -41,7 +41,7 @@ class TestUpdater_(unittest.TestCase):
     @responses.activate
     def test_check_for_updates_error_on_non_200(self):
         # Mock the API response
-        responses.put("{protocol}://{ip}:{port}/updater/check", json={}, status=404)
+        responses.put("http://10.10.10.47:32400/updater/check", json={}, status=404)
         with self.assertRaises(ClientException):
             test_service = Updater("testkey")
             test_service.check_for_updates("foo")
@@ -50,7 +50,7 @@ class TestUpdater_(unittest.TestCase):
     @responses.activate
     def test_apply_updates(self):
         # Mock the API response
-        responses.put("{protocol}://{ip}:{port}/updater/apply", json={}, status=200)
+        responses.put("http://10.10.10.47:32400/updater/apply", json={}, status=200)
         # call the method to test
         test_service = Updater("testkey")
         response = test_service.apply_updates("foo", "foo")
@@ -60,7 +60,7 @@ class TestUpdater_(unittest.TestCase):
     @responses.activate
     def test_apply_updates_error_on_non_200(self):
         # Mock the API response
-        responses.put("{protocol}://{ip}:{port}/updater/apply", json={}, status=404)
+        responses.put("http://10.10.10.47:32400/updater/apply", json={}, status=404)
         with self.assertRaises(ClientException):
             test_service = Updater("testkey")
             test_service.apply_updates("foo", "foo")

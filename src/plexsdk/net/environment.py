@@ -8,4 +8,4 @@ from enum import Enum
 class Environment(Enum):
     """The environments available for this SDK"""
 
-    DEFAULT = "{protocol}://{ip}:{port}"
+    DEFAULT = "http://10.10.10.47:32400"
