@@ -129,9 +129,7 @@ class TestServer_(unittest.TestCase):
         responses.get("http://10.10.10.47:32400/photo/:/transcode", json={}, status=200)
         # call the method to test
         test_service = Server("testkey")
-        response = test_service.get_resized_photo(
-            "exercitationem", 3, 7, 6, 4, 6, 8564501568
-        )
+        response = test_service.get_resized_photo("dolores", 3, 6, 2, 5, 5, 7927143277)
         self.assertEqual(response.data, {})
         responses.reset(),
 
@@ -150,7 +148,7 @@ class TestServer_(unittest.TestCase):
         responses.get("http://10.10.10.47:32400/photo/:/transcode", json={}, status=404)
         with self.assertRaises(ClientException):
             test_service = Server("testkey")
-            test_service.get_resized_photo("eos", 5, 4, 2, 3, 7, 1237684478)
+            test_service.get_resized_photo("laborum", 4, 5, 2, 5, 3, 3561082273)
         responses.reset()
 
     @responses.activate

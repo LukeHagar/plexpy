@@ -8,8 +8,8 @@ class TestGetServerActivitiesResponseModel(unittest.TestCase):
 
     def test_get_server_activities_response(self):
         # Create GetServerActivitiesResponse class instance
-        test_model = GetServerActivitiesResponse(MediaContainer={"enim": 8})
-        self.assertEqual(test_model.MediaContainer, {"enim": 8})
+        test_model = GetServerActivitiesResponse(MediaContainer={"sed": 7})
+        self.assertEqual(test_model.MediaContainer, {"sed": 7})
 
 
 if __name__ == "__main__":

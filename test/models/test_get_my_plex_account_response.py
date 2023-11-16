@@ -8,8 +8,8 @@ class TestGetMyPlexAccountResponseModel(unittest.TestCase):
 
     def test_get_my_plex_account_response(self):
         # Create GetMyPlexAccountResponse class instance
-        test_model = GetMyPlexAccountResponse(MyPlex={"at": 7})
-        self.assertEqual(test_model.MyPlex, {"at": 7})
+        test_model = GetMyPlexAccountResponse(MyPlex={"quibusdam": 4})
+        self.assertEqual(test_model.MyPlex, {"quibusdam": 4})
 
 
 if __name__ == "__main__":
