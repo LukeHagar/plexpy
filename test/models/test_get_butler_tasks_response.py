@@ -8,8 +8,8 @@ class TestGetButlerTasksResponseModel(unittest.TestCase):
 
     def test_get_butler_tasks_response(self):
         # Create GetButlerTasksResponse class instance
-        test_model = GetButlerTasksResponse(ButlerTasks={"libero": 4})
-        self.assertEqual(test_model.ButlerTasks, {"libero": 4})
+        test_model = GetButlerTasksResponse(ButlerTasks={"veritatis": 5})
+        self.assertEqual(test_model.ButlerTasks, {"veritatis": 5})
 
 
 if __name__ == "__main__":

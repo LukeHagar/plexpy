@@ -8,8 +8,8 @@ class TestGetServerListResponseModel(unittest.TestCase):
 
     def test_get_server_list_response(self):
         # Create GetServerListResponse class instance
-        test_model = GetServerListResponse(MediaContainer={"dicta": 1})
-        self.assertEqual(test_model.MediaContainer, {"dicta": 1})
+        test_model = GetServerListResponse(MediaContainer={"quos": 3})
+        self.assertEqual(test_model.MediaContainer, {"quos": 3})
 
 
 if __name__ == "__main__":

@@ -474,7 +474,7 @@ sdk = PlexSDK()
 sdk.set_api_key(getenv("PLEXSDK_API_KEY"))
 results = sdk.media.update_play_progress(
 	key = 'key',
-	time = -21007029.127889782,
+	time = -5274531.766901404,
 	state = 'state'
 )
 
@@ -636,7 +636,7 @@ from pprint import pprint
 from plexsdk import PlexSDK
 sdk = PlexSDK()
 sdk.set_api_key(getenv("PLEXSDK_API_KEY"))
-results = sdk.butler.start_task(task_name = 'BackupDatabase')
+results = sdk.butler.start_task(task_name = 'UpgradeMediaAnalysis')
 
 pprint(vars(results))
 
@@ -663,7 +663,7 @@ from pprint import pprint
 from plexsdk import PlexSDK
 sdk = PlexSDK()
 sdk.set_api_key(getenv("PLEXSDK_API_KEY"))
-results = sdk.butler.stop_task(task_name = 'GenerateAutoTags')
+results = sdk.butler.stop_task(task_name = 'RefreshLibraries')
 
 pprint(vars(results))
 
@@ -693,7 +693,7 @@ from plexsdk import PlexSDK
 sdk = PlexSDK()
 sdk.set_api_key(getenv("PLEXSDK_API_KEY"))
 results = sdk.hubs.get_global_hubs(
-	count = -25530716.436555773,
+	count = -89854974.70534027,
 	only_transient = 1
 )
 
@@ -725,8 +725,8 @@ from plexsdk import PlexSDK
 sdk = PlexSDK()
 sdk.set_api_key(getenv("PLEXSDK_API_KEY"))
 results = sdk.hubs.get_library_hubs(
-	section_id = 89136618.25964785,
-	count = -44116336.8194041,
+	section_id = 7127590.840155527,
+	count = 79093545.3187831,
 	only_transient = 1
 )
 
@@ -759,8 +759,8 @@ from plexsdk import PlexSDK
 sdk = PlexSDK()
 sdk.set_api_key(getenv("PLEXSDK_API_KEY"))
 results = sdk.search.perform_search(
-	query = 'dylan',
-	section_id = 69456479.38410482,
+	query = 'arnold',
+	section_id = 99344522.30137807,
 	limit = 5
 )
 
@@ -793,7 +793,7 @@ sdk = PlexSDK()
 sdk.set_api_key(getenv("PLEXSDK_API_KEY"))
 results = sdk.search.perform_voice_search(
 	query = 'dead+poop',
-	section_id = -89240370.29516296,
+	section_id = 62545601.07563946,
 	limit = 5
 )
 
@@ -853,7 +853,7 @@ sdk = PlexSDK()
 sdk.set_api_key(getenv("PLEXSDK_API_KEY"))
 results = sdk.library.get_file_hash(
 	url = 'file://C:\Image.png&type=13',
-	type = -93479594.8520502
+	type = -88436061.14927645
 )
 
 pprint(vars(results))
@@ -994,8 +994,8 @@ from plexsdk import PlexSDK
 sdk = PlexSDK()
 sdk.set_api_key(getenv("PLEXSDK_API_KEY"))
 results = sdk.library.get_library_items(
-	section_id = -59611894.83078693,
-	type = 61422299.35649505,
+	section_id = -38261084.07045367,
+	type = -98052066.21906187,
 	filter = 'filter'
 )
 
@@ -1024,7 +1024,7 @@ from pprint import pprint
 from plexsdk import PlexSDK
 sdk = PlexSDK()
 sdk.set_api_key(getenv("PLEXSDK_API_KEY"))
-results = sdk.library.refresh_library(section_id = -18672976.902678773)
+results = sdk.library.refresh_library(section_id = -63309088.01826163)
 
 pprint(vars(results))
 
@@ -1054,8 +1054,8 @@ from plexsdk import PlexSDK
 sdk = PlexSDK()
 sdk.set_api_key(getenv("PLEXSDK_API_KEY"))
 results = sdk.library.get_latest_library_items(
-	section_id = -58307061.73064084,
-	type = 54395952.1588783,
+	section_id = -64946675.26895337,
+	type = -50645584.145667575,
 	filter = 'filter'
 )
 
@@ -1087,8 +1087,8 @@ from plexsdk import PlexSDK
 sdk = PlexSDK()
 sdk.set_api_key(getenv("PLEXSDK_API_KEY"))
 results = sdk.library.get_common_library_items(
-	section_id = -96350957.04933052,
-	type = -59684397.0411133,
+	section_id = 58424302.30486885,
+	type = -54481749.26892113,
 	filter = 'filter'
 )
 
@@ -1117,7 +1117,7 @@ from pprint import pprint
 from plexsdk import PlexSDK
 sdk = PlexSDK()
 sdk.set_api_key(getenv("PLEXSDK_API_KEY"))
-results = sdk.library.get_metadata(rating_key = -75419040.74332453)
+results = sdk.library.get_metadata(rating_key = 85366061.12599307)
 
 pprint(vars(results))
 
@@ -1144,7 +1144,7 @@ from pprint import pprint
 from plexsdk import PlexSDK
 sdk = PlexSDK()
 sdk.set_api_key(getenv("PLEXSDK_API_KEY"))
-results = sdk.library.get_metadata_children(rating_key = -1105110.1166751534)
+results = sdk.library.get_metadata_children(rating_key = -59688832.92556226)
 
 pprint(vars(results))
 
@@ -1227,7 +1227,7 @@ from plexsdk import PlexSDK
 sdk = PlexSDK()
 sdk.set_api_key(getenv("PLEXSDK_API_KEY"))
 results = sdk.log.log_line(
-	level = 2,
+	level = 4,
 	message = 'message',
 	source = 'source'
 )
@@ -1290,10 +1290,10 @@ sdk = PlexSDK()
 sdk.set_api_key(getenv("PLEXSDK_API_KEY"))
 results = sdk.playlists.create_playlist(
 	title = 'title',
-	type = 'photo',
+	type = 'audio',
 	smart = 1,
 	uri = 'uri',
-	play_queue_id = 24795931.71901846
+	play_queue_id = 16021897.529716834
 )
 
 pprint(vars(results))
@@ -1323,8 +1323,8 @@ from plexsdk import PlexSDK
 sdk = PlexSDK()
 sdk.set_api_key(getenv("PLEXSDK_API_KEY"))
 results = sdk.playlists.get_playlists(
-	playlist_type = 'video',
-	smart = 1
+	playlist_type = 'photo',
+	smart = 42.1
 )
 
 pprint(vars(results))
@@ -1352,7 +1352,7 @@ from pprint import pprint
 from plexsdk import PlexSDK
 sdk = PlexSDK()
 sdk.set_api_key(getenv("PLEXSDK_API_KEY"))
-results = sdk.playlists.get_playlist(playlist_id = 92652013.47806525)
+results = sdk.playlists.get_playlist(playlist_id = -26633277.647501603)
 
 pprint(vars(results))
 
@@ -1379,7 +1379,7 @@ from pprint import pprint
 from plexsdk import PlexSDK
 sdk = PlexSDK()
 sdk.set_api_key(getenv("PLEXSDK_API_KEY"))
-results = sdk.playlists.delete_playlist(playlist_id = 15166092.952776998)
+results = sdk.playlists.delete_playlist(playlist_id = 62744421.9519698)
 
 pprint(vars(results))
 
@@ -1406,7 +1406,7 @@ from pprint import pprint
 from plexsdk import PlexSDK
 sdk = PlexSDK()
 sdk.set_api_key(getenv("PLEXSDK_API_KEY"))
-results = sdk.playlists.update_playlist(playlist_id = -13354153.8729752)
+results = sdk.playlists.update_playlist(playlist_id = -49214256.273356535)
 
 pprint(vars(results))
 
@@ -1435,8 +1435,8 @@ from plexsdk import PlexSDK
 sdk = PlexSDK()
 sdk.set_api_key(getenv("PLEXSDK_API_KEY"))
 results = sdk.playlists.get_playlist_contents(
-	playlist_id = 72191503.82096133,
-	type = -50585783.98957678
+	playlist_id = -35072189.35604266,
+	type = 15769245.41899629
 )
 
 pprint(vars(results))
@@ -1464,7 +1464,7 @@ from pprint import pprint
 from plexsdk import PlexSDK
 sdk = PlexSDK()
 sdk.set_api_key(getenv("PLEXSDK_API_KEY"))
-results = sdk.playlists.clear_playlist_contents(playlist_id = 8693313.65152806)
+results = sdk.playlists.clear_playlist_contents(playlist_id = -56733207.84442524)
 
 pprint(vars(results))
 
@@ -1494,7 +1494,7 @@ from plexsdk import PlexSDK
 sdk = PlexSDK()
 sdk.set_api_key(getenv("PLEXSDK_API_KEY"))
 results = sdk.playlists.add_playlist_contents(
-	playlist_id = 41362150.74332705,
+	playlist_id = 67066051.33825886,
 	uri = 'library://..',
 	play_queue_id = 123
 )
@@ -1587,7 +1587,7 @@ from pprint import pprint
 from plexsdk import PlexSDK
 sdk = PlexSDK()
 sdk.set_api_key(getenv("PLEXSDK_API_KEY"))
-results = sdk.security.get_source_connection_information(source = 'provider://provider-identifier')
+results = sdk.security.get_source_connection_information(source = 'server://client-identifier')
 
 pprint(vars(results))
 
@@ -1747,7 +1747,7 @@ from pprint import pprint
 from plexsdk import PlexSDK
 sdk = PlexSDK()
 sdk.set_api_key(getenv("PLEXSDK_API_KEY"))
-results = sdk.updater.check_for_updates(download = 'foo')
+results = sdk.updater.check_for_updates(download = 1)
 
 pprint(vars(results))
 
@@ -1822,22 +1822,22 @@ from plexsdk import PlexSDK
 sdk = PlexSDK()
 sdk.set_api_key(getenv("PLEXSDK_API_KEY"))
 results = sdk.video.start_universal_transcode(
-	has_mde = -81137488.49360377,
+	has_mde = -66722760.83878206,
 	path = 'path',
-	media_index = -77210832.41519478,
-	part_index = -72229071.84453362,
+	media_index = 95828558.19304633,
+	part_index = 20893628.388636693,
 	protocol = 'protocol',
-	fast_seek = -34663937.278298415,
-	direct_play = -65649475.52201366,
-	direct_stream = -45808524.16842922,
-	subtitle_size = -22927306.960050985,
+	fast_seek = -48121306.07284235,
+	direct_play = -42172895.10512852,
+	direct_stream = 52756781.4933815,
+	subtitle_size = -87211761.4498486,
 	subtites = 'subtites',
-	audio_boost = -27400291.423254773,
+	audio_boost = -90280917.31817804,
 	location = 'location',
-	media_buffer_size = 23155108.458466023,
+	media_buffer_size = -5853548.2097194195,
 	session = 'session',
-	add_debug_overlay = 84869389.04259121,
-	auto_adjust_quality = 36723992.04259604
+	add_debug_overlay = -60606997.589227386,
+	auto_adjust_quality = -52417601.082450725
 )
 
 pprint(vars(results))
@@ -1875,16 +1875,16 @@ from plexsdk import PlexSDK
 sdk = PlexSDK()
 sdk.set_api_key(getenv("PLEXSDK_API_KEY"))
 results = sdk.video.get_timeline(
-	rating_key = -59189022.367571995,
+	rating_key = -93010424.96449679,
 	key = 'key',
-	state = 'paused',
-	has_mde = 84394939.21690026,
-	time = 76537742.6976276,
-	duration = -90087270.61978817,
+	state = 'stopped',
+	has_mde = -2142362.6247948557,
+	time = 36244306.986637354,
+	duration = 46741805.313385665,
 	context = 'context',
-	play_queue_item_id = -71830087.03538291,
-	play_back_time = 61930081.99176124,
-	row = 23118864.63882491
+	play_queue_item_id = 1315535.9890502095,
+	play_back_time = -94719666.5477938,
+	row = 48979168.55858934
 )
 
 pprint(vars(results))

@@ -15,7 +15,7 @@ class TestLibrary_(unittest.TestCase):
         responses.get("http://10.10.10.47:32400/library/hashes", json={}, status=200)
         # call the method to test
         test_service = Library("testkey")
-        response = test_service.get_file_hash("harum", 3)
+        response = test_service.get_file_hash("doloribus", 2)
         self.assertEqual(response.data, {})
         responses.reset(),
 
@@ -34,7 +34,7 @@ class TestLibrary_(unittest.TestCase):
         responses.get("http://10.10.10.47:32400/library/hashes", json={}, status=404)
         with self.assertRaises(ClientException):
             test_service = Library("testkey")
-            test_service.get_file_hash("debitis", 9)
+            test_service.get_file_hash("aut", 9)
         responses.reset()
 
     @responses.activate
@@ -83,11 +83,11 @@ class TestLibrary_(unittest.TestCase):
     def test_get_library(self):
         # Mock the API response
         responses.get(
-            "http://10.10.10.47:32400/library/sections/1902657001", json={}, status=200
+            "http://10.10.10.47:32400/library/sections/8820585836", json={}, status=200
         )
         # call the method to test
         test_service = Library("testkey")
-        response = test_service.get_library(1902657001, 6)
+        response = test_service.get_library(8820585836, 9)
         self.assertEqual(response.data, {})
         responses.reset(),
 
@@ -95,7 +95,7 @@ class TestLibrary_(unittest.TestCase):
     def test_get_library_required_fields_missing(self):
         # Mock the API response
         responses.get(
-            "http://10.10.10.47:32400/library/sections/3167481710", json={}, status=202
+            "http://10.10.10.47:32400/library/sections/6885092592", json={}, status=202
         )
         with self.assertRaises(TypeError):
             test_service = Library("testkey")
@@ -106,22 +106,22 @@ class TestLibrary_(unittest.TestCase):
     def test_get_library_error_on_non_200(self):
         # Mock the API response
         responses.get(
-            "http://10.10.10.47:32400/library/sections/4877467839", json={}, status=404
+            "http://10.10.10.47:32400/library/sections/6716168527", json={}, status=404
         )
         with self.assertRaises(ClientException):
             test_service = Library("testkey")
-            test_service.get_library(4877467839, 5)
+            test_service.get_library(6716168527, 4)
         responses.reset()
 
     @responses.activate
     def test_delete_library(self):
         # Mock the API response
         responses.delete(
-            "http://10.10.10.47:32400/library/sections/8087858304", json={}, status=200
+            "http://10.10.10.47:32400/library/sections/5130081697", json={}, status=200
         )
         # call the method to test
         test_service = Library("testkey")
-        response = test_service.delete_library(8087858304)
+        response = test_service.delete_library(5130081697)
         self.assertEqual(response.data, {})
         responses.reset(),
 
@@ -129,7 +129,7 @@ class TestLibrary_(unittest.TestCase):
     def test_delete_library_required_fields_missing(self):
         # Mock the API response
         responses.delete(
-            "http://10.10.10.47:32400/library/sections/3795773112", json={}, status=202
+            "http://10.10.10.47:32400/library/sections/7212508397", json={}, status=202
         )
         with self.assertRaises(TypeError):
             test_service = Library("testkey")
@@ -140,24 +140,24 @@ class TestLibrary_(unittest.TestCase):
     def test_delete_library_error_on_non_200(self):
         # Mock the API response
         responses.delete(
-            "http://10.10.10.47:32400/library/sections/6227875135", json={}, status=404
+            "http://10.10.10.47:32400/library/sections/1942042738", json={}, status=404
         )
         with self.assertRaises(ClientException):
             test_service = Library("testkey")
-            test_service.delete_library(6227875135)
+            test_service.delete_library(1942042738)
         responses.reset()
 
     @responses.activate
     def test_get_library_items(self):
         # Mock the API response
         responses.get(
-            "http://10.10.10.47:32400/library/sections/6046339919/all",
+            "http://10.10.10.47:32400/library/sections/8012335957/all",
             json={},
             status=200,
         )
         # call the method to test
         test_service = Library("testkey")
-        response = test_service.get_library_items(6046339919, 8, "error")
+        response = test_service.get_library_items(8012335957, 8, "porro")
         self.assertEqual(response.data, {})
         responses.reset(),
 
@@ -165,7 +165,7 @@ class TestLibrary_(unittest.TestCase):
     def test_get_library_items_required_fields_missing(self):
         # Mock the API response
         responses.get(
-            "http://10.10.10.47:32400/library/sections/4081463593/all",
+            "http://10.10.10.47:32400/library/sections/6329608079/all",
             json={},
             status=202,
         )
@@ -178,26 +178,26 @@ class TestLibrary_(unittest.TestCase):
     def test_get_library_items_error_on_non_200(self):
         # Mock the API response
         responses.get(
-            "http://10.10.10.47:32400/library/sections/8084937448/all",
+            "http://10.10.10.47:32400/library/sections/7003632597/all",
             json={},
             status=404,
         )
         with self.assertRaises(ClientException):
             test_service = Library("testkey")
-            test_service.get_library_items(8084937448, 2, "sint")
+            test_service.get_library_items(7003632597, 5, "magni")
         responses.reset()
 
     @responses.activate
     def test_refresh_library(self):
         # Mock the API response
         responses.get(
-            "http://10.10.10.47:32400/library/sections/5454812191/refresh",
+            "http://10.10.10.47:32400/library/sections/4426359171/refresh",
             json={},
             status=200,
         )
         # call the method to test
         test_service = Library("testkey")
-        response = test_service.refresh_library(5454812191)
+        response = test_service.refresh_library(4426359171)
         self.assertEqual(response.data, {})
         responses.reset(),
 
@@ -205,7 +205,7 @@ class TestLibrary_(unittest.TestCase):
     def test_refresh_library_required_fields_missing(self):
         # Mock the API response
         responses.get(
-            "http://10.10.10.47:32400/library/sections/7285849503/refresh",
+            "http://10.10.10.47:32400/library/sections/5343440474/refresh",
             json={},
             status=202,
         )
@@ -218,26 +218,26 @@ class TestLibrary_(unittest.TestCase):
     def test_refresh_library_error_on_non_200(self):
         # Mock the API response
         responses.get(
-            "http://10.10.10.47:32400/library/sections/3253419710/refresh",
+            "http://10.10.10.47:32400/library/sections/5876897013/refresh",
             json={},
             status=404,
         )
         with self.assertRaises(ClientException):
             test_service = Library("testkey")
-            test_service.refresh_library(3253419710)
+            test_service.refresh_library(5876897013)
         responses.reset()
 
     @responses.activate
     def test_get_latest_library_items(self):
         # Mock the API response
         responses.get(
-            "http://10.10.10.47:32400/library/sections/5633500181/latest",
+            "http://10.10.10.47:32400/library/sections/5131694225/latest",
             json={},
             status=200,
         )
         # call the method to test
         test_service = Library("testkey")
-        response = test_service.get_latest_library_items(2, 5633500181, "similique")
+        response = test_service.get_latest_library_items(9, 5131694225, "non")
         self.assertEqual(response.data, {})
         responses.reset(),
 
@@ -245,7 +245,7 @@ class TestLibrary_(unittest.TestCase):
     def test_get_latest_library_items_required_fields_missing(self):
         # Mock the API response
         responses.get(
-            "http://10.10.10.47:32400/library/sections/8744481339/latest",
+            "http://10.10.10.47:32400/library/sections/4058098584/latest",
             json={},
             status=202,
         )
@@ -258,26 +258,26 @@ class TestLibrary_(unittest.TestCase):
     def test_get_latest_library_items_error_on_non_200(self):
         # Mock the API response
         responses.get(
-            "http://10.10.10.47:32400/library/sections/1338044693/latest",
+            "http://10.10.10.47:32400/library/sections/4781224326/latest",
             json={},
             status=404,
         )
         with self.assertRaises(ClientException):
             test_service = Library("testkey")
-            test_service.get_latest_library_items(4, 1338044693, "quo")
+            test_service.get_latest_library_items(5, 4781224326, "iure")
         responses.reset()
 
     @responses.activate
     def test_get_common_library_items(self):
         # Mock the API response
         responses.get(
-            "http://10.10.10.47:32400/library/sections/3556695926/common",
+            "http://10.10.10.47:32400/library/sections/9179339262/common",
             json={},
             status=200,
         )
         # call the method to test
         test_service = Library("testkey")
-        response = test_service.get_common_library_items(7, 3556695926, "id")
+        response = test_service.get_common_library_items(8, 9179339262, "fugiat")
         self.assertEqual(response.data, {})
         responses.reset(),
 
@@ -285,7 +285,7 @@ class TestLibrary_(unittest.TestCase):
     def test_get_common_library_items_required_fields_missing(self):
         # Mock the API response
         responses.get(
-            "http://10.10.10.47:32400/library/sections/5226642550/common",
+            "http://10.10.10.47:32400/library/sections/9729167528/common",
             json={},
             status=202,
         )
@@ -298,24 +298,24 @@ class TestLibrary_(unittest.TestCase):
     def test_get_common_library_items_error_on_non_200(self):
         # Mock the API response
         responses.get(
-            "http://10.10.10.47:32400/library/sections/2153034771/common",
+            "http://10.10.10.47:32400/library/sections/2534656820/common",
             json={},
             status=404,
         )
         with self.assertRaises(ClientException):
             test_service = Library("testkey")
-            test_service.get_common_library_items(2, 2153034771, "eos")
+            test_service.get_common_library_items(4, 2534656820, "ipsa")
         responses.reset()
 
     @responses.activate
     def test_get_metadata(self):
         # Mock the API response
         responses.get(
-            "http://10.10.10.47:32400/library/metadata/5", json={}, status=200
+            "http://10.10.10.47:32400/library/metadata/2", json={}, status=200
         )
         # call the method to test
         test_service = Library("testkey")
-        response = test_service.get_metadata(5)
+        response = test_service.get_metadata(2)
         self.assertEqual(response.data, {})
         responses.reset(),
 
@@ -323,7 +323,7 @@ class TestLibrary_(unittest.TestCase):
     def test_get_metadata_required_fields_missing(self):
         # Mock the API response
         responses.get(
-            "http://10.10.10.47:32400/library/metadata/9", json={}, status=202
+            "http://10.10.10.47:32400/library/metadata/3", json={}, status=202
         )
         with self.assertRaises(TypeError):
             test_service = Library("testkey")
@@ -334,22 +334,22 @@ class TestLibrary_(unittest.TestCase):
     def test_get_metadata_error_on_non_200(self):
         # Mock the API response
         responses.get(
-            "http://10.10.10.47:32400/library/metadata/2", json={}, status=404
+            "http://10.10.10.47:32400/library/metadata/7", json={}, status=404
         )
         with self.assertRaises(ClientException):
             test_service = Library("testkey")
-            test_service.get_metadata(2)
+            test_service.get_metadata(7)
         responses.reset()
 
     @responses.activate
     def test_get_metadata_children(self):
         # Mock the API response
         responses.get(
-            "http://10.10.10.47:32400/library/metadata/7/children", json={}, status=200
+            "http://10.10.10.47:32400/library/metadata/9/children", json={}, status=200
         )
         # call the method to test
         test_service = Library("testkey")
-        response = test_service.get_metadata_children(7)
+        response = test_service.get_metadata_children(9)
         self.assertEqual(response.data, {})
         responses.reset(),
 
@@ -357,7 +357,7 @@ class TestLibrary_(unittest.TestCase):
     def test_get_metadata_children_required_fields_missing(self):
         # Mock the API response
         responses.get(
-            "http://10.10.10.47:32400/library/metadata/8/children", json={}, status=202
+            "http://10.10.10.47:32400/library/metadata/9/children", json={}, status=202
         )
         with self.assertRaises(TypeError):
             test_service = Library("testkey")
@@ -368,11 +368,11 @@ class TestLibrary_(unittest.TestCase):
     def test_get_metadata_children_error_on_non_200(self):
         # Mock the API response
         responses.get(
-            "http://10.10.10.47:32400/library/metadata/2/children", json={}, status=404
+            "http://10.10.10.47:32400/library/metadata/5/children", json={}, status=404
         )
         with self.assertRaises(ClientException):
             test_service = Library("testkey")
-            test_service.get_metadata_children(2)
+            test_service.get_metadata_children(5)
         responses.reset()
 
     @responses.activate

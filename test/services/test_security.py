@@ -45,7 +45,7 @@ class TestSecurity_(unittest.TestCase):
         )
         # call the method to test
         test_service = Security("testkey")
-        response = test_service.get_source_connection_information("similique")
+        response = test_service.get_source_connection_information("corrupti")
         self.assertEqual(response.data, {})
         responses.reset(),
 
@@ -68,7 +68,7 @@ class TestSecurity_(unittest.TestCase):
         )
         with self.assertRaises(ClientException):
             test_service = Security("testkey")
-            test_service.get_source_connection_information("facere")
+            test_service.get_source_connection_information("nobis")
         responses.reset()
 
 

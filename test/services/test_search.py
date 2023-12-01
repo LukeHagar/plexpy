@@ -15,7 +15,7 @@ class TestSearch_(unittest.TestCase):
         responses.get("http://10.10.10.47:32400/hubs/search", json={}, status=200)
         # call the method to test
         test_service = Search("testkey")
-        response = test_service.perform_search("consequatur", 9679770792, 1)
+        response = test_service.perform_search("quasi", 7587709766, 2)
         self.assertEqual(response.data, {})
         responses.reset(),
 
@@ -34,7 +34,7 @@ class TestSearch_(unittest.TestCase):
         responses.get("http://10.10.10.47:32400/hubs/search", json={}, status=404)
         with self.assertRaises(ClientException):
             test_service = Search("testkey")
-            test_service.perform_search("facere", 7396523904, 9)
+            test_service.perform_search("mollitia", 4057775221, 4)
         responses.reset()
 
     @responses.activate
@@ -43,7 +43,7 @@ class TestSearch_(unittest.TestCase):
         responses.get("http://10.10.10.47:32400/hubs/search/voice", json={}, status=200)
         # call the method to test
         test_service = Search("testkey")
-        response = test_service.perform_voice_search("ipsa", 7448923108, 3)
+        response = test_service.perform_voice_search("consequuntur", 1371589223, 1)
         self.assertEqual(response.data, {})
         responses.reset(),
 
@@ -62,7 +62,7 @@ class TestSearch_(unittest.TestCase):
         responses.get("http://10.10.10.47:32400/hubs/search/voice", json={}, status=404)
         with self.assertRaises(ClientException):
             test_service = Search("testkey")
-            test_service.perform_voice_search("tempore", 1862858310, 2)
+            test_service.perform_voice_search("quia", 2631129636, 5)
         responses.reset()
 
     @responses.activate
@@ -71,7 +71,7 @@ class TestSearch_(unittest.TestCase):
         responses.get("http://10.10.10.47:32400/search", json={}, status=200)
         # call the method to test
         test_service = Search("testkey")
-        response = test_service.get_search_results("tempore")
+        response = test_service.get_search_results("eum")
         self.assertEqual(response.data, {})
         responses.reset(),
 
@@ -90,7 +90,7 @@ class TestSearch_(unittest.TestCase):
         responses.get("http://10.10.10.47:32400/search", json={}, status=404)
         with self.assertRaises(ClientException):
             test_service = Search("testkey")
-            test_service.get_search_results("accusantium")
+            test_service.get_search_results("sapiente")
         responses.reset()
 
 

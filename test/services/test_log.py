@@ -15,7 +15,7 @@ class TestLog_(unittest.TestCase):
         responses.get("http://10.10.10.47:32400/log", json={}, status=200)
         # call the method to test
         test_service = Log("testkey")
-        response = test_service.log_line("recusandae", "quos", 2)
+        response = test_service.log_line("perspiciatis", "odit", 2)
         self.assertEqual(response.data, {})
         responses.reset(),
 
@@ -34,7 +34,7 @@ class TestLog_(unittest.TestCase):
         responses.get("http://10.10.10.47:32400/log", json={}, status=404)
         with self.assertRaises(ClientException):
             test_service = Log("testkey")
-            test_service.log_line("labore", "aliquid", 3)
+            test_service.log_line("iusto", "architecto", 1)
         responses.reset()
 
     @responses.activate
