@@ -5,21 +5,27 @@ explode = bool
 
 
 def simple(value: Any, explode: bool) -> str:
+    if value is None:
+        return "null"
+
     if isinstance(value, Enum):
         return str(value.value)
 
-    # Check if the value is a list
+    if isinstance(value, bool):
+        return str(value).lower()
+
     if isinstance(value, list):
-        return ",".join(value) if explode else "".join(value)
+        serialized_list = [simple(item, explode) for item in value]
+        return ",".join(serialized_list)
 
     if isinstance(value, dict):
         if explode:
             # Serialize object with exploded format: "key=value,key2=value2"
-            return ",".join([f"{k}={v}" for k, v in value.items()])
+            return ",".join([f"{k}={simple(v, explode)}" for k, v in value.items()])
         else:
             # Serialize object with non-exploded format: "key,value,key2,value2"
             return ",".join(
-                [str(item) for sublist in value.items() for item in sublist]
+                [simple(item, explode) for sublist in value.items() for item in sublist]
             )
 
     return str(value)

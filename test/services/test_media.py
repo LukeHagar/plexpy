@@ -15,7 +15,7 @@ class TestMedia_(unittest.TestCase):
         responses.get("http://10.10.10.47:32400/:/scrobble", json={}, status=200)
         # call the method to test
         test_service = Media("testkey")
-        response = test_service.mark_played(6)
+        response = test_service.mark_played(4)
         self.assertEqual(response.data, {})
         responses.reset(),
 
@@ -34,7 +34,7 @@ class TestMedia_(unittest.TestCase):
         responses.get("http://10.10.10.47:32400/:/scrobble", json={}, status=404)
         with self.assertRaises(ClientException):
             test_service = Media("testkey")
-            test_service.mark_played(8)
+            test_service.mark_played(9)
         responses.reset()
 
     @responses.activate
@@ -43,7 +43,7 @@ class TestMedia_(unittest.TestCase):
         responses.get("http://10.10.10.47:32400/:/unscrobble", json={}, status=200)
         # call the method to test
         test_service = Media("testkey")
-        response = test_service.mark_unplayed(8)
+        response = test_service.mark_unplayed(2)
         self.assertEqual(response.data, {})
         responses.reset(),
 
@@ -62,7 +62,7 @@ class TestMedia_(unittest.TestCase):
         responses.get("http://10.10.10.47:32400/:/unscrobble", json={}, status=404)
         with self.assertRaises(ClientException):
             test_service = Media("testkey")
-            test_service.mark_unplayed(8)
+            test_service.mark_unplayed(9)
         responses.reset()
 
     @responses.activate
@@ -71,7 +71,7 @@ class TestMedia_(unittest.TestCase):
         responses.post("http://10.10.10.47:32400/:/progress", json={}, status=200)
         # call the method to test
         test_service = Media("testkey")
-        response = test_service.update_play_progress("eos", 6, "vitae")
+        response = test_service.update_play_progress("aut", 2, "harum")
         self.assertEqual(response.data, {})
         responses.reset(),
 
@@ -90,7 +90,7 @@ class TestMedia_(unittest.TestCase):
         responses.post("http://10.10.10.47:32400/:/progress", json={}, status=404)
         with self.assertRaises(ClientException):
             test_service = Media("testkey")
-            test_service.update_play_progress("praesentium", 5, "asperiores")
+            test_service.update_play_progress("odio", 6, "quae")
         responses.reset()
 
 

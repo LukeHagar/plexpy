@@ -15,9 +15,7 @@ class TestPlaylists_(unittest.TestCase):
         responses.post("http://10.10.10.47:32400/playlists", json={}, status=200)
         # call the method to test
         test_service = Playlists("testkey")
-        response = test_service.create_playlist(
-            6, "audio", "similique", "corporis", 9231398604
-        )
+        response = test_service.create_playlist(1, "audio", "ipsam", "ut", 4164815837)
         self.assertEqual(response.data, {})
         responses.reset(),
 
@@ -36,7 +34,7 @@ class TestPlaylists_(unittest.TestCase):
         responses.post("http://10.10.10.47:32400/playlists", json={}, status=404)
         with self.assertRaises(ClientException):
             test_service = Playlists("testkey")
-            test_service.create_playlist(3, "audio", "dolor", "eius", 2118287307)
+            test_service.create_playlist(6, "audio", "odit", "architecto", 6469809070)
         responses.reset()
 
     @responses.activate
@@ -45,7 +43,7 @@ class TestPlaylists_(unittest.TestCase):
         responses.get("http://10.10.10.47:32400/playlists/all", json={}, status=200)
         # call the method to test
         test_service = Playlists("testkey")
-        response = test_service.get_playlists("audio", 7)
+        response = test_service.get_playlists("audio", 2)
         self.assertEqual(response.data, {})
         responses.reset(),
 
@@ -55,18 +53,18 @@ class TestPlaylists_(unittest.TestCase):
         responses.get("http://10.10.10.47:32400/playlists/all", json={}, status=404)
         with self.assertRaises(ClientException):
             test_service = Playlists("testkey")
-            test_service.get_playlists("audio", 7)
+            test_service.get_playlists("audio", 3)
         responses.reset()
 
     @responses.activate
     def test_get_playlist(self):
         # Mock the API response
         responses.get(
-            "http://10.10.10.47:32400/playlists/1365108722", json={}, status=200
+            "http://10.10.10.47:32400/playlists/4535853059", json={}, status=200
         )
         # call the method to test
         test_service = Playlists("testkey")
-        response = test_service.get_playlist(1365108722)
+        response = test_service.get_playlist(4535853059)
         self.assertEqual(response.data, {})
         responses.reset(),
 
@@ -74,7 +72,7 @@ class TestPlaylists_(unittest.TestCase):
     def test_get_playlist_required_fields_missing(self):
         # Mock the API response
         responses.get(
-            "http://10.10.10.47:32400/playlists/5774434055", json={}, status=202
+            "http://10.10.10.47:32400/playlists/3045790262", json={}, status=202
         )
         with self.assertRaises(TypeError):
             test_service = Playlists("testkey")
@@ -85,22 +83,22 @@ class TestPlaylists_(unittest.TestCase):
     def test_get_playlist_error_on_non_200(self):
         # Mock the API response
         responses.get(
-            "http://10.10.10.47:32400/playlists/9191760374", json={}, status=404
+            "http://10.10.10.47:32400/playlists/6982156426", json={}, status=404
         )
         with self.assertRaises(ClientException):
             test_service = Playlists("testkey")
-            test_service.get_playlist(9191760374)
+            test_service.get_playlist(6982156426)
         responses.reset()
 
     @responses.activate
     def test_update_playlist(self):
         # Mock the API response
         responses.put(
-            "http://10.10.10.47:32400/playlists/5518621092", json={}, status=200
+            "http://10.10.10.47:32400/playlists/1213140253", json={}, status=200
         )
         # call the method to test
         test_service = Playlists("testkey")
-        response = test_service.update_playlist(5518621092)
+        response = test_service.update_playlist(1213140253)
         self.assertEqual(response.data, {})
         responses.reset(),
 
@@ -108,7 +106,7 @@ class TestPlaylists_(unittest.TestCase):
     def test_update_playlist_required_fields_missing(self):
         # Mock the API response
         responses.put(
-            "http://10.10.10.47:32400/playlists/9186005034", json={}, status=202
+            "http://10.10.10.47:32400/playlists/1991285421", json={}, status=202
         )
         with self.assertRaises(TypeError):
             test_service = Playlists("testkey")
@@ -119,22 +117,22 @@ class TestPlaylists_(unittest.TestCase):
     def test_update_playlist_error_on_non_200(self):
         # Mock the API response
         responses.put(
-            "http://10.10.10.47:32400/playlists/9820265225", json={}, status=404
+            "http://10.10.10.47:32400/playlists/2499309596", json={}, status=404
         )
         with self.assertRaises(ClientException):
             test_service = Playlists("testkey")
-            test_service.update_playlist(9820265225)
+            test_service.update_playlist(2499309596)
         responses.reset()
 
     @responses.activate
     def test_delete_playlist(self):
         # Mock the API response
         responses.delete(
-            "http://10.10.10.47:32400/playlists/5260240376", json={}, status=200
+            "http://10.10.10.47:32400/playlists/9258358699", json={}, status=200
         )
         # call the method to test
         test_service = Playlists("testkey")
-        response = test_service.delete_playlist(5260240376)
+        response = test_service.delete_playlist(9258358699)
         self.assertEqual(response.data, {})
         responses.reset(),
 
@@ -142,7 +140,7 @@ class TestPlaylists_(unittest.TestCase):
     def test_delete_playlist_required_fields_missing(self):
         # Mock the API response
         responses.delete(
-            "http://10.10.10.47:32400/playlists/1740225155", json={}, status=202
+            "http://10.10.10.47:32400/playlists/3149572271", json={}, status=202
         )
         with self.assertRaises(TypeError):
             test_service = Playlists("testkey")
@@ -153,22 +151,22 @@ class TestPlaylists_(unittest.TestCase):
     def test_delete_playlist_error_on_non_200(self):
         # Mock the API response
         responses.delete(
-            "http://10.10.10.47:32400/playlists/6145805352", json={}, status=404
+            "http://10.10.10.47:32400/playlists/6667671900", json={}, status=404
         )
         with self.assertRaises(ClientException):
             test_service = Playlists("testkey")
-            test_service.delete_playlist(6145805352)
+            test_service.delete_playlist(6667671900)
         responses.reset()
 
     @responses.activate
     def test_get_playlist_contents(self):
         # Mock the API response
         responses.get(
-            "http://10.10.10.47:32400/playlists/2828620637/items", json={}, status=200
+            "http://10.10.10.47:32400/playlists/6384791479/items", json={}, status=200
         )
         # call the method to test
         test_service = Playlists("testkey")
-        response = test_service.get_playlist_contents(9, 2828620637)
+        response = test_service.get_playlist_contents(5, 6384791479)
         self.assertEqual(response.data, {})
         responses.reset(),
 
@@ -176,7 +174,7 @@ class TestPlaylists_(unittest.TestCase):
     def test_get_playlist_contents_required_fields_missing(self):
         # Mock the API response
         responses.get(
-            "http://10.10.10.47:32400/playlists/2652525666/items", json={}, status=202
+            "http://10.10.10.47:32400/playlists/4556906109/items", json={}, status=202
         )
         with self.assertRaises(TypeError):
             test_service = Playlists("testkey")
@@ -187,22 +185,22 @@ class TestPlaylists_(unittest.TestCase):
     def test_get_playlist_contents_error_on_non_200(self):
         # Mock the API response
         responses.get(
-            "http://10.10.10.47:32400/playlists/1352187138/items", json={}, status=404
+            "http://10.10.10.47:32400/playlists/8108059539/items", json={}, status=404
         )
         with self.assertRaises(ClientException):
             test_service = Playlists("testkey")
-            test_service.get_playlist_contents(3, 1352187138)
+            test_service.get_playlist_contents(2, 8108059539)
         responses.reset()
 
     @responses.activate
     def test_add_playlist_contents(self):
         # Mock the API response
         responses.put(
-            "http://10.10.10.47:32400/playlists/9135301877/items", json={}, status=200
+            "http://10.10.10.47:32400/playlists/7910596407/items", json={}, status=200
         )
         # call the method to test
         test_service = Playlists("testkey")
-        response = test_service.add_playlist_contents(3575196026, "sit", 9135301877)
+        response = test_service.add_playlist_contents(7324524502, "illum", 7910596407)
         self.assertEqual(response.data, {})
         responses.reset(),
 
@@ -210,7 +208,7 @@ class TestPlaylists_(unittest.TestCase):
     def test_add_playlist_contents_required_fields_missing(self):
         # Mock the API response
         responses.put(
-            "http://10.10.10.47:32400/playlists/6481139604/items", json={}, status=202
+            "http://10.10.10.47:32400/playlists/7102721192/items", json={}, status=202
         )
         with self.assertRaises(TypeError):
             test_service = Playlists("testkey")
@@ -221,22 +219,22 @@ class TestPlaylists_(unittest.TestCase):
     def test_add_playlist_contents_error_on_non_200(self):
         # Mock the API response
         responses.put(
-            "http://10.10.10.47:32400/playlists/2575042558/items", json={}, status=404
+            "http://10.10.10.47:32400/playlists/1070898123/items", json={}, status=404
         )
         with self.assertRaises(ClientException):
             test_service = Playlists("testkey")
-            test_service.add_playlist_contents(6992293922, "excepturi", 2575042558)
+            test_service.add_playlist_contents(5053263185, "officiis", 1070898123)
         responses.reset()
 
     @responses.activate
     def test_clear_playlist_contents(self):
         # Mock the API response
         responses.delete(
-            "http://10.10.10.47:32400/playlists/5408893231/items", json={}, status=200
+            "http://10.10.10.47:32400/playlists/3278852652/items", json={}, status=200
         )
         # call the method to test
         test_service = Playlists("testkey")
-        response = test_service.clear_playlist_contents(5408893231)
+        response = test_service.clear_playlist_contents(3278852652)
         self.assertEqual(response.data, {})
         responses.reset(),
 
@@ -244,7 +242,7 @@ class TestPlaylists_(unittest.TestCase):
     def test_clear_playlist_contents_required_fields_missing(self):
         # Mock the API response
         responses.delete(
-            "http://10.10.10.47:32400/playlists/1483530897/items", json={}, status=202
+            "http://10.10.10.47:32400/playlists/5179198549/items", json={}, status=202
         )
         with self.assertRaises(TypeError):
             test_service = Playlists("testkey")
@@ -255,11 +253,11 @@ class TestPlaylists_(unittest.TestCase):
     def test_clear_playlist_contents_error_on_non_200(self):
         # Mock the API response
         responses.delete(
-            "http://10.10.10.47:32400/playlists/7836623831/items", json={}, status=404
+            "http://10.10.10.47:32400/playlists/6059832913/items", json={}, status=404
         )
         with self.assertRaises(ClientException):
             test_service = Playlists("testkey")
-            test_service.clear_playlist_contents(7836623831)
+            test_service.clear_playlist_contents(6059832913)
         responses.reset()
 
     @responses.activate
@@ -268,7 +266,7 @@ class TestPlaylists_(unittest.TestCase):
         responses.post("http://10.10.10.47:32400/playlists/upload", json={}, status=200)
         # call the method to test
         test_service = Playlists("testkey")
-        response = test_service.upload_playlist(6, "ipsam")
+        response = test_service.upload_playlist(3, "cumque")
         self.assertEqual(response.data, {})
         responses.reset(),
 
@@ -287,7 +285,7 @@ class TestPlaylists_(unittest.TestCase):
         responses.post("http://10.10.10.47:32400/playlists/upload", json={}, status=404)
         with self.assertRaises(ClientException):
             test_service = Playlists("testkey")
-            test_service.upload_playlist(6, "animi")
+            test_service.upload_playlist(2, "inventore")
         responses.reset()
 
 

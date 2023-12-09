@@ -101,6 +101,6 @@ class BaseService:
         headers: dict
             Headers dict to add auth headers to
         """
-        headers["User-Agent"] = "liblab/0.1.25 PlexSDK/0.0.1 python/2.7"
+        headers["User-Agent"] = "liblab/0.1.28 PlexSDK/0.0.1 python/2.7"
         headers[f"{self._api_key_header}"] = f"{self._api_key}"
         return headers

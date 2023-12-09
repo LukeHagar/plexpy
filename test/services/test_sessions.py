@@ -78,11 +78,11 @@ class TestSessions_(unittest.TestCase):
     def test_stop_transcode_session(self):
         # Mock the API response
         responses.delete(
-            "http://10.10.10.47:32400/transcode/sessions/nostrum", json={}, status=200
+            "http://10.10.10.47:32400/transcode/sessions/sit", json={}, status=200
         )
         # call the method to test
         test_service = Sessions("testkey")
-        response = test_service.stop_transcode_session("nostrum")
+        response = test_service.stop_transcode_session("sit")
         self.assertEqual(response.data, {})
         responses.reset(),
 
@@ -90,7 +90,7 @@ class TestSessions_(unittest.TestCase):
     def test_stop_transcode_session_required_fields_missing(self):
         # Mock the API response
         responses.delete(
-            "http://10.10.10.47:32400/transcode/sessions/blanditiis",
+            "http://10.10.10.47:32400/transcode/sessions/praesentium",
             json={},
             status=202,
         )
@@ -103,11 +103,11 @@ class TestSessions_(unittest.TestCase):
     def test_stop_transcode_session_error_on_non_200(self):
         # Mock the API response
         responses.delete(
-            "http://10.10.10.47:32400/transcode/sessions/quaerat", json={}, status=404
+            "http://10.10.10.47:32400/transcode/sessions/placeat", json={}, status=404
         )
         with self.assertRaises(ClientException):
             test_service = Sessions("testkey")
-            test_service.stop_transcode_session("quaerat")
+            test_service.stop_transcode_session("placeat")
         responses.reset()
 
 

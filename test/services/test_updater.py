@@ -34,7 +34,7 @@ class TestUpdater_(unittest.TestCase):
         responses.put("http://10.10.10.47:32400/updater/check", json={}, status=200)
         # call the method to test
         test_service = Updater("testkey")
-        response = test_service.check_for_updates("foo")
+        response = test_service.check_for_updates(9)
         self.assertEqual(response.data, {})
         responses.reset(),
 
@@ -44,7 +44,7 @@ class TestUpdater_(unittest.TestCase):
         responses.put("http://10.10.10.47:32400/updater/check", json={}, status=404)
         with self.assertRaises(ClientException):
             test_service = Updater("testkey")
-            test_service.check_for_updates("foo")
+            test_service.check_for_updates(2)
         responses.reset()
 
     @responses.activate
@@ -53,7 +53,7 @@ class TestUpdater_(unittest.TestCase):
         responses.put("http://10.10.10.47:32400/updater/apply", json={}, status=200)
         # call the method to test
         test_service = Updater("testkey")
-        response = test_service.apply_updates("foo", "foo")
+        response = test_service.apply_updates(7, 5)
         self.assertEqual(response.data, {})
         responses.reset(),
 
@@ -63,7 +63,7 @@ class TestUpdater_(unittest.TestCase):
         responses.put("http://10.10.10.47:32400/updater/apply", json={}, status=404)
         with self.assertRaises(ClientException):
             test_service = Updater("testkey")
-            test_service.apply_updates("foo", "foo")
+            test_service.apply_updates(7, 6)
         responses.reset()
 
 
