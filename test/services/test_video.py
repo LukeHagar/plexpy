@@ -20,22 +20,22 @@ class TestVideo_(unittest.TestCase):
         # call the method to test
         test_service = Video("testkey")
         response = test_service.start_universal_transcode(
-            "sequi",
-            9,
-            2,
-            "molestiae",
-            2,
-            2,
+            "necessitatibus",
+            5,
+            1,
+            "ut",
             8,
-            1,
+            6,
             5,
-            "officiis",
-            7,
-            "incidunt",
-            1,
-            "iusto",
+            8,
+            8,
+            "quia",
+            6,
+            "dicta",
             5,
-            3,
+            "qui",
+            2,
+            2,
         )
         self.assertEqual(response.data, {})
         responses.reset(),
@@ -64,21 +64,21 @@ class TestVideo_(unittest.TestCase):
         with self.assertRaises(ClientException):
             test_service = Video("testkey")
             test_service.start_universal_transcode(
-                "occaecati",
-                6,
+                "repellendus",
                 9,
-                "nobis",
-                3,
-                6,
-                4,
-                6,
-                6,
-                "provident",
-                2,
-                "alias",
-                8,
-                "eveniet",
                 5,
+                "ea",
+                7,
+                4,
+                1,
+                1,
+                3,
+                "quia",
+                2,
+                "id",
+                8,
+                "cum",
+                7,
                 5,
             )
         responses.reset()
@@ -90,16 +90,16 @@ class TestVideo_(unittest.TestCase):
         # call the method to test
         test_service = Video("testkey")
         response = test_service.get_timeline(
-            6,
-            8,
-            9508994071,
-            "at temporibus dolorem non tempora",
-            3,
             9,
             5,
+            3894342394,
+            "eius illum quaerat repudiandae aspernatur",
+            8,
+            5,
+            8,
             "playing",
-            "itaque",
-            4,
+            "mollitia",
+            3,
         )
         self.assertEqual(response.data, {})
         responses.reset(),
@@ -121,15 +121,15 @@ class TestVideo_(unittest.TestCase):
             test_service = Video("testkey")
             test_service.get_timeline(
                 2,
-                5,
-                6961336926,
-                "recusandae tempore ullam provident incidunt",
+                1,
+                1592057497,
+                "iure iusto id magni maxime",
                 7,
-                5,
-                2,
+                3,
+                4,
                 "playing",
-                "aliquid",
-                9,
+                "maiores",
+                7,
             )
         responses.reset()
 

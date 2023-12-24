@@ -8,8 +8,8 @@ class TestGetSearchResultsResponseModel(unittest.TestCase):
 
     def test_get_search_results_response(self):
         # Create GetSearchResultsResponse class instance
-        test_model = GetSearchResultsResponse(MediaContainer={"tenetur": 8})
-        self.assertEqual(test_model.MediaContainer, {"tenetur": 8})
+        test_model = GetSearchResultsResponse(MediaContainer={"cum": 6})
+        self.assertEqual(test_model.MediaContainer, {"cum": 6})
 
 
 if __name__ == "__main__":

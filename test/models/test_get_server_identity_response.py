@@ -8,8 +8,8 @@ class TestGetServerIdentityResponseModel(unittest.TestCase):
 
     def test_get_server_identity_response(self):
         # Create GetServerIdentityResponse class instance
-        test_model = GetServerIdentityResponse(MediaContainer={"similique": 3})
-        self.assertEqual(test_model.MediaContainer, {"similique": 3})
+        test_model = GetServerIdentityResponse(MediaContainer={"eum": 5})
+        self.assertEqual(test_model.MediaContainer, {"eum": 5})
 
 
 if __name__ == "__main__":
