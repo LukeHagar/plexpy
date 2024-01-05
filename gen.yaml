@@ -1,8 +1,6 @@
-configVersion: 1.0.0
+configVersion: 2.0.0
 generation:
-  comments: {}
   sdkClassName: Plex-API
-  repoURL: https://github.com/speakeasy-sdks/Personal-sample-sdk-9.git
   maintainOpenAPIOrder: true
   usageSnippets:
     optionalPropertyRendering: withExample
