@@ -1,0 +1,17 @@
+# GetPlaylistContentsPart
+
+
+## Fields
+
+| Field                                       | Type                                        | Required                                    | Description                                 | Example                                     |
+| ------------------------------------------- | ------------------------------------------- | ------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
+| `id`                                        | *Optional[int]*                             | :heavy_minus_sign:                          | N/A                                         | 15                                          |
+| `key`                                       | *Optional[str]*                             | :heavy_minus_sign:                          | N/A                                         | /library/parts/15/1705637151/file.mp4       |
+| `duration`                                  | *Optional[int]*                             | :heavy_minus_sign:                          | N/A                                         | 141416                                      |
+| `file`                                      | *Optional[str]*                             | :heavy_minus_sign:                          | N/A                                         | /movies/Serenity (2005)/Serenity (2005).mp4 |
+| `size`                                      | *Optional[int]*                             | :heavy_minus_sign:                          | N/A                                         | 40271948                                    |
+| `audio_profile`                             | *Optional[str]*                             | :heavy_minus_sign:                          | N/A                                         | lc                                          |
+| `container`                                 | *Optional[str]*                             | :heavy_minus_sign:                          | N/A                                         | mp4                                         |
+| `has64bit_offsets`                          | *Optional[bool]*                            | :heavy_minus_sign:                          | N/A                                         | false                                       |
+| `optimized_for_streaming`                   | *Optional[bool]*                            | :heavy_minus_sign:                          | N/A                                         | false                                       |
+| `video_profile`                             | *Optional[str]*                             | :heavy_minus_sign:                          | N/A                                         | high                                        |
