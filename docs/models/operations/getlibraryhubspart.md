@@ -1,0 +1,17 @@
+# GetLibraryHubsPart
+
+
+## Fields
+
+| Field                                                  | Type                                                   | Required                                               | Description                                            | Example                                                |
+| ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ |
+| `id`                                                   | *Optional[int]*                                        | :heavy_minus_sign:                                     | N/A                                                    | 38247                                                  |
+| `key`                                                  | *Optional[str]*                                        | :heavy_minus_sign:                                     | N/A                                                    | /library/parts/38247/1589412494/file.mp4               |
+| `duration`                                             | *Optional[int]*                                        | :heavy_minus_sign:                                     | N/A                                                    | 6017237                                                |
+| `file`                                                 | *Optional[str]*                                        | :heavy_minus_sign:                                     | N/A                                                    | /movies/Tangled (2010)/Tangled (2010) Bluray-1080p.mp4 |
+| `size`                                                 | *Optional[int]*                                        | :heavy_minus_sign:                                     | N/A                                                    | 1545647447                                             |
+| `audio_profile`                                        | *Optional[str]*                                        | :heavy_minus_sign:                                     | N/A                                                    | lc                                                     |
+| `container`                                            | *Optional[str]*                                        | :heavy_minus_sign:                                     | N/A                                                    | mp4                                                    |
+| `has64bit_offsets`                                     | *Optional[bool]*                                       | :heavy_minus_sign:                                     | N/A                                                    | false                                                  |
+| `optimized_for_streaming`                              | *Optional[bool]*                                       | :heavy_minus_sign:                                     | N/A                                                    | true                                                   |
+| `video_profile`                                        | *Optional[str]*                                        | :heavy_minus_sign:                                     | N/A                                                    | high                                                   |
