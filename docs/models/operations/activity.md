@@ -1,0 +1,15 @@
+# Activity
+
+
+## Fields
+
+| Field                                                              | Type                                                               | Required                                                           | Description                                                        |
+| ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ | ------------------------------------------------------------------ |
+| `uuid`                                                             | *Optional[str]*                                                    | :heavy_minus_sign:                                                 | N/A                                                                |
+| `type`                                                             | *Optional[str]*                                                    | :heavy_minus_sign:                                                 | N/A                                                                |
+| `cancellable`                                                      | *Optional[bool]*                                                   | :heavy_minus_sign:                                                 | N/A                                                                |
+| `user_id`                                                          | *Optional[float]*                                                  | :heavy_minus_sign:                                                 | N/A                                                                |
+| `title`                                                            | *Optional[str]*                                                    | :heavy_minus_sign:                                                 | N/A                                                                |
+| `subtitle`                                                         | *Optional[str]*                                                    | :heavy_minus_sign:                                                 | N/A                                                                |
+| `progress`                                                         | *Optional[float]*                                                  | :heavy_minus_sign:                                                 | N/A                                                                |
+| `context`                                                          | [Optional[operations.Context]](../../models/operations/context.md) | :heavy_minus_sign:                                                 | N/A                                                                |
