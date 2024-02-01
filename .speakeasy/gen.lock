@@ -4,9 +4,9 @@ management:
   docChecksum: 94439465ae5d544f0e52b00719af05ee
   docVersion: 0.0.3
   speakeasyVersion: internal
-  generationVersion: 2.245.1
-  releaseVersion: 0.0.1
-  configChecksum: f687023514121ee9745da4d16236cc9a
+  generationVersion: 2.246.3
+  releaseVersion: 0.0.2
+  configChecksum: 33cee6ee6df470ce9147c0b1602eefb8
   repoURL: https://github.com/LukeHagar/plexpy.git
   repoSubDirectory: .
   installationURL: https://github.com/LukeHagar/plexpy.git
@@ -14,7 +14,7 @@ management:
 features:
   python:
     constsAndDefaults: 0.1.2
-    core: 4.4.3
+    core: 4.4.4
     flattening: 2.81.1
     globalSecurity: 2.83.2
     globalServerURLs: 2.82.1
