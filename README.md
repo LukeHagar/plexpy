@@ -11,7 +11,7 @@
 ## SDK Installation
 
 ```bash
-pip install plexpy
+pip install plex-api-client
 ```
 <!-- End SDK Installation [installation] -->
 
