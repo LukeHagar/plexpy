@@ -24,4 +24,4 @@ python:
   inputModelSuffix: input
   maxMethodParams: 4
   outputModelSuffix: output
-  packageName: plexpy
+  packageName: plex-api-client
