@@ -48,6 +48,7 @@ class PlexAPI:
     log: Log
     r"""Submit logs to the Log Handler for Plex Media Server"""
     plex: Plex
+    r"""API Calls that perform operations directly against https://Plex.tv"""
     playlists: Playlists
     r"""Playlists are ordered collections of media. They can be dumb (just a list of media) or smart (based on a media query, such as \\"all albums from 2017\\").
     They can be organized in (optionally nesting) folders.

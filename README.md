@@ -100,11 +100,10 @@ if res.object is not None:
 * [log_multi_line](docs/sdks/log/README.md#log_multi_line) - Logging a multi-line message
 * [enable_paper_trail](docs/sdks/log/README.md#enable_paper_trail) - Enabling Papertrail
 
+### [plex](docs/sdks/plex/README.md)
 
-### [plex.tv](docs/sdks/tv/README.md)
-
-* [get_pin](docs/sdks/tv/README.md#get_pin) - Get a Pin
-* [get_token](docs/sdks/tv/README.md#get_token) - Get Access Token
+* [get_pin](docs/sdks/plex/README.md#get_pin) - Get a Pin
+* [get_token](docs/sdks/plex/README.md#get_token) - Get Access Token
 
 ### [playlists](docs/sdks/playlists/README.md)
 
@@ -245,7 +244,7 @@ s = plex_api.PlexAPI(
 )
 
 
-res = s.plex.tv.get_pin(server_url="https://plex.tv/api/v2", x_plex_client_identifier='string', strong=False)
+res = s.plex.get_pin(server_url="https://plex.tv/api/v2", x_plex_client_identifier='string', strong=False)
 
 if res.object is not None:
     # handle response

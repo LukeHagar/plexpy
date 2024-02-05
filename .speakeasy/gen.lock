@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 3eeea668-4ef4-464e-a888-bdfa023bedf5
 management:
-  docChecksum: 94439465ae5d544f0e52b00719af05ee
+  docChecksum: 099fc5bbb987ae7e391f7f07b4212860
   docVersion: 0.0.3
   speakeasyVersion: internal
-  generationVersion: 2.248.1
-  releaseVersion: 0.1.0
-  configChecksum: 2877f8704c4fbbfe7f9d4f3b50a47769
+  generationVersion: 2.249.1
+  releaseVersion: 0.1.1
+  configChecksum: b27977e99573e671f0e8dcca458909cc
   repoURL: https://github.com/LukeHagar/plexpy.git
   repoSubDirectory: .
   installationURL: https://github.com/LukeHagar/plexpy.git
@@ -31,7 +31,6 @@ generatedFiles:
   - src/plex_api/search.py
   - src/plex_api/library.py
   - src/plex_api/log.py
-  - src/plex_api/tv.py
   - src/plex_api/plex.py
   - src/plex_api/playlists.py
   - src/plex_api/security.py
@@ -569,7 +568,6 @@ generatedFiles:
   - docs/sdks/library/README.md
   - docs/sdks/log/README.md
   - docs/sdks/plex/README.md
-  - docs/sdks/tv/README.md
   - docs/sdks/playlists/README.md
   - docs/sdks/security/README.md
   - docs/sdks/sessions/README.md

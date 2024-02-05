@@ -17,7 +17,10 @@ GET_PIN_SERVERS = [
 @dataclasses.dataclass
 class GetPinRequest:
     x_plex_client_identifier: str = dataclasses.field(metadata={'header': { 'field_name': 'X-Plex-Client-Identifier', 'style': 'simple', 'explode': False }})
-    r"""Plex Authentication Token"""
+    r"""The unique identifier for the client application
+    This is used to track the client application and its usage
+    (UUID, serial number, or other number unique per device)
+    """
     strong: Optional[bool] = dataclasses.field(default=False, metadata={'query_param': { 'field_name': 'strong', 'style': 'form', 'explode': True }})
     r"""Determines the kind of code returned by the API call
     Strong codes are used for Pin authentication flows

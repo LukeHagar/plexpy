@@ -30,9 +30,9 @@ class SDKConfiguration:
     server_defaults: List[Dict[str, str]] = field(default_factory=List)
     language: str = 'python'
     openapi_doc_version: str = '0.0.3'
-    sdk_version: str = '0.1.0'
-    gen_version: str = '2.248.1'
-    user_agent: str = 'speakeasy-sdk/python 0.1.0 2.248.1 0.0.3 plex-api-client'
+    sdk_version: str = '0.1.1'
+    gen_version: str = '2.249.1'
+    user_agent: str = 'speakeasy-sdk/python 0.1.1 2.249.1 0.0.3 plex-api-client'
     retry_config: RetryConfig = None
 
     def get_server_details(self) -> Tuple[str, Dict[str, str]]:
