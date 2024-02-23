@@ -14,6 +14,7 @@ from .search import Search
 from .security import Security
 from .server import Server
 from .sessions import Sessions
+from .statistics import Statistics
 from .updater import Updater
 from .video import Video
 from plex_api import utils
@@ -28,6 +29,8 @@ class PlexAPI:
     r"""Operations against the Plex Media Server System."""
     media: Media
     r"""API Calls interacting with Plex Media Server Media"""
+    video: Video
+    r"""API Calls that perform operations with Plex Media Server Videos"""
     activities: Activities
     r"""Activities are awesome. They provide a way to monitor and control asynchronous operations on the server. In order to receive real-time updates for activities, a client would normally subscribe via either EventSource or Websocket endpoints.
     Activities are associated with HTTP replies via a special `X-Plex-Activity` header which contains the UUID of the activity.
@@ -57,14 +60,14 @@ class PlexAPI:
     """
     security: Security
     r"""API Calls against Security for Plex Media Server"""
+    statistics: Statistics
+    r"""API Calls that perform operations with Plex Media Server Statistics"""
     sessions: Sessions
     r"""API Calls that perform search operations with Plex Media Server Sessions"""
     updater: Updater
     r"""This describes the API for searching and applying updates to the Plex Media Server.
     Updates to the status can be observed via the Event API.
     """
-    video: Video
-    r"""API Calls that perform operations with Plex Media Server Videos"""
 
     sdk_configuration: SDKConfiguration
 
@@ -84,11 +87,11 @@ class PlexAPI:
         :param access_token: The access_token required for authentication
         :type access_token: Union[str, Callable[[], str]]
         :param protocol: Allows setting the protocol variable for url substitution
-        :type protocol: ServerProtocolmodels.ServerProtocol
+        :type protocol: ServerProtocol
         :param ip: Allows setting the ip variable for url substitution
-        :type ip: 
+        :type ip: str
         :param port: Allows setting the port variable for url substitution
-        :type port: 
+        :type port: str
         :param server_idx: The index of the server to use for all operations
         :type server_idx: int
         :param server_url: The server URL to use for all operations
@@ -127,6 +130,7 @@ class PlexAPI:
     def _init_sdks(self):
         self.server = Server(self.sdk_configuration)
         self.media = Media(self.sdk_configuration)
+        self.video = Video(self.sdk_configuration)
         self.activities = Activities(self.sdk_configuration)
         self.butler = Butler(self.sdk_configuration)
         self.hubs = Hubs(self.sdk_configuration)
@@ -136,7 +140,7 @@ class PlexAPI:
         self.plex = Plex(self.sdk_configuration)
         self.playlists = Playlists(self.sdk_configuration)
         self.security = Security(self.sdk_configuration)
+        self.statistics = Statistics(self.sdk_configuration)
         self.sessions = Sessions(self.sdk_configuration)
         self.updater = Updater(self.sdk_configuration)
-        self.video = Video(self.sdk_configuration)
     

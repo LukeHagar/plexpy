@@ -16,10 +16,10 @@ class Scope(str, Enum):
 
 @dataclasses.dataclass
 class GetTransientTokenRequest:
-    scope: Scope = dataclasses.field(metadata={'query_param': { 'field_name': 'scope', 'style': 'form', 'explode': True }})
-    r"""`all` - This is the only supported `scope` parameter."""
     type: GetTransientTokenQueryParamType = dataclasses.field(metadata={'query_param': { 'field_name': 'type', 'style': 'form', 'explode': True }})
     r"""`delegation` - This is the only supported `type` parameter."""
+    scope: Scope = dataclasses.field(metadata={'query_param': { 'field_name': 'scope', 'style': 'form', 'explode': True }})
+    r"""`all` - This is the only supported `scope` parameter."""
     
 
 
@@ -28,9 +28,9 @@ class GetTransientTokenRequest:
 class GetTransientTokenResponse:
     content_type: str = dataclasses.field()
     r"""HTTP response content type for this operation"""
-    raw_response: requests_http.Response = dataclasses.field()
-    r"""Raw HTTP response; suitable for custom response parsing"""
     status_code: int = dataclasses.field()
     r"""HTTP response status code for this operation"""
+    raw_response: requests_http.Response = dataclasses.field()
+    r"""Raw HTTP response; suitable for custom response parsing"""
     
 

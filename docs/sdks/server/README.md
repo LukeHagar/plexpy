@@ -227,11 +227,11 @@ s = plex_api.PlexAPI(
 req = operations.GetResizedPhotoRequest(
     width=110,
     height=165,
-    opacity=643869,
-    blur=4000,
-    min_size=operations.MinSize.ZERO,
+    blur=20,
+    min_size=operations.MinSize.ONE,
     upscale=operations.Upscale.ZERO,
     url='/library/metadata/49564/thumb/1654258204',
+    opacity=209783,
 )
 
 res = s.server.get_resized_photo(req)

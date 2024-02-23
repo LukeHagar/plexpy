@@ -9,10 +9,10 @@ import requests as requests_http
 class UpdatePlayProgressRequest:
     key: str = dataclasses.field(metadata={'query_param': { 'field_name': 'key', 'style': 'form', 'explode': True }})
     r"""the media key"""
-    state: str = dataclasses.field(metadata={'query_param': { 'field_name': 'state', 'style': 'form', 'explode': True }})
-    r"""The playback state of the media item."""
     time: float = dataclasses.field(metadata={'query_param': { 'field_name': 'time', 'style': 'form', 'explode': True }})
     r"""The time, in milliseconds, used to set the media playback progress."""
+    state: str = dataclasses.field(metadata={'query_param': { 'field_name': 'state', 'style': 'form', 'explode': True }})
+    r"""The playback state of the media item."""
     
 
 
@@ -21,9 +21,9 @@ class UpdatePlayProgressRequest:
 class UpdatePlayProgressResponse:
     content_type: str = dataclasses.field()
     r"""HTTP response content type for this operation"""
-    raw_response: requests_http.Response = dataclasses.field()
-    r"""Raw HTTP response; suitable for custom response parsing"""
     status_code: int = dataclasses.field()
     r"""HTTP response status code for this operation"""
+    raw_response: requests_http.Response = dataclasses.field()
+    r"""Raw HTTP response; suitable for custom response parsing"""
     
 

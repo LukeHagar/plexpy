@@ -18,20 +18,20 @@ class Upscale(int, Enum):
 
 @dataclasses.dataclass
 class GetResizedPhotoRequest:
-    blur: float = dataclasses.field(metadata={'query_param': { 'field_name': 'blur', 'style': 'form', 'explode': True }})
+    width: float = dataclasses.field(metadata={'query_param': { 'field_name': 'width', 'style': 'form', 'explode': True }})
     r"""The width for the resized photo"""
     height: float = dataclasses.field(metadata={'query_param': { 'field_name': 'height', 'style': 'form', 'explode': True }})
     r"""The height for the resized photo"""
+    blur: float = dataclasses.field(metadata={'query_param': { 'field_name': 'blur', 'style': 'form', 'explode': True }})
+    r"""The width for the resized photo"""
     min_size: MinSize = dataclasses.field(metadata={'query_param': { 'field_name': 'minSize', 'style': 'form', 'explode': True }})
     r"""images are always scaled proportionally. A value of '1' in minSize will make the smaller native dimension the dimension resized against."""
-    opacity: int = dataclasses.field(default=100, metadata={'query_param': { 'field_name': 'opacity', 'style': 'form', 'explode': True }})
-    r"""The opacity for the resized photo"""
     upscale: Upscale = dataclasses.field(metadata={'query_param': { 'field_name': 'upscale', 'style': 'form', 'explode': True }})
     r"""allow images to be resized beyond native dimensions."""
     url: str = dataclasses.field(metadata={'query_param': { 'field_name': 'url', 'style': 'form', 'explode': True }})
     r"""path to image within Plex"""
-    width: float = dataclasses.field(metadata={'query_param': { 'field_name': 'width', 'style': 'form', 'explode': True }})
-    r"""The width for the resized photo"""
+    opacity: int = dataclasses.field(default=100, metadata={'query_param': { 'field_name': 'opacity', 'style': 'form', 'explode': True }})
+    r"""The opacity for the resized photo"""
     
 
 
@@ -40,9 +40,9 @@ class GetResizedPhotoRequest:
 class GetResizedPhotoResponse:
     content_type: str = dataclasses.field()
     r"""HTTP response content type for this operation"""
-    raw_response: requests_http.Response = dataclasses.field()
-    r"""Raw HTTP response; suitable for custom response parsing"""
     status_code: int = dataclasses.field()
     r"""HTTP response status code for this operation"""
+    raw_response: requests_http.Response = dataclasses.field()
+    r"""Raw HTTP response; suitable for custom response parsing"""
     
 

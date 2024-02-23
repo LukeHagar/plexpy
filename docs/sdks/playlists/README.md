@@ -39,7 +39,7 @@ s = plex_api.PlexAPI(
 )
 
 req = operations.CreatePlaylistRequest(
-    title='string',
+    title='<value>',
     type=operations.QueryParamType.PHOTO,
     smart=operations.Smart.ONE,
     uri='https://inborn-brochure.biz',
@@ -119,7 +119,6 @@ Smart playlist details contain the `content` attribute. This is the content URI 
 
 ```python
 import plex_api
-from plex_api.models import operations
 
 s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
@@ -159,7 +158,6 @@ This endpoint will delete a playlist
 
 ```python
 import plex_api
-from plex_api.models import operations
 
 s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
@@ -199,14 +197,13 @@ From PMS version 1.9.1 clients can also edit playlist metadata using this endpoi
 
 ```python
 import plex_api
-from plex_api.models import operations
 
 s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 )
 
 
-res = s.playlists.update_playlist(playlist_id=3915, title='string', summary='string')
+res = s.playlists.update_playlist(playlist_id=3915, title='<value>', summary='<value>')
 
 if res.status_code == 200:
     # handle response
@@ -244,7 +241,6 @@ Note that for dumb playlists, items have a `playlistItemID` attribute which is u
 
 ```python
 import plex_api
-from plex_api.models import operations
 
 s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
@@ -285,7 +281,6 @@ Clears a playlist, only works with dumb playlists. Returns the playlist.
 
 ```python
 import plex_api
-from plex_api.models import operations
 
 s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
@@ -326,7 +321,6 @@ With a smart playlist, passing a new `uri` parameter replaces the rules for the 
 
 ```python
 import plex_api
-from plex_api.models import operations
 
 s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",

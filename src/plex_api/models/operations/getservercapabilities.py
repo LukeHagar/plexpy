@@ -21,6 +21,7 @@ class Directory:
 @dataclass_json(undefined=Undefined.EXCLUDE)
 @dataclasses.dataclass
 class MediaContainer:
+    size: Optional[float] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('size'), 'exclude': lambda f: f is None }})
     allow_camera_upload: Optional[bool] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('allowCameraUpload'), 'exclude': lambda f: f is None }})
     allow_channel_access: Optional[bool] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('allowChannelAccess'), 'exclude': lambda f: f is None }})
     allow_media_deletion: Optional[bool] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('allowMediaDeletion'), 'exclude': lambda f: f is None }})
@@ -32,7 +33,6 @@ class MediaContainer:
     companion_proxy: Optional[bool] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('companionProxy'), 'exclude': lambda f: f is None }})
     country_code: Optional[str] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('countryCode'), 'exclude': lambda f: f is None }})
     diagnostics: Optional[str] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('diagnostics'), 'exclude': lambda f: f is None }})
-    directory: Optional[List[Directory]] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('Directory'), 'exclude': lambda f: f is None }})
     event_stream: Optional[bool] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('eventStream'), 'exclude': lambda f: f is None }})
     friendly_name: Optional[str] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('friendlyName'), 'exclude': lambda f: f is None }})
     hub_search: Optional[bool] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('hubSearch'), 'exclude': lambda f: f is None }})
@@ -55,7 +55,6 @@ class MediaContainer:
     plugin_host: Optional[bool] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('pluginHost'), 'exclude': lambda f: f is None }})
     push_notifications: Optional[bool] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('pushNotifications'), 'exclude': lambda f: f is None }})
     read_only_libraries: Optional[bool] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('readOnlyLibraries'), 'exclude': lambda f: f is None }})
-    size: Optional[float] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('size'), 'exclude': lambda f: f is None }})
     streaming_brain_abr_version: Optional[float] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('streamingBrainABRVersion'), 'exclude': lambda f: f is None }})
     streaming_brain_version: Optional[float] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('streamingBrainVersion'), 'exclude': lambda f: f is None }})
     sync: Optional[bool] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('sync'), 'exclude': lambda f: f is None }})
@@ -72,6 +71,7 @@ class MediaContainer:
     updater: Optional[bool] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('updater'), 'exclude': lambda f: f is None }})
     version: Optional[str] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('version'), 'exclude': lambda f: f is None }})
     voice_search: Optional[bool] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('voiceSearch'), 'exclude': lambda f: f is None }})
+    directory: Optional[List[Directory]] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('Directory'), 'exclude': lambda f: f is None }})
     
 
 
@@ -89,10 +89,10 @@ class GetServerCapabilitiesResponseBody:
 class GetServerCapabilitiesResponse:
     content_type: str = dataclasses.field()
     r"""HTTP response content type for this operation"""
-    raw_response: requests_http.Response = dataclasses.field()
-    r"""Raw HTTP response; suitable for custom response parsing"""
     status_code: int = dataclasses.field()
     r"""HTTP response status code for this operation"""
+    raw_response: requests_http.Response = dataclasses.field()
+    r"""Raw HTTP response; suitable for custom response parsing"""
     object: Optional[GetServerCapabilitiesResponseBody] = dataclasses.field(default=None)
     r"""The Server Capabilities"""
     

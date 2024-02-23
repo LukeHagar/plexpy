@@ -117,7 +117,6 @@ Stop a Transcode Session
 
 ```python
 import plex_api
-from plex_api.models import operations
 
 s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",

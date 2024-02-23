@@ -20,7 +20,6 @@ This will mark the provided media key as Played.
 
 ```python
 import plex_api
-from plex_api.models import operations
 
 s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
@@ -59,7 +58,6 @@ This will mark the provided media key as Unplayed.
 
 ```python
 import plex_api
-from plex_api.models import operations
 
 s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
@@ -99,14 +97,13 @@ This API command can be used to update the play progress of a media item.
 
 ```python
 import plex_api
-from plex_api.models import operations
 
 s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 )
 
 
-res = s.media.update_play_progress(key='string', time=6900.91, state='string')
+res = s.media.update_play_progress(key='<value>', time=6900.91, state='<value>')
 
 if res.status_code == 200:
     # handle response

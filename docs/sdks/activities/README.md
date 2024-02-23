@@ -57,14 +57,13 @@ Cancel Server Activities
 
 ```python
 import plex_api
-from plex_api.models import operations
 
 s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 )
 
 
-res = s.activities.cancel_server_activities(activity_uuid='string')
+res = s.activities.cancel_server_activities(activity_uuid='<value>')
 
 if res.status_code == 200:
     # handle response

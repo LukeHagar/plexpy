@@ -19,14 +19,13 @@ Retrieve a Pin from Plex.tv for authentication flows
 
 ```python
 import plex_api
-from plex_api.models import operations
 
 s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 )
 
 
-res = s.plex.get_pin(x_plex_client_identifier='string', strong=False)
+res = s.plex.get_pin(x_plex_client_identifier='<value>', strong=False)
 
 if res.object is not None:
     # handle response
@@ -60,14 +59,13 @@ Retrieve an Access Token from Plex.tv after the Pin has already been authenticat
 
 ```python
 import plex_api
-from plex_api.models import operations
 
 s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 )
 
 
-res = s.plex.get_token(pin_id='string', x_plex_client_identifier='string')
+res = s.plex.get_token(pin_id='<value>', x_plex_client_identifier='<value>')
 
 if res.status_code == 200:
     # handle response

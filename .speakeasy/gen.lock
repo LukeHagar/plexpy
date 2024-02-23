@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 3eeea668-4ef4-464e-a888-bdfa023bedf5
 management:
-  docChecksum: 099fc5bbb987ae7e391f7f07b4212860
+  docChecksum: 278d186496d83d5830ba4870f8cad39d
   docVersion: 0.0.3
   speakeasyVersion: internal
-  generationVersion: 2.249.1
-  releaseVersion: 0.1.1
-  configChecksum: b27977e99573e671f0e8dcca458909cc
+  generationVersion: 2.269.0
+  releaseVersion: 0.2.0
+  configChecksum: 1ee49fef4f9956a364c9518902176b90
   repoURL: https://github.com/LukeHagar/plexpy.git
   repoSubDirectory: .
   installationURL: https://github.com/LukeHagar/plexpy.git
@@ -14,17 +14,17 @@ management:
 features:
   python:
     constsAndDefaults: 0.1.2
-    core: 4.4.4
+    core: 4.4.6
     flattening: 2.81.1
     globalSecurity: 2.83.2
     globalServerURLs: 2.82.1
     methodServerURLs: 2.82.1
     nameOverrides: 2.81.1
-    unions: 2.82.5
 generatedFiles:
   - src/plex_api/sdkconfiguration.py
   - src/plex_api/server.py
   - src/plex_api/media.py
+  - src/plex_api/video.py
   - src/plex_api/activities.py
   - src/plex_api/butler.py
   - src/plex_api/hubs.py
@@ -34,9 +34,9 @@ generatedFiles:
   - src/plex_api/plex.py
   - src/plex_api/playlists.py
   - src/plex_api/security.py
+  - src/plex_api/statistics.py
   - src/plex_api/sessions.py
   - src/plex_api/updater.py
-  - src/plex_api/video.py
   - src/plex_api/sdk.py
   - pylintrc
   - setup.py
@@ -57,6 +57,8 @@ generatedFiles:
   - src/plex_api/models/operations/markplayed.py
   - src/plex_api/models/operations/markunplayed.py
   - src/plex_api/models/operations/updateplayprogress.py
+  - src/plex_api/models/operations/gettimeline.py
+  - src/plex_api/models/operations/startuniversaltranscode.py
   - src/plex_api/models/operations/getserveractivities.py
   - src/plex_api/models/operations/cancelserveractivities.py
   - src/plex_api/models/operations/getbutlertasks.py
@@ -96,6 +98,7 @@ generatedFiles:
   - src/plex_api/models/operations/uploadplaylist.py
   - src/plex_api/models/operations/gettransienttoken.py
   - src/plex_api/models/operations/getsourceconnectioninformation.py
+  - src/plex_api/models/operations/getstatistics.py
   - src/plex_api/models/operations/getsessions.py
   - src/plex_api/models/operations/getsessionhistory.py
   - src/plex_api/models/operations/gettranscodesessions.py
@@ -103,8 +106,6 @@ generatedFiles:
   - src/plex_api/models/operations/getupdatestatus.py
   - src/plex_api/models/operations/checkforupdates.py
   - src/plex_api/models/operations/applyupdates.py
-  - src/plex_api/models/operations/startuniversaltranscode.py
-  - src/plex_api/models/operations/gettimeline.py
   - src/plex_api/models/errors/getservercapabilities.py
   - src/plex_api/models/errors/getserverpreferences.py
   - src/plex_api/models/errors/getavailableclients.py
@@ -116,6 +117,8 @@ generatedFiles:
   - src/plex_api/models/errors/markplayed.py
   - src/plex_api/models/errors/markunplayed.py
   - src/plex_api/models/errors/updateplayprogress.py
+  - src/plex_api/models/errors/gettimeline.py
+  - src/plex_api/models/errors/startuniversaltranscode.py
   - src/plex_api/models/errors/getserveractivities.py
   - src/plex_api/models/errors/cancelserveractivities.py
   - src/plex_api/models/errors/getbutlertasks.py
@@ -153,6 +156,7 @@ generatedFiles:
   - src/plex_api/models/errors/uploadplaylist.py
   - src/plex_api/models/errors/gettransienttoken.py
   - src/plex_api/models/errors/getsourceconnectioninformation.py
+  - src/plex_api/models/errors/getstatistics.py
   - src/plex_api/models/errors/getsessions.py
   - src/plex_api/models/errors/getsessionhistory.py
   - src/plex_api/models/errors/gettranscodesessions.py
@@ -160,8 +164,6 @@ generatedFiles:
   - src/plex_api/models/errors/getupdatestatus.py
   - src/plex_api/models/errors/checkforupdates.py
   - src/plex_api/models/errors/applyupdates.py
-  - src/plex_api/models/errors/startuniversaltranscode.py
-  - src/plex_api/models/errors/gettimeline.py
   - src/plex_api/models/components/security.py
   - src/plex_api/models/__init__.py
   - src/plex_api/models/errors/__init__.py
@@ -171,8 +173,6 @@ generatedFiles:
   - docs/models/operations/mediacontainer.md
   - docs/models/operations/getservercapabilitiesresponsebody.md
   - docs/models/operations/getservercapabilitiesresponse.md
-  - docs/models/operations/two.md
-  - docs/models/operations/one.md
   - docs/models/operations/setting.md
   - docs/models/operations/getserverpreferencesmediacontainer.md
   - docs/models/operations/getserverpreferencesresponsebody.md
@@ -205,6 +205,11 @@ generatedFiles:
   - docs/models/operations/markunplayedresponse.md
   - docs/models/operations/updateplayprogressrequest.md
   - docs/models/operations/updateplayprogressresponse.md
+  - docs/models/operations/state.md
+  - docs/models/operations/gettimelinerequest.md
+  - docs/models/operations/gettimelineresponse.md
+  - docs/models/operations/startuniversaltranscoderequest.md
+  - docs/models/operations/startuniversaltranscoderesponse.md
   - docs/models/operations/context.md
   - docs/models/operations/activity.md
   - docs/models/operations/getserveractivitiesmediacontainer.md
@@ -407,6 +412,13 @@ generatedFiles:
   - docs/models/operations/gettransienttokenresponse.md
   - docs/models/operations/getsourceconnectioninformationrequest.md
   - docs/models/operations/getsourceconnectioninformationresponse.md
+  - docs/models/operations/getstatisticsrequest.md
+  - docs/models/operations/getstatisticsdevice.md
+  - docs/models/operations/account.md
+  - docs/models/operations/statisticsmedia.md
+  - docs/models/operations/getstatisticsmediacontainer.md
+  - docs/models/operations/getstatisticsresponsebody.md
+  - docs/models/operations/getstatisticsresponse.md
   - docs/models/operations/getsessionsstream.md
   - docs/models/operations/getsessionspart.md
   - docs/models/operations/getsessionsmedia.md
@@ -438,11 +450,6 @@ generatedFiles:
   - docs/models/operations/skip.md
   - docs/models/operations/applyupdatesrequest.md
   - docs/models/operations/applyupdatesresponse.md
-  - docs/models/operations/startuniversaltranscoderequest.md
-  - docs/models/operations/startuniversaltranscoderesponse.md
-  - docs/models/operations/state.md
-  - docs/models/operations/gettimelinerequest.md
-  - docs/models/operations/gettimelineresponse.md
   - docs/models/errors/errors.md
   - docs/models/errors/getservercapabilitiesresponsebody.md
   - docs/models/errors/getserverpreferenceserrors.md
@@ -465,6 +472,10 @@ generatedFiles:
   - docs/models/errors/markunplayedresponsebody.md
   - docs/models/errors/updateplayprogresserrors.md
   - docs/models/errors/updateplayprogressresponsebody.md
+  - docs/models/errors/gettimelineerrors.md
+  - docs/models/errors/gettimelineresponsebody.md
+  - docs/models/errors/startuniversaltranscodeerrors.md
+  - docs/models/errors/startuniversaltranscoderesponsebody.md
   - docs/models/errors/getserveractivitieserrors.md
   - docs/models/errors/getserveractivitiesresponsebody.md
   - docs/models/errors/cancelserveractivitieserrors.md
@@ -539,6 +550,8 @@ generatedFiles:
   - docs/models/errors/gettransienttokenresponsebody.md
   - docs/models/errors/getsourceconnectioninformationerrors.md
   - docs/models/errors/getsourceconnectioninformationresponsebody.md
+  - docs/models/errors/getstatisticserrors.md
+  - docs/models/errors/getstatisticsresponsebody.md
   - docs/models/errors/getsessionserrors.md
   - docs/models/errors/getsessionsresponsebody.md
   - docs/models/errors/getsessionhistoryerrors.md
@@ -553,14 +566,11 @@ generatedFiles:
   - docs/models/errors/checkforupdatesresponsebody.md
   - docs/models/errors/applyupdateserrors.md
   - docs/models/errors/applyupdatesresponsebody.md
-  - docs/models/errors/startuniversaltranscodeerrors.md
-  - docs/models/errors/startuniversaltranscoderesponsebody.md
-  - docs/models/errors/gettimelineerrors.md
-  - docs/models/errors/gettimelineresponsebody.md
   - docs/models/components/security.md
   - docs/sdks/plexapi/README.md
   - docs/sdks/server/README.md
   - docs/sdks/media/README.md
+  - docs/sdks/video/README.md
   - docs/sdks/activities/README.md
   - docs/sdks/butler/README.md
   - docs/sdks/hubs/README.md
@@ -570,8 +580,8 @@ generatedFiles:
   - docs/sdks/plex/README.md
   - docs/sdks/playlists/README.md
   - docs/sdks/security/README.md
+  - docs/sdks/statistics/README.md
   - docs/sdks/sessions/README.md
   - docs/sdks/updater/README.md
-  - docs/sdks/video/README.md
   - USAGE.md
   - .gitattributes

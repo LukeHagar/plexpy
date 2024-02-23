@@ -62,7 +62,6 @@ Note: requires Plex Media Server >= 1.15.4.
 
 ```python
 import plex_api
-from plex_api.models import operations
 
 s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",

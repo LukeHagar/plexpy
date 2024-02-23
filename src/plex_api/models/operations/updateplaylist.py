@@ -10,10 +10,10 @@ from typing import Optional
 class UpdatePlaylistRequest:
     playlist_id: float = dataclasses.field(metadata={'path_param': { 'field_name': 'playlistID', 'style': 'simple', 'explode': False }})
     r"""the ID of the playlist"""
-    summary: Optional[str] = dataclasses.field(default=None, metadata={'query_param': { 'field_name': 'summary', 'style': 'form', 'explode': True }})
-    r"""summary description of the playlist"""
     title: Optional[str] = dataclasses.field(default=None, metadata={'query_param': { 'field_name': 'title', 'style': 'form', 'explode': True }})
     r"""name of the playlist"""
+    summary: Optional[str] = dataclasses.field(default=None, metadata={'query_param': { 'field_name': 'summary', 'style': 'form', 'explode': True }})
+    r"""summary description of the playlist"""
     
 
 
@@ -22,9 +22,9 @@ class UpdatePlaylistRequest:
 class UpdatePlaylistResponse:
     content_type: str = dataclasses.field()
     r"""HTTP response content type for this operation"""
-    raw_response: requests_http.Response = dataclasses.field()
-    r"""Raw HTTP response; suitable for custom response parsing"""
     status_code: int = dataclasses.field()
     r"""HTTP response status code for this operation"""
+    raw_response: requests_http.Response = dataclasses.field()
+    r"""Raw HTTP response; suitable for custom response parsing"""
     
 

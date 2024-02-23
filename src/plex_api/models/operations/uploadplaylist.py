@@ -17,12 +17,6 @@ class Force(int, Enum):
 
 @dataclasses.dataclass
 class UploadPlaylistRequest:
-    force: Force = dataclasses.field(metadata={'query_param': { 'field_name': 'force', 'style': 'form', 'explode': True }})
-    r"""Force overwriting of duplicate playlists.
-    By default, a playlist file uploaded with the same path will overwrite the existing playlist. 
-    The `force` argument is used to disable overwriting.  
-    If the `force` argument is set to 0, a new playlist will be created suffixed with the date and time that the duplicate was uploaded.
-    """
     path: str = dataclasses.field(metadata={'query_param': { 'field_name': 'path', 'style': 'form', 'explode': True }})
     r"""absolute path to a directory on the server where m3u files are stored, or the absolute path to a playlist file on the server.
     If the `path` argument is a directory, that path will be scanned for playlist files to be processed. 
@@ -30,6 +24,12 @@ class UploadPlaylistRequest:
     The GUID of each playlist is based on the filename. 
     If the `path` argument is a file, that file will be used to create a new playlist, with the name based on the filename of the file that created it. 
     The GUID of each playlist is based on the filename.
+    """
+    force: Force = dataclasses.field(metadata={'query_param': { 'field_name': 'force', 'style': 'form', 'explode': True }})
+    r"""Force overwriting of duplicate playlists.
+    By default, a playlist file uploaded with the same path will overwrite the existing playlist. 
+    The `force` argument is used to disable overwriting.  
+    If the `force` argument is set to 0, a new playlist will be created suffixed with the date and time that the duplicate was uploaded.
     """
     
 
@@ -39,9 +39,9 @@ class UploadPlaylistRequest:
 class UploadPlaylistResponse:
     content_type: str = dataclasses.field()
     r"""HTTP response content type for this operation"""
-    raw_response: requests_http.Response = dataclasses.field()
-    r"""Raw HTTP response; suitable for custom response parsing"""
     status_code: int = dataclasses.field()
     r"""HTTP response status code for this operation"""
+    raw_response: requests_http.Response = dataclasses.field()
+    r"""Raw HTTP response; suitable for custom response parsing"""
     
 

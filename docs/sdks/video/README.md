@@ -8,54 +8,8 @@ API Calls that perform operations with Plex Media Server Videos
 
 ### Available Operations
 
-* [start_universal_transcode](#start_universal_transcode) - Start Universal Transcode
 * [get_timeline](#get_timeline) - Get the timeline for a media item
-
-## start_universal_transcode
-
-Begin a Universal Transcode Session
-
-### Example Usage
-
-```python
-import plex_api
-from plex_api.models import operations
-
-s = plex_api.PlexAPI(
-    access_token="<YOUR_API_KEY_HERE>",
-)
-
-req = operations.StartUniversalTranscodeRequest(
-    has_mde=8924.99,
-    path='/etc/mail',
-    media_index=9962.95,
-    part_index=1232.82,
-    protocol='string',
-)
-
-res = s.video.start_universal_transcode(req)
-
-if res.status_code == 200:
-    # handle response
-    pass
-```
-
-### Parameters
-
-| Parameter                                                                                              | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
-| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
-| `request`                                                                                              | [operations.StartUniversalTranscodeRequest](../../models/operations/startuniversaltranscoderequest.md) | :heavy_check_mark:                                                                                     | The request object to use for the request.                                                             |
-
-
-### Response
-
-**[operations.StartUniversalTranscodeResponse](../../models/operations/startuniversaltranscoderesponse.md)**
-### Errors
-
-| Error Object                               | Status Code                                | Content Type                               |
-| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
-| errors.StartUniversalTranscodeResponseBody | 401                                        | application/json                           |
-| errors.SDKError                            | 4x-5xx                                     | */*                                        |
+* [start_universal_transcode](#start_universal_transcode) - Start Universal Transcode
 
 ## get_timeline
 
@@ -78,7 +32,7 @@ req = operations.GetTimelineRequest(
     has_mde=7574.33,
     time=3327.51,
     duration=7585.39,
-    context='string',
+    context='<value>',
     play_queue_item_id=1406.21,
     play_back_time=2699.34,
     row=3536.42,
@@ -107,3 +61,49 @@ if res.status_code == 200:
 | ------------------------------ | ------------------------------ | ------------------------------ |
 | errors.GetTimelineResponseBody | 401                            | application/json               |
 | errors.SDKError                | 4x-5xx                         | */*                            |
+
+## start_universal_transcode
+
+Begin a Universal Transcode Session
+
+### Example Usage
+
+```python
+import plex_api
+from plex_api.models import operations
+
+s = plex_api.PlexAPI(
+    access_token="<YOUR_API_KEY_HERE>",
+)
+
+req = operations.StartUniversalTranscodeRequest(
+    has_mde=8924.99,
+    path='/etc/mail',
+    media_index=9962.95,
+    part_index=1232.82,
+    protocol='<value>',
+)
+
+res = s.video.start_universal_transcode(req)
+
+if res.status_code == 200:
+    # handle response
+    pass
+```
+
+### Parameters
+
+| Parameter                                                                                              | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                              | [operations.StartUniversalTranscodeRequest](../../models/operations/startuniversaltranscoderequest.md) | :heavy_check_mark:                                                                                     | The request object to use for the request.                                                             |
+
+
+### Response
+
+**[operations.StartUniversalTranscodeResponse](../../models/operations/startuniversaltranscoderesponse.md)**
+### Errors
+
+| Error Object                               | Status Code                                | Content Type                               |
+| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
+| errors.StartUniversalTranscodeResponseBody | 401                                        | application/json                           |
+| errors.SDKError                            | 4x-5xx                                     | */*                                        |

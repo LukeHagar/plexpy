@@ -56,6 +56,11 @@ if res.object is not None:
 * [mark_unplayed](docs/sdks/media/README.md#mark_unplayed) - Mark Media Unplayed
 * [update_play_progress](docs/sdks/media/README.md#update_play_progress) - Update Media Play Progress
 
+### [video](docs/sdks/video/README.md)
+
+* [get_timeline](docs/sdks/video/README.md#get_timeline) - Get the timeline for a media item
+* [start_universal_transcode](docs/sdks/video/README.md#start_universal_transcode) - Start Universal Transcode
+
 ### [activities](docs/sdks/activities/README.md)
 
 * [get_server_activities](docs/sdks/activities/README.md#get_server_activities) - Get Server Activities
@@ -122,6 +127,10 @@ if res.object is not None:
 * [get_transient_token](docs/sdks/security/README.md#get_transient_token) - Get a Transient Token.
 * [get_source_connection_information](docs/sdks/security/README.md#get_source_connection_information) - Get Source Connection Information
 
+### [statistics](docs/sdks/statistics/README.md)
+
+* [get_statistics](docs/sdks/statistics/README.md#get_statistics) - Get Media Statistics
+
 ### [sessions](docs/sdks/sessions/README.md)
 
 * [get_sessions](docs/sdks/sessions/README.md#get_sessions) - Get Active Sessions
@@ -134,11 +143,6 @@ if res.object is not None:
 * [get_update_status](docs/sdks/updater/README.md#get_update_status) - Querying status of updates
 * [check_for_updates](docs/sdks/updater/README.md#check_for_updates) - Checking for updates
 * [apply_updates](docs/sdks/updater/README.md#apply_updates) - Apply Updates
-
-### [video](docs/sdks/video/README.md)
-
-* [start_universal_transcode](docs/sdks/video/README.md#start_universal_transcode) - Start Universal Transcode
-* [get_timeline](docs/sdks/video/README.md#get_timeline) - Get the timeline for a media item
 <!-- End Available Resources and Operations [operations] -->
 
 <!-- Start Error Handling [errors] -->
@@ -155,6 +159,7 @@ Handling errors in this SDK should largely match your expectations.  All operati
 
 ```python
 import plex_api
+from plex_api.models import errors
 
 s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
@@ -165,10 +170,10 @@ res = None
 try:
     res = s.server.get_server_capabilities()
 except errors.GetServerCapabilitiesResponseBody as e:
-    print(e)  # handle exception
+    # handle exception
     raise(e)
 except errors.SDKError as e:
-    print(e)  # handle exception
+    # handle exception
     raise(e)
 
 if res.object is not None:
@@ -237,14 +242,13 @@ if res.object is not None:
 The server URL can also be overridden on a per-operation basis, provided a server list was specified for the operation. For example:
 ```python
 import plex_api
-from plex_api.models import operations
 
 s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 )
 
 
-res = s.plex.get_pin(server_url="https://plex.tv/api/v2", x_plex_client_identifier='string', strong=False)
+res = s.plex.get_pin(server_url="https://plex.tv/api/v2", x_plex_client_identifier='<value>', strong=False)
 
 if res.object is not None:
     # handle response

@@ -12,17 +12,17 @@ from typing import Optional
 @dataclasses.dataclass
 class MyPlex:
     auth_token: Optional[str] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('authToken'), 'exclude': lambda f: f is None }})
-    mapping_error: Optional[str] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('mappingError'), 'exclude': lambda f: f is None }})
+    username: Optional[str] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('username'), 'exclude': lambda f: f is None }})
     mapping_state: Optional[str] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('mappingState'), 'exclude': lambda f: f is None }})
-    private_address: Optional[str] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('privateAddress'), 'exclude': lambda f: f is None }})
-    private_port: Optional[float] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('privatePort'), 'exclude': lambda f: f is None }})
+    mapping_error: Optional[str] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('mappingError'), 'exclude': lambda f: f is None }})
+    sign_in_state: Optional[str] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('signInState'), 'exclude': lambda f: f is None }})
     public_address: Optional[str] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('publicAddress'), 'exclude': lambda f: f is None }})
     public_port: Optional[float] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('publicPort'), 'exclude': lambda f: f is None }})
-    sign_in_state: Optional[str] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('signInState'), 'exclude': lambda f: f is None }})
-    subscription_active: Optional[bool] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('subscriptionActive'), 'exclude': lambda f: f is None }})
+    private_address: Optional[str] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('privateAddress'), 'exclude': lambda f: f is None }})
+    private_port: Optional[float] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('privatePort'), 'exclude': lambda f: f is None }})
     subscription_features: Optional[str] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('subscriptionFeatures'), 'exclude': lambda f: f is None }})
+    subscription_active: Optional[bool] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('subscriptionActive'), 'exclude': lambda f: f is None }})
     subscription_state: Optional[str] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('subscriptionState'), 'exclude': lambda f: f is None }})
-    username: Optional[str] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('username'), 'exclude': lambda f: f is None }})
     
 
 
@@ -40,10 +40,10 @@ class GetMyPlexAccountResponseBody:
 class GetMyPlexAccountResponse:
     content_type: str = dataclasses.field()
     r"""HTTP response content type for this operation"""
-    raw_response: requests_http.Response = dataclasses.field()
-    r"""Raw HTTP response; suitable for custom response parsing"""
     status_code: int = dataclasses.field()
     r"""HTTP response status code for this operation"""
+    raw_response: requests_http.Response = dataclasses.field()
+    r"""Raw HTTP response; suitable for custom response parsing"""
     object: Optional[GetMyPlexAccountResponseBody] = dataclasses.field(default=None)
     r"""MyPlex Account"""
     
