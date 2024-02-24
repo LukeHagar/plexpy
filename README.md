@@ -122,10 +122,10 @@ if res.object is not None:
 * [add_playlist_contents](docs/sdks/playlists/README.md#add_playlist_contents) - Adding to a Playlist
 * [upload_playlist](docs/sdks/playlists/README.md#upload_playlist) - Upload Playlist
 
-### [security](docs/sdks/security/README.md)
+### [authentication](docs/sdks/authentication/README.md)
 
-* [get_transient_token](docs/sdks/security/README.md#get_transient_token) - Get a Transient Token.
-* [get_source_connection_information](docs/sdks/security/README.md#get_source_connection_information) - Get Source Connection Information
+* [get_transient_token](docs/sdks/authentication/README.md#get_transient_token) - Get a Transient Token.
+* [get_source_connection_information](docs/sdks/authentication/README.md#get_source_connection_information) - Get Source Connection Information
 
 ### [statistics](docs/sdks/statistics/README.md)
 
@@ -243,9 +243,7 @@ The server URL can also be overridden on a per-operation basis, provided a serve
 ```python
 import plex_api
 
-s = plex_api.PlexAPI(
-    access_token="<YOUR_API_KEY_HERE>",
-)
+s = plex_api.PlexAPI()
 
 
 res = s.plex.get_pin(server_url="https://plex.tv/api/v2", x_plex_client_identifier='<value>', strong=False)

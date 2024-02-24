@@ -20,9 +20,7 @@ Retrieve a Pin from Plex.tv for authentication flows
 ```python
 import plex_api
 
-s = plex_api.PlexAPI(
-    access_token="<YOUR_API_KEY_HERE>",
-)
+s = plex_api.PlexAPI()
 
 
 res = s.plex.get_pin(x_plex_client_identifier='<value>', strong=False)
@@ -60,9 +58,7 @@ Retrieve an Access Token from Plex.tv after the Pin has already been authenticat
 ```python
 import plex_api
 
-s = plex_api.PlexAPI(
-    access_token="<YOUR_API_KEY_HERE>",
-)
+s = plex_api.PlexAPI()
 
 
 res = s.plex.get_token(pin_id='<value>', x_plex_client_identifier='<value>')

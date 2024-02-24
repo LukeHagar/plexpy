@@ -1,9 +1,9 @@
-# Security
-(*security*)
+# Authentication
+(*authentication*)
 
 ## Overview
 
-API Calls against Security for Plex Media Server
+API Calls regarding authentication for Plex Media Server
 
 
 ### Available Operations
@@ -27,7 +27,7 @@ s = plex_api.PlexAPI(
 )
 
 
-res = s.security.get_transient_token(type=operations.GetTransientTokenQueryParamType.DELEGATION, scope=operations.Scope.ALL)
+res = s.authentication.get_transient_token(type=operations.GetTransientTokenQueryParamType.DELEGATION, scope=operations.Scope.ALL)
 
 if res.status_code == 200:
     # handle response
@@ -68,7 +68,7 @@ s = plex_api.PlexAPI(
 )
 
 
-res = s.security.get_source_connection_information(source='server://client-identifier')
+res = s.authentication.get_source_connection_information(source='server://client-identifier')
 
 if res.status_code == 200:
     # handle response

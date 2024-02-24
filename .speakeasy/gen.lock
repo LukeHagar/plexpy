@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 3eeea668-4ef4-464e-a888-bdfa023bedf5
 management:
-  docChecksum: 278d186496d83d5830ba4870f8cad39d
+  docChecksum: e34dac84738ebf2d447ea2b9055a6eeb
   docVersion: 0.0.3
   speakeasyVersion: internal
-  generationVersion: 2.269.0
-  releaseVersion: 0.2.0
-  configChecksum: 1ee49fef4f9956a364c9518902176b90
+  generationVersion: 2.272.4
+  releaseVersion: 0.2.1
+  configChecksum: 7495c103921e1dcc54066a6ddc49966d
   repoURL: https://github.com/LukeHagar/plexpy.git
   repoSubDirectory: .
   installationURL: https://github.com/LukeHagar/plexpy.git
@@ -14,9 +14,9 @@ management:
 features:
   python:
     constsAndDefaults: 0.1.2
-    core: 4.4.6
+    core: 4.4.7
     flattening: 2.81.1
-    globalSecurity: 2.83.2
+    globalSecurity: 2.83.3
     globalServerURLs: 2.82.1
     methodServerURLs: 2.82.1
     nameOverrides: 2.81.1
@@ -33,7 +33,7 @@ generatedFiles:
   - src/plex_api/log.py
   - src/plex_api/plex.py
   - src/plex_api/playlists.py
-  - src/plex_api/security.py
+  - src/plex_api/authentication.py
   - src/plex_api/statistics.py
   - src/plex_api/sessions.py
   - src/plex_api/updater.py
@@ -579,7 +579,7 @@ generatedFiles:
   - docs/sdks/log/README.md
   - docs/sdks/plex/README.md
   - docs/sdks/playlists/README.md
-  - docs/sdks/security/README.md
+  - docs/sdks/authentication/README.md
   - docs/sdks/statistics/README.md
   - docs/sdks/sessions/README.md
   - docs/sdks/updater/README.md

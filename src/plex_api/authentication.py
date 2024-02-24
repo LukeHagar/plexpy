@@ -4,8 +4,8 @@ from .sdkconfiguration import SDKConfiguration
 from plex_api import utils
 from plex_api.models import errors, operations
 
-class Security:
-    r"""API Calls against Security for Plex Media Server"""
+class Authentication:
+    r"""API Calls regarding authentication for Plex Media Server"""
     sdk_configuration: SDKConfiguration
 
     def __init__(self, sdk_config: SDKConfiguration) -> None:

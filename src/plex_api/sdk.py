@@ -2,6 +2,7 @@
 
 import requests as requests_http
 from .activities import Activities
+from .authentication import Authentication
 from .butler import Butler
 from .hubs import Hubs
 from .library import Library
@@ -11,7 +12,6 @@ from .playlists import Playlists
 from .plex import Plex
 from .sdkconfiguration import SDKConfiguration, ServerProtocol
 from .search import Search
-from .security import Security
 from .server import Server
 from .sessions import Sessions
 from .statistics import Statistics
@@ -58,8 +58,8 @@ class PlexAPI:
     Retrieving a playlist, or its items, will trigger a refresh of its metadata. 
     This may cause the duration and number of items to change.
     """
-    security: Security
-    r"""API Calls against Security for Plex Media Server"""
+    authentication: Authentication
+    r"""API Calls regarding authentication for Plex Media Server"""
     statistics: Statistics
     r"""API Calls that perform operations with Plex Media Server Statistics"""
     sessions: Sessions
@@ -139,7 +139,7 @@ class PlexAPI:
         self.log = Log(self.sdk_configuration)
         self.plex = Plex(self.sdk_configuration)
         self.playlists = Playlists(self.sdk_configuration)
-        self.security = Security(self.sdk_configuration)
+        self.authentication = Authentication(self.sdk_configuration)
         self.statistics = Statistics(self.sdk_configuration)
         self.sessions = Sessions(self.sdk_configuration)
         self.updater = Updater(self.sdk_configuration)
