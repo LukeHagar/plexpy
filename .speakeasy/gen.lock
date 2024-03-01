@@ -4,9 +4,9 @@ management:
   docChecksum: e34dac84738ebf2d447ea2b9055a6eeb
   docVersion: 0.0.3
   speakeasyVersion: internal
-  generationVersion: 2.272.4
-  releaseVersion: 0.2.1
-  configChecksum: 7495c103921e1dcc54066a6ddc49966d
+  generationVersion: 2.275.4
+  releaseVersion: 0.3.0
+  configChecksum: 1df7c31fecec61686c8b5f29f2f6df8e
   repoURL: https://github.com/LukeHagar/plexpy.git
   repoSubDirectory: .
   installationURL: https://github.com/LukeHagar/plexpy.git
@@ -14,9 +14,9 @@ management:
 features:
   python:
     constsAndDefaults: 0.1.2
-    core: 4.4.7
+    core: 4.5.0
     flattening: 2.81.1
-    globalSecurity: 2.83.3
+    globalSecurity: 2.83.4
     globalServerURLs: 2.82.1
     methodServerURLs: 2.82.1
     nameOverrides: 2.81.1
@@ -585,3 +585,6 @@ generatedFiles:
   - docs/sdks/updater/README.md
   - USAGE.md
   - .gitattributes
+  - src/plex_api/_hooks/sdkhooks.py
+  - src/plex_api/_hooks/types.py
+  - src/plex_api/_hooks/__init__.py

@@ -231,7 +231,7 @@ req = operations.GetResizedPhotoRequest(
     min_size=operations.MinSize.ONE,
     upscale=operations.Upscale.ZERO,
     url='/library/metadata/49564/thumb/1654258204',
-    opacity=209783,
+    opacity=100,
 )
 
 res = s.server.get_resized_photo(req)
