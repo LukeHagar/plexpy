@@ -31,6 +31,7 @@ res = s.hubs.get_global_hubs(count=1262.49, only_transient=operations.OnlyTransi
 if res.object is not None:
     # handle response
     pass
+
 ```
 
 ### Parameters
@@ -72,6 +73,7 @@ res = s.hubs.get_library_hubs(section_id=6728.76, count=9010.22, only_transient=
 if res.object is not None:
     # handle response
     pass
+
 ```
 
 ### Parameters

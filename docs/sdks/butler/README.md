@@ -33,6 +33,7 @@ res = s.butler.get_butler_tasks()
 if res.object is not None:
     # handle response
     pass
+
 ```
 
 
@@ -67,9 +68,10 @@ s = plex_api.PlexAPI(
 
 res = s.butler.start_all_tasks()
 
-if res.status_code == 200:
+if res is not None:
     # handle response
     pass
+
 ```
 
 
@@ -100,9 +102,10 @@ s = plex_api.PlexAPI(
 
 res = s.butler.stop_all_tasks()
 
-if res.status_code == 200:
+if res is not None:
     # handle response
     pass
+
 ```
 
 
@@ -138,9 +141,10 @@ s = plex_api.PlexAPI(
 
 res = s.butler.start_task(task_name=operations.TaskName.CLEAN_OLD_BUNDLES)
 
-if res.status_code == 200:
+if res is not None:
     # handle response
     pass
+
 ```
 
 ### Parameters
@@ -178,9 +182,10 @@ s = plex_api.PlexAPI(
 
 res = s.butler.stop_task(task_name=operations.PathParamTaskName.BACKUP_DATABASE)
 
-if res.status_code == 200:
+if res is not None:
     # handle response
     pass
+
 ```
 
 ### Parameters

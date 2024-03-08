@@ -40,9 +40,10 @@ s = plex_api.PlexAPI(
 
 res = s.search.perform_search(query='dylan', section_id=1516.53, limit=5)
 
-if res.status_code == 200:
+if res is not None:
     # handle response
     pass
+
 ```
 
 ### Parameters
@@ -84,9 +85,10 @@ s = plex_api.PlexAPI(
 
 res = s.search.perform_voice_search(query='dead+poop', section_id=4094.8, limit=5)
 
-if res.status_code == 200:
+if res is not None:
     # handle response
     pass
+
 ```
 
 ### Parameters
@@ -127,6 +129,7 @@ res = s.search.get_search_results(query='110')
 if res.object is not None:
     # handle response
     pass
+
 ```
 
 ### Parameters

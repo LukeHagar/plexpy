@@ -33,6 +33,7 @@ res = s.server.get_server_capabilities()
 if res.object is not None:
     # handle response
     pass
+
 ```
 <!-- End SDK Example Usage [usage] -->
 
@@ -179,6 +180,7 @@ except errors.SDKError as e:
 if res.object is not None:
     # handle response
     pass
+
 ```
 <!-- End Error Handling [errors] -->
 
@@ -209,6 +211,7 @@ res = s.server.get_server_capabilities()
 if res.object is not None:
     # handle response
     pass
+
 ```
 
 #### Variables
@@ -235,6 +238,7 @@ res = s.server.get_server_capabilities()
 if res.object is not None:
     # handle response
     pass
+
 ```
 
 ### Override Server URL Per-Operation
@@ -251,6 +255,7 @@ res = s.plex.get_pin(server_url="https://plex.tv/api/v2", x_plex_client_identifi
 if res.object is not None:
     # handle response
     pass
+
 ```
 <!-- End Server Selection [server] -->
 
@@ -295,6 +300,7 @@ res = s.server.get_server_capabilities()
 if res.object is not None:
     # handle response
     pass
+
 ```
 <!-- End Authentication [security] -->
 

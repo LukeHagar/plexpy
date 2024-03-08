@@ -32,6 +32,7 @@ res = s.updater.get_update_status()
 if res.object is not None:
     # handle response
     pass
+
 ```
 
 
@@ -62,9 +63,10 @@ s = plex_api.PlexAPI(
 
 res = s.updater.check_for_updates(download=operations.Download.ONE)
 
-if res.status_code == 200:
+if res is not None:
     # handle response
     pass
+
 ```
 
 ### Parameters
@@ -102,9 +104,10 @@ s = plex_api.PlexAPI(
 
 res = s.updater.apply_updates(tonight=operations.Tonight.ONE, skip=operations.Skip.ZERO)
 
-if res.status_code == 200:
+if res is not None:
     # handle response
     pass
+
 ```
 
 ### Parameters

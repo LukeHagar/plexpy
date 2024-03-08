@@ -32,6 +32,7 @@ res = s.sessions.get_sessions()
 if res.object is not None:
     # handle response
     pass
+
 ```
 
 
@@ -64,6 +65,7 @@ res = s.sessions.get_session_history()
 if res.object is not None:
     # handle response
     pass
+
 ```
 
 
@@ -96,6 +98,7 @@ res = s.sessions.get_transcode_sessions()
 if res.object is not None:
     # handle response
     pass
+
 ```
 
 
@@ -125,9 +128,10 @@ s = plex_api.PlexAPI(
 
 res = s.sessions.stop_transcode_session(session_key='zz7llzqlx8w9vnrsbnwhbmep')
 
-if res.status_code == 200:
+if res is not None:
     # handle response
     pass
+
 ```
 
 ### Parameters

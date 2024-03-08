@@ -30,9 +30,10 @@ s = plex_api.PlexAPI(
 
 res = s.log.log_line(level=operations.Level.THREE, message='Test log message', source='Postman')
 
-if res.status_code == 200:
+if res is not None:
     # handle response
     pass
+
 ```
 
 ### Parameters
@@ -94,9 +95,10 @@ level=1&message=Test%20message%203&source=postman'
 
 res = s.log.log_multi_line(req)
 
-if res.status_code == 200:
+if res is not None:
     # handle response
     pass
+
 ```
 
 ### Parameters
@@ -133,9 +135,10 @@ s = plex_api.PlexAPI(
 
 res = s.log.enable_paper_trail()
 
-if res.status_code == 200:
+if res is not None:
     # handle response
     pass
+
 ```
 
 

@@ -29,6 +29,7 @@ res = s.statistics.get_statistics(timespan=411769)
 if res.object is not None:
     # handle response
     pass
+
 ```
 
 ### Parameters

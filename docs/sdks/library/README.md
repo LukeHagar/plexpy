@@ -36,9 +36,10 @@ s = plex_api.PlexAPI(
 
 res = s.library.get_file_hash(url='file://C:\Image.png&type=13', type=4462.17)
 
-if res.status_code == 200:
+if res is not None:
     # handle response
     pass
+
 ```
 
 ### Parameters
@@ -79,6 +80,7 @@ res = s.library.get_recently_added()
 if res.object is not None:
     # handle response
     pass
+
 ```
 
 
@@ -117,6 +119,7 @@ res = s.library.get_libraries()
 if res.object is not None:
     # handle response
     pass
+
 ```
 
 
@@ -189,6 +192,7 @@ res = s.library.get_library(section_id=1000, include_details=operations.IncludeD
 if res.object is not None:
     # handle response
     pass
+
 ```
 
 ### Parameters
@@ -225,9 +229,10 @@ s = plex_api.PlexAPI(
 
 res = s.library.delete_library(section_id=1000)
 
-if res.status_code == 200:
+if res is not None:
     # handle response
     pass
+
 ```
 
 ### Parameters
@@ -287,6 +292,7 @@ res = s.library.get_library_items(section_id=451092, tag=operations.Tag.UNWATCHE
 if res.object is not None:
     # handle response
     pass
+
 ```
 
 ### Parameters
@@ -323,9 +329,10 @@ s = plex_api.PlexAPI(
 
 res = s.library.refresh_library(section_id=934.16)
 
-if res.status_code == 200:
+if res is not None:
     # handle response
     pass
+
 ```
 
 ### Parameters
@@ -383,6 +390,7 @@ res = s.library.search_library(section_id=933505, type=operations.Type.FOUR)
 if res.object is not None:
     # handle response
     pass
+
 ```
 
 ### Parameters
@@ -422,6 +430,7 @@ res = s.library.get_metadata(rating_key=8382.31)
 if res.object is not None:
     # handle response
     pass
+
 ```
 
 ### Parameters
@@ -461,6 +470,7 @@ res = s.library.get_metadata_children(rating_key=1539.14)
 if res.object is not None:
     # handle response
     pass
+
 ```
 
 ### Parameters
@@ -500,6 +510,7 @@ res = s.library.get_on_deck()
 if res.object is not None:
     # handle response
     pass
+
 ```
 
 

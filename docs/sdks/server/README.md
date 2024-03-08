@@ -36,6 +36,7 @@ res = s.server.get_server_capabilities()
 if res.object is not None:
     # handle response
     pass
+
 ```
 
 
@@ -68,6 +69,7 @@ res = s.server.get_server_preferences()
 if res.object is not None:
     # handle response
     pass
+
 ```
 
 
@@ -100,6 +102,7 @@ res = s.server.get_available_clients()
 if res.object is not None:
     # handle response
     pass
+
 ```
 
 
@@ -132,6 +135,7 @@ res = s.server.get_devices()
 if res.object is not None:
     # handle response
     pass
+
 ```
 
 
@@ -164,6 +168,7 @@ res = s.server.get_server_identity()
 if res.object is not None:
     # handle response
     pass
+
 ```
 
 
@@ -196,6 +201,7 @@ res = s.server.get_my_plex_account()
 if res.object is not None:
     # handle response
     pass
+
 ```
 
 
@@ -236,9 +242,10 @@ req = operations.GetResizedPhotoRequest(
 
 res = s.server.get_resized_photo(req)
 
-if res.status_code == 200:
+if res is not None:
     # handle response
     pass
+
 ```
 
 ### Parameters
@@ -277,6 +284,7 @@ res = s.server.get_server_list()
 if res.object is not None:
     # handle response
     pass
+
 ```
 
 

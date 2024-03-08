@@ -28,9 +28,10 @@ s = plex_api.PlexAPI(
 
 res = s.media.mark_played(key=59398)
 
-if res.status_code == 200:
+if res is not None:
     # handle response
     pass
+
 ```
 
 ### Parameters
@@ -66,9 +67,10 @@ s = plex_api.PlexAPI(
 
 res = s.media.mark_unplayed(key=59398)
 
-if res.status_code == 200:
+if res is not None:
     # handle response
     pass
+
 ```
 
 ### Parameters
@@ -105,9 +107,10 @@ s = plex_api.PlexAPI(
 
 res = s.media.update_play_progress(key='<value>', time=6900.91, state='<value>')
 
-if res.status_code == 200:
+if res is not None:
     # handle response
     pass
+
 ```
 
 ### Parameters

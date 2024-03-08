@@ -40,9 +40,10 @@ req = operations.GetTimelineRequest(
 
 res = s.video.get_timeline(req)
 
-if res.status_code == 200:
+if res is not None:
     # handle response
     pass
+
 ```
 
 ### Parameters
@@ -86,9 +87,10 @@ req = operations.StartUniversalTranscodeRequest(
 
 res = s.video.start_universal_transcode(req)
 
-if res.status_code == 200:
+if res is not None:
     # handle response
     pass
+
 ```
 
 ### Parameters

@@ -36,6 +36,7 @@ res = s.activities.get_server_activities()
 if res.object is not None:
     # handle response
     pass
+
 ```
 
 
@@ -65,9 +66,10 @@ s = plex_api.PlexAPI(
 
 res = s.activities.cancel_server_activities(activity_uuid='<value>')
 
-if res.status_code == 200:
+if res is not None:
     # handle response
     pass
+
 ```
 
 ### Parameters

@@ -12,5 +12,6 @@ res = s.server.get_server_capabilities()
 if res.object is not None:
     # handle response
     pass
+
 ```
 <!-- End SDK Example Usage [usage] -->

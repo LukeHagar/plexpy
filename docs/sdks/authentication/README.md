@@ -29,9 +29,10 @@ s = plex_api.PlexAPI(
 
 res = s.authentication.get_transient_token(type=operations.GetTransientTokenQueryParamType.DELEGATION, scope=operations.Scope.ALL)
 
-if res.status_code == 200:
+if res is not None:
     # handle response
     pass
+
 ```
 
 ### Parameters
@@ -70,9 +71,10 @@ s = plex_api.PlexAPI(
 
 res = s.authentication.get_source_connection_information(source='server://client-identifier')
 
-if res.status_code == 200:
+if res is not None:
     # handle response
     pass
+
 ```
 
 ### Parameters

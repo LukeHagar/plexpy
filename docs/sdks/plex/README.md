@@ -28,6 +28,7 @@ res = s.plex.get_pin(x_plex_client_identifier='<value>', strong=False)
 if res.object is not None:
     # handle response
     pass
+
 ```
 
 ### Parameters
@@ -63,9 +64,10 @@ s = plex_api.PlexAPI()
 
 res = s.plex.get_token(pin_id='<value>', x_plex_client_identifier='<value>')
 
-if res.status_code == 200:
+if res is not None:
     # handle response
     pass
+
 ```
 
 ### Parameters
