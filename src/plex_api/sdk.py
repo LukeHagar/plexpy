@@ -20,7 +20,7 @@ from .video import Video
 from plex_api import utils
 from plex_api._hooks import SDKHooks
 from plex_api.models import components
-from typing import Callable, Dict, Union
+from typing import Callable, Dict, Optional, Union
 
 class PlexAPI:
     r"""Plex-API: A Plex Media Server API Map
@@ -77,14 +77,14 @@ class PlexAPI:
                  protocol: ServerProtocol = None,
                  ip: str = None,
                  port: str = None,
-                 server_idx: int = None,
-                 server_url: str = None,
-                 url_params: Dict[str, str] = None,
-                 client: requests_http.Session = None,
-                 retry_config: utils.RetryConfig = None
+                 server_idx: Optional[int] = None,
+                 server_url: Optional[str] = None,
+                 url_params: Optional[Dict[str, str]] = None,
+                 client: Optional[requests_http.Session] = None,
+                 retry_config: Optional[utils.RetryConfig] = None
                  ) -> None:
         """Instantiates the SDK configuring it with the provided parameters.
-        
+
         :param access_token: The access_token required for authentication
         :type access_token: Union[str, Callable[[], str]]
         :param protocol: Allows setting the protocol variable for url substitution
@@ -106,13 +106,13 @@ class PlexAPI:
         """
         if client is None:
             client = requests_http.Session()
-        
+
         if callable(access_token):
             def security():
                 return components.Security(access_token = access_token())
         else:
             security = components.Security(access_token = access_token)
-        
+
         if server_url is not None:
             if url_params is not None:
                 server_url = utils.template_url(server_url, url_params)
@@ -124,7 +124,14 @@ class PlexAPI:
             },
         ]
 
-        self.sdk_configuration = SDKConfiguration(client, security, server_url, server_idx, server_defaults, retry_config=retry_config)
+        self.sdk_configuration = SDKConfiguration(
+            client,
+            security,
+            server_url,
+            server_idx,
+            server_defaults,
+            retry_config=retry_config
+        )
 
         hooks = SDKHooks()
 
@@ -134,10 +141,11 @@ class PlexAPI:
             self.sdk_configuration.server_url = server_url
 
         # pylint: disable=protected-access
-        self.sdk_configuration._hooks=hooks
-       
+        self.sdk_configuration._hooks = hooks
+
         self._init_sdks()
-    
+
+
     def _init_sdks(self):
         self.server = Server(self.sdk_configuration)
         self.media = Media(self.sdk_configuration)
@@ -154,4 +162,3 @@ class PlexAPI:
         self.statistics = Statistics(self.sdk_configuration)
         self.sessions = Sessions(self.sdk_configuration)
         self.updater = Updater(self.sdk_configuration)
-    
