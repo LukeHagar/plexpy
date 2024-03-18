@@ -6,13 +6,13 @@ generation:
     optionalPropertyRendering: withExample
   useClassNamesForArrayFields: true
   fixes:
-    nameResolutionDec2023: false
-    parameterOrderingFeb2024: false
-    requestResponseComponentNamesFeb2024: false
+    nameResolutionDec2023: true
+    parameterOrderingFeb2024: true
+    requestResponseComponentNamesFeb2024: true
   auth:
     oAuth2ClientCredentialsEnabled: false
 python:
-  version: 0.4.1
+  version: 0.4.2
   additionalDependencies:
     dependencies: {}
     extraDependencies:

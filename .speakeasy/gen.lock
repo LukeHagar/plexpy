@@ -3,10 +3,10 @@ id: 3eeea668-4ef4-464e-a888-bdfa023bedf5
 management:
   docChecksum: e34dac84738ebf2d447ea2b9055a6eeb
   docVersion: 0.0.3
-  speakeasyVersion: 1.207.1
-  generationVersion: 2.280.6
-  releaseVersion: 0.4.1
-  configChecksum: 0b2741b885d75fab8768ca79a3e7c8ac
+  speakeasyVersion: 1.210.0
+  generationVersion: 2.281.2
+  releaseVersion: 0.4.2
+  configChecksum: 91784c6d1608677dcdc20f3be8c9229b
   repoURL: https://github.com/LukeHagar/plexpy.git
   repoSubDirectory: .
   installationURL: https://github.com/LukeHagar/plexpy.git
