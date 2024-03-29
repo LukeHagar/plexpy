@@ -28,6 +28,7 @@ import plex_api
 
 s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
+    x_plex_client_identifier='<value>',
 )
 
 
@@ -61,6 +62,7 @@ import plex_api
 
 s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
+    x_plex_client_identifier='<value>',
 )
 
 
@@ -94,6 +96,7 @@ import plex_api
 
 s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
+    x_plex_client_identifier='<value>',
 )
 
 
@@ -127,6 +130,7 @@ import plex_api
 
 s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
+    x_plex_client_identifier='<value>',
 )
 
 
@@ -160,6 +164,7 @@ import plex_api
 
 s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
+    x_plex_client_identifier='<value>',
 )
 
 
@@ -193,6 +198,7 @@ import plex_api
 
 s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
+    x_plex_client_identifier='<value>',
 )
 
 
@@ -228,6 +234,7 @@ from plex_api.models import operations
 
 s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
+    x_plex_client_identifier='<value>',
 )
 
 req = operations.GetResizedPhotoRequest(
@@ -276,6 +283,7 @@ import plex_api
 
 s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
+    x_plex_client_identifier='<value>',
 )
 
 

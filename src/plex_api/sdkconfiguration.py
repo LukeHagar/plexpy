@@ -8,7 +8,7 @@ from .utils.retries import RetryConfig
 from dataclasses import dataclass, field
 from enum import Enum
 from plex_api.models import components
-from typing import Callable, Dict, List, Tuple, Union
+from typing import Any, Callable, Dict, List, Tuple, Union
 
 
 SERVERS = [
@@ -30,11 +30,12 @@ class SDKConfiguration:
     server_url: str = ''
     server_idx: int = 0
     server_defaults: List[Dict[str, str]] = field(default_factory=List)
+    globals: Dict[str, Dict[str, Dict[str, Any]]] = field(default_factory=Dict)
     language: str = 'python'
     openapi_doc_version: str = '0.0.3'
-    sdk_version: str = '0.4.3'
-    gen_version: str = '2.291.0'
-    user_agent: str = 'speakeasy-sdk/python 0.4.3 2.291.0 0.0.3 plex-api-client'
+    sdk_version: str = '0.5.0'
+    gen_version: str = '2.292.0'
+    user_agent: str = 'speakeasy-sdk/python 0.5.0 2.292.0 0.0.3 plex-api-client'
     retry_config: RetryConfig = None
     _hooks: SDKHooks = None
 

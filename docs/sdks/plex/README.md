@@ -20,10 +20,12 @@ Retrieve a Pin from Plex.tv for authentication flows
 ```python
 import plex_api
 
-s = plex_api.PlexAPI()
+s = plex_api.PlexAPI(
+    x_plex_client_identifier='<value>',
+)
 
 
-res = s.plex.get_pin(x_plex_client_identifier='<value>', strong=False)
+res = s.plex.get_pin(strong=False, x_plex_client_identifier='<value>')
 
 if res.object is not None:
     # handle response
@@ -35,8 +37,8 @@ if res.object is not None:
 
 | Parameter                                                                                                                                                             | Type                                                                                                                                                                  | Required                                                                                                                                                              | Description                                                                                                                                                           |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `x_plex_client_identifier`                                                                                                                                            | *str*                                                                                                                                                                 | :heavy_check_mark:                                                                                                                                                    | The unique identifier for the client application<br/>This is used to track the client application and its usage<br/>(UUID, serial number, or other number unique per device)<br/> |
 | `strong`                                                                                                                                                              | *Optional[bool]*                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                    | Determines the kind of code returned by the API call<br/>Strong codes are used for Pin authentication flows<br/>Non-Strong codes are used for `Plex.tv/link`<br/>     |
+| `x_plex_client_identifier`                                                                                                                                            | *Optional[str]*                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                    | The unique identifier for the client application<br/>This is used to track the client application and its usage<br/>(UUID, serial number, or other number unique per device)<br/> |
 | `server_url`                                                                                                                                                          | *Optional[str]*                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                    | An optional server URL to use.                                                                                                                                        |
 
 
@@ -59,7 +61,9 @@ Retrieve an Access Token from Plex.tv after the Pin has already been authenticat
 ```python
 import plex_api
 
-s = plex_api.PlexAPI()
+s = plex_api.PlexAPI(
+    x_plex_client_identifier='<value>',
+)
 
 
 res = s.plex.get_token(pin_id='<value>', x_plex_client_identifier='<value>')
@@ -75,7 +79,7 @@ if res is not None:
 | Parameter                                                                                                                                                             | Type                                                                                                                                                                  | Required                                                                                                                                                              | Description                                                                                                                                                           |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `pin_id`                                                                                                                                                              | *str*                                                                                                                                                                 | :heavy_check_mark:                                                                                                                                                    | The PinID to retrieve an access token for                                                                                                                             |
-| `x_plex_client_identifier`                                                                                                                                            | *str*                                                                                                                                                                 | :heavy_check_mark:                                                                                                                                                    | The unique identifier for the client application<br/>This is used to track the client application and its usage<br/>(UUID, serial number, or other number unique per device)<br/> |
+| `x_plex_client_identifier`                                                                                                                                            | *Optional[str]*                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                    | The unique identifier for the client application<br/>This is used to track the client application and its usage<br/>(UUID, serial number, or other number unique per device)<br/> |
 | `server_url`                                                                                                                                                          | *Optional[str]*                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                    | An optional server URL to use.                                                                                                                                        |
 
 

@@ -74,6 +74,7 @@ class PlexAPI:
 
     def __init__(self,
                  access_token: Union[str, Callable[[], str]],
+                 x_plex_client_identifier: str = None,
                  protocol: ServerProtocol = None,
                  ip: str = None,
                  port: str = None,
@@ -87,6 +88,8 @@ class PlexAPI:
 
         :param access_token: The access_token required for authentication
         :type access_token: Union[str, Callable[[], str]]
+        :param x_plex_client_identifier: Configures the x_plex_client_identifier parameter for all supported operations
+        :type x_plex_client_identifier: str
         :param protocol: Allows setting the protocol variable for url substitution
         :type protocol: ServerProtocol
         :param ip: Allows setting the ip variable for url substitution
@@ -123,6 +126,17 @@ class PlexAPI:
                 'port': port or '32400',
             },
         ]
+        global_params = {
+            'parameters': {
+                'queryParam': {
+                },
+                'pathParam': {
+                },
+                'header': {
+                    'x_plex_client_identifier': x_plex_client_identifier,
+                },
+            },
+        }
 
         self.sdk_configuration = SDKConfiguration(
             client,
@@ -130,6 +144,7 @@ class PlexAPI:
             server_url,
             server_idx,
             server_defaults,
+            global_params,
             retry_config=retry_config
         )
 

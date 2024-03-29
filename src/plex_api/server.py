@@ -420,7 +420,7 @@ class Server:
         else:
             headers, query_params = utils.get_security(self.sdk_configuration.security)
         
-        query_params = { **utils.get_query_params(operations.GetResizedPhotoRequest, request), **query_params }
+        query_params = { **utils.get_query_params(operations.GetResizedPhotoRequest, request, self.sdk_configuration.globals), **query_params }
         headers['Accept'] = 'application/json'
         headers['user-agent'] = self.sdk_configuration.user_agent
         client = self.sdk_configuration.client

@@ -47,7 +47,7 @@ class Search:
         else:
             headers, query_params = utils.get_security(self.sdk_configuration.security)
         
-        query_params = { **utils.get_query_params(operations.PerformSearchRequest, request), **query_params }
+        query_params = { **utils.get_query_params(operations.PerformSearchRequest, request, self.sdk_configuration.globals), **query_params }
         headers['Accept'] = 'application/json'
         headers['user-agent'] = self.sdk_configuration.user_agent
         client = self.sdk_configuration.client
@@ -117,7 +117,7 @@ class Search:
         else:
             headers, query_params = utils.get_security(self.sdk_configuration.security)
         
-        query_params = { **utils.get_query_params(operations.PerformVoiceSearchRequest, request), **query_params }
+        query_params = { **utils.get_query_params(operations.PerformVoiceSearchRequest, request, self.sdk_configuration.globals), **query_params }
         headers['Accept'] = 'application/json'
         headers['user-agent'] = self.sdk_configuration.user_agent
         client = self.sdk_configuration.client
@@ -182,7 +182,7 @@ class Search:
         else:
             headers, query_params = utils.get_security(self.sdk_configuration.security)
         
-        query_params = { **utils.get_query_params(operations.GetSearchResultsRequest, request), **query_params }
+        query_params = { **utils.get_query_params(operations.GetSearchResultsRequest, request, self.sdk_configuration.globals), **query_params }
         headers['Accept'] = 'application/json'
         headers['user-agent'] = self.sdk_configuration.user_agent
         client = self.sdk_configuration.client

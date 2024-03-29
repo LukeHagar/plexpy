@@ -16,14 +16,14 @@ class Plex:
         
     
     
-    def get_pin(self, x_plex_client_identifier: str, strong: Optional[bool] = None, server_url: Optional[str] = None) -> operations.GetPinResponse:
+    def get_pin(self, strong: Optional[bool] = None, x_plex_client_identifier: Optional[str] = None, server_url: Optional[str] = None) -> operations.GetPinResponse:
         r"""Get a Pin
         Retrieve a Pin from Plex.tv for authentication flows
         """
         hook_ctx = HookContext(operation_id='getPin', oauth2_scopes=[], security_source=None)
         request = operations.GetPinRequest(
-            x_plex_client_identifier=x_plex_client_identifier,
             strong=strong,
+            x_plex_client_identifier=x_plex_client_identifier,
         )
         
         base_url = utils.template_url(operations.GET_PIN_SERVERS[0], {
@@ -36,8 +36,8 @@ class Plex:
         headers = {}
         query_params = {}
         
-        headers = { **utils.get_headers(request), **headers }
-        query_params = { **utils.get_query_params(operations.GetPinRequest, request), **query_params }
+        headers = { **utils.get_headers(request, self.sdk_configuration.globals), **headers }
+        query_params = { **utils.get_query_params(operations.GetPinRequest, request, self.sdk_configuration.globals), **query_params }
         headers['Accept'] = 'application/json'
         headers['user-agent'] = self.sdk_configuration.user_agent
         client = self.sdk_configuration.client
@@ -89,7 +89,7 @@ class Plex:
 
     
     
-    def get_token(self, pin_id: str, x_plex_client_identifier: str, server_url: Optional[str] = None) -> operations.GetTokenResponse:
+    def get_token(self, pin_id: str, x_plex_client_identifier: Optional[str] = None, server_url: Optional[str] = None) -> operations.GetTokenResponse:
         r"""Get Access Token
         Retrieve an Access Token from Plex.tv after the Pin has already been authenticated
         """
@@ -104,11 +104,11 @@ class Plex:
         if server_url is not None:
             base_url = server_url
         
-        url = utils.generate_url(operations.GetTokenRequest, base_url, '/pins/{pinID}', request)
+        url = utils.generate_url(operations.GetTokenRequest, base_url, '/pins/{pinID}', request, self.sdk_configuration.globals)
         
         headers = {}
         
-        headers = { **utils.get_headers(request), **headers }
+        headers = { **utils.get_headers(request, self.sdk_configuration.globals), **headers }
         headers['Accept'] = 'application/json'
         headers['user-agent'] = self.sdk_configuration.user_agent
         client = self.sdk_configuration.client

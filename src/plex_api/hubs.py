@@ -35,7 +35,7 @@ class Hubs:
         else:
             headers, query_params = utils.get_security(self.sdk_configuration.security)
         
-        query_params = { **utils.get_query_params(operations.GetGlobalHubsRequest, request), **query_params }
+        query_params = { **utils.get_query_params(operations.GetGlobalHubsRequest, request, self.sdk_configuration.globals), **query_params }
         headers['Accept'] = 'application/json'
         headers['user-agent'] = self.sdk_configuration.user_agent
         client = self.sdk_configuration.client
@@ -100,14 +100,14 @@ class Hubs:
         
         base_url = utils.template_url(*self.sdk_configuration.get_server_details())
         
-        url = utils.generate_url(operations.GetLibraryHubsRequest, base_url, '/hubs/sections/{sectionId}', request)
+        url = utils.generate_url(operations.GetLibraryHubsRequest, base_url, '/hubs/sections/{sectionId}', request, self.sdk_configuration.globals)
         
         if callable(self.sdk_configuration.security):
             headers, query_params = utils.get_security(self.sdk_configuration.security())
         else:
             headers, query_params = utils.get_security(self.sdk_configuration.security)
         
-        query_params = { **utils.get_query_params(operations.GetLibraryHubsRequest, request), **query_params }
+        query_params = { **utils.get_query_params(operations.GetLibraryHubsRequest, request, self.sdk_configuration.globals), **query_params }
         headers['Accept'] = 'application/json'
         headers['user-agent'] = self.sdk_configuration.user_agent
         client = self.sdk_configuration.client

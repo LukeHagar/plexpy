@@ -101,7 +101,7 @@ class Updater:
         else:
             headers, query_params = utils.get_security(self.sdk_configuration.security)
         
-        query_params = { **utils.get_query_params(operations.CheckForUpdatesRequest, request), **query_params }
+        query_params = { **utils.get_query_params(operations.CheckForUpdatesRequest, request, self.sdk_configuration.globals), **query_params }
         headers['Accept'] = 'application/json'
         headers['user-agent'] = self.sdk_configuration.user_agent
         client = self.sdk_configuration.client
@@ -167,7 +167,7 @@ class Updater:
         else:
             headers, query_params = utils.get_security(self.sdk_configuration.security)
         
-        query_params = { **utils.get_query_params(operations.ApplyUpdatesRequest, request), **query_params }
+        query_params = { **utils.get_query_params(operations.ApplyUpdatesRequest, request, self.sdk_configuration.globals), **query_params }
         headers['Accept'] = 'application/json'
         headers['user-agent'] = self.sdk_configuration.user_agent
         client = self.sdk_configuration.client
