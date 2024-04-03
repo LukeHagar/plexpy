@@ -51,7 +51,7 @@ if res.object is not None:
 | Error Object                     | Status Code                      | Content Type                     |
 | -------------------------------- | -------------------------------- | -------------------------------- |
 | errors.GetGlobalHubsResponseBody | 401                              | application/json                 |
-| errors.SDKError                  | 4x-5xx                           | */*                              |
+| errors.SDKError                  | 4xx-5xx                          | */*                              |
 
 ## get_library_hubs
 
@@ -95,4 +95,4 @@ if res.object is not None:
 | Error Object                      | Status Code                       | Content Type                      |
 | --------------------------------- | --------------------------------- | --------------------------------- |
 | errors.GetLibraryHubsResponseBody | 401                               | application/json                  |
-| errors.SDKError                   | 4x-5xx                            | */*                               |
+| errors.SDKError                   | 4xx-5xx                           | */*                               |

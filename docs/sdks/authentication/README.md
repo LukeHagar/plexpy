@@ -52,7 +52,7 @@ if res is not None:
 | Error Object                         | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
 | errors.GetTransientTokenResponseBody | 401                                  | application/json                     |
-| errors.SDKError                      | 4x-5xx                               | */*                                  |
+| errors.SDKError                      | 4xx-5xx                              | */*                                  |
 
 ## get_source_connection_information
 
@@ -94,4 +94,4 @@ if res is not None:
 | Error Object                                      | Status Code                                       | Content Type                                      |
 | ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- |
 | errors.GetSourceConnectionInformationResponseBody | 401                                               | application/json                                  |
-| errors.SDKError                                   | 4x-5xx                                            | */*                                               |
+| errors.SDKError                                   | 4xx-5xx                                           | */*                                               |

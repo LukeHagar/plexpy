@@ -45,7 +45,7 @@ if res.object is not None:
 | Error Object                       | Status Code                        | Content Type                       |
 | ---------------------------------- | ---------------------------------- | ---------------------------------- |
 | errors.GetUpdateStatusResponseBody | 401                                | application/json                   |
-| errors.SDKError                    | 4x-5xx                             | */*                                |
+| errors.SDKError                    | 4xx-5xx                            | */*                                |
 
 ## check_for_updates
 
@@ -86,7 +86,7 @@ if res is not None:
 | Error Object                       | Status Code                        | Content Type                       |
 | ---------------------------------- | ---------------------------------- | ---------------------------------- |
 | errors.CheckForUpdatesResponseBody | 401                                | application/json                   |
-| errors.SDKError                    | 4x-5xx                             | */*                                |
+| errors.SDKError                    | 4xx-5xx                            | */*                                |
 
 ## apply_updates
 
@@ -129,4 +129,4 @@ if res is not None:
 | Error Object                    | Status Code                     | Content Type                    |
 | ------------------------------- | ------------------------------- | ------------------------------- |
 | errors.ApplyUpdatesResponseBody | 401                             | application/json                |
-| errors.SDKError                 | 4x-5xx                          | */*                             |
+| errors.SDKError                 | 4xx-5xx                         | */*                             |

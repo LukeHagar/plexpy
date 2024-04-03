@@ -16,6 +16,7 @@ from .server import Server
 from .sessions import Sessions
 from .statistics import Statistics
 from .updater import Updater
+from .utils.retries import RetryConfig
 from .video import Video
 from plex_api import utils
 from plex_api._hooks import SDKHooks
@@ -82,7 +83,7 @@ class PlexAPI:
                  server_url: Optional[str] = None,
                  url_params: Optional[Dict[str, str]] = None,
                  client: Optional[requests_http.Session] = None,
-                 retry_config: Optional[utils.RetryConfig] = None
+                 retry_config: Optional[RetryConfig] = None
                  ) -> None:
         """Instantiates the SDK configuring it with the provided parameters.
 
@@ -105,7 +106,7 @@ class PlexAPI:
         :param client: The requests.Session HTTP client to use for all operations
         :type client: requests_http.Session
         :param retry_config: The utils.RetryConfig to use globally
-        :type retry_config: utils.RetryConfig
+        :type retry_config: RetryConfig
         """
         if client is None:
             client = requests_http.Session()

@@ -49,7 +49,7 @@ if res.object is not None:
 | Error Object                           | Status Code                            | Content Type                           |
 | -------------------------------------- | -------------------------------------- | -------------------------------------- |
 | errors.GetServerActivitiesResponseBody | 401                                    | application/json                       |
-| errors.SDKError                        | 4x-5xx                                 | */*                                    |
+| errors.SDKError                        | 4xx-5xx                                | */*                                    |
 
 ## cancel_server_activities
 
@@ -89,4 +89,4 @@ if res is not None:
 | Error Object                              | Status Code                               | Content Type                              |
 | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
 | errors.CancelServerActivitiesResponseBody | 401                                       | application/json                          |
-| errors.SDKError                           | 4x-5xx                                    | */*                                       |
+| errors.SDKError                           | 4xx-5xx                                   | */*                                       |

@@ -45,7 +45,7 @@ if res.object is not None:
 | Error Object                   | Status Code                    | Content Type                   |
 | ------------------------------ | ------------------------------ | ------------------------------ |
 | errors.GetSessionsResponseBody | 401                            | application/json               |
-| errors.SDKError                | 4x-5xx                         | */*                            |
+| errors.SDKError                | 4xx-5xx                        | */*                            |
 
 ## get_session_history
 
@@ -79,7 +79,7 @@ if res.object is not None:
 | Error Object                         | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
 | errors.GetSessionHistoryResponseBody | 401                                  | application/json                     |
-| errors.SDKError                      | 4x-5xx                               | */*                                  |
+| errors.SDKError                      | 4xx-5xx                              | */*                                  |
 
 ## get_transcode_sessions
 
@@ -113,7 +113,7 @@ if res.object is not None:
 | Error Object                            | Status Code                             | Content Type                            |
 | --------------------------------------- | --------------------------------------- | --------------------------------------- |
 | errors.GetTranscodeSessionsResponseBody | 401                                     | application/json                        |
-| errors.SDKError                         | 4x-5xx                                  | */*                                     |
+| errors.SDKError                         | 4xx-5xx                                 | */*                                     |
 
 ## stop_transcode_session
 
@@ -153,4 +153,4 @@ if res is not None:
 | Error Object                            | Status Code                             | Content Type                            |
 | --------------------------------------- | --------------------------------------- | --------------------------------------- |
 | errors.StopTranscodeSessionResponseBody | 401                                     | application/json                        |
-| errors.SDKError                         | 4x-5xx                                  | */*                                     |
+| errors.SDKError                         | 4xx-5xx                                 | */*                                     |

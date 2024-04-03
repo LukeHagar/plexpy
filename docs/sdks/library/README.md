@@ -59,7 +59,7 @@ if res is not None:
 | Error Object                   | Status Code                    | Content Type                   |
 | ------------------------------ | ------------------------------ | ------------------------------ |
 | errors.GetFileHashResponseBody | 401                            | application/json               |
-| errors.SDKError                | 4x-5xx                         | */*                            |
+| errors.SDKError                | 4xx-5xx                        | */*                            |
 
 ## get_recently_added
 
@@ -94,7 +94,7 @@ if res.object is not None:
 | Error Object                        | Status Code                         | Content Type                        |
 | ----------------------------------- | ----------------------------------- | ----------------------------------- |
 | errors.GetRecentlyAddedResponseBody | 401                                 | application/json                    |
-| errors.SDKError                     | 4x-5xx                              | */*                                 |
+| errors.SDKError                     | 4xx-5xx                             | */*                                 |
 
 ## get_libraries
 
@@ -134,7 +134,7 @@ if res.object is not None:
 | Error Object                    | Status Code                     | Content Type                    |
 | ------------------------------- | ------------------------------- | ------------------------------- |
 | errors.GetLibrariesResponseBody | 401                             | application/json                |
-| errors.SDKError                 | 4x-5xx                          | */*                             |
+| errors.SDKError                 | 4xx-5xx                         | */*                             |
 
 ## get_library
 
@@ -215,7 +215,7 @@ if res.object is not None:
 | Error Object                  | Status Code                   | Content Type                  |
 | ----------------------------- | ----------------------------- | ----------------------------- |
 | errors.GetLibraryResponseBody | 401                           | application/json              |
-| errors.SDKError               | 4x-5xx                        | */*                           |
+| errors.SDKError               | 4xx-5xx                       | */*                           |
 
 ## delete_library
 
@@ -255,7 +255,7 @@ if res is not None:
 | Error Object                     | Status Code                      | Content Type                     |
 | -------------------------------- | -------------------------------- | -------------------------------- |
 | errors.DeleteLibraryResponseBody | 401                              | application/json                 |
-| errors.SDKError                  | 4x-5xx                           | */*                              |
+| errors.SDKError                  | 4xx-5xx                          | */*                              |
 
 ## get_library_items
 
@@ -316,7 +316,7 @@ if res.object is not None:
 
 | Error Object    | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4x-5xx          | */*             |
+| errors.SDKError | 4xx-5xx         | */*             |
 
 ## refresh_library
 
@@ -357,7 +357,7 @@ if res is not None:
 | Error Object                      | Status Code                       | Content Type                      |
 | --------------------------------- | --------------------------------- | --------------------------------- |
 | errors.RefreshLibraryResponseBody | 401                               | application/json                  |
-| errors.SDKError                   | 4x-5xx                            | */*                               |
+| errors.SDKError                   | 4xx-5xx                           | */*                               |
 
 ## search_library
 
@@ -416,7 +416,7 @@ if res.object is not None:
 
 | Error Object    | Status Code     | Content Type    |
 | --------------- | --------------- | --------------- |
-| errors.SDKError | 4x-5xx          | */*             |
+| errors.SDKError | 4xx-5xx         | */*             |
 
 ## get_metadata
 
@@ -457,7 +457,7 @@ if res.object is not None:
 | Error Object                   | Status Code                    | Content Type                   |
 | ------------------------------ | ------------------------------ | ------------------------------ |
 | errors.GetMetadataResponseBody | 401                            | application/json               |
-| errors.SDKError                | 4x-5xx                         | */*                            |
+| errors.SDKError                | 4xx-5xx                        | */*                            |
 
 ## get_metadata_children
 
@@ -498,7 +498,7 @@ if res.object is not None:
 | Error Object                           | Status Code                            | Content Type                           |
 | -------------------------------------- | -------------------------------------- | -------------------------------------- |
 | errors.GetMetadataChildrenResponseBody | 401                                    | application/json                       |
-| errors.SDKError                        | 4x-5xx                                 | */*                                    |
+| errors.SDKError                        | 4xx-5xx                                | */*                                    |
 
 ## get_on_deck
 
@@ -533,4 +533,4 @@ if res.object is not None:
 | Error Object                 | Status Code                  | Content Type                 |
 | ---------------------------- | ---------------------------- | ---------------------------- |
 | errors.GetOnDeckResponseBody | 401                          | application/json             |
-| errors.SDKError              | 4x-5xx                       | */*                          |
+| errors.SDKError              | 4xx-5xx                      | */*                          |

@@ -46,7 +46,7 @@ if res.object is not None:
 | Error Object                      | Status Code                       | Content Type                      |
 | --------------------------------- | --------------------------------- | --------------------------------- |
 | errors.GetButlerTasksResponseBody | 401                               | application/json                  |
-| errors.SDKError                   | 4x-5xx                            | */*                               |
+| errors.SDKError                   | 4xx-5xx                           | */*                               |
 
 ## start_all_tasks
 
@@ -85,7 +85,7 @@ if res is not None:
 | Error Object                     | Status Code                      | Content Type                     |
 | -------------------------------- | -------------------------------- | -------------------------------- |
 | errors.StartAllTasksResponseBody | 401                              | application/json                 |
-| errors.SDKError                  | 4x-5xx                           | */*                              |
+| errors.SDKError                  | 4xx-5xx                          | */*                              |
 
 ## stop_all_tasks
 
@@ -120,7 +120,7 @@ if res is not None:
 | Error Object                    | Status Code                     | Content Type                    |
 | ------------------------------- | ------------------------------- | ------------------------------- |
 | errors.StopAllTasksResponseBody | 401                             | application/json                |
-| errors.SDKError                 | 4x-5xx                          | */*                             |
+| errors.SDKError                 | 4xx-5xx                         | */*                             |
 
 ## start_task
 
@@ -166,7 +166,7 @@ if res is not None:
 | Error Object                 | Status Code                  | Content Type                 |
 | ---------------------------- | ---------------------------- | ---------------------------- |
 | errors.StartTaskResponseBody | 401                          | application/json             |
-| errors.SDKError              | 4x-5xx                       | */*                          |
+| errors.SDKError              | 4xx-5xx                      | */*                          |
 
 ## stop_task
 
@@ -208,4 +208,4 @@ if res is not None:
 | Error Object                | Status Code                 | Content Type                |
 | --------------------------- | --------------------------- | --------------------------- |
 | errors.StopTaskResponseBody | 401                         | application/json            |
-| errors.SDKError             | 4x-5xx                      | */*                         |
+| errors.SDKError             | 4xx-5xx                     | */*                         |

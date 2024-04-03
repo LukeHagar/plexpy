@@ -69,7 +69,7 @@ if res.object is not None:
 | Error Object                      | Status Code                       | Content Type                      |
 | --------------------------------- | --------------------------------- | --------------------------------- |
 | errors.CreatePlaylistResponseBody | 401                               | application/json                  |
-| errors.SDKError                   | 4x-5xx                            | */*                               |
+| errors.SDKError                   | 4xx-5xx                           | */*                               |
 
 ## get_playlists
 
@@ -111,7 +111,7 @@ if res.object is not None:
 | Error Object                    | Status Code                     | Content Type                    |
 | ------------------------------- | ------------------------------- | ------------------------------- |
 | errors.GetPlaylistsResponseBody | 401                             | application/json                |
-| errors.SDKError                 | 4x-5xx                          | */*                             |
+| errors.SDKError                 | 4xx-5xx                         | */*                             |
 
 ## get_playlist
 
@@ -153,7 +153,7 @@ if res.object is not None:
 | Error Object                   | Status Code                    | Content Type                   |
 | ------------------------------ | ------------------------------ | ------------------------------ |
 | errors.GetPlaylistResponseBody | 401                            | application/json               |
-| errors.SDKError                | 4x-5xx                         | */*                            |
+| errors.SDKError                | 4xx-5xx                        | */*                            |
 
 ## delete_playlist
 
@@ -194,7 +194,7 @@ if res is not None:
 | Error Object                      | Status Code                       | Content Type                      |
 | --------------------------------- | --------------------------------- | --------------------------------- |
 | errors.DeletePlaylistResponseBody | 401                               | application/json                  |
-| errors.SDKError                   | 4x-5xx                            | */*                               |
+| errors.SDKError                   | 4xx-5xx                           | */*                               |
 
 ## update_playlist
 
@@ -237,7 +237,7 @@ if res is not None:
 | Error Object                      | Status Code                       | Content Type                      |
 | --------------------------------- | --------------------------------- | --------------------------------- |
 | errors.UpdatePlaylistResponseBody | 401                               | application/json                  |
-| errors.SDKError                   | 4x-5xx                            | */*                               |
+| errors.SDKError                   | 4xx-5xx                           | */*                               |
 
 ## get_playlist_contents
 
@@ -282,7 +282,7 @@ if res.object is not None:
 | Error Object                           | Status Code                            | Content Type                           |
 | -------------------------------------- | -------------------------------------- | -------------------------------------- |
 | errors.GetPlaylistContentsResponseBody | 401                                    | application/json                       |
-| errors.SDKError                        | 4x-5xx                                 | */*                                    |
+| errors.SDKError                        | 4xx-5xx                                | */*                                    |
 
 ## clear_playlist_contents
 
@@ -323,7 +323,7 @@ if res is not None:
 | Error Object                             | Status Code                              | Content Type                             |
 | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
 | errors.ClearPlaylistContentsResponseBody | 401                                      | application/json                         |
-| errors.SDKError                          | 4x-5xx                                   | */*                                      |
+| errors.SDKError                          | 4xx-5xx                                  | */*                                      |
 
 ## add_playlist_contents
 
@@ -367,7 +367,7 @@ if res.object is not None:
 | Error Object                           | Status Code                            | Content Type                           |
 | -------------------------------------- | -------------------------------------- | -------------------------------------- |
 | errors.AddPlaylistContentsResponseBody | 401                                    | application/json                       |
-| errors.SDKError                        | 4x-5xx                                 | */*                                    |
+| errors.SDKError                        | 4xx-5xx                                | */*                                    |
 
 ## upload_playlist
 
@@ -410,4 +410,4 @@ if res is not None:
 | Error Object                      | Status Code                       | Content Type                      |
 | --------------------------------- | --------------------------------- | --------------------------------- |
 | errors.UploadPlaylistResponseBody | 401                               | application/json                  |
-| errors.SDKError                   | 4x-5xx                            | */*                               |
+| errors.SDKError                   | 4xx-5xx                           | */*                               |

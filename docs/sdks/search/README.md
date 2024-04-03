@@ -64,7 +64,7 @@ if res is not None:
 | Error Object                     | Status Code                      | Content Type                     |
 | -------------------------------- | -------------------------------- | -------------------------------- |
 | errors.PerformSearchResponseBody | 401                              | application/json                 |
-| errors.SDKError                  | 4x-5xx                           | */*                              |
+| errors.SDKError                  | 4xx-5xx                          | */*                              |
 
 ## perform_voice_search
 
@@ -110,7 +110,7 @@ if res is not None:
 | Error Object                          | Status Code                           | Content Type                          |
 | ------------------------------------- | ------------------------------------- | ------------------------------------- |
 | errors.PerformVoiceSearchResponseBody | 401                                   | application/json                      |
-| errors.SDKError                       | 4x-5xx                                | */*                                   |
+| errors.SDKError                       | 4xx-5xx                               | */*                                   |
 
 ## get_search_results
 
@@ -150,4 +150,4 @@ if res.object is not None:
 | Error Object                        | Status Code                         | Content Type                        |
 | ----------------------------------- | ----------------------------------- | ----------------------------------- |
 | errors.GetSearchResultsResponseBody | 401                                 | application/json                    |
-| errors.SDKError                     | 4x-5xx                              | */*                                 |
+| errors.SDKError                     | 4xx-5xx                             | */*                                 |

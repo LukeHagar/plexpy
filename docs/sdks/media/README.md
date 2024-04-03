@@ -50,7 +50,7 @@ if res is not None:
 | Error Object                  | Status Code                   | Content Type                  |
 | ----------------------------- | ----------------------------- | ----------------------------- |
 | errors.MarkPlayedResponseBody | 401                           | application/json              |
-| errors.SDKError               | 4x-5xx                        | */*                           |
+| errors.SDKError               | 4xx-5xx                       | */*                           |
 
 ## mark_unplayed
 
@@ -90,7 +90,7 @@ if res is not None:
 | Error Object                    | Status Code                     | Content Type                    |
 | ------------------------------- | ------------------------------- | ------------------------------- |
 | errors.MarkUnplayedResponseBody | 401                             | application/json                |
-| errors.SDKError                 | 4x-5xx                          | */*                             |
+| errors.SDKError                 | 4xx-5xx                         | */*                             |
 
 ## update_play_progress
 
@@ -133,4 +133,4 @@ if res is not None:
 | Error Object                          | Status Code                           | Content Type                          |
 | ------------------------------------- | ------------------------------------- | ------------------------------------- |
 | errors.UpdatePlayProgressResponseBody | 401                                   | application/json                      |
-| errors.SDKError                       | 4x-5xx                                | */*                                   |
+| errors.SDKError                       | 4xx-5xx                               | */*                                   |

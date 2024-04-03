@@ -62,7 +62,7 @@ if res is not None:
 | Error Object                   | Status Code                    | Content Type                   |
 | ------------------------------ | ------------------------------ | ------------------------------ |
 | errors.GetTimelineResponseBody | 401                            | application/json               |
-| errors.SDKError                | 4x-5xx                         | */*                            |
+| errors.SDKError                | 4xx-5xx                        | */*                            |
 
 ## start_universal_transcode
 
@@ -110,4 +110,4 @@ if res is not None:
 | Error Object                               | Status Code                                | Content Type                               |
 | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
 | errors.StartUniversalTranscodeResponseBody | 401                                        | application/json                           |
-| errors.SDKError                            | 4x-5xx                                     | */*                                        |
+| errors.SDKError                            | 4xx-5xx                                    | */*                                        |

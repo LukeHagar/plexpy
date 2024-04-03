@@ -49,7 +49,7 @@ if res.object is not None:
 | Error Object                             | Status Code                              | Content Type                             |
 | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
 | errors.GetServerCapabilitiesResponseBody | 401                                      | application/json                         |
-| errors.SDKError                          | 4x-5xx                                   | */*                                      |
+| errors.SDKError                          | 4xx-5xx                                  | */*                                      |
 
 ## get_server_preferences
 
@@ -83,7 +83,7 @@ if res.object is not None:
 | Error Object                            | Status Code                             | Content Type                            |
 | --------------------------------------- | --------------------------------------- | --------------------------------------- |
 | errors.GetServerPreferencesResponseBody | 401                                     | application/json                        |
-| errors.SDKError                         | 4x-5xx                                  | */*                                     |
+| errors.SDKError                         | 4xx-5xx                                 | */*                                     |
 
 ## get_available_clients
 
@@ -117,7 +117,7 @@ if res.object is not None:
 | Error Object                           | Status Code                            | Content Type                           |
 | -------------------------------------- | -------------------------------------- | -------------------------------------- |
 | errors.GetAvailableClientsResponseBody | 401                                    | application/json                       |
-| errors.SDKError                        | 4x-5xx                                 | */*                                    |
+| errors.SDKError                        | 4xx-5xx                                | */*                                    |
 
 ## get_devices
 
@@ -151,7 +151,7 @@ if res.object is not None:
 | Error Object                  | Status Code                   | Content Type                  |
 | ----------------------------- | ----------------------------- | ----------------------------- |
 | errors.GetDevicesResponseBody | 401                           | application/json              |
-| errors.SDKError               | 4x-5xx                        | */*                           |
+| errors.SDKError               | 4xx-5xx                       | */*                           |
 
 ## get_server_identity
 
@@ -185,7 +185,7 @@ if res.object is not None:
 | Error Object                         | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
 | errors.GetServerIdentityResponseBody | 401                                  | application/json                     |
-| errors.SDKError                      | 4x-5xx                               | */*                                  |
+| errors.SDKError                      | 4xx-5xx                              | */*                                  |
 
 ## get_my_plex_account
 
@@ -219,7 +219,7 @@ if res.object is not None:
 | Error Object                        | Status Code                         | Content Type                        |
 | ----------------------------------- | ----------------------------------- | ----------------------------------- |
 | errors.GetMyPlexAccountResponseBody | 401                                 | application/json                    |
-| errors.SDKError                     | 4x-5xx                              | */*                                 |
+| errors.SDKError                     | 4xx-5xx                             | */*                                 |
 
 ## get_resized_photo
 
@@ -270,7 +270,7 @@ if res is not None:
 | Error Object                       | Status Code                        | Content Type                       |
 | ---------------------------------- | ---------------------------------- | ---------------------------------- |
 | errors.GetResizedPhotoResponseBody | 401                                | application/json                   |
-| errors.SDKError                    | 4x-5xx                             | */*                                |
+| errors.SDKError                    | 4xx-5xx                            | */*                                |
 
 ## get_server_list
 
@@ -304,4 +304,4 @@ if res.object is not None:
 | Error Object                     | Status Code                      | Content Type                     |
 | -------------------------------- | -------------------------------- | -------------------------------- |
 | errors.GetServerListResponseBody | 401                              | application/json                 |
-| errors.SDKError                  | 4x-5xx                           | */*                              |
+| errors.SDKError                  | 4xx-5xx                          | */*                              |

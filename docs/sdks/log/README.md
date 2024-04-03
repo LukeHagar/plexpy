@@ -54,7 +54,7 @@ if res is not None:
 | Error Object               | Status Code                | Content Type               |
 | -------------------------- | -------------------------- | -------------------------- |
 | errors.LogLineResponseBody | 401                        | application/json           |
-| errors.SDKError            | 4x-5xx                     | */*                        |
+| errors.SDKError            | 4xx-5xx                    | */*                        |
 
 ## log_multi_line
 
@@ -118,7 +118,7 @@ if res is not None:
 | Error Object                    | Status Code                     | Content Type                    |
 | ------------------------------- | ------------------------------- | ------------------------------- |
 | errors.LogMultiLineResponseBody | 401                             | application/json                |
-| errors.SDKError                 | 4x-5xx                          | */*                             |
+| errors.SDKError                 | 4xx-5xx                         | */*                             |
 
 ## enable_paper_trail
 
@@ -153,4 +153,4 @@ if res is not None:
 | Error Object                        | Status Code                         | Content Type                        |
 | ----------------------------------- | ----------------------------------- | ----------------------------------- |
 | errors.EnablePaperTrailResponseBody | 401                                 | application/json                    |
-| errors.SDKError                     | 4x-5xx                              | */*                                 |
+| errors.SDKError                     | 4xx-5xx                             | */*                                 |
