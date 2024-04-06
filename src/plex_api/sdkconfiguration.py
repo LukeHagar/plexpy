@@ -33,9 +33,9 @@ class SDKConfiguration:
     globals: Dict[str, Dict[str, Dict[str, Any]]] = field(default_factory=Dict)
     language: str = 'python'
     openapi_doc_version: str = '0.0.3'
-    sdk_version: str = '0.6.1'
-    gen_version: str = '2.298.2'
-    user_agent: str = 'speakeasy-sdk/python 0.6.1 2.298.2 0.0.3 plex-api-client'
+    sdk_version: str = '0.6.2'
+    gen_version: str = '2.300.0'
+    user_agent: str = 'speakeasy-sdk/python 0.6.2 2.300.0 0.0.3 plex-api-client'
     retry_config: Optional[RetryConfig] = None
     _hooks: Optional[SDKHooks] = None
 
