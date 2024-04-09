@@ -36,7 +36,7 @@ class Playlists:
         else:
             headers, query_params = utils.get_security(self.sdk_configuration.security)
         
-        query_params = { **utils.get_query_params(operations.CreatePlaylistRequest, request, self.sdk_configuration.globals), **query_params }
+        query_params = { **utils.get_query_params(request), **query_params }
         headers['Accept'] = 'application/json'
         headers['user-agent'] = self.sdk_configuration.user_agent
         client = self.sdk_configuration.client
@@ -106,7 +106,7 @@ class Playlists:
         else:
             headers, query_params = utils.get_security(self.sdk_configuration.security)
         
-        query_params = { **utils.get_query_params(operations.GetPlaylistsRequest, request, self.sdk_configuration.globals), **query_params }
+        query_params = { **utils.get_query_params(request), **query_params }
         headers['Accept'] = 'application/json'
         headers['user-agent'] = self.sdk_configuration.user_agent
         client = self.sdk_configuration.client
@@ -169,7 +169,7 @@ class Playlists:
         
         base_url = utils.template_url(*self.sdk_configuration.get_server_details())
         
-        url = utils.generate_url(operations.GetPlaylistRequest, base_url, '/playlists/{playlistID}', request, self.sdk_configuration.globals)
+        url = utils.generate_url(base_url, '/playlists/{playlistID}', request)
         
         if callable(self.sdk_configuration.security):
             headers, query_params = utils.get_security(self.sdk_configuration.security())
@@ -237,7 +237,7 @@ class Playlists:
         
         base_url = utils.template_url(*self.sdk_configuration.get_server_details())
         
-        url = utils.generate_url(operations.DeletePlaylistRequest, base_url, '/playlists/{playlistID}', request, self.sdk_configuration.globals)
+        url = utils.generate_url(base_url, '/playlists/{playlistID}', request)
         
         if callable(self.sdk_configuration.security):
             headers, query_params = utils.get_security(self.sdk_configuration.security())
@@ -302,14 +302,14 @@ class Playlists:
         
         base_url = utils.template_url(*self.sdk_configuration.get_server_details())
         
-        url = utils.generate_url(operations.UpdatePlaylistRequest, base_url, '/playlists/{playlistID}', request, self.sdk_configuration.globals)
+        url = utils.generate_url(base_url, '/playlists/{playlistID}', request)
         
         if callable(self.sdk_configuration.security):
             headers, query_params = utils.get_security(self.sdk_configuration.security())
         else:
             headers, query_params = utils.get_security(self.sdk_configuration.security)
         
-        query_params = { **utils.get_query_params(operations.UpdatePlaylistRequest, request, self.sdk_configuration.globals), **query_params }
+        query_params = { **utils.get_query_params(request), **query_params }
         headers['Accept'] = 'application/json'
         headers['user-agent'] = self.sdk_configuration.user_agent
         client = self.sdk_configuration.client
@@ -370,14 +370,14 @@ class Playlists:
         
         base_url = utils.template_url(*self.sdk_configuration.get_server_details())
         
-        url = utils.generate_url(operations.GetPlaylistContentsRequest, base_url, '/playlists/{playlistID}/items', request, self.sdk_configuration.globals)
+        url = utils.generate_url(base_url, '/playlists/{playlistID}/items', request)
         
         if callable(self.sdk_configuration.security):
             headers, query_params = utils.get_security(self.sdk_configuration.security())
         else:
             headers, query_params = utils.get_security(self.sdk_configuration.security)
         
-        query_params = { **utils.get_query_params(operations.GetPlaylistContentsRequest, request, self.sdk_configuration.globals), **query_params }
+        query_params = { **utils.get_query_params(request), **query_params }
         headers['Accept'] = 'application/json'
         headers['user-agent'] = self.sdk_configuration.user_agent
         client = self.sdk_configuration.client
@@ -439,7 +439,7 @@ class Playlists:
         
         base_url = utils.template_url(*self.sdk_configuration.get_server_details())
         
-        url = utils.generate_url(operations.ClearPlaylistContentsRequest, base_url, '/playlists/{playlistID}/items', request, self.sdk_configuration.globals)
+        url = utils.generate_url(base_url, '/playlists/{playlistID}/items', request)
         
         if callable(self.sdk_configuration.security):
             headers, query_params = utils.get_security(self.sdk_configuration.security())
@@ -505,14 +505,14 @@ class Playlists:
         
         base_url = utils.template_url(*self.sdk_configuration.get_server_details())
         
-        url = utils.generate_url(operations.AddPlaylistContentsRequest, base_url, '/playlists/{playlistID}/items', request, self.sdk_configuration.globals)
+        url = utils.generate_url(base_url, '/playlists/{playlistID}/items', request)
         
         if callable(self.sdk_configuration.security):
             headers, query_params = utils.get_security(self.sdk_configuration.security())
         else:
             headers, query_params = utils.get_security(self.sdk_configuration.security)
         
-        query_params = { **utils.get_query_params(operations.AddPlaylistContentsRequest, request, self.sdk_configuration.globals), **query_params }
+        query_params = { **utils.get_query_params(request), **query_params }
         headers['Accept'] = 'application/json'
         headers['user-agent'] = self.sdk_configuration.user_agent
         client = self.sdk_configuration.client
@@ -582,7 +582,7 @@ class Playlists:
         else:
             headers, query_params = utils.get_security(self.sdk_configuration.security)
         
-        query_params = { **utils.get_query_params(operations.UploadPlaylistRequest, request, self.sdk_configuration.globals), **query_params }
+        query_params = { **utils.get_query_params(request), **query_params }
         headers['Accept'] = 'application/json'
         headers['user-agent'] = self.sdk_configuration.user_agent
         client = self.sdk_configuration.client

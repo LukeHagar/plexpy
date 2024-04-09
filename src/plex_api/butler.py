@@ -217,7 +217,7 @@ class Butler:
         
         base_url = utils.template_url(*self.sdk_configuration.get_server_details())
         
-        url = utils.generate_url(operations.StartTaskRequest, base_url, '/butler/{taskName}', request, self.sdk_configuration.globals)
+        url = utils.generate_url(base_url, '/butler/{taskName}', request)
         
         if callable(self.sdk_configuration.security):
             headers, query_params = utils.get_security(self.sdk_configuration.security())
@@ -280,7 +280,7 @@ class Butler:
         
         base_url = utils.template_url(*self.sdk_configuration.get_server_details())
         
-        url = utils.generate_url(operations.StopTaskRequest, base_url, '/butler/{taskName}', request, self.sdk_configuration.globals)
+        url = utils.generate_url(base_url, '/butler/{taskName}', request)
         
         if callable(self.sdk_configuration.security):
             headers, query_params = utils.get_security(self.sdk_configuration.security())

@@ -35,7 +35,7 @@ class Library:
         else:
             headers, query_params = utils.get_security(self.sdk_configuration.security)
         
-        query_params = { **utils.get_query_params(operations.GetFileHashRequest, request, self.sdk_configuration.globals), **query_params }
+        query_params = { **utils.get_query_params(request), **query_params }
         headers['Accept'] = 'application/json'
         headers['user-agent'] = self.sdk_configuration.user_agent
         client = self.sdk_configuration.client
@@ -264,14 +264,14 @@ class Library:
         
         base_url = utils.template_url(*self.sdk_configuration.get_server_details())
         
-        url = utils.generate_url(operations.GetLibraryRequest, base_url, '/library/sections/{sectionId}', request, self.sdk_configuration.globals)
+        url = utils.generate_url(base_url, '/library/sections/{sectionId}', request)
         
         if callable(self.sdk_configuration.security):
             headers, query_params = utils.get_security(self.sdk_configuration.security())
         else:
             headers, query_params = utils.get_security(self.sdk_configuration.security)
         
-        query_params = { **utils.get_query_params(operations.GetLibraryRequest, request, self.sdk_configuration.globals), **query_params }
+        query_params = { **utils.get_query_params(request), **query_params }
         headers['Accept'] = 'application/json'
         headers['user-agent'] = self.sdk_configuration.user_agent
         client = self.sdk_configuration.client
@@ -333,7 +333,7 @@ class Library:
         
         base_url = utils.template_url(*self.sdk_configuration.get_server_details())
         
-        url = utils.generate_url(operations.DeleteLibraryRequest, base_url, '/library/sections/{sectionId}', request, self.sdk_configuration.globals)
+        url = utils.generate_url(base_url, '/library/sections/{sectionId}', request)
         
         if callable(self.sdk_configuration.security):
             headers, query_params = utils.get_security(self.sdk_configuration.security())
@@ -416,7 +416,7 @@ class Library:
         
         base_url = utils.template_url(*self.sdk_configuration.get_server_details())
         
-        url = utils.generate_url(operations.GetLibraryItemsRequest, base_url, '/library/sections/{sectionId}/{tag}', request, self.sdk_configuration.globals)
+        url = utils.generate_url(base_url, '/library/sections/{sectionId}/{tag}', request)
         
         if callable(self.sdk_configuration.security):
             headers, query_params = utils.get_security(self.sdk_configuration.security())
@@ -476,7 +476,7 @@ class Library:
         
         base_url = utils.template_url(*self.sdk_configuration.get_server_details())
         
-        url = utils.generate_url(operations.RefreshLibraryRequest, base_url, '/library/sections/{sectionId}/refresh', request, self.sdk_configuration.globals)
+        url = utils.generate_url(base_url, '/library/sections/{sectionId}/refresh', request)
         
         if callable(self.sdk_configuration.security):
             headers, query_params = utils.get_security(self.sdk_configuration.security())
@@ -557,14 +557,14 @@ class Library:
         
         base_url = utils.template_url(*self.sdk_configuration.get_server_details())
         
-        url = utils.generate_url(operations.SearchLibraryRequest, base_url, '/library/sections/{sectionId}/search', request, self.sdk_configuration.globals)
+        url = utils.generate_url(base_url, '/library/sections/{sectionId}/search', request)
         
         if callable(self.sdk_configuration.security):
             headers, query_params = utils.get_security(self.sdk_configuration.security())
         else:
             headers, query_params = utils.get_security(self.sdk_configuration.security)
         
-        query_params = { **utils.get_query_params(operations.SearchLibraryRequest, request, self.sdk_configuration.globals), **query_params }
+        query_params = { **utils.get_query_params(request), **query_params }
         headers['Accept'] = 'application/json'
         headers['user-agent'] = self.sdk_configuration.user_agent
         client = self.sdk_configuration.client
@@ -618,7 +618,7 @@ class Library:
         
         base_url = utils.template_url(*self.sdk_configuration.get_server_details())
         
-        url = utils.generate_url(operations.GetMetadataRequest, base_url, '/library/metadata/{ratingKey}', request, self.sdk_configuration.globals)
+        url = utils.generate_url(base_url, '/library/metadata/{ratingKey}', request)
         
         if callable(self.sdk_configuration.security):
             headers, query_params = utils.get_security(self.sdk_configuration.security())
@@ -686,7 +686,7 @@ class Library:
         
         base_url = utils.template_url(*self.sdk_configuration.get_server_details())
         
-        url = utils.generate_url(operations.GetMetadataChildrenRequest, base_url, '/library/metadata/{ratingKey}/children', request, self.sdk_configuration.globals)
+        url = utils.generate_url(base_url, '/library/metadata/{ratingKey}/children', request)
         
         if callable(self.sdk_configuration.security):
             headers, query_params = utils.get_security(self.sdk_configuration.security())

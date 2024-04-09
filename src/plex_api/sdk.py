@@ -20,7 +20,7 @@ from .utils.retries import RetryConfig
 from .video import Video
 from plex_api import utils
 from plex_api._hooks import SDKHooks
-from plex_api.models import components
+from plex_api.models import components, internal
 from typing import Callable, Dict, Optional, Union
 
 class PlexAPI:
@@ -127,25 +127,18 @@ class PlexAPI:
                 'port': port or '32400',
             },
         ]
-        global_params = {
-            'parameters': {
-                'queryParam': {
-                },
-                'pathParam': {
-                },
-                'header': {
-                    'x_plex_client_identifier': x_plex_client_identifier,
-                },
-            },
-        }
+    
+        _globals = internal.Globals(
+            x_plex_client_identifier=x_plex_client_identifier,
+        )
 
         self.sdk_configuration = SDKConfiguration(
             client,
+            _globals,
             security,
             server_url,
             server_idx,
             server_defaults,
-            global_params,
             retry_config=retry_config
         )
 
@@ -157,7 +150,7 @@ class PlexAPI:
             self.sdk_configuration.server_url = server_url
 
         # pylint: disable=protected-access
-        self.sdk_configuration._hooks = hooks
+        self.sdk_configuration.__dict__['_hooks'] = hooks
 
         self._init_sdks()
 

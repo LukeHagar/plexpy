@@ -98,7 +98,7 @@ class Activities:
         
         base_url = utils.template_url(*self.sdk_configuration.get_server_details())
         
-        url = utils.generate_url(operations.CancelServerActivitiesRequest, base_url, '/activities/{activityUUID}', request, self.sdk_configuration.globals)
+        url = utils.generate_url(base_url, '/activities/{activityUUID}', request)
         
         if callable(self.sdk_configuration.security):
             headers, query_params = utils.get_security(self.sdk_configuration.security())

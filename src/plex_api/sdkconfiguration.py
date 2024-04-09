@@ -7,8 +7,8 @@ from .utils import utils
 from .utils.retries import RetryConfig
 from dataclasses import dataclass, field
 from enum import Enum
-from plex_api.models import components
-from typing import Any, Callable, Dict, List, Optional, Tuple, Union
+from plex_api.models import components, internal
+from typing import Callable, Dict, List, Optional, Tuple, Union
 
 
 SERVERS = [
@@ -26,18 +26,20 @@ class ServerProtocol(str, Enum):
 @dataclass
 class SDKConfiguration:
     client: requests_http.Session
+    globals: internal.Globals
     security: Union[components.Security,Callable[[], components.Security]] = None
     server_url: Optional[str] = ''
     server_idx: Optional[int] = 0
     server_defaults: List[Dict[str, str]] = field(default_factory=List)
-    globals: Dict[str, Dict[str, Dict[str, Any]]] = field(default_factory=Dict)
     language: str = 'python'
     openapi_doc_version: str = '0.0.3'
-    sdk_version: str = '0.6.2'
-    gen_version: str = '2.300.0'
-    user_agent: str = 'speakeasy-sdk/python 0.6.2 2.300.0 0.0.3 plex-api-client'
+    sdk_version: str = '0.6.3'
+    gen_version: str = '2.301.0'
+    user_agent: str = 'speakeasy-sdk/python 0.6.3 2.301.0 0.0.3 plex-api-client'
     retry_config: Optional[RetryConfig] = None
-    _hooks: Optional[SDKHooks] = None
+
+    def __post_init__(self):
+        self._hooks = SDKHooks()
 
     def get_server_details(self) -> Tuple[str, Dict[str, str]]:
         if self.server_url is not None and self.server_url != '':

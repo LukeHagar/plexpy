@@ -219,7 +219,7 @@ class Sessions:
         
         base_url = utils.template_url(*self.sdk_configuration.get_server_details())
         
-        url = utils.generate_url(operations.StopTranscodeSessionRequest, base_url, '/transcode/sessions/{sessionKey}', request, self.sdk_configuration.globals)
+        url = utils.generate_url(base_url, '/transcode/sessions/{sessionKey}', request)
         
         if callable(self.sdk_configuration.security):
             headers, query_params = utils.get_security(self.sdk_configuration.security())
