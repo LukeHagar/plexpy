@@ -25,7 +25,7 @@ import plex_api
 
 s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier='<value>',
+    x_plex_client_identifier='Postman',
 )
 
 
@@ -165,7 +165,7 @@ from plex_api.models import errors
 
 s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier='<value>',
+    x_plex_client_identifier='Postman',
 )
 
 
@@ -205,7 +205,7 @@ import plex_api
 s = plex_api.PlexAPI(
     server_idx=0,
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier='<value>',
+    x_plex_client_identifier='Postman',
 )
 
 
@@ -233,7 +233,7 @@ import plex_api
 s = plex_api.PlexAPI(
     server_url="{protocol}://{ip}:{port}",
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier='<value>',
+    x_plex_client_identifier='Postman',
 )
 
 
@@ -252,11 +252,11 @@ The server URL can also be overridden on a per-operation basis, provided a serve
 import plex_api
 
 s = plex_api.PlexAPI(
-    x_plex_client_identifier='<value>',
+    x_plex_client_identifier='Postman',
 )
 
 
-res = s.plex.get_pin(server_url="https://plex.tv/api/v2", strong=False, x_plex_client_identifier='<value>')
+res = s.plex.get_pin(server_url="https://plex.tv/api/v2", strong=False, x_plex_client_identifier='Postman')
 
 if res.object is not None:
     # handle response
@@ -298,7 +298,7 @@ import plex_api
 
 s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier='<value>',
+    x_plex_client_identifier='Postman',
 )
 
 
@@ -316,7 +316,7 @@ if res.object is not None:
 
 A parameter is configured globally. This parameter must be set on the SDK client instance itself during initialization. When configured as an option during SDK initialization, This global value will be used as the default on the operations that use it. When such operations are called, there is a place in each to override the global value, if needed.
 
-For example, you can set `X-Plex-Client-Identifier` to `'<value>'` at SDK initialization and then you do not have to pass the same value on calls to operations like `get_pin`. But if you want to do so you may, which will locally override the global setting. See the example code below for a demonstration.
+For example, you can set `X-Plex-Client-Identifier` to `'Postman'` at SDK initialization and then you do not have to pass the same value on calls to operations like `get_pin`. But if you want to do so you may, which will locally override the global setting. See the example code below for a demonstration.
 
 
 ### Available Globals
@@ -337,11 +337,11 @@ This is used to track the client application and its usage
 import plex_api
 
 s = plex_api.PlexAPI(
-    x_plex_client_identifier='<value>',
+    x_plex_client_identifier='Postman',
 )
 
 
-res = s.plex.get_pin(strong=False, x_plex_client_identifier='<value>')
+res = s.plex.get_pin(strong=False, x_plex_client_identifier='Postman')
 
 if res.object is not None:
     # handle response

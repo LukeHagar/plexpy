@@ -25,7 +25,7 @@ from plex_api.models import operations
 
 s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier='<value>',
+    x_plex_client_identifier='Postman',
 )
 
 
@@ -88,7 +88,7 @@ import plex_api
 
 s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier='<value>',
+    x_plex_client_identifier='Postman',
 )
 
 req = 'level=4&message=Test%20message%201&source=postman
@@ -132,7 +132,7 @@ import plex_api
 
 s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier='<value>',
+    x_plex_client_identifier='Postman',
 )
 
 
