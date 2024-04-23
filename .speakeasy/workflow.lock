@@ -1,10 +1,10 @@
-speakeasyVersion: 1.269.1
+speakeasyVersion: 1.270.0
 sources:
     my-source: {}
 targets:
     plexpy:
         source: my-source
-        outLocation: /github/workspace/repo
+        outLocation: /Users/lukehagar/Documents/GitHub/plexpy
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
@@ -19,3 +19,5 @@ workflow:
             publish:
                 pypi:
                     token: $PYPI_TOKEN
+            codeSamples:
+                output: codeSamples.yaml
