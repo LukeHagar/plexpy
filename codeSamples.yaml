@@ -3,11 +3,11 @@ info:
   title: CodeSamples overlay for python target
   version: 0.0.0
 actions:
-  - target: $["paths"]["/library/metadata/{ratingKey}/children"]["get"]
+  - target: $["paths"]["/:/prefs"]["get"]
     update:
       x-codeSamples:
         - lang: python
-          label: getMetadataChildren
+          label: getServerPreferences
           source: |-
             import plex_api
 
@@ -17,16 +17,16 @@ actions:
             )
 
 
-            res = s.get_metadata_children(rating_key=1539.14)
+            res = s.get_server_preferences()
 
             if res.object is not None:
                 # handle response
                 pass
-  - target: $["paths"]["/status/sessions"]["get"]
+  - target: $["paths"]["/devices"]["get"]
     update:
       x-codeSamples:
         - lang: python
-          label: getSessions
+          label: getDevices
           source: |-
             import plex_api
 
@@ -36,9 +36,299 @@ actions:
             )
 
 
-            res = s.get_sessions()
+            res = s.get_devices()
 
             if res.object is not None:
+                # handle response
+                pass
+  - target: $["paths"]["/:/timeline"]["get"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: getTimeline
+          source: |-
+            import plex_api
+            from plex_api.models import operations
+
+            s = plex_api.PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+                x_plex_client_identifier='Postman',
+            )
+
+            req = operations.GetTimelineRequest(
+                rating_key=716.56,
+                key='<key>',
+                state=operations.State.PAUSED,
+                has_mde=7574.33,
+                time=3327.51,
+                duration=7585.39,
+                context='<value>',
+                play_queue_item_id=1406.21,
+                play_back_time=2699.34,
+                row=3536.42,
+            )
+
+            res = s.get_timeline(req)
+
+            if res is not None:
+                # handle response
+                pass
+  - target: $["paths"]["/activities"]["get"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: getServerActivities
+          source: |-
+            import plex_api
+
+            s = plex_api.PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+                x_plex_client_identifier='Postman',
+            )
+
+
+            res = s.get_server_activities()
+
+            if res.object is not None:
+                # handle response
+                pass
+  - target: $["paths"]["/butler/{taskName}"]["post"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: startTask
+          source: |-
+            import plex_api
+            from plex_api.models import operations
+
+            s = plex_api.PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+                x_plex_client_identifier='Postman',
+            )
+
+
+            res = s.start_task(task_name=operations.TaskName.CLEAN_OLD_BUNDLES)
+
+            if res is not None:
+                # handle response
+                pass
+  - target: $["paths"]["/library/metadata/{ratingKey}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: getMetadata
+          source: |-
+            import plex_api
+
+            s = plex_api.PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+                x_plex_client_identifier='Postman',
+            )
+
+
+            res = s.get_metadata(rating_key=8382.31)
+
+            if res.object is not None:
+                # handle response
+                pass
+  - target: $["paths"]["/photo/:/transcode"]["get"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: getResizedPhoto
+          source: |-
+            import plex_api
+            from plex_api.models import operations
+
+            s = plex_api.PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+                x_plex_client_identifier='Postman',
+            )
+
+            req = operations.GetResizedPhotoRequest(
+                width=110,
+                height=165,
+                opacity=100,
+                blur=20,
+                min_size=operations.MinSize.ONE,
+                upscale=operations.Upscale.ZERO,
+                url='/library/metadata/49564/thumb/1654258204',
+            )
+
+            res = s.get_resized_photo(req)
+
+            if res is not None:
+                # handle response
+                pass
+  - target: $["paths"]["/library/onDeck"]["get"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: getOnDeck
+          source: |-
+            import plex_api
+
+            s = plex_api.PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+                x_plex_client_identifier='Postman',
+            )
+
+
+            res = s.get_on_deck()
+
+            if res.object is not None:
+                # handle response
+                pass
+  - target: $["paths"]["/playlists/{playlistID}/items"]["delete"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: clearPlaylistContents
+          source: |-
+            import plex_api
+
+            s = plex_api.PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+                x_plex_client_identifier='Postman',
+            )
+
+
+            res = s.clear_playlist_contents(playlist_id=1893.18)
+
+            if res is not None:
+                # handle response
+                pass
+  - target: $["paths"]["/transcode/sessions/{sessionKey}"]["delete"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: stopTranscodeSession
+          source: |-
+            import plex_api
+
+            s = plex_api.PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+                x_plex_client_identifier='Postman',
+            )
+
+
+            res = s.stop_transcode_session(session_key='zz7llzqlx8w9vnrsbnwhbmep')
+
+            if res is not None:
+                # handle response
+                pass
+  - target: $["paths"]["/butler"]["get"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: getButlerTasks
+          source: |-
+            import plex_api
+
+            s = plex_api.PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+                x_plex_client_identifier='Postman',
+            )
+
+
+            res = s.get_butler_tasks()
+
+            if res.object is not None:
+                # handle response
+                pass
+  - target: $["paths"]["/pins"]["post"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: getPin
+          source: |-
+            import plex_api
+
+            s = plex_api.PlexAPI(
+                x_plex_client_identifier='Postman',
+            )
+
+
+            res = s.get_pin(strong=False, x_plex_client_identifier='Postman')
+
+            if res.object is not None:
+                # handle response
+                pass
+  - target: $["paths"]["/playlists/{playlistID}"]["delete"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: deletePlaylist
+          source: |-
+            import plex_api
+
+            s = plex_api.PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+                x_plex_client_identifier='Postman',
+            )
+
+
+            res = s.delete_playlist(playlist_id=216.22)
+
+            if res is not None:
+                # handle response
+                pass
+  - target: $["paths"]["/statistics/media"]["get"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: getStatistics
+          source: |-
+            import plex_api
+
+            s = plex_api.PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+                x_plex_client_identifier='Postman',
+            )
+
+
+            res = s.get_statistics(timespan=411769)
+
+            if res.object is not None:
+                # handle response
+                pass
+  - target: $["paths"]["/updater/apply"]["put"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: applyUpdates
+          source: |-
+            import plex_api
+            from plex_api.models import operations
+
+            s = plex_api.PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+                x_plex_client_identifier='Postman',
+            )
+
+
+            res = s.apply_updates(tonight=operations.Tonight.ONE, skip=operations.Skip.ZERO)
+
+            if res is not None:
+                # handle response
+                pass
+  - target: $["paths"]["/:/unscrobble"]["get"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: markUnplayed
+          source: |-
+            import plex_api
+
+            s = plex_api.PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+                x_plex_client_identifier='Postman',
+            )
+
+
+            res = s.mark_unplayed(key=59398)
+
+            if res is not None:
                 # handle response
                 pass
   - target: $["paths"]["/video/:/transcode/universal/start.mpd"]["get"]
@@ -68,11 +358,11 @@ actions:
             if res is not None:
                 # handle response
                 pass
-  - target: $["paths"]["/library/recentlyAdded"]["get"]
+  - target: $["paths"]["/butler"]["delete"]
     update:
       x-codeSamples:
         - lang: python
-          label: getRecentlyAdded
+          label: stopAllTasks
           source: |-
             import plex_api
 
@@ -82,16 +372,73 @@ actions:
             )
 
 
-            res = s.get_recently_added()
+            res = s.stop_all_tasks()
+
+            if res is not None:
+                # handle response
+                pass
+  - target: $["paths"]["/hubs/search/voice"]["get"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: performVoiceSearch
+          source: |-
+            import plex_api
+
+            s = plex_api.PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+                x_plex_client_identifier='Postman',
+            )
+
+
+            res = s.perform_voice_search(query='dead+poop', section_id=4094.8, limit=5)
+
+            if res is not None:
+                # handle response
+                pass
+  - target: $["paths"]["/library/metadata/{ratingKey}/children"]["get"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: getMetadataChildren
+          source: |-
+            import plex_api
+
+            s = plex_api.PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+                x_plex_client_identifier='Postman',
+            )
+
+
+            res = s.get_metadata_children(rating_key=1539.14)
 
             if res.object is not None:
                 # handle response
                 pass
-  - target: $["paths"]["/library/sections/{sectionId}/{tag}"]["get"]
+  - target: $["paths"]["/log/networked"]["get"]
     update:
       x-codeSamples:
         - lang: python
-          label: getLibraryItems
+          label: enablePaperTrail
+          source: |-
+            import plex_api
+
+            s = plex_api.PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+                x_plex_client_identifier='Postman',
+            )
+
+
+            res = s.enable_paper_trail()
+
+            if res is not None:
+                # handle response
+                pass
+  - target: $["paths"]["/security/token"]["get"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: getTransientToken
           source: |-
             import plex_api
             from plex_api.models import operations
@@ -102,9 +449,67 @@ actions:
             )
 
 
-            res = s.get_library_items(section_id=451092, tag=operations.Tag.UNWATCHED)
+            res = s.get_transient_token(type=operations.GetTransientTokenQueryParamType.DELEGATION, scope=operations.Scope.ALL)
 
-            if res.object is not None:
+            if res is not None:
+                # handle response
+                pass
+  - target: $["paths"]["/security/resources"]["get"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: getSourceConnectionInformation
+          source: |-
+            import plex_api
+
+            s = plex_api.PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+                x_plex_client_identifier='Postman',
+            )
+
+
+            res = s.get_source_connection_information(source='server://client-identifier')
+
+            if res is not None:
+                # handle response
+                pass
+  - target: $["paths"]["/updater/check"]["put"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: checkForUpdates
+          source: |-
+            import plex_api
+            from plex_api.models import operations
+
+            s = plex_api.PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+                x_plex_client_identifier='Postman',
+            )
+
+
+            res = s.check_for_updates(download=operations.Download.ONE)
+
+            if res is not None:
+                # handle response
+                pass
+  - target: $["paths"]["/library/sections/{sectionId}"]["delete"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: deleteLibrary
+          source: |-
+            import plex_api
+
+            s = plex_api.PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+                x_plex_client_identifier='Postman',
+            )
+
+
+            res = s.delete_library(section_id=1000)
+
+            if res is not None:
                 # handle response
                 pass
   - target: $["paths"]["/pins/{pinID}"]["get"]
@@ -125,31 +530,11 @@ actions:
             if res is not None:
                 # handle response
                 pass
-  - target: $["paths"]["/playlists"]["get"]
+  - target: $["paths"]["/playlists/{playlistID}"]["put"]
     update:
       x-codeSamples:
         - lang: python
-          label: getPlaylists
-          source: |-
-            import plex_api
-            from plex_api.models import operations
-
-            s = plex_api.PlexAPI(
-                access_token="<YOUR_API_KEY_HERE>",
-                x_plex_client_identifier='Postman',
-            )
-
-
-            res = s.get_playlists(playlist_type=operations.PlaylistType.AUDIO, smart=operations.QueryParamSmart.ZERO)
-
-            if res.object is not None:
-                # handle response
-                pass
-  - target: $["paths"]["/:/unscrobble"]["get"]
-    update:
-      x-codeSamples:
-        - lang: python
-          label: markUnplayed
+          label: updatePlaylist
           source: |-
             import plex_api
 
@@ -159,16 +544,35 @@ actions:
             )
 
 
-            res = s.mark_unplayed(key=59398)
+            res = s.update_playlist(playlist_id=3915, title='<value>', summary='<value>')
 
             if res is not None:
                 # handle response
                 pass
-  - target: $["paths"]["/library/sections/{sectionId}/search"]["get"]
+  - target: $["paths"]["/playlists/{playlistID}/items"]["get"]
     update:
       x-codeSamples:
         - lang: python
-          label: searchLibrary
+          label: getPlaylistContents
+          source: |-
+            import plex_api
+
+            s = plex_api.PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+                x_plex_client_identifier='Postman',
+            )
+
+
+            res = s.get_playlist_contents(playlist_id=5004.46, type=9403.59)
+
+            if res.object is not None:
+                # handle response
+                pass
+  - target: $["paths"]["/playlists/upload"]["post"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: uploadPlaylist
           source: |-
             import plex_api
             from plex_api.models import operations
@@ -179,7 +583,303 @@ actions:
             )
 
 
-            res = s.search_library(section_id=933505, type=operations.Type.FOUR)
+            res = s.upload_playlist(path='/home/barkley/playlist.m3u', force=operations.Force.ZERO)
+
+            if res is not None:
+                # handle response
+                pass
+  - target: $["paths"]["/butler"]["post"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: startAllTasks
+          source: |-
+            import plex_api
+
+            s = plex_api.PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+                x_plex_client_identifier='Postman',
+            )
+
+
+            res = s.start_all_tasks()
+
+            if res is not None:
+                # handle response
+                pass
+  - target: $["paths"]["/hubs/sections/{sectionId}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: getLibraryHubs
+          source: |-
+            import plex_api
+            from plex_api.models import operations
+
+            s = plex_api.PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+                x_plex_client_identifier='Postman',
+            )
+
+
+            res = s.get_library_hubs(section_id=6728.76, count=9010.22, only_transient=operations.QueryParamOnlyTransient.ZERO)
+
+            if res.object is not None:
+                # handle response
+                pass
+  - target: $["paths"]["/search"]["get"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: getSearchResults
+          source: |-
+            import plex_api
+
+            s = plex_api.PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+                x_plex_client_identifier='Postman',
+            )
+
+
+            res = s.get_search_results(query='110')
+
+            if res.object is not None:
+                # handle response
+                pass
+  - target: $["paths"]["/library/hashes"]["get"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: getFileHash
+          source: |-
+            import plex_api
+
+            s = plex_api.PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+                x_plex_client_identifier='Postman',
+            )
+
+
+            res = s.get_file_hash(url='file://C:\Image.png&type=13', type=4462.17)
+
+            if res is not None:
+                # handle response
+                pass
+  - target: $["paths"]["/library/sections/{sectionId}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: getLibrary
+          source: |-
+            import plex_api
+            from plex_api.models import operations
+
+            s = plex_api.PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+                x_plex_client_identifier='Postman',
+            )
+
+
+            res = s.get_library(section_id=1000, include_details=operations.IncludeDetails.ZERO)
+
+            if res.object is not None:
+                # handle response
+                pass
+  - target: $["paths"]["/playlists/{playlistID}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: getPlaylist
+          source: |-
+            import plex_api
+
+            s = plex_api.PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+                x_plex_client_identifier='Postman',
+            )
+
+
+            res = s.get_playlist(playlist_id=4109.48)
+
+            if res.object is not None:
+                # handle response
+                pass
+  - target: $["paths"]["/status/sessions/history/all"]["get"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: getSessionHistory
+          source: |-
+            import plex_api
+
+            s = plex_api.PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+                x_plex_client_identifier='Postman',
+            )
+
+
+            res = s.get_session_history()
+
+            if res.object is not None:
+                # handle response
+                pass
+  - target: $["paths"]["/:/scrobble"]["get"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: markPlayed
+          source: |-
+            import plex_api
+
+            s = plex_api.PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+                x_plex_client_identifier='Postman',
+            )
+
+
+            res = s.mark_played(key=59398)
+
+            if res is not None:
+                # handle response
+                pass
+  - target: $["paths"]["/hubs"]["get"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: getGlobalHubs
+          source: |-
+            import plex_api
+            from plex_api.models import operations
+
+            s = plex_api.PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+                x_plex_client_identifier='Postman',
+            )
+
+
+            res = s.get_global_hubs(count=1262.49, only_transient=operations.OnlyTransient.ONE)
+
+            if res.object is not None:
+                # handle response
+                pass
+  - target: $["paths"]["/library/recentlyAdded"]["get"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: getRecentlyAdded
+          source: |-
+            import plex_api
+
+            s = plex_api.PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+                x_plex_client_identifier='Postman',
+            )
+
+
+            res = s.get_recently_added()
+
+            if res.object is not None:
+                # handle response
+                pass
+  - target: $["paths"]["/library/sections/{sectionId}/refresh"]["get"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: refreshLibrary
+          source: |-
+            import plex_api
+
+            s = plex_api.PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+                x_plex_client_identifier='Postman',
+            )
+
+
+            res = s.refresh_library(section_id=934.16)
+
+            if res is not None:
+                # handle response
+                pass
+  - target: $["paths"]["/status/sessions"]["get"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: getSessions
+          source: |-
+            import plex_api
+
+            s = plex_api.PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+                x_plex_client_identifier='Postman',
+            )
+
+
+            res = s.get_sessions()
+
+            if res.object is not None:
+                # handle response
+                pass
+  - target: $["paths"]["/activities/{activityUUID}"]["delete"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: cancelServerActivities
+          source: |-
+            import plex_api
+
+            s = plex_api.PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+                x_plex_client_identifier='Postman',
+            )
+
+
+            res = s.cancel_server_activities(activity_uuid='<value>')
+
+            if res is not None:
+                # handle response
+                pass
+  - target: $["paths"]["/butler/{taskName}"]["delete"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: stopTask
+          source: |-
+            import plex_api
+            from plex_api.models import operations
+
+            s = plex_api.PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+                x_plex_client_identifier='Postman',
+            )
+
+
+            res = s.stop_task(task_name=operations.PathParamTaskName.BACKUP_DATABASE)
+
+            if res is not None:
+                # handle response
+                pass
+  - target: $["paths"]["/playlists"]["post"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: createPlaylist
+          source: |-
+            import plex_api
+            from plex_api.models import operations
+
+            s = plex_api.PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+                x_plex_client_identifier='Postman',
+            )
+
+            req = operations.CreatePlaylistRequest(
+                title='<value>',
+                type=operations.QueryParamType.PHOTO,
+                smart=operations.Smart.ONE,
+                uri='https://inborn-brochure.biz',
+            )
+
+            res = s.create_playlist(req)
 
             if res.object is not None:
                 # handle response
@@ -241,13 +941,14 @@ actions:
             if res.object is not None:
                 # handle response
                 pass
-  - target: $["paths"]["/servers"]["get"]
+  - target: $["paths"]["/playlists"]["get"]
     update:
       x-codeSamples:
         - lang: python
-          label: getServerList
+          label: getPlaylists
           source: |-
             import plex_api
+            from plex_api.models import operations
 
             s = plex_api.PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
@@ -255,45 +956,7 @@ actions:
             )
 
 
-            res = s.get_server_list()
-
-            if res.object is not None:
-                # handle response
-                pass
-  - target: $["paths"]["/:/prefs"]["get"]
-    update:
-      x-codeSamples:
-        - lang: python
-          label: getServerPreferences
-          source: |-
-            import plex_api
-
-            s = plex_api.PlexAPI(
-                access_token="<YOUR_API_KEY_HERE>",
-                x_plex_client_identifier='Postman',
-            )
-
-
-            res = s.get_server_preferences()
-
-            if res.object is not None:
-                # handle response
-                pass
-  - target: $["paths"]["/devices"]["get"]
-    update:
-      x-codeSamples:
-        - lang: python
-          label: getDevices
-          source: |-
-            import plex_api
-
-            s = plex_api.PlexAPI(
-                access_token="<YOUR_API_KEY_HERE>",
-                x_plex_client_identifier='Postman',
-            )
-
-
-            res = s.get_devices()
+            res = s.get_playlists(playlist_type=operations.PlaylistType.AUDIO, smart=operations.QueryParamSmart.ZERO)
 
             if res.object is not None:
                 # handle response
@@ -317,11 +980,68 @@ actions:
             if res.object is not None:
                 # handle response
                 pass
-  - target: $["paths"]["/hubs/sections/{sectionId}"]["get"]
+  - target: $["paths"]["/updater/status"]["get"]
     update:
       x-codeSamples:
         - lang: python
-          label: getLibraryHubs
+          label: getUpdateStatus
+          source: |-
+            import plex_api
+
+            s = plex_api.PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+                x_plex_client_identifier='Postman',
+            )
+
+
+            res = s.get_update_status()
+
+            if res.object is not None:
+                # handle response
+                pass
+  - target: $["paths"]["/clients"]["get"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: getAvailableClients
+          source: |-
+            import plex_api
+
+            s = plex_api.PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+                x_plex_client_identifier='Postman',
+            )
+
+
+            res = s.get_available_clients()
+
+            if res.object is not None:
+                # handle response
+                pass
+  - target: $["paths"]["/servers"]["get"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: getServerList
+          source: |-
+            import plex_api
+
+            s = plex_api.PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+                x_plex_client_identifier='Postman',
+            )
+
+
+            res = s.get_server_list()
+
+            if res.object is not None:
+                # handle response
+                pass
+  - target: $["paths"]["/library/sections/{sectionId}/{tag}"]["get"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: getLibraryItems
           source: |-
             import plex_api
             from plex_api.models import operations
@@ -332,42 +1052,16 @@ actions:
             )
 
 
-            res = s.get_library_hubs(section_id=6728.76, count=9010.22, only_transient=operations.QueryParamOnlyTransient.ZERO)
+            res = s.get_library_items(section_id=451092, tag=operations.Tag.UNWATCHED)
 
             if res.object is not None:
                 # handle response
                 pass
-  - target: $["paths"]["/playlists"]["post"]
+  - target: $["paths"]["/hubs/search"]["get"]
     update:
       x-codeSamples:
         - lang: python
-          label: createPlaylist
-          source: |-
-            import plex_api
-            from plex_api.models import operations
-
-            s = plex_api.PlexAPI(
-                access_token="<YOUR_API_KEY_HERE>",
-                x_plex_client_identifier='Postman',
-            )
-
-            req = operations.CreatePlaylistRequest(
-                title='<value>',
-                type=operations.QueryParamType.PHOTO,
-                smart=operations.Smart.ONE,
-                uri='https://inborn-brochure.biz',
-            )
-
-            res = s.create_playlist(req)
-
-            if res.object is not None:
-                # handle response
-                pass
-  - target: $["paths"]["/transcode/sessions/{sessionKey}"]["delete"]
-    update:
-      x-codeSamples:
-        - lang: python
-          label: stopTranscodeSession
+          label: performSearch
           source: |-
             import plex_api
 
@@ -377,48 +1071,16 @@ actions:
             )
 
 
-            res = s.stop_transcode_session(session_key='zz7llzqlx8w9vnrsbnwhbmep')
+            res = s.perform_search(query='dylan', section_id=1516.53, limit=5)
 
             if res is not None:
                 # handle response
                 pass
-  - target: $["paths"]["/:/timeline"]["get"]
+  - target: $["paths"]["/library/sections/{sectionId}/search"]["get"]
     update:
       x-codeSamples:
         - lang: python
-          label: getTimeline
-          source: |-
-            import plex_api
-            from plex_api.models import operations
-
-            s = plex_api.PlexAPI(
-                access_token="<YOUR_API_KEY_HERE>",
-                x_plex_client_identifier='Postman',
-            )
-
-            req = operations.GetTimelineRequest(
-                rating_key=716.56,
-                key='<key>',
-                state=operations.State.PAUSED,
-                has_mde=7574.33,
-                time=3327.51,
-                duration=7585.39,
-                context='<value>',
-                play_queue_item_id=1406.21,
-                play_back_time=2699.34,
-                row=3536.42,
-            )
-
-            res = s.get_timeline(req)
-
-            if res is not None:
-                # handle response
-                pass
-  - target: $["paths"]["/hubs"]["get"]
-    update:
-      x-codeSamples:
-        - lang: python
-          label: getGlobalHubs
+          label: searchLibrary
           source: |-
             import plex_api
             from plex_api.models import operations
@@ -429,16 +1091,16 @@ actions:
             )
 
 
-            res = s.get_global_hubs(count=1262.49, only_transient=operations.OnlyTransient.ONE)
+            res = s.search_library(section_id=933505, type=operations.Type.FOUR)
 
             if res.object is not None:
                 # handle response
                 pass
-  - target: $["paths"]["/playlists/{playlistID}"]["get"]
+  - target: $["paths"]["/:/progress"]["post"]
     update:
       x-codeSamples:
         - lang: python
-          label: getPlaylist
+          label: updatePlayProgress
           source: |-
             import plex_api
 
@@ -448,16 +1110,16 @@ actions:
             )
 
 
-            res = s.get_playlist(playlist_id=4109.48)
+            res = s.update_play_progress(key='<value>', time=6900.91, state='<value>')
 
-            if res.object is not None:
+            if res is not None:
                 # handle response
                 pass
-  - target: $["paths"]["/playlists/{playlistID}/items"]["get"]
+  - target: $["paths"]["/library/sections"]["get"]
     update:
       x-codeSamples:
         - lang: python
-          label: getPlaylistContents
+          label: getLibraries
           source: |-
             import plex_api
 
@@ -467,16 +1129,16 @@ actions:
             )
 
 
-            res = s.get_playlist_contents(playlist_id=5004.46, type=9403.59)
+            res = s.get_libraries()
 
             if res.object is not None:
                 # handle response
                 pass
-  - target: $["paths"]["/updater/apply"]["put"]
+  - target: $["paths"]["/log"]["get"]
     update:
       x-codeSamples:
         - lang: python
-          label: applyUpdates
+          label: logLine
           source: |-
             import plex_api
             from plex_api.models import operations
@@ -487,86 +1149,9 @@ actions:
             )
 
 
-            res = s.apply_updates(tonight=operations.Tonight.ONE, skip=operations.Skip.ZERO)
+            res = s.log_line(level=operations.Level.THREE, message='Test log message', source='Postman')
 
             if res is not None:
-                # handle response
-                pass
-  - target: $["paths"]["/butler"]["post"]
-    update:
-      x-codeSamples:
-        - lang: python
-          label: startAllTasks
-          source: |-
-            import plex_api
-
-            s = plex_api.PlexAPI(
-                access_token="<YOUR_API_KEY_HERE>",
-                x_plex_client_identifier='Postman',
-            )
-
-
-            res = s.start_all_tasks()
-
-            if res is not None:
-                # handle response
-                pass
-  - target: $["paths"]["/butler/{taskName}"]["delete"]
-    update:
-      x-codeSamples:
-        - lang: python
-          label: stopTask
-          source: |-
-            import plex_api
-            from plex_api.models import operations
-
-            s = plex_api.PlexAPI(
-                access_token="<YOUR_API_KEY_HERE>",
-                x_plex_client_identifier='Postman',
-            )
-
-
-            res = s.stop_task(task_name=operations.PathParamTaskName.BACKUP_DATABASE)
-
-            if res is not None:
-                # handle response
-                pass
-  - target: $["paths"]["/hubs/search/voice"]["get"]
-    update:
-      x-codeSamples:
-        - lang: python
-          label: performVoiceSearch
-          source: |-
-            import plex_api
-
-            s = plex_api.PlexAPI(
-                access_token="<YOUR_API_KEY_HERE>",
-                x_plex_client_identifier='Postman',
-            )
-
-
-            res = s.perform_voice_search(query='dead+poop', section_id=4094.8, limit=5)
-
-            if res is not None:
-                # handle response
-                pass
-  - target: $["paths"]["/library/metadata/{ratingKey}"]["get"]
-    update:
-      x-codeSamples:
-        - lang: python
-          label: getMetadata
-          source: |-
-            import plex_api
-
-            s = plex_api.PlexAPI(
-                access_token="<YOUR_API_KEY_HERE>",
-                x_plex_client_identifier='Postman',
-            )
-
-
-            res = s.get_metadata(rating_key=8382.31)
-
-            if res.object is not None:
                 # handle response
                 pass
   - target: $["paths"]["/log"]["post"]
@@ -591,495 +1176,6 @@ actions:
             if res is not None:
                 # handle response
                 pass
-  - target: $["paths"]["/:/progress"]["post"]
-    update:
-      x-codeSamples:
-        - lang: python
-          label: updatePlayProgress
-          source: |-
-            import plex_api
-
-            s = plex_api.PlexAPI(
-                access_token="<YOUR_API_KEY_HERE>",
-                x_plex_client_identifier='Postman',
-            )
-
-
-            res = s.update_play_progress(key='<value>', time=6900.91, state='<value>')
-
-            if res is not None:
-                # handle response
-                pass
-  - target: $["paths"]["/log"]["get"]
-    update:
-      x-codeSamples:
-        - lang: python
-          label: logLine
-          source: |-
-            import plex_api
-            from plex_api.models import operations
-
-            s = plex_api.PlexAPI(
-                access_token="<YOUR_API_KEY_HERE>",
-                x_plex_client_identifier='Postman',
-            )
-
-
-            res = s.log_line(level=operations.Level.THREE, message='Test log message', source='Postman')
-
-            if res is not None:
-                # handle response
-                pass
-  - target: $["paths"]["/playlists/{playlistID}"]["put"]
-    update:
-      x-codeSamples:
-        - lang: python
-          label: updatePlaylist
-          source: |-
-            import plex_api
-
-            s = plex_api.PlexAPI(
-                access_token="<YOUR_API_KEY_HERE>",
-                x_plex_client_identifier='Postman',
-            )
-
-
-            res = s.update_playlist(playlist_id=3915, title='<value>', summary='<value>')
-
-            if res is not None:
-                # handle response
-                pass
-  - target: $["paths"]["/security/resources"]["get"]
-    update:
-      x-codeSamples:
-        - lang: python
-          label: getSourceConnectionInformation
-          source: |-
-            import plex_api
-
-            s = plex_api.PlexAPI(
-                access_token="<YOUR_API_KEY_HERE>",
-                x_plex_client_identifier='Postman',
-            )
-
-
-            res = s.get_source_connection_information(source='server://client-identifier')
-
-            if res is not None:
-                # handle response
-                pass
-  - target: $["paths"]["/playlists/{playlistID}/items"]["delete"]
-    update:
-      x-codeSamples:
-        - lang: python
-          label: clearPlaylistContents
-          source: |-
-            import plex_api
-
-            s = plex_api.PlexAPI(
-                access_token="<YOUR_API_KEY_HERE>",
-                x_plex_client_identifier='Postman',
-            )
-
-
-            res = s.clear_playlist_contents(playlist_id=1893.18)
-
-            if res is not None:
-                # handle response
-                pass
-  - target: $["paths"]["/photo/:/transcode"]["get"]
-    update:
-      x-codeSamples:
-        - lang: python
-          label: getResizedPhoto
-          source: |-
-            import plex_api
-            from plex_api.models import operations
-
-            s = plex_api.PlexAPI(
-                access_token="<YOUR_API_KEY_HERE>",
-                x_plex_client_identifier='Postman',
-            )
-
-            req = operations.GetResizedPhotoRequest(
-                width=110,
-                height=165,
-                opacity=100,
-                blur=20,
-                min_size=operations.MinSize.ONE,
-                upscale=operations.Upscale.ZERO,
-                url='/library/metadata/49564/thumb/1654258204',
-            )
-
-            res = s.get_resized_photo(req)
-
-            if res is not None:
-                # handle response
-                pass
-  - target: $["paths"]["/butler"]["get"]
-    update:
-      x-codeSamples:
-        - lang: python
-          label: getButlerTasks
-          source: |-
-            import plex_api
-
-            s = plex_api.PlexAPI(
-                access_token="<YOUR_API_KEY_HERE>",
-                x_plex_client_identifier='Postman',
-            )
-
-
-            res = s.get_butler_tasks()
-
-            if res.object is not None:
-                # handle response
-                pass
-  - target: $["paths"]["/search"]["get"]
-    update:
-      x-codeSamples:
-        - lang: python
-          label: getSearchResults
-          source: |-
-            import plex_api
-
-            s = plex_api.PlexAPI(
-                access_token="<YOUR_API_KEY_HERE>",
-                x_plex_client_identifier='Postman',
-            )
-
-
-            res = s.get_search_results(query='110')
-
-            if res.object is not None:
-                # handle response
-                pass
-  - target: $["paths"]["/:/scrobble"]["get"]
-    update:
-      x-codeSamples:
-        - lang: python
-          label: markPlayed
-          source: |-
-            import plex_api
-
-            s = plex_api.PlexAPI(
-                access_token="<YOUR_API_KEY_HERE>",
-                x_plex_client_identifier='Postman',
-            )
-
-
-            res = s.mark_played(key=59398)
-
-            if res is not None:
-                # handle response
-                pass
-  - target: $["paths"]["/hubs/search"]["get"]
-    update:
-      x-codeSamples:
-        - lang: python
-          label: performSearch
-          source: |-
-            import plex_api
-
-            s = plex_api.PlexAPI(
-                access_token="<YOUR_API_KEY_HERE>",
-                x_plex_client_identifier='Postman',
-            )
-
-
-            res = s.perform_search(query='dylan', section_id=1516.53, limit=5)
-
-            if res is not None:
-                # handle response
-                pass
-  - target: $["paths"]["/library/hashes"]["get"]
-    update:
-      x-codeSamples:
-        - lang: python
-          label: getFileHash
-          source: |-
-            import plex_api
-
-            s = plex_api.PlexAPI(
-                access_token="<YOUR_API_KEY_HERE>",
-                x_plex_client_identifier='Postman',
-            )
-
-
-            res = s.get_file_hash(url='file://C:\Image.png&type=13', type=4462.17)
-
-            if res is not None:
-                # handle response
-                pass
-  - target: $["paths"]["/pins"]["post"]
-    update:
-      x-codeSamples:
-        - lang: python
-          label: getPin
-          source: |-
-            import plex_api
-
-            s = plex_api.PlexAPI(
-                x_plex_client_identifier='Postman',
-            )
-
-
-            res = s.get_pin(strong=False, x_plex_client_identifier='Postman')
-
-            if res.object is not None:
-                # handle response
-                pass
-  - target: $["paths"]["/clients"]["get"]
-    update:
-      x-codeSamples:
-        - lang: python
-          label: getAvailableClients
-          source: |-
-            import plex_api
-
-            s = plex_api.PlexAPI(
-                access_token="<YOUR_API_KEY_HERE>",
-                x_plex_client_identifier='Postman',
-            )
-
-
-            res = s.get_available_clients()
-
-            if res.object is not None:
-                # handle response
-                pass
-  - target: $["paths"]["/activities"]["get"]
-    update:
-      x-codeSamples:
-        - lang: python
-          label: getServerActivities
-          source: |-
-            import plex_api
-
-            s = plex_api.PlexAPI(
-                access_token="<YOUR_API_KEY_HERE>",
-                x_plex_client_identifier='Postman',
-            )
-
-
-            res = s.get_server_activities()
-
-            if res.object is not None:
-                # handle response
-                pass
-  - target: $["paths"]["/activities/{activityUUID}"]["delete"]
-    update:
-      x-codeSamples:
-        - lang: python
-          label: cancelServerActivities
-          source: |-
-            import plex_api
-
-            s = plex_api.PlexAPI(
-                access_token="<YOUR_API_KEY_HERE>",
-                x_plex_client_identifier='Postman',
-            )
-
-
-            res = s.cancel_server_activities(activity_uuid='<value>')
-
-            if res is not None:
-                # handle response
-                pass
-  - target: $["paths"]["/butler"]["delete"]
-    update:
-      x-codeSamples:
-        - lang: python
-          label: stopAllTasks
-          source: |-
-            import plex_api
-
-            s = plex_api.PlexAPI(
-                access_token="<YOUR_API_KEY_HERE>",
-                x_plex_client_identifier='Postman',
-            )
-
-
-            res = s.stop_all_tasks()
-
-            if res is not None:
-                # handle response
-                pass
-  - target: $["paths"]["/butler/{taskName}"]["post"]
-    update:
-      x-codeSamples:
-        - lang: python
-          label: startTask
-          source: |-
-            import plex_api
-            from plex_api.models import operations
-
-            s = plex_api.PlexAPI(
-                access_token="<YOUR_API_KEY_HERE>",
-                x_plex_client_identifier='Postman',
-            )
-
-
-            res = s.start_task(task_name=operations.TaskName.CLEAN_OLD_BUNDLES)
-
-            if res is not None:
-                # handle response
-                pass
-  - target: $["paths"]["/library/sections/{sectionId}"]["delete"]
-    update:
-      x-codeSamples:
-        - lang: python
-          label: deleteLibrary
-          source: |-
-            import plex_api
-
-            s = plex_api.PlexAPI(
-                access_token="<YOUR_API_KEY_HERE>",
-                x_plex_client_identifier='Postman',
-            )
-
-
-            res = s.delete_library(section_id=1000)
-
-            if res is not None:
-                # handle response
-                pass
-  - target: $["paths"]["/library/onDeck"]["get"]
-    update:
-      x-codeSamples:
-        - lang: python
-          label: getOnDeck
-          source: |-
-            import plex_api
-
-            s = plex_api.PlexAPI(
-                access_token="<YOUR_API_KEY_HERE>",
-                x_plex_client_identifier='Postman',
-            )
-
-
-            res = s.get_on_deck()
-
-            if res.object is not None:
-                # handle response
-                pass
-  - target: $["paths"]["/playlists/upload"]["post"]
-    update:
-      x-codeSamples:
-        - lang: python
-          label: uploadPlaylist
-          source: |-
-            import plex_api
-            from plex_api.models import operations
-
-            s = plex_api.PlexAPI(
-                access_token="<YOUR_API_KEY_HERE>",
-                x_plex_client_identifier='Postman',
-            )
-
-
-            res = s.upload_playlist(path='/home/barkley/playlist.m3u', force=operations.Force.ZERO)
-
-            if res is not None:
-                # handle response
-                pass
-  - target: $["paths"]["/library/sections/{sectionId}"]["get"]
-    update:
-      x-codeSamples:
-        - lang: python
-          label: getLibrary
-          source: |-
-            import plex_api
-            from plex_api.models import operations
-
-            s = plex_api.PlexAPI(
-                access_token="<YOUR_API_KEY_HERE>",
-                x_plex_client_identifier='Postman',
-            )
-
-
-            res = s.get_library(section_id=1000, include_details=operations.IncludeDetails.ZERO)
-
-            if res.object is not None:
-                # handle response
-                pass
-  - target: $["paths"]["/library/sections"]["get"]
-    update:
-      x-codeSamples:
-        - lang: python
-          label: getLibraries
-          source: |-
-            import plex_api
-
-            s = plex_api.PlexAPI(
-                access_token="<YOUR_API_KEY_HERE>",
-                x_plex_client_identifier='Postman',
-            )
-
-
-            res = s.get_libraries()
-
-            if res.object is not None:
-                # handle response
-                pass
-  - target: $["paths"]["/library/sections/{sectionId}/refresh"]["get"]
-    update:
-      x-codeSamples:
-        - lang: python
-          label: refreshLibrary
-          source: |-
-            import plex_api
-
-            s = plex_api.PlexAPI(
-                access_token="<YOUR_API_KEY_HERE>",
-                x_plex_client_identifier='Postman',
-            )
-
-
-            res = s.refresh_library(section_id=934.16)
-
-            if res is not None:
-                # handle response
-                pass
-  - target: $["paths"]["/playlists/{playlistID}"]["delete"]
-    update:
-      x-codeSamples:
-        - lang: python
-          label: deletePlaylist
-          source: |-
-            import plex_api
-
-            s = plex_api.PlexAPI(
-                access_token="<YOUR_API_KEY_HERE>",
-                x_plex_client_identifier='Postman',
-            )
-
-
-            res = s.delete_playlist(playlist_id=216.22)
-
-            if res is not None:
-                # handle response
-                pass
-  - target: $["paths"]["/security/token"]["get"]
-    update:
-      x-codeSamples:
-        - lang: python
-          label: getTransientToken
-          source: |-
-            import plex_api
-            from plex_api.models import operations
-
-            s = plex_api.PlexAPI(
-                access_token="<YOUR_API_KEY_HERE>",
-                x_plex_client_identifier='Postman',
-            )
-
-
-            res = s.get_transient_token(type=operations.GetTransientTokenQueryParamType.DELEGATION, scope=operations.Scope.ALL)
-
-            if res is not None:
-                # handle response
-                pass
   - target: $["paths"]["/transcode/sessions"]["get"]
     update:
       x-codeSamples:
@@ -1095,102 +1191,6 @@ actions:
 
 
             res = s.get_transcode_sessions()
-
-            if res.object is not None:
-                # handle response
-                pass
-  - target: $["paths"]["/updater/check"]["put"]
-    update:
-      x-codeSamples:
-        - lang: python
-          label: checkForUpdates
-          source: |-
-            import plex_api
-            from plex_api.models import operations
-
-            s = plex_api.PlexAPI(
-                access_token="<YOUR_API_KEY_HERE>",
-                x_plex_client_identifier='Postman',
-            )
-
-
-            res = s.check_for_updates(download=operations.Download.ONE)
-
-            if res is not None:
-                # handle response
-                pass
-  - target: $["paths"]["/log/networked"]["get"]
-    update:
-      x-codeSamples:
-        - lang: python
-          label: enablePaperTrail
-          source: |-
-            import plex_api
-
-            s = plex_api.PlexAPI(
-                access_token="<YOUR_API_KEY_HERE>",
-                x_plex_client_identifier='Postman',
-            )
-
-
-            res = s.enable_paper_trail()
-
-            if res is not None:
-                # handle response
-                pass
-  - target: $["paths"]["/statistics/media"]["get"]
-    update:
-      x-codeSamples:
-        - lang: python
-          label: getStatistics
-          source: |-
-            import plex_api
-
-            s = plex_api.PlexAPI(
-                access_token="<YOUR_API_KEY_HERE>",
-                x_plex_client_identifier='Postman',
-            )
-
-
-            res = s.get_statistics(timespan=411769)
-
-            if res.object is not None:
-                # handle response
-                pass
-  - target: $["paths"]["/status/sessions/history/all"]["get"]
-    update:
-      x-codeSamples:
-        - lang: python
-          label: getSessionHistory
-          source: |-
-            import plex_api
-
-            s = plex_api.PlexAPI(
-                access_token="<YOUR_API_KEY_HERE>",
-                x_plex_client_identifier='Postman',
-            )
-
-
-            res = s.get_session_history()
-
-            if res.object is not None:
-                # handle response
-                pass
-  - target: $["paths"]["/updater/status"]["get"]
-    update:
-      x-codeSamples:
-        - lang: python
-          label: getUpdateStatus
-          source: |-
-            import plex_api
-
-            s = plex_api.PlexAPI(
-                access_token="<YOUR_API_KEY_HERE>",
-                x_plex_client_identifier='Postman',
-            )
-
-
-            res = s.get_update_status()
 
             if res.object is not None:
                 # handle response
