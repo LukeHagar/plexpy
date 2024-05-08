@@ -26,7 +26,6 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
-
 res = s.hubs.get_global_hubs(count=1262.49, only_transient=operations.OnlyTransient.ONE)
 
 if res.object is not None:
@@ -68,7 +67,6 @@ s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
     x_plex_client_identifier='Postman',
 )
-
 
 res = s.hubs.get_library_hubs(section_id=6728.76, count=9010.22, only_transient=operations.QueryParamOnlyTransient.ZERO)
 

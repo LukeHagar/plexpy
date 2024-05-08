@@ -28,7 +28,6 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
-
 res = s.log.log_line(level=operations.Level.THREE, message='Test log message', source='Postman')
 
 if res is not None:
@@ -91,11 +90,9 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
-req = 'level=4&message=Test%20message%201&source=postman
+res = s.log.log_multi_line(request='level=4&message=Test%20message%201&source=postman
 level=3&message=Test%20message%202&source=postman
-level=1&message=Test%20message%203&source=postman'
-
-res = s.log.log_multi_line(req)
+level=1&message=Test%20message%203&source=postman')
 
 if res is not None:
     # handle response
@@ -134,7 +131,6 @@ s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
     x_plex_client_identifier='Postman',
 )
-
 
 res = s.log.enable_paper_trail()
 

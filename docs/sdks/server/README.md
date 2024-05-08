@@ -31,7 +31,6 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
-
 res = s.server.get_server_capabilities()
 
 if res.object is not None:
@@ -64,7 +63,6 @@ s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
     x_plex_client_identifier='Postman',
 )
-
 
 res = s.server.get_server_preferences()
 
@@ -99,7 +97,6 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
-
 res = s.server.get_available_clients()
 
 if res.object is not None:
@@ -132,7 +129,6 @@ s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
     x_plex_client_identifier='Postman',
 )
-
 
 res = s.server.get_devices()
 
@@ -167,7 +163,6 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
-
 res = s.server.get_server_identity()
 
 if res.object is not None:
@@ -200,7 +195,6 @@ s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
     x_plex_client_identifier='Postman',
 )
-
 
 res = s.server.get_my_plex_account()
 
@@ -237,7 +231,7 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
-req = operations.GetResizedPhotoRequest(
+res = s.server.get_resized_photo(request=operations.GetResizedPhotoRequest(
     width=110,
     height=165,
     blur=20,
@@ -245,9 +239,7 @@ req = operations.GetResizedPhotoRequest(
     upscale=operations.Upscale.ZERO,
     url='/library/metadata/49564/thumb/1654258204',
     opacity=100,
-)
-
-res = s.server.get_resized_photo(req)
+))
 
 if res is not None:
     # handle response
@@ -285,7 +277,6 @@ s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
     x_plex_client_identifier='Postman',
 )
-
 
 res = s.server.get_server_list()
 

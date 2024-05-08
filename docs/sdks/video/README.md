@@ -26,20 +26,18 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
-req = operations.GetTimelineRequest(
-    rating_key=716.56,
-    key='<key>',
-    state=operations.State.PAUSED,
-    has_mde=7574.33,
-    time=3327.51,
-    duration=7585.39,
-    context='<value>',
-    play_queue_item_id=1406.21,
-    play_back_time=2699.34,
-    row=3536.42,
-)
-
-res = s.video.get_timeline(req)
+res = s.video.get_timeline(request=operations.GetTimelineRequest(
+    rating_key=23409,
+    key='/library/metadata/23409',
+    state=operations.State.PLAYING,
+    has_mde=1,
+    time=2000,
+    duration=10000,
+    context='home:hub.continueWatching',
+    play_queue_item_id=1,
+    play_back_time=2000,
+    row=1,
+))
 
 if res is not None:
     # handle response
@@ -79,15 +77,24 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
-req = operations.StartUniversalTranscodeRequest(
-    has_mde=8924.99,
-    path='/etc/mail',
-    media_index=9962.95,
-    part_index=1232.82,
-    protocol='<value>',
-)
-
-res = s.video.start_universal_transcode(req)
+res = s.video.start_universal_transcode(request=operations.StartUniversalTranscodeRequest(
+    has_mde=1,
+    path='/library/metadata/23409',
+    media_index=0,
+    part_index=0,
+    protocol='hls',
+    fast_seek=0,
+    direct_play=0,
+    direct_stream=0,
+    subtitle_size=100,
+    subtites='burn',
+    audio_boost=100,
+    location='lan',
+    media_buffer_size=102400,
+    session='zvcage8b7rkioqcm8f4uns4c',
+    add_debug_overlay=0,
+    auto_adjust_quality=0,
+))
 
 if res is not None:
     # handle response

@@ -27,7 +27,6 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
-
 res = s.sessions.get_sessions()
 
 if res.object is not None:
@@ -60,7 +59,6 @@ s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
     x_plex_client_identifier='Postman',
 )
-
 
 res = s.sessions.get_session_history()
 
@@ -95,7 +93,6 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
-
 res = s.sessions.get_transcode_sessions()
 
 if res.object is not None:
@@ -128,7 +125,6 @@ s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
     x_plex_client_identifier='Postman',
 )
-
 
 res = s.sessions.stop_transcode_session(session_key='zz7llzqlx8w9vnrsbnwhbmep')
 

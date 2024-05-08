@@ -33,9 +33,9 @@ class SDKConfiguration:
     server_defaults: List[Dict[str, str]] = field(default_factory=List)
     language: str = 'python'
     openapi_doc_version: str = '0.0.3'
-    sdk_version: str = '0.6.6'
-    gen_version: str = '2.319.10'
-    user_agent: str = 'speakeasy-sdk/python 0.6.6 2.319.10 0.0.3 plex-api-client'
+    sdk_version: str = '0.7.0'
+    gen_version: str = '2.326.3'
+    user_agent: str = 'speakeasy-sdk/python 0.7.0 2.326.3 0.0.3 plex-api-client'
     retry_config: Optional[RetryConfig] = None
 
     def __post_init__(self):

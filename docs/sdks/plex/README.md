@@ -24,7 +24,6 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
-
 res = s.plex.get_pin(strong=False, x_plex_client_identifier='Postman')
 
 if res.object is not None:
@@ -64,7 +63,6 @@ import plex_api
 s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
-
 
 res = s.plex.get_token(pin_id='<value>', x_plex_client_identifier='Postman')
 

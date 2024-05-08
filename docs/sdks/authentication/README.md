@@ -27,7 +27,6 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
-
 res = s.authentication.get_transient_token(type=operations.GetTransientTokenQueryParamType.DELEGATION, scope=operations.Scope.ALL)
 
 if res is not None:
@@ -69,7 +68,6 @@ s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
     x_plex_client_identifier='Postman',
 )
-
 
 res = s.authentication.get_source_connection_information(source='server://client-identifier')
 

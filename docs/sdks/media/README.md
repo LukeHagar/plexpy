@@ -26,7 +26,6 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
-
 res = s.media.mark_played(key=59398)
 
 if res is not None:
@@ -65,7 +64,6 @@ s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
     x_plex_client_identifier='Postman',
 )
-
 
 res = s.media.mark_unplayed(key=59398)
 
@@ -107,8 +105,7 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
-
-res = s.media.update_play_progress(key='<value>', time=6900.91, state='<value>')
+res = s.media.update_play_progress(key='<value>', time=90000, state='played')
 
 if res is not None:
     # handle response
@@ -118,11 +115,11 @@ if res is not None:
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `key`                                                               | *str*                                                               | :heavy_check_mark:                                                  | the media key                                                       |
-| `time`                                                              | *float*                                                             | :heavy_check_mark:                                                  | The time, in milliseconds, used to set the media playback progress. |
-| `state`                                                             | *str*                                                               | :heavy_check_mark:                                                  | The playback state of the media item.                               |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `key`                                                               | *str*                                                               | :heavy_check_mark:                                                  | the media key                                                       |                                                                     |
+| `time`                                                              | *float*                                                             | :heavy_check_mark:                                                  | The time, in milliseconds, used to set the media playback progress. | 90000                                                               |
+| `state`                                                             | *str*                                                               | :heavy_check_mark:                                                  | The playback state of the media item.                               | played                                                              |
 
 
 ### Response

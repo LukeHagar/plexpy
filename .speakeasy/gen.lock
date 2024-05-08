@@ -1,27 +1,32 @@
 lockVersion: 2.0.0
 id: 3eeea668-4ef4-464e-a888-bdfa023bedf5
 management:
-  docChecksum: 7a43cd3413d535205cfaee20a4b6a250
+  docChecksum: 543cb95355401d2e3c2ba11a50d9dd94
   docVersion: 0.0.3
-  speakeasyVersion: 1.277.8
-  generationVersion: 2.319.10
-  releaseVersion: 0.6.6
-  configChecksum: b2732247dc15bffefba63b74826b72e6
+  speakeasyVersion: 1.285.0
+  generationVersion: 2.326.3
+  releaseVersion: 0.7.0
+  configChecksum: d41331fd79b67d163f35aa0338d4a9d2
   repoURL: https://github.com/LukeHagar/plexpy.git
   repoSubDirectory: .
   installationURL: https://github.com/LukeHagar/plexpy.git
   published: true
 features:
   python:
+    additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.3
     core: 4.6.7
     flattening: 2.81.1
     globalSecurity: 2.83.5
+    globalSecurityCallbacks: 0.1.0
+    globalSecurityFlattening: 0.1.0
     globalServerURLs: 2.82.2
     globals: 2.82.1
     methodServerURLs: 2.82.1
     nameOverrides: 2.81.2
     responseFormat: 0.1.0
+    sdkHooks: 0.1.0
+    unions: 2.82.6
 generatedFiles:
   - src/plex_api/sdkconfiguration.py
   - src/plex_api/server.py
@@ -78,7 +83,6 @@ generatedFiles:
   - src/plex_api/models/operations/getlibraries.py
   - src/plex_api/models/operations/getlibrary.py
   - src/plex_api/models/operations/deletelibrary.py
-  - src/plex_api/models/operations/getlibraryitems.py
   - src/plex_api/models/operations/refreshlibrary.py
   - src/plex_api/models/operations/searchlibrary.py
   - src/plex_api/models/operations/getmetadata.py
@@ -303,19 +307,6 @@ generatedFiles:
   - docs/models/operations/getlibraryresponse.md
   - docs/models/operations/deletelibraryrequest.md
   - docs/models/operations/deletelibraryresponse.md
-  - docs/models/operations/tag.md
-  - docs/models/operations/getlibraryitemsrequest.md
-  - docs/models/operations/getlibraryitemspart.md
-  - docs/models/operations/getlibraryitemsmedia.md
-  - docs/models/operations/getlibraryitemsgenre.md
-  - docs/models/operations/getlibraryitemscountry.md
-  - docs/models/operations/getlibraryitemsdirector.md
-  - docs/models/operations/getlibraryitemswriter.md
-  - docs/models/operations/getlibraryitemsrole.md
-  - docs/models/operations/getlibraryitemsmetadata.md
-  - docs/models/operations/getlibraryitemsmediacontainer.md
-  - docs/models/operations/getlibraryitemsresponsebody.md
-  - docs/models/operations/getlibraryitemsresponse.md
   - docs/models/operations/refreshlibraryrequest.md
   - docs/models/operations/refreshlibraryresponse.md
   - docs/models/operations/type.md

@@ -27,7 +27,6 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
-
 res = s.updater.get_update_status()
 
 if res.object is not None:
@@ -62,7 +61,6 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
-
 res = s.updater.check_for_updates(download=operations.Download.ONE)
 
 if res is not None:
@@ -73,9 +71,9 @@ if res is not None:
 
 ### Parameters
 
-| Parameter                                                            | Type                                                                 | Required                                                             | Description                                                          |
-| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| `download`                                                           | [Optional[operations.Download]](../../models/operations/download.md) | :heavy_minus_sign:                                                   | Indicate that you want to start download any updates found.          |
+| Parameter                                                            | Type                                                                 | Required                                                             | Description                                                          | Example                                                              |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `download`                                                           | [Optional[operations.Download]](../../models/operations/download.md) | :heavy_minus_sign:                                                   | Indicate that you want to start download any updates found.          | 1                                                                    |
 
 
 ### Response
@@ -104,8 +102,7 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
-
-res = s.updater.apply_updates(tonight=operations.Tonight.ONE, skip=operations.Skip.ZERO)
+res = s.updater.apply_updates(tonight=operations.Tonight.ONE, skip=operations.Skip.ONE)
 
 if res is not None:
     # handle response
@@ -115,10 +112,10 @@ if res is not None:
 
 ### Parameters
 
-| Parameter                                                                                                                                                | Type                                                                                                                                                     | Required                                                                                                                                                 | Description                                                                                                                                              |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `tonight`                                                                                                                                                | [Optional[operations.Tonight]](../../models/operations/tonight.md)                                                                                       | :heavy_minus_sign:                                                                                                                                       | Indicate that you want the update to run during the next Butler execution. Omitting this or setting it to false indicates that the update should install |
-| `skip`                                                                                                                                                   | [Optional[operations.Skip]](../../models/operations/skip.md)                                                                                             | :heavy_minus_sign:                                                                                                                                       | Indicate that the latest version should be marked as skipped. The <Release> entry for this version will have the `state` set to `skipped`.               |
+| Parameter                                                                                                                                                | Type                                                                                                                                                     | Required                                                                                                                                                 | Description                                                                                                                                              | Example                                                                                                                                                  |
+| -------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `tonight`                                                                                                                                                | [Optional[operations.Tonight]](../../models/operations/tonight.md)                                                                                       | :heavy_minus_sign:                                                                                                                                       | Indicate that you want the update to run during the next Butler execution. Omitting this or setting it to false indicates that the update should install | 1                                                                                                                                                        |
+| `skip`                                                                                                                                                   | [Optional[operations.Skip]](../../models/operations/skip.md)                                                                                             | :heavy_minus_sign:                                                                                                                                       | Indicate that the latest version should be marked as skipped. The <Release> entry for this version will have the `state` set to `skipped`.               | 1                                                                                                                                                        |
 
 
 ### Response

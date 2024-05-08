@@ -7,7 +7,6 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
-
 res = s.server.get_server_capabilities()
 
 if res.object is not None:

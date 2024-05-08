@@ -31,7 +31,6 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
-
 res = s.activities.get_server_activities()
 
 if res.object is not None:
@@ -65,8 +64,7 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
-
-res = s.activities.cancel_server_activities(activity_uuid='<value>')
+res = s.activities.cancel_server_activities(activity_uuid='25b71ed5-0f9d-461c-baa7-d404e9e10d3e')
 
 if res is not None:
     # handle response
@@ -76,9 +74,9 @@ if res is not None:
 
 ### Parameters
 
-| Parameter                           | Type                                | Required                            | Description                         |
-| ----------------------------------- | ----------------------------------- | ----------------------------------- | ----------------------------------- |
-| `activity_uuid`                     | *str*                               | :heavy_check_mark:                  | The UUID of the activity to cancel. |
+| Parameter                            | Type                                 | Required                             | Description                          | Example                              |
+| ------------------------------------ | ------------------------------------ | ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| `activity_uuid`                      | *str*                                | :heavy_check_mark:                   | The UUID of the activity to cancel.  | 25b71ed5-0f9d-461c-baa7-d404e9e10d3e |
 
 
 ### Response
