@@ -1,9 +1,18 @@
-speakeasyVersion: 1.285.0
+speakeasyVersion: 1.285.1
 sources:
-    my-source: {}
+    my-source:
+        sourceNamespace: my-source
+        sourceRevisionDigest: sha256:ffe7e42b90e5235ec9edb15dc1c3df3d0c5fedd6dba739d0e41398decb0da12d
+        sourceBlobDigest: sha256:798f0db3929289c1498ad03dfa0a792fe3d0428aaeee96b0344dd967f1be0d6e
+        tags:
+            - latest
+            - main
 targets:
     plexpy:
         source: my-source
+        sourceNamespace: my-source
+        sourceRevisionDigest: sha256:ffe7e42b90e5235ec9edb15dc1c3df3d0c5fedd6dba739d0e41398decb0da12d
+        sourceBlobDigest: sha256:798f0db3929289c1498ad03dfa0a792fe3d0428aaeee96b0344dd967f1be0d6e
         outLocation: /github/workspace/repo
 workflow:
     workflowVersion: 1.0.0
@@ -12,6 +21,8 @@ workflow:
         my-source:
             inputs:
                 - location: https://raw.githubusercontent.com/LukeHagar/plex-api-spec/main/plex-media-server-spec-dereferenced.yaml
+            registry:
+                location: registry.speakeasyapi.dev/lukehagar/lukehagar/my-source
     targets:
         plexpy:
             target: python
