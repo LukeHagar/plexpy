@@ -31,6 +31,7 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
+
 res = s.server.get_server_capabilities()
 
 if res.object is not None:
@@ -63,6 +64,7 @@ s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
     x_plex_client_identifier='Postman',
 )
+
 
 res = s.server.get_server_preferences()
 
@@ -97,6 +99,7 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
+
 res = s.server.get_available_clients()
 
 if res.object is not None:
@@ -129,6 +132,7 @@ s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
     x_plex_client_identifier='Postman',
 )
+
 
 res = s.server.get_devices()
 
@@ -163,6 +167,7 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
+
 res = s.server.get_server_identity()
 
 if res.object is not None:
@@ -195,6 +200,7 @@ s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
     x_plex_client_identifier='Postman',
 )
+
 
 res = s.server.get_my_plex_account()
 
@@ -230,6 +236,7 @@ s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
     x_plex_client_identifier='Postman',
 )
+
 
 res = s.server.get_resized_photo(request=operations.GetResizedPhotoRequest(
     width=110,
@@ -277,6 +284,7 @@ s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
     x_plex_client_identifier='Postman',
 )
+
 
 res = s.server.get_server_list()
 

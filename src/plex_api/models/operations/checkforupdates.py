@@ -6,6 +6,7 @@ import requests as requests_http
 from enum import Enum
 from typing import Optional
 
+
 class Download(int, Enum):
     r"""Indicate that you want to start download any updates found."""
     ZERO = 0

@@ -39,6 +39,7 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
+
 res = s.playlists.create_playlist(request=operations.CreatePlaylistRequest(
     title='<value>',
     type=operations.QueryParamType.PHOTO,
@@ -84,6 +85,7 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
+
 res = s.playlists.get_playlists(playlist_type=operations.PlaylistType.AUDIO, smart=operations.QueryParamSmart.ZERO)
 
 if res.object is not None:
@@ -126,6 +128,7 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
+
 res = s.playlists.get_playlist(playlist_id=4109.48)
 
 if res.object is not None:
@@ -166,6 +169,7 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
+
 res = s.playlists.delete_playlist(playlist_id=216.22)
 
 if res is not None:
@@ -205,6 +209,7 @@ s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
     x_plex_client_identifier='Postman',
 )
+
 
 res = s.playlists.update_playlist(playlist_id=3915, title='<value>', summary='<value>')
 
@@ -251,6 +256,7 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
+
 res = s.playlists.get_playlist_contents(playlist_id=5004.46, type=9403.59)
 
 if res.object is not None:
@@ -292,6 +298,7 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
+
 res = s.playlists.clear_playlist_contents(playlist_id=1893.18)
 
 if res is not None:
@@ -332,6 +339,7 @@ s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
     x_plex_client_identifier='Postman',
 )
+
 
 res = s.playlists.add_playlist_contents(playlist_id=8502.01, uri='server://12345/com.plexapp.plugins.library/library/metadata/1', play_queue_id=123)
 
@@ -375,6 +383,7 @@ s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
     x_plex_client_identifier='Postman',
 )
+
 
 res = s.playlists.upload_playlist(path='/home/barkley/playlist.m3u', force=operations.Force.ZERO)
 

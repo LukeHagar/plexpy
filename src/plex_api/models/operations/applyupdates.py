@@ -6,10 +6,12 @@ import requests as requests_http
 from enum import Enum
 from typing import Optional
 
+
 class Tonight(int, Enum):
     r"""Indicate that you want the update to run during the next Butler execution. Omitting this or setting it to false indicates that the update should install"""
     ZERO = 0
     ONE = 1
+
 
 class Skip(int, Enum):
     r"""Indicate that the latest version should be marked as skipped. The <Release> entry for this version will have the `state` set to `skipped`."""

@@ -31,6 +31,7 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
+
 res = s.activities.get_server_activities()
 
 if res.object is not None:
@@ -63,6 +64,7 @@ s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
     x_plex_client_identifier='Postman',
 )
+
 
 res = s.activities.cancel_server_activities(activity_uuid='25b71ed5-0f9d-461c-baa7-d404e9e10d3e')
 

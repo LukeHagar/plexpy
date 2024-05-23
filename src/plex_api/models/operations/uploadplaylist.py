@@ -5,6 +5,7 @@ import dataclasses
 import requests as requests_http
 from enum import Enum
 
+
 class Force(int, Enum):
     r"""Force overwriting of duplicate playlists.
     By default, a playlist file uploaded with the same path will overwrite the existing playlist. 

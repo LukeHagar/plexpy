@@ -26,6 +26,7 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
+
 res = s.video.get_timeline(request=operations.GetTimelineRequest(
     rating_key=23409,
     key='/library/metadata/23409',
@@ -76,6 +77,7 @@ s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
     x_plex_client_identifier='Postman',
 )
+
 
 res = s.video.start_universal_transcode(request=operations.StartUniversalTranscodeRequest(
     has_mde=1,

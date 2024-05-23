@@ -24,6 +24,7 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
+
 res = s.statistics.get_statistics(timespan=4)
 
 if res.object is not None:

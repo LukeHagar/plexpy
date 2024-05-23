@@ -8,6 +8,7 @@ from enum import Enum
 from plex_api import utils
 from typing import List, Optional
 
+
 class IncludeDetails(int, Enum):
     r"""Whether or not to include details for a section (types, filters, and sorts).
     Only exists for backwards compatibility, media providers other than the server libraries have it on always.

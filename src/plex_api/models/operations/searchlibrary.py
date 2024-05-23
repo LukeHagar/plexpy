@@ -8,6 +8,7 @@ from enum import Enum
 from plex_api import utils
 from typing import List, Optional
 
+
 class Type(int, Enum):
     r"""Plex content type to search for"""
     ONE = 1

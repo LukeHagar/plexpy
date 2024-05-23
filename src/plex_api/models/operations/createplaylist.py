@@ -8,11 +8,13 @@ from enum import Enum
 from plex_api import utils
 from typing import List, Optional
 
+
 class QueryParamType(str, Enum):
     r"""type of playlist to create"""
     AUDIO = 'audio'
     VIDEO = 'video'
     PHOTO = 'photo'
+
 
 class Smart(int, Enum):
     r"""whether the playlist is smart or not"""

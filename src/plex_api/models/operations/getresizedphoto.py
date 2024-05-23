@@ -5,10 +5,12 @@ import dataclasses
 import requests as requests_http
 from enum import Enum
 
+
 class MinSize(int, Enum):
     r"""images are always scaled proportionally. A value of '1' in minSize will make the smaller native dimension the dimension resized against."""
     ZERO = 0
     ONE = 1
+
 
 class Upscale(int, Enum):
     r"""allow images to be resized beyond native dimensions."""

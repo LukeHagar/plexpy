@@ -26,6 +26,7 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
+
 res = s.media.mark_played(key=59398)
 
 if res is not None:
@@ -64,6 +65,7 @@ s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
     x_plex_client_identifier='Postman',
 )
+
 
 res = s.media.mark_unplayed(key=59398)
 
@@ -104,6 +106,7 @@ s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
     x_plex_client_identifier='Postman',
 )
+
 
 res = s.media.update_play_progress(key='<value>', time=90000, state='played')
 

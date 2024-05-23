@@ -5,6 +5,7 @@ import dataclasses
 import requests as requests_http
 from enum import Enum
 
+
 class Level(int, Enum):
     r"""An integer log level to write to the PMS log with.
     0: Error  

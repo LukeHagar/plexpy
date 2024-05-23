@@ -5,9 +5,11 @@ import dataclasses
 import requests as requests_http
 from enum import Enum
 
+
 class GetTransientTokenQueryParamType(str, Enum):
     r"""`delegation` - This is the only supported `type` parameter."""
     DELEGATION = 'delegation'
+
 
 class Scope(str, Enum):
     r"""`all` - This is the only supported `scope` parameter."""

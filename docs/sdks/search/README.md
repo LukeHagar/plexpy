@@ -38,6 +38,7 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
+
 res = s.search.perform_search(query='dylan', section_id=1516.53, limit=5)
 
 if res is not None:
@@ -83,6 +84,7 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
+
 res = s.search.perform_voice_search(query='dead+poop', section_id=4094.8, limit=5)
 
 if res is not None:
@@ -123,6 +125,7 @@ s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
     x_plex_client_identifier='Postman',
 )
+
 
 res = s.search.get_search_results(query='110')
 

@@ -28,6 +28,7 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
+
 res = s.butler.get_butler_tasks()
 
 if res.object is not None:
@@ -66,6 +67,7 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
+
 res = s.butler.start_all_tasks()
 
 if res is not None:
@@ -99,6 +101,7 @@ s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
     x_plex_client_identifier='Postman',
 )
+
 
 res = s.butler.stop_all_tasks()
 
@@ -138,6 +141,7 @@ s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
     x_plex_client_identifier='Postman',
 )
+
 
 res = s.butler.start_task(task_name=operations.TaskName.CLEAN_OLD_BUNDLES)
 
@@ -179,6 +183,7 @@ s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
     x_plex_client_identifier='Postman',
 )
+
 
 res = s.butler.stop_task(task_name=operations.PathParamTaskName.BACKUP_DATABASE)
 

@@ -8,11 +8,13 @@ from enum import Enum
 from plex_api import utils
 from typing import List, Optional
 
+
 class PlaylistType(str, Enum):
     r"""limit to a type of playlist."""
     AUDIO = 'audio'
     VIDEO = 'video'
     PHOTO = 'photo'
+
 
 class QueryParamSmart(int, Enum):
     r"""type of playlists to return (default is all)."""

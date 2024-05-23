@@ -9,6 +9,7 @@ from enum import Enum
 from plex_api import utils
 from typing import List, Optional
 
+
 class QueryParamOnlyTransient(int, Enum):
     r"""Only return hubs which are \\"transient\\", meaning those which are prone to changing after media playback or addition (e.g. On Deck, or Recently Added)."""
     ZERO = 0

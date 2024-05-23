@@ -13,6 +13,7 @@ API Calls interacting with Plex Media Server Libraries
 * [get_libraries](#get_libraries) - Get All Libraries
 * [get_library](#get_library) - Get Library Details
 * [delete_library](#delete_library) - Delete Library Section
+* [get_library_items](#get_library_items) - Get Library Items
 * [refresh_library](#refresh_library) - Refresh Library
 * [search_library](#search_library) - Search Library
 * [get_metadata](#get_metadata) - Get Items Metadata
@@ -32,6 +33,7 @@ s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
     x_plex_client_identifier='Postman',
 )
+
 
 res = s.library.get_file_hash(url='file://C:\Image.png&type=13', type=4462.17)
 
@@ -74,6 +76,7 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
+
 res = s.library.get_recently_added()
 
 if res.object is not None:
@@ -112,6 +115,7 @@ s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
     x_plex_client_identifier='Postman',
 )
+
 
 res = s.library.get_libraries()
 
@@ -186,6 +190,7 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
+
 res = s.library.get_library(section_id=1000, include_details=operations.IncludeDetails.ZERO)
 
 if res.object is not None:
@@ -226,6 +231,7 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
+
 res = s.library.delete_library(section_id=1000)
 
 if res is not None:
@@ -251,6 +257,68 @@ if res is not None:
 | errors.DeleteLibraryResponseBody | 401                              | application/json                 |
 | errors.SDKError                  | 4xx-5xx                          | */*                              |
 
+## get_library_items
+
+Fetches details from a specific section of the library identified by a section key and a tag. The tag parameter accepts the following values:
+- `all`: All items in the section.
+- `unwatched`: Items that have not been played.
+- `newest`: Items that are recently released.
+- `recentlyAdded`: Items that are recently added to the library.
+- `recentlyViewed`: Items that were recently viewed.
+- `onDeck`: Items to continue watching.
+- `collection`: Items categorized by collection.
+- `edition`: Items categorized by edition.
+- `genre`: Items categorized by genre.
+- `year`: Items categorized by year of release.
+- `decade`: Items categorized by decade.
+- `director`: Items categorized by director.
+- `actor`: Items categorized by starring actor.
+- `country`: Items categorized by country of origin.
+- `contentRating`: Items categorized by content rating.
+- `rating`: Items categorized by rating.
+- `resolution`: Items categorized by resolution.
+- `firstCharacter`: Items categorized by the first letter.
+- `folder`: Items categorized by folder.
+
+
+### Example Usage
+
+```python
+import plex_api
+from plex_api.models import operations
+
+s = plex_api.PlexAPI(
+    access_token="<YOUR_API_KEY_HERE>",
+    x_plex_client_identifier='Postman',
+)
+
+
+res = s.library.get_library_items(section_id=1, tag=operations.Tag.GENRE)
+
+if res.object is not None:
+    # handle response
+    pass
+
+```
+
+### Parameters
+
+| Parameter                                             | Type                                                  | Required                                              | Description                                           | Example                                               |
+| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
+| `section_id`                                          | *int*                                                 | :heavy_check_mark:                                    | the Id of the library to query                        | 1                                                     |
+| `tag`                                                 | [operations.Tag](../../models/operations/tag.md)      | :heavy_check_mark:                                    | A key representing a specific tag within the section. |                                                       |
+
+
+### Response
+
+**[operations.GetLibraryItemsResponse](../../models/operations/getlibraryitemsresponse.md)**
+### Errors
+
+| Error Object                       | Status Code                        | Content Type                       |
+| ---------------------------------- | ---------------------------------- | ---------------------------------- |
+| errors.GetLibraryItemsResponseBody | 401                                | application/json                   |
+| errors.SDKError                    | 4xx-5xx                            | */*                                |
+
 ## refresh_library
 
 This endpoint Refreshes the library.
@@ -265,6 +333,7 @@ s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
     x_plex_client_identifier='Postman',
 )
+
 
 res = s.library.refresh_library(section_id=934.16)
 
@@ -324,6 +393,7 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
+
 res = s.library.search_library(section_id=933505, type=operations.Type.FOUR)
 
 if res.object is not None:
@@ -345,9 +415,10 @@ if res.object is not None:
 **[operations.SearchLibraryResponse](../../models/operations/searchlibraryresponse.md)**
 ### Errors
 
-| Error Object    | Status Code     | Content Type    |
-| --------------- | --------------- | --------------- |
-| errors.SDKError | 4xx-5xx         | */*             |
+| Error Object                     | Status Code                      | Content Type                     |
+| -------------------------------- | -------------------------------- | -------------------------------- |
+| errors.SearchLibraryResponseBody | 401                              | application/json                 |
+| errors.SDKError                  | 4xx-5xx                          | */*                              |
 
 ## get_metadata
 
@@ -363,6 +434,7 @@ s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
     x_plex_client_identifier='Postman',
 )
+
 
 res = s.library.get_metadata(rating_key=8382.31)
 
@@ -404,6 +476,7 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
+
 res = s.library.get_metadata_children(rating_key=1539.14)
 
 if res.object is not None:
@@ -443,6 +516,7 @@ s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
     x_plex_client_identifier='Postman',
 )
+
 
 res = s.library.get_on_deck()
 

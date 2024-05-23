@@ -28,6 +28,7 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
+
 res = s.server.get_server_capabilities()
 
 if res.object is not None:
@@ -93,6 +94,7 @@ if res.object is not None:
 * [get_libraries](docs/sdks/library/README.md#get_libraries) - Get All Libraries
 * [get_library](docs/sdks/library/README.md#get_library) - Get Library Details
 * [delete_library](docs/sdks/library/README.md#delete_library) - Delete Library Section
+* [get_library_items](docs/sdks/library/README.md#get_library_items) - Get Library Items
 * [refresh_library](docs/sdks/library/README.md#refresh_library) - Refresh Library
 * [search_library](docs/sdks/library/README.md#search_library) - Search Library
 * [get_metadata](docs/sdks/library/README.md#get_metadata) - Get Items Metadata
@@ -169,6 +171,7 @@ s = plex_api.PlexAPI(
 res = None
 try:
     res = s.server.get_server_capabilities()
+
 except errors.GetServerCapabilitiesResponseBody as e:
     # handle exception
     raise(e)
@@ -205,6 +208,7 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
+
 res = s.server.get_server_capabilities()
 
 if res.object is not None:
@@ -232,6 +236,7 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
+
 res = s.server.get_server_capabilities()
 
 if res.object is not None:
@@ -249,6 +254,7 @@ import plex_api
 s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
+
 
 res = s.plex.get_pin(strong=False, x_plex_client_identifier='Postman', server_url="https://plex.tv/api/v2")
 
@@ -295,6 +301,7 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
+
 res = s.server.get_server_capabilities()
 
 if res.object is not None:
@@ -332,6 +339,7 @@ import plex_api
 s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
+
 
 res = s.plex.get_pin(strong=False, x_plex_client_identifier='Postman')
 

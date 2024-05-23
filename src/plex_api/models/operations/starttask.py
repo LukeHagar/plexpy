@@ -5,6 +5,7 @@ import dataclasses
 import requests as requests_http
 from enum import Enum
 
+
 class TaskName(str, Enum):
     r"""the name of the task to be started."""
     BACKUP_DATABASE = 'BackupDatabase'

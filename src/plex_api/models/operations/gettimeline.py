@@ -5,6 +5,7 @@ import dataclasses
 import requests as requests_http
 from enum import Enum
 
+
 class State(str, Enum):
     r"""The state of the media item"""
     PLAYING = 'playing'

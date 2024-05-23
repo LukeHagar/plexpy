@@ -27,6 +27,7 @@ s = plex_api.PlexAPI(
     x_plex_client_identifier='Postman',
 )
 
+
 res = s.updater.get_update_status()
 
 if res.object is not None:
@@ -60,6 +61,7 @@ s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
     x_plex_client_identifier='Postman',
 )
+
 
 res = s.updater.check_for_updates(download=operations.Download.ONE)
 
@@ -101,6 +103,7 @@ s = plex_api.PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
     x_plex_client_identifier='Postman',
 )
+
 
 res = s.updater.apply_updates(tonight=operations.Tonight.ONE, skip=operations.Skip.ONE)
 
