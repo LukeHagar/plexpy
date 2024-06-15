@@ -27,6 +27,8 @@ class GetPinGlobals:
 
 @dataclasses.dataclass
 class GetPinRequest:
+    x_plex_product: str = dataclasses.field(metadata={'header': { 'field_name': 'X-Plex-Product', 'style': 'simple', 'explode': False }})
+    r"""Product name of the application shown in the list of devices"""
     strong: Optional[bool] = dataclasses.field(default=False, metadata={'query_param': { 'field_name': 'strong', 'style': 'form', 'explode': True }})
     r"""Determines the kind of code returned by the API call
     Strong codes are used for Pin authentication flows
@@ -50,7 +52,7 @@ class Location:
     country: Optional[str] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('country'), 'exclude': lambda f: f is None }})
     city: Optional[str] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('city'), 'exclude': lambda f: f is None }})
     time_zone: Optional[str] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('time_zone'), 'exclude': lambda f: f is None }})
-    postal_code: Optional[float] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('postal_code'), 'exclude': lambda f: f is None }})
+    postal_code: Optional[str] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('postal_code'), 'exclude': lambda f: f is None }})
     in_privacy_restricted_country: Optional[bool] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('in_privacy_restricted_country'), 'exclude': lambda f: f is None }})
     subdivisions: Optional[str] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('subdivisions'), 'exclude': lambda f: f is None }})
     coordinates: Optional[str] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('coordinates'), 'exclude': lambda f: f is None }})

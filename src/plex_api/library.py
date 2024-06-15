@@ -5,7 +5,7 @@ from .sdkconfiguration import SDKConfiguration
 from plex_api import utils
 from plex_api._hooks import AfterErrorContext, AfterSuccessContext, BeforeRequestContext, HookContext
 from plex_api.models import errors, operations
-from typing import Optional
+from typing import Any, Optional
 
 class Library:
     r"""API Calls interacting with Plex Media Server Libraries"""
@@ -393,7 +393,7 @@ class Library:
 
     
     
-    def get_library_items(self, section_id: int, tag: operations.Tag) -> operations.GetLibraryItemsResponse:
+    def get_library_items(self, section_id: Any, tag: operations.Tag) -> operations.GetLibraryItemsResponse:
         r"""Get Library Items
         Fetches details from a specific section of the library identified by a section key and a tag. The tag parameter accepts the following values:
         - `all`: All items in the section.

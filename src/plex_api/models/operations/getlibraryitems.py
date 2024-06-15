@@ -7,7 +7,7 @@ from dataclasses_json import Undefined, dataclass_json
 from datetime import date
 from enum import Enum
 from plex_api import utils
-from typing import List, Optional
+from typing import Any, List, Optional
 
 
 class Tag(str, Enum):
@@ -35,7 +35,7 @@ class Tag(str, Enum):
 
 @dataclasses.dataclass
 class GetLibraryItemsRequest:
-    section_id: int = dataclasses.field(metadata={'path_param': { 'field_name': 'sectionId', 'style': 'simple', 'explode': False }})
+    section_id: Any = dataclasses.field(metadata={'path_param': { 'field_name': 'sectionId', 'style': 'simple', 'explode': False }})
     r"""the Id of the library to query"""
     tag: Tag = dataclasses.field(metadata={'path_param': { 'field_name': 'tag', 'style': 'simple', 'explode': False }})
     r"""A key representing a specific tag within the section."""

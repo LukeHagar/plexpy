@@ -293,7 +293,7 @@ s = plex_api.PlexAPI(
 )
 
 
-res = s.library.get_library_items(section_id=1, tag=operations.Tag.GENRE)
+res = s.library.get_library_items(section_id='<value>', tag=operations.Tag.GENRE)
 
 if res.object is not None:
     # handle response
@@ -303,10 +303,10 @@ if res.object is not None:
 
 ### Parameters
 
-| Parameter                                             | Type                                                  | Required                                              | Description                                           | Example                                               |
-| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
-| `section_id`                                          | *int*                                                 | :heavy_check_mark:                                    | the Id of the library to query                        | 1                                                     |
-| `tag`                                                 | [operations.Tag](../../models/operations/tag.md)      | :heavy_check_mark:                                    | A key representing a specific tag within the section. |                                                       |
+| Parameter                                             | Type                                                  | Required                                              | Description                                           |
+| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
+| `section_id`                                          | *Any*                                                 | :heavy_check_mark:                                    | the Id of the library to query                        |
+| `tag`                                                 | [operations.Tag](../../models/operations/tag.md)      | :heavy_check_mark:                                    | A key representing a specific tag within the section. |
 
 
 ### Response

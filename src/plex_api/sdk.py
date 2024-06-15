@@ -18,6 +18,7 @@ from .statistics import Statistics
 from .updater import Updater
 from .utils.retries import RetryConfig
 from .video import Video
+from .watchlist import Watchlist
 from plex_api import utils
 from plex_api._hooks import SDKHooks
 from plex_api.models import components, internal
@@ -44,6 +45,8 @@ class PlexAPI:
     """
     butler: Butler
     r"""Butler is the task manager of the Plex Media Server Ecosystem."""
+    plex: Plex
+    r"""API Calls that perform operations directly against https://Plex.tv"""
     hubs: Hubs
     r"""Hubs are a structured two-dimensional container for media, generally represented by multiple horizontal rows."""
     search: Search
@@ -52,8 +55,6 @@ class PlexAPI:
     r"""API Calls interacting with Plex Media Server Libraries"""
     log: Log
     r"""Submit logs to the Log Handler for Plex Media Server"""
-    plex: Plex
-    r"""API Calls that perform operations directly against https://Plex.tv"""
     playlists: Playlists
     r"""Playlists are ordered collections of media. They can be dumb (just a list of media) or smart (based on a media query, such as \\"all albums from 2017\\").
     They can be organized in (optionally nesting) folders.
@@ -70,6 +71,8 @@ class PlexAPI:
     r"""This describes the API for searching and applying updates to the Plex Media Server.
     Updates to the status can be observed via the Event API.
     """
+    watchlist: Watchlist
+    r"""API Calls that perform operations with Plex Media Server Watchlists"""
 
     sdk_configuration: SDKConfiguration
 
@@ -161,13 +164,14 @@ class PlexAPI:
         self.video = Video(self.sdk_configuration)
         self.activities = Activities(self.sdk_configuration)
         self.butler = Butler(self.sdk_configuration)
+        self.plex = Plex(self.sdk_configuration)
         self.hubs = Hubs(self.sdk_configuration)
         self.search = Search(self.sdk_configuration)
         self.library = Library(self.sdk_configuration)
         self.log = Log(self.sdk_configuration)
-        self.plex = Plex(self.sdk_configuration)
         self.playlists = Playlists(self.sdk_configuration)
         self.authentication = Authentication(self.sdk_configuration)
         self.statistics = Statistics(self.sdk_configuration)
         self.sessions = Sessions(self.sdk_configuration)
         self.updater = Updater(self.sdk_configuration)
+        self.watchlist = Watchlist(self.sdk_configuration)

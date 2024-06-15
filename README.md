@@ -76,6 +76,12 @@ if res.object is not None:
 * [start_task](docs/sdks/butler/README.md#start_task) - Start a single Butler task
 * [stop_task](docs/sdks/butler/README.md#stop_task) - Stop a single Butler task
 
+### [plex](docs/sdks/plex/README.md)
+
+* [get_home_data](docs/sdks/plex/README.md#get_home_data) - Get Plex Home Data
+* [get_pin](docs/sdks/plex/README.md#get_pin) - Get a Pin
+* [get_token](docs/sdks/plex/README.md#get_token) - Get Access Token
+
 ### [hubs](docs/sdks/hubs/README.md)
 
 * [get_global_hubs](docs/sdks/hubs/README.md#get_global_hubs) - Get Global Hubs
@@ -106,11 +112,6 @@ if res.object is not None:
 * [log_line](docs/sdks/log/README.md#log_line) - Logging a single line message.
 * [log_multi_line](docs/sdks/log/README.md#log_multi_line) - Logging a multi-line message
 * [enable_paper_trail](docs/sdks/log/README.md#enable_paper_trail) - Enabling Papertrail
-
-### [plex](docs/sdks/plex/README.md)
-
-* [get_pin](docs/sdks/plex/README.md#get_pin) - Get a Pin
-* [get_token](docs/sdks/plex/README.md#get_token) - Get Access Token
 
 ### [playlists](docs/sdks/playlists/README.md)
 
@@ -145,6 +146,10 @@ if res.object is not None:
 * [get_update_status](docs/sdks/updater/README.md#get_update_status) - Querying status of updates
 * [check_for_updates](docs/sdks/updater/README.md#check_for_updates) - Checking for updates
 * [apply_updates](docs/sdks/updater/README.md#apply_updates) - Apply Updates
+
+### [watchlist](docs/sdks/watchlist/README.md)
+
+* [get_watchlist](docs/sdks/watchlist/README.md#get_watchlist) - Get User Watchlist
 <!-- End Available Resources and Operations [operations] -->
 
 <!-- Start Error Handling [errors] -->
@@ -256,7 +261,7 @@ s = plex_api.PlexAPI(
 )
 
 
-res = s.plex.get_pin(strong=False, x_plex_client_identifier='Postman', server_url="https://plex.tv/api/v2")
+res = s.plex.get_pin(x_plex_product='Postman', strong=False, x_plex_client_identifier='Postman', server_url="https://plex.tv/api/v2")
 
 if res.object is not None:
     # handle response
@@ -341,7 +346,7 @@ s = plex_api.PlexAPI(
 )
 
 
-res = s.plex.get_pin(strong=False, x_plex_client_identifier='Postman')
+res = s.plex.get_pin(x_plex_product='Postman', strong=False, x_plex_client_identifier='Postman')
 
 if res.object is not None:
     # handle response

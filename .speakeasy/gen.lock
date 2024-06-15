@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 3eeea668-4ef4-464e-a888-bdfa023bedf5
 management:
-  docChecksum: 911d74baa0d06121d2ce2c71d94e977a
+  docChecksum: 37654ea0982ab5e87a9a9576014c9d19
   docVersion: 0.0.3
-  speakeasyVersion: 1.308.0
-  generationVersion: 2.342.2
-  releaseVersion: 0.8.2
-  configChecksum: f20ca4e1b38909fd8d69b6947315f838
+  speakeasyVersion: 1.308.1
+  generationVersion: 2.342.6
+  releaseVersion: 0.9.0
+  configChecksum: d85cf2b27a6bc9ff213089b7d202adf0
   repoURL: https://github.com/LukeHagar/plexpy.git
   repoSubDirectory: .
   installationURL: https://github.com/LukeHagar/plexpy.git
@@ -15,7 +15,7 @@ features:
   python:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.3
-    core: 4.6.10
+    core: 4.6.11
     flattening: 2.81.1
     globalSecurity: 2.83.5
     globalSecurityCallbacks: 0.1.0
@@ -26,6 +26,7 @@ features:
     nameOverrides: 2.81.2
     responseFormat: 0.1.0
     sdkHooks: 0.1.0
+    typeOverrides: 2.81.1
 generatedFiles:
   - src/plex_api/sdkconfiguration.py
   - src/plex_api/server.py
@@ -33,16 +34,17 @@ generatedFiles:
   - src/plex_api/video.py
   - src/plex_api/activities.py
   - src/plex_api/butler.py
+  - src/plex_api/plex.py
   - src/plex_api/hubs.py
   - src/plex_api/search.py
   - src/plex_api/library.py
   - src/plex_api/log.py
-  - src/plex_api/plex.py
   - src/plex_api/playlists.py
   - src/plex_api/authentication.py
   - src/plex_api/statistics.py
   - src/plex_api/sessions.py
   - src/plex_api/updater.py
+  - src/plex_api/watchlist.py
   - src/plex_api/sdk.py
   - Makefile
   - py.typed
@@ -74,6 +76,9 @@ generatedFiles:
   - src/plex_api/models/operations/stopalltasks.py
   - src/plex_api/models/operations/starttask.py
   - src/plex_api/models/operations/stoptask.py
+  - src/plex_api/models/operations/gethomedata.py
+  - src/plex_api/models/operations/getpin.py
+  - src/plex_api/models/operations/gettoken.py
   - src/plex_api/models/operations/getglobalhubs.py
   - src/plex_api/models/operations/getlibraryhubs.py
   - src/plex_api/models/operations/performsearch.py
@@ -93,8 +98,6 @@ generatedFiles:
   - src/plex_api/models/operations/logline.py
   - src/plex_api/models/operations/logmultiline.py
   - src/plex_api/models/operations/enablepapertrail.py
-  - src/plex_api/models/operations/getpin.py
-  - src/plex_api/models/operations/gettoken.py
   - src/plex_api/models/operations/createplaylist.py
   - src/plex_api/models/operations/getplaylists.py
   - src/plex_api/models/operations/getplaylist.py
@@ -114,6 +117,7 @@ generatedFiles:
   - src/plex_api/models/operations/getupdatestatus.py
   - src/plex_api/models/operations/checkforupdates.py
   - src/plex_api/models/operations/applyupdates.py
+  - src/plex_api/models/operations/getwatchlist.py
   - src/plex_api/models/errors/getservercapabilities.py
   - src/plex_api/models/errors/getserverpreferences.py
   - src/plex_api/models/errors/getavailableclients.py
@@ -134,6 +138,9 @@ generatedFiles:
   - src/plex_api/models/errors/stopalltasks.py
   - src/plex_api/models/errors/starttask.py
   - src/plex_api/models/errors/stoptask.py
+  - src/plex_api/models/errors/gethomedata.py
+  - src/plex_api/models/errors/getpin.py
+  - src/plex_api/models/errors/gettoken.py
   - src/plex_api/models/errors/getglobalhubs.py
   - src/plex_api/models/errors/getlibraryhubs.py
   - src/plex_api/models/errors/performsearch.py
@@ -153,8 +160,6 @@ generatedFiles:
   - src/plex_api/models/errors/logline.py
   - src/plex_api/models/errors/logmultiline.py
   - src/plex_api/models/errors/enablepapertrail.py
-  - src/plex_api/models/errors/getpin.py
-  - src/plex_api/models/errors/gettoken.py
   - src/plex_api/models/errors/createplaylist.py
   - src/plex_api/models/errors/getplaylists.py
   - src/plex_api/models/errors/getplaylist.py
@@ -174,6 +179,7 @@ generatedFiles:
   - src/plex_api/models/errors/getupdatestatus.py
   - src/plex_api/models/errors/checkforupdates.py
   - src/plex_api/models/errors/applyupdates.py
+  - src/plex_api/models/errors/getwatchlist.py
   - src/plex_api/models/components/security.py
   - src/plex_api/models/internal/globals.py
   - src/plex_api/models/__init__.py
@@ -241,6 +247,18 @@ generatedFiles:
   - docs/models/operations/pathparamtaskname.md
   - docs/models/operations/stoptaskrequest.md
   - docs/models/operations/stoptaskresponse.md
+  - docs/models/operations/gethomedataresponsebody.md
+  - docs/models/operations/gethomedataresponse.md
+  - docs/models/operations/getpinglobals.md
+  - docs/models/operations/getpinrequest.md
+  - docs/models/operations/location.md
+  - docs/models/operations/getpinresponsebody.md
+  - docs/models/operations/getpinresponse.md
+  - docs/models/operations/gettokenglobals.md
+  - docs/models/operations/gettokenrequest.md
+  - docs/models/operations/gettokenlocation.md
+  - docs/models/operations/gettokenresponsebody.md
+  - docs/models/operations/gettokenresponse.md
   - docs/models/operations/onlytransient.md
   - docs/models/operations/getglobalhubsrequest.md
   - docs/models/operations/getglobalhubsmetadata.md
@@ -288,7 +306,7 @@ generatedFiles:
   - docs/models/operations/writer.md
   - docs/models/operations/country.md
   - docs/models/operations/role.md
-  - docs/models/operations/metadata.md
+  - docs/models/operations/getrecentlyaddedmetadata.md
   - docs/models/operations/getrecentlyaddedmediacontainer.md
   - docs/models/operations/getrecentlyaddedresponsebody.md
   - docs/models/operations/getrecentlyaddedresponse.md
@@ -300,7 +318,7 @@ generatedFiles:
   - docs/models/operations/includedetails.md
   - docs/models/operations/getlibraryrequest.md
   - docs/models/operations/getlibrarydirectory.md
-  - docs/models/operations/filter_.md
+  - docs/models/operations/getlibraryfilter.md
   - docs/models/operations/sort.md
   - docs/models/operations/field.md
   - docs/models/operations/getlibrarytype.md
@@ -367,14 +385,6 @@ generatedFiles:
   - docs/models/operations/loglineresponse.md
   - docs/models/operations/logmultilineresponse.md
   - docs/models/operations/enablepapertrailresponse.md
-  - docs/models/operations/getpinglobals.md
-  - docs/models/operations/getpinrequest.md
-  - docs/models/operations/location.md
-  - docs/models/operations/getpinresponsebody.md
-  - docs/models/operations/getpinresponse.md
-  - docs/models/operations/gettokenglobals.md
-  - docs/models/operations/gettokenrequest.md
-  - docs/models/operations/gettokenresponse.md
   - docs/models/operations/queryparamtype.md
   - docs/models/operations/smart.md
   - docs/models/operations/createplaylistrequest.md
@@ -464,6 +474,15 @@ generatedFiles:
   - docs/models/operations/skip.md
   - docs/models/operations/applyupdatesrequest.md
   - docs/models/operations/applyupdatesresponse.md
+  - docs/models/operations/filter_.md
+  - docs/models/operations/libtype.md
+  - docs/models/operations/includecollections.md
+  - docs/models/operations/includeexternalmedia.md
+  - docs/models/operations/getwatchlistrequest.md
+  - docs/models/operations/image.md
+  - docs/models/operations/metadata.md
+  - docs/models/operations/getwatchlistresponsebody.md
+  - docs/models/operations/getwatchlistresponse.md
   - docs/models/errors/errors.md
   - docs/models/errors/getservercapabilitiesresponsebody.md
   - docs/models/errors/getserverpreferenceserrors.md
@@ -504,6 +523,12 @@ generatedFiles:
   - docs/models/errors/starttaskresponsebody.md
   - docs/models/errors/stoptaskerrors.md
   - docs/models/errors/stoptaskresponsebody.md
+  - docs/models/errors/gethomedataerrors.md
+  - docs/models/errors/gethomedataresponsebody.md
+  - docs/models/errors/getpinerrors.md
+  - docs/models/errors/getpinresponsebody.md
+  - docs/models/errors/gettokenerrors.md
+  - docs/models/errors/gettokenresponsebody.md
   - docs/models/errors/getglobalhubserrors.md
   - docs/models/errors/getglobalhubsresponsebody.md
   - docs/models/errors/getlibraryhubserrors.md
@@ -542,10 +567,6 @@ generatedFiles:
   - docs/models/errors/logmultilineresponsebody.md
   - docs/models/errors/enablepapertrailerrors.md
   - docs/models/errors/enablepapertrailresponsebody.md
-  - docs/models/errors/getpinerrors.md
-  - docs/models/errors/getpinresponsebody.md
-  - docs/models/errors/gettokenerrors.md
-  - docs/models/errors/gettokenresponsebody.md
   - docs/models/errors/createplaylisterrors.md
   - docs/models/errors/createplaylistresponsebody.md
   - docs/models/errors/getplaylistserrors.md
@@ -584,6 +605,8 @@ generatedFiles:
   - docs/models/errors/checkforupdatesresponsebody.md
   - docs/models/errors/applyupdateserrors.md
   - docs/models/errors/applyupdatesresponsebody.md
+  - docs/models/errors/getwatchlisterrors.md
+  - docs/models/errors/getwatchlistresponsebody.md
   - docs/models/components/security.md
   - docs/models/internal/globals.md
   - docs/sdks/plexapi/README.md
@@ -592,16 +615,17 @@ generatedFiles:
   - docs/sdks/video/README.md
   - docs/sdks/activities/README.md
   - docs/sdks/butler/README.md
+  - docs/sdks/plex/README.md
   - docs/sdks/hubs/README.md
   - docs/sdks/search/README.md
   - docs/sdks/library/README.md
   - docs/sdks/log/README.md
-  - docs/sdks/plex/README.md
   - docs/sdks/playlists/README.md
   - docs/sdks/authentication/README.md
   - docs/sdks/statistics/README.md
   - docs/sdks/sessions/README.md
   - docs/sdks/updater/README.md
+  - docs/sdks/watchlist/README.md
   - USAGE.md
   - .gitattributes
   - src/plex_api/_hooks/sdkhooks.py
