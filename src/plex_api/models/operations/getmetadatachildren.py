@@ -12,6 +12,8 @@ from typing import List, Optional
 class GetMetadataChildrenRequest:
     rating_key: float = dataclasses.field(metadata={'path_param': { 'field_name': 'ratingKey', 'style': 'simple', 'explode': False }})
     r"""the id of the library item to return the children of."""
+    include_elements: Optional[str] = dataclasses.field(default=None, metadata={'query_param': { 'field_name': 'includeElements', 'style': 'form', 'explode': True }})
+    r"""Adds additional elements to the response. Supported types are (Stream)"""
     
 
 

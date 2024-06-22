@@ -2,11 +2,12 @@
 
 from __future__ import annotations
 import dataclasses
+from typing import Optional
 
 
 @dataclasses.dataclass
 class Globals:
-    x_plex_client_identifier: str = dataclasses.field(metadata={'header': { 'field_name': 'X-Plex-Client-Identifier', 'style': 'simple', 'explode': False }})
+    x_plex_client_identifier: Optional[str] = dataclasses.field(default=None, metadata={'header': { 'field_name': 'X-Plex-Client-Identifier', 'style': 'simple', 'explode': False }})
     r"""The unique identifier for the client application
     This is used to track the client application and its usage
     (UUID, serial number, or other number unique per device)

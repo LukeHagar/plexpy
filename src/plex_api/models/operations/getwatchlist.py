@@ -15,7 +15,7 @@ GET_WATCHLIST_SERVERS = [
 ]
 
 
-class Filter(str, Enum):
+class PathParamFilter(str, Enum):
     r"""Filter"""
     ALL = 'all'
     AVAILABLE = 'available'
@@ -42,7 +42,7 @@ class IncludeExternalMedia(int, Enum):
 
 @dataclasses.dataclass
 class GetWatchlistRequest:
-    filter_: Filter = dataclasses.field(metadata={'path_param': { 'field_name': 'filter', 'style': 'simple', 'explode': False }})
+    filter_: PathParamFilter = dataclasses.field(metadata={'path_param': { 'field_name': 'filter', 'style': 'simple', 'explode': False }})
     r"""Filter"""
     x_plex_token: str = dataclasses.field(metadata={'query_param': { 'field_name': 'X-Plex-Token', 'style': 'form', 'explode': True }})
     r"""User Token"""

@@ -7,7 +7,7 @@ from dataclasses_json import Undefined, dataclass_json
 from datetime import date
 from enum import Enum
 from plex_api import utils
-from typing import Any, List, Optional
+from typing import Any, List, Optional, Union
 
 
 class Tag(str, Enum):
@@ -39,6 +39,8 @@ class GetLibraryItemsRequest:
     r"""the Id of the library to query"""
     tag: Tag = dataclasses.field(metadata={'path_param': { 'field_name': 'tag', 'style': 'simple', 'explode': False }})
     r"""A key representing a specific tag within the section."""
+    include_guids: Optional[int] = dataclasses.field(default=None, metadata={'query_param': { 'field_name': 'includeGuids', 'style': 'form', 'explode': True }})
+    r"""Adds the Guids object to the response"""
     
 
 
@@ -189,7 +191,7 @@ class GetLibraryItemsMediaContainer:
     allow_sync: Optional[bool] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('allowSync'), 'exclude': lambda f: f is None }})
     art: Optional[str] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('art'), 'exclude': lambda f: f is None }})
     identifier: Optional[str] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('identifier'), 'exclude': lambda f: f is None }})
-    library_section_id: Optional[int] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('librarySectionID'), 'exclude': lambda f: f is None }})
+    library_section_id: Optional[LibrarySectionID] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('librarySectionID'), 'exclude': lambda f: f is None }})
     library_section_title: Optional[str] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('librarySectionTitle'), 'exclude': lambda f: f is None }})
     library_section_uuid: Optional[str] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('librarySectionUUID'), 'exclude': lambda f: f is None }})
     media_tag_prefix: Optional[str] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('mediaTagPrefix'), 'exclude': lambda f: f is None }})
@@ -226,3 +228,5 @@ class GetLibraryItemsResponse:
     r"""The contents of the library by section and tag"""
     
 
+
+LibrarySectionID = Union[int, str]

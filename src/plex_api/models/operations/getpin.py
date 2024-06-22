@@ -16,7 +16,7 @@ GET_PIN_SERVERS = [
 
 @dataclasses.dataclass
 class GetPinGlobals:
-    x_plex_client_identifier: str = dataclasses.field(metadata={'header': { 'field_name': 'X-Plex-Client-Identifier', 'style': 'simple', 'explode': False }})
+    x_plex_client_identifier: Optional[str] = dataclasses.field(default=None, metadata={'header': { 'field_name': 'X-Plex-Client-Identifier', 'style': 'simple', 'explode': False }})
     r"""The unique identifier for the client application
     This is used to track the client application and its usage
     (UUID, serial number, or other number unique per device)
@@ -64,6 +64,7 @@ class Location:
 @dataclasses.dataclass
 class GetPinResponseBody:
     r"""The Pin"""
+    UNSET='__SPEAKEASY_UNSET__'
     id: Optional[float] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('id'), 'exclude': lambda f: f is None }})
     r"""PinID for use with authentication"""
     code: Optional[str] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('code'), 'exclude': lambda f: f is None }})
@@ -80,7 +81,7 @@ class GetPinResponseBody:
     created_at: Optional[datetime] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('createdAt'), 'encoder': utils.datetimeisoformat(True), 'decoder': dateutil.parser.isoparse, 'exclude': lambda f: f is None }})
     expires_at: Optional[datetime] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('expiresAt'), 'encoder': utils.datetimeisoformat(True), 'decoder': dateutil.parser.isoparse, 'exclude': lambda f: f is None }})
     auth_token: Optional[str] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('authToken'), 'exclude': lambda f: f is None }})
-    new_registration: Optional[str] = dataclasses.field(default=None, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('newRegistration'), 'exclude': lambda f: f is None }})
+    new_registration: Optional[bool] = dataclasses.field(default=UNSET, metadata={'dataclasses_json': { 'letter_case': utils.get_field_name('newRegistration'), 'exclude': lambda f: f is GetPinResponseBody.UNSET }})
     
 
 

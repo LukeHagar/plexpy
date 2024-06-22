@@ -27,7 +27,7 @@ s = plex_api.PlexAPI(
 
 
 res = s.watchlist.get_watchlist(request=operations.GetWatchlistRequest(
-    filter_=operations.Filter.RELEASED,
+    filter_=operations.PathParamFilter.RELEASED,
     x_plex_token='<value>',
 ))
 

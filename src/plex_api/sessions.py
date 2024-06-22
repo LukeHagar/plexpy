@@ -82,11 +82,18 @@ class Sessions:
 
     
     
-    def get_session_history(self) -> operations.GetSessionHistoryResponse:
+    def get_session_history(self, sort: Optional[str] = None, account_id: Optional[int] = None, filter_: Optional[operations.Filter] = None, library_section_id: Optional[int] = None) -> operations.GetSessionHistoryResponse:
         r"""Get Session History
         This will Retrieve a listing of all history views.
         """
         hook_ctx = HookContext(operation_id='getSessionHistory', oauth2_scopes=[], security_source=self.sdk_configuration.security)
+        request = operations.GetSessionHistoryRequest(
+            sort=sort,
+            account_id=account_id,
+            filter_=filter_,
+            library_section_id=library_section_id,
+        )
+        
         base_url = utils.template_url(*self.sdk_configuration.get_server_details())
         
         url = base_url + '/status/sessions/history/all'
@@ -96,6 +103,7 @@ class Sessions:
         else:
             headers, query_params = utils.get_security(self.sdk_configuration.security)
         
+        query_params = { **utils.get_query_params(request), **query_params }
         headers['Accept'] = 'application/json'
         headers['user-agent'] = self.sdk_configuration.user_agent
         client = self.sdk_configuration.client

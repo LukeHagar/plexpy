@@ -1,12 +1,11 @@
 # Filter
 
-Filter
+Filters content by field and direction/equality
+(Unknown if viewedAt is the only supported column)
 
 
-## Values
 
-| Name        | Value       |
-| ----------- | ----------- |
-| `ALL`       | all         |
-| `AVAILABLE` | available   |
-| `RELEASED`  | released    |
+## Fields
+
+| Field       | Type        | Required    | Description |
+| ----------- | ----------- | ----------- | ----------- |

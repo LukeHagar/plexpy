@@ -19,7 +19,6 @@ SERVERS = [
 
 
 class ServerProtocol(str, Enum):
-    r"""The protocol to use when connecting to your plex server."""
     HTTP = 'http'
     HTTPS = 'https'
 
@@ -34,9 +33,9 @@ class SDKConfiguration:
     server_defaults: List[Dict[str, str]] = field(default_factory=List)
     language: str = 'python'
     openapi_doc_version: str = '0.0.3'
-    sdk_version: str = '0.9.0'
-    gen_version: str = '2.342.6'
-    user_agent: str = 'speakeasy-sdk/python 0.9.0 2.342.6 0.0.3 plex-api-client'
+    sdk_version: str = '0.10.0'
+    gen_version: str = '2.349.6'
+    user_agent: str = 'speakeasy-sdk/python 0.10.0 2.349.6 0.0.3 plex-api-client'
     retry_config: Optional[RetryConfig] = None
 
     def __post_init__(self):

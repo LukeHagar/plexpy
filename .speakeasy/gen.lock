@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 3eeea668-4ef4-464e-a888-bdfa023bedf5
 management:
-  docChecksum: 37654ea0982ab5e87a9a9576014c9d19
+  docChecksum: e73920abd3a55e8d249592f2e3090574
   docVersion: 0.0.3
-  speakeasyVersion: 1.308.1
-  generationVersion: 2.342.6
-  releaseVersion: 0.9.0
-  configChecksum: d85cf2b27a6bc9ff213089b7d202adf0
+  speakeasyVersion: 1.314.2
+  generationVersion: 2.349.6
+  releaseVersion: 0.10.0
+  configChecksum: d3ab7f558ab12fa30efdcad9275e01b2
   repoURL: https://github.com/LukeHagar/plexpy.git
   repoSubDirectory: .
   installationURL: https://github.com/LukeHagar/plexpy.git
@@ -15,7 +15,7 @@ features:
   python:
     additionalDependencies: 0.1.0
     constsAndDefaults: 0.1.3
-    core: 4.6.11
+    core: 4.6.13
     flattening: 2.81.1
     globalSecurity: 2.83.5
     globalSecurityCallbacks: 0.1.0
@@ -24,9 +24,11 @@ features:
     globals: 2.82.1
     methodServerURLs: 2.82.1
     nameOverrides: 2.81.2
+    nullables: 0.1.0
     responseFormat: 0.1.0
     sdkHooks: 0.1.0
     typeOverrides: 2.81.1
+    unions: 2.82.8
 generatedFiles:
   - src/plex_api/sdkconfiguration.py
   - src/plex_api/server.py
@@ -46,7 +48,6 @@ generatedFiles:
   - src/plex_api/updater.py
   - src/plex_api/watchlist.py
   - src/plex_api/sdk.py
-  - Makefile
   - py.typed
   - pylintrc
   - scripts/publish.sh
@@ -94,6 +95,7 @@ generatedFiles:
   - src/plex_api/models/operations/searchlibrary.py
   - src/plex_api/models/operations/getmetadata.py
   - src/plex_api/models/operations/getmetadatachildren.py
+  - src/plex_api/models/operations/gettopwatchedcontent.py
   - src/plex_api/models/operations/getondeck.py
   - src/plex_api/models/operations/logline.py
   - src/plex_api/models/operations/logmultiline.py
@@ -110,6 +112,8 @@ generatedFiles:
   - src/plex_api/models/operations/gettransienttoken.py
   - src/plex_api/models/operations/getsourceconnectioninformation.py
   - src/plex_api/models/operations/getstatistics.py
+  - src/plex_api/models/operations/getresourcesstatistics.py
+  - src/plex_api/models/operations/getbandwidthstatistics.py
   - src/plex_api/models/operations/getsessions.py
   - src/plex_api/models/operations/getsessionhistory.py
   - src/plex_api/models/operations/gettranscodesessions.py
@@ -172,6 +176,8 @@ generatedFiles:
   - src/plex_api/models/errors/gettransienttoken.py
   - src/plex_api/models/errors/getsourceconnectioninformation.py
   - src/plex_api/models/errors/getstatistics.py
+  - src/plex_api/models/errors/getresourcesstatistics.py
+  - src/plex_api/models/errors/getbandwidthstatistics.py
   - src/plex_api/models/errors/getsessions.py
   - src/plex_api/models/errors/getsessionhistory.py
   - src/plex_api/models/errors/gettranscodesessions.py
@@ -331,6 +337,7 @@ generatedFiles:
   - docs/models/operations/deletelibraryresponse.md
   - docs/models/operations/tag.md
   - docs/models/operations/getlibraryitemsrequest.md
+  - docs/models/operations/librarysectionid.md
   - docs/models/operations/getlibraryitemspart.md
   - docs/models/operations/getlibraryitemsmedia.md
   - docs/models/operations/getlibraryitemsgenre.md
@@ -372,6 +379,16 @@ generatedFiles:
   - docs/models/operations/getmetadatachildrenmediacontainer.md
   - docs/models/operations/getmetadatachildrenresponsebody.md
   - docs/models/operations/getmetadatachildrenresponse.md
+  - docs/models/operations/gettopwatchedcontentrequest.md
+  - docs/models/operations/gettopwatchedcontentgenre.md
+  - docs/models/operations/gettopwatchedcontentcountry.md
+  - docs/models/operations/gettopwatchedcontentguids.md
+  - docs/models/operations/gettopwatchedcontentrole.md
+  - docs/models/operations/user.md
+  - docs/models/operations/gettopwatchedcontentmetadata.md
+  - docs/models/operations/gettopwatchedcontentmediacontainer.md
+  - docs/models/operations/gettopwatchedcontentresponsebody.md
+  - docs/models/operations/gettopwatchedcontentresponse.md
   - docs/models/operations/getondeckstream.md
   - docs/models/operations/getondeckpart.md
   - docs/models/operations/getondeckmedia.md
@@ -443,16 +460,30 @@ generatedFiles:
   - docs/models/operations/getstatisticsmediacontainer.md
   - docs/models/operations/getstatisticsresponsebody.md
   - docs/models/operations/getstatisticsresponse.md
+  - docs/models/operations/getresourcesstatisticsrequest.md
+  - docs/models/operations/statisticsresources.md
+  - docs/models/operations/getresourcesstatisticsmediacontainer.md
+  - docs/models/operations/getresourcesstatisticsresponsebody.md
+  - docs/models/operations/getresourcesstatisticsresponse.md
+  - docs/models/operations/getbandwidthstatisticsrequest.md
+  - docs/models/operations/getbandwidthstatisticsdevice.md
+  - docs/models/operations/getbandwidthstatisticsaccount.md
+  - docs/models/operations/statisticsbandwidth.md
+  - docs/models/operations/getbandwidthstatisticsmediacontainer.md
+  - docs/models/operations/getbandwidthstatisticsresponsebody.md
+  - docs/models/operations/getbandwidthstatisticsresponse.md
   - docs/models/operations/getsessionsstream.md
   - docs/models/operations/getsessionspart.md
   - docs/models/operations/getsessionsmedia.md
-  - docs/models/operations/user.md
+  - docs/models/operations/getsessionsuser.md
   - docs/models/operations/player.md
   - docs/models/operations/session.md
   - docs/models/operations/getsessionsmetadata.md
   - docs/models/operations/getsessionsmediacontainer.md
   - docs/models/operations/getsessionsresponsebody.md
   - docs/models/operations/getsessionsresponse.md
+  - docs/models/operations/filter_.md
+  - docs/models/operations/getsessionhistoryrequest.md
   - docs/models/operations/getsessionhistorymetadata.md
   - docs/models/operations/getsessionhistorymediacontainer.md
   - docs/models/operations/getsessionhistoryresponsebody.md
@@ -474,7 +505,7 @@ generatedFiles:
   - docs/models/operations/skip.md
   - docs/models/operations/applyupdatesrequest.md
   - docs/models/operations/applyupdatesresponse.md
-  - docs/models/operations/filter_.md
+  - docs/models/operations/pathparamfilter.md
   - docs/models/operations/libtype.md
   - docs/models/operations/includecollections.md
   - docs/models/operations/includeexternalmedia.md
@@ -591,6 +622,10 @@ generatedFiles:
   - docs/models/errors/getsourceconnectioninformationresponsebody.md
   - docs/models/errors/getstatisticserrors.md
   - docs/models/errors/getstatisticsresponsebody.md
+  - docs/models/errors/getresourcesstatisticserrors.md
+  - docs/models/errors/getresourcesstatisticsresponsebody.md
+  - docs/models/errors/getbandwidthstatisticserrors.md
+  - docs/models/errors/getbandwidthstatisticsresponsebody.md
   - docs/models/errors/getsessionserrors.md
   - docs/models/errors/getsessionsresponsebody.md
   - docs/models/errors/getsessionhistoryerrors.md

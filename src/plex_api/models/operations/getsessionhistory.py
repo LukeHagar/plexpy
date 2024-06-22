@@ -9,6 +9,31 @@ from plex_api import utils
 from typing import List, Optional
 
 
+@dataclasses.dataclass
+class Filter:
+    r"""Filters content by field and direction/equality
+    (Unknown if viewedAt is the only supported column)
+    """
+    
+
+
+
+@dataclasses.dataclass
+class GetSessionHistoryRequest:
+    sort: Optional[str] = dataclasses.field(default=None, metadata={'query_param': { 'field_name': 'sort', 'style': 'form', 'explode': True }})
+    r"""Sorts the results by the specified field followed by the direction (asc, desc)"""
+    account_id: Optional[int] = dataclasses.field(default=None, metadata={'query_param': { 'field_name': 'accountId', 'style': 'form', 'explode': True }})
+    r"""Filter results by those that are related to a specific users id"""
+    filter_: Optional[Filter] = dataclasses.field(default=None, metadata={'query_param': { 'field_name': 'filter', 'style': 'form', 'explode': True }})
+    r"""Filters content by field and direction/equality
+    (Unknown if viewedAt is the only supported column)
+    """
+    library_section_id: Optional[int] = dataclasses.field(default=None, metadata={'query_param': { 'field_name': 'librarySectionID', 'style': 'form', 'explode': True }})
+    r"""Filters the results based on the id of a valid library section"""
+    
+
+
+
 @dataclass_json(undefined=Undefined.EXCLUDE)
 @dataclasses.dataclass
 class GetSessionHistoryMetadata:

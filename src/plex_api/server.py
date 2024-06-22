@@ -17,8 +17,8 @@ class Server:
     
     
     def get_server_capabilities(self) -> operations.GetServerCapabilitiesResponse:
-        r"""Server Capabilities
-        Server Capabilities
+        r"""Get Server Capabilities
+        Get Server Capabilities
         """
         hook_ctx = HookContext(operation_id='getServerCapabilities', oauth2_scopes=[], security_source=self.sdk_configuration.security)
         base_url = utils.template_url(*self.sdk_configuration.get_server_details())

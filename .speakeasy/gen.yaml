@@ -12,7 +12,7 @@ generation:
   auth:
     oAuth2ClientCredentialsEnabled: false
 python:
-  version: 0.9.0
+  version: 0.10.0
   additionalDependencies:
     dependencies: {}
     extraDependencies:
@@ -36,3 +36,4 @@ python:
   packageName: plex-api-client
   projectUrls: {}
   responseFormat: envelope
+  templateVersion: v1

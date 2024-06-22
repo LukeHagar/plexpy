@@ -8,7 +8,7 @@ Operations against the Plex Media Server System.
 
 ### Available Operations
 
-* [get_server_capabilities](#get_server_capabilities) - Server Capabilities
+* [get_server_capabilities](#get_server_capabilities) - Get Server Capabilities
 * [get_server_preferences](#get_server_preferences) - Get Server Preferences
 * [get_available_clients](#get_available_clients) - Get Available Clients
 * [get_devices](#get_devices) - Get Devices
@@ -19,7 +19,7 @@ Operations against the Plex Media Server System.
 
 ## get_server_capabilities
 
-Server Capabilities
+Get Server Capabilities
 
 ### Example Usage
 

@@ -18,6 +18,7 @@ API Calls interacting with Plex Media Server Libraries
 * [search_library](#search_library) - Search Library
 * [get_metadata](#get_metadata) - Get Items Metadata
 * [get_metadata_children](#get_metadata_children) - Get Items Children
+* [get_top_watched_content](#get_top_watched_content) - Get Top Watched Content
 * [get_on_deck](#get_on_deck) - Get On Deck
 
 ## get_file_hash
@@ -293,7 +294,7 @@ s = plex_api.PlexAPI(
 )
 
 
-res = s.library.get_library_items(section_id='<value>', tag=operations.Tag.GENRE)
+res = s.library.get_library_items(section_id='<value>', tag=operations.Tag.GENRE, include_guids=1)
 
 if res.object is not None:
     # handle response
@@ -303,10 +304,11 @@ if res.object is not None:
 
 ### Parameters
 
-| Parameter                                             | Type                                                  | Required                                              | Description                                           |
-| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
-| `section_id`                                          | *Any*                                                 | :heavy_check_mark:                                    | the Id of the library to query                        |
-| `tag`                                                 | [operations.Tag](../../models/operations/tag.md)      | :heavy_check_mark:                                    | A key representing a specific tag within the section. |
+| Parameter                                             | Type                                                  | Required                                              | Description                                           | Example                                               |
+| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
+| `section_id`                                          | *Any*                                                 | :heavy_check_mark:                                    | the Id of the library to query                        |                                                       |
+| `tag`                                                 | [operations.Tag](../../models/operations/tag.md)      | :heavy_check_mark:                                    | A key representing a specific tag within the section. |                                                       |
+| `include_guids`                                       | *Optional[int]*                                       | :heavy_minus_sign:                                    | Adds the Guids object to the response<br/>            | 1                                                     |
 
 
 ### Response
@@ -477,7 +479,7 @@ s = plex_api.PlexAPI(
 )
 
 
-res = s.library.get_metadata_children(rating_key=1539.14)
+res = s.library.get_metadata_children(rating_key=1539.14, include_elements='<value>')
 
 if res.object is not None:
     # handle response
@@ -487,9 +489,10 @@ if res.object is not None:
 
 ### Parameters
 
-| Parameter                                             | Type                                                  | Required                                              | Description                                           |
-| ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- | ----------------------------------------------------- |
-| `rating_key`                                          | *float*                                               | :heavy_check_mark:                                    | the id of the library item to return the children of. |
+| Parameter                                                               | Type                                                                    | Required                                                                | Description                                                             |
+| ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `rating_key`                                                            | *float*                                                                 | :heavy_check_mark:                                                      | the id of the library item to return the children of.                   |
+| `include_elements`                                                      | *Optional[str]*                                                         | :heavy_minus_sign:                                                      | Adds additional elements to the response. Supported types are (Stream)<br/> |
 
 
 ### Response
@@ -501,6 +504,47 @@ if res.object is not None:
 | -------------------------------------- | -------------------------------------- | -------------------------------------- |
 | errors.GetMetadataChildrenResponseBody | 401                                    | application/json                       |
 | errors.SDKError                        | 4xx-5xx                                | */*                                    |
+
+## get_top_watched_content
+
+This endpoint will return the top watched content from libraries of a certain type
+
+
+### Example Usage
+
+```python
+import plex_api
+
+s = plex_api.PlexAPI(
+    access_token="<YOUR_API_KEY_HERE>",
+    x_plex_client_identifier='Postman',
+)
+
+
+res = s.library.get_top_watched_content(type=505531, include_guids=1)
+
+if res.object is not None:
+    # handle response
+    pass
+
+```
+
+### Parameters
+
+| Parameter                                           | Type                                                | Required                                            | Description                                         | Example                                             |
+| --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- |
+| `type`                                              | *int*                                               | :heavy_check_mark:                                  | the library type (1 - movies, 2 - shows, 3 - music) |                                                     |
+| `include_guids`                                     | *Optional[int]*                                     | :heavy_minus_sign:                                  | Adds the Guids object to the response<br/>          | 1                                                   |
+
+
+### Response
+
+**[operations.GetTopWatchedContentResponse](../../models/operations/gettopwatchedcontentresponse.md)**
+### Errors
+
+| Error Object    | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| errors.SDKError | 4xx-5xx         | */*             |
 
 ## get_on_deck
 
