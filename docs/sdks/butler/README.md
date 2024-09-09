@@ -21,13 +21,12 @@ Returns a list of butler tasks
 ### Example Usage
 
 ```python
-import plex_api
+from plex_api_client import PlexAPI
 
-s = plex_api.PlexAPI(
+s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier='Postman',
+    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
 )
-
 
 res = s.butler.get_butler_tasks()
 
@@ -37,16 +36,24 @@ if res.object is not None:
 
 ```
 
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
 **[operations.GetButlerTasksResponse](../../models/operations/getbutlertasksresponse.md)**
+
 ### Errors
 
-| Error Object                      | Status Code                       | Content Type                      |
-| --------------------------------- | --------------------------------- | --------------------------------- |
-| errors.GetButlerTasksResponseBody | 401                               | application/json                  |
-| errors.SDKError                   | 4xx-5xx                           | */*                               |
+| Error Object                            | Status Code                             | Content Type                            |
+| --------------------------------------- | --------------------------------------- | --------------------------------------- |
+| errors.GetButlerTasksResponseBody       | 400                                     | application/json                        |
+| errors.GetButlerTasksButlerResponseBody | 401                                     | application/json                        |
+| errors.SDKError                         | 4xx-5xx                                 | */*                                     |
+
 
 ## start_all_tasks
 
@@ -60,13 +67,12 @@ This endpoint will attempt to start all Butler tasks that are enabled in the set
 ### Example Usage
 
 ```python
-import plex_api
+from plex_api_client import PlexAPI
 
-s = plex_api.PlexAPI(
+s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier='Postman',
+    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
 )
-
 
 res = s.butler.start_all_tasks()
 
@@ -76,16 +82,24 @@ if res is not None:
 
 ```
 
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
 **[operations.StartAllTasksResponse](../../models/operations/startalltasksresponse.md)**
+
 ### Errors
 
-| Error Object                     | Status Code                      | Content Type                     |
-| -------------------------------- | -------------------------------- | -------------------------------- |
-| errors.StartAllTasksResponseBody | 401                              | application/json                 |
-| errors.SDKError                  | 4xx-5xx                          | */*                              |
+| Error Object                           | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.StartAllTasksResponseBody       | 400                                    | application/json                       |
+| errors.StartAllTasksButlerResponseBody | 401                                    | application/json                       |
+| errors.SDKError                        | 4xx-5xx                                | */*                                    |
+
 
 ## stop_all_tasks
 
@@ -95,13 +109,12 @@ This endpoint will stop all currently running tasks and remove any scheduled tas
 ### Example Usage
 
 ```python
-import plex_api
+from plex_api_client import PlexAPI
 
-s = plex_api.PlexAPI(
+s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier='Postman',
+    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
 )
-
 
 res = s.butler.stop_all_tasks()
 
@@ -111,16 +124,24 @@ if res is not None:
 
 ```
 
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
 **[operations.StopAllTasksResponse](../../models/operations/stopalltasksresponse.md)**
+
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| errors.StopAllTasksResponseBody | 401                             | application/json                |
-| errors.SDKError                 | 4xx-5xx                         | */*                             |
+| Error Object                          | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| errors.StopAllTasksResponseBody       | 400                                   | application/json                      |
+| errors.StopAllTasksButlerResponseBody | 401                                   | application/json                      |
+| errors.SDKError                       | 4xx-5xx                               | */*                                   |
+
 
 ## start_task
 
@@ -134,14 +155,13 @@ This endpoint will attempt to start a single Butler task that is enabled in the 
 ### Example Usage
 
 ```python
-import plex_api
-from plex_api.models import operations
+from plex_api_client import PlexAPI
+from plex_api_client.models import operations
 
-s = plex_api.PlexAPI(
+s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier='Postman',
+    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
 )
-
 
 res = s.butler.start_task(task_name=operations.TaskName.CLEAN_OLD_BUNDLES)
 
@@ -153,20 +173,23 @@ if res is not None:
 
 ### Parameters
 
-| Parameter                                                  | Type                                                       | Required                                                   | Description                                                |
-| ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
-| `task_name`                                                | [operations.TaskName](../../models/operations/taskname.md) | :heavy_check_mark:                                         | the name of the task to be started.                        |
-
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `task_name`                                                         | [operations.TaskName](../../models/operations/taskname.md)          | :heavy_check_mark:                                                  | the name of the task to be started.                                 |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
 **[operations.StartTaskResponse](../../models/operations/starttaskresponse.md)**
+
 ### Errors
 
-| Error Object                 | Status Code                  | Content Type                 |
-| ---------------------------- | ---------------------------- | ---------------------------- |
-| errors.StartTaskResponseBody | 401                          | application/json             |
-| errors.SDKError              | 4xx-5xx                      | */*                          |
+| Error Object                       | Status Code                        | Content Type                       |
+| ---------------------------------- | ---------------------------------- | ---------------------------------- |
+| errors.StartTaskResponseBody       | 400                                | application/json                   |
+| errors.StartTaskButlerResponseBody | 401                                | application/json                   |
+| errors.SDKError                    | 4xx-5xx                            | */*                                |
+
 
 ## stop_task
 
@@ -176,14 +199,13 @@ This endpoint will stop a currently running task by name, or remove it from the 
 ### Example Usage
 
 ```python
-import plex_api
-from plex_api.models import operations
+from plex_api_client import PlexAPI
+from plex_api_client.models import operations
 
-s = plex_api.PlexAPI(
+s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier='Postman',
+    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
 )
-
 
 res = s.butler.stop_task(task_name=operations.PathParamTaskName.BACKUP_DATABASE)
 
@@ -198,14 +220,16 @@ if res is not None:
 | Parameter                                                                    | Type                                                                         | Required                                                                     | Description                                                                  |
 | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
 | `task_name`                                                                  | [operations.PathParamTaskName](../../models/operations/pathparamtaskname.md) | :heavy_check_mark:                                                           | The name of the task to be started.                                          |
-
+| `retries`                                                                    | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)             | :heavy_minus_sign:                                                           | Configuration to override the default retry behavior of the client.          |
 
 ### Response
 
 **[operations.StopTaskResponse](../../models/operations/stoptaskresponse.md)**
+
 ### Errors
 
-| Error Object                | Status Code                 | Content Type                |
-| --------------------------- | --------------------------- | --------------------------- |
-| errors.StopTaskResponseBody | 401                         | application/json            |
-| errors.SDKError             | 4xx-5xx                     | */*                         |
+| Error Object                      | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| errors.StopTaskResponseBody       | 400                               | application/json                  |
+| errors.StopTaskButlerResponseBody | 401                               | application/json                  |
+| errors.SDKError                   | 4xx-5xx                           | */*                               |

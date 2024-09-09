@@ -20,16 +20,15 @@ This endpoint will write a single-line log message, including a level and source
 ### Example Usage
 
 ```python
-import plex_api
-from plex_api.models import operations
+from plex_api_client import PlexAPI
+from plex_api_client.models import operations
 
-s = plex_api.PlexAPI(
+s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier='Postman',
+    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
 )
 
-
-res = s.log.log_line(level=operations.Level.THREE, message='Test log message', source='Postman')
+res = s.log.log_line(level=operations.Level.THREE, message="Test log message", source="Postman")
 
 if res is not None:
     # handle response
@@ -44,17 +43,20 @@ if res is not None:
 | `level`                                                                                                       | [operations.Level](../../models/operations/level.md)                                                          | :heavy_check_mark:                                                                                            | An integer log level to write to the PMS log with.  <br/>0: Error  <br/>1: Warning  <br/>2: Info  <br/>3: Debug  <br/>4: Verbose<br/> |                                                                                                               |
 | `message`                                                                                                     | *str*                                                                                                         | :heavy_check_mark:                                                                                            | The text of the message to write to the log.                                                                  | Test log message                                                                                              |
 | `source`                                                                                                      | *str*                                                                                                         | :heavy_check_mark:                                                                                            | a string indicating the source of the message.                                                                | Postman                                                                                                       |
-
+| `retries`                                                                                                     | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                              | :heavy_minus_sign:                                                                                            | Configuration to override the default retry behavior of the client.                                           |                                                                                                               |
 
 ### Response
 
 **[operations.LogLineResponse](../../models/operations/loglineresponse.md)**
+
 ### Errors
 
-| Error Object               | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.LogLineResponseBody | 401                        | application/json           |
-| errors.SDKError            | 4xx-5xx                    | */*                        |
+| Error Object                  | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.LogLineResponseBody    | 400                           | application/json              |
+| errors.LogLineLogResponseBody | 401                           | application/json              |
+| errors.SDKError               | 4xx-5xx                       | */*                           |
+
 
 ## log_multi_line
 
@@ -84,17 +86,16 @@ Ensure each parameter is properly URL-encoded to avoid interpretation issues.
 ### Example Usage
 
 ```python
-import plex_api
+from plex_api_client import PlexAPI
 
-s = plex_api.PlexAPI(
+s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier='Postman',
+    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
 )
 
-
-res = s.log.log_multi_line(request='level=4&message=Test%20message%201&source=postman
-level=3&message=Test%20message%202&source=postman
-level=1&message=Test%20message%203&source=postman')
+res = s.log.log_multi_line(request="level=4&message=Test%20message%201&source=postman\n" +
+"level=3&message=Test%20message%202&source=postman\n" +
+"level=1&message=Test%20message%203&source=postman")
 
 if res is not None:
     # handle response
@@ -104,20 +105,23 @@ if res is not None:
 
 ### Parameters
 
-| Parameter                                  | Type                                       | Required                                   | Description                                |
-| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
-| `request`                                  | [str](../../models/.md)                    | :heavy_check_mark:                         | The request object to use for the request. |
-
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `request`                                                           | [str](../../models/.md)                                             | :heavy_check_mark:                                                  | The request object to use for the request.                          |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
 **[operations.LogMultiLineResponse](../../models/operations/logmultilineresponse.md)**
+
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| errors.LogMultiLineResponseBody | 401                             | application/json                |
-| errors.SDKError                 | 4xx-5xx                         | */*                             |
+| Error Object                       | Status Code                        | Content Type                       |
+| ---------------------------------- | ---------------------------------- | ---------------------------------- |
+| errors.LogMultiLineResponseBody    | 400                                | application/json                   |
+| errors.LogMultiLineLogResponseBody | 401                                | application/json                   |
+| errors.SDKError                    | 4xx-5xx                            | */*                                |
+
 
 ## enable_paper_trail
 
@@ -127,13 +131,12 @@ This endpoint will enable all Plex Media Serverlogs to be sent to the Papertrail
 ### Example Usage
 
 ```python
-import plex_api
+from plex_api_client import PlexAPI
 
-s = plex_api.PlexAPI(
+s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier='Postman',
+    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
 )
-
 
 res = s.log.enable_paper_trail()
 
@@ -143,13 +146,20 @@ if res is not None:
 
 ```
 
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
 **[operations.EnablePaperTrailResponse](../../models/operations/enablepapertrailresponse.md)**
+
 ### Errors
 
-| Error Object                        | Status Code                         | Content Type                        |
-| ----------------------------------- | ----------------------------------- | ----------------------------------- |
-| errors.EnablePaperTrailResponseBody | 401                                 | application/json                    |
-| errors.SDKError                     | 4xx-5xx                             | */*                                 |
+| Error Object                           | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.EnablePaperTrailResponseBody    | 400                                    | application/json                       |
+| errors.EnablePaperTrailLogResponseBody | 401                                    | application/json                       |
+| errors.SDKError                        | 4xx-5xx                                | */*                                    |

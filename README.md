@@ -7,13 +7,59 @@
     </a>
 </div>
 
+<!-- Start Summary [summary] -->
+## Summary
+
+Plex-API: An Open API Spec for interacting with Plex.tv and Plex Media Server
+<!-- End Summary [summary] -->
+
+<!-- Start Table of Contents [toc] -->
+## Table of Contents
+
+* [SDK Installation](#sdk-installation)
+* [IDE Support](#ide-support)
+* [SDK Example Usage](#sdk-example-usage)
+* [Available Resources and Operations](#available-resources-and-operations)
+* [Global Parameters](#global-parameters)
+* [Retries](#retries)
+* [Error Handling](#error-handling)
+* [Server Selection](#server-selection)
+* [Custom HTTP Client](#custom-http-client)
+* [Authentication](#authentication)
+* [Debugging](#debugging)
+<!-- End Table of Contents [toc] -->
+
 <!-- Start SDK Installation [installation] -->
 ## SDK Installation
+
+The SDK can be installed with either *pip* or *poetry* package managers.
+
+### PIP
+
+*PIP* is the default package installer for Python, enabling easy installation and management of packages from PyPI via the command line.
 
 ```bash
 pip install plex-api-client
 ```
+
+### Poetry
+
+*Poetry* is a modern tool that simplifies dependency management and package publishing by using a single `pyproject.toml` file to handle project metadata and dependencies.
+
+```bash
+poetry add plex-api-client
+```
 <!-- End SDK Installation [installation] -->
+
+<!-- Start IDE Support [idesupport] -->
+## IDE Support
+
+### PyCharm
+
+Generally, the SDK will work well with most IDEs out of the box. However, when using PyCharm, you can enjoy much better integration with Pydantic by installing an additional plugin.
+
+- [PyCharm Pydantic Plugin](https://docs.pydantic.dev/latest/integrations/pycharm/)
+<!-- End IDE Support [idesupport] -->
 
 <!-- Start SDK Example Usage [usage] -->
 ## SDK Example Usage
@@ -21,20 +67,40 @@ pip install plex-api-client
 ### Example
 
 ```python
-import plex_api
+# Synchronous Example
+from plex_api_client import PlexAPI
 
-s = plex_api.PlexAPI(
+s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier='Postman',
+    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
 )
-
 
 res = s.server.get_server_capabilities()
 
 if res.object is not None:
     # handle response
     pass
+```
 
+</br>
+
+The same SDK client can also be used to make asychronous requests by importing asyncio.
+```python
+# Asynchronous Example
+import asyncio
+from plex_api_client import PlexAPI
+
+async def main():
+    s = PlexAPI(
+        access_token="<YOUR_API_KEY_HERE>",
+        x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
+    )
+    res = await s.server.get_server_capabilities_async()
+    if res.object is not None:
+        # handle response
+        pass
+
+asyncio.run(main())
 ```
 <!-- End SDK Example Usage [usage] -->
 
@@ -50,6 +116,7 @@ if res.object is not None:
 * [get_server_identity](docs/sdks/server/README.md#get_server_identity) - Get Server Identity
 * [get_my_plex_account](docs/sdks/server/README.md#get_my_plex_account) - Get MyPlex Account
 * [get_resized_photo](docs/sdks/server/README.md#get_resized_photo) - Get a Resized Photo
+* [get_media_providers](docs/sdks/server/README.md#get_media_providers) - Get Media Providers
 * [get_server_list](docs/sdks/server/README.md#get_server_list) - Get Server List
 
 ### [media](docs/sdks/media/README.md)
@@ -57,6 +124,8 @@ if res.object is not None:
 * [mark_played](docs/sdks/media/README.md#mark_played) - Mark Media Played
 * [mark_unplayed](docs/sdks/media/README.md#mark_unplayed) - Mark Media Unplayed
 * [update_play_progress](docs/sdks/media/README.md#update_play_progress) - Update Media Play Progress
+* [get_banner_image](docs/sdks/media/README.md#get_banner_image) - Get Banner Image
+* [get_thumb_image](docs/sdks/media/README.md#get_thumb_image) - Get Thumb Image
 
 ### [video](docs/sdks/video/README.md)
 
@@ -78,9 +147,13 @@ if res.object is not None:
 
 ### [plex](docs/sdks/plex/README.md)
 
+* [get_companions_data](docs/sdks/plex/README.md#get_companions_data) - Get Companions Data
+* [get_user_friends](docs/sdks/plex/README.md#get_user_friends) - Get list of friends of the user logged in
+* [get_geo_data](docs/sdks/plex/README.md#get_geo_data) - Get Geo Data
 * [get_home_data](docs/sdks/plex/README.md#get_home_data) - Get Plex Home Data
+* [get_server_resources](docs/sdks/plex/README.md#get_server_resources) - Get Server Resources
 * [get_pin](docs/sdks/plex/README.md#get_pin) - Get a Pin
-* [get_token](docs/sdks/plex/README.md#get_token) - Get Access Token
+* [get_token_by_pin_id](docs/sdks/plex/README.md#get_token_by_pin_id) - Get Access Token by PinId
 
 ### [hubs](docs/sdks/hubs/README.md)
 
@@ -97,16 +170,20 @@ if res.object is not None:
 
 * [get_file_hash](docs/sdks/library/README.md#get_file_hash) - Get Hash Value
 * [get_recently_added](docs/sdks/library/README.md#get_recently_added) - Get Recently Added
-* [get_libraries](docs/sdks/library/README.md#get_libraries) - Get All Libraries
-* [get_library](docs/sdks/library/README.md#get_library) - Get Library Details
+* [get_all_libraries](docs/sdks/library/README.md#get_all_libraries) - Get All Libraries
+* [get_library_details](docs/sdks/library/README.md#get_library_details) - Get Library Details
 * [delete_library](docs/sdks/library/README.md#delete_library) - Delete Library Section
 * [get_library_items](docs/sdks/library/README.md#get_library_items) - Get Library Items
-* [refresh_library](docs/sdks/library/README.md#refresh_library) - Refresh Library
-* [search_library](docs/sdks/library/README.md#search_library) - Search Library
-* [get_metadata](docs/sdks/library/README.md#get_metadata) - Get Items Metadata
+* [get_refresh_library_metadata](docs/sdks/library/README.md#get_refresh_library_metadata) - Refresh Metadata Of The Library
+* [get_search_library](docs/sdks/library/README.md#get_search_library) - Search Library
+* [get_meta_data_by_rating_key](docs/sdks/library/README.md#get_meta_data_by_rating_key) - Get Metadata by RatingKey
 * [get_metadata_children](docs/sdks/library/README.md#get_metadata_children) - Get Items Children
 * [get_top_watched_content](docs/sdks/library/README.md#get_top_watched_content) - Get Top Watched Content
 * [get_on_deck](docs/sdks/library/README.md#get_on_deck) - Get On Deck
+
+### [watchlist](docs/sdks/watchlist/README.md)
+
+* [get_watch_list](docs/sdks/watchlist/README.md#get_watch_list) - Get User Watchlist
 
 ### [log](docs/sdks/log/README.md)
 
@@ -130,6 +207,8 @@ if res.object is not None:
 
 * [get_transient_token](docs/sdks/authentication/README.md#get_transient_token) - Get a Transient Token.
 * [get_source_connection_information](docs/sdks/authentication/README.md#get_source_connection_information) - Get Source Connection Information
+* [get_user_details](docs/sdks/authentication/README.md#get_user_details) - Get User Data By Token
+* [post_users_sign_in_data](docs/sdks/authentication/README.md#post_users_sign_in_data) - Get User Sign In Data
 
 ### [statistics](docs/sdks/statistics/README.md)
 
@@ -149,48 +228,91 @@ if res.object is not None:
 * [get_update_status](docs/sdks/updater/README.md#get_update_status) - Querying status of updates
 * [check_for_updates](docs/sdks/updater/README.md#check_for_updates) - Checking for updates
 * [apply_updates](docs/sdks/updater/README.md#apply_updates) - Apply Updates
-
-### [watchlist](docs/sdks/watchlist/README.md)
-
-* [get_watchlist](docs/sdks/watchlist/README.md#get_watchlist) - Get User Watchlist
 <!-- End Available Resources and Operations [operations] -->
+
+<!-- Start Retries [retries] -->
+## Retries
+
+Some of the endpoints in this SDK support retries. If you use the SDK without any configuration, it will fall back to the default retry strategy provided by the API. However, the default retry strategy can be overridden on a per-operation basis, or across the entire SDK.
+
+To change the default retry strategy for a single API call, simply provide a `RetryConfig` object to the call:
+```python
+from plex_api.utils import BackoffStrategy, RetryConfig
+from plex_api_client import PlexAPI
+
+s = PlexAPI(
+    access_token="<YOUR_API_KEY_HERE>",
+    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
+)
+
+res = s.server.get_server_capabilities(,
+    RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False))
+
+if res.object is not None:
+    # handle response
+    pass
+
+```
+
+If you'd like to override the default retry strategy for all operations that support retries, you can use the `retry_config` optional parameter when initializing the SDK:
+```python
+from plex_api.utils import BackoffStrategy, RetryConfig
+from plex_api_client import PlexAPI
+
+s = PlexAPI(
+    retry_config=RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False),
+    access_token="<YOUR_API_KEY_HERE>",
+    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
+)
+
+res = s.server.get_server_capabilities()
+
+if res.object is not None:
+    # handle response
+    pass
+
+```
+<!-- End Retries [retries] -->
 
 <!-- Start Error Handling [errors] -->
 ## Error Handling
 
 Handling errors in this SDK should largely match your expectations.  All operations return a response object or raise an error.  If Error objects are specified in your OpenAPI Spec, the SDK will raise the appropriate Error type.
 
-| Error Object                             | Status Code                              | Content Type                             |
-| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| errors.GetServerCapabilitiesResponseBody | 401                                      | application/json                         |
-| errors.SDKError                          | 4xx-5xx                                  | */*                                      |
+| Error Object                                   | Status Code                                    | Content Type                                   |
+| ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- |
+| errors.GetServerCapabilitiesResponseBody       | 400                                            | application/json                               |
+| errors.GetServerCapabilitiesServerResponseBody | 401                                            | application/json                               |
+| errors.SDKError                                | 4xx-5xx                                        | */*                                            |
 
 ### Example
 
 ```python
-import plex_api
-from plex_api.models import errors
+from plex_api_client import PlexAPI
+from plex_api_client.models import errors
 
-s = plex_api.PlexAPI(
+s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier='Postman',
+    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
 )
 
 res = None
 try:
     res = s.server.get_server_capabilities()
 
+    if res.object is not None:
+        # handle response
+        pass
+
 except errors.GetServerCapabilitiesResponseBody as e:
-    # handle exception
+    # handle e.data: errors.GetServerCapabilitiesResponseBodyData
+    raise(e)
+except errors.GetServerCapabilitiesServerResponseBody as e:
+    # handle e.data: errors.GetServerCapabilitiesServerResponseBodyData
     raise(e)
 except errors.SDKError as e:
     # handle exception
     raise(e)
-
-if res.object is not None:
-    # handle response
-    pass
-
 ```
 <!-- End Error Handling [errors] -->
 
@@ -203,19 +325,18 @@ You can override the default server globally by passing a server index to the `s
 
 | # | Server | Variables |
 | - | ------ | --------- |
-| 0 | `{protocol}://{ip}:{port}` | `protocol` (default is `http`), `ip` (default is `10.10.10.47`), `port` (default is `32400`) |
+| 0 | `{protocol}://{ip}:{port}` | `protocol` (default is `https`), `ip` (default is `10.10.10.47`), `port` (default is `32400`) |
 
 #### Example
 
 ```python
-import plex_api
+from plex_api_client import PlexAPI
 
-s = plex_api.PlexAPI(
+s = PlexAPI(
     server_idx=0,
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier='Postman',
+    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
 )
-
 
 res = s.server.get_server_capabilities()
 
@@ -236,14 +357,13 @@ Some of the server options above contain variables. If you want to set the value
 
 The default server can also be overridden globally by passing a URL to the `server_url: str` optional parameter when initializing the SDK client instance. For example:
 ```python
-import plex_api
+from plex_api_client import PlexAPI
 
-s = plex_api.PlexAPI(
+s = PlexAPI(
     server_url="{protocol}://{ip}:{port}",
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier='Postman',
+    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
 )
-
 
 res = s.server.get_server_capabilities()
 
@@ -257,16 +377,16 @@ if res.object is not None:
 
 The server URL can also be overridden on a per-operation basis, provided a server list was specified for the operation. For example:
 ```python
-import plex_api
+from plex_api_client import PlexAPI
 
-s = plex_api.PlexAPI(
-    x_plex_client_identifier='Postman',
+s = PlexAPI(
+    access_token="<YOUR_API_KEY_HERE>",
+    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
 )
 
+res = s.plex.get_companions_data(server_url="https://plex.tv/api/v2/")
 
-res = s.plex.get_pin(x_plex_product='Postman', strong=False, x_plex_client_identifier='Postman', server_url="https://plex.tv/api/v2")
-
-if res.object is not None:
+if res.response_bodies is not None:
     # handle response
     pass
 
@@ -276,16 +396,81 @@ if res.object is not None:
 <!-- Start Custom HTTP Client [http-client] -->
 ## Custom HTTP Client
 
-The Python SDK makes API calls using the [requests](https://pypi.org/project/requests/) HTTP library.  In order to provide a convenient way to configure timeouts, cookies, proxies, custom headers, and other low-level configuration, you can initialize the SDK client with a custom `requests.Session` object.
+The Python SDK makes API calls using the [httpx](https://www.python-httpx.org/) HTTP library.  In order to provide a convenient way to configure timeouts, cookies, proxies, custom headers, and other low-level configuration, you can initialize the SDK client with your own HTTP client instance.
+Depending on whether you are using the sync or async version of the SDK, you can pass an instance of `HttpClient` or `AsyncHttpClient` respectively, which are Protocol's ensuring that the client has the necessary methods to make API calls.
+This allows you to wrap the client with your own custom logic, such as adding custom headers, logging, or error handling, or you can just pass an instance of `httpx.Client` or `httpx.AsyncClient` directly.
 
 For example, you could specify a header for every request that this sdk makes as follows:
 ```python
-import plex_api
-import requests
+from plex_api_client import PlexAPI
+import httpx
 
-http_client = requests.Session()
-http_client.headers.update({'x-custom-header': 'someValue'})
-s = plex_api.PlexAPI(client=http_client)
+http_client = httpx.Client(headers={"x-custom-header": "someValue"})
+s = PlexAPI(client=http_client)
+```
+
+or you could wrap the client with your own custom logic:
+```python
+from plex_api_client import PlexAPI
+from plex_api_client.httpclient import AsyncHttpClient
+import httpx
+
+class CustomClient(AsyncHttpClient):
+    client: AsyncHttpClient
+
+    def __init__(self, client: AsyncHttpClient):
+        self.client = client
+
+    async def send(
+        self,
+        request: httpx.Request,
+        *,
+        stream: bool = False,
+        auth: Union[
+            httpx._types.AuthTypes, httpx._client.UseClientDefault, None
+        ] = httpx.USE_CLIENT_DEFAULT,
+        follow_redirects: Union[
+            bool, httpx._client.UseClientDefault
+        ] = httpx.USE_CLIENT_DEFAULT,
+    ) -> httpx.Response:
+        request.headers["Client-Level-Header"] = "added by client"
+
+        return await self.client.send(
+            request, stream=stream, auth=auth, follow_redirects=follow_redirects
+        )
+
+    def build_request(
+        self,
+        method: str,
+        url: httpx._types.URLTypes,
+        *,
+        content: Optional[httpx._types.RequestContent] = None,
+        data: Optional[httpx._types.RequestData] = None,
+        files: Optional[httpx._types.RequestFiles] = None,
+        json: Optional[Any] = None,
+        params: Optional[httpx._types.QueryParamTypes] = None,
+        headers: Optional[httpx._types.HeaderTypes] = None,
+        cookies: Optional[httpx._types.CookieTypes] = None,
+        timeout: Union[
+            httpx._types.TimeoutTypes, httpx._client.UseClientDefault
+        ] = httpx.USE_CLIENT_DEFAULT,
+        extensions: Optional[httpx._types.RequestExtensions] = None,
+    ) -> httpx.Request:
+        return self.client.build_request(
+            method,
+            url,
+            content=content,
+            data=data,
+            files=files,
+            json=json,
+            params=params,
+            headers=headers,
+            cookies=cookies,
+            timeout=timeout,
+            extensions=extensions,
+        )
+
+s = PlexAPI(async_client=CustomClient(httpx.AsyncClient()))
 ```
 <!-- End Custom HTTP Client [http-client] -->
 
@@ -302,13 +487,12 @@ This SDK supports the following security scheme globally:
 
 To authenticate with the API the `access_token` parameter must be set when initializing the SDK client instance. For example:
 ```python
-import plex_api
+from plex_api_client import PlexAPI
 
-s = plex_api.PlexAPI(
+s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier='Postman',
+    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
 )
-
 
 res = s.server.get_server_capabilities()
 
@@ -324,7 +508,7 @@ if res.object is not None:
 
 A parameter is configured globally. This parameter may be set on the SDK client instance itself during initialization. When configured as an option during SDK initialization, This global value will be used as the default on the operations that use it. When such operations are called, there is a place in each to override the global value, if needed.
 
-For example, you can set `X-Plex-Client-Identifier` to `'Postman'` at SDK initialization and then you do not have to pass the same value on calls to operations like `get_pin`. But if you want to do so you may, which will locally override the global setting. See the example code below for a demonstration.
+For example, you can set `X-Plex-Client-Identifier` to `"gcgzw5rz2xovp84b4vha3a40"` at SDK initialization and then you do not have to pass the same value on calls to operations like `get_server_resources`. But if you want to do so you may, which will locally override the global setting. See the example code below for a demonstration.
 
 
 ### Available Globals
@@ -342,21 +526,42 @@ This is used to track the client application and its usage
 ### Example
 
 ```python
-import plex_api
+from plex_api_client import PlexAPI
+from plex_api_client.models import operations
 
-s = plex_api.PlexAPI(
-    x_plex_client_identifier='Postman',
+s = PlexAPI(
+    access_token="<YOUR_API_KEY_HERE>",
+    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
 )
 
+res = s.plex.get_server_resources(request={
+    "x_plex_token": "CV5xoxjTpFKUzBTShsaf",
+    "include_https": operations.IncludeHTTPS.ONE,
+    "include_relay": operations.IncludeRelay.ONE,
+    "include_i_pv6": operations.IncludeIPv6.ONE,
+})
 
-res = s.plex.get_pin(x_plex_product='Postman', strong=False, x_plex_client_identifier='Postman')
-
-if res.object is not None:
+if res.plex_devices is not None:
     # handle response
     pass
 
 ```
 <!-- End Global Parameters [global-parameters] -->
+
+<!-- Start Debugging [debug] -->
+## Debugging
+
+You can setup your SDK to emit debug logs for SDK requests and responses.
+
+You can pass your own logger class directly into your SDK.
+```python
+from plex_api_client import PlexAPI
+import logging
+
+logging.basicConfig(level=logging.DEBUG)
+s = PlexAPI(debug_logger=logging.getLogger("plex_api_client"))
+```
+<!-- End Debugging [debug] -->
 
 <!-- Placeholder for Future Speakeasy SDK Sections -->
 

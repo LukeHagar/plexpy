@@ -24,13 +24,12 @@ Get Server Activities
 ### Example Usage
 
 ```python
-import plex_api
+from plex_api_client import PlexAPI
 
-s = plex_api.PlexAPI(
+s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier='Postman',
+    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
 )
-
 
 res = s.activities.get_server_activities()
 
@@ -40,16 +39,24 @@ if res.object is not None:
 
 ```
 
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
 
 ### Response
 
 **[operations.GetServerActivitiesResponse](../../models/operations/getserveractivitiesresponse.md)**
+
 ### Errors
 
-| Error Object                           | Status Code                            | Content Type                           |
-| -------------------------------------- | -------------------------------------- | -------------------------------------- |
-| errors.GetServerActivitiesResponseBody | 401                                    | application/json                       |
-| errors.SDKError                        | 4xx-5xx                                | */*                                    |
+| Error Object                                     | Status Code                                      | Content Type                                     |
+| ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ |
+| errors.GetServerActivitiesResponseBody           | 400                                              | application/json                                 |
+| errors.GetServerActivitiesActivitiesResponseBody | 401                                              | application/json                                 |
+| errors.SDKError                                  | 4xx-5xx                                          | */*                                              |
+
 
 ## cancel_server_activities
 
@@ -58,15 +65,14 @@ Cancel Server Activities
 ### Example Usage
 
 ```python
-import plex_api
+from plex_api_client import PlexAPI
 
-s = plex_api.PlexAPI(
+s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier='Postman',
+    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
 )
 
-
-res = s.activities.cancel_server_activities(activity_uuid='25b71ed5-0f9d-461c-baa7-d404e9e10d3e')
+res = s.activities.cancel_server_activities(activity_uuid="25b71ed5-0f9d-461c-baa7-d404e9e10d3e")
 
 if res is not None:
     # handle response
@@ -76,17 +82,19 @@ if res is not None:
 
 ### Parameters
 
-| Parameter                            | Type                                 | Required                             | Description                          | Example                              |
-| ------------------------------------ | ------------------------------------ | ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| `activity_uuid`                      | *str*                                | :heavy_check_mark:                   | The UUID of the activity to cancel.  | 25b71ed5-0f9d-461c-baa7-d404e9e10d3e |
-
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `activity_uuid`                                                     | *str*                                                               | :heavy_check_mark:                                                  | The UUID of the activity to cancel.                                 | 25b71ed5-0f9d-461c-baa7-d404e9e10d3e                                |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
 
 ### Response
 
 **[operations.CancelServerActivitiesResponse](../../models/operations/cancelserveractivitiesresponse.md)**
+
 ### Errors
 
-| Error Object                              | Status Code                               | Content Type                              |
-| ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
-| errors.CancelServerActivitiesResponseBody | 401                                       | application/json                          |
-| errors.SDKError                           | 4xx-5xx                                   | */*                                       |
+| Error Object                                        | Status Code                                         | Content Type                                        |
+| --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- |
+| errors.CancelServerActivitiesResponseBody           | 400                                                 | application/json                                    |
+| errors.CancelServerActivitiesActivitiesResponseBody | 401                                                 | application/json                                    |
+| errors.SDKError                                     | 4xx-5xx                                             | */*                                                 |

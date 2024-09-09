@@ -1,3 +1,6 @@
+.venv/
+pyrightconfig.json
+README-PYPI.md
 venv/
 src/*.egg-info/
 __pycache__/

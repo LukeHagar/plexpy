@@ -31,15 +31,14 @@ This request is intended to be very fast, and called as the user types.
 ### Example Usage
 
 ```python
-import plex_api
+from plex_api_client import PlexAPI
 
-s = plex_api.PlexAPI(
+s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier='Postman',
+    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
 )
 
-
-res = s.search.perform_search(query='dylan', section_id=1516.53, limit=5)
+res = s.search.perform_search(query="dylan", limit=5)
 
 if res is not None:
     # handle response
@@ -54,17 +53,20 @@ if res is not None:
 | `query`                                                                               | *str*                                                                                 | :heavy_check_mark:                                                                    | The query term                                                                        | arnold                                                                                |
 | `section_id`                                                                          | *Optional[float]*                                                                     | :heavy_minus_sign:                                                                    | This gives context to the search, and can result in re-ordering of search result hubs |                                                                                       |
 | `limit`                                                                               | *Optional[float]*                                                                     | :heavy_minus_sign:                                                                    | The number of items to return per hub                                                 | 5                                                                                     |
-
+| `retries`                                                                             | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                      | :heavy_minus_sign:                                                                    | Configuration to override the default retry behavior of the client.                   |                                                                                       |
 
 ### Response
 
 **[operations.PerformSearchResponse](../../models/operations/performsearchresponse.md)**
+
 ### Errors
 
-| Error Object                     | Status Code                      | Content Type                     |
-| -------------------------------- | -------------------------------- | -------------------------------- |
-| errors.PerformSearchResponseBody | 401                              | application/json                 |
-| errors.SDKError                  | 4xx-5xx                          | */*                              |
+| Error Object                           | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.PerformSearchResponseBody       | 400                                    | application/json                       |
+| errors.PerformSearchSearchResponseBody | 401                                    | application/json                       |
+| errors.SDKError                        | 4xx-5xx                                | */*                                    |
+
 
 ## perform_voice_search
 
@@ -77,15 +79,14 @@ Results, as well as their containing per-type hubs, contain a `distance` attribu
 ### Example Usage
 
 ```python
-import plex_api
+from plex_api_client import PlexAPI
 
-s = plex_api.PlexAPI(
+s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier='Postman',
+    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
 )
 
-
-res = s.search.perform_voice_search(query='dead+poop', section_id=4094.8, limit=5)
+res = s.search.perform_voice_search(query="dead+poop", limit=5)
 
 if res is not None:
     # handle response
@@ -100,17 +101,20 @@ if res is not None:
 | `query`                                                                               | *str*                                                                                 | :heavy_check_mark:                                                                    | The query term                                                                        | dead+poop                                                                             |
 | `section_id`                                                                          | *Optional[float]*                                                                     | :heavy_minus_sign:                                                                    | This gives context to the search, and can result in re-ordering of search result hubs |                                                                                       |
 | `limit`                                                                               | *Optional[float]*                                                                     | :heavy_minus_sign:                                                                    | The number of items to return per hub                                                 | 5                                                                                     |
-
+| `retries`                                                                             | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                      | :heavy_minus_sign:                                                                    | Configuration to override the default retry behavior of the client.                   |                                                                                       |
 
 ### Response
 
 **[operations.PerformVoiceSearchResponse](../../models/operations/performvoicesearchresponse.md)**
+
 ### Errors
 
-| Error Object                          | Status Code                           | Content Type                          |
-| ------------------------------------- | ------------------------------------- | ------------------------------------- |
-| errors.PerformVoiceSearchResponseBody | 401                                   | application/json                      |
-| errors.SDKError                       | 4xx-5xx                               | */*                                   |
+| Error Object                                | Status Code                                 | Content Type                                |
+| ------------------------------------------- | ------------------------------------------- | ------------------------------------------- |
+| errors.PerformVoiceSearchResponseBody       | 400                                         | application/json                            |
+| errors.PerformVoiceSearchSearchResponseBody | 401                                         | application/json                            |
+| errors.SDKError                             | 4xx-5xx                                     | */*                                         |
+
 
 ## get_search_results
 
@@ -119,15 +123,14 @@ This will search the database for the string provided.
 ### Example Usage
 
 ```python
-import plex_api
+from plex_api_client import PlexAPI
 
-s = plex_api.PlexAPI(
+s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier='Postman',
+    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
 )
 
-
-res = s.search.get_search_results(query='110')
+res = s.search.get_search_results(query="110")
 
 if res.object is not None:
     # handle response
@@ -137,17 +140,19 @@ if res.object is not None:
 
 ### Parameters
 
-| Parameter                      | Type                           | Required                       | Description                    | Example                        |
-| ------------------------------ | ------------------------------ | ------------------------------ | ------------------------------ | ------------------------------ |
-| `query`                        | *str*                          | :heavy_check_mark:             | The search query string to use | 110                            |
-
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `query`                                                             | *str*                                                               | :heavy_check_mark:                                                  | The search query string to use                                      | 110                                                                 |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
 
 ### Response
 
 **[operations.GetSearchResultsResponse](../../models/operations/getsearchresultsresponse.md)**
+
 ### Errors
 
-| Error Object                        | Status Code                         | Content Type                        |
-| ----------------------------------- | ----------------------------------- | ----------------------------------- |
-| errors.GetSearchResultsResponseBody | 401                                 | application/json                    |
-| errors.SDKError                     | 4xx-5xx                             | */*                                 |
+| Error Object                              | Status Code                               | Content Type                              |
+| ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
+| errors.GetSearchResultsResponseBody       | 400                                       | application/json                          |
+| errors.GetSearchResultsSearchResponseBody | 401                                       | application/json                          |
+| errors.SDKError                           | 4xx-5xx                                   | */*                                       |

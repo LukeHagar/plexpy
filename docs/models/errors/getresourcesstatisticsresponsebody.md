@@ -1,6 +1,6 @@
 # GetResourcesStatisticsResponseBody
 
-Unauthorized - Returned if the X-Plex-Token is missing from the header or query.
+Bad Request - A parameter was not specified, or was specified incorrectly.
 
 
 ## Fields
@@ -8,4 +8,4 @@ Unauthorized - Returned if the X-Plex-Token is missing from the header or query.
 | Field                                                                                            | Type                                                                                             | Required                                                                                         | Description                                                                                      |
 | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
 | `errors`                                                                                         | List[[errors.GetResourcesStatisticsErrors](../../models/errors/getresourcesstatisticserrors.md)] | :heavy_minus_sign:                                                                               | N/A                                                                                              |
-| `raw_response`                                                                                   | [requests.Response](https://requests.readthedocs.io/en/latest/api/#requests.Response)            | :heavy_minus_sign:                                                                               | Raw HTTP response; suitable for custom response parsing                                          |
+| `raw_response`                                                                                   | [httpx.Response](https://www.python-httpx.org/api/#response)                                     | :heavy_minus_sign:                                                                               | Raw HTTP response; suitable for custom response parsing                                          |

@@ -18,16 +18,14 @@ Get Global Hubs filtered by the parameters provided.
 ### Example Usage
 
 ```python
-import plex_api
-from plex_api.models import operations
+from plex_api_client import PlexAPI
 
-s = plex_api.PlexAPI(
+s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier='Postman',
+    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
 )
 
-
-res = s.hubs.get_global_hubs(count=1262.49, only_transient=operations.OnlyTransient.ONE)
+res = s.hubs.get_global_hubs()
 
 if res.object is not None:
     # handle response
@@ -41,17 +39,20 @@ if res.object is not None:
 | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `count`                                                                                                                                               | *Optional[float]*                                                                                                                                     | :heavy_minus_sign:                                                                                                                                    | The number of items to return with each hub.                                                                                                          |
 | `only_transient`                                                                                                                                      | [Optional[operations.OnlyTransient]](../../models/operations/onlytransient.md)                                                                        | :heavy_minus_sign:                                                                                                                                    | Only return hubs which are "transient", meaning those which are prone to changing after media playback or addition (e.g. On Deck, or Recently Added). |
-
+| `retries`                                                                                                                                             | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                      | :heavy_minus_sign:                                                                                                                                    | Configuration to override the default retry behavior of the client.                                                                                   |
 
 ### Response
 
 **[operations.GetGlobalHubsResponse](../../models/operations/getglobalhubsresponse.md)**
+
 ### Errors
 
-| Error Object                     | Status Code                      | Content Type                     |
-| -------------------------------- | -------------------------------- | -------------------------------- |
-| errors.GetGlobalHubsResponseBody | 401                              | application/json                 |
-| errors.SDKError                  | 4xx-5xx                          | */*                              |
+| Error Object                         | Status Code                          | Content Type                         |
+| ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.GetGlobalHubsResponseBody     | 400                                  | application/json                     |
+| errors.GetGlobalHubsHubsResponseBody | 401                                  | application/json                     |
+| errors.SDKError                      | 4xx-5xx                              | */*                                  |
+
 
 ## get_library_hubs
 
@@ -61,16 +62,14 @@ This endpoint will return a list of library specific hubs
 ### Example Usage
 
 ```python
-import plex_api
-from plex_api.models import operations
+from plex_api_client import PlexAPI
 
-s = plex_api.PlexAPI(
+s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier='Postman',
+    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
 )
 
-
-res = s.hubs.get_library_hubs(section_id=6728.76, count=9010.22, only_transient=operations.QueryParamOnlyTransient.ZERO)
+res = s.hubs.get_library_hubs(section_id=6728.76)
 
 if res.object is not None:
     # handle response
@@ -85,14 +84,16 @@ if res.object is not None:
 | `section_id`                                                                                                                                          | *float*                                                                                                                                               | :heavy_check_mark:                                                                                                                                    | the Id of the library to query                                                                                                                        |
 | `count`                                                                                                                                               | *Optional[float]*                                                                                                                                     | :heavy_minus_sign:                                                                                                                                    | The number of items to return with each hub.                                                                                                          |
 | `only_transient`                                                                                                                                      | [Optional[operations.QueryParamOnlyTransient]](../../models/operations/queryparamonlytransient.md)                                                    | :heavy_minus_sign:                                                                                                                                    | Only return hubs which are "transient", meaning those which are prone to changing after media playback or addition (e.g. On Deck, or Recently Added). |
-
+| `retries`                                                                                                                                             | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                      | :heavy_minus_sign:                                                                                                                                    | Configuration to override the default retry behavior of the client.                                                                                   |
 
 ### Response
 
 **[operations.GetLibraryHubsResponse](../../models/operations/getlibraryhubsresponse.md)**
+
 ### Errors
 
-| Error Object                      | Status Code                       | Content Type                      |
-| --------------------------------- | --------------------------------- | --------------------------------- |
-| errors.GetLibraryHubsResponseBody | 401                               | application/json                  |
-| errors.SDKError                   | 4xx-5xx                           | */*                               |
+| Error Object                          | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| errors.GetLibraryHubsResponseBody     | 400                                   | application/json                      |
+| errors.GetLibraryHubsHubsResponseBody | 401                                   | application/json                      |
+| errors.SDKError                       | 4xx-5xx                               | */*                                   |

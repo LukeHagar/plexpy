@@ -1,11 +1,11 @@
 # GetFileHashResponseBody
 
-Unauthorized - Returned if the X-Plex-Token is missing from the header or query.
+Bad Request - A parameter was not specified, or was specified incorrectly.
 
 
 ## Fields
 
-| Field                                                                                 | Type                                                                                  | Required                                                                              | Description                                                                           |
-| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| `errors`                                                                              | List[[errors.GetFileHashErrors](../../models/errors/getfilehasherrors.md)]            | :heavy_minus_sign:                                                                    | N/A                                                                                   |
-| `raw_response`                                                                        | [requests.Response](https://requests.readthedocs.io/en/latest/api/#requests.Response) | :heavy_minus_sign:                                                                    | Raw HTTP response; suitable for custom response parsing                               |
+| Field                                                                      | Type                                                                       | Required                                                                   | Description                                                                |
+| -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| `errors`                                                                   | List[[errors.GetFileHashErrors](../../models/errors/getfilehasherrors.md)] | :heavy_minus_sign:                                                         | N/A                                                                        |
+| `raw_response`                                                             | [httpx.Response](https://www.python-httpx.org/api/#response)               | :heavy_minus_sign:                                                         | Raw HTTP response; suitable for custom response parsing                    |

@@ -5,6 +5,6 @@
 
 | Field                               | Type                                | Required                            | Description                         | Example                             |
 | ----------------------------------- | ----------------------------------- | ----------------------------------- | ----------------------------------- | ----------------------------------- |
-| `code`                              | *Optional[float]*                   | :heavy_minus_sign:                  | N/A                                 | 1000                                |
+| `code`                              | *Optional[int]*                     | :heavy_minus_sign:                  | N/A                                 | 1000                                |
 | `message`                           | *Optional[str]*                     | :heavy_minus_sign:                  | N/A                                 | X-Plex-Client-Identifier is missing |
-| `status`                            | *Optional[float]*                   | :heavy_minus_sign:                  | N/A                                 | 400                                 |
+| `status`                            | *Optional[int]*                     | :heavy_minus_sign:                  | N/A                                 | 400                                 |
