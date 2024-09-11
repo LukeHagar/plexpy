@@ -51,11 +51,11 @@ if res.object is not None:
 
 ### Errors
 
-| Error Object                                     | Status Code                                      | Content Type                                     |
-| ------------------------------------------------ | ------------------------------------------------ | ------------------------------------------------ |
-| errors.GetServerActivitiesResponseBody           | 400                                              | application/json                                 |
-| errors.GetServerActivitiesActivitiesResponseBody | 401                                              | application/json                                 |
-| errors.SDKError                                  | 4xx-5xx                                          | */*                                              |
+| Error Object                           | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.GetServerActivitiesBadRequest   | 400                                    | application/json                       |
+| errors.GetServerActivitiesUnauthorized | 401                                    | application/json                       |
+| errors.SDKError                        | 4xx-5xx                                | */*                                    |
 
 
 ## cancel_server_activities
@@ -93,8 +93,8 @@ if res is not None:
 
 ### Errors
 
-| Error Object                                        | Status Code                                         | Content Type                                        |
-| --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- |
-| errors.CancelServerActivitiesResponseBody           | 400                                                 | application/json                                    |
-| errors.CancelServerActivitiesActivitiesResponseBody | 401                                                 | application/json                                    |
-| errors.SDKError                                     | 4xx-5xx                                             | */*                                                 |
+| Error Object                              | Status Code                               | Content Type                              |
+| ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
+| errors.CancelServerActivitiesBadRequest   | 400                                       | application/json                          |
+| errors.CancelServerActivitiesUnauthorized | 401                                       | application/json                          |
+| errors.SDKError                           | 4xx-5xx                                   | */*                                       |

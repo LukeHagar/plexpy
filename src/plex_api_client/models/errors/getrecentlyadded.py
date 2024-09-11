@@ -23,7 +23,7 @@ class GetRecentlyAddedLibraryErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetRecentlyAddedLibraryResponseBodyData(BaseModel):
+class GetRecentlyAddedUnauthorizedData(BaseModel):
     errors: Optional[List[GetRecentlyAddedLibraryErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,16 +32,16 @@ class GetRecentlyAddedLibraryResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetRecentlyAddedLibraryResponseBody(Exception):
+class GetRecentlyAddedUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: GetRecentlyAddedLibraryResponseBodyData
+    data: GetRecentlyAddedUnauthorizedData
 
-    def __init__(self, data: GetRecentlyAddedLibraryResponseBodyData):
+    def __init__(self, data: GetRecentlyAddedUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetRecentlyAddedLibraryResponseBodyData)
+        return utils.marshal_json(self.data, GetRecentlyAddedUnauthorizedData)
 
 
 class GetRecentlyAddedErrorsTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class GetRecentlyAddedErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetRecentlyAddedResponseBodyData(BaseModel):
+class GetRecentlyAddedBadRequestData(BaseModel):
     errors: Optional[List[GetRecentlyAddedErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -67,13 +67,13 @@ class GetRecentlyAddedResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetRecentlyAddedResponseBody(Exception):
+class GetRecentlyAddedBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: GetRecentlyAddedResponseBodyData
+    data: GetRecentlyAddedBadRequestData
 
-    def __init__(self, data: GetRecentlyAddedResponseBodyData):
+    def __init__(self, data: GetRecentlyAddedBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetRecentlyAddedResponseBodyData)
+        return utils.marshal_json(self.data, GetRecentlyAddedBadRequestData)

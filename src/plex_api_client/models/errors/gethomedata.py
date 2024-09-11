@@ -23,7 +23,7 @@ class GetHomeDataPlexErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetHomeDataPlexResponseBodyData(BaseModel):
+class GetHomeDataUnauthorizedData(BaseModel):
     errors: Optional[List[GetHomeDataPlexErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,16 +32,16 @@ class GetHomeDataPlexResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetHomeDataPlexResponseBody(Exception):
+class GetHomeDataUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: GetHomeDataPlexResponseBodyData
+    data: GetHomeDataUnauthorizedData
 
-    def __init__(self, data: GetHomeDataPlexResponseBodyData):
+    def __init__(self, data: GetHomeDataUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetHomeDataPlexResponseBodyData)
+        return utils.marshal_json(self.data, GetHomeDataUnauthorizedData)
 
 
 class GetHomeDataErrorsTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class GetHomeDataErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetHomeDataResponseBodyData(BaseModel):
+class GetHomeDataBadRequestData(BaseModel):
     errors: Optional[List[GetHomeDataErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -67,13 +67,13 @@ class GetHomeDataResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetHomeDataResponseBody(Exception):
+class GetHomeDataBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: GetHomeDataResponseBodyData
+    data: GetHomeDataBadRequestData
 
-    def __init__(self, data: GetHomeDataResponseBodyData):
+    def __init__(self, data: GetHomeDataBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetHomeDataResponseBodyData)
+        return utils.marshal_json(self.data, GetHomeDataBadRequestData)

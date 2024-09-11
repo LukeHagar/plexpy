@@ -23,7 +23,7 @@ class DeleteLibraryLibraryErrors(BaseModel):
     status: Optional[int] = None
 
 
-class DeleteLibraryLibraryResponseBodyData(BaseModel):
+class DeleteLibraryUnauthorizedData(BaseModel):
     errors: Optional[List[DeleteLibraryLibraryErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,16 +32,16 @@ class DeleteLibraryLibraryResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class DeleteLibraryLibraryResponseBody(Exception):
+class DeleteLibraryUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: DeleteLibraryLibraryResponseBodyData
+    data: DeleteLibraryUnauthorizedData
 
-    def __init__(self, data: DeleteLibraryLibraryResponseBodyData):
+    def __init__(self, data: DeleteLibraryUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, DeleteLibraryLibraryResponseBodyData)
+        return utils.marshal_json(self.data, DeleteLibraryUnauthorizedData)
 
 
 class DeleteLibraryErrorsTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class DeleteLibraryErrors(BaseModel):
     status: Optional[int] = None
 
 
-class DeleteLibraryResponseBodyData(BaseModel):
+class DeleteLibraryBadRequestData(BaseModel):
     errors: Optional[List[DeleteLibraryErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -67,13 +67,13 @@ class DeleteLibraryResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class DeleteLibraryResponseBody(Exception):
+class DeleteLibraryBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: DeleteLibraryResponseBodyData
+    data: DeleteLibraryBadRequestData
 
-    def __init__(self, data: DeleteLibraryResponseBodyData):
+    def __init__(self, data: DeleteLibraryBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, DeleteLibraryResponseBodyData)
+        return utils.marshal_json(self.data, DeleteLibraryBadRequestData)

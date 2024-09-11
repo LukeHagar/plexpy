@@ -23,7 +23,7 @@ class GetServerListServerErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetServerListServerResponseBodyData(BaseModel):
+class GetServerListUnauthorizedData(BaseModel):
     errors: Optional[List[GetServerListServerErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,16 +32,16 @@ class GetServerListServerResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetServerListServerResponseBody(Exception):
+class GetServerListUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: GetServerListServerResponseBodyData
+    data: GetServerListUnauthorizedData
 
-    def __init__(self, data: GetServerListServerResponseBodyData):
+    def __init__(self, data: GetServerListUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetServerListServerResponseBodyData)
+        return utils.marshal_json(self.data, GetServerListUnauthorizedData)
 
 
 class GetServerListErrorsTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class GetServerListErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetServerListResponseBodyData(BaseModel):
+class GetServerListBadRequestData(BaseModel):
     errors: Optional[List[GetServerListErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -67,13 +67,13 @@ class GetServerListResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetServerListResponseBody(Exception):
+class GetServerListBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: GetServerListResponseBodyData
+    data: GetServerListBadRequestData
 
-    def __init__(self, data: GetServerListResponseBodyData):
+    def __init__(self, data: GetServerListBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetServerListResponseBodyData)
+        return utils.marshal_json(self.data, GetServerListBadRequestData)

@@ -23,7 +23,7 @@ class GetGeoDataPlexErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetGeoDataPlexResponseBodyData(BaseModel):
+class GetGeoDataUnauthorizedData(BaseModel):
     errors: Optional[List[GetGeoDataPlexErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,16 +32,16 @@ class GetGeoDataPlexResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetGeoDataPlexResponseBody(Exception):
+class GetGeoDataUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: GetGeoDataPlexResponseBodyData
+    data: GetGeoDataUnauthorizedData
 
-    def __init__(self, data: GetGeoDataPlexResponseBodyData):
+    def __init__(self, data: GetGeoDataUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetGeoDataPlexResponseBodyData)
+        return utils.marshal_json(self.data, GetGeoDataUnauthorizedData)
 
 
 class GetGeoDataErrorsTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class GetGeoDataErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetGeoDataResponseBodyData(BaseModel):
+class GetGeoDataBadRequestData(BaseModel):
     errors: Optional[List[GetGeoDataErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -67,13 +67,13 @@ class GetGeoDataResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetGeoDataResponseBody(Exception):
+class GetGeoDataBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: GetGeoDataResponseBodyData
+    data: GetGeoDataBadRequestData
 
-    def __init__(self, data: GetGeoDataResponseBodyData):
+    def __init__(self, data: GetGeoDataBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetGeoDataResponseBodyData)
+        return utils.marshal_json(self.data, GetGeoDataBadRequestData)

@@ -23,7 +23,7 @@ class GetDevicesServerErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetDevicesServerResponseBodyData(BaseModel):
+class GetDevicesUnauthorizedData(BaseModel):
     errors: Optional[List[GetDevicesServerErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,16 +32,16 @@ class GetDevicesServerResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetDevicesServerResponseBody(Exception):
+class GetDevicesUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: GetDevicesServerResponseBodyData
+    data: GetDevicesUnauthorizedData
 
-    def __init__(self, data: GetDevicesServerResponseBodyData):
+    def __init__(self, data: GetDevicesUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetDevicesServerResponseBodyData)
+        return utils.marshal_json(self.data, GetDevicesUnauthorizedData)
 
 
 class GetDevicesErrorsTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class GetDevicesErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetDevicesResponseBodyData(BaseModel):
+class GetDevicesBadRequestData(BaseModel):
     errors: Optional[List[GetDevicesErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -67,13 +67,13 @@ class GetDevicesResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetDevicesResponseBody(Exception):
+class GetDevicesBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: GetDevicesResponseBodyData
+    data: GetDevicesBadRequestData
 
-    def __init__(self, data: GetDevicesResponseBodyData):
+    def __init__(self, data: GetDevicesBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetDevicesResponseBodyData)
+        return utils.marshal_json(self.data, GetDevicesBadRequestData)

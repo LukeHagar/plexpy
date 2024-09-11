@@ -205,9 +205,9 @@ asyncio.run(main())
 
 ### [authentication](docs/sdks/authentication/README.md)
 
-* [get_transient_token](docs/sdks/authentication/README.md#get_transient_token) - Get a Transient Token.
+* [get_transient_token](docs/sdks/authentication/README.md#get_transient_token) - Get a Transient Token
 * [get_source_connection_information](docs/sdks/authentication/README.md#get_source_connection_information) - Get Source Connection Information
-* [get_user_details](docs/sdks/authentication/README.md#get_user_details) - Get User Data By Token
+* [get_token_details](docs/sdks/authentication/README.md#get_token_details) - Get Token Details
 * [post_users_sign_in_data](docs/sdks/authentication/README.md#post_users_sign_in_data) - Get User Sign In Data
 
 ### [statistics](docs/sdks/statistics/README.md)
@@ -279,11 +279,11 @@ if res.object is not None:
 
 Handling errors in this SDK should largely match your expectations.  All operations return a response object or raise an error.  If Error objects are specified in your OpenAPI Spec, the SDK will raise the appropriate Error type.
 
-| Error Object                                   | Status Code                                    | Content Type                                   |
-| ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- |
-| errors.GetServerCapabilitiesResponseBody       | 400                                            | application/json                               |
-| errors.GetServerCapabilitiesServerResponseBody | 401                                            | application/json                               |
-| errors.SDKError                                | 4xx-5xx                                        | */*                                            |
+| Error Object                             | Status Code                              | Content Type                             |
+| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
+| errors.GetServerCapabilitiesBadRequest   | 400                                      | application/json                         |
+| errors.GetServerCapabilitiesUnauthorized | 401                                      | application/json                         |
+| errors.SDKError                          | 4xx-5xx                                  | */*                                      |
 
 ### Example
 
@@ -304,11 +304,11 @@ try:
         # handle response
         pass
 
-except errors.GetServerCapabilitiesResponseBody as e:
-    # handle e.data: errors.GetServerCapabilitiesResponseBodyData
+except errors.GetServerCapabilitiesBadRequest as e:
+    # handle e.data: errors.GetServerCapabilitiesBadRequestData
     raise(e)
-except errors.GetServerCapabilitiesServerResponseBody as e:
-    # handle e.data: errors.GetServerCapabilitiesServerResponseBodyData
+except errors.GetServerCapabilitiesUnauthorized as e:
+    # handle e.data: errors.GetServerCapabilitiesUnauthorizedData
     raise(e)
 except errors.SDKError as e:
     # handle exception
@@ -534,12 +534,7 @@ s = PlexAPI(
     x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
 )
 
-res = s.plex.get_server_resources(request={
-    "x_plex_token": "CV5xoxjTpFKUzBTShsaf",
-    "include_https": operations.IncludeHTTPS.ONE,
-    "include_relay": operations.IncludeRelay.ONE,
-    "include_i_pv6": operations.IncludeIPv6.ONE,
-})
+res = s.plex.get_server_resources(x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40", include_https=operations.IncludeHTTPS.ONE, include_relay=operations.IncludeRelay.ONE, include_i_pv6=operations.IncludeIPv6.ONE)
 
 if res.plex_devices is not None:
     # handle response

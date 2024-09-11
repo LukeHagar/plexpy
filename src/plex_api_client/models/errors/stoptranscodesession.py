@@ -23,7 +23,7 @@ class StopTranscodeSessionSessionsErrors(BaseModel):
     status: Optional[int] = None
 
 
-class StopTranscodeSessionSessionsResponseBodyData(BaseModel):
+class StopTranscodeSessionUnauthorizedData(BaseModel):
     errors: Optional[List[StopTranscodeSessionSessionsErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,18 +32,16 @@ class StopTranscodeSessionSessionsResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class StopTranscodeSessionSessionsResponseBody(Exception):
+class StopTranscodeSessionUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: StopTranscodeSessionSessionsResponseBodyData
+    data: StopTranscodeSessionUnauthorizedData
 
-    def __init__(self, data: StopTranscodeSessionSessionsResponseBodyData):
+    def __init__(self, data: StopTranscodeSessionUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(
-            self.data, StopTranscodeSessionSessionsResponseBodyData
-        )
+        return utils.marshal_json(self.data, StopTranscodeSessionUnauthorizedData)
 
 
 class StopTranscodeSessionErrorsTypedDict(TypedDict):
@@ -60,7 +58,7 @@ class StopTranscodeSessionErrors(BaseModel):
     status: Optional[int] = None
 
 
-class StopTranscodeSessionResponseBodyData(BaseModel):
+class StopTranscodeSessionBadRequestData(BaseModel):
     errors: Optional[List[StopTranscodeSessionErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -69,13 +67,13 @@ class StopTranscodeSessionResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class StopTranscodeSessionResponseBody(Exception):
+class StopTranscodeSessionBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: StopTranscodeSessionResponseBodyData
+    data: StopTranscodeSessionBadRequestData
 
-    def __init__(self, data: StopTranscodeSessionResponseBodyData):
+    def __init__(self, data: StopTranscodeSessionBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, StopTranscodeSessionResponseBodyData)
+        return utils.marshal_json(self.data, StopTranscodeSessionBadRequestData)

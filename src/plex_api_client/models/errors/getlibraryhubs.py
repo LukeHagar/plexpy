@@ -23,7 +23,7 @@ class GetLibraryHubsHubsErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetLibraryHubsHubsResponseBodyData(BaseModel):
+class GetLibraryHubsUnauthorizedData(BaseModel):
     errors: Optional[List[GetLibraryHubsHubsErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,16 +32,16 @@ class GetLibraryHubsHubsResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetLibraryHubsHubsResponseBody(Exception):
+class GetLibraryHubsUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: GetLibraryHubsHubsResponseBodyData
+    data: GetLibraryHubsUnauthorizedData
 
-    def __init__(self, data: GetLibraryHubsHubsResponseBodyData):
+    def __init__(self, data: GetLibraryHubsUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetLibraryHubsHubsResponseBodyData)
+        return utils.marshal_json(self.data, GetLibraryHubsUnauthorizedData)
 
 
 class GetLibraryHubsErrorsTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class GetLibraryHubsErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetLibraryHubsResponseBodyData(BaseModel):
+class GetLibraryHubsBadRequestData(BaseModel):
     errors: Optional[List[GetLibraryHubsErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -67,13 +67,13 @@ class GetLibraryHubsResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetLibraryHubsResponseBody(Exception):
+class GetLibraryHubsBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: GetLibraryHubsResponseBodyData
+    data: GetLibraryHubsBadRequestData
 
-    def __init__(self, data: GetLibraryHubsResponseBodyData):
+    def __init__(self, data: GetLibraryHubsBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetLibraryHubsResponseBodyData)
+        return utils.marshal_json(self.data, GetLibraryHubsBadRequestData)

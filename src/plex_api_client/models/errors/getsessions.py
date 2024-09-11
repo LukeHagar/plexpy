@@ -23,7 +23,7 @@ class GetSessionsSessionsErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetSessionsSessionsResponseBodyData(BaseModel):
+class GetSessionsUnauthorizedData(BaseModel):
     errors: Optional[List[GetSessionsSessionsErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,16 +32,16 @@ class GetSessionsSessionsResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetSessionsSessionsResponseBody(Exception):
+class GetSessionsUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: GetSessionsSessionsResponseBodyData
+    data: GetSessionsUnauthorizedData
 
-    def __init__(self, data: GetSessionsSessionsResponseBodyData):
+    def __init__(self, data: GetSessionsUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetSessionsSessionsResponseBodyData)
+        return utils.marshal_json(self.data, GetSessionsUnauthorizedData)
 
 
 class GetSessionsErrorsTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class GetSessionsErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetSessionsResponseBodyData(BaseModel):
+class GetSessionsBadRequestData(BaseModel):
     errors: Optional[List[GetSessionsErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -67,13 +67,13 @@ class GetSessionsResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetSessionsResponseBody(Exception):
+class GetSessionsBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: GetSessionsResponseBodyData
+    data: GetSessionsBadRequestData
 
-    def __init__(self, data: GetSessionsResponseBodyData):
+    def __init__(self, data: GetSessionsBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetSessionsResponseBodyData)
+        return utils.marshal_json(self.data, GetSessionsBadRequestData)

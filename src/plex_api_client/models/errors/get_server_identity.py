@@ -8,7 +8,7 @@ from typing import Optional
 from typing_extensions import Annotated
 
 
-class GetServerIdentityResponseBodyData(BaseModel):
+class GetServerIdentityRequestTimeoutData(BaseModel):
     code: Optional[int] = None
 
     message: Optional[str] = None
@@ -19,12 +19,12 @@ class GetServerIdentityResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetServerIdentityResponseBody(Exception):
+class GetServerIdentityRequestTimeout(Exception):
     r"""Request Timeout"""
 
-    data: GetServerIdentityResponseBodyData
+    data: GetServerIdentityRequestTimeoutData
 
-    def __init__(self, data: GetServerIdentityResponseBodyData):
+    def __init__(self, data: GetServerIdentityRequestTimeoutData):
         self.data = data
 
     def __str__(self) -> str:

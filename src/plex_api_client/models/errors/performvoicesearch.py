@@ -23,7 +23,7 @@ class PerformVoiceSearchSearchErrors(BaseModel):
     status: Optional[int] = None
 
 
-class PerformVoiceSearchSearchResponseBodyData(BaseModel):
+class PerformVoiceSearchUnauthorizedData(BaseModel):
     errors: Optional[List[PerformVoiceSearchSearchErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,16 +32,16 @@ class PerformVoiceSearchSearchResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class PerformVoiceSearchSearchResponseBody(Exception):
+class PerformVoiceSearchUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: PerformVoiceSearchSearchResponseBodyData
+    data: PerformVoiceSearchUnauthorizedData
 
-    def __init__(self, data: PerformVoiceSearchSearchResponseBodyData):
+    def __init__(self, data: PerformVoiceSearchUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, PerformVoiceSearchSearchResponseBodyData)
+        return utils.marshal_json(self.data, PerformVoiceSearchUnauthorizedData)
 
 
 class PerformVoiceSearchErrorsTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class PerformVoiceSearchErrors(BaseModel):
     status: Optional[int] = None
 
 
-class PerformVoiceSearchResponseBodyData(BaseModel):
+class PerformVoiceSearchBadRequestData(BaseModel):
     errors: Optional[List[PerformVoiceSearchErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -67,13 +67,13 @@ class PerformVoiceSearchResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class PerformVoiceSearchResponseBody(Exception):
+class PerformVoiceSearchBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: PerformVoiceSearchResponseBodyData
+    data: PerformVoiceSearchBadRequestData
 
-    def __init__(self, data: PerformVoiceSearchResponseBodyData):
+    def __init__(self, data: PerformVoiceSearchBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, PerformVoiceSearchResponseBodyData)
+        return utils.marshal_json(self.data, PerformVoiceSearchBadRequestData)

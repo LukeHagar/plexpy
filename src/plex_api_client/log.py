@@ -89,15 +89,13 @@ class Log(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.LogLineResponseBodyData)
+            data = utils.unmarshal_json(http_res.text, errors.LogLineBadRequestData)
             data.raw_response = http_res
-            raise errors.LogLineResponseBody(data=data)
+            raise errors.LogLineBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
-                http_res.text, errors.LogLineLogResponseBodyData
-            )
+            data = utils.unmarshal_json(http_res.text, errors.LogLineUnauthorizedData)
             data.raw_response = http_res
-            raise errors.LogLineLogResponseBody(data=data)
+            raise errors.LogLineUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -189,15 +187,13 @@ class Log(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.LogLineResponseBodyData)
+            data = utils.unmarshal_json(http_res.text, errors.LogLineBadRequestData)
             data.raw_response = http_res
-            raise errors.LogLineResponseBody(data=data)
+            raise errors.LogLineBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
-                http_res.text, errors.LogLineLogResponseBodyData
-            )
+            data = utils.unmarshal_json(http_res.text, errors.LogLineUnauthorizedData)
             data.raw_response = http_res
-            raise errors.LogLineLogResponseBody(data=data)
+            raise errors.LogLineUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -303,16 +299,16 @@ class Log(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.LogMultiLineResponseBodyData
+                http_res.text, errors.LogMultiLineBadRequestData
             )
             data.raw_response = http_res
-            raise errors.LogMultiLineResponseBody(data=data)
+            raise errors.LogMultiLineBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.LogMultiLineLogResponseBodyData
+                http_res.text, errors.LogMultiLineUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.LogMultiLineLogResponseBody(data=data)
+            raise errors.LogMultiLineUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -418,16 +414,16 @@ class Log(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.LogMultiLineResponseBodyData
+                http_res.text, errors.LogMultiLineBadRequestData
             )
             data.raw_response = http_res
-            raise errors.LogMultiLineResponseBody(data=data)
+            raise errors.LogMultiLineBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.LogMultiLineLogResponseBodyData
+                http_res.text, errors.LogMultiLineUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.LogMultiLineLogResponseBody(data=data)
+            raise errors.LogMultiLineUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -507,16 +503,16 @@ class Log(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.EnablePaperTrailResponseBodyData
+                http_res.text, errors.EnablePaperTrailBadRequestData
             )
             data.raw_response = http_res
-            raise errors.EnablePaperTrailResponseBody(data=data)
+            raise errors.EnablePaperTrailBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.EnablePaperTrailLogResponseBodyData
+                http_res.text, errors.EnablePaperTrailUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.EnablePaperTrailLogResponseBody(data=data)
+            raise errors.EnablePaperTrailUnauthorized(data=data)
         if utils.match_response(http_res, ["403", "4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -596,16 +592,16 @@ class Log(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.EnablePaperTrailResponseBodyData
+                http_res.text, errors.EnablePaperTrailBadRequestData
             )
             data.raw_response = http_res
-            raise errors.EnablePaperTrailResponseBody(data=data)
+            raise errors.EnablePaperTrailBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.EnablePaperTrailLogResponseBodyData
+                http_res.text, errors.EnablePaperTrailUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.EnablePaperTrailLogResponseBody(data=data)
+            raise errors.EnablePaperTrailUnauthorized(data=data)
         if utils.match_response(http_res, ["403", "4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res

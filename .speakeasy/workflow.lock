@@ -1,19 +1,19 @@
-speakeasyVersion: 1.393.0
+speakeasyVersion: 1.396.2
 sources:
     my-source:
         sourceNamespace: my-source
-        sourceRevisionDigest: sha256:44184fe64938a688d21d58aa0e390471812eda6f10c9ca0145a7328cf31a4f0a
-        sourceBlobDigest: sha256:7257c51225e1fb6fa7de445fbe2f31151dc89771894c9b731a29ab01b504f503
+        sourceRevisionDigest: sha256:1f43c28112982f7603d8fed99ad5b2d14de397325c20863fb693a4f89f96e3c6
+        sourceBlobDigest: sha256:f7e2709f52370dff16c1851a7a4e44a89f2e978e9cae335bffc10625950b3bd9
         tags:
             - latest
 targets:
     plexpy:
         source: my-source
         sourceNamespace: my-source
-        sourceRevisionDigest: sha256:44184fe64938a688d21d58aa0e390471812eda6f10c9ca0145a7328cf31a4f0a
-        sourceBlobDigest: sha256:7257c51225e1fb6fa7de445fbe2f31151dc89771894c9b731a29ab01b504f503
+        sourceRevisionDigest: sha256:1f43c28112982f7603d8fed99ad5b2d14de397325c20863fb693a4f89f96e3c6
+        sourceBlobDigest: sha256:f7e2709f52370dff16c1851a7a4e44a89f2e978e9cae335bffc10625950b3bd9
         codeSamplesNamespace: code-samples-python-plexpy
-        codeSamplesRevisionDigest: sha256:4e01301c28b13604518c3325dcca1ea1522d890c190a7f0a41fccd205ca10551
+        codeSamplesRevisionDigest: sha256:5c0a53ca21a99c2994ba26c54e14064b54d690b13cfa1e7d52bd9fd763224a4d
         outLocation: /home/luke/github/plexpy
 workflow:
     workflowVersion: 1.0.0

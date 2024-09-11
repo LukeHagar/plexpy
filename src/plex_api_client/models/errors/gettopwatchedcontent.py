@@ -23,7 +23,7 @@ class GetTopWatchedContentLibraryErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetTopWatchedContentLibraryResponseBodyData(BaseModel):
+class GetTopWatchedContentUnauthorizedData(BaseModel):
     errors: Optional[List[GetTopWatchedContentLibraryErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,18 +32,16 @@ class GetTopWatchedContentLibraryResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetTopWatchedContentLibraryResponseBody(Exception):
+class GetTopWatchedContentUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: GetTopWatchedContentLibraryResponseBodyData
+    data: GetTopWatchedContentUnauthorizedData
 
-    def __init__(self, data: GetTopWatchedContentLibraryResponseBodyData):
+    def __init__(self, data: GetTopWatchedContentUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(
-            self.data, GetTopWatchedContentLibraryResponseBodyData
-        )
+        return utils.marshal_json(self.data, GetTopWatchedContentUnauthorizedData)
 
 
 class GetTopWatchedContentErrorsTypedDict(TypedDict):
@@ -60,7 +58,7 @@ class GetTopWatchedContentErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetTopWatchedContentResponseBodyData(BaseModel):
+class GetTopWatchedContentBadRequestData(BaseModel):
     errors: Optional[List[GetTopWatchedContentErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -69,13 +67,13 @@ class GetTopWatchedContentResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetTopWatchedContentResponseBody(Exception):
+class GetTopWatchedContentBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: GetTopWatchedContentResponseBodyData
+    data: GetTopWatchedContentBadRequestData
 
-    def __init__(self, data: GetTopWatchedContentResponseBodyData):
+    def __init__(self, data: GetTopWatchedContentBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetTopWatchedContentResponseBodyData)
+        return utils.marshal_json(self.data, GetTopWatchedContentBadRequestData)

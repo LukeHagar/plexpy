@@ -23,7 +23,7 @@ class StopAllTasksButlerErrors(BaseModel):
     status: Optional[int] = None
 
 
-class StopAllTasksButlerResponseBodyData(BaseModel):
+class StopAllTasksUnauthorizedData(BaseModel):
     errors: Optional[List[StopAllTasksButlerErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,16 +32,16 @@ class StopAllTasksButlerResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class StopAllTasksButlerResponseBody(Exception):
+class StopAllTasksUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: StopAllTasksButlerResponseBodyData
+    data: StopAllTasksUnauthorizedData
 
-    def __init__(self, data: StopAllTasksButlerResponseBodyData):
+    def __init__(self, data: StopAllTasksUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, StopAllTasksButlerResponseBodyData)
+        return utils.marshal_json(self.data, StopAllTasksUnauthorizedData)
 
 
 class StopAllTasksErrorsTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class StopAllTasksErrors(BaseModel):
     status: Optional[int] = None
 
 
-class StopAllTasksResponseBodyData(BaseModel):
+class StopAllTasksBadRequestData(BaseModel):
     errors: Optional[List[StopAllTasksErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -67,13 +67,13 @@ class StopAllTasksResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class StopAllTasksResponseBody(Exception):
+class StopAllTasksBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: StopAllTasksResponseBodyData
+    data: StopAllTasksBadRequestData
 
-    def __init__(self, data: StopAllTasksResponseBodyData):
+    def __init__(self, data: StopAllTasksBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, StopAllTasksResponseBodyData)
+        return utils.marshal_json(self.data, StopAllTasksBadRequestData)

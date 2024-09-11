@@ -23,7 +23,7 @@ class StartTaskButlerErrors(BaseModel):
     status: Optional[int] = None
 
 
-class StartTaskButlerResponseBodyData(BaseModel):
+class StartTaskUnauthorizedData(BaseModel):
     errors: Optional[List[StartTaskButlerErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,16 +32,16 @@ class StartTaskButlerResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class StartTaskButlerResponseBody(Exception):
+class StartTaskUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: StartTaskButlerResponseBodyData
+    data: StartTaskUnauthorizedData
 
-    def __init__(self, data: StartTaskButlerResponseBodyData):
+    def __init__(self, data: StartTaskUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, StartTaskButlerResponseBodyData)
+        return utils.marshal_json(self.data, StartTaskUnauthorizedData)
 
 
 class StartTaskErrorsTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class StartTaskErrors(BaseModel):
     status: Optional[int] = None
 
 
-class StartTaskResponseBodyData(BaseModel):
+class StartTaskBadRequestData(BaseModel):
     errors: Optional[List[StartTaskErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -67,13 +67,13 @@ class StartTaskResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class StartTaskResponseBody(Exception):
+class StartTaskBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: StartTaskResponseBodyData
+    data: StartTaskBadRequestData
 
-    def __init__(self, data: StartTaskResponseBodyData):
+    def __init__(self, data: StartTaskBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, StartTaskResponseBodyData)
+        return utils.marshal_json(self.data, StartTaskBadRequestData)

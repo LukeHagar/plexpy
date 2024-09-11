@@ -23,7 +23,7 @@ class GetButlerTasksButlerErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetButlerTasksButlerResponseBodyData(BaseModel):
+class GetButlerTasksUnauthorizedData(BaseModel):
     errors: Optional[List[GetButlerTasksButlerErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,16 +32,16 @@ class GetButlerTasksButlerResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetButlerTasksButlerResponseBody(Exception):
+class GetButlerTasksUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: GetButlerTasksButlerResponseBodyData
+    data: GetButlerTasksUnauthorizedData
 
-    def __init__(self, data: GetButlerTasksButlerResponseBodyData):
+    def __init__(self, data: GetButlerTasksUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetButlerTasksButlerResponseBodyData)
+        return utils.marshal_json(self.data, GetButlerTasksUnauthorizedData)
 
 
 class GetButlerTasksErrorsTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class GetButlerTasksErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetButlerTasksResponseBodyData(BaseModel):
+class GetButlerTasksBadRequestData(BaseModel):
     errors: Optional[List[GetButlerTasksErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -67,13 +67,13 @@ class GetButlerTasksResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetButlerTasksResponseBody(Exception):
+class GetButlerTasksBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: GetButlerTasksResponseBodyData
+    data: GetButlerTasksBadRequestData
 
-    def __init__(self, data: GetButlerTasksResponseBodyData):
+    def __init__(self, data: GetButlerTasksBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetButlerTasksResponseBodyData)
+        return utils.marshal_json(self.data, GetButlerTasksBadRequestData)

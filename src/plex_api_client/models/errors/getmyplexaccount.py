@@ -23,7 +23,7 @@ class GetMyPlexAccountServerErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetMyPlexAccountServerResponseBodyData(BaseModel):
+class GetMyPlexAccountUnauthorizedData(BaseModel):
     errors: Optional[List[GetMyPlexAccountServerErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,16 +32,16 @@ class GetMyPlexAccountServerResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetMyPlexAccountServerResponseBody(Exception):
+class GetMyPlexAccountUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: GetMyPlexAccountServerResponseBodyData
+    data: GetMyPlexAccountUnauthorizedData
 
-    def __init__(self, data: GetMyPlexAccountServerResponseBodyData):
+    def __init__(self, data: GetMyPlexAccountUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetMyPlexAccountServerResponseBodyData)
+        return utils.marshal_json(self.data, GetMyPlexAccountUnauthorizedData)
 
 
 class GetMyPlexAccountErrorsTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class GetMyPlexAccountErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetMyPlexAccountResponseBodyData(BaseModel):
+class GetMyPlexAccountBadRequestData(BaseModel):
     errors: Optional[List[GetMyPlexAccountErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -67,13 +67,13 @@ class GetMyPlexAccountResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetMyPlexAccountResponseBody(Exception):
+class GetMyPlexAccountBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: GetMyPlexAccountResponseBodyData
+    data: GetMyPlexAccountBadRequestData
 
-    def __init__(self, data: GetMyPlexAccountResponseBodyData):
+    def __init__(self, data: GetMyPlexAccountBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetMyPlexAccountResponseBodyData)
+        return utils.marshal_json(self.data, GetMyPlexAccountBadRequestData)

@@ -47,11 +47,11 @@ if res.object is not None:
 
 ### Errors
 
-| Error Object                         | Status Code                          | Content Type                         |
-| ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| errors.GetGlobalHubsResponseBody     | 400                                  | application/json                     |
-| errors.GetGlobalHubsHubsResponseBody | 401                                  | application/json                     |
-| errors.SDKError                      | 4xx-5xx                              | */*                                  |
+| Error Object                     | Status Code                      | Content Type                     |
+| -------------------------------- | -------------------------------- | -------------------------------- |
+| errors.GetGlobalHubsBadRequest   | 400                              | application/json                 |
+| errors.GetGlobalHubsUnauthorized | 401                              | application/json                 |
+| errors.SDKError                  | 4xx-5xx                          | */*                              |
 
 
 ## get_library_hubs
@@ -92,8 +92,8 @@ if res.object is not None:
 
 ### Errors
 
-| Error Object                          | Status Code                           | Content Type                          |
-| ------------------------------------- | ------------------------------------- | ------------------------------------- |
-| errors.GetLibraryHubsResponseBody     | 400                                   | application/json                      |
-| errors.GetLibraryHubsHubsResponseBody | 401                                   | application/json                      |
-| errors.SDKError                       | 4xx-5xx                               | */*                                   |
+| Error Object                      | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| errors.GetLibraryHubsBadRequest   | 400                               | application/json                  |
+| errors.GetLibraryHubsUnauthorized | 401                               | application/json                  |
+| errors.SDKError                   | 4xx-5xx                           | */*                               |

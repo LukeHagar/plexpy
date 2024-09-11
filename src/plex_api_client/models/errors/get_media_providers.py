@@ -23,7 +23,7 @@ class GetMediaProvidersServerErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetMediaProvidersServerResponseBodyData(BaseModel):
+class GetMediaProvidersUnauthorizedData(BaseModel):
     errors: Optional[List[GetMediaProvidersServerErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,16 +32,16 @@ class GetMediaProvidersServerResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetMediaProvidersServerResponseBody(Exception):
+class GetMediaProvidersUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: GetMediaProvidersServerResponseBodyData
+    data: GetMediaProvidersUnauthorizedData
 
-    def __init__(self, data: GetMediaProvidersServerResponseBodyData):
+    def __init__(self, data: GetMediaProvidersUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetMediaProvidersServerResponseBodyData)
+        return utils.marshal_json(self.data, GetMediaProvidersUnauthorizedData)
 
 
 class GetMediaProvidersErrorsTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class GetMediaProvidersErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetMediaProvidersResponseBodyData(BaseModel):
+class GetMediaProvidersBadRequestData(BaseModel):
     errors: Optional[List[GetMediaProvidersErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -67,13 +67,13 @@ class GetMediaProvidersResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetMediaProvidersResponseBody(Exception):
+class GetMediaProvidersBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: GetMediaProvidersResponseBodyData
+    data: GetMediaProvidersBadRequestData
 
-    def __init__(self, data: GetMediaProvidersResponseBodyData):
+    def __init__(self, data: GetMediaProvidersBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetMediaProvidersResponseBodyData)
+        return utils.marshal_json(self.data, GetMediaProvidersBadRequestData)

@@ -90,16 +90,16 @@ class Watchlist(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetWatchListResponseBodyData
+                http_res.text, errors.GetWatchListBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetWatchListResponseBody(data=data)
+            raise errors.GetWatchListBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetWatchListWatchlistResponseBodyData
+                http_res.text, errors.GetWatchListUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetWatchListWatchlistResponseBody(data=data)
+            raise errors.GetWatchListUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -192,16 +192,16 @@ class Watchlist(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetWatchListResponseBodyData
+                http_res.text, errors.GetWatchListBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetWatchListResponseBody(data=data)
+            raise errors.GetWatchListBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetWatchListWatchlistResponseBodyData
+                http_res.text, errors.GetWatchListUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetWatchListWatchlistResponseBody(data=data)
+            raise errors.GetWatchListUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res

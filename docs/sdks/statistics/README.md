@@ -47,11 +47,11 @@ if res.object is not None:
 
 ### Errors
 
-| Error Object                               | Status Code                                | Content Type                               |
-| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
-| errors.GetStatisticsResponseBody           | 400                                        | application/json                           |
-| errors.GetStatisticsStatisticsResponseBody | 401                                        | application/json                           |
-| errors.SDKError                            | 4xx-5xx                                    | */*                                        |
+| Error Object                     | Status Code                      | Content Type                     |
+| -------------------------------- | -------------------------------- | -------------------------------- |
+| errors.GetStatisticsBadRequest   | 400                              | application/json                 |
+| errors.GetStatisticsUnauthorized | 401                              | application/json                 |
+| errors.SDKError                  | 4xx-5xx                          | */*                              |
 
 
 ## get_resources_statistics
@@ -89,11 +89,11 @@ if res.object is not None:
 
 ### Errors
 
-| Error Object                                        | Status Code                                         | Content Type                                        |
-| --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- |
-| errors.GetResourcesStatisticsResponseBody           | 400                                                 | application/json                                    |
-| errors.GetResourcesStatisticsStatisticsResponseBody | 401                                                 | application/json                                    |
-| errors.SDKError                                     | 4xx-5xx                                             | */*                                                 |
+| Error Object                              | Status Code                               | Content Type                              |
+| ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
+| errors.GetResourcesStatisticsBadRequest   | 400                                       | application/json                          |
+| errors.GetResourcesStatisticsUnauthorized | 401                                       | application/json                          |
+| errors.SDKError                           | 4xx-5xx                                   | */*                                       |
 
 
 ## get_bandwidth_statistics
@@ -131,8 +131,8 @@ if res.object is not None:
 
 ### Errors
 
-| Error Object                                        | Status Code                                         | Content Type                                        |
-| --------------------------------------------------- | --------------------------------------------------- | --------------------------------------------------- |
-| errors.GetBandwidthStatisticsResponseBody           | 400                                                 | application/json                                    |
-| errors.GetBandwidthStatisticsStatisticsResponseBody | 401                                                 | application/json                                    |
-| errors.SDKError                                     | 4xx-5xx                                             | */*                                                 |
+| Error Object                              | Status Code                               | Content Type                              |
+| ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
+| errors.GetBandwidthStatisticsBadRequest   | 400                                       | application/json                          |
+| errors.GetBandwidthStatisticsUnauthorized | 401                                       | application/json                          |
+| errors.SDKError                           | 4xx-5xx                                   | */*                                       |

@@ -23,7 +23,7 @@ class GetGlobalHubsHubsErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetGlobalHubsHubsResponseBodyData(BaseModel):
+class GetGlobalHubsUnauthorizedData(BaseModel):
     errors: Optional[List[GetGlobalHubsHubsErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,16 +32,16 @@ class GetGlobalHubsHubsResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetGlobalHubsHubsResponseBody(Exception):
+class GetGlobalHubsUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: GetGlobalHubsHubsResponseBodyData
+    data: GetGlobalHubsUnauthorizedData
 
-    def __init__(self, data: GetGlobalHubsHubsResponseBodyData):
+    def __init__(self, data: GetGlobalHubsUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetGlobalHubsHubsResponseBodyData)
+        return utils.marshal_json(self.data, GetGlobalHubsUnauthorizedData)
 
 
 class GetGlobalHubsErrorsTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class GetGlobalHubsErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetGlobalHubsResponseBodyData(BaseModel):
+class GetGlobalHubsBadRequestData(BaseModel):
     errors: Optional[List[GetGlobalHubsErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -67,13 +67,13 @@ class GetGlobalHubsResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetGlobalHubsResponseBody(Exception):
+class GetGlobalHubsBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: GetGlobalHubsResponseBodyData
+    data: GetGlobalHubsBadRequestData
 
-    def __init__(self, data: GetGlobalHubsResponseBodyData):
+    def __init__(self, data: GetGlobalHubsBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetGlobalHubsResponseBodyData)
+        return utils.marshal_json(self.data, GetGlobalHubsBadRequestData)

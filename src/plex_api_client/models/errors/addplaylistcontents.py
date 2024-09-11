@@ -23,7 +23,7 @@ class AddPlaylistContentsPlaylistsErrors(BaseModel):
     status: Optional[int] = None
 
 
-class AddPlaylistContentsPlaylistsResponseBodyData(BaseModel):
+class AddPlaylistContentsUnauthorizedData(BaseModel):
     errors: Optional[List[AddPlaylistContentsPlaylistsErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,18 +32,16 @@ class AddPlaylistContentsPlaylistsResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class AddPlaylistContentsPlaylistsResponseBody(Exception):
+class AddPlaylistContentsUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: AddPlaylistContentsPlaylistsResponseBodyData
+    data: AddPlaylistContentsUnauthorizedData
 
-    def __init__(self, data: AddPlaylistContentsPlaylistsResponseBodyData):
+    def __init__(self, data: AddPlaylistContentsUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(
-            self.data, AddPlaylistContentsPlaylistsResponseBodyData
-        )
+        return utils.marshal_json(self.data, AddPlaylistContentsUnauthorizedData)
 
 
 class AddPlaylistContentsErrorsTypedDict(TypedDict):
@@ -60,7 +58,7 @@ class AddPlaylistContentsErrors(BaseModel):
     status: Optional[int] = None
 
 
-class AddPlaylistContentsResponseBodyData(BaseModel):
+class AddPlaylistContentsBadRequestData(BaseModel):
     errors: Optional[List[AddPlaylistContentsErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -69,13 +67,13 @@ class AddPlaylistContentsResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class AddPlaylistContentsResponseBody(Exception):
+class AddPlaylistContentsBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: AddPlaylistContentsResponseBodyData
+    data: AddPlaylistContentsBadRequestData
 
-    def __init__(self, data: AddPlaylistContentsResponseBodyData):
+    def __init__(self, data: AddPlaylistContentsBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, AddPlaylistContentsResponseBodyData)
+        return utils.marshal_json(self.data, AddPlaylistContentsBadRequestData)

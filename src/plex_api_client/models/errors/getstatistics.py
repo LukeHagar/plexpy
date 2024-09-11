@@ -23,7 +23,7 @@ class GetStatisticsStatisticsErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetStatisticsStatisticsResponseBodyData(BaseModel):
+class GetStatisticsUnauthorizedData(BaseModel):
     errors: Optional[List[GetStatisticsStatisticsErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,16 +32,16 @@ class GetStatisticsStatisticsResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetStatisticsStatisticsResponseBody(Exception):
+class GetStatisticsUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: GetStatisticsStatisticsResponseBodyData
+    data: GetStatisticsUnauthorizedData
 
-    def __init__(self, data: GetStatisticsStatisticsResponseBodyData):
+    def __init__(self, data: GetStatisticsUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetStatisticsStatisticsResponseBodyData)
+        return utils.marshal_json(self.data, GetStatisticsUnauthorizedData)
 
 
 class GetStatisticsErrorsTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class GetStatisticsErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetStatisticsResponseBodyData(BaseModel):
+class GetStatisticsBadRequestData(BaseModel):
     errors: Optional[List[GetStatisticsErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -67,13 +67,13 @@ class GetStatisticsResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetStatisticsResponseBody(Exception):
+class GetStatisticsBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: GetStatisticsResponseBodyData
+    data: GetStatisticsBadRequestData
 
-    def __init__(self, data: GetStatisticsResponseBodyData):
+    def __init__(self, data: GetStatisticsBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetStatisticsResponseBodyData)
+        return utils.marshal_json(self.data, GetStatisticsBadRequestData)

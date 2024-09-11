@@ -23,7 +23,7 @@ class GetRefreshLibraryMetadataLibraryErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetRefreshLibraryMetadataLibraryResponseBodyData(BaseModel):
+class GetRefreshLibraryMetadataUnauthorizedData(BaseModel):
     errors: Optional[List[GetRefreshLibraryMetadataLibraryErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,18 +32,16 @@ class GetRefreshLibraryMetadataLibraryResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetRefreshLibraryMetadataLibraryResponseBody(Exception):
+class GetRefreshLibraryMetadataUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: GetRefreshLibraryMetadataLibraryResponseBodyData
+    data: GetRefreshLibraryMetadataUnauthorizedData
 
-    def __init__(self, data: GetRefreshLibraryMetadataLibraryResponseBodyData):
+    def __init__(self, data: GetRefreshLibraryMetadataUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(
-            self.data, GetRefreshLibraryMetadataLibraryResponseBodyData
-        )
+        return utils.marshal_json(self.data, GetRefreshLibraryMetadataUnauthorizedData)
 
 
 class GetRefreshLibraryMetadataErrorsTypedDict(TypedDict):
@@ -60,7 +58,7 @@ class GetRefreshLibraryMetadataErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetRefreshLibraryMetadataResponseBodyData(BaseModel):
+class GetRefreshLibraryMetadataBadRequestData(BaseModel):
     errors: Optional[List[GetRefreshLibraryMetadataErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -69,13 +67,13 @@ class GetRefreshLibraryMetadataResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetRefreshLibraryMetadataResponseBody(Exception):
+class GetRefreshLibraryMetadataBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: GetRefreshLibraryMetadataResponseBodyData
+    data: GetRefreshLibraryMetadataBadRequestData
 
-    def __init__(self, data: GetRefreshLibraryMetadataResponseBodyData):
+    def __init__(self, data: GetRefreshLibraryMetadataBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetRefreshLibraryMetadataResponseBodyData)
+        return utils.marshal_json(self.data, GetRefreshLibraryMetadataBadRequestData)

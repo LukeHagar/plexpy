@@ -23,7 +23,7 @@ class GetTransientTokenAuthenticationErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetTransientTokenAuthenticationResponseBodyData(BaseModel):
+class GetTransientTokenUnauthorizedData(BaseModel):
     errors: Optional[List[GetTransientTokenAuthenticationErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,18 +32,16 @@ class GetTransientTokenAuthenticationResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetTransientTokenAuthenticationResponseBody(Exception):
+class GetTransientTokenUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: GetTransientTokenAuthenticationResponseBodyData
+    data: GetTransientTokenUnauthorizedData
 
-    def __init__(self, data: GetTransientTokenAuthenticationResponseBodyData):
+    def __init__(self, data: GetTransientTokenUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(
-            self.data, GetTransientTokenAuthenticationResponseBodyData
-        )
+        return utils.marshal_json(self.data, GetTransientTokenUnauthorizedData)
 
 
 class GetTransientTokenErrorsTypedDict(TypedDict):
@@ -60,7 +58,7 @@ class GetTransientTokenErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetTransientTokenResponseBodyData(BaseModel):
+class GetTransientTokenBadRequestData(BaseModel):
     errors: Optional[List[GetTransientTokenErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -69,13 +67,13 @@ class GetTransientTokenResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetTransientTokenResponseBody(Exception):
+class GetTransientTokenBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: GetTransientTokenResponseBodyData
+    data: GetTransientTokenBadRequestData
 
-    def __init__(self, data: GetTransientTokenResponseBodyData):
+    def __init__(self, data: GetTransientTokenBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetTransientTokenResponseBodyData)
+        return utils.marshal_json(self.data, GetTransientTokenBadRequestData)

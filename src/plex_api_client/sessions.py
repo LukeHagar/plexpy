@@ -78,17 +78,15 @@ class Sessions(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
-                http_res.text, errors.GetSessionsResponseBodyData
-            )
+            data = utils.unmarshal_json(http_res.text, errors.GetSessionsBadRequestData)
             data.raw_response = http_res
-            raise errors.GetSessionsResponseBody(data=data)
+            raise errors.GetSessionsBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetSessionsSessionsResponseBodyData
+                http_res.text, errors.GetSessionsUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetSessionsSessionsResponseBody(data=data)
+            raise errors.GetSessionsUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -169,17 +167,15 @@ class Sessions(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
-                http_res.text, errors.GetSessionsResponseBodyData
-            )
+            data = utils.unmarshal_json(http_res.text, errors.GetSessionsBadRequestData)
             data.raw_response = http_res
-            raise errors.GetSessionsResponseBody(data=data)
+            raise errors.GetSessionsBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetSessionsSessionsResponseBodyData
+                http_res.text, errors.GetSessionsUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetSessionsSessionsResponseBody(data=data)
+            raise errors.GetSessionsUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -281,16 +277,16 @@ class Sessions(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetSessionHistoryResponseBodyData
+                http_res.text, errors.GetSessionHistoryBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetSessionHistoryResponseBody(data=data)
+            raise errors.GetSessionHistoryBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetSessionHistorySessionsResponseBodyData
+                http_res.text, errors.GetSessionHistoryUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetSessionHistorySessionsResponseBody(data=data)
+            raise errors.GetSessionHistoryUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -392,16 +388,16 @@ class Sessions(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetSessionHistoryResponseBodyData
+                http_res.text, errors.GetSessionHistoryBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetSessionHistoryResponseBody(data=data)
+            raise errors.GetSessionHistoryBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetSessionHistorySessionsResponseBodyData
+                http_res.text, errors.GetSessionHistoryUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetSessionHistorySessionsResponseBody(data=data)
+            raise errors.GetSessionHistoryUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -483,16 +479,16 @@ class Sessions(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetTranscodeSessionsResponseBodyData
+                http_res.text, errors.GetTranscodeSessionsBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetTranscodeSessionsResponseBody(data=data)
+            raise errors.GetTranscodeSessionsBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetTranscodeSessionsSessionsResponseBodyData
+                http_res.text, errors.GetTranscodeSessionsUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetTranscodeSessionsSessionsResponseBody(data=data)
+            raise errors.GetTranscodeSessionsUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -574,16 +570,16 @@ class Sessions(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetTranscodeSessionsResponseBodyData
+                http_res.text, errors.GetTranscodeSessionsBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetTranscodeSessionsResponseBody(data=data)
+            raise errors.GetTranscodeSessionsBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetTranscodeSessionsSessionsResponseBodyData
+                http_res.text, errors.GetTranscodeSessionsUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetTranscodeSessionsSessionsResponseBody(data=data)
+            raise errors.GetTranscodeSessionsUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -669,16 +665,16 @@ class Sessions(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.StopTranscodeSessionResponseBodyData
+                http_res.text, errors.StopTranscodeSessionBadRequestData
             )
             data.raw_response = http_res
-            raise errors.StopTranscodeSessionResponseBody(data=data)
+            raise errors.StopTranscodeSessionBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.StopTranscodeSessionSessionsResponseBodyData
+                http_res.text, errors.StopTranscodeSessionUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.StopTranscodeSessionSessionsResponseBody(data=data)
+            raise errors.StopTranscodeSessionUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -764,16 +760,16 @@ class Sessions(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.StopTranscodeSessionResponseBodyData
+                http_res.text, errors.StopTranscodeSessionBadRequestData
             )
             data.raw_response = http_res
-            raise errors.StopTranscodeSessionResponseBody(data=data)
+            raise errors.StopTranscodeSessionBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.StopTranscodeSessionSessionsResponseBodyData
+                http_res.text, errors.StopTranscodeSessionUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.StopTranscodeSessionSessionsResponseBody(data=data)
+            raise errors.StopTranscodeSessionUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res

@@ -48,11 +48,11 @@ if res.object is not None:
 
 ### Errors
 
-| Error Object                            | Status Code                             | Content Type                            |
-| --------------------------------------- | --------------------------------------- | --------------------------------------- |
-| errors.GetButlerTasksResponseBody       | 400                                     | application/json                        |
-| errors.GetButlerTasksButlerResponseBody | 401                                     | application/json                        |
-| errors.SDKError                         | 4xx-5xx                                 | */*                                     |
+| Error Object                      | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| errors.GetButlerTasksBadRequest   | 400                               | application/json                  |
+| errors.GetButlerTasksUnauthorized | 401                               | application/json                  |
+| errors.SDKError                   | 4xx-5xx                           | */*                               |
 
 
 ## start_all_tasks
@@ -94,11 +94,11 @@ if res is not None:
 
 ### Errors
 
-| Error Object                           | Status Code                            | Content Type                           |
-| -------------------------------------- | -------------------------------------- | -------------------------------------- |
-| errors.StartAllTasksResponseBody       | 400                                    | application/json                       |
-| errors.StartAllTasksButlerResponseBody | 401                                    | application/json                       |
-| errors.SDKError                        | 4xx-5xx                                | */*                                    |
+| Error Object                     | Status Code                      | Content Type                     |
+| -------------------------------- | -------------------------------- | -------------------------------- |
+| errors.StartAllTasksBadRequest   | 400                              | application/json                 |
+| errors.StartAllTasksUnauthorized | 401                              | application/json                 |
+| errors.SDKError                  | 4xx-5xx                          | */*                              |
 
 
 ## stop_all_tasks
@@ -136,11 +136,11 @@ if res is not None:
 
 ### Errors
 
-| Error Object                          | Status Code                           | Content Type                          |
-| ------------------------------------- | ------------------------------------- | ------------------------------------- |
-| errors.StopAllTasksResponseBody       | 400                                   | application/json                      |
-| errors.StopAllTasksButlerResponseBody | 401                                   | application/json                      |
-| errors.SDKError                       | 4xx-5xx                               | */*                                   |
+| Error Object                    | Status Code                     | Content Type                    |
+| ------------------------------- | ------------------------------- | ------------------------------- |
+| errors.StopAllTasksBadRequest   | 400                             | application/json                |
+| errors.StopAllTasksUnauthorized | 401                             | application/json                |
+| errors.SDKError                 | 4xx-5xx                         | */*                             |
 
 
 ## start_task
@@ -184,11 +184,11 @@ if res is not None:
 
 ### Errors
 
-| Error Object                       | Status Code                        | Content Type                       |
-| ---------------------------------- | ---------------------------------- | ---------------------------------- |
-| errors.StartTaskResponseBody       | 400                                | application/json                   |
-| errors.StartTaskButlerResponseBody | 401                                | application/json                   |
-| errors.SDKError                    | 4xx-5xx                            | */*                                |
+| Error Object                 | Status Code                  | Content Type                 |
+| ---------------------------- | ---------------------------- | ---------------------------- |
+| errors.StartTaskBadRequest   | 400                          | application/json             |
+| errors.StartTaskUnauthorized | 401                          | application/json             |
+| errors.SDKError              | 4xx-5xx                      | */*                          |
 
 
 ## stop_task
@@ -228,8 +228,8 @@ if res is not None:
 
 ### Errors
 
-| Error Object                      | Status Code                       | Content Type                      |
-| --------------------------------- | --------------------------------- | --------------------------------- |
-| errors.StopTaskResponseBody       | 400                               | application/json                  |
-| errors.StopTaskButlerResponseBody | 401                               | application/json                  |
-| errors.SDKError                   | 4xx-5xx                           | */*                               |
+| Error Object                | Status Code                 | Content Type                |
+| --------------------------- | --------------------------- | --------------------------- |
+| errors.StopTaskBadRequest   | 400                         | application/json            |
+| errors.StopTaskUnauthorized | 401                         | application/json            |
+| errors.SDKError             | 4xx-5xx                     | */*                         |

@@ -23,7 +23,7 @@ class GetSourceConnectionInformationAuthenticationErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetSourceConnectionInformationAuthenticationResponseBodyData(BaseModel):
+class GetSourceConnectionInformationUnauthorizedData(BaseModel):
     errors: Optional[List[GetSourceConnectionInformationAuthenticationErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,19 +32,17 @@ class GetSourceConnectionInformationAuthenticationResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetSourceConnectionInformationAuthenticationResponseBody(Exception):
+class GetSourceConnectionInformationUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: GetSourceConnectionInformationAuthenticationResponseBodyData
+    data: GetSourceConnectionInformationUnauthorizedData
 
-    def __init__(
-        self, data: GetSourceConnectionInformationAuthenticationResponseBodyData
-    ):
+    def __init__(self, data: GetSourceConnectionInformationUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
         return utils.marshal_json(
-            self.data, GetSourceConnectionInformationAuthenticationResponseBodyData
+            self.data, GetSourceConnectionInformationUnauthorizedData
         )
 
 
@@ -62,7 +60,7 @@ class GetSourceConnectionInformationErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetSourceConnectionInformationResponseBodyData(BaseModel):
+class GetSourceConnectionInformationBadRequestData(BaseModel):
     errors: Optional[List[GetSourceConnectionInformationErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -71,15 +69,15 @@ class GetSourceConnectionInformationResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetSourceConnectionInformationResponseBody(Exception):
+class GetSourceConnectionInformationBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: GetSourceConnectionInformationResponseBodyData
+    data: GetSourceConnectionInformationBadRequestData
 
-    def __init__(self, data: GetSourceConnectionInformationResponseBodyData):
+    def __init__(self, data: GetSourceConnectionInformationBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
         return utils.marshal_json(
-            self.data, GetSourceConnectionInformationResponseBodyData
+            self.data, GetSourceConnectionInformationBadRequestData
         )

@@ -58,11 +58,11 @@ if res is not None:
 
 ### Errors
 
-| Error Object                        | Status Code                         | Content Type                        |
-| ----------------------------------- | ----------------------------------- | ----------------------------------- |
-| errors.GetTimelineResponseBody      | 400                                 | application/json                    |
-| errors.GetTimelineVideoResponseBody | 401                                 | application/json                    |
-| errors.SDKError                     | 4xx-5xx                             | */*                                 |
+| Error Object                   | Status Code                    | Content Type                   |
+| ------------------------------ | ------------------------------ | ------------------------------ |
+| errors.GetTimelineBadRequest   | 400                            | application/json               |
+| errors.GetTimelineUnauthorized | 401                            | application/json               |
+| errors.SDKError                | 4xx-5xx                        | */*                            |
 
 
 ## start_universal_transcode
@@ -117,8 +117,8 @@ if res is not None:
 
 ### Errors
 
-| Error Object                                    | Status Code                                     | Content Type                                    |
-| ----------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- |
-| errors.StartUniversalTranscodeResponseBody      | 400                                             | application/json                                |
-| errors.StartUniversalTranscodeVideoResponseBody | 401                                             | application/json                                |
-| errors.SDKError                                 | 4xx-5xx                                         | */*                                             |
+| Error Object                               | Status Code                                | Content Type                               |
+| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
+| errors.StartUniversalTranscodeBadRequest   | 400                                        | application/json                           |
+| errors.StartUniversalTranscodeUnauthorized | 401                                        | application/json                           |
+| errors.SDKError                            | 4xx-5xx                                    | */*                                        |

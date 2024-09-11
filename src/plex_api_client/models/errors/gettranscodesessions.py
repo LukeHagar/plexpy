@@ -23,7 +23,7 @@ class GetTranscodeSessionsSessionsErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetTranscodeSessionsSessionsResponseBodyData(BaseModel):
+class GetTranscodeSessionsUnauthorizedData(BaseModel):
     errors: Optional[List[GetTranscodeSessionsSessionsErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,18 +32,16 @@ class GetTranscodeSessionsSessionsResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetTranscodeSessionsSessionsResponseBody(Exception):
+class GetTranscodeSessionsUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: GetTranscodeSessionsSessionsResponseBodyData
+    data: GetTranscodeSessionsUnauthorizedData
 
-    def __init__(self, data: GetTranscodeSessionsSessionsResponseBodyData):
+    def __init__(self, data: GetTranscodeSessionsUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(
-            self.data, GetTranscodeSessionsSessionsResponseBodyData
-        )
+        return utils.marshal_json(self.data, GetTranscodeSessionsUnauthorizedData)
 
 
 class GetTranscodeSessionsErrorsTypedDict(TypedDict):
@@ -60,7 +58,7 @@ class GetTranscodeSessionsErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetTranscodeSessionsResponseBodyData(BaseModel):
+class GetTranscodeSessionsBadRequestData(BaseModel):
     errors: Optional[List[GetTranscodeSessionsErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -69,13 +67,13 @@ class GetTranscodeSessionsResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetTranscodeSessionsResponseBody(Exception):
+class GetTranscodeSessionsBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: GetTranscodeSessionsResponseBodyData
+    data: GetTranscodeSessionsBadRequestData
 
-    def __init__(self, data: GetTranscodeSessionsResponseBodyData):
+    def __init__(self, data: GetTranscodeSessionsBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetTranscodeSessionsResponseBodyData)
+        return utils.marshal_json(self.data, GetTranscodeSessionsBadRequestData)

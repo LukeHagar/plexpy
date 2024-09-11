@@ -23,7 +23,7 @@ class ApplyUpdatesUpdaterErrors(BaseModel):
     status: Optional[int] = None
 
 
-class ApplyUpdatesUpdaterResponseBodyData(BaseModel):
+class ApplyUpdatesUnauthorizedData(BaseModel):
     errors: Optional[List[ApplyUpdatesUpdaterErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,16 +32,16 @@ class ApplyUpdatesUpdaterResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class ApplyUpdatesUpdaterResponseBody(Exception):
+class ApplyUpdatesUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: ApplyUpdatesUpdaterResponseBodyData
+    data: ApplyUpdatesUnauthorizedData
 
-    def __init__(self, data: ApplyUpdatesUpdaterResponseBodyData):
+    def __init__(self, data: ApplyUpdatesUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, ApplyUpdatesUpdaterResponseBodyData)
+        return utils.marshal_json(self.data, ApplyUpdatesUnauthorizedData)
 
 
 class ApplyUpdatesErrorsTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class ApplyUpdatesErrors(BaseModel):
     status: Optional[int] = None
 
 
-class ApplyUpdatesResponseBodyData(BaseModel):
+class ApplyUpdatesBadRequestData(BaseModel):
     errors: Optional[List[ApplyUpdatesErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -67,13 +67,13 @@ class ApplyUpdatesResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class ApplyUpdatesResponseBody(Exception):
+class ApplyUpdatesBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: ApplyUpdatesResponseBodyData
+    data: ApplyUpdatesBadRequestData
 
-    def __init__(self, data: ApplyUpdatesResponseBodyData):
+    def __init__(self, data: ApplyUpdatesBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, ApplyUpdatesResponseBodyData)
+        return utils.marshal_json(self.data, ApplyUpdatesBadRequestData)

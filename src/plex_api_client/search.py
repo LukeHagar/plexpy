@@ -101,16 +101,16 @@ class Search(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.PerformSearchResponseBodyData
+                http_res.text, errors.PerformSearchBadRequestData
             )
             data.raw_response = http_res
-            raise errors.PerformSearchResponseBody(data=data)
+            raise errors.PerformSearchBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.PerformSearchSearchResponseBodyData
+                http_res.text, errors.PerformSearchUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.PerformSearchSearchResponseBody(data=data)
+            raise errors.PerformSearchUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -214,16 +214,16 @@ class Search(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.PerformSearchResponseBodyData
+                http_res.text, errors.PerformSearchBadRequestData
             )
             data.raw_response = http_res
-            raise errors.PerformSearchResponseBody(data=data)
+            raise errors.PerformSearchBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.PerformSearchSearchResponseBodyData
+                http_res.text, errors.PerformSearchUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.PerformSearchSearchResponseBody(data=data)
+            raise errors.PerformSearchUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -319,16 +319,16 @@ class Search(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.PerformVoiceSearchResponseBodyData
+                http_res.text, errors.PerformVoiceSearchBadRequestData
             )
             data.raw_response = http_res
-            raise errors.PerformVoiceSearchResponseBody(data=data)
+            raise errors.PerformVoiceSearchBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.PerformVoiceSearchSearchResponseBodyData
+                http_res.text, errors.PerformVoiceSearchUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.PerformVoiceSearchSearchResponseBody(data=data)
+            raise errors.PerformVoiceSearchUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -424,16 +424,16 @@ class Search(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.PerformVoiceSearchResponseBodyData
+                http_res.text, errors.PerformVoiceSearchBadRequestData
             )
             data.raw_response = http_res
-            raise errors.PerformVoiceSearchResponseBody(data=data)
+            raise errors.PerformVoiceSearchBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.PerformVoiceSearchSearchResponseBodyData
+                http_res.text, errors.PerformVoiceSearchUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.PerformVoiceSearchSearchResponseBody(data=data)
+            raise errors.PerformVoiceSearchUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -522,16 +522,16 @@ class Search(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetSearchResultsResponseBodyData
+                http_res.text, errors.GetSearchResultsBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetSearchResultsResponseBody(data=data)
+            raise errors.GetSearchResultsBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetSearchResultsSearchResponseBodyData
+                http_res.text, errors.GetSearchResultsUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetSearchResultsSearchResponseBody(data=data)
+            raise errors.GetSearchResultsUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -620,16 +620,16 @@ class Search(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetSearchResultsResponseBodyData
+                http_res.text, errors.GetSearchResultsBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetSearchResultsResponseBody(data=data)
+            raise errors.GetSearchResultsBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetSearchResultsSearchResponseBodyData
+                http_res.text, errors.GetSearchResultsUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetSearchResultsSearchResponseBody(data=data)
+            raise errors.GetSearchResultsUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res

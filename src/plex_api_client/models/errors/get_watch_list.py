@@ -23,7 +23,7 @@ class GetWatchListWatchlistErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetWatchListWatchlistResponseBodyData(BaseModel):
+class GetWatchListUnauthorizedData(BaseModel):
     errors: Optional[List[GetWatchListWatchlistErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,16 +32,16 @@ class GetWatchListWatchlistResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetWatchListWatchlistResponseBody(Exception):
+class GetWatchListUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: GetWatchListWatchlistResponseBodyData
+    data: GetWatchListUnauthorizedData
 
-    def __init__(self, data: GetWatchListWatchlistResponseBodyData):
+    def __init__(self, data: GetWatchListUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetWatchListWatchlistResponseBodyData)
+        return utils.marshal_json(self.data, GetWatchListUnauthorizedData)
 
 
 class GetWatchListErrorsTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class GetWatchListErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetWatchListResponseBodyData(BaseModel):
+class GetWatchListBadRequestData(BaseModel):
     errors: Optional[List[GetWatchListErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -67,13 +67,13 @@ class GetWatchListResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetWatchListResponseBody(Exception):
+class GetWatchListBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: GetWatchListResponseBodyData
+    data: GetWatchListBadRequestData
 
-    def __init__(self, data: GetWatchListResponseBodyData):
+    def __init__(self, data: GetWatchListBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetWatchListResponseBodyData)
+        return utils.marshal_json(self.data, GetWatchListBadRequestData)

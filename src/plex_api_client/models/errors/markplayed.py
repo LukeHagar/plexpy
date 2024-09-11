@@ -23,7 +23,7 @@ class MarkPlayedMediaErrors(BaseModel):
     status: Optional[int] = None
 
 
-class MarkPlayedMediaResponseBodyData(BaseModel):
+class MarkPlayedUnauthorizedData(BaseModel):
     errors: Optional[List[MarkPlayedMediaErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,16 +32,16 @@ class MarkPlayedMediaResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class MarkPlayedMediaResponseBody(Exception):
+class MarkPlayedUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: MarkPlayedMediaResponseBodyData
+    data: MarkPlayedUnauthorizedData
 
-    def __init__(self, data: MarkPlayedMediaResponseBodyData):
+    def __init__(self, data: MarkPlayedUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, MarkPlayedMediaResponseBodyData)
+        return utils.marshal_json(self.data, MarkPlayedUnauthorizedData)
 
 
 class MarkPlayedErrorsTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class MarkPlayedErrors(BaseModel):
     status: Optional[int] = None
 
 
-class MarkPlayedResponseBodyData(BaseModel):
+class MarkPlayedBadRequestData(BaseModel):
     errors: Optional[List[MarkPlayedErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -67,13 +67,13 @@ class MarkPlayedResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class MarkPlayedResponseBody(Exception):
+class MarkPlayedBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: MarkPlayedResponseBodyData
+    data: MarkPlayedBadRequestData
 
-    def __init__(self, data: MarkPlayedResponseBodyData):
+    def __init__(self, data: MarkPlayedBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, MarkPlayedResponseBodyData)
+        return utils.marshal_json(self.data, MarkPlayedBadRequestData)

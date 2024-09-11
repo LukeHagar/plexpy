@@ -23,7 +23,7 @@ class GetFileHashLibraryErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetFileHashLibraryResponseBodyData(BaseModel):
+class GetFileHashUnauthorizedData(BaseModel):
     errors: Optional[List[GetFileHashLibraryErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,16 +32,16 @@ class GetFileHashLibraryResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetFileHashLibraryResponseBody(Exception):
+class GetFileHashUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: GetFileHashLibraryResponseBodyData
+    data: GetFileHashUnauthorizedData
 
-    def __init__(self, data: GetFileHashLibraryResponseBodyData):
+    def __init__(self, data: GetFileHashUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetFileHashLibraryResponseBodyData)
+        return utils.marshal_json(self.data, GetFileHashUnauthorizedData)
 
 
 class GetFileHashErrorsTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class GetFileHashErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetFileHashResponseBodyData(BaseModel):
+class GetFileHashBadRequestData(BaseModel):
     errors: Optional[List[GetFileHashErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -67,13 +67,13 @@ class GetFileHashResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetFileHashResponseBody(Exception):
+class GetFileHashBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: GetFileHashResponseBodyData
+    data: GetFileHashBadRequestData
 
-    def __init__(self, data: GetFileHashResponseBodyData):
+    def __init__(self, data: GetFileHashBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetFileHashResponseBodyData)
+        return utils.marshal_json(self.data, GetFileHashBadRequestData)

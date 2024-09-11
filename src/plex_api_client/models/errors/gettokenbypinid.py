@@ -20,7 +20,7 @@ class GetTokenByPinIDPlexErrors(BaseModel):
     message: Optional[str] = None
 
 
-class GetTokenByPinIDPlexResponseBodyData(BaseModel):
+class GetTokenByPinIDResponseBodyData(BaseModel):
     errors: Optional[List[GetTokenByPinIDPlexErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -29,16 +29,16 @@ class GetTokenByPinIDPlexResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetTokenByPinIDPlexResponseBody(Exception):
+class GetTokenByPinIDResponseBody(Exception):
     r"""Not Found or Expired"""
 
-    data: GetTokenByPinIDPlexResponseBodyData
+    data: GetTokenByPinIDResponseBodyData
 
-    def __init__(self, data: GetTokenByPinIDPlexResponseBodyData):
+    def __init__(self, data: GetTokenByPinIDResponseBodyData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetTokenByPinIDPlexResponseBodyData)
+        return utils.marshal_json(self.data, GetTokenByPinIDResponseBodyData)
 
 
 class GetTokenByPinIDErrorsTypedDict(TypedDict):
@@ -55,7 +55,7 @@ class GetTokenByPinIDErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetTokenByPinIDResponseBodyData(BaseModel):
+class GetTokenByPinIDBadRequestData(BaseModel):
     errors: Optional[List[GetTokenByPinIDErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -64,13 +64,13 @@ class GetTokenByPinIDResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetTokenByPinIDResponseBody(Exception):
-    r"""Bad Request response when the X-Plex-Client-Identifier is missing"""
+class GetTokenByPinIDBadRequest(Exception):
+    r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: GetTokenByPinIDResponseBodyData
+    data: GetTokenByPinIDBadRequestData
 
-    def __init__(self, data: GetTokenByPinIDResponseBodyData):
+    def __init__(self, data: GetTokenByPinIDBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetTokenByPinIDResponseBodyData)
+        return utils.marshal_json(self.data, GetTokenByPinIDBadRequestData)

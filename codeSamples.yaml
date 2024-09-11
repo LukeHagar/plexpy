@@ -1087,12 +1087,7 @@ actions:
                 x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
             )
 
-            res = s.plex.get_server_resources(request={
-                "x_plex_token": "CV5xoxjTpFKUzBTShsaf",
-                "include_https": operations.IncludeHTTPS.ONE,
-                "include_relay": operations.IncludeRelay.ONE,
-                "include_i_pv6": operations.IncludeIPv6.ONE,
-            })
+            res = s.plex.get_server_resources(x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40", include_https=operations.IncludeHTTPS.ONE, include_relay=operations.IncludeRelay.ONE, include_i_pv6=operations.IncludeIPv6.ONE)
 
             if res.plex_devices is not None:
                 # handle response
@@ -1356,7 +1351,7 @@ actions:
     update:
       x-codeSamples:
         - lang: python
-          label: getUserDetails
+          label: getTokenDetails
           source: |-
             from plex_api_client import PlexAPI
 
@@ -1365,7 +1360,7 @@ actions:
                 x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
             )
 
-            res = s.authentication.get_user_details(x_plex_token="CV5xoxjTpFKUzBTShsaf")
+            res = s.authentication.get_token_details()
 
             if res.user_plex_account is not None:
                 # handle response

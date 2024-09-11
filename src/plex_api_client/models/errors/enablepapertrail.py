@@ -23,7 +23,7 @@ class EnablePaperTrailLogErrors(BaseModel):
     status: Optional[int] = None
 
 
-class EnablePaperTrailLogResponseBodyData(BaseModel):
+class EnablePaperTrailUnauthorizedData(BaseModel):
     errors: Optional[List[EnablePaperTrailLogErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,16 +32,16 @@ class EnablePaperTrailLogResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class EnablePaperTrailLogResponseBody(Exception):
+class EnablePaperTrailUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: EnablePaperTrailLogResponseBodyData
+    data: EnablePaperTrailUnauthorizedData
 
-    def __init__(self, data: EnablePaperTrailLogResponseBodyData):
+    def __init__(self, data: EnablePaperTrailUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, EnablePaperTrailLogResponseBodyData)
+        return utils.marshal_json(self.data, EnablePaperTrailUnauthorizedData)
 
 
 class EnablePaperTrailErrorsTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class EnablePaperTrailErrors(BaseModel):
     status: Optional[int] = None
 
 
-class EnablePaperTrailResponseBodyData(BaseModel):
+class EnablePaperTrailBadRequestData(BaseModel):
     errors: Optional[List[EnablePaperTrailErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -67,13 +67,13 @@ class EnablePaperTrailResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class EnablePaperTrailResponseBody(Exception):
+class EnablePaperTrailBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: EnablePaperTrailResponseBodyData
+    data: EnablePaperTrailBadRequestData
 
-    def __init__(self, data: EnablePaperTrailResponseBodyData):
+    def __init__(self, data: EnablePaperTrailBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, EnablePaperTrailResponseBodyData)
+        return utils.marshal_json(self.data, EnablePaperTrailBadRequestData)

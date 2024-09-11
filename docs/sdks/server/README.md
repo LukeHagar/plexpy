@@ -52,11 +52,11 @@ if res.object is not None:
 
 ### Errors
 
-| Error Object                                   | Status Code                                    | Content Type                                   |
-| ---------------------------------------------- | ---------------------------------------------- | ---------------------------------------------- |
-| errors.GetServerCapabilitiesResponseBody       | 400                                            | application/json                               |
-| errors.GetServerCapabilitiesServerResponseBody | 401                                            | application/json                               |
-| errors.SDKError                                | 4xx-5xx                                        | */*                                            |
+| Error Object                             | Status Code                              | Content Type                             |
+| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
+| errors.GetServerCapabilitiesBadRequest   | 400                                      | application/json                         |
+| errors.GetServerCapabilitiesUnauthorized | 401                                      | application/json                         |
+| errors.SDKError                          | 4xx-5xx                                  | */*                                      |
 
 
 ## get_server_preferences
@@ -93,11 +93,11 @@ if res.object is not None:
 
 ### Errors
 
-| Error Object                                  | Status Code                                   | Content Type                                  |
-| --------------------------------------------- | --------------------------------------------- | --------------------------------------------- |
-| errors.GetServerPreferencesResponseBody       | 400                                           | application/json                              |
-| errors.GetServerPreferencesServerResponseBody | 401                                           | application/json                              |
-| errors.SDKError                               | 4xx-5xx                                       | */*                                           |
+| Error Object                            | Status Code                             | Content Type                            |
+| --------------------------------------- | --------------------------------------- | --------------------------------------- |
+| errors.GetServerPreferencesBadRequest   | 400                                     | application/json                        |
+| errors.GetServerPreferencesUnauthorized | 401                                     | application/json                        |
+| errors.SDKError                         | 4xx-5xx                                 | */*                                     |
 
 
 ## get_available_clients
@@ -134,11 +134,11 @@ if res.object is not None:
 
 ### Errors
 
-| Error Object                                 | Status Code                                  | Content Type                                 |
-| -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
-| errors.GetAvailableClientsResponseBody       | 400                                          | application/json                             |
-| errors.GetAvailableClientsServerResponseBody | 401                                          | application/json                             |
-| errors.SDKError                              | 4xx-5xx                                      | */*                                          |
+| Error Object                           | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.GetAvailableClientsBadRequest   | 400                                    | application/json                       |
+| errors.GetAvailableClientsUnauthorized | 401                                    | application/json                       |
+| errors.SDKError                        | 4xx-5xx                                | */*                                    |
 
 
 ## get_devices
@@ -175,11 +175,11 @@ if res.object is not None:
 
 ### Errors
 
-| Error Object                        | Status Code                         | Content Type                        |
-| ----------------------------------- | ----------------------------------- | ----------------------------------- |
-| errors.GetDevicesResponseBody       | 400                                 | application/json                    |
-| errors.GetDevicesServerResponseBody | 401                                 | application/json                    |
-| errors.SDKError                     | 4xx-5xx                             | */*                                 |
+| Error Object                  | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.GetDevicesBadRequest   | 400                           | application/json              |
+| errors.GetDevicesUnauthorized | 401                           | application/json              |
+| errors.SDKError               | 4xx-5xx                       | */*                           |
 
 
 ## get_server_identity
@@ -215,10 +215,10 @@ if res.object is not None:
 
 ### Errors
 
-| Error Object                         | Status Code                          | Content Type                         |
-| ------------------------------------ | ------------------------------------ | ------------------------------------ |
-| errors.GetServerIdentityResponseBody | 408                                  | application/json                     |
-| errors.SDKError                      | 4xx-5xx                              | */*                                  |
+| Error Object                           | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.GetServerIdentityRequestTimeout | 408                                    | application/json                       |
+| errors.SDKError                        | 4xx-5xx                                | */*                                    |
 
 
 ## get_my_plex_account
@@ -255,11 +255,11 @@ if res.object is not None:
 
 ### Errors
 
-| Error Object                              | Status Code                               | Content Type                              |
-| ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
-| errors.GetMyPlexAccountResponseBody       | 400                                       | application/json                          |
-| errors.GetMyPlexAccountServerResponseBody | 401                                       | application/json                          |
-| errors.SDKError                           | 4xx-5xx                                   | */*                                       |
+| Error Object                        | Status Code                         | Content Type                        |
+| ----------------------------------- | ----------------------------------- | ----------------------------------- |
+| errors.GetMyPlexAccountBadRequest   | 400                                 | application/json                    |
+| errors.GetMyPlexAccountUnauthorized | 401                                 | application/json                    |
+| errors.SDKError                     | 4xx-5xx                             | */*                                 |
 
 
 ## get_resized_photo
@@ -307,11 +307,11 @@ if res is not None:
 
 ### Errors
 
-| Error Object                             | Status Code                              | Content Type                             |
-| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| errors.GetResizedPhotoResponseBody       | 400                                      | application/json                         |
-| errors.GetResizedPhotoServerResponseBody | 401                                      | application/json                         |
-| errors.SDKError                          | 4xx-5xx                                  | */*                                      |
+| Error Object                       | Status Code                        | Content Type                       |
+| ---------------------------------- | ---------------------------------- | ---------------------------------- |
+| errors.GetResizedPhotoBadRequest   | 400                                | application/json                   |
+| errors.GetResizedPhotoUnauthorized | 401                                | application/json                   |
+| errors.SDKError                    | 4xx-5xx                            | */*                                |
 
 
 ## get_media_providers
@@ -349,11 +349,11 @@ if res.object is not None:
 
 ### Errors
 
-| Error Object                               | Status Code                                | Content Type                               |
-| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
-| errors.GetMediaProvidersResponseBody       | 400                                        | application/json                           |
-| errors.GetMediaProvidersServerResponseBody | 401                                        | application/json                           |
-| errors.SDKError                            | 4xx-5xx                                    | */*                                        |
+| Error Object                         | Status Code                          | Content Type                         |
+| ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.GetMediaProvidersBadRequest   | 400                                  | application/json                     |
+| errors.GetMediaProvidersUnauthorized | 401                                  | application/json                     |
+| errors.SDKError                      | 4xx-5xx                              | */*                                  |
 
 
 ## get_server_list
@@ -390,8 +390,8 @@ if res.object is not None:
 
 ### Errors
 
-| Error Object                           | Status Code                            | Content Type                           |
-| -------------------------------------- | -------------------------------------- | -------------------------------------- |
-| errors.GetServerListResponseBody       | 400                                    | application/json                       |
-| errors.GetServerListServerResponseBody | 401                                    | application/json                       |
-| errors.SDKError                        | 4xx-5xx                                | */*                                    |
+| Error Object                     | Status Code                      | Content Type                     |
+| -------------------------------- | -------------------------------- | -------------------------------- |
+| errors.GetServerListBadRequest   | 400                              | application/json                 |
+| errors.GetServerListUnauthorized | 401                              | application/json                 |
+| errors.SDKError                  | 4xx-5xx                          | */*                              |

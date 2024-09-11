@@ -85,17 +85,15 @@ class Library(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
-                http_res.text, errors.GetFileHashResponseBodyData
-            )
+            data = utils.unmarshal_json(http_res.text, errors.GetFileHashBadRequestData)
             data.raw_response = http_res
-            raise errors.GetFileHashResponseBody(data=data)
+            raise errors.GetFileHashBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetFileHashLibraryResponseBodyData
+                http_res.text, errors.GetFileHashUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetFileHashLibraryResponseBody(data=data)
+            raise errors.GetFileHashUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -183,17 +181,15 @@ class Library(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
-                http_res.text, errors.GetFileHashResponseBodyData
-            )
+            data = utils.unmarshal_json(http_res.text, errors.GetFileHashBadRequestData)
             data.raw_response = http_res
-            raise errors.GetFileHashResponseBody(data=data)
+            raise errors.GetFileHashBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetFileHashLibraryResponseBodyData
+                http_res.text, errors.GetFileHashUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetFileHashLibraryResponseBody(data=data)
+            raise errors.GetFileHashUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -286,16 +282,16 @@ class Library(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetRecentlyAddedResponseBodyData
+                http_res.text, errors.GetRecentlyAddedBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetRecentlyAddedResponseBody(data=data)
+            raise errors.GetRecentlyAddedBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetRecentlyAddedLibraryResponseBodyData
+                http_res.text, errors.GetRecentlyAddedUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetRecentlyAddedLibraryResponseBody(data=data)
+            raise errors.GetRecentlyAddedUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -388,16 +384,16 @@ class Library(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetRecentlyAddedResponseBodyData
+                http_res.text, errors.GetRecentlyAddedBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetRecentlyAddedResponseBody(data=data)
+            raise errors.GetRecentlyAddedBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetRecentlyAddedLibraryResponseBodyData
+                http_res.text, errors.GetRecentlyAddedUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetRecentlyAddedLibraryResponseBody(data=data)
+            raise errors.GetRecentlyAddedUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -485,16 +481,16 @@ class Library(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetAllLibrariesResponseBodyData
+                http_res.text, errors.GetAllLibrariesBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetAllLibrariesResponseBody(data=data)
+            raise errors.GetAllLibrariesBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetAllLibrariesLibraryResponseBodyData
+                http_res.text, errors.GetAllLibrariesUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetAllLibrariesLibraryResponseBody(data=data)
+            raise errors.GetAllLibrariesUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -582,16 +578,16 @@ class Library(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetAllLibrariesResponseBodyData
+                http_res.text, errors.GetAllLibrariesBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetAllLibrariesResponseBody(data=data)
+            raise errors.GetAllLibrariesBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetAllLibrariesLibraryResponseBodyData
+                http_res.text, errors.GetAllLibrariesUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetAllLibrariesLibraryResponseBody(data=data)
+            raise errors.GetAllLibrariesUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -724,16 +720,16 @@ class Library(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetLibraryDetailsResponseBodyData
+                http_res.text, errors.GetLibraryDetailsBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetLibraryDetailsResponseBody(data=data)
+            raise errors.GetLibraryDetailsBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetLibraryDetailsLibraryResponseBodyData
+                http_res.text, errors.GetLibraryDetailsUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetLibraryDetailsLibraryResponseBody(data=data)
+            raise errors.GetLibraryDetailsUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -866,16 +862,16 @@ class Library(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetLibraryDetailsResponseBodyData
+                http_res.text, errors.GetLibraryDetailsBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetLibraryDetailsResponseBody(data=data)
+            raise errors.GetLibraryDetailsBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetLibraryDetailsLibraryResponseBodyData
+                http_res.text, errors.GetLibraryDetailsUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetLibraryDetailsLibraryResponseBody(data=data)
+            raise errors.GetLibraryDetailsUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -961,16 +957,16 @@ class Library(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.DeleteLibraryResponseBodyData
+                http_res.text, errors.DeleteLibraryBadRequestData
             )
             data.raw_response = http_res
-            raise errors.DeleteLibraryResponseBody(data=data)
+            raise errors.DeleteLibraryBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.DeleteLibraryLibraryResponseBodyData
+                http_res.text, errors.DeleteLibraryUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.DeleteLibraryLibraryResponseBody(data=data)
+            raise errors.DeleteLibraryUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -1056,16 +1052,16 @@ class Library(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.DeleteLibraryResponseBodyData
+                http_res.text, errors.DeleteLibraryBadRequestData
             )
             data.raw_response = http_res
-            raise errors.DeleteLibraryResponseBody(data=data)
+            raise errors.DeleteLibraryBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.DeleteLibraryLibraryResponseBodyData
+                http_res.text, errors.DeleteLibraryUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.DeleteLibraryLibraryResponseBody(data=data)
+            raise errors.DeleteLibraryUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -1177,16 +1173,16 @@ class Library(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetLibraryItemsResponseBodyData
+                http_res.text, errors.GetLibraryItemsBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetLibraryItemsResponseBody(data=data)
+            raise errors.GetLibraryItemsBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetLibraryItemsLibraryResponseBodyData
+                http_res.text, errors.GetLibraryItemsUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetLibraryItemsLibraryResponseBody(data=data)
+            raise errors.GetLibraryItemsUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -1298,16 +1294,16 @@ class Library(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetLibraryItemsResponseBodyData
+                http_res.text, errors.GetLibraryItemsBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetLibraryItemsResponseBody(data=data)
+            raise errors.GetLibraryItemsBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetLibraryItemsLibraryResponseBodyData
+                http_res.text, errors.GetLibraryItemsUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetLibraryItemsLibraryResponseBody(data=data)
+            raise errors.GetLibraryItemsUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -1397,16 +1393,16 @@ class Library(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetRefreshLibraryMetadataResponseBodyData
+                http_res.text, errors.GetRefreshLibraryMetadataBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetRefreshLibraryMetadataResponseBody(data=data)
+            raise errors.GetRefreshLibraryMetadataBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetRefreshLibraryMetadataLibraryResponseBodyData
+                http_res.text, errors.GetRefreshLibraryMetadataUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetRefreshLibraryMetadataLibraryResponseBody(data=data)
+            raise errors.GetRefreshLibraryMetadataUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -1496,16 +1492,16 @@ class Library(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetRefreshLibraryMetadataResponseBodyData
+                http_res.text, errors.GetRefreshLibraryMetadataBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetRefreshLibraryMetadataResponseBody(data=data)
+            raise errors.GetRefreshLibraryMetadataBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetRefreshLibraryMetadataLibraryResponseBodyData
+                http_res.text, errors.GetRefreshLibraryMetadataUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetRefreshLibraryMetadataLibraryResponseBody(data=data)
+            raise errors.GetRefreshLibraryMetadataUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -1615,16 +1611,16 @@ class Library(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetSearchLibraryResponseBodyData
+                http_res.text, errors.GetSearchLibraryBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetSearchLibraryResponseBody(data=data)
+            raise errors.GetSearchLibraryBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetSearchLibraryLibraryResponseBodyData
+                http_res.text, errors.GetSearchLibraryUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetSearchLibraryLibraryResponseBody(data=data)
+            raise errors.GetSearchLibraryUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -1734,16 +1730,16 @@ class Library(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetSearchLibraryResponseBodyData
+                http_res.text, errors.GetSearchLibraryBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetSearchLibraryResponseBody(data=data)
+            raise errors.GetSearchLibraryBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetSearchLibraryLibraryResponseBodyData
+                http_res.text, errors.GetSearchLibraryUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetSearchLibraryLibraryResponseBody(data=data)
+            raise errors.GetSearchLibraryUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -1834,16 +1830,16 @@ class Library(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetMetaDataByRatingKeyResponseBodyData
+                http_res.text, errors.GetMetaDataByRatingKeyBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetMetaDataByRatingKeyResponseBody(data=data)
+            raise errors.GetMetaDataByRatingKeyBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetMetaDataByRatingKeyLibraryResponseBodyData
+                http_res.text, errors.GetMetaDataByRatingKeyUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetMetaDataByRatingKeyLibraryResponseBody(data=data)
+            raise errors.GetMetaDataByRatingKeyUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -1934,16 +1930,16 @@ class Library(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetMetaDataByRatingKeyResponseBodyData
+                http_res.text, errors.GetMetaDataByRatingKeyBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetMetaDataByRatingKeyResponseBody(data=data)
+            raise errors.GetMetaDataByRatingKeyBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetMetaDataByRatingKeyLibraryResponseBodyData
+                http_res.text, errors.GetMetaDataByRatingKeyUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetMetaDataByRatingKeyLibraryResponseBody(data=data)
+            raise errors.GetMetaDataByRatingKeyUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -2036,16 +2032,16 @@ class Library(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetMetadataChildrenResponseBodyData
+                http_res.text, errors.GetMetadataChildrenBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetMetadataChildrenResponseBody(data=data)
+            raise errors.GetMetadataChildrenBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetMetadataChildrenLibraryResponseBodyData
+                http_res.text, errors.GetMetadataChildrenUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetMetadataChildrenLibraryResponseBody(data=data)
+            raise errors.GetMetadataChildrenUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -2138,16 +2134,16 @@ class Library(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetMetadataChildrenResponseBodyData
+                http_res.text, errors.GetMetadataChildrenBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetMetadataChildrenResponseBody(data=data)
+            raise errors.GetMetadataChildrenBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetMetadataChildrenLibraryResponseBodyData
+                http_res.text, errors.GetMetadataChildrenUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetMetadataChildrenLibraryResponseBody(data=data)
+            raise errors.GetMetadataChildrenUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -2240,16 +2236,16 @@ class Library(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetTopWatchedContentResponseBodyData
+                http_res.text, errors.GetTopWatchedContentBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetTopWatchedContentResponseBody(data=data)
+            raise errors.GetTopWatchedContentBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetTopWatchedContentLibraryResponseBodyData
+                http_res.text, errors.GetTopWatchedContentUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetTopWatchedContentLibraryResponseBody(data=data)
+            raise errors.GetTopWatchedContentUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -2342,16 +2338,16 @@ class Library(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetTopWatchedContentResponseBodyData
+                http_res.text, errors.GetTopWatchedContentBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetTopWatchedContentResponseBody(data=data)
+            raise errors.GetTopWatchedContentBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetTopWatchedContentLibraryResponseBodyData
+                http_res.text, errors.GetTopWatchedContentUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetTopWatchedContentLibraryResponseBody(data=data)
+            raise errors.GetTopWatchedContentUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -2433,15 +2429,13 @@ class Library(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.GetOnDeckResponseBodyData)
+            data = utils.unmarshal_json(http_res.text, errors.GetOnDeckBadRequestData)
             data.raw_response = http_res
-            raise errors.GetOnDeckResponseBody(data=data)
+            raise errors.GetOnDeckBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
-                http_res.text, errors.GetOnDeckLibraryResponseBodyData
-            )
+            data = utils.unmarshal_json(http_res.text, errors.GetOnDeckUnauthorizedData)
             data.raw_response = http_res
-            raise errors.GetOnDeckLibraryResponseBody(data=data)
+            raise errors.GetOnDeckUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -2523,15 +2517,13 @@ class Library(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.GetOnDeckResponseBodyData)
+            data = utils.unmarshal_json(http_res.text, errors.GetOnDeckBadRequestData)
             data.raw_response = http_res
-            raise errors.GetOnDeckResponseBody(data=data)
+            raise errors.GetOnDeckBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
-                http_res.text, errors.GetOnDeckLibraryResponseBodyData
-            )
+            data = utils.unmarshal_json(http_res.text, errors.GetOnDeckUnauthorizedData)
             data.raw_response = http_res
-            raise errors.GetOnDeckLibraryResponseBody(data=data)
+            raise errors.GetOnDeckUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res

@@ -23,7 +23,7 @@ class GetServerActivitiesActivitiesErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetServerActivitiesActivitiesResponseBodyData(BaseModel):
+class GetServerActivitiesUnauthorizedData(BaseModel):
     errors: Optional[List[GetServerActivitiesActivitiesErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,18 +32,16 @@ class GetServerActivitiesActivitiesResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetServerActivitiesActivitiesResponseBody(Exception):
+class GetServerActivitiesUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: GetServerActivitiesActivitiesResponseBodyData
+    data: GetServerActivitiesUnauthorizedData
 
-    def __init__(self, data: GetServerActivitiesActivitiesResponseBodyData):
+    def __init__(self, data: GetServerActivitiesUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(
-            self.data, GetServerActivitiesActivitiesResponseBodyData
-        )
+        return utils.marshal_json(self.data, GetServerActivitiesUnauthorizedData)
 
 
 class GetServerActivitiesErrorsTypedDict(TypedDict):
@@ -60,7 +58,7 @@ class GetServerActivitiesErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetServerActivitiesResponseBodyData(BaseModel):
+class GetServerActivitiesBadRequestData(BaseModel):
     errors: Optional[List[GetServerActivitiesErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -69,13 +67,13 @@ class GetServerActivitiesResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetServerActivitiesResponseBody(Exception):
+class GetServerActivitiesBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: GetServerActivitiesResponseBodyData
+    data: GetServerActivitiesBadRequestData
 
-    def __init__(self, data: GetServerActivitiesResponseBodyData):
+    def __init__(self, data: GetServerActivitiesBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetServerActivitiesResponseBodyData)
+        return utils.marshal_json(self.data, GetServerActivitiesBadRequestData)

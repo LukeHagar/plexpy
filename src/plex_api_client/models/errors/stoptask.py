@@ -23,7 +23,7 @@ class StopTaskButlerErrors(BaseModel):
     status: Optional[int] = None
 
 
-class StopTaskButlerResponseBodyData(BaseModel):
+class StopTaskUnauthorizedData(BaseModel):
     errors: Optional[List[StopTaskButlerErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,16 +32,16 @@ class StopTaskButlerResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class StopTaskButlerResponseBody(Exception):
+class StopTaskUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: StopTaskButlerResponseBodyData
+    data: StopTaskUnauthorizedData
 
-    def __init__(self, data: StopTaskButlerResponseBodyData):
+    def __init__(self, data: StopTaskUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, StopTaskButlerResponseBodyData)
+        return utils.marshal_json(self.data, StopTaskUnauthorizedData)
 
 
 class StopTaskErrorsTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class StopTaskErrors(BaseModel):
     status: Optional[int] = None
 
 
-class StopTaskResponseBodyData(BaseModel):
+class StopTaskBadRequestData(BaseModel):
     errors: Optional[List[StopTaskErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -67,13 +67,13 @@ class StopTaskResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class StopTaskResponseBody(Exception):
+class StopTaskBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: StopTaskResponseBodyData
+    data: StopTaskBadRequestData
 
-    def __init__(self, data: StopTaskResponseBodyData):
+    def __init__(self, data: StopTaskBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, StopTaskResponseBodyData)
+        return utils.marshal_json(self.data, StopTaskBadRequestData)

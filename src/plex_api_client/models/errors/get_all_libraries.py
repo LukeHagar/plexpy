@@ -23,7 +23,7 @@ class GetAllLibrariesLibraryErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetAllLibrariesLibraryResponseBodyData(BaseModel):
+class GetAllLibrariesUnauthorizedData(BaseModel):
     errors: Optional[List[GetAllLibrariesLibraryErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,16 +32,16 @@ class GetAllLibrariesLibraryResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetAllLibrariesLibraryResponseBody(Exception):
+class GetAllLibrariesUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: GetAllLibrariesLibraryResponseBodyData
+    data: GetAllLibrariesUnauthorizedData
 
-    def __init__(self, data: GetAllLibrariesLibraryResponseBodyData):
+    def __init__(self, data: GetAllLibrariesUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetAllLibrariesLibraryResponseBodyData)
+        return utils.marshal_json(self.data, GetAllLibrariesUnauthorizedData)
 
 
 class GetAllLibrariesErrorsTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class GetAllLibrariesErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetAllLibrariesResponseBodyData(BaseModel):
+class GetAllLibrariesBadRequestData(BaseModel):
     errors: Optional[List[GetAllLibrariesErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -67,13 +67,13 @@ class GetAllLibrariesResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetAllLibrariesResponseBody(Exception):
+class GetAllLibrariesBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: GetAllLibrariesResponseBodyData
+    data: GetAllLibrariesBadRequestData
 
-    def __init__(self, data: GetAllLibrariesResponseBodyData):
+    def __init__(self, data: GetAllLibrariesBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetAllLibrariesResponseBodyData)
+        return utils.marshal_json(self.data, GetAllLibrariesBadRequestData)

@@ -23,7 +23,7 @@ class GetServerCapabilitiesErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetServerCapabilitiesServerResponseBodyData(BaseModel):
+class GetServerCapabilitiesUnauthorizedData(BaseModel):
     errors: Optional[List[GetServerCapabilitiesErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,18 +32,16 @@ class GetServerCapabilitiesServerResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetServerCapabilitiesServerResponseBody(Exception):
+class GetServerCapabilitiesUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: GetServerCapabilitiesServerResponseBodyData
+    data: GetServerCapabilitiesUnauthorizedData
 
-    def __init__(self, data: GetServerCapabilitiesServerResponseBodyData):
+    def __init__(self, data: GetServerCapabilitiesUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(
-            self.data, GetServerCapabilitiesServerResponseBodyData
-        )
+        return utils.marshal_json(self.data, GetServerCapabilitiesUnauthorizedData)
 
 
 class ErrorsTypedDict(TypedDict):
@@ -60,7 +58,7 @@ class Errors(BaseModel):
     status: Optional[int] = None
 
 
-class GetServerCapabilitiesResponseBodyData(BaseModel):
+class GetServerCapabilitiesBadRequestData(BaseModel):
     errors: Optional[List[Errors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -69,13 +67,13 @@ class GetServerCapabilitiesResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetServerCapabilitiesResponseBody(Exception):
+class GetServerCapabilitiesBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: GetServerCapabilitiesResponseBodyData
+    data: GetServerCapabilitiesBadRequestData
 
-    def __init__(self, data: GetServerCapabilitiesResponseBodyData):
+    def __init__(self, data: GetServerCapabilitiesBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetServerCapabilitiesResponseBodyData)
+        return utils.marshal_json(self.data, GetServerCapabilitiesBadRequestData)

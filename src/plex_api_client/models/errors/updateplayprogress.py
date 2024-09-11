@@ -23,7 +23,7 @@ class UpdatePlayProgressMediaErrors(BaseModel):
     status: Optional[int] = None
 
 
-class UpdatePlayProgressMediaResponseBodyData(BaseModel):
+class UpdatePlayProgressUnauthorizedData(BaseModel):
     errors: Optional[List[UpdatePlayProgressMediaErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,16 +32,16 @@ class UpdatePlayProgressMediaResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class UpdatePlayProgressMediaResponseBody(Exception):
+class UpdatePlayProgressUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: UpdatePlayProgressMediaResponseBodyData
+    data: UpdatePlayProgressUnauthorizedData
 
-    def __init__(self, data: UpdatePlayProgressMediaResponseBodyData):
+    def __init__(self, data: UpdatePlayProgressUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, UpdatePlayProgressMediaResponseBodyData)
+        return utils.marshal_json(self.data, UpdatePlayProgressUnauthorizedData)
 
 
 class UpdatePlayProgressErrorsTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class UpdatePlayProgressErrors(BaseModel):
     status: Optional[int] = None
 
 
-class UpdatePlayProgressResponseBodyData(BaseModel):
+class UpdatePlayProgressBadRequestData(BaseModel):
     errors: Optional[List[UpdatePlayProgressErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -67,13 +67,13 @@ class UpdatePlayProgressResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class UpdatePlayProgressResponseBody(Exception):
+class UpdatePlayProgressBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: UpdatePlayProgressResponseBodyData
+    data: UpdatePlayProgressBadRequestData
 
-    def __init__(self, data: UpdatePlayProgressResponseBodyData):
+    def __init__(self, data: UpdatePlayProgressBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, UpdatePlayProgressResponseBodyData)
+        return utils.marshal_json(self.data, UpdatePlayProgressBadRequestData)

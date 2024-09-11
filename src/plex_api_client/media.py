@@ -82,17 +82,15 @@ class Media(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
-                http_res.text, errors.MarkPlayedResponseBodyData
-            )
+            data = utils.unmarshal_json(http_res.text, errors.MarkPlayedBadRequestData)
             data.raw_response = http_res
-            raise errors.MarkPlayedResponseBody(data=data)
+            raise errors.MarkPlayedBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.MarkPlayedMediaResponseBodyData
+                http_res.text, errors.MarkPlayedUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.MarkPlayedMediaResponseBody(data=data)
+            raise errors.MarkPlayedUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -177,17 +175,15 @@ class Media(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
-                http_res.text, errors.MarkPlayedResponseBodyData
-            )
+            data = utils.unmarshal_json(http_res.text, errors.MarkPlayedBadRequestData)
             data.raw_response = http_res
-            raise errors.MarkPlayedResponseBody(data=data)
+            raise errors.MarkPlayedBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.MarkPlayedMediaResponseBodyData
+                http_res.text, errors.MarkPlayedUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.MarkPlayedMediaResponseBody(data=data)
+            raise errors.MarkPlayedUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -273,16 +269,16 @@ class Media(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.MarkUnplayedResponseBodyData
+                http_res.text, errors.MarkUnplayedBadRequestData
             )
             data.raw_response = http_res
-            raise errors.MarkUnplayedResponseBody(data=data)
+            raise errors.MarkUnplayedBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.MarkUnplayedMediaResponseBodyData
+                http_res.text, errors.MarkUnplayedUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.MarkUnplayedMediaResponseBody(data=data)
+            raise errors.MarkUnplayedUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -368,16 +364,16 @@ class Media(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.MarkUnplayedResponseBodyData
+                http_res.text, errors.MarkUnplayedBadRequestData
             )
             data.raw_response = http_res
-            raise errors.MarkUnplayedResponseBody(data=data)
+            raise errors.MarkUnplayedBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.MarkUnplayedMediaResponseBodyData
+                http_res.text, errors.MarkUnplayedUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.MarkUnplayedMediaResponseBody(data=data)
+            raise errors.MarkUnplayedUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -470,16 +466,16 @@ class Media(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.UpdatePlayProgressResponseBodyData
+                http_res.text, errors.UpdatePlayProgressBadRequestData
             )
             data.raw_response = http_res
-            raise errors.UpdatePlayProgressResponseBody(data=data)
+            raise errors.UpdatePlayProgressBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.UpdatePlayProgressMediaResponseBodyData
+                http_res.text, errors.UpdatePlayProgressUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.UpdatePlayProgressMediaResponseBody(data=data)
+            raise errors.UpdatePlayProgressUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -572,16 +568,16 @@ class Media(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.UpdatePlayProgressResponseBodyData
+                http_res.text, errors.UpdatePlayProgressBadRequestData
             )
             data.raw_response = http_res
-            raise errors.UpdatePlayProgressResponseBody(data=data)
+            raise errors.UpdatePlayProgressBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.UpdatePlayProgressMediaResponseBodyData
+                http_res.text, errors.UpdatePlayProgressUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.UpdatePlayProgressMediaResponseBody(data=data)
+            raise errors.UpdatePlayProgressUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -672,16 +668,16 @@ class Media(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetBannerImageResponseBodyData
+                http_res.text, errors.GetBannerImageBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetBannerImageResponseBody(data=data)
+            raise errors.GetBannerImageBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetBannerImageMediaResponseBodyData
+                http_res.text, errors.GetBannerImageUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetBannerImageMediaResponseBody(data=data)
+            raise errors.GetBannerImageUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -772,16 +768,16 @@ class Media(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetBannerImageResponseBodyData
+                http_res.text, errors.GetBannerImageBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetBannerImageResponseBody(data=data)
+            raise errors.GetBannerImageBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetBannerImageMediaResponseBodyData
+                http_res.text, errors.GetBannerImageUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetBannerImageMediaResponseBody(data=data)
+            raise errors.GetBannerImageUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -872,16 +868,16 @@ class Media(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetThumbImageResponseBodyData
+                http_res.text, errors.GetThumbImageBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetThumbImageResponseBody(data=data)
+            raise errors.GetThumbImageBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetThumbImageMediaResponseBodyData
+                http_res.text, errors.GetThumbImageUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetThumbImageMediaResponseBody(data=data)
+            raise errors.GetThumbImageUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -972,16 +968,16 @@ class Media(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetThumbImageResponseBodyData
+                http_res.text, errors.GetThumbImageBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetThumbImageResponseBody(data=data)
+            raise errors.GetThumbImageBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetThumbImageMediaResponseBodyData
+                http_res.text, errors.GetThumbImageUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetThumbImageMediaResponseBody(data=data)
+            raise errors.GetThumbImageUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res

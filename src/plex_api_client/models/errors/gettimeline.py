@@ -23,7 +23,7 @@ class GetTimelineVideoErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetTimelineVideoResponseBodyData(BaseModel):
+class GetTimelineUnauthorizedData(BaseModel):
     errors: Optional[List[GetTimelineVideoErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,16 +32,16 @@ class GetTimelineVideoResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetTimelineVideoResponseBody(Exception):
+class GetTimelineUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: GetTimelineVideoResponseBodyData
+    data: GetTimelineUnauthorizedData
 
-    def __init__(self, data: GetTimelineVideoResponseBodyData):
+    def __init__(self, data: GetTimelineUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetTimelineVideoResponseBodyData)
+        return utils.marshal_json(self.data, GetTimelineUnauthorizedData)
 
 
 class GetTimelineErrorsTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class GetTimelineErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetTimelineResponseBodyData(BaseModel):
+class GetTimelineBadRequestData(BaseModel):
     errors: Optional[List[GetTimelineErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -67,13 +67,13 @@ class GetTimelineResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetTimelineResponseBody(Exception):
+class GetTimelineBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: GetTimelineResponseBodyData
+    data: GetTimelineBadRequestData
 
-    def __init__(self, data: GetTimelineResponseBodyData):
+    def __init__(self, data: GetTimelineBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetTimelineResponseBodyData)
+        return utils.marshal_json(self.data, GetTimelineBadRequestData)

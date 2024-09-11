@@ -23,7 +23,7 @@ class GetOnDeckLibraryErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetOnDeckLibraryResponseBodyData(BaseModel):
+class GetOnDeckUnauthorizedData(BaseModel):
     errors: Optional[List[GetOnDeckLibraryErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,16 +32,16 @@ class GetOnDeckLibraryResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetOnDeckLibraryResponseBody(Exception):
+class GetOnDeckUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: GetOnDeckLibraryResponseBodyData
+    data: GetOnDeckUnauthorizedData
 
-    def __init__(self, data: GetOnDeckLibraryResponseBodyData):
+    def __init__(self, data: GetOnDeckUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetOnDeckLibraryResponseBodyData)
+        return utils.marshal_json(self.data, GetOnDeckUnauthorizedData)
 
 
 class GetOnDeckErrorsTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class GetOnDeckErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetOnDeckResponseBodyData(BaseModel):
+class GetOnDeckBadRequestData(BaseModel):
     errors: Optional[List[GetOnDeckErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -67,13 +67,13 @@ class GetOnDeckResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetOnDeckResponseBody(Exception):
+class GetOnDeckBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: GetOnDeckResponseBodyData
+    data: GetOnDeckBadRequestData
 
-    def __init__(self, data: GetOnDeckResponseBodyData):
+    def __init__(self, data: GetOnDeckBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetOnDeckResponseBodyData)
+        return utils.marshal_json(self.data, GetOnDeckBadRequestData)

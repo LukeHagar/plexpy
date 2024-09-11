@@ -86,16 +86,16 @@ class Statistics(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetStatisticsResponseBodyData
+                http_res.text, errors.GetStatisticsBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetStatisticsResponseBody(data=data)
+            raise errors.GetStatisticsBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetStatisticsStatisticsResponseBodyData
+                http_res.text, errors.GetStatisticsUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetStatisticsStatisticsResponseBody(data=data)
+            raise errors.GetStatisticsUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -184,16 +184,16 @@ class Statistics(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetStatisticsResponseBodyData
+                http_res.text, errors.GetStatisticsBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetStatisticsResponseBody(data=data)
+            raise errors.GetStatisticsBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetStatisticsStatisticsResponseBodyData
+                http_res.text, errors.GetStatisticsUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetStatisticsStatisticsResponseBody(data=data)
+            raise errors.GetStatisticsUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -283,16 +283,16 @@ class Statistics(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetResourcesStatisticsResponseBodyData
+                http_res.text, errors.GetResourcesStatisticsBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetResourcesStatisticsResponseBody(data=data)
+            raise errors.GetResourcesStatisticsBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetResourcesStatisticsStatisticsResponseBodyData
+                http_res.text, errors.GetResourcesStatisticsUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetResourcesStatisticsStatisticsResponseBody(data=data)
+            raise errors.GetResourcesStatisticsUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -382,16 +382,16 @@ class Statistics(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetResourcesStatisticsResponseBodyData
+                http_res.text, errors.GetResourcesStatisticsBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetResourcesStatisticsResponseBody(data=data)
+            raise errors.GetResourcesStatisticsBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetResourcesStatisticsStatisticsResponseBodyData
+                http_res.text, errors.GetResourcesStatisticsUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetResourcesStatisticsStatisticsResponseBody(data=data)
+            raise errors.GetResourcesStatisticsUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -481,16 +481,16 @@ class Statistics(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetBandwidthStatisticsResponseBodyData
+                http_res.text, errors.GetBandwidthStatisticsBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetBandwidthStatisticsResponseBody(data=data)
+            raise errors.GetBandwidthStatisticsBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetBandwidthStatisticsStatisticsResponseBodyData
+                http_res.text, errors.GetBandwidthStatisticsUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetBandwidthStatisticsStatisticsResponseBody(data=data)
+            raise errors.GetBandwidthStatisticsUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -580,16 +580,16 @@ class Statistics(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetBandwidthStatisticsResponseBodyData
+                http_res.text, errors.GetBandwidthStatisticsBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetBandwidthStatisticsResponseBody(data=data)
+            raise errors.GetBandwidthStatisticsBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetBandwidthStatisticsStatisticsResponseBodyData
+                http_res.text, errors.GetBandwidthStatisticsUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetBandwidthStatisticsStatisticsResponseBody(data=data)
+            raise errors.GetBandwidthStatisticsUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res

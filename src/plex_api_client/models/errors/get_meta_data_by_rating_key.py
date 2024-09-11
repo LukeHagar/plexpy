@@ -23,7 +23,7 @@ class GetMetaDataByRatingKeyLibraryErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetMetaDataByRatingKeyLibraryResponseBodyData(BaseModel):
+class GetMetaDataByRatingKeyUnauthorizedData(BaseModel):
     errors: Optional[List[GetMetaDataByRatingKeyLibraryErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,18 +32,16 @@ class GetMetaDataByRatingKeyLibraryResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetMetaDataByRatingKeyLibraryResponseBody(Exception):
+class GetMetaDataByRatingKeyUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: GetMetaDataByRatingKeyLibraryResponseBodyData
+    data: GetMetaDataByRatingKeyUnauthorizedData
 
-    def __init__(self, data: GetMetaDataByRatingKeyLibraryResponseBodyData):
+    def __init__(self, data: GetMetaDataByRatingKeyUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(
-            self.data, GetMetaDataByRatingKeyLibraryResponseBodyData
-        )
+        return utils.marshal_json(self.data, GetMetaDataByRatingKeyUnauthorizedData)
 
 
 class GetMetaDataByRatingKeyErrorsTypedDict(TypedDict):
@@ -60,7 +58,7 @@ class GetMetaDataByRatingKeyErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetMetaDataByRatingKeyResponseBodyData(BaseModel):
+class GetMetaDataByRatingKeyBadRequestData(BaseModel):
     errors: Optional[List[GetMetaDataByRatingKeyErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -69,13 +67,13 @@ class GetMetaDataByRatingKeyResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetMetaDataByRatingKeyResponseBody(Exception):
+class GetMetaDataByRatingKeyBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: GetMetaDataByRatingKeyResponseBodyData
+    data: GetMetaDataByRatingKeyBadRequestData
 
-    def __init__(self, data: GetMetaDataByRatingKeyResponseBodyData):
+    def __init__(self, data: GetMetaDataByRatingKeyBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetMetaDataByRatingKeyResponseBodyData)
+        return utils.marshal_json(self.data, GetMetaDataByRatingKeyBadRequestData)

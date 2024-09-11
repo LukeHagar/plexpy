@@ -23,7 +23,7 @@ class GetSearchResultsSearchErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetSearchResultsSearchResponseBodyData(BaseModel):
+class GetSearchResultsUnauthorizedData(BaseModel):
     errors: Optional[List[GetSearchResultsSearchErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,16 +32,16 @@ class GetSearchResultsSearchResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetSearchResultsSearchResponseBody(Exception):
+class GetSearchResultsUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: GetSearchResultsSearchResponseBodyData
+    data: GetSearchResultsUnauthorizedData
 
-    def __init__(self, data: GetSearchResultsSearchResponseBodyData):
+    def __init__(self, data: GetSearchResultsUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetSearchResultsSearchResponseBodyData)
+        return utils.marshal_json(self.data, GetSearchResultsUnauthorizedData)
 
 
 class GetSearchResultsErrorsTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class GetSearchResultsErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetSearchResultsResponseBodyData(BaseModel):
+class GetSearchResultsBadRequestData(BaseModel):
     errors: Optional[List[GetSearchResultsErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -67,13 +67,13 @@ class GetSearchResultsResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetSearchResultsResponseBody(Exception):
+class GetSearchResultsBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: GetSearchResultsResponseBodyData
+    data: GetSearchResultsBadRequestData
 
-    def __init__(self, data: GetSearchResultsResponseBodyData):
+    def __init__(self, data: GetSearchResultsBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetSearchResultsResponseBodyData)
+        return utils.marshal_json(self.data, GetSearchResultsBadRequestData)

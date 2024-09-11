@@ -23,7 +23,7 @@ class GetResourcesStatisticsStatisticsErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetResourcesStatisticsStatisticsResponseBodyData(BaseModel):
+class GetResourcesStatisticsUnauthorizedData(BaseModel):
     errors: Optional[List[GetResourcesStatisticsStatisticsErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,18 +32,16 @@ class GetResourcesStatisticsStatisticsResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetResourcesStatisticsStatisticsResponseBody(Exception):
+class GetResourcesStatisticsUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: GetResourcesStatisticsStatisticsResponseBodyData
+    data: GetResourcesStatisticsUnauthorizedData
 
-    def __init__(self, data: GetResourcesStatisticsStatisticsResponseBodyData):
+    def __init__(self, data: GetResourcesStatisticsUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(
-            self.data, GetResourcesStatisticsStatisticsResponseBodyData
-        )
+        return utils.marshal_json(self.data, GetResourcesStatisticsUnauthorizedData)
 
 
 class GetResourcesStatisticsErrorsTypedDict(TypedDict):
@@ -60,7 +58,7 @@ class GetResourcesStatisticsErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetResourcesStatisticsResponseBodyData(BaseModel):
+class GetResourcesStatisticsBadRequestData(BaseModel):
     errors: Optional[List[GetResourcesStatisticsErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -69,13 +67,13 @@ class GetResourcesStatisticsResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetResourcesStatisticsResponseBody(Exception):
+class GetResourcesStatisticsBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: GetResourcesStatisticsResponseBodyData
+    data: GetResourcesStatisticsBadRequestData
 
-    def __init__(self, data: GetResourcesStatisticsResponseBodyData):
+    def __init__(self, data: GetResourcesStatisticsBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetResourcesStatisticsResponseBodyData)
+        return utils.marshal_json(self.data, GetResourcesStatisticsBadRequestData)

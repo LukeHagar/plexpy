@@ -23,7 +23,7 @@ class GetResizedPhotoServerErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetResizedPhotoServerResponseBodyData(BaseModel):
+class GetResizedPhotoUnauthorizedData(BaseModel):
     errors: Optional[List[GetResizedPhotoServerErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,16 +32,16 @@ class GetResizedPhotoServerResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetResizedPhotoServerResponseBody(Exception):
+class GetResizedPhotoUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: GetResizedPhotoServerResponseBodyData
+    data: GetResizedPhotoUnauthorizedData
 
-    def __init__(self, data: GetResizedPhotoServerResponseBodyData):
+    def __init__(self, data: GetResizedPhotoUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetResizedPhotoServerResponseBodyData)
+        return utils.marshal_json(self.data, GetResizedPhotoUnauthorizedData)
 
 
 class GetResizedPhotoErrorsTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class GetResizedPhotoErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetResizedPhotoResponseBodyData(BaseModel):
+class GetResizedPhotoBadRequestData(BaseModel):
     errors: Optional[List[GetResizedPhotoErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -67,13 +67,13 @@ class GetResizedPhotoResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetResizedPhotoResponseBody(Exception):
+class GetResizedPhotoBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: GetResizedPhotoResponseBodyData
+    data: GetResizedPhotoBadRequestData
 
-    def __init__(self, data: GetResizedPhotoResponseBodyData):
+    def __init__(self, data: GetResizedPhotoBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetResizedPhotoResponseBodyData)
+        return utils.marshal_json(self.data, GetResizedPhotoBadRequestData)

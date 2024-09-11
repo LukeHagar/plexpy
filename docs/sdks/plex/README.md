@@ -51,11 +51,11 @@ if res.response_bodies is not None:
 
 ### Errors
 
-| Error Object                             | Status Code                              | Content Type                             |
-| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| errors.GetCompanionsDataResponseBody     | 400                                      | application/json                         |
-| errors.GetCompanionsDataPlexResponseBody | 401                                      | application/json                         |
-| errors.SDKError                          | 4xx-5xx                                  | */*                                      |
+| Error Object                         | Status Code                          | Content Type                         |
+| ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.GetCompanionsDataBadRequest   | 400                                  | application/json                     |
+| errors.GetCompanionsDataUnauthorized | 401                                  | application/json                     |
+| errors.SDKError                      | 4xx-5xx                              | */*                                  |
 
 
 ## get_user_friends
@@ -93,11 +93,11 @@ if res.friends is not None:
 
 ### Errors
 
-| Error Object                          | Status Code                           | Content Type                          |
-| ------------------------------------- | ------------------------------------- | ------------------------------------- |
-| errors.GetUserFriendsResponseBody     | 400                                   | application/json                      |
-| errors.GetUserFriendsPlexResponseBody | 401                                   | application/json                      |
-| errors.SDKError                       | 4xx-5xx                               | */*                                   |
+| Error Object                      | Status Code                       | Content Type                      |
+| --------------------------------- | --------------------------------- | --------------------------------- |
+| errors.GetUserFriendsBadRequest   | 400                               | application/json                  |
+| errors.GetUserFriendsUnauthorized | 401                               | application/json                  |
+| errors.SDKError                   | 4xx-5xx                           | */*                               |
 
 
 ## get_geo_data
@@ -134,11 +134,11 @@ if res.geo_data is not None:
 
 ### Errors
 
-| Error Object                      | Status Code                       | Content Type                      |
-| --------------------------------- | --------------------------------- | --------------------------------- |
-| errors.GetGeoDataResponseBody     | 400                               | application/json                  |
-| errors.GetGeoDataPlexResponseBody | 401                               | application/json                  |
-| errors.SDKError                   | 4xx-5xx                           | */*                               |
+| Error Object                  | Status Code                   | Content Type                  |
+| ----------------------------- | ----------------------------- | ----------------------------- |
+| errors.GetGeoDataBadRequest   | 400                           | application/json              |
+| errors.GetGeoDataUnauthorized | 401                           | application/json              |
+| errors.SDKError               | 4xx-5xx                       | */*                           |
 
 
 ## get_home_data
@@ -175,11 +175,11 @@ if res.object is not None:
 
 ### Errors
 
-| Error Object                       | Status Code                        | Content Type                       |
-| ---------------------------------- | ---------------------------------- | ---------------------------------- |
-| errors.GetHomeDataResponseBody     | 400                                | application/json                   |
-| errors.GetHomeDataPlexResponseBody | 401                                | application/json                   |
-| errors.SDKError                    | 4xx-5xx                            | */*                                |
+| Error Object                   | Status Code                    | Content Type                   |
+| ------------------------------ | ------------------------------ | ------------------------------ |
+| errors.GetHomeDataBadRequest   | 400                            | application/json               |
+| errors.GetHomeDataUnauthorized | 401                            | application/json               |
+| errors.SDKError                | 4xx-5xx                        | */*                            |
 
 
 ## get_server_resources
@@ -197,12 +197,7 @@ s = PlexAPI(
     x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
 )
 
-res = s.plex.get_server_resources(request={
-    "x_plex_token": "CV5xoxjTpFKUzBTShsaf",
-    "include_https": operations.IncludeHTTPS.ONE,
-    "include_relay": operations.IncludeRelay.ONE,
-    "include_i_pv6": operations.IncludeIPv6.ONE,
-})
+res = s.plex.get_server_resources(x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40", include_https=operations.IncludeHTTPS.ONE, include_relay=operations.IncludeRelay.ONE, include_i_pv6=operations.IncludeIPv6.ONE)
 
 if res.plex_devices is not None:
     # handle response
@@ -212,11 +207,14 @@ if res.plex_devices is not None:
 
 ### Parameters
 
-| Parameter                                                                                    | Type                                                                                         | Required                                                                                     | Description                                                                                  |
-| -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| `request`                                                                                    | [operations.GetServerResourcesRequest](../../models/operations/getserverresourcesrequest.md) | :heavy_check_mark:                                                                           | The request object to use for the request.                                                   |
-| `retries`                                                                                    | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                             | :heavy_minus_sign:                                                                           | Configuration to override the default retry behavior of the client.                          |
-| `server_url`                                                                                 | *Optional[str]*                                                                              | :heavy_minus_sign:                                                                           | An optional server URL to use.                                                               |
+| Parameter                                                                                                                                                             | Type                                                                                                                                                                  | Required                                                                                                                                                              | Description                                                                                                                                                           | Example                                                                                                                                                               |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `x_plex_client_identifier`                                                                                                                                            | *Optional[str]*                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                    | The unique identifier for the client application<br/>This is used to track the client application and its usage<br/>(UUID, serial number, or other number unique per device)<br/> | gcgzw5rz2xovp84b4vha3a40                                                                                                                                              |
+| `include_https`                                                                                                                                                       | [Optional[operations.IncludeHTTPS]](../../models/operations/includehttps.md)                                                                                          | :heavy_minus_sign:                                                                                                                                                    | Include Https entries in the results                                                                                                                                  | 1                                                                                                                                                                     |
+| `include_relay`                                                                                                                                                       | [Optional[operations.IncludeRelay]](../../models/operations/includerelay.md)                                                                                          | :heavy_minus_sign:                                                                                                                                                    | Include Relay addresses in the results <br/>E.g: https://10-0-0-25.bbf8e10c7fa20447cacee74cd9914cde.plex.direct:32400<br/>                                            | 1                                                                                                                                                                     |
+| `include_i_pv6`                                                                                                                                                       | [Optional[operations.IncludeIPv6]](../../models/operations/includeipv6.md)                                                                                            | :heavy_minus_sign:                                                                                                                                                    | Include IPv6 entries in the results                                                                                                                                   | 1                                                                                                                                                                     |
+| `retries`                                                                                                                                                             | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                      | :heavy_minus_sign:                                                                                                                                                    | Configuration to override the default retry behavior of the client.                                                                                                   |                                                                                                                                                                       |
+| `server_url`                                                                                                                                                          | *Optional[str]*                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                    | An optional server URL to use.                                                                                                                                        | http://localhost:8080                                                                                                                                                 |
 
 ### Response
 
@@ -224,11 +222,11 @@ if res.plex_devices is not None:
 
 ### Errors
 
-| Error Object                              | Status Code                               | Content Type                              |
-| ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
-| errors.GetServerResourcesResponseBody     | 400                                       | application/json                          |
-| errors.GetServerResourcesPlexResponseBody | 401                                       | application/json                          |
-| errors.SDKError                           | 4xx-5xx                                   | */*                                       |
+| Error Object                          | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| errors.GetServerResourcesBadRequest   | 400                                   | application/json                      |
+| errors.GetServerResourcesUnauthorized | 401                                   | application/json                      |
+| errors.SDKError                       | 4xx-5xx                               | */*                                   |
 
 
 ## get_pin
@@ -268,10 +266,10 @@ if res.auth_pin_container is not None:
 
 ### Errors
 
-| Error Object              | Status Code               | Content Type              |
-| ------------------------- | ------------------------- | ------------------------- |
-| errors.GetPinResponseBody | 400                       | application/json          |
-| errors.SDKError           | 4xx-5xx                   | */*                       |
+| Error Object            | Status Code             | Content Type            |
+| ----------------------- | ----------------------- | ----------------------- |
+| errors.GetPinBadRequest | 400                     | application/json        |
+| errors.SDKError         | 4xx-5xx                 | */*                     |
 
 
 ## get_token_by_pin_id
@@ -310,8 +308,8 @@ if res.auth_pin_container is not None:
 
 ### Errors
 
-| Error Object                           | Status Code                            | Content Type                           |
-| -------------------------------------- | -------------------------------------- | -------------------------------------- |
-| errors.GetTokenByPinIDResponseBody     | 400                                    | application/json                       |
-| errors.GetTokenByPinIDPlexResponseBody | 404                                    | application/json                       |
-| errors.SDKError                        | 4xx-5xx                                | */*                                    |
+| Error Object                       | Status Code                        | Content Type                       |
+| ---------------------------------- | ---------------------------------- | ---------------------------------- |
+| errors.GetTokenByPinIDBadRequest   | 400                                | application/json                   |
+| errors.GetTokenByPinIDResponseBody | 404                                | application/json                   |
+| errors.SDKError                    | 4xx-5xx                            | */*                                |

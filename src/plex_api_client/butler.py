@@ -79,16 +79,16 @@ class Butler(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetButlerTasksResponseBodyData
+                http_res.text, errors.GetButlerTasksBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetButlerTasksResponseBody(data=data)
+            raise errors.GetButlerTasksBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetButlerTasksButlerResponseBodyData
+                http_res.text, errors.GetButlerTasksUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetButlerTasksButlerResponseBody(data=data)
+            raise errors.GetButlerTasksUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -170,16 +170,16 @@ class Butler(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetButlerTasksResponseBodyData
+                http_res.text, errors.GetButlerTasksBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetButlerTasksResponseBody(data=data)
+            raise errors.GetButlerTasksBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetButlerTasksButlerResponseBodyData
+                http_res.text, errors.GetButlerTasksUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetButlerTasksButlerResponseBody(data=data)
+            raise errors.GetButlerTasksUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -263,16 +263,16 @@ class Butler(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.StartAllTasksResponseBodyData
+                http_res.text, errors.StartAllTasksBadRequestData
             )
             data.raw_response = http_res
-            raise errors.StartAllTasksResponseBody(data=data)
+            raise errors.StartAllTasksBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.StartAllTasksButlerResponseBodyData
+                http_res.text, errors.StartAllTasksUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.StartAllTasksButlerResponseBody(data=data)
+            raise errors.StartAllTasksUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -356,16 +356,16 @@ class Butler(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.StartAllTasksResponseBodyData
+                http_res.text, errors.StartAllTasksBadRequestData
             )
             data.raw_response = http_res
-            raise errors.StartAllTasksResponseBody(data=data)
+            raise errors.StartAllTasksBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.StartAllTasksButlerResponseBodyData
+                http_res.text, errors.StartAllTasksUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.StartAllTasksButlerResponseBody(data=data)
+            raise errors.StartAllTasksUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -445,16 +445,16 @@ class Butler(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.StopAllTasksResponseBodyData
+                http_res.text, errors.StopAllTasksBadRequestData
             )
             data.raw_response = http_res
-            raise errors.StopAllTasksResponseBody(data=data)
+            raise errors.StopAllTasksBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.StopAllTasksButlerResponseBodyData
+                http_res.text, errors.StopAllTasksUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.StopAllTasksButlerResponseBody(data=data)
+            raise errors.StopAllTasksUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -534,16 +534,16 @@ class Butler(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.StopAllTasksResponseBodyData
+                http_res.text, errors.StopAllTasksBadRequestData
             )
             data.raw_response = http_res
-            raise errors.StopAllTasksResponseBody(data=data)
+            raise errors.StopAllTasksBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.StopAllTasksButlerResponseBodyData
+                http_res.text, errors.StopAllTasksUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.StopAllTasksButlerResponseBody(data=data)
+            raise errors.StopAllTasksUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -633,15 +633,13 @@ class Butler(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.StartTaskResponseBodyData)
+            data = utils.unmarshal_json(http_res.text, errors.StartTaskBadRequestData)
             data.raw_response = http_res
-            raise errors.StartTaskResponseBody(data=data)
+            raise errors.StartTaskBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
-                http_res.text, errors.StartTaskButlerResponseBodyData
-            )
+            data = utils.unmarshal_json(http_res.text, errors.StartTaskUnauthorizedData)
             data.raw_response = http_res
-            raise errors.StartTaskButlerResponseBody(data=data)
+            raise errors.StartTaskUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -731,15 +729,13 @@ class Butler(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.StartTaskResponseBodyData)
+            data = utils.unmarshal_json(http_res.text, errors.StartTaskBadRequestData)
             data.raw_response = http_res
-            raise errors.StartTaskResponseBody(data=data)
+            raise errors.StartTaskBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
-                http_res.text, errors.StartTaskButlerResponseBodyData
-            )
+            data = utils.unmarshal_json(http_res.text, errors.StartTaskUnauthorizedData)
             data.raw_response = http_res
-            raise errors.StartTaskButlerResponseBody(data=data)
+            raise errors.StartTaskUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -825,15 +821,13 @@ class Butler(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.StopTaskResponseBodyData)
+            data = utils.unmarshal_json(http_res.text, errors.StopTaskBadRequestData)
             data.raw_response = http_res
-            raise errors.StopTaskResponseBody(data=data)
+            raise errors.StopTaskBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
-                http_res.text, errors.StopTaskButlerResponseBodyData
-            )
+            data = utils.unmarshal_json(http_res.text, errors.StopTaskUnauthorizedData)
             data.raw_response = http_res
-            raise errors.StopTaskButlerResponseBody(data=data)
+            raise errors.StopTaskUnauthorized(data=data)
         if utils.match_response(http_res, ["404", "4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -919,15 +913,13 @@ class Butler(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.StopTaskResponseBodyData)
+            data = utils.unmarshal_json(http_res.text, errors.StopTaskBadRequestData)
             data.raw_response = http_res
-            raise errors.StopTaskResponseBody(data=data)
+            raise errors.StopTaskBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
-                http_res.text, errors.StopTaskButlerResponseBodyData
-            )
+            data = utils.unmarshal_json(http_res.text, errors.StopTaskUnauthorizedData)
             data.raw_response = http_res
-            raise errors.StopTaskButlerResponseBody(data=data)
+            raise errors.StopTaskUnauthorized(data=data)
         if utils.match_response(http_res, ["404", "4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res

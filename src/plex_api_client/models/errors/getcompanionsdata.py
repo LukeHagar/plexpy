@@ -23,7 +23,7 @@ class GetCompanionsDataPlexErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetCompanionsDataPlexResponseBodyData(BaseModel):
+class GetCompanionsDataUnauthorizedData(BaseModel):
     errors: Optional[List[GetCompanionsDataPlexErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,16 +32,16 @@ class GetCompanionsDataPlexResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetCompanionsDataPlexResponseBody(Exception):
+class GetCompanionsDataUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: GetCompanionsDataPlexResponseBodyData
+    data: GetCompanionsDataUnauthorizedData
 
-    def __init__(self, data: GetCompanionsDataPlexResponseBodyData):
+    def __init__(self, data: GetCompanionsDataUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetCompanionsDataPlexResponseBodyData)
+        return utils.marshal_json(self.data, GetCompanionsDataUnauthorizedData)
 
 
 class GetCompanionsDataErrorsTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class GetCompanionsDataErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetCompanionsDataResponseBodyData(BaseModel):
+class GetCompanionsDataBadRequestData(BaseModel):
     errors: Optional[List[GetCompanionsDataErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -67,13 +67,13 @@ class GetCompanionsDataResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetCompanionsDataResponseBody(Exception):
+class GetCompanionsDataBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: GetCompanionsDataResponseBodyData
+    data: GetCompanionsDataBadRequestData
 
-    def __init__(self, data: GetCompanionsDataResponseBodyData):
+    def __init__(self, data: GetCompanionsDataBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetCompanionsDataResponseBodyData)
+        return utils.marshal_json(self.data, GetCompanionsDataBadRequestData)

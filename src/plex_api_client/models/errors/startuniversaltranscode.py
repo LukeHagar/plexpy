@@ -23,7 +23,7 @@ class StartUniversalTranscodeVideoErrors(BaseModel):
     status: Optional[int] = None
 
 
-class StartUniversalTranscodeVideoResponseBodyData(BaseModel):
+class StartUniversalTranscodeUnauthorizedData(BaseModel):
     errors: Optional[List[StartUniversalTranscodeVideoErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,18 +32,16 @@ class StartUniversalTranscodeVideoResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class StartUniversalTranscodeVideoResponseBody(Exception):
+class StartUniversalTranscodeUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: StartUniversalTranscodeVideoResponseBodyData
+    data: StartUniversalTranscodeUnauthorizedData
 
-    def __init__(self, data: StartUniversalTranscodeVideoResponseBodyData):
+    def __init__(self, data: StartUniversalTranscodeUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(
-            self.data, StartUniversalTranscodeVideoResponseBodyData
-        )
+        return utils.marshal_json(self.data, StartUniversalTranscodeUnauthorizedData)
 
 
 class StartUniversalTranscodeErrorsTypedDict(TypedDict):
@@ -60,7 +58,7 @@ class StartUniversalTranscodeErrors(BaseModel):
     status: Optional[int] = None
 
 
-class StartUniversalTranscodeResponseBodyData(BaseModel):
+class StartUniversalTranscodeBadRequestData(BaseModel):
     errors: Optional[List[StartUniversalTranscodeErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -69,13 +67,13 @@ class StartUniversalTranscodeResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class StartUniversalTranscodeResponseBody(Exception):
+class StartUniversalTranscodeBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: StartUniversalTranscodeResponseBodyData
+    data: StartUniversalTranscodeBadRequestData
 
-    def __init__(self, data: StartUniversalTranscodeResponseBodyData):
+    def __init__(self, data: StartUniversalTranscodeBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, StartUniversalTranscodeResponseBodyData)
+        return utils.marshal_json(self.data, StartUniversalTranscodeBadRequestData)

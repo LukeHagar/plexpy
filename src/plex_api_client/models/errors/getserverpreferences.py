@@ -23,7 +23,7 @@ class GetServerPreferencesServerErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetServerPreferencesServerResponseBodyData(BaseModel):
+class GetServerPreferencesUnauthorizedData(BaseModel):
     errors: Optional[List[GetServerPreferencesServerErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,16 +32,16 @@ class GetServerPreferencesServerResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetServerPreferencesServerResponseBody(Exception):
+class GetServerPreferencesUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: GetServerPreferencesServerResponseBodyData
+    data: GetServerPreferencesUnauthorizedData
 
-    def __init__(self, data: GetServerPreferencesServerResponseBodyData):
+    def __init__(self, data: GetServerPreferencesUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetServerPreferencesServerResponseBodyData)
+        return utils.marshal_json(self.data, GetServerPreferencesUnauthorizedData)
 
 
 class GetServerPreferencesErrorsTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class GetServerPreferencesErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetServerPreferencesResponseBodyData(BaseModel):
+class GetServerPreferencesBadRequestData(BaseModel):
     errors: Optional[List[GetServerPreferencesErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -67,13 +67,13 @@ class GetServerPreferencesResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetServerPreferencesResponseBody(Exception):
+class GetServerPreferencesBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: GetServerPreferencesResponseBodyData
+    data: GetServerPreferencesBadRequestData
 
-    def __init__(self, data: GetServerPreferencesResponseBodyData):
+    def __init__(self, data: GetServerPreferencesBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetServerPreferencesResponseBodyData)
+        return utils.marshal_json(self.data, GetServerPreferencesBadRequestData)

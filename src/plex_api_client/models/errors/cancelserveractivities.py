@@ -23,7 +23,7 @@ class CancelServerActivitiesActivitiesErrors(BaseModel):
     status: Optional[int] = None
 
 
-class CancelServerActivitiesActivitiesResponseBodyData(BaseModel):
+class CancelServerActivitiesUnauthorizedData(BaseModel):
     errors: Optional[List[CancelServerActivitiesActivitiesErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,18 +32,16 @@ class CancelServerActivitiesActivitiesResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class CancelServerActivitiesActivitiesResponseBody(Exception):
+class CancelServerActivitiesUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: CancelServerActivitiesActivitiesResponseBodyData
+    data: CancelServerActivitiesUnauthorizedData
 
-    def __init__(self, data: CancelServerActivitiesActivitiesResponseBodyData):
+    def __init__(self, data: CancelServerActivitiesUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(
-            self.data, CancelServerActivitiesActivitiesResponseBodyData
-        )
+        return utils.marshal_json(self.data, CancelServerActivitiesUnauthorizedData)
 
 
 class CancelServerActivitiesErrorsTypedDict(TypedDict):
@@ -60,7 +58,7 @@ class CancelServerActivitiesErrors(BaseModel):
     status: Optional[int] = None
 
 
-class CancelServerActivitiesResponseBodyData(BaseModel):
+class CancelServerActivitiesBadRequestData(BaseModel):
     errors: Optional[List[CancelServerActivitiesErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -69,13 +67,13 @@ class CancelServerActivitiesResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class CancelServerActivitiesResponseBody(Exception):
+class CancelServerActivitiesBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: CancelServerActivitiesResponseBodyData
+    data: CancelServerActivitiesBadRequestData
 
-    def __init__(self, data: CancelServerActivitiesResponseBodyData):
+    def __init__(self, data: CancelServerActivitiesBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, CancelServerActivitiesResponseBodyData)
+        return utils.marshal_json(self.data, CancelServerActivitiesBadRequestData)

@@ -23,7 +23,7 @@ class CheckForUpdatesUpdaterErrors(BaseModel):
     status: Optional[int] = None
 
 
-class CheckForUpdatesUpdaterResponseBodyData(BaseModel):
+class CheckForUpdatesUnauthorizedData(BaseModel):
     errors: Optional[List[CheckForUpdatesUpdaterErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,16 +32,16 @@ class CheckForUpdatesUpdaterResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class CheckForUpdatesUpdaterResponseBody(Exception):
+class CheckForUpdatesUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: CheckForUpdatesUpdaterResponseBodyData
+    data: CheckForUpdatesUnauthorizedData
 
-    def __init__(self, data: CheckForUpdatesUpdaterResponseBodyData):
+    def __init__(self, data: CheckForUpdatesUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, CheckForUpdatesUpdaterResponseBodyData)
+        return utils.marshal_json(self.data, CheckForUpdatesUnauthorizedData)
 
 
 class CheckForUpdatesErrorsTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class CheckForUpdatesErrors(BaseModel):
     status: Optional[int] = None
 
 
-class CheckForUpdatesResponseBodyData(BaseModel):
+class CheckForUpdatesBadRequestData(BaseModel):
     errors: Optional[List[CheckForUpdatesErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -67,13 +67,13 @@ class CheckForUpdatesResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class CheckForUpdatesResponseBody(Exception):
+class CheckForUpdatesBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: CheckForUpdatesResponseBodyData
+    data: CheckForUpdatesBadRequestData
 
-    def __init__(self, data: CheckForUpdatesResponseBodyData):
+    def __init__(self, data: CheckForUpdatesBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, CheckForUpdatesResponseBodyData)
+        return utils.marshal_json(self.data, CheckForUpdatesBadRequestData)

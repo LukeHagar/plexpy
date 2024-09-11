@@ -20,7 +20,7 @@ class Authentication(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
     ) -> operations.GetTransientTokenResponse:
-        r"""Get a Transient Token.
+        r"""Get a Transient Token
 
         This endpoint provides the caller with a temporary token with the same access level as the caller's token. These tokens are valid for up to 48 hours and are destroyed if the server instance is restarted.
 
@@ -87,16 +87,16 @@ class Authentication(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetTransientTokenResponseBodyData
+                http_res.text, errors.GetTransientTokenBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetTransientTokenResponseBody(data=data)
+            raise errors.GetTransientTokenBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetTransientTokenAuthenticationResponseBodyData
+                http_res.text, errors.GetTransientTokenUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetTransientTokenAuthenticationResponseBody(data=data)
+            raise errors.GetTransientTokenUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -119,7 +119,7 @@ class Authentication(BaseSDK):
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
     ) -> operations.GetTransientTokenResponse:
-        r"""Get a Transient Token.
+        r"""Get a Transient Token
 
         This endpoint provides the caller with a temporary token with the same access level as the caller's token. These tokens are valid for up to 48 hours and are destroyed if the server instance is restarted.
 
@@ -186,16 +186,16 @@ class Authentication(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetTransientTokenResponseBodyData
+                http_res.text, errors.GetTransientTokenBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetTransientTokenResponseBody(data=data)
+            raise errors.GetTransientTokenBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetTransientTokenAuthenticationResponseBodyData
+                http_res.text, errors.GetTransientTokenUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetTransientTokenAuthenticationResponseBody(data=data)
+            raise errors.GetTransientTokenUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -283,19 +283,16 @@ class Authentication(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetSourceConnectionInformationResponseBodyData
+                http_res.text, errors.GetSourceConnectionInformationBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetSourceConnectionInformationResponseBody(data=data)
+            raise errors.GetSourceConnectionInformationBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text,
-                errors.GetSourceConnectionInformationAuthenticationResponseBodyData,
+                http_res.text, errors.GetSourceConnectionInformationUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetSourceConnectionInformationAuthenticationResponseBody(
-                data=data
-            )
+            raise errors.GetSourceConnectionInformationUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -383,19 +380,16 @@ class Authentication(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetSourceConnectionInformationResponseBodyData
+                http_res.text, errors.GetSourceConnectionInformationBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetSourceConnectionInformationResponseBody(data=data)
+            raise errors.GetSourceConnectionInformationBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text,
-                errors.GetSourceConnectionInformationAuthenticationResponseBodyData,
+                http_res.text, errors.GetSourceConnectionInformationUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetSourceConnectionInformationAuthenticationResponseBody(
-                data=data
-            )
+            raise errors.GetSourceConnectionInformationUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -409,19 +403,17 @@ class Authentication(BaseSDK):
             http_res,
         )
 
-    def get_user_details(
+    def get_token_details(
         self,
         *,
-        x_plex_token: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
-    ) -> operations.GetUserDetailsResponse:
-        r"""Get User Data By Token
+    ) -> operations.GetTokenDetailsResponse:
+        r"""Get Token Details
 
         Get the User data from the provided X-Plex-Token
 
-        :param x_plex_token: Plex Authentication Token
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -434,18 +426,13 @@ class Authentication(BaseSDK):
         if server_url is not None:
             base_url = server_url
         else:
-            base_url = operations.GET_USER_DETAILS_SERVERS[0]
-
-        request = operations.GetUserDetailsRequest(
-            x_plex_token=x_plex_token,
-        )
-
+            base_url = operations.GET_TOKEN_DETAILS_SERVERS[0]
         req = self.build_request(
             method="GET",
             path="/user",
             base_url=base_url,
             url_variables=url_variables,
-            request=request,
+            request=None,
             request_body_required=False,
             request_has_path_params=False,
             request_has_query_params=True,
@@ -465,7 +452,7 @@ class Authentication(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
-                operation_id="getUserDetails",
+                operation_id="getTokenDetails",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
             ),
@@ -476,9 +463,9 @@ class Authentication(BaseSDK):
 
         data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return operations.GetUserDetailsResponse(
+            return operations.GetTokenDetailsResponse(
                 user_plex_account=utils.unmarshal_json(
-                    http_res.text, Optional[operations.GetUserDetailsUserPlexAccount]
+                    http_res.text, Optional[operations.GetTokenDetailsUserPlexAccount]
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
@@ -486,16 +473,16 @@ class Authentication(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetUserDetailsResponseBodyData
+                http_res.text, errors.GetTokenDetailsBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetUserDetailsResponseBody(data=data)
+            raise errors.GetTokenDetailsBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetUserDetailsAuthenticationResponseBodyData
+                http_res.text, errors.GetTokenDetailsUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetUserDetailsAuthenticationResponseBody(data=data)
+            raise errors.GetTokenDetailsUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -509,19 +496,17 @@ class Authentication(BaseSDK):
             http_res,
         )
 
-    async def get_user_details_async(
+    async def get_token_details_async(
         self,
         *,
-        x_plex_token: str,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
-    ) -> operations.GetUserDetailsResponse:
-        r"""Get User Data By Token
+    ) -> operations.GetTokenDetailsResponse:
+        r"""Get Token Details
 
         Get the User data from the provided X-Plex-Token
 
-        :param x_plex_token: Plex Authentication Token
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -534,18 +519,13 @@ class Authentication(BaseSDK):
         if server_url is not None:
             base_url = server_url
         else:
-            base_url = operations.GET_USER_DETAILS_SERVERS[0]
-
-        request = operations.GetUserDetailsRequest(
-            x_plex_token=x_plex_token,
-        )
-
+            base_url = operations.GET_TOKEN_DETAILS_SERVERS[0]
         req = self.build_request_async(
             method="GET",
             path="/user",
             base_url=base_url,
             url_variables=url_variables,
-            request=request,
+            request=None,
             request_body_required=False,
             request_has_path_params=False,
             request_has_query_params=True,
@@ -565,7 +545,7 @@ class Authentication(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
-                operation_id="getUserDetails",
+                operation_id="getTokenDetails",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
             ),
@@ -576,9 +556,9 @@ class Authentication(BaseSDK):
 
         data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return operations.GetUserDetailsResponse(
+            return operations.GetTokenDetailsResponse(
                 user_plex_account=utils.unmarshal_json(
-                    http_res.text, Optional[operations.GetUserDetailsUserPlexAccount]
+                    http_res.text, Optional[operations.GetTokenDetailsUserPlexAccount]
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
@@ -586,16 +566,16 @@ class Authentication(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetUserDetailsResponseBodyData
+                http_res.text, errors.GetTokenDetailsBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetUserDetailsResponseBody(data=data)
+            raise errors.GetTokenDetailsBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetUserDetailsAuthenticationResponseBodyData
+                http_res.text, errors.GetTokenDetailsUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetUserDetailsAuthenticationResponseBody(data=data)
+            raise errors.GetTokenDetailsUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -706,16 +686,16 @@ class Authentication(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.PostUsersSignInDataResponseBodyData
+                http_res.text, errors.PostUsersSignInDataBadRequestData
             )
             data.raw_response = http_res
-            raise errors.PostUsersSignInDataResponseBody(data=data)
+            raise errors.PostUsersSignInDataBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.PostUsersSignInDataAuthenticationResponseBodyData
+                http_res.text, errors.PostUsersSignInDataUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.PostUsersSignInDataAuthenticationResponseBody(data=data)
+            raise errors.PostUsersSignInDataUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -826,16 +806,16 @@ class Authentication(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.PostUsersSignInDataResponseBodyData
+                http_res.text, errors.PostUsersSignInDataBadRequestData
             )
             data.raw_response = http_res
-            raise errors.PostUsersSignInDataResponseBody(data=data)
+            raise errors.PostUsersSignInDataBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.PostUsersSignInDataAuthenticationResponseBodyData
+                http_res.text, errors.PostUsersSignInDataUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.PostUsersSignInDataAuthenticationResponseBody(data=data)
+            raise errors.PostUsersSignInDataUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res

@@ -23,7 +23,7 @@ class GetUserFriendsPlexErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetUserFriendsPlexResponseBodyData(BaseModel):
+class GetUserFriendsUnauthorizedData(BaseModel):
     errors: Optional[List[GetUserFriendsPlexErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,16 +32,16 @@ class GetUserFriendsPlexResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetUserFriendsPlexResponseBody(Exception):
+class GetUserFriendsUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: GetUserFriendsPlexResponseBodyData
+    data: GetUserFriendsUnauthorizedData
 
-    def __init__(self, data: GetUserFriendsPlexResponseBodyData):
+    def __init__(self, data: GetUserFriendsUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetUserFriendsPlexResponseBodyData)
+        return utils.marshal_json(self.data, GetUserFriendsUnauthorizedData)
 
 
 class GetUserFriendsErrorsTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class GetUserFriendsErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetUserFriendsResponseBodyData(BaseModel):
+class GetUserFriendsBadRequestData(BaseModel):
     errors: Optional[List[GetUserFriendsErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -67,13 +67,13 @@ class GetUserFriendsResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetUserFriendsResponseBody(Exception):
+class GetUserFriendsBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: GetUserFriendsResponseBodyData
+    data: GetUserFriendsBadRequestData
 
-    def __init__(self, data: GetUserFriendsResponseBodyData):
+    def __init__(self, data: GetUserFriendsBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetUserFriendsResponseBodyData)
+        return utils.marshal_json(self.data, GetUserFriendsBadRequestData)

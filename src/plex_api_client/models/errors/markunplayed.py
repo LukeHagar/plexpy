@@ -23,7 +23,7 @@ class MarkUnplayedMediaErrors(BaseModel):
     status: Optional[int] = None
 
 
-class MarkUnplayedMediaResponseBodyData(BaseModel):
+class MarkUnplayedUnauthorizedData(BaseModel):
     errors: Optional[List[MarkUnplayedMediaErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,16 +32,16 @@ class MarkUnplayedMediaResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class MarkUnplayedMediaResponseBody(Exception):
+class MarkUnplayedUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: MarkUnplayedMediaResponseBodyData
+    data: MarkUnplayedUnauthorizedData
 
-    def __init__(self, data: MarkUnplayedMediaResponseBodyData):
+    def __init__(self, data: MarkUnplayedUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, MarkUnplayedMediaResponseBodyData)
+        return utils.marshal_json(self.data, MarkUnplayedUnauthorizedData)
 
 
 class MarkUnplayedErrorsTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class MarkUnplayedErrors(BaseModel):
     status: Optional[int] = None
 
 
-class MarkUnplayedResponseBodyData(BaseModel):
+class MarkUnplayedBadRequestData(BaseModel):
     errors: Optional[List[MarkUnplayedErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -67,13 +67,13 @@ class MarkUnplayedResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class MarkUnplayedResponseBody(Exception):
+class MarkUnplayedBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: MarkUnplayedResponseBodyData
+    data: MarkUnplayedBadRequestData
 
-    def __init__(self, data: MarkUnplayedResponseBodyData):
+    def __init__(self, data: MarkUnplayedBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, MarkUnplayedResponseBodyData)
+        return utils.marshal_json(self.data, MarkUnplayedBadRequestData)

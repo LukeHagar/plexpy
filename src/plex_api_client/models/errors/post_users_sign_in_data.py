@@ -23,7 +23,7 @@ class PostUsersSignInDataAuthenticationErrors(BaseModel):
     status: Optional[int] = None
 
 
-class PostUsersSignInDataAuthenticationResponseBodyData(BaseModel):
+class PostUsersSignInDataUnauthorizedData(BaseModel):
     errors: Optional[List[PostUsersSignInDataAuthenticationErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,18 +32,16 @@ class PostUsersSignInDataAuthenticationResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class PostUsersSignInDataAuthenticationResponseBody(Exception):
+class PostUsersSignInDataUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: PostUsersSignInDataAuthenticationResponseBodyData
+    data: PostUsersSignInDataUnauthorizedData
 
-    def __init__(self, data: PostUsersSignInDataAuthenticationResponseBodyData):
+    def __init__(self, data: PostUsersSignInDataUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(
-            self.data, PostUsersSignInDataAuthenticationResponseBodyData
-        )
+        return utils.marshal_json(self.data, PostUsersSignInDataUnauthorizedData)
 
 
 class PostUsersSignInDataErrorsTypedDict(TypedDict):
@@ -60,7 +58,7 @@ class PostUsersSignInDataErrors(BaseModel):
     status: Optional[int] = None
 
 
-class PostUsersSignInDataResponseBodyData(BaseModel):
+class PostUsersSignInDataBadRequestData(BaseModel):
     errors: Optional[List[PostUsersSignInDataErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -69,13 +67,13 @@ class PostUsersSignInDataResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class PostUsersSignInDataResponseBody(Exception):
+class PostUsersSignInDataBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: PostUsersSignInDataResponseBodyData
+    data: PostUsersSignInDataBadRequestData
 
-    def __init__(self, data: PostUsersSignInDataResponseBodyData):
+    def __init__(self, data: PostUsersSignInDataBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, PostUsersSignInDataResponseBodyData)
+        return utils.marshal_json(self.data, PostUsersSignInDataBadRequestData)

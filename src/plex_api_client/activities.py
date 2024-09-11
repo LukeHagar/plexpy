@@ -87,16 +87,16 @@ class Activities(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetServerActivitiesResponseBodyData
+                http_res.text, errors.GetServerActivitiesBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetServerActivitiesResponseBody(data=data)
+            raise errors.GetServerActivitiesBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetServerActivitiesActivitiesResponseBodyData
+                http_res.text, errors.GetServerActivitiesUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetServerActivitiesActivitiesResponseBody(data=data)
+            raise errors.GetServerActivitiesUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -178,16 +178,16 @@ class Activities(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetServerActivitiesResponseBodyData
+                http_res.text, errors.GetServerActivitiesBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetServerActivitiesResponseBody(data=data)
+            raise errors.GetServerActivitiesBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetServerActivitiesActivitiesResponseBodyData
+                http_res.text, errors.GetServerActivitiesUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetServerActivitiesActivitiesResponseBody(data=data)
+            raise errors.GetServerActivitiesUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -273,16 +273,16 @@ class Activities(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.CancelServerActivitiesResponseBodyData
+                http_res.text, errors.CancelServerActivitiesBadRequestData
             )
             data.raw_response = http_res
-            raise errors.CancelServerActivitiesResponseBody(data=data)
+            raise errors.CancelServerActivitiesBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.CancelServerActivitiesActivitiesResponseBodyData
+                http_res.text, errors.CancelServerActivitiesUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.CancelServerActivitiesActivitiesResponseBody(data=data)
+            raise errors.CancelServerActivitiesUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -368,16 +368,16 @@ class Activities(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.CancelServerActivitiesResponseBodyData
+                http_res.text, errors.CancelServerActivitiesBadRequestData
             )
             data.raw_response = http_res
-            raise errors.CancelServerActivitiesResponseBody(data=data)
+            raise errors.CancelServerActivitiesBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.CancelServerActivitiesActivitiesResponseBodyData
+                http_res.text, errors.CancelServerActivitiesUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.CancelServerActivitiesActivitiesResponseBody(data=data)
+            raise errors.CancelServerActivitiesUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res

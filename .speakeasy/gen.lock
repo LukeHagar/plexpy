@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 3eeea668-4ef4-464e-a888-bdfa023bedf5
 management:
-  docChecksum: 06023774169418572a5ebabe14a70f3f
+  docChecksum: a6fee1797b2da7ccbaf7743772a40b56
   docVersion: 0.0.3
-  speakeasyVersion: 1.393.0
-  generationVersion: 2.413.0
-  releaseVersion: 0.11.0
-  configChecksum: 3ab527f680e2959c9663d2d572c3c0e0
+  speakeasyVersion: 1.396.2
+  generationVersion: 2.415.0
+  releaseVersion: 0.11.1
+  configChecksum: acce08f1da54f289f42e167d0b710c71
   repoURL: https://github.com/LukeHagar/plexpy.git
   repoSubDirectory: .
   installationURL: https://github.com/LukeHagar/plexpy.git
@@ -40,297 +40,297 @@ generatedFiles:
   - CONTRIBUTING.md
   - USAGE.md
   - docs/models/components/security.md
+  - docs/models/errors/addplaylistcontentsbadrequest.md
   - docs/models/errors/addplaylistcontentserrors.md
   - docs/models/errors/addplaylistcontentsplaylistserrors.md
-  - docs/models/errors/addplaylistcontentsplaylistsresponsebody.md
-  - docs/models/errors/addplaylistcontentsresponsebody.md
+  - docs/models/errors/addplaylistcontentsunauthorized.md
+  - docs/models/errors/applyupdatesbadrequest.md
   - docs/models/errors/applyupdateserrors.md
-  - docs/models/errors/applyupdatesresponsebody.md
+  - docs/models/errors/applyupdatesunauthorized.md
   - docs/models/errors/applyupdatesupdatererrors.md
-  - docs/models/errors/applyupdatesupdaterresponsebody.md
   - docs/models/errors/cancelserveractivitiesactivitieserrors.md
-  - docs/models/errors/cancelserveractivitiesactivitiesresponsebody.md
+  - docs/models/errors/cancelserveractivitiesbadrequest.md
   - docs/models/errors/cancelserveractivitieserrors.md
-  - docs/models/errors/cancelserveractivitiesresponsebody.md
+  - docs/models/errors/cancelserveractivitiesunauthorized.md
+  - docs/models/errors/checkforupdatesbadrequest.md
   - docs/models/errors/checkforupdateserrors.md
-  - docs/models/errors/checkforupdatesresponsebody.md
+  - docs/models/errors/checkforupdatesunauthorized.md
   - docs/models/errors/checkforupdatesupdatererrors.md
-  - docs/models/errors/checkforupdatesupdaterresponsebody.md
+  - docs/models/errors/clearplaylistcontentsbadrequest.md
   - docs/models/errors/clearplaylistcontentserrors.md
   - docs/models/errors/clearplaylistcontentsplaylistserrors.md
-  - docs/models/errors/clearplaylistcontentsplaylistsresponsebody.md
-  - docs/models/errors/clearplaylistcontentsresponsebody.md
+  - docs/models/errors/clearplaylistcontentsunauthorized.md
+  - docs/models/errors/createplaylistbadrequest.md
   - docs/models/errors/createplaylisterrors.md
   - docs/models/errors/createplaylistplaylistserrors.md
-  - docs/models/errors/createplaylistplaylistsresponsebody.md
-  - docs/models/errors/createplaylistresponsebody.md
+  - docs/models/errors/createplaylistunauthorized.md
+  - docs/models/errors/deletelibrarybadrequest.md
   - docs/models/errors/deletelibraryerrors.md
   - docs/models/errors/deletelibrarylibraryerrors.md
-  - docs/models/errors/deletelibrarylibraryresponsebody.md
-  - docs/models/errors/deletelibraryresponsebody.md
+  - docs/models/errors/deletelibraryunauthorized.md
+  - docs/models/errors/deleteplaylistbadrequest.md
   - docs/models/errors/deleteplaylisterrors.md
   - docs/models/errors/deleteplaylistplaylistserrors.md
-  - docs/models/errors/deleteplaylistplaylistsresponsebody.md
-  - docs/models/errors/deleteplaylistresponsebody.md
+  - docs/models/errors/deleteplaylistunauthorized.md
+  - docs/models/errors/enablepapertrailbadrequest.md
   - docs/models/errors/enablepapertrailerrors.md
   - docs/models/errors/enablepapertraillogerrors.md
-  - docs/models/errors/enablepapertraillogresponsebody.md
-  - docs/models/errors/enablepapertrailresponsebody.md
+  - docs/models/errors/enablepapertrailunauthorized.md
   - docs/models/errors/errors.md
+  - docs/models/errors/getalllibrariesbadrequest.md
   - docs/models/errors/getalllibrarieserrors.md
   - docs/models/errors/getalllibrarieslibraryerrors.md
-  - docs/models/errors/getalllibrarieslibraryresponsebody.md
-  - docs/models/errors/getalllibrariesresponsebody.md
+  - docs/models/errors/getalllibrariesunauthorized.md
+  - docs/models/errors/getavailableclientsbadrequest.md
   - docs/models/errors/getavailableclientserrors.md
-  - docs/models/errors/getavailableclientsresponsebody.md
   - docs/models/errors/getavailableclientsservererrors.md
-  - docs/models/errors/getavailableclientsserverresponsebody.md
+  - docs/models/errors/getavailableclientsunauthorized.md
+  - docs/models/errors/getbandwidthstatisticsbadrequest.md
   - docs/models/errors/getbandwidthstatisticserrors.md
-  - docs/models/errors/getbandwidthstatisticsresponsebody.md
   - docs/models/errors/getbandwidthstatisticsstatisticserrors.md
-  - docs/models/errors/getbandwidthstatisticsstatisticsresponsebody.md
+  - docs/models/errors/getbandwidthstatisticsunauthorized.md
+  - docs/models/errors/getbannerimagebadrequest.md
   - docs/models/errors/getbannerimageerrors.md
   - docs/models/errors/getbannerimagemediaerrors.md
-  - docs/models/errors/getbannerimagemediaresponsebody.md
-  - docs/models/errors/getbannerimageresponsebody.md
+  - docs/models/errors/getbannerimageunauthorized.md
+  - docs/models/errors/getbutlertasksbadrequest.md
   - docs/models/errors/getbutlertasksbutlererrors.md
-  - docs/models/errors/getbutlertasksbutlerresponsebody.md
   - docs/models/errors/getbutlertaskserrors.md
-  - docs/models/errors/getbutlertasksresponsebody.md
+  - docs/models/errors/getbutlertasksunauthorized.md
+  - docs/models/errors/getcompanionsdatabadrequest.md
   - docs/models/errors/getcompanionsdataerrors.md
   - docs/models/errors/getcompanionsdataplexerrors.md
-  - docs/models/errors/getcompanionsdataplexresponsebody.md
-  - docs/models/errors/getcompanionsdataresponsebody.md
+  - docs/models/errors/getcompanionsdataunauthorized.md
+  - docs/models/errors/getdevicesbadrequest.md
   - docs/models/errors/getdeviceserrors.md
-  - docs/models/errors/getdevicesresponsebody.md
   - docs/models/errors/getdevicesservererrors.md
-  - docs/models/errors/getdevicesserverresponsebody.md
+  - docs/models/errors/getdevicesunauthorized.md
+  - docs/models/errors/getfilehashbadrequest.md
   - docs/models/errors/getfilehasherrors.md
   - docs/models/errors/getfilehashlibraryerrors.md
-  - docs/models/errors/getfilehashlibraryresponsebody.md
-  - docs/models/errors/getfilehashresponsebody.md
+  - docs/models/errors/getfilehashunauthorized.md
+  - docs/models/errors/getgeodatabadrequest.md
   - docs/models/errors/getgeodataerrors.md
   - docs/models/errors/getgeodataplexerrors.md
-  - docs/models/errors/getgeodataplexresponsebody.md
-  - docs/models/errors/getgeodataresponsebody.md
+  - docs/models/errors/getgeodataunauthorized.md
+  - docs/models/errors/getglobalhubsbadrequest.md
   - docs/models/errors/getglobalhubserrors.md
   - docs/models/errors/getglobalhubshubserrors.md
-  - docs/models/errors/getglobalhubshubsresponsebody.md
-  - docs/models/errors/getglobalhubsresponsebody.md
+  - docs/models/errors/getglobalhubsunauthorized.md
+  - docs/models/errors/gethomedatabadrequest.md
   - docs/models/errors/gethomedataerrors.md
   - docs/models/errors/gethomedataplexerrors.md
-  - docs/models/errors/gethomedataplexresponsebody.md
-  - docs/models/errors/gethomedataresponsebody.md
+  - docs/models/errors/gethomedataunauthorized.md
+  - docs/models/errors/getlibrarydetailsbadrequest.md
   - docs/models/errors/getlibrarydetailserrors.md
   - docs/models/errors/getlibrarydetailslibraryerrors.md
-  - docs/models/errors/getlibrarydetailslibraryresponsebody.md
-  - docs/models/errors/getlibrarydetailsresponsebody.md
+  - docs/models/errors/getlibrarydetailsunauthorized.md
+  - docs/models/errors/getlibraryhubsbadrequest.md
   - docs/models/errors/getlibraryhubserrors.md
   - docs/models/errors/getlibraryhubshubserrors.md
-  - docs/models/errors/getlibraryhubshubsresponsebody.md
-  - docs/models/errors/getlibraryhubsresponsebody.md
+  - docs/models/errors/getlibraryhubsunauthorized.md
+  - docs/models/errors/getlibraryitemsbadrequest.md
   - docs/models/errors/getlibraryitemserrors.md
   - docs/models/errors/getlibraryitemslibraryerrors.md
-  - docs/models/errors/getlibraryitemslibraryresponsebody.md
-  - docs/models/errors/getlibraryitemsresponsebody.md
+  - docs/models/errors/getlibraryitemsunauthorized.md
+  - docs/models/errors/getmediaprovidersbadrequest.md
   - docs/models/errors/getmediaproviderserrors.md
-  - docs/models/errors/getmediaprovidersresponsebody.md
   - docs/models/errors/getmediaprovidersservererrors.md
-  - docs/models/errors/getmediaprovidersserverresponsebody.md
+  - docs/models/errors/getmediaprovidersunauthorized.md
+  - docs/models/errors/getmetadatabyratingkeybadrequest.md
   - docs/models/errors/getmetadatabyratingkeyerrors.md
   - docs/models/errors/getmetadatabyratingkeylibraryerrors.md
-  - docs/models/errors/getmetadatabyratingkeylibraryresponsebody.md
-  - docs/models/errors/getmetadatabyratingkeyresponsebody.md
+  - docs/models/errors/getmetadatabyratingkeyunauthorized.md
+  - docs/models/errors/getmetadatachildrenbadrequest.md
   - docs/models/errors/getmetadatachildrenerrors.md
   - docs/models/errors/getmetadatachildrenlibraryerrors.md
-  - docs/models/errors/getmetadatachildrenlibraryresponsebody.md
-  - docs/models/errors/getmetadatachildrenresponsebody.md
+  - docs/models/errors/getmetadatachildrenunauthorized.md
+  - docs/models/errors/getmyplexaccountbadrequest.md
   - docs/models/errors/getmyplexaccounterrors.md
-  - docs/models/errors/getmyplexaccountresponsebody.md
   - docs/models/errors/getmyplexaccountservererrors.md
-  - docs/models/errors/getmyplexaccountserverresponsebody.md
+  - docs/models/errors/getmyplexaccountunauthorized.md
+  - docs/models/errors/getondeckbadrequest.md
   - docs/models/errors/getondeckerrors.md
   - docs/models/errors/getondecklibraryerrors.md
-  - docs/models/errors/getondecklibraryresponsebody.md
-  - docs/models/errors/getondeckresponsebody.md
+  - docs/models/errors/getondeckunauthorized.md
+  - docs/models/errors/getpinbadrequest.md
   - docs/models/errors/getpinerrors.md
-  - docs/models/errors/getpinresponsebody.md
+  - docs/models/errors/getplaylistbadrequest.md
+  - docs/models/errors/getplaylistcontentsbadrequest.md
   - docs/models/errors/getplaylistcontentserrors.md
   - docs/models/errors/getplaylistcontentsplaylistserrors.md
-  - docs/models/errors/getplaylistcontentsplaylistsresponsebody.md
-  - docs/models/errors/getplaylistcontentsresponsebody.md
+  - docs/models/errors/getplaylistcontentsunauthorized.md
   - docs/models/errors/getplaylisterrors.md
   - docs/models/errors/getplaylistplaylistserrors.md
-  - docs/models/errors/getplaylistplaylistsresponsebody.md
-  - docs/models/errors/getplaylistresponsebody.md
+  - docs/models/errors/getplaylistsbadrequest.md
   - docs/models/errors/getplaylistserrors.md
   - docs/models/errors/getplaylistsplaylistserrors.md
-  - docs/models/errors/getplaylistsplaylistsresponsebody.md
-  - docs/models/errors/getplaylistsresponsebody.md
+  - docs/models/errors/getplaylistsunauthorized.md
+  - docs/models/errors/getplaylistunauthorized.md
+  - docs/models/errors/getrecentlyaddedbadrequest.md
   - docs/models/errors/getrecentlyaddederrors.md
   - docs/models/errors/getrecentlyaddedlibraryerrors.md
-  - docs/models/errors/getrecentlyaddedlibraryresponsebody.md
-  - docs/models/errors/getrecentlyaddedresponsebody.md
+  - docs/models/errors/getrecentlyaddedunauthorized.md
+  - docs/models/errors/getrefreshlibrarymetadatabadrequest.md
   - docs/models/errors/getrefreshlibrarymetadataerrors.md
   - docs/models/errors/getrefreshlibrarymetadatalibraryerrors.md
-  - docs/models/errors/getrefreshlibrarymetadatalibraryresponsebody.md
-  - docs/models/errors/getrefreshlibrarymetadataresponsebody.md
+  - docs/models/errors/getrefreshlibrarymetadataunauthorized.md
+  - docs/models/errors/getresizedphotobadrequest.md
   - docs/models/errors/getresizedphotoerrors.md
-  - docs/models/errors/getresizedphotoresponsebody.md
   - docs/models/errors/getresizedphotoservererrors.md
-  - docs/models/errors/getresizedphotoserverresponsebody.md
+  - docs/models/errors/getresizedphotounauthorized.md
+  - docs/models/errors/getresourcesstatisticsbadrequest.md
   - docs/models/errors/getresourcesstatisticserrors.md
-  - docs/models/errors/getresourcesstatisticsresponsebody.md
   - docs/models/errors/getresourcesstatisticsstatisticserrors.md
-  - docs/models/errors/getresourcesstatisticsstatisticsresponsebody.md
+  - docs/models/errors/getresourcesstatisticsunauthorized.md
+  - docs/models/errors/getsearchlibrarybadrequest.md
   - docs/models/errors/getsearchlibraryerrors.md
   - docs/models/errors/getsearchlibrarylibraryerrors.md
-  - docs/models/errors/getsearchlibrarylibraryresponsebody.md
-  - docs/models/errors/getsearchlibraryresponsebody.md
+  - docs/models/errors/getsearchlibraryunauthorized.md
+  - docs/models/errors/getsearchresultsbadrequest.md
   - docs/models/errors/getsearchresultserrors.md
-  - docs/models/errors/getsearchresultsresponsebody.md
   - docs/models/errors/getsearchresultssearcherrors.md
-  - docs/models/errors/getsearchresultssearchresponsebody.md
+  - docs/models/errors/getsearchresultsunauthorized.md
   - docs/models/errors/getserveractivitiesactivitieserrors.md
-  - docs/models/errors/getserveractivitiesactivitiesresponsebody.md
+  - docs/models/errors/getserveractivitiesbadrequest.md
   - docs/models/errors/getserveractivitieserrors.md
-  - docs/models/errors/getserveractivitiesresponsebody.md
+  - docs/models/errors/getserveractivitiesunauthorized.md
+  - docs/models/errors/getservercapabilitiesbadrequest.md
   - docs/models/errors/getservercapabilitieserrors.md
-  - docs/models/errors/getservercapabilitiesresponsebody.md
-  - docs/models/errors/getservercapabilitiesserverresponsebody.md
-  - docs/models/errors/getserveridentityresponsebody.md
+  - docs/models/errors/getservercapabilitiesunauthorized.md
+  - docs/models/errors/getserveridentityrequesttimeout.md
+  - docs/models/errors/getserverlistbadrequest.md
   - docs/models/errors/getserverlisterrors.md
-  - docs/models/errors/getserverlistresponsebody.md
   - docs/models/errors/getserverlistservererrors.md
-  - docs/models/errors/getserverlistserverresponsebody.md
+  - docs/models/errors/getserverlistunauthorized.md
+  - docs/models/errors/getserverpreferencesbadrequest.md
   - docs/models/errors/getserverpreferenceserrors.md
-  - docs/models/errors/getserverpreferencesresponsebody.md
   - docs/models/errors/getserverpreferencesservererrors.md
-  - docs/models/errors/getserverpreferencesserverresponsebody.md
+  - docs/models/errors/getserverpreferencesunauthorized.md
+  - docs/models/errors/getserverresourcesbadrequest.md
   - docs/models/errors/getserverresourceserrors.md
   - docs/models/errors/getserverresourcesplexerrors.md
-  - docs/models/errors/getserverresourcesplexresponsebody.md
-  - docs/models/errors/getserverresourcesresponsebody.md
+  - docs/models/errors/getserverresourcesunauthorized.md
+  - docs/models/errors/getsessionhistorybadrequest.md
   - docs/models/errors/getsessionhistoryerrors.md
-  - docs/models/errors/getsessionhistoryresponsebody.md
   - docs/models/errors/getsessionhistorysessionserrors.md
-  - docs/models/errors/getsessionhistorysessionsresponsebody.md
+  - docs/models/errors/getsessionhistoryunauthorized.md
+  - docs/models/errors/getsessionsbadrequest.md
   - docs/models/errors/getsessionserrors.md
-  - docs/models/errors/getsessionsresponsebody.md
   - docs/models/errors/getsessionssessionserrors.md
-  - docs/models/errors/getsessionssessionsresponsebody.md
+  - docs/models/errors/getsessionsunauthorized.md
   - docs/models/errors/getsourceconnectioninformationauthenticationerrors.md
-  - docs/models/errors/getsourceconnectioninformationauthenticationresponsebody.md
+  - docs/models/errors/getsourceconnectioninformationbadrequest.md
   - docs/models/errors/getsourceconnectioninformationerrors.md
-  - docs/models/errors/getsourceconnectioninformationresponsebody.md
+  - docs/models/errors/getsourceconnectioninformationunauthorized.md
+  - docs/models/errors/getstatisticsbadrequest.md
   - docs/models/errors/getstatisticserrors.md
-  - docs/models/errors/getstatisticsresponsebody.md
   - docs/models/errors/getstatisticsstatisticserrors.md
-  - docs/models/errors/getstatisticsstatisticsresponsebody.md
+  - docs/models/errors/getstatisticsunauthorized.md
+  - docs/models/errors/getthumbimagebadrequest.md
   - docs/models/errors/getthumbimageerrors.md
   - docs/models/errors/getthumbimagemediaerrors.md
-  - docs/models/errors/getthumbimagemediaresponsebody.md
-  - docs/models/errors/getthumbimageresponsebody.md
+  - docs/models/errors/getthumbimageunauthorized.md
+  - docs/models/errors/gettimelinebadrequest.md
   - docs/models/errors/gettimelineerrors.md
-  - docs/models/errors/gettimelineresponsebody.md
+  - docs/models/errors/gettimelineunauthorized.md
   - docs/models/errors/gettimelinevideoerrors.md
-  - docs/models/errors/gettimelinevideoresponsebody.md
+  - docs/models/errors/gettokenbypinidbadrequest.md
   - docs/models/errors/gettokenbypiniderrors.md
   - docs/models/errors/gettokenbypinidplexerrors.md
-  - docs/models/errors/gettokenbypinidplexresponsebody.md
   - docs/models/errors/gettokenbypinidresponsebody.md
+  - docs/models/errors/gettokendetailsauthenticationerrors.md
+  - docs/models/errors/gettokendetailsbadrequest.md
+  - docs/models/errors/gettokendetailserrors.md
+  - docs/models/errors/gettokendetailsunauthorized.md
+  - docs/models/errors/gettopwatchedcontentbadrequest.md
   - docs/models/errors/gettopwatchedcontenterrors.md
   - docs/models/errors/gettopwatchedcontentlibraryerrors.md
-  - docs/models/errors/gettopwatchedcontentlibraryresponsebody.md
-  - docs/models/errors/gettopwatchedcontentresponsebody.md
+  - docs/models/errors/gettopwatchedcontentunauthorized.md
+  - docs/models/errors/gettranscodesessionsbadrequest.md
   - docs/models/errors/gettranscodesessionserrors.md
-  - docs/models/errors/gettranscodesessionsresponsebody.md
   - docs/models/errors/gettranscodesessionssessionserrors.md
-  - docs/models/errors/gettranscodesessionssessionsresponsebody.md
+  - docs/models/errors/gettranscodesessionsunauthorized.md
   - docs/models/errors/gettransienttokenauthenticationerrors.md
-  - docs/models/errors/gettransienttokenauthenticationresponsebody.md
+  - docs/models/errors/gettransienttokenbadrequest.md
   - docs/models/errors/gettransienttokenerrors.md
-  - docs/models/errors/gettransienttokenresponsebody.md
+  - docs/models/errors/gettransienttokenunauthorized.md
+  - docs/models/errors/getupdatestatusbadrequest.md
   - docs/models/errors/getupdatestatuserrors.md
-  - docs/models/errors/getupdatestatusresponsebody.md
+  - docs/models/errors/getupdatestatusunauthorized.md
   - docs/models/errors/getupdatestatusupdatererrors.md
-  - docs/models/errors/getupdatestatusupdaterresponsebody.md
-  - docs/models/errors/getuserdetailsauthenticationerrors.md
-  - docs/models/errors/getuserdetailsauthenticationresponsebody.md
-  - docs/models/errors/getuserdetailserrors.md
-  - docs/models/errors/getuserdetailsresponsebody.md
+  - docs/models/errors/getuserfriendsbadrequest.md
   - docs/models/errors/getuserfriendserrors.md
   - docs/models/errors/getuserfriendsplexerrors.md
-  - docs/models/errors/getuserfriendsplexresponsebody.md
-  - docs/models/errors/getuserfriendsresponsebody.md
+  - docs/models/errors/getuserfriendsunauthorized.md
+  - docs/models/errors/getwatchlistbadrequest.md
   - docs/models/errors/getwatchlisterrors.md
-  - docs/models/errors/getwatchlistresponsebody.md
+  - docs/models/errors/getwatchlistunauthorized.md
   - docs/models/errors/getwatchlistwatchlisterrors.md
-  - docs/models/errors/getwatchlistwatchlistresponsebody.md
+  - docs/models/errors/loglinebadrequest.md
   - docs/models/errors/loglineerrors.md
   - docs/models/errors/loglinelogerrors.md
-  - docs/models/errors/loglinelogresponsebody.md
-  - docs/models/errors/loglineresponsebody.md
+  - docs/models/errors/loglineunauthorized.md
+  - docs/models/errors/logmultilinebadrequest.md
   - docs/models/errors/logmultilineerrors.md
   - docs/models/errors/logmultilinelogerrors.md
-  - docs/models/errors/logmultilinelogresponsebody.md
-  - docs/models/errors/logmultilineresponsebody.md
+  - docs/models/errors/logmultilineunauthorized.md
+  - docs/models/errors/markplayedbadrequest.md
   - docs/models/errors/markplayederrors.md
   - docs/models/errors/markplayedmediaerrors.md
-  - docs/models/errors/markplayedmediaresponsebody.md
-  - docs/models/errors/markplayedresponsebody.md
+  - docs/models/errors/markplayedunauthorized.md
+  - docs/models/errors/markunplayedbadrequest.md
   - docs/models/errors/markunplayederrors.md
   - docs/models/errors/markunplayedmediaerrors.md
-  - docs/models/errors/markunplayedmediaresponsebody.md
-  - docs/models/errors/markunplayedresponsebody.md
+  - docs/models/errors/markunplayedunauthorized.md
+  - docs/models/errors/performsearchbadrequest.md
   - docs/models/errors/performsearcherrors.md
-  - docs/models/errors/performsearchresponsebody.md
   - docs/models/errors/performsearchsearcherrors.md
-  - docs/models/errors/performsearchsearchresponsebody.md
+  - docs/models/errors/performsearchunauthorized.md
+  - docs/models/errors/performvoicesearchbadrequest.md
   - docs/models/errors/performvoicesearcherrors.md
-  - docs/models/errors/performvoicesearchresponsebody.md
   - docs/models/errors/performvoicesearchsearcherrors.md
-  - docs/models/errors/performvoicesearchsearchresponsebody.md
+  - docs/models/errors/performvoicesearchunauthorized.md
   - docs/models/errors/postuserssignindataauthenticationerrors.md
-  - docs/models/errors/postuserssignindataauthenticationresponsebody.md
+  - docs/models/errors/postuserssignindatabadrequest.md
   - docs/models/errors/postuserssignindataerrors.md
-  - docs/models/errors/postuserssignindataresponsebody.md
+  - docs/models/errors/postuserssignindataunauthorized.md
+  - docs/models/errors/startalltasksbadrequest.md
   - docs/models/errors/startalltasksbutlererrors.md
-  - docs/models/errors/startalltasksbutlerresponsebody.md
   - docs/models/errors/startalltaskserrors.md
-  - docs/models/errors/startalltasksresponsebody.md
+  - docs/models/errors/startalltasksunauthorized.md
+  - docs/models/errors/starttaskbadrequest.md
   - docs/models/errors/starttaskbutlererrors.md
-  - docs/models/errors/starttaskbutlerresponsebody.md
   - docs/models/errors/starttaskerrors.md
-  - docs/models/errors/starttaskresponsebody.md
+  - docs/models/errors/starttaskunauthorized.md
+  - docs/models/errors/startuniversaltranscodebadrequest.md
   - docs/models/errors/startuniversaltranscodeerrors.md
-  - docs/models/errors/startuniversaltranscoderesponsebody.md
+  - docs/models/errors/startuniversaltranscodeunauthorized.md
   - docs/models/errors/startuniversaltranscodevideoerrors.md
-  - docs/models/errors/startuniversaltranscodevideoresponsebody.md
+  - docs/models/errors/stopalltasksbadrequest.md
   - docs/models/errors/stopalltasksbutlererrors.md
-  - docs/models/errors/stopalltasksbutlerresponsebody.md
   - docs/models/errors/stopalltaskserrors.md
-  - docs/models/errors/stopalltasksresponsebody.md
+  - docs/models/errors/stopalltasksunauthorized.md
+  - docs/models/errors/stoptaskbadrequest.md
   - docs/models/errors/stoptaskbutlererrors.md
-  - docs/models/errors/stoptaskbutlerresponsebody.md
   - docs/models/errors/stoptaskerrors.md
-  - docs/models/errors/stoptaskresponsebody.md
+  - docs/models/errors/stoptaskunauthorized.md
+  - docs/models/errors/stoptranscodesessionbadrequest.md
   - docs/models/errors/stoptranscodesessionerrors.md
-  - docs/models/errors/stoptranscodesessionresponsebody.md
   - docs/models/errors/stoptranscodesessionsessionserrors.md
-  - docs/models/errors/stoptranscodesessionsessionsresponsebody.md
+  - docs/models/errors/stoptranscodesessionunauthorized.md
+  - docs/models/errors/updateplaylistbadrequest.md
   - docs/models/errors/updateplaylisterrors.md
   - docs/models/errors/updateplaylistplaylistserrors.md
-  - docs/models/errors/updateplaylistplaylistsresponsebody.md
-  - docs/models/errors/updateplaylistresponsebody.md
+  - docs/models/errors/updateplaylistunauthorized.md
+  - docs/models/errors/updateplayprogressbadrequest.md
   - docs/models/errors/updateplayprogresserrors.md
   - docs/models/errors/updateplayprogressmediaerrors.md
-  - docs/models/errors/updateplayprogressmediaresponsebody.md
-  - docs/models/errors/updateplayprogressresponsebody.md
+  - docs/models/errors/updateplayprogressunauthorized.md
+  - docs/models/errors/uploadplaylistbadrequest.md
   - docs/models/errors/uploadplaylisterrors.md
   - docs/models/errors/uploadplaylistplaylistserrors.md
-  - docs/models/errors/uploadplaylistplaylistsresponsebody.md
-  - docs/models/errors/uploadplaylistresponsebody.md
+  - docs/models/errors/uploadplaylistunauthorized.md
   - docs/models/internal/globals.md
   - docs/models/operations/account.md
   - docs/models/operations/activity.md
@@ -581,6 +581,13 @@ generatedFiles:
   - docs/models/operations/gettokenbypinidglobals.md
   - docs/models/operations/gettokenbypinidrequest.md
   - docs/models/operations/gettokenbypinidresponse.md
+  - docs/models/operations/gettokendetailsauthenticationresponsestatus.md
+  - docs/models/operations/gettokendetailsauthenticationstatus.md
+  - docs/models/operations/gettokendetailsfeatures.md
+  - docs/models/operations/gettokendetailsresponse.md
+  - docs/models/operations/gettokendetailsstatus.md
+  - docs/models/operations/gettokendetailssubscription.md
+  - docs/models/operations/gettokendetailsuserplexaccount.md
   - docs/models/operations/gettopwatchedcontentcountry.md
   - docs/models/operations/gettopwatchedcontentgenre.md
   - docs/models/operations/gettopwatchedcontentguids.md
@@ -600,14 +607,6 @@ generatedFiles:
   - docs/models/operations/getupdatestatusmediacontainer.md
   - docs/models/operations/getupdatestatusresponse.md
   - docs/models/operations/getupdatestatusresponsebody.md
-  - docs/models/operations/getuserdetailsauthenticationresponsestatus.md
-  - docs/models/operations/getuserdetailsauthenticationstatus.md
-  - docs/models/operations/getuserdetailsfeatures.md
-  - docs/models/operations/getuserdetailsrequest.md
-  - docs/models/operations/getuserdetailsresponse.md
-  - docs/models/operations/getuserdetailsstatus.md
-  - docs/models/operations/getuserdetailssubscription.md
-  - docs/models/operations/getuserdetailsuserplexaccount.md
   - docs/models/operations/getuserfriendsresponse.md
   - docs/models/operations/getwatchlistrequest.md
   - docs/models/operations/getwatchlistresponse.md
@@ -825,11 +824,11 @@ generatedFiles:
   - src/plex_api_client/models/errors/getstatistics.py
   - src/plex_api_client/models/errors/gettimeline.py
   - src/plex_api_client/models/errors/gettokenbypinid.py
+  - src/plex_api_client/models/errors/gettokendetails.py
   - src/plex_api_client/models/errors/gettopwatchedcontent.py
   - src/plex_api_client/models/errors/gettranscodesessions.py
   - src/plex_api_client/models/errors/gettransienttoken.py
   - src/plex_api_client/models/errors/getupdatestatus.py
-  - src/plex_api_client/models/errors/getuserdetails.py
   - src/plex_api_client/models/errors/getuserfriends.py
   - src/plex_api_client/models/errors/logline.py
   - src/plex_api_client/models/errors/logmultiline.py
@@ -903,11 +902,11 @@ generatedFiles:
   - src/plex_api_client/models/operations/getstatistics.py
   - src/plex_api_client/models/operations/gettimeline.py
   - src/plex_api_client/models/operations/gettokenbypinid.py
+  - src/plex_api_client/models/operations/gettokendetails.py
   - src/plex_api_client/models/operations/gettopwatchedcontent.py
   - src/plex_api_client/models/operations/gettranscodesessions.py
   - src/plex_api_client/models/operations/gettransienttoken.py
   - src/plex_api_client/models/operations/getupdatestatus.py
-  - src/plex_api_client/models/operations/getuserdetails.py
   - src/plex_api_client/models/operations/getuserfriends.py
   - src/plex_api_client/models/operations/logline.py
   - src/plex_api_client/models/operations/logmultiline.py
@@ -962,6 +961,7 @@ examples:
           application/json: {"errors": []}
         "401":
           application/json: {"errors": []}
+        "200": {}
   getServerPreferences:
     speakeasy-default-get-server-preferences:
       responses:
@@ -1031,6 +1031,7 @@ examples:
           application/json: {"errors": []}
         "401":
           application/json: {"errors": []}
+        "200": {}
   getServerList:
     speakeasy-default-get-server-list:
       responses:
@@ -1088,6 +1089,7 @@ examples:
           application/json: {"errors": []}
         "401":
           application/json: {"errors": []}
+        "200": {}
   get-thumb-image:
     speakeasy-default-get-thumb-image:
       parameters:
@@ -1104,6 +1106,7 @@ examples:
           application/json: {"errors": []}
         "401":
           application/json: {"errors": []}
+        "200": {}
   getTimeline:
     "":
       parameters:
@@ -1155,6 +1158,7 @@ examples:
           application/json: {"errors": []}
         "401":
           application/json: {"errors": []}
+        "200": {}
   cancelServerActivities:
     "":
       parameters:
@@ -1522,6 +1526,7 @@ examples:
           application/json: {"errors": []}
         "401":
           application/json: {"errors": []}
+        "200": {}
   logLine:
     speakeasy-default-log-line:
       parameters:
@@ -1869,6 +1874,15 @@ examples:
           tonight: 1
           skip: 1
       responses:
+        "400":
+          application/json: {"errors": []}
+        "401":
+          application/json: {"errors": []}
+  getTokenDetails:
+    speakeasy-default-get-token-details:
+      responses:
+        "200":
+          application/json: {"adsConsent": true, "adsConsentReminderAt": "2019-08-24T14:15:22Z", "adsConsentSetAt": "2019-08-24T14:15:22Z", "anonymous": false, "authToken": "CxoUzBTSV5hsxjTpFKaf", "backupCodesCreated": false, "confirmed": false, "country": "US", "email": "username@email.com", "emailOnlyAuth": false, "experimentalFeatures": false, "friendlyName": "friendlyUsername", "entitlements": [], "guest": false, "hasPassword": true, "home": false, "homeAdmin": false, "homeSize": 1, "id": 13692262, "joinedAt": 1721154902, "locale": null, "mailingListActive": false, "mailingListStatus": "unsubscribed", "maxHomeSize": 15, "pin": "string", "profile": {"autoSelectAudio": true, "defaultAudioLanguage": "ja", "defaultSubtitleLanguage": "en", "autoSelectSubtitle": "1", "defaultSubtitleAccessibility": "1", "defaultSubtitleForced": "0", "watchedIndicator": "1", "mediaReviewsVisibility": 0}, "protected": false, "rememberExpiresAt": 1722364046, "restricted": false, "roles": ["string"], "scrobbleTypes": "", "services": [{"identifier": "metadata-dev", "endpoint": "https://epg.provider.plex.tv", "token": "DjoMtqFAGRL1uVtCyF1dKIorTbShJeqv", "secret": "string", "status": "online"}], "subscription": {"features": ["Android - Dolby Vision"], "active": true, "subscribedAt": "2021-04-12T18:21:12Z", "status": "Inactive", "paymentService": "string", "plan": "string"}, "subscriptionDescription": "string", "subscriptions": [{"features": ["Android - Dolby Vision"], "active": true, "subscribedAt": "2021-04-12T18:21:12Z", "status": "Inactive", "paymentService": "string", "plan": "string"}], "thumb": "https://plex.tv/users/a4f43c1ebfde43a5/avatar?c=8372075101", "title": "UsernameTitle", "twoFactorEnabled": false, "username": "Username", "uuid": "dae343c1f45beb4f"}
         "400":
           application/json: {"errors": []}
         "401":

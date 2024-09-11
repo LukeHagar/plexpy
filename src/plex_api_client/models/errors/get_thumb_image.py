@@ -23,7 +23,7 @@ class GetThumbImageMediaErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetThumbImageMediaResponseBodyData(BaseModel):
+class GetThumbImageUnauthorizedData(BaseModel):
     errors: Optional[List[GetThumbImageMediaErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,16 +32,16 @@ class GetThumbImageMediaResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetThumbImageMediaResponseBody(Exception):
+class GetThumbImageUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: GetThumbImageMediaResponseBodyData
+    data: GetThumbImageUnauthorizedData
 
-    def __init__(self, data: GetThumbImageMediaResponseBodyData):
+    def __init__(self, data: GetThumbImageUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetThumbImageMediaResponseBodyData)
+        return utils.marshal_json(self.data, GetThumbImageUnauthorizedData)
 
 
 class GetThumbImageErrorsTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class GetThumbImageErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetThumbImageResponseBodyData(BaseModel):
+class GetThumbImageBadRequestData(BaseModel):
     errors: Optional[List[GetThumbImageErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -67,13 +67,13 @@ class GetThumbImageResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetThumbImageResponseBody(Exception):
+class GetThumbImageBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: GetThumbImageResponseBodyData
+    data: GetThumbImageBadRequestData
 
-    def __init__(self, data: GetThumbImageResponseBodyData):
+    def __init__(self, data: GetThumbImageBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetThumbImageResponseBodyData)
+        return utils.marshal_json(self.data, GetThumbImageBadRequestData)

@@ -23,7 +23,7 @@ class ClearPlaylistContentsPlaylistsErrors(BaseModel):
     status: Optional[int] = None
 
 
-class ClearPlaylistContentsPlaylistsResponseBodyData(BaseModel):
+class ClearPlaylistContentsUnauthorizedData(BaseModel):
     errors: Optional[List[ClearPlaylistContentsPlaylistsErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,18 +32,16 @@ class ClearPlaylistContentsPlaylistsResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class ClearPlaylistContentsPlaylistsResponseBody(Exception):
+class ClearPlaylistContentsUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: ClearPlaylistContentsPlaylistsResponseBodyData
+    data: ClearPlaylistContentsUnauthorizedData
 
-    def __init__(self, data: ClearPlaylistContentsPlaylistsResponseBodyData):
+    def __init__(self, data: ClearPlaylistContentsUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(
-            self.data, ClearPlaylistContentsPlaylistsResponseBodyData
-        )
+        return utils.marshal_json(self.data, ClearPlaylistContentsUnauthorizedData)
 
 
 class ClearPlaylistContentsErrorsTypedDict(TypedDict):
@@ -60,7 +58,7 @@ class ClearPlaylistContentsErrors(BaseModel):
     status: Optional[int] = None
 
 
-class ClearPlaylistContentsResponseBodyData(BaseModel):
+class ClearPlaylistContentsBadRequestData(BaseModel):
     errors: Optional[List[ClearPlaylistContentsErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -69,13 +67,13 @@ class ClearPlaylistContentsResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class ClearPlaylistContentsResponseBody(Exception):
+class ClearPlaylistContentsBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: ClearPlaylistContentsResponseBodyData
+    data: ClearPlaylistContentsBadRequestData
 
-    def __init__(self, data: ClearPlaylistContentsResponseBodyData):
+    def __init__(self, data: ClearPlaylistContentsBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, ClearPlaylistContentsResponseBodyData)
+        return utils.marshal_json(self.data, ClearPlaylistContentsBadRequestData)

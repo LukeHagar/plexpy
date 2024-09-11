@@ -23,7 +23,7 @@ class GetSessionHistorySessionsErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetSessionHistorySessionsResponseBodyData(BaseModel):
+class GetSessionHistoryUnauthorizedData(BaseModel):
     errors: Optional[List[GetSessionHistorySessionsErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,16 +32,16 @@ class GetSessionHistorySessionsResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetSessionHistorySessionsResponseBody(Exception):
+class GetSessionHistoryUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: GetSessionHistorySessionsResponseBodyData
+    data: GetSessionHistoryUnauthorizedData
 
-    def __init__(self, data: GetSessionHistorySessionsResponseBodyData):
+    def __init__(self, data: GetSessionHistoryUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetSessionHistorySessionsResponseBodyData)
+        return utils.marshal_json(self.data, GetSessionHistoryUnauthorizedData)
 
 
 class GetSessionHistoryErrorsTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class GetSessionHistoryErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetSessionHistoryResponseBodyData(BaseModel):
+class GetSessionHistoryBadRequestData(BaseModel):
     errors: Optional[List[GetSessionHistoryErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -67,13 +67,13 @@ class GetSessionHistoryResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetSessionHistoryResponseBody(Exception):
+class GetSessionHistoryBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: GetSessionHistoryResponseBodyData
+    data: GetSessionHistoryBadRequestData
 
-    def __init__(self, data: GetSessionHistoryResponseBodyData):
+    def __init__(self, data: GetSessionHistoryBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetSessionHistoryResponseBodyData)
+        return utils.marshal_json(self.data, GetSessionHistoryBadRequestData)

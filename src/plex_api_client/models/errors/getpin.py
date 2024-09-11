@@ -23,7 +23,7 @@ class GetPinErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetPinResponseBodyData(BaseModel):
+class GetPinBadRequestData(BaseModel):
     errors: Optional[List[GetPinErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,13 +32,13 @@ class GetPinResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetPinResponseBody(Exception):
-    r"""Bad Request response when the X-Plex-Client-Identifier is missing"""
+class GetPinBadRequest(Exception):
+    r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: GetPinResponseBodyData
+    data: GetPinBadRequestData
 
-    def __init__(self, data: GetPinResponseBodyData):
+    def __init__(self, data: GetPinBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetPinResponseBodyData)
+        return utils.marshal_json(self.data, GetPinBadRequestData)

@@ -4,8 +4,8 @@ from .basesdk import BaseSDK
 from plex_api_client import utils
 from plex_api_client._hooks import HookContext
 from plex_api_client.models import errors, operations
-from plex_api_client.types import BaseModel, OptionalNullable, UNSET
-from typing import Any, List, Optional, Union, cast
+from plex_api_client.types import OptionalNullable, UNSET
+from typing import Any, List, Optional
 
 
 class Plex(BaseSDK):
@@ -81,16 +81,16 @@ class Plex(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetCompanionsDataResponseBodyData
+                http_res.text, errors.GetCompanionsDataBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetCompanionsDataResponseBody(data=data)
+            raise errors.GetCompanionsDataBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetCompanionsDataPlexResponseBodyData
+                http_res.text, errors.GetCompanionsDataUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetCompanionsDataPlexResponseBody(data=data)
+            raise errors.GetCompanionsDataUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -174,16 +174,16 @@ class Plex(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetCompanionsDataResponseBodyData
+                http_res.text, errors.GetCompanionsDataBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetCompanionsDataResponseBody(data=data)
+            raise errors.GetCompanionsDataBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetCompanionsDataPlexResponseBodyData
+                http_res.text, errors.GetCompanionsDataUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetCompanionsDataPlexResponseBody(data=data)
+            raise errors.GetCompanionsDataUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -267,16 +267,16 @@ class Plex(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetUserFriendsResponseBodyData
+                http_res.text, errors.GetUserFriendsBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetUserFriendsResponseBody(data=data)
+            raise errors.GetUserFriendsBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetUserFriendsPlexResponseBodyData
+                http_res.text, errors.GetUserFriendsUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetUserFriendsPlexResponseBody(data=data)
+            raise errors.GetUserFriendsUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -360,16 +360,16 @@ class Plex(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetUserFriendsResponseBodyData
+                http_res.text, errors.GetUserFriendsBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetUserFriendsResponseBody(data=data)
+            raise errors.GetUserFriendsBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetUserFriendsPlexResponseBodyData
+                http_res.text, errors.GetUserFriendsUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetUserFriendsPlexResponseBody(data=data)
+            raise errors.GetUserFriendsUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -449,17 +449,15 @@ class Plex(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
-                http_res.text, errors.GetGeoDataResponseBodyData
-            )
+            data = utils.unmarshal_json(http_res.text, errors.GetGeoDataBadRequestData)
             data.raw_response = http_res
-            raise errors.GetGeoDataResponseBody(data=data)
+            raise errors.GetGeoDataBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetGeoDataPlexResponseBodyData
+                http_res.text, errors.GetGeoDataUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetGeoDataPlexResponseBody(data=data)
+            raise errors.GetGeoDataUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -539,17 +537,15 @@ class Plex(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
-                http_res.text, errors.GetGeoDataResponseBodyData
-            )
+            data = utils.unmarshal_json(http_res.text, errors.GetGeoDataBadRequestData)
             data.raw_response = http_res
-            raise errors.GetGeoDataResponseBody(data=data)
+            raise errors.GetGeoDataBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetGeoDataPlexResponseBodyData
+                http_res.text, errors.GetGeoDataUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetGeoDataPlexResponseBody(data=data)
+            raise errors.GetGeoDataUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -630,17 +626,15 @@ class Plex(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
-                http_res.text, errors.GetHomeDataResponseBodyData
-            )
+            data = utils.unmarshal_json(http_res.text, errors.GetHomeDataBadRequestData)
             data.raw_response = http_res
-            raise errors.GetHomeDataResponseBody(data=data)
+            raise errors.GetHomeDataBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetHomeDataPlexResponseBodyData
+                http_res.text, errors.GetHomeDataUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetHomeDataPlexResponseBody(data=data)
+            raise errors.GetHomeDataUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -721,17 +715,15 @@ class Plex(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
-                http_res.text, errors.GetHomeDataResponseBodyData
-            )
+            data = utils.unmarshal_json(http_res.text, errors.GetHomeDataBadRequestData)
             data.raw_response = http_res
-            raise errors.GetHomeDataResponseBody(data=data)
+            raise errors.GetHomeDataBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetHomeDataPlexResponseBodyData
+                http_res.text, errors.GetHomeDataUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetHomeDataPlexResponseBody(data=data)
+            raise errors.GetHomeDataUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -748,10 +740,10 @@ class Plex(BaseSDK):
     def get_server_resources(
         self,
         *,
-        request: Union[
-            operations.GetServerResourcesRequest,
-            operations.GetServerResourcesRequestTypedDict,
-        ],
+        x_plex_client_identifier: Optional[str] = None,
+        include_https: Optional[operations.IncludeHTTPS] = operations.IncludeHTTPS.ZERO,
+        include_relay: Optional[operations.IncludeRelay] = operations.IncludeRelay.ZERO,
+        include_i_pv6: Optional[operations.IncludeIPv6] = operations.IncludeIPv6.ZERO,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -760,7 +752,10 @@ class Plex(BaseSDK):
 
         Get Plex server access tokens and server connections
 
-        :param request: The request object to send.
+        :param x_plex_client_identifier: The unique identifier for the client application This is used to track the client application and its usage (UUID, serial number, or other number unique per device)
+        :param include_https: Include Https entries in the results
+        :param include_relay: Include Relay addresses in the results  E.g: https://10-0-0-25.bbf8e10c7fa20447cacee74cd9914cde.plex.direct:32400
+        :param include_i_pv6: Include IPv6 entries in the results
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -775,9 +770,12 @@ class Plex(BaseSDK):
         else:
             base_url = operations.GET_SERVER_RESOURCES_SERVERS[0]
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, operations.GetServerResourcesRequest)
-        request = cast(operations.GetServerResourcesRequest, request)
+        request = operations.GetServerResourcesRequest(
+            x_plex_client_identifier=x_plex_client_identifier,
+            include_https=include_https,
+            include_relay=include_relay,
+            include_i_pv6=include_i_pv6,
+        )
 
         req = self.build_request(
             method="GET",
@@ -828,16 +826,16 @@ class Plex(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetServerResourcesResponseBodyData
+                http_res.text, errors.GetServerResourcesBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetServerResourcesResponseBody(data=data)
+            raise errors.GetServerResourcesBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetServerResourcesPlexResponseBodyData
+                http_res.text, errors.GetServerResourcesUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetServerResourcesPlexResponseBody(data=data)
+            raise errors.GetServerResourcesUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -854,10 +852,10 @@ class Plex(BaseSDK):
     async def get_server_resources_async(
         self,
         *,
-        request: Union[
-            operations.GetServerResourcesRequest,
-            operations.GetServerResourcesRequestTypedDict,
-        ],
+        x_plex_client_identifier: Optional[str] = None,
+        include_https: Optional[operations.IncludeHTTPS] = operations.IncludeHTTPS.ZERO,
+        include_relay: Optional[operations.IncludeRelay] = operations.IncludeRelay.ZERO,
+        include_i_pv6: Optional[operations.IncludeIPv6] = operations.IncludeIPv6.ZERO,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -866,7 +864,10 @@ class Plex(BaseSDK):
 
         Get Plex server access tokens and server connections
 
-        :param request: The request object to send.
+        :param x_plex_client_identifier: The unique identifier for the client application This is used to track the client application and its usage (UUID, serial number, or other number unique per device)
+        :param include_https: Include Https entries in the results
+        :param include_relay: Include Relay addresses in the results  E.g: https://10-0-0-25.bbf8e10c7fa20447cacee74cd9914cde.plex.direct:32400
+        :param include_i_pv6: Include IPv6 entries in the results
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -881,9 +882,12 @@ class Plex(BaseSDK):
         else:
             base_url = operations.GET_SERVER_RESOURCES_SERVERS[0]
 
-        if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, operations.GetServerResourcesRequest)
-        request = cast(operations.GetServerResourcesRequest, request)
+        request = operations.GetServerResourcesRequest(
+            x_plex_client_identifier=x_plex_client_identifier,
+            include_https=include_https,
+            include_relay=include_relay,
+            include_i_pv6=include_i_pv6,
+        )
 
         req = self.build_request_async(
             method="GET",
@@ -934,16 +938,16 @@ class Plex(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetServerResourcesResponseBodyData
+                http_res.text, errors.GetServerResourcesBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetServerResourcesResponseBody(data=data)
+            raise errors.GetServerResourcesBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetServerResourcesPlexResponseBodyData
+                http_res.text, errors.GetServerResourcesUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetServerResourcesPlexResponseBody(data=data)
+            raise errors.GetServerResourcesUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -1039,9 +1043,9 @@ class Plex(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.GetPinResponseBodyData)
+            data = utils.unmarshal_json(http_res.text, errors.GetPinBadRequestData)
             data.raw_response = http_res
-            raise errors.GetPinResponseBody(data=data)
+            raise errors.GetPinBadRequest(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -1137,9 +1141,9 @@ class Plex(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.GetPinResponseBodyData)
+            data = utils.unmarshal_json(http_res.text, errors.GetPinBadRequestData)
             data.raw_response = http_res
-            raise errors.GetPinResponseBody(data=data)
+            raise errors.GetPinBadRequest(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -1233,16 +1237,16 @@ class Plex(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
+                http_res.text, errors.GetTokenByPinIDBadRequestData
+            )
+            data.raw_response = http_res
+            raise errors.GetTokenByPinIDBadRequest(data=data)
+        if utils.match_response(http_res, "404", "application/json"):
+            data = utils.unmarshal_json(
                 http_res.text, errors.GetTokenByPinIDResponseBodyData
             )
             data.raw_response = http_res
             raise errors.GetTokenByPinIDResponseBody(data=data)
-        if utils.match_response(http_res, "404", "application/json"):
-            data = utils.unmarshal_json(
-                http_res.text, errors.GetTokenByPinIDPlexResponseBodyData
-            )
-            data.raw_response = http_res
-            raise errors.GetTokenByPinIDPlexResponseBody(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -1336,16 +1340,16 @@ class Plex(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
+                http_res.text, errors.GetTokenByPinIDBadRequestData
+            )
+            data.raw_response = http_res
+            raise errors.GetTokenByPinIDBadRequest(data=data)
+        if utils.match_response(http_res, "404", "application/json"):
+            data = utils.unmarshal_json(
                 http_res.text, errors.GetTokenByPinIDResponseBodyData
             )
             data.raw_response = http_res
             raise errors.GetTokenByPinIDResponseBody(data=data)
-        if utils.match_response(http_res, "404", "application/json"):
-            data = utils.unmarshal_json(
-                http_res.text, errors.GetTokenByPinIDPlexResponseBodyData
-            )
-            data.raw_response = http_res
-            raise errors.GetTokenByPinIDPlexResponseBody(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res

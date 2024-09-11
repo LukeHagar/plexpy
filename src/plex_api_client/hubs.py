@@ -89,16 +89,16 @@ class Hubs(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetGlobalHubsResponseBodyData
+                http_res.text, errors.GetGlobalHubsBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetGlobalHubsResponseBody(data=data)
+            raise errors.GetGlobalHubsBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetGlobalHubsHubsResponseBodyData
+                http_res.text, errors.GetGlobalHubsUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetGlobalHubsHubsResponseBody(data=data)
+            raise errors.GetGlobalHubsUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -190,16 +190,16 @@ class Hubs(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetGlobalHubsResponseBodyData
+                http_res.text, errors.GetGlobalHubsBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetGlobalHubsResponseBody(data=data)
+            raise errors.GetGlobalHubsBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetGlobalHubsHubsResponseBodyData
+                http_res.text, errors.GetGlobalHubsUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetGlobalHubsHubsResponseBody(data=data)
+            raise errors.GetGlobalHubsUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -295,16 +295,16 @@ class Hubs(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetLibraryHubsResponseBodyData
+                http_res.text, errors.GetLibraryHubsBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetLibraryHubsResponseBody(data=data)
+            raise errors.GetLibraryHubsBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetLibraryHubsHubsResponseBodyData
+                http_res.text, errors.GetLibraryHubsUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetLibraryHubsHubsResponseBody(data=data)
+            raise errors.GetLibraryHubsUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -400,16 +400,16 @@ class Hubs(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetLibraryHubsResponseBodyData
+                http_res.text, errors.GetLibraryHubsBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetLibraryHubsResponseBody(data=data)
+            raise errors.GetLibraryHubsBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetLibraryHubsHubsResponseBodyData
+                http_res.text, errors.GetLibraryHubsUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetLibraryHubsHubsResponseBody(data=data)
+            raise errors.GetLibraryHubsUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res

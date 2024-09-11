@@ -84,17 +84,15 @@ class Video(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
-                http_res.text, errors.GetTimelineResponseBodyData
-            )
+            data = utils.unmarshal_json(http_res.text, errors.GetTimelineBadRequestData)
             data.raw_response = http_res
-            raise errors.GetTimelineResponseBody(data=data)
+            raise errors.GetTimelineBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetTimelineVideoResponseBodyData
+                http_res.text, errors.GetTimelineUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetTimelineVideoResponseBody(data=data)
+            raise errors.GetTimelineUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -181,17 +179,15 @@ class Video(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
-                http_res.text, errors.GetTimelineResponseBodyData
-            )
+            data = utils.unmarshal_json(http_res.text, errors.GetTimelineBadRequestData)
             data.raw_response = http_res
-            raise errors.GetTimelineResponseBody(data=data)
+            raise errors.GetTimelineBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetTimelineVideoResponseBodyData
+                http_res.text, errors.GetTimelineUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetTimelineVideoResponseBody(data=data)
+            raise errors.GetTimelineUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -282,16 +278,16 @@ class Video(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.StartUniversalTranscodeResponseBodyData
+                http_res.text, errors.StartUniversalTranscodeBadRequestData
             )
             data.raw_response = http_res
-            raise errors.StartUniversalTranscodeResponseBody(data=data)
+            raise errors.StartUniversalTranscodeBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.StartUniversalTranscodeVideoResponseBodyData
+                http_res.text, errors.StartUniversalTranscodeUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.StartUniversalTranscodeVideoResponseBody(data=data)
+            raise errors.StartUniversalTranscodeUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -382,16 +378,16 @@ class Video(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.StartUniversalTranscodeResponseBodyData
+                http_res.text, errors.StartUniversalTranscodeBadRequestData
             )
             data.raw_response = http_res
-            raise errors.StartUniversalTranscodeResponseBody(data=data)
+            raise errors.StartUniversalTranscodeBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.StartUniversalTranscodeVideoResponseBodyData
+                http_res.text, errors.StartUniversalTranscodeUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.StartUniversalTranscodeVideoResponseBody(data=data)
+            raise errors.StartUniversalTranscodeUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res

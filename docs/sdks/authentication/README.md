@@ -8,9 +8,9 @@ API Calls regarding authentication for Plex Media Server
 
 ### Available Operations
 
-* [get_transient_token](#get_transient_token) - Get a Transient Token.
+* [get_transient_token](#get_transient_token) - Get a Transient Token
 * [get_source_connection_information](#get_source_connection_information) - Get Source Connection Information
-* [get_user_details](#get_user_details) - Get User Data By Token
+* [get_token_details](#get_token_details) - Get Token Details
 * [post_users_sign_in_data](#post_users_sign_in_data) - Get User Sign In Data
 
 ## get_transient_token
@@ -51,11 +51,11 @@ if res is not None:
 
 ### Errors
 
-| Error Object                                       | Status Code                                        | Content Type                                       |
-| -------------------------------------------------- | -------------------------------------------------- | -------------------------------------------------- |
-| errors.GetTransientTokenResponseBody               | 400                                                | application/json                                   |
-| errors.GetTransientTokenAuthenticationResponseBody | 401                                                | application/json                                   |
-| errors.SDKError                                    | 4xx-5xx                                            | */*                                                |
+| Error Object                         | Status Code                          | Content Type                         |
+| ------------------------------------ | ------------------------------------ | ------------------------------------ |
+| errors.GetTransientTokenBadRequest   | 400                                  | application/json                     |
+| errors.GetTransientTokenUnauthorized | 401                                  | application/json                     |
+| errors.SDKError                      | 4xx-5xx                              | */*                                  |
 
 
 ## get_source_connection_information
@@ -95,14 +95,14 @@ if res is not None:
 
 ### Errors
 
-| Error Object                                                    | Status Code                                                     | Content Type                                                    |
-| --------------------------------------------------------------- | --------------------------------------------------------------- | --------------------------------------------------------------- |
-| errors.GetSourceConnectionInformationResponseBody               | 400                                                             | application/json                                                |
-| errors.GetSourceConnectionInformationAuthenticationResponseBody | 401                                                             | application/json                                                |
-| errors.SDKError                                                 | 4xx-5xx                                                         | */*                                                             |
+| Error Object                                      | Status Code                                       | Content Type                                      |
+| ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- |
+| errors.GetSourceConnectionInformationBadRequest   | 400                                               | application/json                                  |
+| errors.GetSourceConnectionInformationUnauthorized | 401                                               | application/json                                  |
+| errors.SDKError                                   | 4xx-5xx                                           | */*                                               |
 
 
-## get_user_details
+## get_token_details
 
 Get the User data from the provided X-Plex-Token
 
@@ -116,7 +116,7 @@ s = PlexAPI(
     x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
 )
 
-res = s.authentication.get_user_details(x_plex_token="CV5xoxjTpFKUzBTShsaf")
+res = s.authentication.get_token_details()
 
 if res.user_plex_account is not None:
     # handle response
@@ -126,23 +126,22 @@ if res.user_plex_account is not None:
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `x_plex_token`                                                      | *str*                                                               | :heavy_check_mark:                                                  | Plex Authentication Token                                           | CV5xoxjTpFKUzBTShsaf                                                |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
-| `server_url`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | An optional server URL to use.                                      | http://localhost:8080                                               |
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| `server_url`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | An optional server URL to use.                                      |
 
 ### Response
 
-**[operations.GetUserDetailsResponse](../../models/operations/getuserdetailsresponse.md)**
+**[operations.GetTokenDetailsResponse](../../models/operations/gettokendetailsresponse.md)**
 
 ### Errors
 
-| Error Object                                    | Status Code                                     | Content Type                                    |
-| ----------------------------------------------- | ----------------------------------------------- | ----------------------------------------------- |
-| errors.GetUserDetailsResponseBody               | 400                                             | application/json                                |
-| errors.GetUserDetailsAuthenticationResponseBody | 401                                             | application/json                                |
-| errors.SDKError                                 | 4xx-5xx                                         | */*                                             |
+| Error Object                       | Status Code                        | Content Type                       |
+| ---------------------------------- | ---------------------------------- | ---------------------------------- |
+| errors.GetTokenDetailsBadRequest   | 400                                | application/json                   |
+| errors.GetTokenDetailsUnauthorized | 401                                | application/json                   |
+| errors.SDKError                    | 4xx-5xx                            | */*                                |
 
 
 ## post_users_sign_in_data
@@ -185,8 +184,8 @@ if res.user_plex_account is not None:
 
 ### Errors
 
-| Error Object                                         | Status Code                                          | Content Type                                         |
-| ---------------------------------------------------- | ---------------------------------------------------- | ---------------------------------------------------- |
-| errors.PostUsersSignInDataResponseBody               | 400                                                  | application/json                                     |
-| errors.PostUsersSignInDataAuthenticationResponseBody | 401                                                  | application/json                                     |
-| errors.SDKError                                      | 4xx-5xx                                              | */*                                                  |
+| Error Object                           | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.PostUsersSignInDataBadRequest   | 400                                    | application/json                       |
+| errors.PostUsersSignInDataUnauthorized | 401                                    | application/json                       |
+| errors.SDKError                        | 4xx-5xx                                | */*                                    |

@@ -23,7 +23,7 @@ class LogMultiLineLogErrors(BaseModel):
     status: Optional[int] = None
 
 
-class LogMultiLineLogResponseBodyData(BaseModel):
+class LogMultiLineUnauthorizedData(BaseModel):
     errors: Optional[List[LogMultiLineLogErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,16 +32,16 @@ class LogMultiLineLogResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class LogMultiLineLogResponseBody(Exception):
+class LogMultiLineUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: LogMultiLineLogResponseBodyData
+    data: LogMultiLineUnauthorizedData
 
-    def __init__(self, data: LogMultiLineLogResponseBodyData):
+    def __init__(self, data: LogMultiLineUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, LogMultiLineLogResponseBodyData)
+        return utils.marshal_json(self.data, LogMultiLineUnauthorizedData)
 
 
 class LogMultiLineErrorsTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class LogMultiLineErrors(BaseModel):
     status: Optional[int] = None
 
 
-class LogMultiLineResponseBodyData(BaseModel):
+class LogMultiLineBadRequestData(BaseModel):
     errors: Optional[List[LogMultiLineErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -67,13 +67,13 @@ class LogMultiLineResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class LogMultiLineResponseBody(Exception):
+class LogMultiLineBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: LogMultiLineResponseBodyData
+    data: LogMultiLineBadRequestData
 
-    def __init__(self, data: LogMultiLineResponseBodyData):
+    def __init__(self, data: LogMultiLineBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, LogMultiLineResponseBodyData)
+        return utils.marshal_json(self.data, LogMultiLineBadRequestData)

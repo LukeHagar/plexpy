@@ -23,7 +23,7 @@ class GetMetadataChildrenLibraryErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetMetadataChildrenLibraryResponseBodyData(BaseModel):
+class GetMetadataChildrenUnauthorizedData(BaseModel):
     errors: Optional[List[GetMetadataChildrenLibraryErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,16 +32,16 @@ class GetMetadataChildrenLibraryResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetMetadataChildrenLibraryResponseBody(Exception):
+class GetMetadataChildrenUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: GetMetadataChildrenLibraryResponseBodyData
+    data: GetMetadataChildrenUnauthorizedData
 
-    def __init__(self, data: GetMetadataChildrenLibraryResponseBodyData):
+    def __init__(self, data: GetMetadataChildrenUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetMetadataChildrenLibraryResponseBodyData)
+        return utils.marshal_json(self.data, GetMetadataChildrenUnauthorizedData)
 
 
 class GetMetadataChildrenErrorsTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class GetMetadataChildrenErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetMetadataChildrenResponseBodyData(BaseModel):
+class GetMetadataChildrenBadRequestData(BaseModel):
     errors: Optional[List[GetMetadataChildrenErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -67,13 +67,13 @@ class GetMetadataChildrenResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetMetadataChildrenResponseBody(Exception):
+class GetMetadataChildrenBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: GetMetadataChildrenResponseBodyData
+    data: GetMetadataChildrenBadRequestData
 
-    def __init__(self, data: GetMetadataChildrenResponseBodyData):
+    def __init__(self, data: GetMetadataChildrenBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetMetadataChildrenResponseBodyData)
+        return utils.marshal_json(self.data, GetMetadataChildrenBadRequestData)

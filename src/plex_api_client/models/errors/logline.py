@@ -23,7 +23,7 @@ class LogLineLogErrors(BaseModel):
     status: Optional[int] = None
 
 
-class LogLineLogResponseBodyData(BaseModel):
+class LogLineUnauthorizedData(BaseModel):
     errors: Optional[List[LogLineLogErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,16 +32,16 @@ class LogLineLogResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class LogLineLogResponseBody(Exception):
+class LogLineUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: LogLineLogResponseBodyData
+    data: LogLineUnauthorizedData
 
-    def __init__(self, data: LogLineLogResponseBodyData):
+    def __init__(self, data: LogLineUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, LogLineLogResponseBodyData)
+        return utils.marshal_json(self.data, LogLineUnauthorizedData)
 
 
 class LogLineErrorsTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class LogLineErrors(BaseModel):
     status: Optional[int] = None
 
 
-class LogLineResponseBodyData(BaseModel):
+class LogLineBadRequestData(BaseModel):
     errors: Optional[List[LogLineErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -67,13 +67,13 @@ class LogLineResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class LogLineResponseBody(Exception):
+class LogLineBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: LogLineResponseBodyData
+    data: LogLineBadRequestData
 
-    def __init__(self, data: LogLineResponseBodyData):
+    def __init__(self, data: LogLineBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, LogLineResponseBodyData)
+        return utils.marshal_json(self.data, LogLineBadRequestData)

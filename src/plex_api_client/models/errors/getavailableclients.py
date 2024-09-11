@@ -23,7 +23,7 @@ class GetAvailableClientsServerErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetAvailableClientsServerResponseBodyData(BaseModel):
+class GetAvailableClientsUnauthorizedData(BaseModel):
     errors: Optional[List[GetAvailableClientsServerErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,16 +32,16 @@ class GetAvailableClientsServerResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetAvailableClientsServerResponseBody(Exception):
+class GetAvailableClientsUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: GetAvailableClientsServerResponseBodyData
+    data: GetAvailableClientsUnauthorizedData
 
-    def __init__(self, data: GetAvailableClientsServerResponseBodyData):
+    def __init__(self, data: GetAvailableClientsUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetAvailableClientsServerResponseBodyData)
+        return utils.marshal_json(self.data, GetAvailableClientsUnauthorizedData)
 
 
 class GetAvailableClientsErrorsTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class GetAvailableClientsErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetAvailableClientsResponseBodyData(BaseModel):
+class GetAvailableClientsBadRequestData(BaseModel):
     errors: Optional[List[GetAvailableClientsErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -67,13 +67,13 @@ class GetAvailableClientsResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetAvailableClientsResponseBody(Exception):
+class GetAvailableClientsBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: GetAvailableClientsResponseBodyData
+    data: GetAvailableClientsBadRequestData
 
-    def __init__(self, data: GetAvailableClientsResponseBodyData):
+    def __init__(self, data: GetAvailableClientsBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetAvailableClientsResponseBodyData)
+        return utils.marshal_json(self.data, GetAvailableClientsBadRequestData)

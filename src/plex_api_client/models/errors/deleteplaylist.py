@@ -23,7 +23,7 @@ class DeletePlaylistPlaylistsErrors(BaseModel):
     status: Optional[int] = None
 
 
-class DeletePlaylistPlaylistsResponseBodyData(BaseModel):
+class DeletePlaylistUnauthorizedData(BaseModel):
     errors: Optional[List[DeletePlaylistPlaylistsErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,16 +32,16 @@ class DeletePlaylistPlaylistsResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class DeletePlaylistPlaylistsResponseBody(Exception):
+class DeletePlaylistUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: DeletePlaylistPlaylistsResponseBodyData
+    data: DeletePlaylistUnauthorizedData
 
-    def __init__(self, data: DeletePlaylistPlaylistsResponseBodyData):
+    def __init__(self, data: DeletePlaylistUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, DeletePlaylistPlaylistsResponseBodyData)
+        return utils.marshal_json(self.data, DeletePlaylistUnauthorizedData)
 
 
 class DeletePlaylistErrorsTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class DeletePlaylistErrors(BaseModel):
     status: Optional[int] = None
 
 
-class DeletePlaylistResponseBodyData(BaseModel):
+class DeletePlaylistBadRequestData(BaseModel):
     errors: Optional[List[DeletePlaylistErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -67,13 +67,13 @@ class DeletePlaylistResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class DeletePlaylistResponseBody(Exception):
+class DeletePlaylistBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: DeletePlaylistResponseBodyData
+    data: DeletePlaylistBadRequestData
 
-    def __init__(self, data: DeletePlaylistResponseBodyData):
+    def __init__(self, data: DeletePlaylistBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, DeletePlaylistResponseBodyData)
+        return utils.marshal_json(self.data, DeletePlaylistBadRequestData)

@@ -23,7 +23,7 @@ class GetBannerImageMediaErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetBannerImageMediaResponseBodyData(BaseModel):
+class GetBannerImageUnauthorizedData(BaseModel):
     errors: Optional[List[GetBannerImageMediaErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,16 +32,16 @@ class GetBannerImageMediaResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetBannerImageMediaResponseBody(Exception):
+class GetBannerImageUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: GetBannerImageMediaResponseBodyData
+    data: GetBannerImageUnauthorizedData
 
-    def __init__(self, data: GetBannerImageMediaResponseBodyData):
+    def __init__(self, data: GetBannerImageUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetBannerImageMediaResponseBodyData)
+        return utils.marshal_json(self.data, GetBannerImageUnauthorizedData)
 
 
 class GetBannerImageErrorsTypedDict(TypedDict):
@@ -58,7 +58,7 @@ class GetBannerImageErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetBannerImageResponseBodyData(BaseModel):
+class GetBannerImageBadRequestData(BaseModel):
     errors: Optional[List[GetBannerImageErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -67,13 +67,13 @@ class GetBannerImageResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetBannerImageResponseBody(Exception):
+class GetBannerImageBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: GetBannerImageResponseBodyData
+    data: GetBannerImageBadRequestData
 
-    def __init__(self, data: GetBannerImageResponseBodyData):
+    def __init__(self, data: GetBannerImageBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetBannerImageResponseBodyData)
+        return utils.marshal_json(self.data, GetBannerImageBadRequestData)

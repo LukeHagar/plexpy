@@ -63,8 +63,6 @@ class IncludeIPv6(int, Enum):
 
 
 class GetServerResourcesRequestTypedDict(TypedDict):
-    x_plex_token: str
-    r"""Plex Authentication Token"""
     x_plex_client_identifier: NotRequired[str]
     r"""The unique identifier for the client application
     This is used to track the client application and its usage
@@ -83,13 +81,6 @@ class GetServerResourcesRequestTypedDict(TypedDict):
 
 
 class GetServerResourcesRequest(BaseModel):
-    x_plex_token: Annotated[
-        str,
-        pydantic.Field(alias="X-Plex-Token"),
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ]
-    r"""Plex Authentication Token"""
-
     x_plex_client_identifier: Annotated[
         Optional[str],
         pydantic.Field(alias="X-Plex-Client-Identifier"),
