@@ -107,35 +107,20 @@ asyncio.run(main())
 <!-- Start Available Resources and Operations [operations] -->
 ## Available Resources and Operations
 
-### [server](docs/sdks/server/README.md)
-
-* [get_server_capabilities](docs/sdks/server/README.md#get_server_capabilities) - Get Server Capabilities
-* [get_server_preferences](docs/sdks/server/README.md#get_server_preferences) - Get Server Preferences
-* [get_available_clients](docs/sdks/server/README.md#get_available_clients) - Get Available Clients
-* [get_devices](docs/sdks/server/README.md#get_devices) - Get Devices
-* [get_server_identity](docs/sdks/server/README.md#get_server_identity) - Get Server Identity
-* [get_my_plex_account](docs/sdks/server/README.md#get_my_plex_account) - Get MyPlex Account
-* [get_resized_photo](docs/sdks/server/README.md#get_resized_photo) - Get a Resized Photo
-* [get_media_providers](docs/sdks/server/README.md#get_media_providers) - Get Media Providers
-* [get_server_list](docs/sdks/server/README.md#get_server_list) - Get Server List
-
-### [media](docs/sdks/media/README.md)
-
-* [mark_played](docs/sdks/media/README.md#mark_played) - Mark Media Played
-* [mark_unplayed](docs/sdks/media/README.md#mark_unplayed) - Mark Media Unplayed
-* [update_play_progress](docs/sdks/media/README.md#update_play_progress) - Update Media Play Progress
-* [get_banner_image](docs/sdks/media/README.md#get_banner_image) - Get Banner Image
-* [get_thumb_image](docs/sdks/media/README.md#get_thumb_image) - Get Thumb Image
-
-### [video](docs/sdks/video/README.md)
-
-* [get_timeline](docs/sdks/video/README.md#get_timeline) - Get the timeline for a media item
-* [start_universal_transcode](docs/sdks/video/README.md#start_universal_transcode) - Start Universal Transcode
+<details open>
+<summary>Available methods</summary>
 
 ### [activities](docs/sdks/activities/README.md)
 
 * [get_server_activities](docs/sdks/activities/README.md#get_server_activities) - Get Server Activities
 * [cancel_server_activities](docs/sdks/activities/README.md#cancel_server_activities) - Cancel Server Activities
+
+### [authentication](docs/sdks/authentication/README.md)
+
+* [get_transient_token](docs/sdks/authentication/README.md#get_transient_token) - Get a Transient Token
+* [get_source_connection_information](docs/sdks/authentication/README.md#get_source_connection_information) - Get Source Connection Information
+* [get_token_details](docs/sdks/authentication/README.md#get_token_details) - Get Token Details
+* [post_users_sign_in_data](docs/sdks/authentication/README.md#post_users_sign_in_data) - Get User Sign In Data
 
 ### [butler](docs/sdks/butler/README.md)
 
@@ -145,26 +130,10 @@ asyncio.run(main())
 * [start_task](docs/sdks/butler/README.md#start_task) - Start a single Butler task
 * [stop_task](docs/sdks/butler/README.md#stop_task) - Stop a single Butler task
 
-### [plex](docs/sdks/plex/README.md)
-
-* [get_companions_data](docs/sdks/plex/README.md#get_companions_data) - Get Companions Data
-* [get_user_friends](docs/sdks/plex/README.md#get_user_friends) - Get list of friends of the user logged in
-* [get_geo_data](docs/sdks/plex/README.md#get_geo_data) - Get Geo Data
-* [get_home_data](docs/sdks/plex/README.md#get_home_data) - Get Plex Home Data
-* [get_server_resources](docs/sdks/plex/README.md#get_server_resources) - Get Server Resources
-* [get_pin](docs/sdks/plex/README.md#get_pin) - Get a Pin
-* [get_token_by_pin_id](docs/sdks/plex/README.md#get_token_by_pin_id) - Get Access Token by PinId
-
 ### [hubs](docs/sdks/hubs/README.md)
 
 * [get_global_hubs](docs/sdks/hubs/README.md#get_global_hubs) - Get Global Hubs
 * [get_library_hubs](docs/sdks/hubs/README.md#get_library_hubs) - Get library specific hubs
-
-### [search](docs/sdks/search/README.md)
-
-* [perform_search](docs/sdks/search/README.md#perform_search) - Perform a search
-* [perform_voice_search](docs/sdks/search/README.md#perform_voice_search) - Perform a voice search
-* [get_search_results](docs/sdks/search/README.md#get_search_results) - Get Search Results
 
 ### [library](docs/sdks/library/README.md)
 
@@ -181,15 +150,19 @@ asyncio.run(main())
 * [get_top_watched_content](docs/sdks/library/README.md#get_top_watched_content) - Get Top Watched Content
 * [get_on_deck](docs/sdks/library/README.md#get_on_deck) - Get On Deck
 
-### [watchlist](docs/sdks/watchlist/README.md)
-
-* [get_watch_list](docs/sdks/watchlist/README.md#get_watch_list) - Get User Watchlist
-
 ### [log](docs/sdks/log/README.md)
 
 * [log_line](docs/sdks/log/README.md#log_line) - Logging a single line message.
 * [log_multi_line](docs/sdks/log/README.md#log_multi_line) - Logging a multi-line message
 * [enable_paper_trail](docs/sdks/log/README.md#enable_paper_trail) - Enabling Papertrail
+
+### [media](docs/sdks/media/README.md)
+
+* [mark_played](docs/sdks/media/README.md#mark_played) - Mark Media Played
+* [mark_unplayed](docs/sdks/media/README.md#mark_unplayed) - Mark Media Unplayed
+* [update_play_progress](docs/sdks/media/README.md#update_play_progress) - Update Media Play Progress
+* [get_banner_image](docs/sdks/media/README.md#get_banner_image) - Get Banner Image
+* [get_thumb_image](docs/sdks/media/README.md#get_thumb_image) - Get Thumb Image
 
 ### [playlists](docs/sdks/playlists/README.md)
 
@@ -203,18 +176,34 @@ asyncio.run(main())
 * [add_playlist_contents](docs/sdks/playlists/README.md#add_playlist_contents) - Adding to a Playlist
 * [upload_playlist](docs/sdks/playlists/README.md#upload_playlist) - Upload Playlist
 
-### [authentication](docs/sdks/authentication/README.md)
+### [plex](docs/sdks/plex/README.md)
 
-* [get_transient_token](docs/sdks/authentication/README.md#get_transient_token) - Get a Transient Token
-* [get_source_connection_information](docs/sdks/authentication/README.md#get_source_connection_information) - Get Source Connection Information
-* [get_token_details](docs/sdks/authentication/README.md#get_token_details) - Get Token Details
-* [post_users_sign_in_data](docs/sdks/authentication/README.md#post_users_sign_in_data) - Get User Sign In Data
+* [get_companions_data](docs/sdks/plex/README.md#get_companions_data) - Get Companions Data
+* [get_user_friends](docs/sdks/plex/README.md#get_user_friends) - Get list of friends of the user logged in
+* [get_geo_data](docs/sdks/plex/README.md#get_geo_data) - Get Geo Data
+* [get_home_data](docs/sdks/plex/README.md#get_home_data) - Get Plex Home Data
+* [get_server_resources](docs/sdks/plex/README.md#get_server_resources) - Get Server Resources
+* [get_pin](docs/sdks/plex/README.md#get_pin) - Get a Pin
+* [get_token_by_pin_id](docs/sdks/plex/README.md#get_token_by_pin_id) - Get Access Token by PinId
 
-### [statistics](docs/sdks/statistics/README.md)
 
-* [get_statistics](docs/sdks/statistics/README.md#get_statistics) - Get Media Statistics
-* [get_resources_statistics](docs/sdks/statistics/README.md#get_resources_statistics) - Get Resources Statistics
-* [get_bandwidth_statistics](docs/sdks/statistics/README.md#get_bandwidth_statistics) - Get Bandwidth Statistics
+### [search](docs/sdks/search/README.md)
+
+* [perform_search](docs/sdks/search/README.md#perform_search) - Perform a search
+* [perform_voice_search](docs/sdks/search/README.md#perform_voice_search) - Perform a voice search
+* [get_search_results](docs/sdks/search/README.md#get_search_results) - Get Search Results
+
+### [server](docs/sdks/server/README.md)
+
+* [get_server_capabilities](docs/sdks/server/README.md#get_server_capabilities) - Get Server Capabilities
+* [get_server_preferences](docs/sdks/server/README.md#get_server_preferences) - Get Server Preferences
+* [get_available_clients](docs/sdks/server/README.md#get_available_clients) - Get Available Clients
+* [get_devices](docs/sdks/server/README.md#get_devices) - Get Devices
+* [get_server_identity](docs/sdks/server/README.md#get_server_identity) - Get Server Identity
+* [get_my_plex_account](docs/sdks/server/README.md#get_my_plex_account) - Get MyPlex Account
+* [get_resized_photo](docs/sdks/server/README.md#get_resized_photo) - Get a Resized Photo
+* [get_media_providers](docs/sdks/server/README.md#get_media_providers) - Get Media Providers
+* [get_server_list](docs/sdks/server/README.md#get_server_list) - Get Server List
 
 ### [sessions](docs/sdks/sessions/README.md)
 
@@ -223,11 +212,28 @@ asyncio.run(main())
 * [get_transcode_sessions](docs/sdks/sessions/README.md#get_transcode_sessions) - Get Transcode Sessions
 * [stop_transcode_session](docs/sdks/sessions/README.md#stop_transcode_session) - Stop a Transcode Session
 
+### [statistics](docs/sdks/statistics/README.md)
+
+* [get_statistics](docs/sdks/statistics/README.md#get_statistics) - Get Media Statistics
+* [get_resources_statistics](docs/sdks/statistics/README.md#get_resources_statistics) - Get Resources Statistics
+* [get_bandwidth_statistics](docs/sdks/statistics/README.md#get_bandwidth_statistics) - Get Bandwidth Statistics
+
 ### [updater](docs/sdks/updater/README.md)
 
 * [get_update_status](docs/sdks/updater/README.md#get_update_status) - Querying status of updates
 * [check_for_updates](docs/sdks/updater/README.md#check_for_updates) - Checking for updates
 * [apply_updates](docs/sdks/updater/README.md#apply_updates) - Apply Updates
+
+### [video](docs/sdks/video/README.md)
+
+* [get_timeline](docs/sdks/video/README.md#get_timeline) - Get the timeline for a media item
+* [start_universal_transcode](docs/sdks/video/README.md#start_universal_transcode) - Start Universal Transcode
+
+### [watchlist](docs/sdks/watchlist/README.md)
+
+* [get_watch_list](docs/sdks/watchlist/README.md#get_watch_list) - Get User Watchlist
+
+</details>
 <!-- End Available Resources and Operations [operations] -->
 
 <!-- Start Retries [retries] -->
