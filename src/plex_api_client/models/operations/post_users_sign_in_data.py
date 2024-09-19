@@ -23,7 +23,7 @@ POST_USERS_SIGN_IN_DATA_SERVERS = [
 
 
 class PostUsersSignInDataGlobalsTypedDict(TypedDict):
-    x_plex_client_identifier: NotRequired[str]
+    client_id: NotRequired[str]
     r"""The unique identifier for the client application
     This is used to track the client application and its usage
     (UUID, serial number, or other number unique per device)
@@ -32,7 +32,7 @@ class PostUsersSignInDataGlobalsTypedDict(TypedDict):
 
 
 class PostUsersSignInDataGlobals(BaseModel):
-    x_plex_client_identifier: Annotated[
+    client_id: Annotated[
         Optional[str],
         pydantic.Field(alias="X-Plex-Client-Identifier"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
@@ -72,7 +72,7 @@ class PostUsersSignInDataRequestBody(BaseModel):
 
 
 class PostUsersSignInDataRequestTypedDict(TypedDict):
-    x_plex_client_identifier: NotRequired[str]
+    client_id: NotRequired[str]
     r"""The unique identifier for the client application
     This is used to track the client application and its usage
     (UUID, serial number, or other number unique per device)
@@ -83,7 +83,7 @@ class PostUsersSignInDataRequestTypedDict(TypedDict):
 
 
 class PostUsersSignInDataRequest(BaseModel):
-    x_plex_client_identifier: Annotated[
+    client_id: Annotated[
         Optional[str],
         pydantic.Field(alias="X-Plex-Client-Identifier"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),

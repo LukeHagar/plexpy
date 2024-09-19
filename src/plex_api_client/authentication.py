@@ -592,7 +592,7 @@ class Authentication(BaseSDK):
     def post_users_sign_in_data(
         self,
         *,
-        x_plex_client_identifier: Optional[str] = None,
+        client_id: Optional[str] = None,
         request_body: Optional[
             Union[
                 operations.PostUsersSignInDataRequestBody,
@@ -607,7 +607,7 @@ class Authentication(BaseSDK):
 
         Sign in user with username and password and return user data with Plex authentication token
 
-        :param x_plex_client_identifier: The unique identifier for the client application This is used to track the client application and its usage (UUID, serial number, or other number unique per device)
+        :param client_id: The unique identifier for the client application This is used to track the client application and its usage (UUID, serial number, or other number unique per device)
         :param request_body: Login credentials
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -624,7 +624,7 @@ class Authentication(BaseSDK):
             base_url = operations.POST_USERS_SIGN_IN_DATA_SERVERS[0]
 
         request = operations.PostUsersSignInDataRequest(
-            x_plex_client_identifier=x_plex_client_identifier,
+            client_id=client_id,
             request_body=utils.get_pydantic_model(
                 request_body, Optional[operations.PostUsersSignInDataRequestBody]
             ),
@@ -642,7 +642,7 @@ class Authentication(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             _globals=operations.PostUsersSignInDataGlobals(
-                x_plex_client_identifier=self.sdk_configuration.globals.x_plex_client_identifier,
+                client_id=self.sdk_configuration.globals.client_id,
             ),
             get_serialized_body=lambda: utils.serialize_request_body(
                 request.request_body,
@@ -712,7 +712,7 @@ class Authentication(BaseSDK):
     async def post_users_sign_in_data_async(
         self,
         *,
-        x_plex_client_identifier: Optional[str] = None,
+        client_id: Optional[str] = None,
         request_body: Optional[
             Union[
                 operations.PostUsersSignInDataRequestBody,
@@ -727,7 +727,7 @@ class Authentication(BaseSDK):
 
         Sign in user with username and password and return user data with Plex authentication token
 
-        :param x_plex_client_identifier: The unique identifier for the client application This is used to track the client application and its usage (UUID, serial number, or other number unique per device)
+        :param client_id: The unique identifier for the client application This is used to track the client application and its usage (UUID, serial number, or other number unique per device)
         :param request_body: Login credentials
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -744,7 +744,7 @@ class Authentication(BaseSDK):
             base_url = operations.POST_USERS_SIGN_IN_DATA_SERVERS[0]
 
         request = operations.PostUsersSignInDataRequest(
-            x_plex_client_identifier=x_plex_client_identifier,
+            client_id=client_id,
             request_body=utils.get_pydantic_model(
                 request_body, Optional[operations.PostUsersSignInDataRequestBody]
             ),
@@ -762,7 +762,7 @@ class Authentication(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             _globals=operations.PostUsersSignInDataGlobals(
-                x_plex_client_identifier=self.sdk_configuration.globals.x_plex_client_identifier,
+                client_id=self.sdk_configuration.globals.client_id,
             ),
             get_serialized_body=lambda: utils.serialize_request_body(
                 request.request_body,

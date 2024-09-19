@@ -28,7 +28,11 @@ from plex_api_client import PlexAPI
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
+    client_id="gcgzw5rz2xovp84b4vha3a40",
+    client_name="Plex Web",
+    client_version="4.133.0",
+    client_platform="Chrome",
+    device_name="Linux",
 )
 
 res = s.activities.get_server_activities()
@@ -69,7 +73,11 @@ from plex_api_client import PlexAPI
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
+    client_id="gcgzw5rz2xovp84b4vha3a40",
+    client_name="Plex Web",
+    client_version="4.133.0",
+    client_platform="Chrome",
+    device_name="Linux",
 )
 
 res = s.activities.cancel_server_activities(activity_uuid="25b71ed5-0f9d-461c-baa7-d404e9e10d3e")

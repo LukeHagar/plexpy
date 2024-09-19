@@ -1,4 +1,4 @@
-speakeasyVersion: 1.396.2
+speakeasyVersion: 1.399.2
 sources:
     my-source:
         sourceNamespace: my-source
@@ -6,30 +6,36 @@ sources:
         sourceBlobDigest: sha256:f7e2709f52370dff16c1851a7a4e44a89f2e978e9cae335bffc10625950b3bd9
         tags:
             - latest
+    plexapi:
+        sourceNamespace: plexapi
+        sourceRevisionDigest: sha256:31e943dab53dd0133fcd12a24e04d511637bd7f37b78fd71efded53c650bf729
+        sourceBlobDigest: sha256:a652fa39754f0c22a1454f628fe84983b34662ee8a153a3461d50b833f8bc5c2
+        tags:
+            - latest
+            - main
 targets:
     plexpy:
-        source: my-source
-        sourceNamespace: my-source
-        sourceRevisionDigest: sha256:1f43c28112982f7603d8fed99ad5b2d14de397325c20863fb693a4f89f96e3c6
-        sourceBlobDigest: sha256:f7e2709f52370dff16c1851a7a4e44a89f2e978e9cae335bffc10625950b3bd9
+        source: plexapi
+        sourceNamespace: plexapi
+        sourceRevisionDigest: sha256:31e943dab53dd0133fcd12a24e04d511637bd7f37b78fd71efded53c650bf729
+        sourceBlobDigest: sha256:a652fa39754f0c22a1454f628fe84983b34662ee8a153a3461d50b833f8bc5c2
         codeSamplesNamespace: code-samples-python-plexpy
-        codeSamplesRevisionDigest: sha256:5c0a53ca21a99c2994ba26c54e14064b54d690b13cfa1e7d52bd9fd763224a4d
-        outLocation: /home/luke/github/plexpy
+        codeSamplesRevisionDigest: sha256:7236102512b931660216bc761cbbcfc8cade2483a024a2fc0af94c4dadd73c1d
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest
     sources:
-        my-source:
+        plexapi:
             inputs:
-                - location: registry.speakeasyapi.dev/lukehagar/lukehagar/plex-api:main
+                - location: registry.speakeasyapi.dev/plexapi/plexapi/plexapi:main
     targets:
         plexpy:
             target: python
-            source: my-source
+            source: plexapi
             publish:
                 pypi:
                     token: $pypi_token
             codeSamples:
                 output: codeSamples.yaml
                 registry:
-                    location: registry.speakeasyapi.dev/lukehagar/lukehagar/code-samples-python-plexpy
+                    location: registry.speakeasyapi.dev/plexapi/plexapi/code-samples-python-plexpy

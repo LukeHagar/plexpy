@@ -25,7 +25,11 @@ from plex_api_client import PlexAPI
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
+    client_id="gcgzw5rz2xovp84b4vha3a40",
+    client_name="Plex Web",
+    client_version="4.133.0",
+    client_platform="Chrome",
+    device_name="Linux",
 )
 
 res = s.media.mark_played(key=59398)
@@ -67,7 +71,11 @@ from plex_api_client import PlexAPI
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
+    client_id="gcgzw5rz2xovp84b4vha3a40",
+    client_name="Plex Web",
+    client_version="4.133.0",
+    client_platform="Chrome",
+    device_name="Linux",
 )
 
 res = s.media.mark_unplayed(key=59398)
@@ -110,7 +118,11 @@ from plex_api_client import PlexAPI
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
+    client_id="gcgzw5rz2xovp84b4vha3a40",
+    client_name="Plex Web",
+    client_version="4.133.0",
+    client_platform="Chrome",
+    device_name="Linux",
 )
 
 res = s.media.update_play_progress(key="<key>", time=90000, state="played")
@@ -154,7 +166,11 @@ from plex_api_client import PlexAPI
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
+    client_id="gcgzw5rz2xovp84b4vha3a40",
+    client_name="Plex Web",
+    client_version="4.133.0",
+    client_platform="Chrome",
+    device_name="Linux",
 )
 
 res = s.media.get_banner_image(request={
@@ -203,7 +219,11 @@ from plex_api_client import PlexAPI
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
+    client_id="gcgzw5rz2xovp84b4vha3a40",
+    client_name="Plex Web",
+    client_version="4.133.0",
+    client_platform="Chrome",
+    device_name="Linux",
 )
 
 res = s.media.get_thumb_image(request={

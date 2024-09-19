@@ -22,7 +22,7 @@ GET_TOKEN_BY_PIN_ID_SERVERS = [
 
 
 class GetTokenByPinIDGlobalsTypedDict(TypedDict):
-    x_plex_client_identifier: NotRequired[str]
+    client_id: NotRequired[str]
     r"""The unique identifier for the client application
     This is used to track the client application and its usage
     (UUID, serial number, or other number unique per device)
@@ -31,7 +31,7 @@ class GetTokenByPinIDGlobalsTypedDict(TypedDict):
 
 
 class GetTokenByPinIDGlobals(BaseModel):
-    x_plex_client_identifier: Annotated[
+    client_id: Annotated[
         Optional[str],
         pydantic.Field(alias="X-Plex-Client-Identifier"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
@@ -46,7 +46,7 @@ class GetTokenByPinIDGlobals(BaseModel):
 class GetTokenByPinIDRequestTypedDict(TypedDict):
     pin_id: int
     r"""The PinID to retrieve an access token for"""
-    x_plex_client_identifier: NotRequired[str]
+    client_id: NotRequired[str]
     r"""The unique identifier for the client application
     This is used to track the client application and its usage
     (UUID, serial number, or other number unique per device)
@@ -62,7 +62,7 @@ class GetTokenByPinIDRequest(BaseModel):
     ]
     r"""The PinID to retrieve an access token for"""
 
-    x_plex_client_identifier: Annotated[
+    client_id: Annotated[
         Optional[str],
         pydantic.Field(alias="X-Plex-Client-Identifier"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
@@ -87,7 +87,7 @@ class GetTokenByPinIDGeoDataTypedDict(TypedDict):
     r"""The name of the city."""
     time_zone: str
     r"""The time zone of the country."""
-    postal_code: int
+    postal_code: str
     r"""The postal code of the location."""
     subdivisions: str
     r"""The name of the primary administrative subdivision."""
@@ -119,7 +119,7 @@ class GetTokenByPinIDGeoData(BaseModel):
     time_zone: str
     r"""The time zone of the country."""
 
-    postal_code: int
+    postal_code: str
     r"""The postal code of the location."""
 
     subdivisions: str
@@ -154,7 +154,7 @@ class GetTokenByPinIDAuthPinContainerTypedDict(TypedDict):
     trusted: NotRequired[bool]
     expires_in: NotRequired[int]
     r"""The number of seconds this pin expires, by default 900 seconds"""
-    auth_token: NotRequired[Nullable[Any]]
+    auth_token: NotRequired[Nullable[str]]
     new_registration: NotRequired[Nullable[Any]]
 
 
@@ -184,7 +184,7 @@ class GetTokenByPinIDAuthPinContainer(BaseModel):
     expires_in: Annotated[Optional[int], pydantic.Field(alias="expiresIn")] = 900
     r"""The number of seconds this pin expires, by default 900 seconds"""
 
-    auth_token: Annotated[OptionalNullable[Any], pydantic.Field(alias="authToken")] = (
+    auth_token: Annotated[OptionalNullable[str], pydantic.Field(alias="authToken")] = (
         UNSET
     )
 

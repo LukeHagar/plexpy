@@ -25,7 +25,11 @@ from plex_api_client import PlexAPI
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
+    client_id="gcgzw5rz2xovp84b4vha3a40",
+    client_name="Plex Web",
+    client_version="4.133.0",
+    client_platform="Chrome",
+    device_name="Linux",
 )
 
 res = s.butler.get_butler_tasks()
@@ -71,7 +75,11 @@ from plex_api_client import PlexAPI
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
+    client_id="gcgzw5rz2xovp84b4vha3a40",
+    client_name="Plex Web",
+    client_version="4.133.0",
+    client_platform="Chrome",
+    device_name="Linux",
 )
 
 res = s.butler.start_all_tasks()
@@ -113,7 +121,11 @@ from plex_api_client import PlexAPI
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
+    client_id="gcgzw5rz2xovp84b4vha3a40",
+    client_name="Plex Web",
+    client_version="4.133.0",
+    client_platform="Chrome",
+    device_name="Linux",
 )
 
 res = s.butler.stop_all_tasks()
@@ -160,7 +172,11 @@ from plex_api_client.models import operations
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
+    client_id="gcgzw5rz2xovp84b4vha3a40",
+    client_name="Plex Web",
+    client_version="4.133.0",
+    client_platform="Chrome",
+    device_name="Linux",
 )
 
 res = s.butler.start_task(task_name=operations.TaskName.CLEAN_OLD_BUNDLES)
@@ -204,7 +220,11 @@ from plex_api_client.models import operations
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
+    client_id="gcgzw5rz2xovp84b4vha3a40",
+    client_name="Plex Web",
+    client_version="4.133.0",
+    client_platform="Chrome",
+    device_name="Linux",
 )
 
 res = s.butler.stop_task(task_name=operations.PathParamTaskName.BACKUP_DATABASE)

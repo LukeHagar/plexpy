@@ -17,7 +17,7 @@ GET_SERVER_RESOURCES_SERVERS = [
 
 
 class GetServerResourcesGlobalsTypedDict(TypedDict):
-    x_plex_client_identifier: NotRequired[str]
+    client_id: NotRequired[str]
     r"""The unique identifier for the client application
     This is used to track the client application and its usage
     (UUID, serial number, or other number unique per device)
@@ -26,7 +26,7 @@ class GetServerResourcesGlobalsTypedDict(TypedDict):
 
 
 class GetServerResourcesGlobals(BaseModel):
-    x_plex_client_identifier: Annotated[
+    client_id: Annotated[
         Optional[str],
         pydantic.Field(alias="X-Plex-Client-Identifier"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
@@ -63,7 +63,7 @@ class IncludeIPv6(int, Enum):
 
 
 class GetServerResourcesRequestTypedDict(TypedDict):
-    x_plex_client_identifier: NotRequired[str]
+    client_id: NotRequired[str]
     r"""The unique identifier for the client application
     This is used to track the client application and its usage
     (UUID, serial number, or other number unique per device)
@@ -81,7 +81,7 @@ class GetServerResourcesRequestTypedDict(TypedDict):
 
 
 class GetServerResourcesRequest(BaseModel):
-    x_plex_client_identifier: Annotated[
+    client_id: Annotated[
         Optional[str],
         pydantic.Field(alias="X-Plex-Client-Identifier"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),

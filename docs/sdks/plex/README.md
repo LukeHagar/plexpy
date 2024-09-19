@@ -27,7 +27,11 @@ from plex_api_client import PlexAPI
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
+    client_id="gcgzw5rz2xovp84b4vha3a40",
+    client_name="Plex Web",
+    client_version="4.133.0",
+    client_platform="Chrome",
+    device_name="Linux",
 )
 
 res = s.plex.get_companions_data()
@@ -69,7 +73,11 @@ from plex_api_client import PlexAPI
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
+    client_id="gcgzw5rz2xovp84b4vha3a40",
+    client_name="Plex Web",
+    client_version="4.133.0",
+    client_platform="Chrome",
+    device_name="Linux",
 )
 
 res = s.plex.get_user_friends()
@@ -110,7 +118,11 @@ Returns the geolocation and locale data of the caller
 from plex_api_client import PlexAPI
 
 s = PlexAPI(
-    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
+    client_id="gcgzw5rz2xovp84b4vha3a40",
+    client_name="Plex Web",
+    client_version="4.133.0",
+    client_platform="Chrome",
+    device_name="Linux",
 )
 
 res = s.plex.get_geo_data()
@@ -152,7 +164,11 @@ from plex_api_client import PlexAPI
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
+    client_id="gcgzw5rz2xovp84b4vha3a40",
+    client_name="Plex Web",
+    client_version="4.133.0",
+    client_platform="Chrome",
+    device_name="Linux",
 )
 
 res = s.plex.get_home_data()
@@ -194,10 +210,14 @@ from plex_api_client.models import operations
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
+    client_id="gcgzw5rz2xovp84b4vha3a40",
+    client_name="Plex Web",
+    client_version="4.133.0",
+    client_platform="Chrome",
+    device_name="Linux",
 )
 
-res = s.plex.get_server_resources(x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40", include_https=operations.IncludeHTTPS.ONE, include_relay=operations.IncludeRelay.ONE, include_i_pv6=operations.IncludeIPv6.ONE)
+res = s.plex.get_server_resources(client_id="gcgzw5rz2xovp84b4vha3a40", include_https=operations.IncludeHTTPS.ONE, include_relay=operations.IncludeRelay.ONE, include_i_pv6=operations.IncludeIPv6.ONE)
 
 if res.plex_devices is not None:
     # handle response
@@ -209,7 +229,7 @@ if res.plex_devices is not None:
 
 | Parameter                                                                                                                                                             | Type                                                                                                                                                                  | Required                                                                                                                                                              | Description                                                                                                                                                           | Example                                                                                                                                                               |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `x_plex_client_identifier`                                                                                                                                            | *Optional[str]*                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                    | The unique identifier for the client application<br/>This is used to track the client application and its usage<br/>(UUID, serial number, or other number unique per device)<br/> | gcgzw5rz2xovp84b4vha3a40                                                                                                                                              |
+| `client_id`                                                                                                                                                           | *Optional[str]*                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                    | The unique identifier for the client application<br/>This is used to track the client application and its usage<br/>(UUID, serial number, or other number unique per device)<br/> | gcgzw5rz2xovp84b4vha3a40                                                                                                                                              |
 | `include_https`                                                                                                                                                       | [Optional[operations.IncludeHTTPS]](../../models/operations/includehttps.md)                                                                                          | :heavy_minus_sign:                                                                                                                                                    | Include Https entries in the results                                                                                                                                  | 1                                                                                                                                                                     |
 | `include_relay`                                                                                                                                                       | [Optional[operations.IncludeRelay]](../../models/operations/includerelay.md)                                                                                          | :heavy_minus_sign:                                                                                                                                                    | Include Relay addresses in the results <br/>E.g: https://10-0-0-25.bbf8e10c7fa20447cacee74cd9914cde.plex.direct:32400<br/>                                            | 1                                                                                                                                                                     |
 | `include_i_pv6`                                                                                                                                                       | [Optional[operations.IncludeIPv6]](../../models/operations/includeipv6.md)                                                                                            | :heavy_minus_sign:                                                                                                                                                    | Include IPv6 entries in the results                                                                                                                                   | 1                                                                                                                                                                     |
@@ -231,7 +251,7 @@ if res.plex_devices is not None:
 
 ## get_pin
 
-Retrieve a Pin from Plex.tv for authentication flows
+Retrieve a Pin ID from Plex.tv to use for authentication flows
 
 ### Example Usage
 
@@ -239,10 +259,14 @@ Retrieve a Pin from Plex.tv for authentication flows
 from plex_api_client import PlexAPI
 
 s = PlexAPI(
-    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
+    client_id="gcgzw5rz2xovp84b4vha3a40",
+    client_name="Plex Web",
+    client_version="4.133.0",
+    client_platform="Chrome",
+    device_name="Linux",
 )
 
-res = s.plex.get_pin(x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40", x_plex_product="Plex Web")
+res = s.plex.get_pin(request={})
 
 if res.auth_pin_container is not None:
     # handle response
@@ -252,13 +276,11 @@ if res.auth_pin_container is not None:
 
 ### Parameters
 
-| Parameter                                                                                                                                                             | Type                                                                                                                                                                  | Required                                                                                                                                                              | Description                                                                                                                                                           | Example                                                                                                                                                               |
-| --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `strong`                                                                                                                                                              | *Optional[bool]*                                                                                                                                                      | :heavy_minus_sign:                                                                                                                                                    | Determines the kind of code returned by the API call<br/>Strong codes are used for Pin authentication flows<br/>Non-Strong codes are used for `Plex.tv/link`<br/>     |                                                                                                                                                                       |
-| `x_plex_client_identifier`                                                                                                                                            | *Optional[str]*                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                    | The unique identifier for the client application<br/>This is used to track the client application and its usage<br/>(UUID, serial number, or other number unique per device)<br/> | gcgzw5rz2xovp84b4vha3a40                                                                                                                                              |
-| `x_plex_product`                                                                                                                                                      | *Optional[str]*                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                    | N/A                                                                                                                                                                   | Plex Web                                                                                                                                                              |
-| `retries`                                                                                                                                                             | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                      | :heavy_minus_sign:                                                                                                                                                    | Configuration to override the default retry behavior of the client.                                                                                                   |                                                                                                                                                                       |
-| `server_url`                                                                                                                                                          | *Optional[str]*                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                    | An optional server URL to use.                                                                                                                                        | http://localhost:8080                                                                                                                                                 |
+| Parameter                                                            | Type                                                                 | Required                                                             | Description                                                          |
+| -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- | -------------------------------------------------------------------- |
+| `request`                                                            | [operations.GetPinRequest](../../models/operations/getpinrequest.md) | :heavy_check_mark:                                                   | The request object to use for the request.                           |
+| `retries`                                                            | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)     | :heavy_minus_sign:                                                   | Configuration to override the default retry behavior of the client.  |
+| `server_url`                                                         | *Optional[str]*                                                      | :heavy_minus_sign:                                                   | An optional server URL to use.                                       |
 
 ### Response
 
@@ -282,10 +304,14 @@ Retrieve an Access Token from Plex.tv after the Pin has been authenticated
 from plex_api_client import PlexAPI
 
 s = PlexAPI(
-    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
+    client_id="gcgzw5rz2xovp84b4vha3a40",
+    client_name="Plex Web",
+    client_version="4.133.0",
+    client_platform="Chrome",
+    device_name="Linux",
 )
 
-res = s.plex.get_token_by_pin_id(pin_id=408895, x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40")
+res = s.plex.get_token_by_pin_id(pin_id=408895, client_id="gcgzw5rz2xovp84b4vha3a40")
 
 if res.auth_pin_container is not None:
     # handle response
@@ -298,7 +324,7 @@ if res.auth_pin_container is not None:
 | Parameter                                                                                                                                                             | Type                                                                                                                                                                  | Required                                                                                                                                                              | Description                                                                                                                                                           | Example                                                                                                                                                               |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `pin_id`                                                                                                                                                              | *int*                                                                                                                                                                 | :heavy_check_mark:                                                                                                                                                    | The PinID to retrieve an access token for                                                                                                                             |                                                                                                                                                                       |
-| `x_plex_client_identifier`                                                                                                                                            | *Optional[str]*                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                    | The unique identifier for the client application<br/>This is used to track the client application and its usage<br/>(UUID, serial number, or other number unique per device)<br/> | gcgzw5rz2xovp84b4vha3a40                                                                                                                                              |
+| `client_id`                                                                                                                                                           | *Optional[str]*                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                    | The unique identifier for the client application<br/>This is used to track the client application and its usage<br/>(UUID, serial number, or other number unique per device)<br/> | gcgzw5rz2xovp84b4vha3a40                                                                                                                                              |
 | `retries`                                                                                                                                                             | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                      | :heavy_minus_sign:                                                                                                                                                    | Configuration to override the default retry behavior of the client.                                                                                                   |                                                                                                                                                                       |
 | `server_url`                                                                                                                                                          | *Optional[str]*                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                    | An optional server URL to use.                                                                                                                                        | http://localhost:8080                                                                                                                                                 |
 

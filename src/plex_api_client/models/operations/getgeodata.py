@@ -24,7 +24,7 @@ class GetGeoDataGeoDataTypedDict(TypedDict):
     r"""The name of the city."""
     time_zone: str
     r"""The time zone of the country."""
-    postal_code: int
+    postal_code: str
     r"""The postal code of the location."""
     subdivisions: str
     r"""The name of the primary administrative subdivision."""
@@ -56,7 +56,7 @@ class GetGeoDataGeoData(BaseModel):
     time_zone: str
     r"""The time zone of the country."""
 
-    postal_code: int
+    postal_code: str
     r"""The postal code of the location."""
 
     subdivisions: str

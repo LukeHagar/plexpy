@@ -9,16 +9,20 @@ from typing_extensions import Annotated, NotRequired
 
 
 class GlobalsTypedDict(TypedDict):
-    x_plex_client_identifier: NotRequired[str]
+    client_id: NotRequired[str]
     r"""The unique identifier for the client application
     This is used to track the client application and its usage
     (UUID, serial number, or other number unique per device)
 
     """
+    client_name: NotRequired[str]
+    client_version: NotRequired[str]
+    client_platform: NotRequired[str]
+    device_name: NotRequired[str]
 
 
 class Globals(BaseModel):
-    x_plex_client_identifier: Annotated[
+    client_id: Annotated[
         Optional[str],
         pydantic.Field(alias="X-Plex-Client-Identifier"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
@@ -28,3 +32,27 @@ class Globals(BaseModel):
     (UUID, serial number, or other number unique per device)
 
     """
+
+    client_name: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Product"),
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+
+    client_version: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Version"),
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+
+    client_platform: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Platform"),
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+
+    device_name: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Device"),
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None

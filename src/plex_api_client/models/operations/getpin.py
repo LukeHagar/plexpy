@@ -22,16 +22,20 @@ GET_PIN_SERVERS = [
 
 
 class GetPinGlobalsTypedDict(TypedDict):
-    x_plex_client_identifier: NotRequired[str]
+    client_id: NotRequired[str]
     r"""The unique identifier for the client application
     This is used to track the client application and its usage
     (UUID, serial number, or other number unique per device)
 
     """
+    client_name: NotRequired[str]
+    device_name: NotRequired[str]
+    client_version: NotRequired[str]
+    client_platform: NotRequired[str]
 
 
 class GetPinGlobals(BaseModel):
-    x_plex_client_identifier: Annotated[
+    client_id: Annotated[
         Optional[str],
         pydantic.Field(alias="X-Plex-Client-Identifier"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
@@ -42,6 +46,30 @@ class GetPinGlobals(BaseModel):
 
     """
 
+    client_name: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Product"),
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+
+    device_name: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Device"),
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+
+    client_version: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Version"),
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+
+    client_platform: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Platform"),
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+
 
 class GetPinRequestTypedDict(TypedDict):
     strong: NotRequired[bool]
@@ -50,13 +78,16 @@ class GetPinRequestTypedDict(TypedDict):
     Non-Strong codes are used for `Plex.tv/link`
 
     """
-    x_plex_client_identifier: NotRequired[str]
+    client_id: NotRequired[str]
     r"""The unique identifier for the client application
     This is used to track the client application and its usage
     (UUID, serial number, or other number unique per device)
 
     """
-    x_plex_product: NotRequired[str]
+    client_name: NotRequired[str]
+    device_name: NotRequired[str]
+    client_version: NotRequired[str]
+    client_platform: NotRequired[str]
 
 
 class GetPinRequest(BaseModel):
@@ -70,7 +101,7 @@ class GetPinRequest(BaseModel):
 
     """
 
-    x_plex_client_identifier: Annotated[
+    client_id: Annotated[
         Optional[str],
         pydantic.Field(alias="X-Plex-Client-Identifier"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
@@ -81,9 +112,27 @@ class GetPinRequest(BaseModel):
 
     """
 
-    x_plex_product: Annotated[
+    client_name: Annotated[
         Optional[str],
         pydantic.Field(alias="X-Plex-Product"),
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+
+    device_name: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Device"),
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+
+    client_version: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Version"),
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+
+    client_platform: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Platform"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
 
@@ -101,7 +150,7 @@ class GeoDataTypedDict(TypedDict):
     r"""The name of the city."""
     time_zone: str
     r"""The time zone of the country."""
-    postal_code: int
+    postal_code: str
     r"""The postal code of the location."""
     subdivisions: str
     r"""The name of the primary administrative subdivision."""
@@ -133,7 +182,7 @@ class GeoData(BaseModel):
     time_zone: str
     r"""The time zone of the country."""
 
-    postal_code: int
+    postal_code: str
     r"""The postal code of the location."""
 
     subdivisions: str
@@ -168,7 +217,7 @@ class GetPinAuthPinContainerTypedDict(TypedDict):
     trusted: NotRequired[bool]
     expires_in: NotRequired[int]
     r"""The number of seconds this pin expires, by default 900 seconds"""
-    auth_token: NotRequired[Nullable[Any]]
+    auth_token: NotRequired[Nullable[str]]
     new_registration: NotRequired[Nullable[Any]]
 
 
@@ -198,7 +247,7 @@ class GetPinAuthPinContainer(BaseModel):
     expires_in: Annotated[Optional[int], pydantic.Field(alias="expiresIn")] = 900
     r"""The number of seconds this pin expires, by default 900 seconds"""
 
-    auth_token: Annotated[OptionalNullable[Any], pydantic.Field(alias="authToken")] = (
+    auth_token: Annotated[OptionalNullable[str], pydantic.Field(alias="authToken")] = (
         UNSET
     )
 

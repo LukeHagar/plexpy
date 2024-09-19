@@ -26,7 +26,11 @@ from plex_api_client.models import operations
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
+    client_id="gcgzw5rz2xovp84b4vha3a40",
+    client_name="Plex Web",
+    client_version="4.133.0",
+    client_platform="Chrome",
+    device_name="Linux",
 )
 
 res = s.authentication.get_transient_token(type_=operations.GetTransientTokenQueryParamType.DELEGATION, scope=operations.Scope.ALL)
@@ -71,7 +75,11 @@ from plex_api_client import PlexAPI
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
+    client_id="gcgzw5rz2xovp84b4vha3a40",
+    client_name="Plex Web",
+    client_version="4.133.0",
+    client_platform="Chrome",
+    device_name="Linux",
 )
 
 res = s.authentication.get_source_connection_information(source="server://client-identifier")
@@ -113,7 +121,11 @@ from plex_api_client import PlexAPI
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
+    client_id="gcgzw5rz2xovp84b4vha3a40",
+    client_name="Plex Web",
+    client_version="4.133.0",
+    client_platform="Chrome",
+    device_name="Linux",
 )
 
 res = s.authentication.get_token_details()
@@ -154,10 +166,14 @@ Sign in user with username and password and return user data with Plex authentic
 from plex_api_client import PlexAPI
 
 s = PlexAPI(
-    x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40",
+    client_id="gcgzw5rz2xovp84b4vha3a40",
+    client_name="Plex Web",
+    client_version="4.133.0",
+    client_platform="Chrome",
+    device_name="Linux",
 )
 
-res = s.authentication.post_users_sign_in_data(x_plex_client_identifier="gcgzw5rz2xovp84b4vha3a40", request_body={
+res = s.authentication.post_users_sign_in_data(client_id="gcgzw5rz2xovp84b4vha3a40", request_body={
     "login": "username@email.com",
     "password": "password123",
     "verification_code": "123456",
@@ -173,7 +189,7 @@ if res.user_plex_account is not None:
 
 | Parameter                                                                                                                                                             | Type                                                                                                                                                                  | Required                                                                                                                                                              | Description                                                                                                                                                           | Example                                                                                                                                                               |
 | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `x_plex_client_identifier`                                                                                                                                            | *Optional[str]*                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                    | The unique identifier for the client application<br/>This is used to track the client application and its usage<br/>(UUID, serial number, or other number unique per device)<br/> | gcgzw5rz2xovp84b4vha3a40                                                                                                                                              |
+| `client_id`                                                                                                                                                           | *Optional[str]*                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                    | The unique identifier for the client application<br/>This is used to track the client application and its usage<br/>(UUID, serial number, or other number unique per device)<br/> | gcgzw5rz2xovp84b4vha3a40                                                                                                                                              |
 | `request_body`                                                                                                                                                        | [Optional[operations.PostUsersSignInDataRequestBody]](../../models/operations/postuserssignindatarequestbody.md)                                                      | :heavy_minus_sign:                                                                                                                                                    | Login credentials                                                                                                                                                     |                                                                                                                                                                       |
 | `retries`                                                                                                                                                             | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                      | :heavy_minus_sign:                                                                                                                                                    | Configuration to override the default retry behavior of the client.                                                                                                   |                                                                                                                                                                       |
 | `server_url`                                                                                                                                                          | *Optional[str]*                                                                                                                                                       | :heavy_minus_sign:                                                                                                                                                    | An optional server URL to use.                                                                                                                                        | http://localhost:8080                                                                                                                                                 |

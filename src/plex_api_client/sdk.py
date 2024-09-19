@@ -112,7 +112,11 @@ class PlexAPI(BaseSDK):
         access_token: Optional[
             Union[Optional[str], Callable[[], Optional[str]]]
         ] = None,
-        x_plex_client_identifier: Optional[str] = None,
+        client_id: Optional[str] = None,
+        client_name: Optional[str] = None,
+        client_version: Optional[str] = None,
+        client_platform: Optional[str] = None,
+        device_name: Optional[str] = None,
         protocol: Optional[ServerProtocol] = None,
         ip: Optional[str] = None,
         port: Optional[str] = None,
@@ -128,7 +132,11 @@ class PlexAPI(BaseSDK):
         r"""Instantiates the SDK configuring it with the provided parameters.
 
         :param access_token: The access_token required for authentication
-        :param x_plex_client_identifier: Configures the x_plex_client_identifier parameter for all supported operations
+        :param client_id: Configures the client_id parameter for all supported operations
+        :param client_name: Configures the client_name parameter for all supported operations
+        :param client_version: Configures the client_version parameter for all supported operations
+        :param client_platform: Configures the client_platform parameter for all supported operations
+        :param device_name: Configures the device_name parameter for all supported operations
         :param protocol: Allows setting the protocol variable for url substitution
         :param ip: Allows setting the ip variable for url substitution
         :param port: Allows setting the port variable for url substitution
@@ -175,9 +183,15 @@ class PlexAPI(BaseSDK):
         ]
 
         _globals = internal.Globals(
-            x_plex_client_identifier=utils.get_global_from_env(
-                x_plex_client_identifier, "X_PLEX_CLIENT_IDENTIFIER", str
+            client_id=utils.get_global_from_env(client_id, "CLIENT_ID", str),
+            client_name=utils.get_global_from_env(client_name, "CLIENT_NAME", str),
+            client_version=utils.get_global_from_env(
+                client_version, "CLIENT_VERSION", str
             ),
+            client_platform=utils.get_global_from_env(
+                client_platform, "CLIENT_PLATFORM", str
+            ),
+            device_name=utils.get_global_from_env(device_name, "DEVICE_NAME", str),
         )
 
         BaseSDK.__init__(

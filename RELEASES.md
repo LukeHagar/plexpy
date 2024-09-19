@@ -739,3 +739,13 @@ Based on:
 - [python v0.12.1] .
 ### Releases
 - [PyPI v0.12.1] https://pypi.org/project/plex-api-client/0.12.1 - .
+
+## 2024-09-19 05:57:27
+### Changes
+Based on:
+- OpenAPI Doc  
+- Speakeasy CLI 1.399.2 (2.416.6) https://github.com/speakeasy-api/speakeasy
+### Generated
+- [python v0.12.2] .
+### Releases
+- [PyPI v0.12.2] https://pypi.org/project/plex-api-client/0.12.2 - .

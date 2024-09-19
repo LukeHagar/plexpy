@@ -4,8 +4,8 @@ from .basesdk import BaseSDK
 from plex_api_client import utils
 from plex_api_client._hooks import HookContext
 from plex_api_client.models import errors, operations
-from plex_api_client.types import OptionalNullable, UNSET
-from typing import Any, List, Optional
+from plex_api_client.types import BaseModel, OptionalNullable, UNSET
+from typing import Any, List, Optional, Union, cast
 
 
 class Plex(BaseSDK):
@@ -740,7 +740,7 @@ class Plex(BaseSDK):
     def get_server_resources(
         self,
         *,
-        x_plex_client_identifier: Optional[str] = None,
+        client_id: Optional[str] = None,
         include_https: Optional[operations.IncludeHTTPS] = operations.IncludeHTTPS.ZERO,
         include_relay: Optional[operations.IncludeRelay] = operations.IncludeRelay.ZERO,
         include_i_pv6: Optional[operations.IncludeIPv6] = operations.IncludeIPv6.ZERO,
@@ -752,7 +752,7 @@ class Plex(BaseSDK):
 
         Get Plex server access tokens and server connections
 
-        :param x_plex_client_identifier: The unique identifier for the client application This is used to track the client application and its usage (UUID, serial number, or other number unique per device)
+        :param client_id: The unique identifier for the client application This is used to track the client application and its usage (UUID, serial number, or other number unique per device)
         :param include_https: Include Https entries in the results
         :param include_relay: Include Relay addresses in the results  E.g: https://10-0-0-25.bbf8e10c7fa20447cacee74cd9914cde.plex.direct:32400
         :param include_i_pv6: Include IPv6 entries in the results
@@ -771,7 +771,7 @@ class Plex(BaseSDK):
             base_url = operations.GET_SERVER_RESOURCES_SERVERS[0]
 
         request = operations.GetServerResourcesRequest(
-            x_plex_client_identifier=x_plex_client_identifier,
+            client_id=client_id,
             include_https=include_https,
             include_relay=include_relay,
             include_i_pv6=include_i_pv6,
@@ -789,7 +789,7 @@ class Plex(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             _globals=operations.GetServerResourcesGlobals(
-                x_plex_client_identifier=self.sdk_configuration.globals.x_plex_client_identifier,
+                client_id=self.sdk_configuration.globals.client_id,
             ),
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
@@ -852,7 +852,7 @@ class Plex(BaseSDK):
     async def get_server_resources_async(
         self,
         *,
-        x_plex_client_identifier: Optional[str] = None,
+        client_id: Optional[str] = None,
         include_https: Optional[operations.IncludeHTTPS] = operations.IncludeHTTPS.ZERO,
         include_relay: Optional[operations.IncludeRelay] = operations.IncludeRelay.ZERO,
         include_i_pv6: Optional[operations.IncludeIPv6] = operations.IncludeIPv6.ZERO,
@@ -864,7 +864,7 @@ class Plex(BaseSDK):
 
         Get Plex server access tokens and server connections
 
-        :param x_plex_client_identifier: The unique identifier for the client application This is used to track the client application and its usage (UUID, serial number, or other number unique per device)
+        :param client_id: The unique identifier for the client application This is used to track the client application and its usage (UUID, serial number, or other number unique per device)
         :param include_https: Include Https entries in the results
         :param include_relay: Include Relay addresses in the results  E.g: https://10-0-0-25.bbf8e10c7fa20447cacee74cd9914cde.plex.direct:32400
         :param include_i_pv6: Include IPv6 entries in the results
@@ -883,7 +883,7 @@ class Plex(BaseSDK):
             base_url = operations.GET_SERVER_RESOURCES_SERVERS[0]
 
         request = operations.GetServerResourcesRequest(
-            x_plex_client_identifier=x_plex_client_identifier,
+            client_id=client_id,
             include_https=include_https,
             include_relay=include_relay,
             include_i_pv6=include_i_pv6,
@@ -901,7 +901,7 @@ class Plex(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             _globals=operations.GetServerResourcesGlobals(
-                x_plex_client_identifier=self.sdk_configuration.globals.x_plex_client_identifier,
+                client_id=self.sdk_configuration.globals.client_id,
             ),
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
@@ -964,20 +964,16 @@ class Plex(BaseSDK):
     def get_pin(
         self,
         *,
-        strong: Optional[bool] = False,
-        x_plex_client_identifier: Optional[str] = None,
-        x_plex_product: Optional[str] = None,
+        request: Union[operations.GetPinRequest, operations.GetPinRequestTypedDict],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
     ) -> operations.GetPinResponse:
         r"""Get a Pin
 
-        Retrieve a Pin from Plex.tv for authentication flows
+        Retrieve a Pin ID from Plex.tv to use for authentication flows
 
-        :param strong: Determines the kind of code returned by the API call Strong codes are used for Pin authentication flows Non-Strong codes are used for `Plex.tv/link`
-        :param x_plex_client_identifier: The unique identifier for the client application This is used to track the client application and its usage (UUID, serial number, or other number unique per device)
-        :param x_plex_product:
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -992,11 +988,9 @@ class Plex(BaseSDK):
         else:
             base_url = operations.GET_PIN_SERVERS[0]
 
-        request = operations.GetPinRequest(
-            strong=strong,
-            x_plex_client_identifier=x_plex_client_identifier,
-            x_plex_product=x_plex_product,
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, operations.GetPinRequest)
+        request = cast(operations.GetPinRequest, request)
 
         req = self.build_request(
             method="POST",
@@ -1010,7 +1004,11 @@ class Plex(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             _globals=operations.GetPinGlobals(
-                x_plex_client_identifier=self.sdk_configuration.globals.x_plex_client_identifier,
+                client_id=self.sdk_configuration.globals.client_id,
+                client_name=self.sdk_configuration.globals.client_name,
+                device_name=self.sdk_configuration.globals.device_name,
+                client_version=self.sdk_configuration.globals.client_version,
+                client_platform=self.sdk_configuration.globals.client_platform,
             ),
             timeout_ms=timeout_ms,
         )
@@ -1033,7 +1031,7 @@ class Plex(BaseSDK):
         )
 
         data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
+        if utils.match_response(http_res, "201", "application/json"):
             return operations.GetPinResponse(
                 auth_pin_container=utils.unmarshal_json(
                     http_res.text, Optional[operations.GetPinAuthPinContainer]
@@ -1062,20 +1060,16 @@ class Plex(BaseSDK):
     async def get_pin_async(
         self,
         *,
-        strong: Optional[bool] = False,
-        x_plex_client_identifier: Optional[str] = None,
-        x_plex_product: Optional[str] = None,
+        request: Union[operations.GetPinRequest, operations.GetPinRequestTypedDict],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
     ) -> operations.GetPinResponse:
         r"""Get a Pin
 
-        Retrieve a Pin from Plex.tv for authentication flows
+        Retrieve a Pin ID from Plex.tv to use for authentication flows
 
-        :param strong: Determines the kind of code returned by the API call Strong codes are used for Pin authentication flows Non-Strong codes are used for `Plex.tv/link`
-        :param x_plex_client_identifier: The unique identifier for the client application This is used to track the client application and its usage (UUID, serial number, or other number unique per device)
-        :param x_plex_product:
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1090,11 +1084,9 @@ class Plex(BaseSDK):
         else:
             base_url = operations.GET_PIN_SERVERS[0]
 
-        request = operations.GetPinRequest(
-            strong=strong,
-            x_plex_client_identifier=x_plex_client_identifier,
-            x_plex_product=x_plex_product,
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, operations.GetPinRequest)
+        request = cast(operations.GetPinRequest, request)
 
         req = self.build_request_async(
             method="POST",
@@ -1108,7 +1100,11 @@ class Plex(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             _globals=operations.GetPinGlobals(
-                x_plex_client_identifier=self.sdk_configuration.globals.x_plex_client_identifier,
+                client_id=self.sdk_configuration.globals.client_id,
+                client_name=self.sdk_configuration.globals.client_name,
+                device_name=self.sdk_configuration.globals.device_name,
+                client_version=self.sdk_configuration.globals.client_version,
+                client_platform=self.sdk_configuration.globals.client_platform,
             ),
             timeout_ms=timeout_ms,
         )
@@ -1131,7 +1127,7 @@ class Plex(BaseSDK):
         )
 
         data: Any = None
-        if utils.match_response(http_res, "200", "application/json"):
+        if utils.match_response(http_res, "201", "application/json"):
             return operations.GetPinResponse(
                 auth_pin_container=utils.unmarshal_json(
                     http_res.text, Optional[operations.GetPinAuthPinContainer]
@@ -1161,7 +1157,7 @@ class Plex(BaseSDK):
         self,
         *,
         pin_id: int,
-        x_plex_client_identifier: Optional[str] = None,
+        client_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1171,7 +1167,7 @@ class Plex(BaseSDK):
         Retrieve an Access Token from Plex.tv after the Pin has been authenticated
 
         :param pin_id: The PinID to retrieve an access token for
-        :param x_plex_client_identifier: The unique identifier for the client application This is used to track the client application and its usage (UUID, serial number, or other number unique per device)
+        :param client_id: The unique identifier for the client application This is used to track the client application and its usage (UUID, serial number, or other number unique per device)
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1187,7 +1183,7 @@ class Plex(BaseSDK):
             base_url = operations.GET_TOKEN_BY_PIN_ID_SERVERS[0]
 
         request = operations.GetTokenByPinIDRequest(
-            x_plex_client_identifier=x_plex_client_identifier,
+            client_id=client_id,
             pin_id=pin_id,
         )
 
@@ -1203,7 +1199,7 @@ class Plex(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             _globals=operations.GetTokenByPinIDGlobals(
-                x_plex_client_identifier=self.sdk_configuration.globals.x_plex_client_identifier,
+                client_id=self.sdk_configuration.globals.client_id,
             ),
             timeout_ms=timeout_ms,
         )
@@ -1264,7 +1260,7 @@ class Plex(BaseSDK):
         self,
         *,
         pin_id: int,
-        x_plex_client_identifier: Optional[str] = None,
+        client_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1274,7 +1270,7 @@ class Plex(BaseSDK):
         Retrieve an Access Token from Plex.tv after the Pin has been authenticated
 
         :param pin_id: The PinID to retrieve an access token for
-        :param x_plex_client_identifier: The unique identifier for the client application This is used to track the client application and its usage (UUID, serial number, or other number unique per device)
+        :param client_id: The unique identifier for the client application This is used to track the client application and its usage (UUID, serial number, or other number unique per device)
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1290,7 +1286,7 @@ class Plex(BaseSDK):
             base_url = operations.GET_TOKEN_BY_PIN_ID_SERVERS[0]
 
         request = operations.GetTokenByPinIDRequest(
-            x_plex_client_identifier=x_plex_client_identifier,
+            client_id=client_id,
             pin_id=pin_id,
         )
 
@@ -1306,7 +1302,7 @@ class Plex(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             _globals=operations.GetTokenByPinIDGlobals(
-                x_plex_client_identifier=self.sdk_configuration.globals.x_plex_client_identifier,
+                client_id=self.sdk_configuration.globals.client_id,
             ),
             timeout_ms=timeout_ms,
         )
