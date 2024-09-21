@@ -28,35 +28,39 @@ class MailingListStatus(str, Enum):
     UNSUBSCRIBED = "unsubscribed"
 
 
-class AutoSelectSubtitle(str, Enum):
+class AutoSelectSubtitle(int, Enum):
     r"""The auto-select subtitle mode (0 = Manually selected, 1 = Shown with foreign audio, 2 = Always enabled)"""
 
-    ZERO = "0"
-    ONE = "1"
+    DISABLE = 0
+    ENABLE = 1
 
 
-class DefaultSubtitleAccessibility(str, Enum):
-    r"""The subtitles for the deaf or hard-of-hearing (SDH) searches mode (0 = Prefer non-SDH subtitles, 1 = Prefer SDH subtitles, 2 = Only show SDH subtitles, 3 = Only shown non-SDH subtitles)"""
+class DefaultSubtitleAccessibility(int, Enum):
+    r"""The subtitles for the deaf or hard-of-hearing (SDH) searches mode (0 = Prefer non-SDH subtitles, 1 = Prefer SDH subtitles, 2 = Only show SDH subtitles, 3 = Only show non-SDH subtitles)"""
 
-    ZERO = "0"
-    ONE = "1"
+    DISABLE = 0
+    ENABLE = 1
 
 
-class DefaultSubtitleForced(str, Enum):
+class DefaultSubtitleForced(int, Enum):
     r"""The forced subtitles searches mode (0 = Prefer non-forced subtitles, 1 = Prefer forced subtitles, 2 = Only show forced subtitles, 3 = Only show non-forced subtitles)"""
 
-    ZERO = "0"
-    ONE = "1"
+    DISABLE = 0
+    ENABLE = 1
 
 
-class WatchedIndicator(str, Enum):
-    ZERO = "0"
-    ONE = "1"
+class WatchedIndicator(int, Enum):
+    r"""Whether or not media watched indicators are enabled (little orange dot on media)"""
+
+    DISABLE = 0
+    ENABLE = 1
 
 
 class MediaReviewsVisibility(int, Enum):
-    ZERO = 0
-    ONE = 1
+    r"""Whether or not the account has media reviews visibility enabled"""
+
+    DISABLE = 0
+    ENABLE = 1
 
 
 class UserProfileTypedDict(TypedDict):
@@ -67,11 +71,8 @@ class UserProfileTypedDict(TypedDict):
     auto_select_audio: NotRequired[bool]
     r"""If the account has automatically select audio and subtitle tracks enabled"""
     auto_select_subtitle: NotRequired[AutoSelectSubtitle]
-    r"""The auto-select subtitle mode (0 = Manually selected, 1 = Shown with foreign audio, 2 = Always enabled)"""
     default_subtitle_accessibility: NotRequired[DefaultSubtitleAccessibility]
-    r"""The subtitles for the deaf or hard-of-hearing (SDH) searches mode (0 = Prefer non-SDH subtitles, 1 = Prefer SDH subtitles, 2 = Only show SDH subtitles, 3 = Only shown non-SDH subtitles)"""
     default_subtitle_forced: NotRequired[DefaultSubtitleForced]
-    r"""The forced subtitles searches mode (0 = Prefer non-forced subtitles, 1 = Prefer forced subtitles, 2 = Only show forced subtitles, 3 = Only show non-forced subtitles)"""
     watched_indicator: NotRequired[WatchedIndicator]
     media_reviews_visibility: NotRequired[MediaReviewsVisibility]
 
@@ -94,27 +95,24 @@ class UserProfile(BaseModel):
 
     auto_select_subtitle: Annotated[
         Optional[AutoSelectSubtitle], pydantic.Field(alias="autoSelectSubtitle")
-    ] = None
-    r"""The auto-select subtitle mode (0 = Manually selected, 1 = Shown with foreign audio, 2 = Always enabled)"""
+    ] = AutoSelectSubtitle.DISABLE
 
     default_subtitle_accessibility: Annotated[
         Optional[DefaultSubtitleAccessibility],
         pydantic.Field(alias="defaultSubtitleAccessibility"),
-    ] = None
-    r"""The subtitles for the deaf or hard-of-hearing (SDH) searches mode (0 = Prefer non-SDH subtitles, 1 = Prefer SDH subtitles, 2 = Only show SDH subtitles, 3 = Only shown non-SDH subtitles)"""
+    ] = DefaultSubtitleAccessibility.DISABLE
 
     default_subtitle_forced: Annotated[
         Optional[DefaultSubtitleForced], pydantic.Field(alias="defaultSubtitleForced")
-    ] = None
-    r"""The forced subtitles searches mode (0 = Prefer non-forced subtitles, 1 = Prefer forced subtitles, 2 = Only show forced subtitles, 3 = Only show non-forced subtitles)"""
+    ] = DefaultSubtitleForced.DISABLE
 
     watched_indicator: Annotated[
         Optional[WatchedIndicator], pydantic.Field(alias="watchedIndicator")
-    ] = None
+    ] = WatchedIndicator.DISABLE
 
     media_reviews_visibility: Annotated[
         Optional[MediaReviewsVisibility], pydantic.Field(alias="mediaReviewsVisibility")
-    ] = None
+    ] = MediaReviewsVisibility.DISABLE
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -527,7 +525,7 @@ class GetTokenDetailsUserPlexAccountTypedDict(TypedDict):
     id: int
     r"""The Plex account ID"""
     joined_at: int
-    r"""Unix epoch datetime"""
+    r"""Unix epoch datetime in seconds"""
     locale: Nullable[str]
     r"""The account locale"""
     mailing_list_status: MailingListStatus
@@ -536,7 +534,7 @@ class GetTokenDetailsUserPlexAccountTypedDict(TypedDict):
     r"""The maximum number of accounts allowed in the Plex Home"""
     profile: UserProfileTypedDict
     remember_expires_at: int
-    r"""Unix epoch datetime"""
+    r"""Unix epoch datetime in seconds"""
     scrobble_types: str
     r"""Unknown"""
     services: List[ServicesTypedDict]
@@ -623,7 +621,7 @@ class GetTokenDetailsUserPlexAccount(BaseModel):
     r"""The Plex account ID"""
 
     joined_at: Annotated[int, pydantic.Field(alias="joinedAt")]
-    r"""Unix epoch datetime"""
+    r"""Unix epoch datetime in seconds"""
 
     locale: Nullable[str]
     r"""The account locale"""
@@ -639,7 +637,7 @@ class GetTokenDetailsUserPlexAccount(BaseModel):
     profile: UserProfile
 
     remember_expires_at: Annotated[int, pydantic.Field(alias="rememberExpiresAt")]
-    r"""Unix epoch datetime"""
+    r"""Unix epoch datetime in seconds"""
 
     scrobble_types: Annotated[str, pydantic.Field(alias="scrobbleTypes")]
     r"""Unknown"""

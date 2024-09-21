@@ -561,7 +561,7 @@ actions:
                 device_name="Linux",
             )
 
-            res = s.library.get_top_watched_content(type_=operations.GetTopWatchedContentQueryParamType.TWO, include_guids=1)
+            res = s.library.get_top_watched_content(type_=operations.GetTopWatchedContentQueryParamType.SHOW, include_guids=1)
 
             if res.object is not None:
                 # handle response
@@ -656,7 +656,7 @@ actions:
                 device_name="Linux",
             )
 
-            res = s.library.get_metadata_children(rating_key=1539.14, include_elements="Stream")
+            res = s.library.get_metadata_children(rating_key=1539.15, include_elements="Stream")
 
             if res.object is not None:
                 # handle response
@@ -869,7 +869,7 @@ actions:
                 device_name="Linux",
             )
 
-            res = s.library.get_search_library(section_key=9518, type_=operations.QueryParamType.TWO)
+            res = s.library.get_search_library(section_key=9518, type_=operations.QueryParamType.SHOW)
 
             if res.object is not None:
                 # handle response
@@ -895,9 +895,9 @@ actions:
             res = s.library.get_library_items(request={
                 "section_key": 9518,
                 "tag": operations.Tag.EDITION,
-                "include_guids": operations.IncludeGuids.ONE,
-                "include_meta": operations.IncludeMeta.ONE,
-                "type": operations.Type.TWO,
+                "include_guids": operations.IncludeGuids.ENABLE,
+                "include_meta": operations.IncludeMeta.ENABLE,
+                "type": operations.Type.SHOW,
                 "x_plex_container_start": 0,
                 "x_plex_container_size": 50,
             })
@@ -1040,7 +1040,7 @@ actions:
                 "width": 110,
                 "height": 165,
                 "opacity": 100,
-                "blur": 20,
+                "blur": 0,
                 "min_size": operations.MinSize.ONE,
                 "upscale": operations.Upscale.ONE,
                 "url": "/library/metadata/49564/thumb/1654258204",
@@ -1086,7 +1086,7 @@ actions:
                 device_name="Linux",
             )
 
-            res = s.plex.get_token_by_pin_id(pin_id=408895, client_id="gcgzw5rz2xovp84b4vha3a40")
+            res = s.plex.get_token_by_pin_id(pin_id=408895)
 
             if res.auth_pin_container is not None:
                 # handle response
@@ -1135,7 +1135,7 @@ actions:
                 "title": "<value>",
                 "type": operations.CreatePlaylistQueryParamType.PHOTO,
                 "smart": operations.Smart.ONE,
-                "uri": "https://inborn-brochure.biz",
+                "uri": "https://hoarse-testing.info/",
             })
 
             if res.object is not None:
@@ -1159,7 +1159,7 @@ actions:
                 device_name="Linux",
             )
 
-            res = s.playlists.upload_playlist(path="/home/barkley/playlist.m3u", force=operations.QueryParamForce.ZERO)
+            res = s.playlists.upload_playlist(path="/home/barkley/playlist.m3u", force=operations.QueryParamForce.ZERO, section_id=1)
 
             if res is not None:
                 # handle response
@@ -1225,7 +1225,7 @@ actions:
                 device_name="Linux",
             )
 
-            res = s.playlists.update_playlist(playlist_id=3915)
+            res = s.playlists.update_playlist(playlist_id=3915.00)
 
             if res is not None:
                 # handle response
@@ -1270,7 +1270,7 @@ actions:
                 device_name="Linux",
             )
 
-            res = s.playlists.get_playlist_contents(playlist_id=5004.46, type_=operations.GetPlaylistContentsQueryParamType.TWO)
+            res = s.playlists.get_playlist_contents(playlist_id=5004.46, type_=operations.GetPlaylistContentsQueryParamType.SHOW)
 
             if res.object is not None:
                 # handle response
@@ -1292,7 +1292,7 @@ actions:
                 device_name="Linux",
             )
 
-            res = s.playlists.add_playlist_contents(playlist_id=8502.01, uri="server://12345/com.plexapp.plugins.library/library/metadata/1", play_queue_id=123)
+            res = s.playlists.add_playlist_contents(playlist_id=8502.00, uri="server://12345/com.plexapp.plugins.library/library/metadata/1", play_queue_id=123)
 
             if res.object is not None:
                 # handle response
@@ -1315,7 +1315,7 @@ actions:
                 device_name="Linux",
             )
 
-            res = s.plex.get_server_resources(client_id="gcgzw5rz2xovp84b4vha3a40", include_https=operations.IncludeHTTPS.ONE, include_relay=operations.IncludeRelay.ONE, include_i_pv6=operations.IncludeIPv6.ONE)
+            res = s.plex.get_server_resources(include_https=operations.IncludeHTTPS.ENABLE, include_relay=operations.IncludeRelay.ENABLE, include_i_pv6=operations.IncludeIPv6.ENABLE)
 
             if res.plex_devices is not None:
                 # handle response
@@ -1359,7 +1359,7 @@ actions:
                 device_name="Linux",
             )
 
-            res = s.authentication.get_source_connection_information(source="server://client-identifier")
+            res = s.authentication.get_source_connection_information(source="provider://provider-identifier")
 
             if res is not None:
                 # handle response
@@ -1669,7 +1669,7 @@ actions:
                 device_name="Linux",
             )
 
-            res = s.authentication.post_users_sign_in_data(client_id="gcgzw5rz2xovp84b4vha3a40", request_body={
+            res = s.authentication.post_users_sign_in_data(request={
                 "login": "username@email.com",
                 "password": "password123",
                 "verification_code": "123456",

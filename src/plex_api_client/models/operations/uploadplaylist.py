@@ -5,6 +5,7 @@ from enum import Enum
 import httpx
 from plex_api_client.types import BaseModel
 from plex_api_client.utils import FieldMetadata, QueryParamMetadata
+import pydantic
 from typing import TypedDict
 from typing_extensions import Annotated
 
@@ -38,6 +39,8 @@ class UploadPlaylistRequestTypedDict(TypedDict):
     If the `force` argument is set to 0, a new playlist will be created suffixed with the date and time that the duplicate was uploaded.
 
     """
+    section_id: int
+    r"""Possibly the section ID to upload the playlist to, we are not certain."""
 
 
 class UploadPlaylistRequest(BaseModel):
@@ -63,6 +66,13 @@ class UploadPlaylistRequest(BaseModel):
     If the `force` argument is set to 0, a new playlist will be created suffixed with the date and time that the duplicate was uploaded.
 
     """
+
+    section_id: Annotated[
+        int,
+        pydantic.Field(alias="sectionID"),
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = 1
+    r"""Possibly the section ID to upload the playlist to, we are not certain."""
 
 
 class UploadPlaylistResponseTypedDict(TypedDict):

@@ -21,10 +21,10 @@ class GetPlaylistContentsQueryParamType(int, Enum):
 
     """
 
-    ONE = 1
-    TWO = 2
-    THREE = 3
-    FOUR = 4
+    MOVIE = 1
+    SHOW = 2
+    SEASON = 3
+    EPISODE = 4
 
 
 class GetPlaylistContentsRequestTypedDict(TypedDict):

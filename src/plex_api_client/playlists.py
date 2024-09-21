@@ -1635,6 +1635,7 @@ class Playlists(BaseSDK):
         *,
         path: str,
         force: operations.QueryParamForce,
+        section_id: int = 1,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1646,6 +1647,7 @@ class Playlists(BaseSDK):
 
         :param path: absolute path to a directory on the server where m3u files are stored, or the absolute path to a playlist file on the server.  If the `path` argument is a directory, that path will be scanned for playlist files to be processed.  Each file in that directory creates a separate playlist, with a name based on the filename of the file that created it.  The GUID of each playlist is based on the filename.  If the `path` argument is a file, that file will be used to create a new playlist, with the name based on the filename of the file that created it.  The GUID of each playlist is based on the filename.
         :param force: Force overwriting of duplicate playlists.   By default, a playlist file uploaded with the same path will overwrite the existing playlist.  The `force` argument is used to disable overwriting.   If the `force` argument is set to 0, a new playlist will be created suffixed with the date and time that the duplicate was uploaded.
+        :param section_id: Possibly the section ID to upload the playlist to, we are not certain.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1661,6 +1663,7 @@ class Playlists(BaseSDK):
         request = operations.UploadPlaylistRequest(
             path=path,
             force=force,
+            section_id=section_id,
         )
 
         req = self.build_request(
@@ -1734,6 +1737,7 @@ class Playlists(BaseSDK):
         *,
         path: str,
         force: operations.QueryParamForce,
+        section_id: int = 1,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1745,6 +1749,7 @@ class Playlists(BaseSDK):
 
         :param path: absolute path to a directory on the server where m3u files are stored, or the absolute path to a playlist file on the server.  If the `path` argument is a directory, that path will be scanned for playlist files to be processed.  Each file in that directory creates a separate playlist, with a name based on the filename of the file that created it.  The GUID of each playlist is based on the filename.  If the `path` argument is a file, that file will be used to create a new playlist, with the name based on the filename of the file that created it.  The GUID of each playlist is based on the filename.
         :param force: Force overwriting of duplicate playlists.   By default, a playlist file uploaded with the same path will overwrite the existing playlist.  The `force` argument is used to disable overwriting.   If the `force` argument is set to 0, a new playlist will be created suffixed with the date and time that the duplicate was uploaded.
+        :param section_id: Possibly the section ID to upload the playlist to, we are not certain.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1760,6 +1765,7 @@ class Playlists(BaseSDK):
         request = operations.UploadPlaylistRequest(
             path=path,
             force=force,
+            section_id=section_id,
         )
 
         req = self.build_request_async(

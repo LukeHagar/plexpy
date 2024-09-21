@@ -18,7 +18,7 @@ class Security(BaseModel):
             security=SecurityMetadata(
                 scheme=True,
                 scheme_type="apiKey",
-                sub_type="query",
+                sub_type="header",
                 field_name="X-Plex-Token",
             )
         ),

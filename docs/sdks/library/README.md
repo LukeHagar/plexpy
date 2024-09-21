@@ -341,9 +341,9 @@ s = PlexAPI(
 res = s.library.get_library_items(request={
     "section_key": 9518,
     "tag": operations.Tag.EDITION,
-    "type": operations.Type.TWO,
-    "include_guids": operations.IncludeGuids.ONE,
-    "include_meta": operations.IncludeMeta.ONE,
+    "type": operations.Type.SHOW,
+    "include_guids": operations.IncludeGuids.ENABLE,
+    "include_meta": operations.IncludeMeta.ENABLE,
     "x_plex_container_start": 0,
     "x_plex_container_size": 50,
 })
@@ -460,7 +460,7 @@ s = PlexAPI(
     device_name="Linux",
 )
 
-res = s.library.get_search_library(section_key=9518, type_=operations.QueryParamType.TWO)
+res = s.library.get_search_library(section_key=9518, type_=operations.QueryParamType.SHOW)
 
 if res.object is not None:
     # handle response
@@ -604,7 +604,7 @@ s = PlexAPI(
     device_name="Linux",
 )
 
-res = s.library.get_top_watched_content(type_=operations.GetTopWatchedContentQueryParamType.TWO, include_guids=1)
+res = s.library.get_top_watched_content(type_=operations.GetTopWatchedContentQueryParamType.SHOW, include_guids=1)
 
 if res.object is not None:
     # handle response

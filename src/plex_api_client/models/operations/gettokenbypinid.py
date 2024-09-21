@@ -10,7 +10,7 @@ from plex_api_client.types import (
     UNSET,
     UNSET_SENTINEL,
 )
-from plex_api_client.utils import FieldMetadata, PathParamMetadata, QueryParamMetadata
+from plex_api_client.utils import FieldMetadata, PathParamMetadata
 import pydantic
 from pydantic import model_serializer
 from typing import Any, Optional, TypedDict
@@ -21,37 +21,9 @@ GET_TOKEN_BY_PIN_ID_SERVERS = [
 ]
 
 
-class GetTokenByPinIDGlobalsTypedDict(TypedDict):
-    client_id: NotRequired[str]
-    r"""The unique identifier for the client application
-    This is used to track the client application and its usage
-    (UUID, serial number, or other number unique per device)
-
-    """
-
-
-class GetTokenByPinIDGlobals(BaseModel):
-    client_id: Annotated[
-        Optional[str],
-        pydantic.Field(alias="X-Plex-Client-Identifier"),
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
-    r"""The unique identifier for the client application
-    This is used to track the client application and its usage
-    (UUID, serial number, or other number unique per device)
-
-    """
-
-
 class GetTokenByPinIDRequestTypedDict(TypedDict):
     pin_id: int
     r"""The PinID to retrieve an access token for"""
-    client_id: NotRequired[str]
-    r"""The unique identifier for the client application
-    This is used to track the client application and its usage
-    (UUID, serial number, or other number unique per device)
-
-    """
 
 
 class GetTokenByPinIDRequest(BaseModel):
@@ -61,17 +33,6 @@ class GetTokenByPinIDRequest(BaseModel):
         FieldMetadata(path=PathParamMetadata(style="simple", explode=False)),
     ]
     r"""The PinID to retrieve an access token for"""
-
-    client_id: Annotated[
-        Optional[str],
-        pydantic.Field(alias="X-Plex-Client-Identifier"),
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
-    r"""The unique identifier for the client application
-    This is used to track the client application and its usage
-    (UUID, serial number, or other number unique per device)
-
-    """
 
 
 class GetTokenByPinIDGeoDataTypedDict(TypedDict):

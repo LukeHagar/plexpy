@@ -22,12 +22,6 @@ GET_PIN_SERVERS = [
 
 
 class GetPinGlobalsTypedDict(TypedDict):
-    client_id: NotRequired[str]
-    r"""The unique identifier for the client application
-    This is used to track the client application and its usage
-    (UUID, serial number, or other number unique per device)
-
-    """
     client_name: NotRequired[str]
     device_name: NotRequired[str]
     client_version: NotRequired[str]
@@ -35,17 +29,6 @@ class GetPinGlobalsTypedDict(TypedDict):
 
 
 class GetPinGlobals(BaseModel):
-    client_id: Annotated[
-        Optional[str],
-        pydantic.Field(alias="X-Plex-Client-Identifier"),
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
-    r"""The unique identifier for the client application
-    This is used to track the client application and its usage
-    (UUID, serial number, or other number unique per device)
-
-    """
-
     client_name: Annotated[
         Optional[str],
         pydantic.Field(alias="X-Plex-Product"),
@@ -78,12 +61,6 @@ class GetPinRequestTypedDict(TypedDict):
     Non-Strong codes are used for `Plex.tv/link`
 
     """
-    client_id: NotRequired[str]
-    r"""The unique identifier for the client application
-    This is used to track the client application and its usage
-    (UUID, serial number, or other number unique per device)
-
-    """
     client_name: NotRequired[str]
     device_name: NotRequired[str]
     client_version: NotRequired[str]
@@ -98,17 +75,6 @@ class GetPinRequest(BaseModel):
     r"""Determines the kind of code returned by the API call
     Strong codes are used for Pin authentication flows
     Non-Strong codes are used for `Plex.tv/link`
-
-    """
-
-    client_id: Annotated[
-        Optional[str],
-        pydantic.Field(alias="X-Plex-Client-Identifier"),
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
-    r"""The unique identifier for the client application
-    This is used to track the client application and its usage
-    (UUID, serial number, or other number unique per device)
 
     """
 

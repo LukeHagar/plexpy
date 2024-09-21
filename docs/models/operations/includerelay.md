@@ -7,7 +7,7 @@ E.g: https://10-0-0-25.bbf8e10c7fa20447cacee74cd9914cde.plex.direct:32400
 
 ## Values
 
-| Name   | Value  |
-| ------ | ------ |
-| `ZERO` | 0      |
-| `ONE`  | 1      |
+| Name      | Value     |
+| --------- | --------- |
+| `DISABLE` | 0         |
+| `ENABLE`  | 1         |

@@ -9,99 +9,95 @@ from typing_extensions import Annotated, NotRequired
 
 
 class LocationTypedDict(TypedDict):
-    id: NotRequired[int]
-    path: NotRequired[str]
+    id: int
+    path: str
 
 
 class Location(BaseModel):
-    id: Optional[int] = None
+    id: int
 
-    path: Optional[str] = None
+    path: str
 
 
 class GetAllLibrariesDirectoryTypedDict(TypedDict):
-    allow_sync: NotRequired[bool]
-    art: NotRequired[str]
-    composite: NotRequired[str]
-    filters: NotRequired[bool]
-    refreshing: NotRequired[bool]
-    thumb: NotRequired[str]
-    key: NotRequired[str]
-    type: NotRequired[str]
-    title: NotRequired[str]
-    agent: NotRequired[str]
-    scanner: NotRequired[str]
-    language: NotRequired[str]
-    uuid: NotRequired[str]
-    updated_at: NotRequired[int]
-    r"""Unix epoch datetime"""
-    created_at: NotRequired[int]
-    r"""Unix epoch datetime"""
-    scanned_at: NotRequired[int]
-    r"""Unix epoch datetime"""
-    content: NotRequired[bool]
-    directory: NotRequired[bool]
-    content_changed_at: NotRequired[int]
-    hidden: NotRequired[int]
-    location: NotRequired[List[LocationTypedDict]]
+    allow_sync: bool
+    art: str
+    composite: str
+    filters: bool
+    refreshing: bool
+    thumb: str
+    key: str
+    type: str
+    title: str
+    agent: str
+    scanner: str
+    language: str
+    uuid: str
+    updated_at: int
+    r"""Unix epoch datetime in seconds"""
+    created_at: int
+    r"""Unix epoch datetime in seconds"""
+    scanned_at: int
+    r"""Unix epoch datetime in seconds"""
+    content: bool
+    directory: bool
+    content_changed_at: int
+    hidden: int
+    location: List[LocationTypedDict]
 
 
 class GetAllLibrariesDirectory(BaseModel):
-    allow_sync: Annotated[Optional[bool], pydantic.Field(alias="allowSync")] = None
+    allow_sync: Annotated[bool, pydantic.Field(alias="allowSync")]
 
-    art: Optional[str] = None
+    art: str
 
-    composite: Optional[str] = None
+    composite: str
 
-    filters: Optional[bool] = None
+    filters: bool
 
-    refreshing: Optional[bool] = None
+    refreshing: bool
 
-    thumb: Optional[str] = None
+    thumb: str
 
-    key: Optional[str] = None
+    key: str
 
-    type: Optional[str] = None
+    type: str
 
-    title: Optional[str] = None
+    title: str
 
-    agent: Optional[str] = None
+    agent: str
 
-    scanner: Optional[str] = None
+    scanner: str
 
-    language: Optional[str] = None
+    language: str
 
-    uuid: Optional[str] = None
+    uuid: str
 
-    updated_at: Annotated[Optional[int], pydantic.Field(alias="updatedAt")] = None
-    r"""Unix epoch datetime"""
+    updated_at: Annotated[int, pydantic.Field(alias="updatedAt")]
+    r"""Unix epoch datetime in seconds"""
 
-    created_at: Annotated[Optional[int], pydantic.Field(alias="createdAt")] = None
-    r"""Unix epoch datetime"""
+    created_at: Annotated[int, pydantic.Field(alias="createdAt")]
+    r"""Unix epoch datetime in seconds"""
 
-    scanned_at: Annotated[Optional[int], pydantic.Field(alias="scannedAt")] = None
-    r"""Unix epoch datetime"""
+    scanned_at: Annotated[int, pydantic.Field(alias="scannedAt")]
+    r"""Unix epoch datetime in seconds"""
 
-    content: Optional[bool] = None
+    content: bool
 
-    directory: Optional[bool] = None
+    directory: bool
 
-    content_changed_at: Annotated[
-        Optional[int], pydantic.Field(alias="contentChangedAt")
-    ] = None
+    content_changed_at: Annotated[int, pydantic.Field(alias="contentChangedAt")]
 
-    hidden: Optional[int] = None
+    hidden: int
 
-    location: Annotated[Optional[List[Location]], pydantic.Field(alias="Location")] = (
-        None
-    )
+    location: Annotated[List[Location], pydantic.Field(alias="Location")]
 
 
 class GetAllLibrariesMediaContainerTypedDict(TypedDict):
     size: int
     allow_sync: bool
     title1: str
-    directory: NotRequired[List[GetAllLibrariesDirectoryTypedDict]]
+    directory: List[GetAllLibrariesDirectoryTypedDict]
 
 
 class GetAllLibrariesMediaContainer(BaseModel):
@@ -112,22 +108,22 @@ class GetAllLibrariesMediaContainer(BaseModel):
     title1: str
 
     directory: Annotated[
-        Optional[List[GetAllLibrariesDirectory]], pydantic.Field(alias="Directory")
-    ] = None
+        List[GetAllLibrariesDirectory], pydantic.Field(alias="Directory")
+    ]
 
 
 class GetAllLibrariesResponseBodyTypedDict(TypedDict):
     r"""The libraries available on the Server"""
 
-    media_container: NotRequired[GetAllLibrariesMediaContainerTypedDict]
+    media_container: GetAllLibrariesMediaContainerTypedDict
 
 
 class GetAllLibrariesResponseBody(BaseModel):
     r"""The libraries available on the Server"""
 
     media_container: Annotated[
-        Optional[GetAllLibrariesMediaContainer], pydantic.Field(alias="MediaContainer")
-    ] = None
+        GetAllLibrariesMediaContainer, pydantic.Field(alias="MediaContainer")
+    ]
 
 
 class GetAllLibrariesResponseTypedDict(TypedDict):

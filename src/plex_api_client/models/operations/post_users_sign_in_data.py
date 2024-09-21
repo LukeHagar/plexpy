@@ -11,7 +11,7 @@ from plex_api_client.types import (
     UNSET,
     UNSET_SENTINEL,
 )
-from plex_api_client.utils import FieldMetadata, QueryParamMetadata, RequestMetadata
+from plex_api_client.utils import FieldMetadata
 import pydantic
 from pydantic import model_serializer
 from typing import List, Optional, TypedDict
@@ -20,28 +20,6 @@ from typing_extensions import Annotated, NotRequired
 POST_USERS_SIGN_IN_DATA_SERVERS = [
     "https://plex.tv/api/v2/",
 ]
-
-
-class PostUsersSignInDataGlobalsTypedDict(TypedDict):
-    client_id: NotRequired[str]
-    r"""The unique identifier for the client application
-    This is used to track the client application and its usage
-    (UUID, serial number, or other number unique per device)
-
-    """
-
-
-class PostUsersSignInDataGlobals(BaseModel):
-    client_id: Annotated[
-        Optional[str],
-        pydantic.Field(alias="X-Plex-Client-Identifier"),
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
-    r"""The unique identifier for the client application
-    This is used to track the client application and its usage
-    (UUID, serial number, or other number unique per device)
-
-    """
 
 
 class PostUsersSignInDataRequestBodyTypedDict(TypedDict):
@@ -71,38 +49,6 @@ class PostUsersSignInDataRequestBody(BaseModel):
     ] = None
 
 
-class PostUsersSignInDataRequestTypedDict(TypedDict):
-    client_id: NotRequired[str]
-    r"""The unique identifier for the client application
-    This is used to track the client application and its usage
-    (UUID, serial number, or other number unique per device)
-
-    """
-    request_body: NotRequired[PostUsersSignInDataRequestBodyTypedDict]
-    r"""Login credentials"""
-
-
-class PostUsersSignInDataRequest(BaseModel):
-    client_id: Annotated[
-        Optional[str],
-        pydantic.Field(alias="X-Plex-Client-Identifier"),
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
-    r"""The unique identifier for the client application
-    This is used to track the client application and its usage
-    (UUID, serial number, or other number unique per device)
-
-    """
-
-    request_body: Annotated[
-        Optional[PostUsersSignInDataRequestBody],
-        FieldMetadata(
-            request=RequestMetadata(media_type="application/x-www-form-urlencoded")
-        ),
-    ] = None
-    r"""Login credentials"""
-
-
 class PostUsersSignInDataMailingListStatus(str, Enum):
     r"""Your current mailing list status"""
 
@@ -110,35 +56,39 @@ class PostUsersSignInDataMailingListStatus(str, Enum):
     UNSUBSCRIBED = "unsubscribed"
 
 
-class PostUsersSignInDataAutoSelectSubtitle(str, Enum):
+class PostUsersSignInDataAutoSelectSubtitle(int, Enum):
     r"""The auto-select subtitle mode (0 = Manually selected, 1 = Shown with foreign audio, 2 = Always enabled)"""
 
-    ZERO = "0"
-    ONE = "1"
+    DISABLE = 0
+    ENABLE = 1
 
 
-class PostUsersSignInDataDefaultSubtitleAccessibility(str, Enum):
-    r"""The subtitles for the deaf or hard-of-hearing (SDH) searches mode (0 = Prefer non-SDH subtitles, 1 = Prefer SDH subtitles, 2 = Only show SDH subtitles, 3 = Only shown non-SDH subtitles)"""
+class PostUsersSignInDataDefaultSubtitleAccessibility(int, Enum):
+    r"""The subtitles for the deaf or hard-of-hearing (SDH) searches mode (0 = Prefer non-SDH subtitles, 1 = Prefer SDH subtitles, 2 = Only show SDH subtitles, 3 = Only show non-SDH subtitles)"""
 
-    ZERO = "0"
-    ONE = "1"
+    DISABLE = 0
+    ENABLE = 1
 
 
-class PostUsersSignInDataDefaultSubtitleForced(str, Enum):
+class PostUsersSignInDataDefaultSubtitleForced(int, Enum):
     r"""The forced subtitles searches mode (0 = Prefer non-forced subtitles, 1 = Prefer forced subtitles, 2 = Only show forced subtitles, 3 = Only show non-forced subtitles)"""
 
-    ZERO = "0"
-    ONE = "1"
+    DISABLE = 0
+    ENABLE = 1
 
 
-class PostUsersSignInDataWatchedIndicator(str, Enum):
-    ZERO = "0"
-    ONE = "1"
+class PostUsersSignInDataWatchedIndicator(int, Enum):
+    r"""Whether or not media watched indicators are enabled (little orange dot on media)"""
+
+    DISABLE = 0
+    ENABLE = 1
 
 
 class PostUsersSignInDataMediaReviewsVisibility(int, Enum):
-    ZERO = 0
-    ONE = 1
+    r"""Whether or not the account has media reviews visibility enabled"""
+
+    DISABLE = 0
+    ENABLE = 1
 
 
 class PostUsersSignInDataUserProfileTypedDict(TypedDict):
@@ -149,13 +99,10 @@ class PostUsersSignInDataUserProfileTypedDict(TypedDict):
     auto_select_audio: NotRequired[bool]
     r"""If the account has automatically select audio and subtitle tracks enabled"""
     auto_select_subtitle: NotRequired[PostUsersSignInDataAutoSelectSubtitle]
-    r"""The auto-select subtitle mode (0 = Manually selected, 1 = Shown with foreign audio, 2 = Always enabled)"""
     default_subtitle_accessibility: NotRequired[
         PostUsersSignInDataDefaultSubtitleAccessibility
     ]
-    r"""The subtitles for the deaf or hard-of-hearing (SDH) searches mode (0 = Prefer non-SDH subtitles, 1 = Prefer SDH subtitles, 2 = Only show SDH subtitles, 3 = Only shown non-SDH subtitles)"""
     default_subtitle_forced: NotRequired[PostUsersSignInDataDefaultSubtitleForced]
-    r"""The forced subtitles searches mode (0 = Prefer non-forced subtitles, 1 = Prefer forced subtitles, 2 = Only show forced subtitles, 3 = Only show non-forced subtitles)"""
     watched_indicator: NotRequired[PostUsersSignInDataWatchedIndicator]
     media_reviews_visibility: NotRequired[PostUsersSignInDataMediaReviewsVisibility]
 
@@ -179,30 +126,27 @@ class PostUsersSignInDataUserProfile(BaseModel):
     auto_select_subtitle: Annotated[
         Optional[PostUsersSignInDataAutoSelectSubtitle],
         pydantic.Field(alias="autoSelectSubtitle"),
-    ] = None
-    r"""The auto-select subtitle mode (0 = Manually selected, 1 = Shown with foreign audio, 2 = Always enabled)"""
+    ] = PostUsersSignInDataAutoSelectSubtitle.DISABLE
 
     default_subtitle_accessibility: Annotated[
         Optional[PostUsersSignInDataDefaultSubtitleAccessibility],
         pydantic.Field(alias="defaultSubtitleAccessibility"),
-    ] = None
-    r"""The subtitles for the deaf or hard-of-hearing (SDH) searches mode (0 = Prefer non-SDH subtitles, 1 = Prefer SDH subtitles, 2 = Only show SDH subtitles, 3 = Only shown non-SDH subtitles)"""
+    ] = PostUsersSignInDataDefaultSubtitleAccessibility.DISABLE
 
     default_subtitle_forced: Annotated[
         Optional[PostUsersSignInDataDefaultSubtitleForced],
         pydantic.Field(alias="defaultSubtitleForced"),
-    ] = None
-    r"""The forced subtitles searches mode (0 = Prefer non-forced subtitles, 1 = Prefer forced subtitles, 2 = Only show forced subtitles, 3 = Only show non-forced subtitles)"""
+    ] = PostUsersSignInDataDefaultSubtitleForced.DISABLE
 
     watched_indicator: Annotated[
         Optional[PostUsersSignInDataWatchedIndicator],
         pydantic.Field(alias="watchedIndicator"),
-    ] = None
+    ] = PostUsersSignInDataWatchedIndicator.DISABLE
 
     media_reviews_visibility: Annotated[
         Optional[PostUsersSignInDataMediaReviewsVisibility],
         pydantic.Field(alias="mediaReviewsVisibility"),
-    ] = None
+    ] = PostUsersSignInDataMediaReviewsVisibility.DISABLE
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -770,7 +714,7 @@ class PostUsersSignInDataUserPlexAccountTypedDict(TypedDict):
     id: int
     r"""The Plex account ID"""
     joined_at: int
-    r"""Unix epoch datetime"""
+    r"""Unix epoch datetime in seconds"""
     locale: Nullable[str]
     r"""The account locale"""
     mailing_list_status: PostUsersSignInDataMailingListStatus
@@ -779,7 +723,7 @@ class PostUsersSignInDataUserPlexAccountTypedDict(TypedDict):
     r"""The maximum number of accounts allowed in the Plex Home"""
     profile: PostUsersSignInDataUserProfileTypedDict
     remember_expires_at: int
-    r"""Unix epoch datetime"""
+    r"""Unix epoch datetime in seconds"""
     scrobble_types: str
     r"""Unknown"""
     services: List[PostUsersSignInDataServicesTypedDict]
@@ -868,7 +812,7 @@ class PostUsersSignInDataUserPlexAccount(BaseModel):
     r"""The Plex account ID"""
 
     joined_at: Annotated[int, pydantic.Field(alias="joinedAt")]
-    r"""Unix epoch datetime"""
+    r"""Unix epoch datetime in seconds"""
 
     locale: Nullable[str]
     r"""The account locale"""
@@ -884,7 +828,7 @@ class PostUsersSignInDataUserPlexAccount(BaseModel):
     profile: PostUsersSignInDataUserProfile
 
     remember_expires_at: Annotated[int, pydantic.Field(alias="rememberExpiresAt")]
-    r"""Unix epoch datetime"""
+    r"""Unix epoch datetime in seconds"""
 
     scrobble_types: Annotated[str, pydantic.Field(alias="scrobbleTypes")]
     r"""Unknown"""

@@ -16,33 +16,11 @@ GET_SERVER_RESOURCES_SERVERS = [
 ]
 
 
-class GetServerResourcesGlobalsTypedDict(TypedDict):
-    client_id: NotRequired[str]
-    r"""The unique identifier for the client application
-    This is used to track the client application and its usage
-    (UUID, serial number, or other number unique per device)
-
-    """
-
-
-class GetServerResourcesGlobals(BaseModel):
-    client_id: Annotated[
-        Optional[str],
-        pydantic.Field(alias="X-Plex-Client-Identifier"),
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
-    r"""The unique identifier for the client application
-    This is used to track the client application and its usage
-    (UUID, serial number, or other number unique per device)
-
-    """
-
-
 class IncludeHTTPS(int, Enum):
     r"""Include Https entries in the results"""
 
-    ZERO = 0
-    ONE = 1
+    DISABLE = 0
+    ENABLE = 1
 
 
 class IncludeRelay(int, Enum):
@@ -51,24 +29,18 @@ class IncludeRelay(int, Enum):
 
     """
 
-    ZERO = 0
-    ONE = 1
+    DISABLE = 0
+    ENABLE = 1
 
 
 class IncludeIPv6(int, Enum):
     r"""Include IPv6 entries in the results"""
 
-    ZERO = 0
-    ONE = 1
+    DISABLE = 0
+    ENABLE = 1
 
 
 class GetServerResourcesRequestTypedDict(TypedDict):
-    client_id: NotRequired[str]
-    r"""The unique identifier for the client application
-    This is used to track the client application and its usage
-    (UUID, serial number, or other number unique per device)
-
-    """
     include_https: NotRequired[IncludeHTTPS]
     r"""Include Https entries in the results"""
     include_relay: NotRequired[IncludeRelay]
@@ -81,29 +53,18 @@ class GetServerResourcesRequestTypedDict(TypedDict):
 
 
 class GetServerResourcesRequest(BaseModel):
-    client_id: Annotated[
-        Optional[str],
-        pydantic.Field(alias="X-Plex-Client-Identifier"),
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
-    r"""The unique identifier for the client application
-    This is used to track the client application and its usage
-    (UUID, serial number, or other number unique per device)
-
-    """
-
     include_https: Annotated[
         Optional[IncludeHTTPS],
         pydantic.Field(alias="includeHttps"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = IncludeHTTPS.ZERO
+    ] = IncludeHTTPS.DISABLE
     r"""Include Https entries in the results"""
 
     include_relay: Annotated[
         Optional[IncludeRelay],
         pydantic.Field(alias="includeRelay"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = IncludeRelay.ZERO
+    ] = IncludeRelay.DISABLE
     r"""Include Relay addresses in the results
     E.g: https://10-0-0-25.bbf8e10c7fa20447cacee74cd9914cde.plex.direct:32400
 
@@ -113,34 +74,55 @@ class GetServerResourcesRequest(BaseModel):
         Optional[IncludeIPv6],
         pydantic.Field(alias="includeIPv6"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = IncludeIPv6.ZERO
+    ] = IncludeIPv6.DISABLE
     r"""Include IPv6 entries in the results"""
 
 
+class Protocol(str, Enum):
+    r"""The protocol used for the connection (http, https, etc)"""
+
+    HTTP = "http"
+    HTTPS = "https"
+
+
 class ConnectionsTypedDict(TypedDict):
-    protocol: str
+    protocol: Protocol
+    r"""The protocol used for the connection (http, https, etc)"""
     address: str
-    port: float
+    r"""The (ip) address or domain name used for the connection"""
+    port: int
+    r"""The port used for the connection"""
     uri: str
+    r"""The full URI of the connection"""
     local: bool
+    r"""If the connection is local address"""
     relay: bool
+    r"""If the connection is relayed through plex.direct"""
     i_pv6: bool
+    r"""If the connection is using IPv6"""
 
 
 class Connections(BaseModel):
-    protocol: str
+    protocol: Protocol
+    r"""The protocol used for the connection (http, https, etc)"""
 
     address: str
+    r"""The (ip) address or domain name used for the connection"""
 
-    port: float
+    port: int
+    r"""The port used for the connection"""
 
     uri: str
+    r"""The full URI of the connection"""
 
     local: bool
+    r"""If the connection is local address"""
 
     relay: bool
+    r"""If the connection is relayed through plex.direct"""
 
     i_pv6: Annotated[bool, pydantic.Field(alias="IPv6")]
+    r"""If the connection is using IPv6"""
 
 
 class PlexDeviceTypedDict(TypedDict):

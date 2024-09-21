@@ -38,15 +38,15 @@ class Tag(str, Enum):
 class IncludeGuids(int, Enum):
     r"""Adds the Guids object to the response"""
 
-    ZERO = 0
-    ONE = 1
+    DISABLE = 0
+    ENABLE = 1
 
 
 class IncludeMeta(int, Enum):
     r"""Adds the Meta object to the response"""
 
-    ZERO = 0
-    ONE = 1
+    DISABLE = 0
+    ENABLE = 1
 
 
 class Type(int, Enum):
@@ -59,10 +59,10 @@ class Type(int, Enum):
 
     """
 
-    ONE = 1
-    TWO = 2
-    THREE = 3
-    FOUR = 4
+    MOVIE = 1
+    SHOW = 2
+    SEASON = 3
+    EPISODE = 4
 
 
 class GetLibraryItemsRequestTypedDict(TypedDict):
@@ -136,7 +136,7 @@ class GetLibraryItemsRequest(BaseModel):
         Optional[IncludeGuids],
         pydantic.Field(alias="includeGuids"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = IncludeGuids.DISABLE
     r"""Adds the Guids object to the response
 
     """
@@ -145,7 +145,7 @@ class GetLibraryItemsRequest(BaseModel):
         Optional[IncludeMeta],
         pydantic.Field(alias="includeMeta"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = IncludeMeta.DISABLE
     r"""Adds the Meta object to the response
 
     """
@@ -300,22 +300,39 @@ class GetLibraryItemsRole(BaseModel):
     tag: Optional[str] = None
 
 
+class MediaGUIDTypedDict(TypedDict):
+    id: str
+    r"""Can be one of the following formats:
+    imdb://tt13015952, tmdb://2434012, tvdb://7945991
+
+    """
+
+
+class MediaGUID(BaseModel):
+    id: str
+    r"""Can be one of the following formats:
+    imdb://tt13015952, tmdb://2434012, tvdb://7945991
+
+    """
+
+
 class GetLibraryItemsMetadataTypedDict(TypedDict):
-    rating_key: NotRequired[str]
-    key: NotRequired[str]
-    guid: NotRequired[str]
+    rating_key: str
+    key: str
+    guid: str
+    type: str
+    title: str
+    year: int
+    duration: int
+    media: List[GetLibraryItemsMediaTypedDict]
     studio: NotRequired[str]
-    type: NotRequired[str]
-    title: NotRequired[str]
     content_rating: NotRequired[str]
     summary: NotRequired[str]
     rating: NotRequired[float]
     audience_rating: NotRequired[float]
-    year: NotRequired[int]
     tagline: NotRequired[str]
     thumb: NotRequired[str]
     art: NotRequired[str]
-    duration: NotRequired[int]
     originally_available_at: NotRequired[date]
     added_at: NotRequired[int]
     updated_at: NotRequired[int]
@@ -330,12 +347,15 @@ class GetLibraryItemsMetadataTypedDict(TypedDict):
     grandparent_thumb: NotRequired[str]
     grandparent_art: NotRequired[str]
     grandparent_theme: NotRequired[str]
-    media: NotRequired[List[GetLibraryItemsMediaTypedDict]]
     genre: NotRequired[List[GetLibraryItemsGenreTypedDict]]
     country: NotRequired[List[GetLibraryItemsCountryTypedDict]]
     director: NotRequired[List[GetLibraryItemsDirectorTypedDict]]
     writer: NotRequired[List[GetLibraryItemsWriterTypedDict]]
     role: NotRequired[List[GetLibraryItemsRoleTypedDict]]
+    media_guid: NotRequired[List[MediaGUIDTypedDict]]
+    r"""The Guid object is only included in the response if the `includeGuids` parameter is set to `1`.
+
+    """
     title_sort: NotRequired[str]
     view_count: NotRequired[int]
     last_viewed_at: NotRequired[int]
@@ -361,17 +381,23 @@ class GetLibraryItemsMetadataTypedDict(TypedDict):
 
 
 class GetLibraryItemsMetadata(BaseModel):
-    rating_key: Annotated[Optional[str], pydantic.Field(alias="ratingKey")] = None
+    rating_key: Annotated[str, pydantic.Field(alias="ratingKey")]
 
-    key: Optional[str] = None
+    key: str
 
-    guid: Optional[str] = None
+    guid: str
+
+    type: str
+
+    title: str
+
+    year: int
+
+    duration: int
+
+    media: Annotated[List[GetLibraryItemsMedia], pydantic.Field(alias="Media")]
 
     studio: Optional[str] = None
-
-    type: Optional[str] = None
-
-    title: Optional[str] = None
 
     content_rating: Annotated[Optional[str], pydantic.Field(alias="contentRating")] = (
         None
@@ -385,15 +411,11 @@ class GetLibraryItemsMetadata(BaseModel):
         Optional[float], pydantic.Field(alias="audienceRating")
     ] = None
 
-    year: Optional[int] = None
-
     tagline: Optional[str] = None
 
     thumb: Optional[str] = None
 
     art: Optional[str] = None
-
-    duration: Optional[int] = None
 
     originally_available_at: Annotated[
         Optional[date], pydantic.Field(alias="originallyAvailableAt")
@@ -445,10 +467,6 @@ class GetLibraryItemsMetadata(BaseModel):
         Optional[str], pydantic.Field(alias="grandparentTheme")
     ] = None
 
-    media: Annotated[
-        Optional[List[GetLibraryItemsMedia]], pydantic.Field(alias="Media")
-    ] = None
-
     genre: Annotated[
         Optional[List[GetLibraryItemsGenre]], pydantic.Field(alias="Genre")
     ] = None
@@ -468,6 +486,13 @@ class GetLibraryItemsMetadata(BaseModel):
     role: Annotated[
         Optional[List[GetLibraryItemsRole]], pydantic.Field(alias="Role")
     ] = None
+
+    media_guid: Annotated[Optional[List[MediaGUID]], pydantic.Field(alias="Guid")] = (
+        None
+    )
+    r"""The Guid object is only included in the response if the `includeGuids` parameter is set to `1`.
+
+    """
 
     title_sort: Annotated[Optional[str], pydantic.Field(alias="titleSort")] = None
 
@@ -526,61 +551,192 @@ class GetLibraryItemsMetadata(BaseModel):
     parent_theme: Annotated[Optional[str], pydantic.Field(alias="parentTheme")] = None
 
 
+class GetLibraryItemsFilterTypedDict(TypedDict):
+    filter_: str
+    filter_type: str
+    key: str
+    title: str
+    type: str
+
+
+class GetLibraryItemsFilter(BaseModel):
+    filter_: Annotated[str, pydantic.Field(alias="filter")]
+
+    filter_type: Annotated[str, pydantic.Field(alias="filterType")]
+
+    key: str
+
+    title: str
+
+    type: str
+
+
+class GetLibraryItemsSortTypedDict(TypedDict):
+    default_direction: str
+    key: str
+    title: str
+    default: NotRequired[str]
+    desc_key: NotRequired[str]
+    first_character_key: NotRequired[str]
+
+
+class GetLibraryItemsSort(BaseModel):
+    default_direction: Annotated[str, pydantic.Field(alias="defaultDirection")]
+
+    key: str
+
+    title: str
+
+    default: Optional[str] = None
+
+    desc_key: Annotated[Optional[str], pydantic.Field(alias="descKey")] = None
+
+    first_character_key: Annotated[
+        Optional[str], pydantic.Field(alias="firstCharacterKey")
+    ] = None
+
+
+class GetLibraryItemsFieldTypedDict(TypedDict):
+    key: str
+    title: str
+    type: str
+    sub_type: NotRequired[str]
+
+
+class GetLibraryItemsField(BaseModel):
+    key: str
+
+    title: str
+
+    type: str
+
+    sub_type: Annotated[Optional[str], pydantic.Field(alias="subType")] = None
+
+
+class GetLibraryItemsTypeTypedDict(TypedDict):
+    key: str
+    type: str
+    title: str
+    active: bool
+    filter_: NotRequired[List[GetLibraryItemsFilterTypedDict]]
+    sort: NotRequired[List[GetLibraryItemsSortTypedDict]]
+    field: NotRequired[List[GetLibraryItemsFieldTypedDict]]
+
+
+class GetLibraryItemsType(BaseModel):
+    key: str
+
+    type: str
+
+    title: str
+
+    active: bool
+
+    filter_: Annotated[
+        Optional[List[GetLibraryItemsFilter]], pydantic.Field(alias="Filter")
+    ] = None
+
+    sort: Annotated[
+        Optional[List[GetLibraryItemsSort]], pydantic.Field(alias="Sort")
+    ] = None
+
+    field: Annotated[
+        Optional[List[GetLibraryItemsField]], pydantic.Field(alias="Field")
+    ] = None
+
+
+class GetLibraryItemsOperatorTypedDict(TypedDict):
+    key: str
+    title: str
+
+
+class GetLibraryItemsOperator(BaseModel):
+    key: str
+
+    title: str
+
+
+class GetLibraryItemsFieldTypeTypedDict(TypedDict):
+    type: str
+    operator: List[GetLibraryItemsOperatorTypedDict]
+
+
+class GetLibraryItemsFieldType(BaseModel):
+    type: str
+
+    operator: Annotated[List[GetLibraryItemsOperator], pydantic.Field(alias="Operator")]
+
+
+class MetaTypedDict(TypedDict):
+    r"""The Meta object is only included in the response if the `includeMeta` parameter is set to `1`."""
+
+    type: NotRequired[List[GetLibraryItemsTypeTypedDict]]
+    field_type: NotRequired[List[GetLibraryItemsFieldTypeTypedDict]]
+
+
+class Meta(BaseModel):
+    r"""The Meta object is only included in the response if the `includeMeta` parameter is set to `1`."""
+
+    type: Annotated[
+        Optional[List[GetLibraryItemsType]], pydantic.Field(alias="Type")
+    ] = None
+
+    field_type: Annotated[
+        Optional[List[GetLibraryItemsFieldType]], pydantic.Field(alias="FieldType")
+    ] = None
+
+
 class GetLibraryItemsMediaContainerTypedDict(TypedDict):
-    size: NotRequired[int]
-    allow_sync: NotRequired[bool]
-    art: NotRequired[str]
-    identifier: NotRequired[str]
-    library_section_id: NotRequired[LibrarySectionIDTypedDict]
-    library_section_title: NotRequired[str]
-    library_section_uuid: NotRequired[str]
-    media_tag_prefix: NotRequired[str]
-    media_tag_version: NotRequired[int]
-    thumb: NotRequired[str]
-    title1: NotRequired[str]
-    title2: NotRequired[str]
-    view_group: NotRequired[str]
+    size: int
+    allow_sync: bool
+    art: str
+    identifier: str
+    library_section_id: LibrarySectionIDTypedDict
+    library_section_title: str
+    library_section_uuid: str
+    media_tag_prefix: str
+    media_tag_version: int
+    thumb: str
+    title1: str
+    title2: str
+    view_group: str
     view_mode: NotRequired[int]
     mixed_parents: NotRequired[bool]
     metadata: NotRequired[List[GetLibraryItemsMetadataTypedDict]]
+    meta: NotRequired[MetaTypedDict]
+    r"""The Meta object is only included in the response if the `includeMeta` parameter is set to `1`.
+
+    """
 
 
 class GetLibraryItemsMediaContainer(BaseModel):
-    size: Optional[int] = None
+    size: int
 
-    allow_sync: Annotated[Optional[bool], pydantic.Field(alias="allowSync")] = None
+    allow_sync: Annotated[bool, pydantic.Field(alias="allowSync")]
 
-    art: Optional[str] = None
+    art: str
 
-    identifier: Optional[str] = None
+    identifier: str
 
     library_section_id: Annotated[
-        Optional[LibrarySectionID], pydantic.Field(alias="librarySectionID")
-    ] = None
+        LibrarySectionID, pydantic.Field(alias="librarySectionID")
+    ]
 
-    library_section_title: Annotated[
-        Optional[str], pydantic.Field(alias="librarySectionTitle")
-    ] = None
+    library_section_title: Annotated[str, pydantic.Field(alias="librarySectionTitle")]
 
-    library_section_uuid: Annotated[
-        Optional[str], pydantic.Field(alias="librarySectionUUID")
-    ] = None
+    library_section_uuid: Annotated[str, pydantic.Field(alias="librarySectionUUID")]
 
-    media_tag_prefix: Annotated[
-        Optional[str], pydantic.Field(alias="mediaTagPrefix")
-    ] = None
+    media_tag_prefix: Annotated[str, pydantic.Field(alias="mediaTagPrefix")]
 
-    media_tag_version: Annotated[
-        Optional[int], pydantic.Field(alias="mediaTagVersion")
-    ] = None
+    media_tag_version: Annotated[int, pydantic.Field(alias="mediaTagVersion")]
 
-    thumb: Optional[str] = None
+    thumb: str
 
-    title1: Optional[str] = None
+    title1: str
 
-    title2: Optional[str] = None
+    title2: str
 
-    view_group: Annotated[Optional[str], pydantic.Field(alias="viewGroup")] = None
+    view_group: Annotated[str, pydantic.Field(alias="viewGroup")]
 
     view_mode: Annotated[Optional[int], pydantic.Field(alias="viewMode")] = None
 
@@ -591,6 +747,11 @@ class GetLibraryItemsMediaContainer(BaseModel):
     metadata: Annotated[
         Optional[List[GetLibraryItemsMetadata]], pydantic.Field(alias="Metadata")
     ] = None
+
+    meta: Annotated[Optional[Meta], pydantic.Field(alias="Meta")] = None
+    r"""The Meta object is only included in the response if the `includeMeta` parameter is set to `1`.
+
+    """
 
 
 class GetLibraryItemsResponseBodyTypedDict(TypedDict):

@@ -4,8 +4,8 @@ from .basesdk import BaseSDK
 from plex_api_client import utils
 from plex_api_client._hooks import HookContext
 from plex_api_client.models import errors, operations
-from plex_api_client.types import OptionalNullable, UNSET
-from typing import Any, Optional, Union
+from plex_api_client.types import BaseModel, OptionalNullable, UNSET
+from typing import Any, Optional, Union, cast
 
 
 class Authentication(BaseSDK):
@@ -592,8 +592,7 @@ class Authentication(BaseSDK):
     def post_users_sign_in_data(
         self,
         *,
-        client_id: Optional[str] = None,
-        request_body: Optional[
+        request: Optional[
             Union[
                 operations.PostUsersSignInDataRequestBody,
                 operations.PostUsersSignInDataRequestBodyTypedDict,
@@ -607,8 +606,7 @@ class Authentication(BaseSDK):
 
         Sign in user with username and password and return user data with Plex authentication token
 
-        :param client_id: The unique identifier for the client application This is used to track the client application and its usage (UUID, serial number, or other number unique per device)
-        :param request_body: Login credentials
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -623,12 +621,11 @@ class Authentication(BaseSDK):
         else:
             base_url = operations.POST_USERS_SIGN_IN_DATA_SERVERS[0]
 
-        request = operations.PostUsersSignInDataRequest(
-            client_id=client_id,
-            request_body=utils.get_pydantic_model(
-                request_body, Optional[operations.PostUsersSignInDataRequestBody]
-            ),
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(
+                request, Optional[operations.PostUsersSignInDataRequestBody]
+            )
+        request = cast(Optional[operations.PostUsersSignInDataRequestBody], request)
 
         req = self.build_request(
             method="POST",
@@ -638,14 +635,11 @@ class Authentication(BaseSDK):
             request=request,
             request_body_required=False,
             request_has_path_params=False,
-            request_has_query_params=True,
+            request_has_query_params=False,
             user_agent_header="user-agent",
             accept_header_value="application/json",
-            _globals=operations.PostUsersSignInDataGlobals(
-                client_id=self.sdk_configuration.globals.client_id,
-            ),
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body,
+                request,
                 False,
                 True,
                 "form",
@@ -712,8 +706,7 @@ class Authentication(BaseSDK):
     async def post_users_sign_in_data_async(
         self,
         *,
-        client_id: Optional[str] = None,
-        request_body: Optional[
+        request: Optional[
             Union[
                 operations.PostUsersSignInDataRequestBody,
                 operations.PostUsersSignInDataRequestBodyTypedDict,
@@ -727,8 +720,7 @@ class Authentication(BaseSDK):
 
         Sign in user with username and password and return user data with Plex authentication token
 
-        :param client_id: The unique identifier for the client application This is used to track the client application and its usage (UUID, serial number, or other number unique per device)
-        :param request_body: Login credentials
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -743,12 +735,11 @@ class Authentication(BaseSDK):
         else:
             base_url = operations.POST_USERS_SIGN_IN_DATA_SERVERS[0]
 
-        request = operations.PostUsersSignInDataRequest(
-            client_id=client_id,
-            request_body=utils.get_pydantic_model(
-                request_body, Optional[operations.PostUsersSignInDataRequestBody]
-            ),
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(
+                request, Optional[operations.PostUsersSignInDataRequestBody]
+            )
+        request = cast(Optional[operations.PostUsersSignInDataRequestBody], request)
 
         req = self.build_request_async(
             method="POST",
@@ -758,14 +749,11 @@ class Authentication(BaseSDK):
             request=request,
             request_body_required=False,
             request_has_path_params=False,
-            request_has_query_params=True,
+            request_has_query_params=False,
             user_agent_header="user-agent",
             accept_header_value="application/json",
-            _globals=operations.PostUsersSignInDataGlobals(
-                client_id=self.sdk_configuration.globals.client_id,
-            ),
             get_serialized_body=lambda: utils.serialize_request_body(
-                request.request_body,
+                request,
                 False,
                 True,
                 "form",
