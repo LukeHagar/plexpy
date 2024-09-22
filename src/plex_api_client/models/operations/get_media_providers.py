@@ -93,20 +93,45 @@ class GetMediaProvidersDirectory(BaseModel):
     pivot: Annotated[Optional[List[Pivot]], pydantic.Field(alias="Pivot")] = None
 
 
+class ActionTypedDict(TypedDict):
+    id: str
+    key: str
+
+
+class Action(BaseModel):
+    id: str
+
+    key: str
+
+
 class FeatureTypedDict(TypedDict):
+    type: str
     key: NotRequired[str]
-    type: NotRequired[str]
+    flavor: NotRequired[str]
+    scrobble_key: NotRequired[str]
+    unscrobble_key: NotRequired[str]
     directory: NotRequired[List[GetMediaProvidersDirectoryTypedDict]]
+    action: NotRequired[List[ActionTypedDict]]
 
 
 class Feature(BaseModel):
+    type: str
+
     key: Optional[str] = None
 
-    type: Optional[str] = None
+    flavor: Optional[str] = None
+
+    scrobble_key: Annotated[Optional[str], pydantic.Field(alias="scrobbleKey")] = None
+
+    unscrobble_key: Annotated[Optional[str], pydantic.Field(alias="unscrobbleKey")] = (
+        None
+    )
 
     directory: Annotated[
         Optional[List[GetMediaProvidersDirectory]], pydantic.Field(alias="Directory")
     ] = None
+
+    action: Annotated[Optional[List[Action]], pydantic.Field(alias="Action")] = None
 
 
 class MediaProviderTypedDict(TypedDict):

@@ -740,6 +740,7 @@ class PostUsersSignInDataUserPlexAccountTypedDict(TypedDict):
     r"""The account username"""
     uuid: str
     r"""The account UUID"""
+    attribution_partner: Nullable[str]
     past_subscriptions: List[PastSubscriptionTypedDict]
     trials: List[TrialsTypedDict]
     anonymous: NotRequired[Nullable[bool]]
@@ -857,6 +858,10 @@ class PostUsersSignInDataUserPlexAccount(BaseModel):
     uuid: str
     r"""The account UUID"""
 
+    attribution_partner: Annotated[
+        Nullable[str], pydantic.Field(alias="attributionPartner")
+    ]
+
     past_subscriptions: Annotated[
         List[PastSubscription], pydantic.Field(alias="pastSubscriptions")
     ]
@@ -948,6 +953,7 @@ class PostUsersSignInDataUserPlexAccount(BaseModel):
             "adsConsentSetAt",
             "locale",
             "subscriptionDescription",
+            "attributionPartner",
             "anonymous",
         ]
         null_default_fields = []

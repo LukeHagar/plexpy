@@ -14,6 +14,6 @@ E.g. A movie library will not return anything with type 3 as there are no season
 | Name      | Value     |
 | --------- | --------- |
 | `MOVIE`   | 1         |
-| `SHOW`    | 2         |
+| `TV_SHOW` | 2         |
 | `SEASON`  | 3         |
 | `EPISODE` | 4         |

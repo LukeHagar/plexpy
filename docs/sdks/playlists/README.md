@@ -290,7 +290,7 @@ s = PlexAPI(
     device_name="Linux",
 )
 
-res = s.playlists.get_playlist_contents(playlist_id=5004.46, type_=operations.GetPlaylistContentsQueryParamType.SHOW)
+res = s.playlists.get_playlist_contents(playlist_id=5004.46, type_=operations.GetPlaylistContentsQueryParamType.TV_SHOW)
 
 if res.object is not None:
     # handle response

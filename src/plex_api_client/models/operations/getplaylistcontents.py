@@ -22,7 +22,7 @@ class GetPlaylistContentsQueryParamType(int, Enum):
     """
 
     MOVIE = 1
-    SHOW = 2
+    TV_SHOW = 2
     SEASON = 3
     EPISODE = 4
 

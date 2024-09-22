@@ -551,6 +551,7 @@ class GetTokenDetailsUserPlexAccountTypedDict(TypedDict):
     r"""The account username"""
     uuid: str
     r"""The account UUID"""
+    attribution_partner: Nullable[str]
     anonymous: NotRequired[Nullable[bool]]
     r"""Unknown"""
     backup_codes_created: NotRequired[bool]
@@ -666,6 +667,10 @@ class GetTokenDetailsUserPlexAccount(BaseModel):
     uuid: str
     r"""The account UUID"""
 
+    attribution_partner: Annotated[
+        Nullable[str], pydantic.Field(alias="attributionPartner")
+    ]
+
     anonymous: OptionalNullable[bool] = False
     r"""Unknown"""
 
@@ -751,6 +756,7 @@ class GetTokenDetailsUserPlexAccount(BaseModel):
             "adsConsentSetAt",
             "locale",
             "subscriptionDescription",
+            "attributionPartner",
             "anonymous",
         ]
         null_default_fields = []

@@ -561,7 +561,7 @@ actions:
                 device_name="Linux",
             )
 
-            res = s.library.get_top_watched_content(type_=operations.GetTopWatchedContentQueryParamType.SHOW, include_guids=1)
+            res = s.library.get_top_watched_content(type_=operations.GetTopWatchedContentQueryParamType.TV_SHOW, include_guids=1)
 
             if res.object is not None:
                 # handle response
@@ -869,7 +869,7 @@ actions:
                 device_name="Linux",
             )
 
-            res = s.library.get_search_library(section_key=9518, type_=operations.QueryParamType.SHOW)
+            res = s.library.get_search_library(section_key=9518, type_=operations.QueryParamType.TV_SHOW)
 
             if res.object is not None:
                 # handle response
@@ -897,7 +897,7 @@ actions:
                 "tag": operations.Tag.EDITION,
                 "include_guids": operations.IncludeGuids.ENABLE,
                 "include_meta": operations.IncludeMeta.ENABLE,
-                "type": operations.Type.SHOW,
+                "type": operations.Type.TV_SHOW,
                 "x_plex_container_start": 0,
                 "x_plex_container_size": 50,
             })
@@ -1270,7 +1270,7 @@ actions:
                 device_name="Linux",
             )
 
-            res = s.playlists.get_playlist_contents(playlist_id=5004.46, type_=operations.GetPlaylistContentsQueryParamType.SHOW)
+            res = s.playlists.get_playlist_contents(playlist_id=5004.46, type_=operations.GetPlaylistContentsQueryParamType.TV_SHOW)
 
             if res.object is not None:
                 # handle response
