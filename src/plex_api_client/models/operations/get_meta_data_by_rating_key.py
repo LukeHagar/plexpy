@@ -24,7 +24,7 @@ class GetMetaDataByRatingKeyRequest(BaseModel):
     r"""the id of the library item to return the children of."""
 
 
-class StreamTypedDict(TypedDict):
+class GetMetaDataByRatingKeyStreamTypedDict(TypedDict):
     id: NotRequired[int]
     stream_type: NotRequired[int]
     default: NotRequired[bool]
@@ -59,7 +59,7 @@ class StreamTypedDict(TypedDict):
     sampling_rate: NotRequired[int]
 
 
-class Stream(BaseModel):
+class GetMetaDataByRatingKeyStream(BaseModel):
     id: Optional[int] = None
 
     stream_type: Annotated[Optional[int], pydantic.Field(alias="streamType")] = None
@@ -148,7 +148,7 @@ class GetMetaDataByRatingKeyPartTypedDict(TypedDict):
     has64bit_offsets: NotRequired[bool]
     optimized_for_streaming: NotRequired[bool]
     video_profile: NotRequired[str]
-    stream: NotRequired[List[StreamTypedDict]]
+    stream: NotRequired[List[GetMetaDataByRatingKeyStreamTypedDict]]
 
 
 class GetMetaDataByRatingKeyPart(BaseModel):
@@ -176,7 +176,9 @@ class GetMetaDataByRatingKeyPart(BaseModel):
 
     video_profile: Annotated[Optional[str], pydantic.Field(alias="videoProfile")] = None
 
-    stream: Annotated[Optional[List[Stream]], pydantic.Field(alias="Stream")] = None
+    stream: Annotated[
+        Optional[List[GetMetaDataByRatingKeyStream]], pydantic.Field(alias="Stream")
+    ] = None
 
 
 class GetMetaDataByRatingKeyMediaTypedDict(TypedDict):

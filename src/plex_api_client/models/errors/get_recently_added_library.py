@@ -9,6 +9,41 @@ from typing import List, Optional, TypedDict
 from typing_extensions import Annotated, NotRequired
 
 
+class GetRecentlyAddedLibraryLibraryErrorsTypedDict(TypedDict):
+    code: NotRequired[int]
+    message: NotRequired[str]
+    status: NotRequired[int]
+
+
+class GetRecentlyAddedLibraryLibraryErrors(BaseModel):
+    code: Optional[int] = None
+
+    message: Optional[str] = None
+
+    status: Optional[int] = None
+
+
+class GetRecentlyAddedLibraryUnauthorizedData(BaseModel):
+    errors: Optional[List[GetRecentlyAddedLibraryLibraryErrors]] = None
+
+    raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
+        None
+    )
+    r"""Raw HTTP response; suitable for custom response parsing"""
+
+
+class GetRecentlyAddedLibraryUnauthorized(Exception):
+    r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
+
+    data: GetRecentlyAddedLibraryUnauthorizedData
+
+    def __init__(self, data: GetRecentlyAddedLibraryUnauthorizedData):
+        self.data = data
+
+    def __str__(self) -> str:
+        return utils.marshal_json(self.data, GetRecentlyAddedLibraryUnauthorizedData)
+
+
 class GetRecentlyAddedLibraryErrorsTypedDict(TypedDict):
     code: NotRequired[int]
     message: NotRequired[str]
@@ -23,7 +58,7 @@ class GetRecentlyAddedLibraryErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetRecentlyAddedUnauthorizedData(BaseModel):
+class GetRecentlyAddedLibraryBadRequestData(BaseModel):
     errors: Optional[List[GetRecentlyAddedLibraryErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
@@ -32,48 +67,13 @@ class GetRecentlyAddedUnauthorizedData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetRecentlyAddedUnauthorized(Exception):
-    r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
-
-    data: GetRecentlyAddedUnauthorizedData
-
-    def __init__(self, data: GetRecentlyAddedUnauthorizedData):
-        self.data = data
-
-    def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetRecentlyAddedUnauthorizedData)
-
-
-class GetRecentlyAddedErrorsTypedDict(TypedDict):
-    code: NotRequired[int]
-    message: NotRequired[str]
-    status: NotRequired[int]
-
-
-class GetRecentlyAddedErrors(BaseModel):
-    code: Optional[int] = None
-
-    message: Optional[str] = None
-
-    status: Optional[int] = None
-
-
-class GetRecentlyAddedBadRequestData(BaseModel):
-    errors: Optional[List[GetRecentlyAddedErrors]] = None
-
-    raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
-        None
-    )
-    r"""Raw HTTP response; suitable for custom response parsing"""
-
-
-class GetRecentlyAddedBadRequest(Exception):
+class GetRecentlyAddedLibraryBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: GetRecentlyAddedBadRequestData
+    data: GetRecentlyAddedLibraryBadRequestData
 
-    def __init__(self, data: GetRecentlyAddedBadRequestData):
+    def __init__(self, data: GetRecentlyAddedLibraryBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetRecentlyAddedBadRequestData)
+        return utils.marshal_json(self.data, GetRecentlyAddedLibraryBadRequestData)

@@ -95,7 +95,7 @@ class GetLibraryDetailsFilter(BaseModel):
     type: Optional[str] = None
 
 
-class SortTypedDict(TypedDict):
+class GetLibraryDetailsSortTypedDict(TypedDict):
     default: NotRequired[str]
     default_direction: NotRequired[str]
     desc_key: NotRequired[str]
@@ -104,7 +104,7 @@ class SortTypedDict(TypedDict):
     title: NotRequired[str]
 
 
-class Sort(BaseModel):
+class GetLibraryDetailsSort(BaseModel):
     default: Optional[str] = None
 
     default_direction: Annotated[
@@ -122,14 +122,14 @@ class Sort(BaseModel):
     title: Optional[str] = None
 
 
-class FieldTypedDict(TypedDict):
+class GetLibraryDetailsFieldTypedDict(TypedDict):
     key: NotRequired[str]
     title: NotRequired[str]
     type: NotRequired[str]
     sub_type: NotRequired[str]
 
 
-class Field(BaseModel):
+class GetLibraryDetailsField(BaseModel):
     key: Optional[str] = None
 
     title: Optional[str] = None
@@ -145,8 +145,8 @@ class GetLibraryDetailsTypeTypedDict(TypedDict):
     title: NotRequired[str]
     active: NotRequired[bool]
     filter_: NotRequired[List[GetLibraryDetailsFilterTypedDict]]
-    sort: NotRequired[List[SortTypedDict]]
-    field: NotRequired[List[FieldTypedDict]]
+    sort: NotRequired[List[GetLibraryDetailsSortTypedDict]]
+    field: NotRequired[List[GetLibraryDetailsFieldTypedDict]]
 
 
 class GetLibraryDetailsType(BaseModel):
@@ -162,33 +162,37 @@ class GetLibraryDetailsType(BaseModel):
         Optional[List[GetLibraryDetailsFilter]], pydantic.Field(alias="Filter")
     ] = None
 
-    sort: Annotated[Optional[List[Sort]], pydantic.Field(alias="Sort")] = None
+    sort: Annotated[
+        Optional[List[GetLibraryDetailsSort]], pydantic.Field(alias="Sort")
+    ] = None
 
-    field: Annotated[Optional[List[Field]], pydantic.Field(alias="Field")] = None
+    field: Annotated[
+        Optional[List[GetLibraryDetailsField]], pydantic.Field(alias="Field")
+    ] = None
 
 
-class OperatorTypedDict(TypedDict):
+class GetLibraryDetailsOperatorTypedDict(TypedDict):
     key: NotRequired[str]
     title: NotRequired[str]
 
 
-class Operator(BaseModel):
+class GetLibraryDetailsOperator(BaseModel):
     key: Optional[str] = None
 
     title: Optional[str] = None
 
 
-class FieldTypeTypedDict(TypedDict):
+class GetLibraryDetailsFieldTypeTypedDict(TypedDict):
     type: NotRequired[str]
-    operator: NotRequired[List[OperatorTypedDict]]
+    operator: NotRequired[List[GetLibraryDetailsOperatorTypedDict]]
 
 
-class FieldType(BaseModel):
+class GetLibraryDetailsFieldType(BaseModel):
     type: Optional[str] = None
 
-    operator: Annotated[Optional[List[Operator]], pydantic.Field(alias="Operator")] = (
-        None
-    )
+    operator: Annotated[
+        Optional[List[GetLibraryDetailsOperator]], pydantic.Field(alias="Operator")
+    ] = None
 
 
 class GetLibraryDetailsMediaContainerTypedDict(TypedDict):
@@ -206,7 +210,7 @@ class GetLibraryDetailsMediaContainerTypedDict(TypedDict):
     view_mode: NotRequired[int]
     directory: NotRequired[List[GetLibraryDetailsDirectoryTypedDict]]
     type: NotRequired[List[GetLibraryDetailsTypeTypedDict]]
-    field_type: NotRequired[List[FieldTypeTypedDict]]
+    field_type: NotRequired[List[GetLibraryDetailsFieldTypeTypedDict]]
 
 
 class GetLibraryDetailsMediaContainer(BaseModel):
@@ -249,7 +253,7 @@ class GetLibraryDetailsMediaContainer(BaseModel):
     ] = None
 
     field_type: Annotated[
-        Optional[List[FieldType]], pydantic.Field(alias="FieldType")
+        Optional[List[GetLibraryDetailsFieldType]], pydantic.Field(alias="FieldType")
     ] = None
 
 

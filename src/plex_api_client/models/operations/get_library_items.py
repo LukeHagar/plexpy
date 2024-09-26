@@ -7,7 +7,7 @@ import httpx
 from plex_api_client.types import BaseModel
 from plex_api_client.utils import FieldMetadata, PathParamMetadata, QueryParamMetadata
 import pydantic
-from typing import List, Optional, TypedDict, Union
+from typing import List, Optional, TypedDict
 from typing_extensions import Annotated, NotRequired
 
 
@@ -42,14 +42,7 @@ class IncludeGuids(int, Enum):
     ENABLE = 1
 
 
-class IncludeMeta(int, Enum):
-    r"""Adds the Meta object to the response"""
-
-    DISABLE = 0
-    ENABLE = 1
-
-
-class Type(int, Enum):
+class GetLibraryItemsQueryParamType(int, Enum):
     r"""The type of media to retrieve.
     1 = movie
     2 = show
@@ -65,6 +58,13 @@ class Type(int, Enum):
     EPISODE = 4
 
 
+class GetLibraryItemsQueryParamIncludeMeta(int, Enum):
+    r"""Adds the Meta object to the response"""
+
+    DISABLE = 0
+    ENABLE = 1
+
+
 class GetLibraryItemsRequestTypedDict(TypedDict):
     section_key: int
     r"""The unique key of the Plex library.
@@ -77,17 +77,17 @@ class GetLibraryItemsRequestTypedDict(TypedDict):
     r"""Adds the Guids object to the response
 
     """
-    include_meta: NotRequired[IncludeMeta]
-    r"""Adds the Meta object to the response
-
-    """
-    type: NotRequired[Type]
+    type: NotRequired[GetLibraryItemsQueryParamType]
     r"""The type of media to retrieve.
     1 = movie
     2 = show
     3 = season
     4 = episode
     E.g. A movie library will not return anything with type 3 as there are no seasons for movie libraries
+
+    """
+    include_meta: NotRequired[GetLibraryItemsQueryParamIncludeMeta]
+    r"""Adds the Meta object to the response
 
     """
     x_plex_container_start: NotRequired[int]
@@ -129,17 +129,8 @@ class GetLibraryItemsRequest(BaseModel):
 
     """
 
-    include_meta: Annotated[
-        Optional[IncludeMeta],
-        pydantic.Field(alias="includeMeta"),
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = IncludeMeta.DISABLE
-    r"""Adds the Meta object to the response
-
-    """
-
     type: Annotated[
-        Optional[Type],
+        Optional[GetLibraryItemsQueryParamType],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
     r"""The type of media to retrieve.
@@ -148,6 +139,15 @@ class GetLibraryItemsRequest(BaseModel):
     3 = season
     4 = episode
     E.g. A movie library will not return anything with type 3 as there are no seasons for movie libraries
+
+    """
+
+    include_meta: Annotated[
+        Optional[GetLibraryItemsQueryParamIncludeMeta],
+        pydantic.Field(alias="includeMeta"),
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = GetLibraryItemsQueryParamIncludeMeta.DISABLE
+    r"""Adds the Meta object to the response
 
     """
 
@@ -174,13 +174,161 @@ class GetLibraryItemsRequest(BaseModel):
     """
 
 
-LibrarySectionIDTypedDict = Union[int, str]
+class GetLibraryItemsFilterTypedDict(TypedDict):
+    filter_: str
+    filter_type: str
+    key: str
+    title: str
+    type: str
 
 
-LibrarySectionID = Union[int, str]
+class GetLibraryItemsFilter(BaseModel):
+    filter_: Annotated[str, pydantic.Field(alias="filter")]
+
+    filter_type: Annotated[str, pydantic.Field(alias="filterType")]
+
+    key: str
+
+    title: str
+
+    type: str
 
 
-class GetLibraryItemsType(str, Enum):
+class GetLibraryItemsActiveDirection(str, Enum):
+    r"""The direction of the sort. Can be either `asc` or `desc`."""
+
+    ASCENDING = "asc"
+    DESCENDING = "desc"
+
+
+class GetLibraryItemsDefaultDirection(str, Enum):
+    r"""The direction of the sort. Can be either `asc` or `desc`."""
+
+    ASCENDING = "asc"
+    DESCENDING = "desc"
+
+
+class GetLibraryItemsSortTypedDict(TypedDict):
+    key: str
+    title: str
+    default: NotRequired[str]
+    active: NotRequired[bool]
+    active_direction: NotRequired[GetLibraryItemsActiveDirection]
+    r"""The direction of the sort. Can be either `asc` or `desc`.
+
+    """
+    default_direction: NotRequired[GetLibraryItemsDefaultDirection]
+    r"""The direction of the sort. Can be either `asc` or `desc`.
+
+    """
+    desc_key: NotRequired[str]
+    first_character_key: NotRequired[str]
+
+
+class GetLibraryItemsSort(BaseModel):
+    key: str
+
+    title: str
+
+    default: Optional[str] = None
+
+    active: Optional[bool] = None
+
+    active_direction: Annotated[
+        Optional[GetLibraryItemsActiveDirection],
+        pydantic.Field(alias="activeDirection"),
+    ] = GetLibraryItemsActiveDirection.ASCENDING
+    r"""The direction of the sort. Can be either `asc` or `desc`.
+
+    """
+
+    default_direction: Annotated[
+        Optional[GetLibraryItemsDefaultDirection],
+        pydantic.Field(alias="defaultDirection"),
+    ] = GetLibraryItemsDefaultDirection.ASCENDING
+    r"""The direction of the sort. Can be either `asc` or `desc`.
+
+    """
+
+    desc_key: Annotated[Optional[str], pydantic.Field(alias="descKey")] = None
+
+    first_character_key: Annotated[
+        Optional[str], pydantic.Field(alias="firstCharacterKey")
+    ] = None
+
+
+class GetLibraryItemsFieldTypedDict(TypedDict):
+    key: str
+    title: str
+    type: str
+    sub_type: NotRequired[str]
+
+
+class GetLibraryItemsField(BaseModel):
+    key: str
+
+    title: str
+
+    type: str
+
+    sub_type: Annotated[Optional[str], pydantic.Field(alias="subType")] = None
+
+
+class GetLibraryItemsTypeTypedDict(TypedDict):
+    key: str
+    type: str
+    title: str
+    active: bool
+    filter_: NotRequired[List[GetLibraryItemsFilterTypedDict]]
+    sort: NotRequired[List[GetLibraryItemsSortTypedDict]]
+    field: NotRequired[List[GetLibraryItemsFieldTypedDict]]
+
+
+class GetLibraryItemsType(BaseModel):
+    key: str
+
+    type: str
+
+    title: str
+
+    active: bool
+
+    filter_: Annotated[
+        Optional[List[GetLibraryItemsFilter]], pydantic.Field(alias="Filter")
+    ] = None
+
+    sort: Annotated[
+        Optional[List[GetLibraryItemsSort]], pydantic.Field(alias="Sort")
+    ] = None
+
+    field: Annotated[
+        Optional[List[GetLibraryItemsField]], pydantic.Field(alias="Field")
+    ] = None
+
+
+class GetLibraryItemsOperatorTypedDict(TypedDict):
+    key: str
+    title: str
+
+
+class GetLibraryItemsOperator(BaseModel):
+    key: str
+
+    title: str
+
+
+class GetLibraryItemsFieldTypeTypedDict(TypedDict):
+    type: str
+    operator: List[GetLibraryItemsOperatorTypedDict]
+
+
+class GetLibraryItemsFieldType(BaseModel):
+    type: str
+
+    operator: Annotated[List[GetLibraryItemsOperator], pydantic.Field(alias="Operator")]
+
+
+class GetLibraryItemsLibraryType(str, Enum):
     r"""The type of media content"""
 
     MOVIE = "movie"
@@ -189,12 +337,12 @@ class GetLibraryItemsType(str, Enum):
     EPISODE = "episode"
 
 
-class FlattenSeasons(str, Enum):
+class GetLibraryItemsFlattenSeasons(str, Enum):
     FALSE = "0"
     TRUE = "1"
 
 
-class ShowOrdering(str, Enum):
+class GetLibraryItemsShowOrdering(str, Enum):
     r"""Setting that indicates the episode ordering for the show
     None = Library default,
     tmdbAiring = The Movie Database (Aired),
@@ -211,9 +359,221 @@ class ShowOrdering(str, Enum):
     ABSOLUTE = "absolute"
 
 
-class HasThumbnail(str, Enum):
+class GetLibraryItemsOptimizedForStreaming(int, Enum):
+    DISABLE = 0
+    ENABLE = 1
+
+
+class GetLibraryItemsHasThumbnail(str, Enum):
     FALSE = "0"
     TRUE = "1"
+
+
+class GetLibraryItemsStreamTypedDict(TypedDict):
+    id: int
+    stream_type: int
+    r"""Type of stream (1 = video, 2 = audio, 3 = subtitle)"""
+    codec: str
+    r"""Codec used by the stream"""
+    index: int
+    r"""The index of the stream"""
+    default: NotRequired[bool]
+    r"""Indicates if this is the default stream"""
+    selected: NotRequired[bool]
+    r"""Indicates if the stream is selected"""
+    bitrate: NotRequired[int]
+    r"""The bitrate of the stream in kbps"""
+    color_primaries: NotRequired[str]
+    r"""The color primaries of the video stream"""
+    color_range: NotRequired[str]
+    r"""The color range of the video stream"""
+    color_space: NotRequired[str]
+    r"""The color space of the video stream"""
+    color_trc: NotRequired[str]
+    r"""The transfer characteristics (TRC) of the video stream"""
+    bit_depth: NotRequired[int]
+    r"""The bit depth of the video stream"""
+    chroma_location: NotRequired[str]
+    r"""The chroma location of the video stream"""
+    stream_identifier: NotRequired[str]
+    r"""The identifier of the video stream"""
+    chroma_subsampling: NotRequired[str]
+    r"""The chroma subsampling format"""
+    coded_height: NotRequired[int]
+    r"""The coded height of the video stream"""
+    coded_width: NotRequired[int]
+    r"""The coded width of the video stream"""
+    frame_rate: NotRequired[float]
+    r"""The frame rate of the video stream"""
+    has_scaling_matrix: NotRequired[bool]
+    r"""Indicates if the stream has a scaling matrix"""
+    hearing_impaired: NotRequired[bool]
+    closed_captions: NotRequired[bool]
+    embedded_in_video: NotRequired[str]
+    height: NotRequired[int]
+    r"""The height of the video stream"""
+    level: NotRequired[int]
+    r"""The level of the video codec"""
+    profile: NotRequired[str]
+    r"""The profile of the video codec"""
+    ref_frames: NotRequired[int]
+    r"""Number of reference frames"""
+    scan_type: NotRequired[str]
+    r"""The scan type (progressive or interlaced)"""
+    width: NotRequired[int]
+    r"""The width of the video stream"""
+    display_title: NotRequired[str]
+    r"""Display title of the stream"""
+    extended_display_title: NotRequired[str]
+    r"""Extended display title of the stream"""
+    channels: NotRequired[int]
+    r"""Number of audio channels (for audio streams)"""
+    language: NotRequired[str]
+    r"""The language of the stream (for audio/subtitle streams)"""
+    language_tag: NotRequired[str]
+    r"""Language tag of the stream"""
+    language_code: NotRequired[str]
+    r"""Language code of the stream"""
+    audio_channel_layout: NotRequired[str]
+    r"""The audio channel layout"""
+    sampling_rate: NotRequired[int]
+    r"""Sampling rate of the audio stream in Hz"""
+    title: NotRequired[str]
+    r"""Title of the subtitle track (for subtitle streams)"""
+    can_auto_sync: NotRequired[bool]
+    r"""Indicates if the subtitle stream can auto-sync"""
+
+
+class GetLibraryItemsStream(BaseModel):
+    id: int
+
+    stream_type: Annotated[int, pydantic.Field(alias="streamType")]
+    r"""Type of stream (1 = video, 2 = audio, 3 = subtitle)"""
+
+    codec: str
+    r"""Codec used by the stream"""
+
+    index: int
+    r"""The index of the stream"""
+
+    default: Optional[bool] = None
+    r"""Indicates if this is the default stream"""
+
+    selected: Optional[bool] = None
+    r"""Indicates if the stream is selected"""
+
+    bitrate: Optional[int] = None
+    r"""The bitrate of the stream in kbps"""
+
+    color_primaries: Annotated[
+        Optional[str], pydantic.Field(alias="colorPrimaries")
+    ] = None
+    r"""The color primaries of the video stream"""
+
+    color_range: Annotated[Optional[str], pydantic.Field(alias="colorRange")] = None
+    r"""The color range of the video stream"""
+
+    color_space: Annotated[Optional[str], pydantic.Field(alias="colorSpace")] = None
+    r"""The color space of the video stream"""
+
+    color_trc: Annotated[Optional[str], pydantic.Field(alias="colorTrc")] = None
+    r"""The transfer characteristics (TRC) of the video stream"""
+
+    bit_depth: Annotated[Optional[int], pydantic.Field(alias="bitDepth")] = None
+    r"""The bit depth of the video stream"""
+
+    chroma_location: Annotated[
+        Optional[str], pydantic.Field(alias="chromaLocation")
+    ] = None
+    r"""The chroma location of the video stream"""
+
+    stream_identifier: Annotated[
+        Optional[str], pydantic.Field(alias="streamIdentifier")
+    ] = None
+    r"""The identifier of the video stream"""
+
+    chroma_subsampling: Annotated[
+        Optional[str], pydantic.Field(alias="chromaSubsampling")
+    ] = None
+    r"""The chroma subsampling format"""
+
+    coded_height: Annotated[Optional[int], pydantic.Field(alias="codedHeight")] = None
+    r"""The coded height of the video stream"""
+
+    coded_width: Annotated[Optional[int], pydantic.Field(alias="codedWidth")] = None
+    r"""The coded width of the video stream"""
+
+    frame_rate: Annotated[Optional[float], pydantic.Field(alias="frameRate")] = None
+    r"""The frame rate of the video stream"""
+
+    has_scaling_matrix: Annotated[
+        Optional[bool], pydantic.Field(alias="hasScalingMatrix")
+    ] = None
+    r"""Indicates if the stream has a scaling matrix"""
+
+    hearing_impaired: Annotated[
+        Optional[bool], pydantic.Field(alias="hearingImpaired")
+    ] = None
+
+    closed_captions: Annotated[
+        Optional[bool], pydantic.Field(alias="closedCaptions")
+    ] = None
+
+    embedded_in_video: Annotated[
+        Optional[str], pydantic.Field(alias="embeddedInVideo")
+    ] = None
+
+    height: Optional[int] = None
+    r"""The height of the video stream"""
+
+    level: Optional[int] = None
+    r"""The level of the video codec"""
+
+    profile: Optional[str] = None
+    r"""The profile of the video codec"""
+
+    ref_frames: Annotated[Optional[int], pydantic.Field(alias="refFrames")] = None
+    r"""Number of reference frames"""
+
+    scan_type: Annotated[Optional[str], pydantic.Field(alias="scanType")] = None
+    r"""The scan type (progressive or interlaced)"""
+
+    width: Optional[int] = None
+    r"""The width of the video stream"""
+
+    display_title: Annotated[Optional[str], pydantic.Field(alias="displayTitle")] = None
+    r"""Display title of the stream"""
+
+    extended_display_title: Annotated[
+        Optional[str], pydantic.Field(alias="extendedDisplayTitle")
+    ] = None
+    r"""Extended display title of the stream"""
+
+    channels: Optional[int] = None
+    r"""Number of audio channels (for audio streams)"""
+
+    language: Optional[str] = None
+    r"""The language of the stream (for audio/subtitle streams)"""
+
+    language_tag: Annotated[Optional[str], pydantic.Field(alias="languageTag")] = None
+    r"""Language tag of the stream"""
+
+    language_code: Annotated[Optional[str], pydantic.Field(alias="languageCode")] = None
+    r"""Language code of the stream"""
+
+    audio_channel_layout: Annotated[
+        Optional[str], pydantic.Field(alias="audioChannelLayout")
+    ] = None
+    r"""The audio channel layout"""
+
+    sampling_rate: Annotated[Optional[int], pydantic.Field(alias="samplingRate")] = None
+    r"""Sampling rate of the audio stream in Hz"""
+
+    title: Optional[str] = None
+    r"""Title of the subtitle track (for subtitle streams)"""
+
+    can_auto_sync: Annotated[Optional[bool], pydantic.Field(alias="canAutoSync")] = None
+    r"""Indicates if the subtitle stream can auto-sync"""
 
 
 class GetLibraryItemsPartTypedDict(TypedDict):
@@ -228,8 +588,11 @@ class GetLibraryItemsPartTypedDict(TypedDict):
     """
     video_profile: str
     audio_profile: NotRequired[str]
+    has64bit_offsets: NotRequired[bool]
+    optimized_for_streaming: NotRequired[bool]
     indexes: NotRequired[str]
-    has_thumbnail: NotRequired[HasThumbnail]
+    has_thumbnail: NotRequired[GetLibraryItemsHasThumbnail]
+    stream: NotRequired[List[GetLibraryItemsStreamTypedDict]]
 
 
 class GetLibraryItemsPart(BaseModel):
@@ -252,11 +615,23 @@ class GetLibraryItemsPart(BaseModel):
 
     audio_profile: Annotated[Optional[str], pydantic.Field(alias="audioProfile")] = None
 
+    has64bit_offsets: Annotated[
+        Optional[bool], pydantic.Field(alias="has64bitOffsets")
+    ] = None
+
+    optimized_for_streaming: Annotated[
+        Optional[bool], pydantic.Field(alias="optimizedForStreaming")
+    ] = None
+
     indexes: Optional[str] = None
 
     has_thumbnail: Annotated[
-        Optional[HasThumbnail], pydantic.Field(alias="hasThumbnail")
-    ] = HasThumbnail.FALSE
+        Optional[GetLibraryItemsHasThumbnail], pydantic.Field(alias="hasThumbnail")
+    ] = GetLibraryItemsHasThumbnail.FALSE
+
+    stream: Annotated[
+        Optional[List[GetLibraryItemsStream]], pydantic.Field(alias="Stream")
+    ] = None
 
 
 class GetLibraryItemsMediaTypedDict(TypedDict):
@@ -276,6 +651,8 @@ class GetLibraryItemsMediaTypedDict(TypedDict):
     part: List[GetLibraryItemsPartTypedDict]
     audio_profile: NotRequired[str]
     has_voice_activity: NotRequired[bool]
+    optimized_for_streaming: NotRequired[GetLibraryItemsOptimizedForStreaming]
+    has64bit_offsets: NotRequired[bool]
 
 
 class GetLibraryItemsMedia(BaseModel):
@@ -313,6 +690,15 @@ class GetLibraryItemsMedia(BaseModel):
         Optional[bool], pydantic.Field(alias="hasVoiceActivity")
     ] = None
 
+    optimized_for_streaming: Annotated[
+        Optional[GetLibraryItemsOptimizedForStreaming],
+        pydantic.Field(alias="optimizedForStreaming"),
+    ] = GetLibraryItemsOptimizedForStreaming.DISABLE
+
+    has64bit_offsets: Annotated[
+        Optional[bool], pydantic.Field(alias="has64bitOffsets")
+    ] = None
+
 
 class GetLibraryItemsGenreTypedDict(TypedDict):
     tag: NotRequired[str]
@@ -346,23 +732,50 @@ class GetLibraryItemsWriter(BaseModel):
     tag: Optional[str] = None
 
 
-class CollectionTypedDict(TypedDict):
+class GetLibraryItemsCollectionTypedDict(TypedDict):
     tag: NotRequired[str]
 
 
-class Collection(BaseModel):
+class GetLibraryItemsCollection(BaseModel):
     tag: Optional[str] = None
 
 
 class GetLibraryItemsRoleTypedDict(TypedDict):
+    id: NotRequired[int]
+    r"""The ID of the tag or actor."""
+    filter_: NotRequired[str]
+    r"""The filter used to find the actor or tag."""
+    thumb: NotRequired[str]
+    r"""The thumbnail of the actor"""
     tag: NotRequired[str]
+    r"""The name of the tag or actor."""
+    tag_key: NotRequired[str]
+    r"""Unique identifier for the tag."""
+    role: NotRequired[str]
+    r"""The role of the actor or tag in the media."""
 
 
 class GetLibraryItemsRole(BaseModel):
+    id: Optional[int] = None
+    r"""The ID of the tag or actor."""
+
+    filter_: Annotated[Optional[str], pydantic.Field(alias="filter")] = None
+    r"""The filter used to find the actor or tag."""
+
+    thumb: Optional[str] = None
+    r"""The thumbnail of the actor"""
+
     tag: Optional[str] = None
+    r"""The name of the tag or actor."""
+
+    tag_key: Annotated[Optional[str], pydantic.Field(alias="tagKey")] = None
+    r"""Unique identifier for the tag."""
+
+    role: Optional[str] = None
+    r"""The role of the actor or tag in the media."""
 
 
-class MediaGUIDTypedDict(TypedDict):
+class GetLibraryItemsMediaGUIDTypedDict(TypedDict):
     id: str
     r"""Can be one of the following formats:
     imdb://tt13015952, tmdb://2434012, tvdb://7945991
@@ -370,7 +783,7 @@ class MediaGUIDTypedDict(TypedDict):
     """
 
 
-class MediaGUID(BaseModel):
+class GetLibraryItemsMediaGUID(BaseModel):
     id: str
     r"""Can be one of the following formats:
     imdb://tt13015952, tmdb://2434012, tvdb://7945991
@@ -378,14 +791,14 @@ class MediaGUID(BaseModel):
     """
 
 
-class UltraBlurColorsTypedDict(TypedDict):
+class GetLibraryItemsUltraBlurColorsTypedDict(TypedDict):
     top_left: str
     top_right: str
     bottom_right: str
     bottom_left: str
 
 
-class UltraBlurColors(BaseModel):
+class GetLibraryItemsUltraBlurColors(BaseModel):
     top_left: Annotated[str, pydantic.Field(alias="topLeft")]
 
     top_right: Annotated[str, pydantic.Field(alias="topRight")]
@@ -395,7 +808,27 @@ class UltraBlurColors(BaseModel):
     bottom_left: Annotated[str, pydantic.Field(alias="bottomLeft")]
 
 
-class GetLibraryItemsLibraryResponseType(str, Enum):
+class GetLibraryItemsMetaDataRatingTypedDict(TypedDict):
+    image: str
+    r"""A URI or path to the rating image."""
+    value: float
+    r"""The value of the rating."""
+    type: str
+    r"""The type of rating (e.g., audience, critic)."""
+
+
+class GetLibraryItemsMetaDataRating(BaseModel):
+    image: str
+    r"""A URI or path to the rating image."""
+
+    value: float
+    r"""The value of the rating."""
+
+    type: str
+    r"""The type of rating (e.g., audience, critic)."""
+
+
+class GetLibraryItemsLibraryResponse200Type(str, Enum):
     COVER_POSTER = "coverPoster"
     BACKGROUND = "background"
     SNAPSHOT = "snapshot"
@@ -404,14 +837,14 @@ class GetLibraryItemsLibraryResponseType(str, Enum):
 
 class GetLibraryItemsImageTypedDict(TypedDict):
     alt: str
-    type: GetLibraryItemsLibraryResponseType
+    type: GetLibraryItemsLibraryResponse200Type
     url: str
 
 
 class GetLibraryItemsImage(BaseModel):
     alt: str
 
-    type: GetLibraryItemsLibraryResponseType
+    type: GetLibraryItemsLibraryResponse200Type
 
     url: str
 
@@ -424,7 +857,7 @@ class GetLibraryItemsMetadataTypedDict(TypedDict):
     """
     key: str
     guid: str
-    type: GetLibraryItemsType
+    type: GetLibraryItemsLibraryType
     r"""The type of media content
 
     """
@@ -434,6 +867,9 @@ class GetLibraryItemsMetadataTypedDict(TypedDict):
     r"""Unix epoch datetime in seconds"""
     studio: NotRequired[str]
     skip_children: NotRequired[bool]
+    library_section_id: NotRequired[int]
+    library_section_title: NotRequired[str]
+    library_section_key: NotRequired[str]
     slug: NotRequired[str]
     content_rating: NotRequired[str]
     rating: NotRequired[float]
@@ -441,8 +877,8 @@ class GetLibraryItemsMetadataTypedDict(TypedDict):
     year: NotRequired[int]
     season_count: NotRequired[int]
     tagline: NotRequired[str]
-    flatten_seasons: NotRequired[FlattenSeasons]
-    show_ordering: NotRequired[ShowOrdering]
+    flatten_seasons: NotRequired[GetLibraryItemsFlattenSeasons]
+    show_ordering: NotRequired[GetLibraryItemsShowOrdering]
     r"""Setting that indicates the episode ordering for the show
     None = Library default,
     tmdbAiring = The Movie Database (Aired),
@@ -467,6 +903,7 @@ class GetLibraryItemsMetadataTypedDict(TypedDict):
     grandparent_key: NotRequired[str]
     grandparent_title: NotRequired[str]
     grandparent_thumb: NotRequired[str]
+    parent_slug: NotRequired[str]
     grandparent_slug: NotRequired[str]
     grandparent_art: NotRequired[str]
     grandparent_theme: NotRequired[str]
@@ -478,13 +915,14 @@ class GetLibraryItemsMetadataTypedDict(TypedDict):
     country: NotRequired[List[GetLibraryItemsCountryTypedDict]]
     director: NotRequired[List[GetLibraryItemsDirectorTypedDict]]
     writer: NotRequired[List[GetLibraryItemsWriterTypedDict]]
-    collection: NotRequired[List[CollectionTypedDict]]
+    collection: NotRequired[List[GetLibraryItemsCollectionTypedDict]]
     role: NotRequired[List[GetLibraryItemsRoleTypedDict]]
-    media_guid: NotRequired[List[MediaGUIDTypedDict]]
+    media_guid: NotRequired[List[GetLibraryItemsMediaGUIDTypedDict]]
     r"""The Guid object is only included in the response if the `includeGuids` parameter is set to `1`.
 
     """
-    ultra_blur_colors: NotRequired[UltraBlurColorsTypedDict]
+    ultra_blur_colors: NotRequired[GetLibraryItemsUltraBlurColorsTypedDict]
+    meta_data_rating: NotRequired[List[GetLibraryItemsMetaDataRatingTypedDict]]
     image: NotRequired[List[GetLibraryItemsImageTypedDict]]
     title_sort: NotRequired[str]
     view_count: NotRequired[int]
@@ -524,7 +962,7 @@ class GetLibraryItemsMetadata(BaseModel):
 
     guid: str
 
-    type: GetLibraryItemsType
+    type: GetLibraryItemsLibraryType
     r"""The type of media content
 
     """
@@ -541,6 +979,18 @@ class GetLibraryItemsMetadata(BaseModel):
     skip_children: Annotated[Optional[bool], pydantic.Field(alias="skipChildren")] = (
         None
     )
+
+    library_section_id: Annotated[
+        Optional[int], pydantic.Field(alias="librarySectionID")
+    ] = None
+
+    library_section_title: Annotated[
+        Optional[str], pydantic.Field(alias="librarySectionTitle")
+    ] = None
+
+    library_section_key: Annotated[
+        Optional[str], pydantic.Field(alias="librarySectionKey")
+    ] = None
 
     slug: Optional[str] = None
 
@@ -561,11 +1011,11 @@ class GetLibraryItemsMetadata(BaseModel):
     tagline: Optional[str] = None
 
     flatten_seasons: Annotated[
-        Optional[FlattenSeasons], pydantic.Field(alias="flattenSeasons")
-    ] = FlattenSeasons.FALSE
+        Optional[GetLibraryItemsFlattenSeasons], pydantic.Field(alias="flattenSeasons")
+    ] = GetLibraryItemsFlattenSeasons.FALSE
 
     show_ordering: Annotated[
-        Optional[ShowOrdering], pydantic.Field(alias="showOrdering")
+        Optional[GetLibraryItemsShowOrdering], pydantic.Field(alias="showOrdering")
     ] = None
     r"""Setting that indicates the episode ordering for the show
     None = Library default,
@@ -625,6 +1075,8 @@ class GetLibraryItemsMetadata(BaseModel):
         Optional[str], pydantic.Field(alias="grandparentThumb")
     ] = None
 
+    parent_slug: Annotated[Optional[str], pydantic.Field(alias="parentSlug")] = None
+
     grandparent_slug: Annotated[
         Optional[str], pydantic.Field(alias="grandparentSlug")
     ] = None
@@ -661,22 +1113,27 @@ class GetLibraryItemsMetadata(BaseModel):
     ] = None
 
     collection: Annotated[
-        Optional[List[Collection]], pydantic.Field(alias="Collection")
+        Optional[List[GetLibraryItemsCollection]], pydantic.Field(alias="Collection")
     ] = None
 
     role: Annotated[
         Optional[List[GetLibraryItemsRole]], pydantic.Field(alias="Role")
     ] = None
 
-    media_guid: Annotated[Optional[List[MediaGUID]], pydantic.Field(alias="Guid")] = (
-        None
-    )
+    media_guid: Annotated[
+        Optional[List[GetLibraryItemsMediaGUID]], pydantic.Field(alias="Guid")
+    ] = None
     r"""The Guid object is only included in the response if the `includeGuids` parameter is set to `1`.
 
     """
 
     ultra_blur_colors: Annotated[
-        Optional[UltraBlurColors], pydantic.Field(alias="UltraBlurColors")
+        Optional[GetLibraryItemsUltraBlurColors],
+        pydantic.Field(alias="UltraBlurColors"),
+    ] = None
+
+    meta_data_rating: Annotated[
+        Optional[List[GetLibraryItemsMetaDataRating]], pydantic.Field(alias="Rating")
     ] = None
 
     image: Annotated[
@@ -743,7 +1200,7 @@ class GetLibraryItemsMetadata(BaseModel):
     parent_theme: Annotated[Optional[str], pydantic.Field(alias="parentTheme")] = None
 
 
-class GetLibraryItemsFilterTypedDict(TypedDict):
+class GetLibraryItemsLibraryFilterTypedDict(TypedDict):
     filter_: str
     filter_type: str
     key: str
@@ -751,7 +1208,7 @@ class GetLibraryItemsFilterTypedDict(TypedDict):
     type: str
 
 
-class GetLibraryItemsFilter(BaseModel):
+class GetLibraryItemsLibraryFilter(BaseModel):
     filter_: Annotated[str, pydantic.Field(alias="filter")]
 
     filter_type: Annotated[str, pydantic.Field(alias="filterType")]
@@ -763,30 +1220,30 @@ class GetLibraryItemsFilter(BaseModel):
     type: str
 
 
-class ActiveDirection(str, Enum):
+class GetLibraryItemsLibraryActiveDirection(str, Enum):
     r"""The direction of the sort. Can be either `asc` or `desc`."""
 
     ASCENDING = "asc"
     DESCENDING = "desc"
 
 
-class DefaultDirection(str, Enum):
+class GetLibraryItemsLibraryDefaultDirection(str, Enum):
     r"""The direction of the sort. Can be either `asc` or `desc`."""
 
     ASCENDING = "asc"
     DESCENDING = "desc"
 
 
-class GetLibraryItemsSortTypedDict(TypedDict):
+class GetLibraryItemsLibrarySortTypedDict(TypedDict):
     key: str
     title: str
     default: NotRequired[str]
     active: NotRequired[bool]
-    active_direction: NotRequired[ActiveDirection]
+    active_direction: NotRequired[GetLibraryItemsLibraryActiveDirection]
     r"""The direction of the sort. Can be either `asc` or `desc`.
 
     """
-    default_direction: NotRequired[DefaultDirection]
+    default_direction: NotRequired[GetLibraryItemsLibraryDefaultDirection]
     r"""The direction of the sort. Can be either `asc` or `desc`.
 
     """
@@ -794,7 +1251,7 @@ class GetLibraryItemsSortTypedDict(TypedDict):
     first_character_key: NotRequired[str]
 
 
-class GetLibraryItemsSort(BaseModel):
+class GetLibraryItemsLibrarySort(BaseModel):
     key: str
 
     title: str
@@ -804,15 +1261,17 @@ class GetLibraryItemsSort(BaseModel):
     active: Optional[bool] = None
 
     active_direction: Annotated[
-        Optional[ActiveDirection], pydantic.Field(alias="activeDirection")
-    ] = ActiveDirection.ASCENDING
+        Optional[GetLibraryItemsLibraryActiveDirection],
+        pydantic.Field(alias="activeDirection"),
+    ] = GetLibraryItemsLibraryActiveDirection.ASCENDING
     r"""The direction of the sort. Can be either `asc` or `desc`.
 
     """
 
     default_direction: Annotated[
-        Optional[DefaultDirection], pydantic.Field(alias="defaultDirection")
-    ] = DefaultDirection.ASCENDING
+        Optional[GetLibraryItemsLibraryDefaultDirection],
+        pydantic.Field(alias="defaultDirection"),
+    ] = GetLibraryItemsLibraryDefaultDirection.ASCENDING
     r"""The direction of the sort. Can be either `asc` or `desc`.
 
     """
@@ -824,14 +1283,14 @@ class GetLibraryItemsSort(BaseModel):
     ] = None
 
 
-class GetLibraryItemsFieldTypedDict(TypedDict):
+class GetLibraryItemsLibraryFieldTypedDict(TypedDict):
     key: str
     title: str
     type: str
     sub_type: NotRequired[str]
 
 
-class GetLibraryItemsField(BaseModel):
+class GetLibraryItemsLibraryField(BaseModel):
     key: str
 
     title: str
@@ -841,17 +1300,17 @@ class GetLibraryItemsField(BaseModel):
     sub_type: Annotated[Optional[str], pydantic.Field(alias="subType")] = None
 
 
-class GetLibraryItemsLibraryTypeTypedDict(TypedDict):
+class GetLibraryItemsLibraryResponseTypeTypedDict(TypedDict):
     key: str
     type: str
     title: str
     active: bool
-    filter_: NotRequired[List[GetLibraryItemsFilterTypedDict]]
-    sort: NotRequired[List[GetLibraryItemsSortTypedDict]]
-    field: NotRequired[List[GetLibraryItemsFieldTypedDict]]
+    filter_: NotRequired[List[GetLibraryItemsLibraryFilterTypedDict]]
+    sort: NotRequired[List[GetLibraryItemsLibrarySortTypedDict]]
+    field: NotRequired[List[GetLibraryItemsLibraryFieldTypedDict]]
 
 
-class GetLibraryItemsLibraryType(BaseModel):
+class GetLibraryItemsLibraryResponseType(BaseModel):
     key: str
 
     type: str
@@ -861,60 +1320,65 @@ class GetLibraryItemsLibraryType(BaseModel):
     active: bool
 
     filter_: Annotated[
-        Optional[List[GetLibraryItemsFilter]], pydantic.Field(alias="Filter")
+        Optional[List[GetLibraryItemsLibraryFilter]], pydantic.Field(alias="Filter")
     ] = None
 
     sort: Annotated[
-        Optional[List[GetLibraryItemsSort]], pydantic.Field(alias="Sort")
+        Optional[List[GetLibraryItemsLibrarySort]], pydantic.Field(alias="Sort")
     ] = None
 
     field: Annotated[
-        Optional[List[GetLibraryItemsField]], pydantic.Field(alias="Field")
+        Optional[List[GetLibraryItemsLibraryField]], pydantic.Field(alias="Field")
     ] = None
 
 
-class GetLibraryItemsOperatorTypedDict(TypedDict):
+class GetLibraryItemsLibraryOperatorTypedDict(TypedDict):
     key: str
     title: str
 
 
-class GetLibraryItemsOperator(BaseModel):
+class GetLibraryItemsLibraryOperator(BaseModel):
     key: str
 
     title: str
 
 
-class GetLibraryItemsFieldTypeTypedDict(TypedDict):
+class GetLibraryItemsLibraryFieldTypeTypedDict(TypedDict):
     type: str
-    operator: List[GetLibraryItemsOperatorTypedDict]
+    operator: List[GetLibraryItemsLibraryOperatorTypedDict]
 
 
-class GetLibraryItemsFieldType(BaseModel):
+class GetLibraryItemsLibraryFieldType(BaseModel):
     type: str
 
-    operator: Annotated[List[GetLibraryItemsOperator], pydantic.Field(alias="Operator")]
+    operator: Annotated[
+        List[GetLibraryItemsLibraryOperator], pydantic.Field(alias="Operator")
+    ]
 
 
-class MetaTypedDict(TypedDict):
+class GetLibraryItemsMetaTypedDict(TypedDict):
     r"""The Meta object is only included in the response if the `includeMeta` parameter is set to `1`."""
 
-    type: NotRequired[List[GetLibraryItemsLibraryTypeTypedDict]]
-    field_type: NotRequired[List[GetLibraryItemsFieldTypeTypedDict]]
+    type: NotRequired[List[GetLibraryItemsLibraryResponseTypeTypedDict]]
+    field_type: NotRequired[List[GetLibraryItemsLibraryFieldTypeTypedDict]]
 
 
-class Meta(BaseModel):
+class GetLibraryItemsMeta(BaseModel):
     r"""The Meta object is only included in the response if the `includeMeta` parameter is set to `1`."""
 
     type: Annotated[
-        Optional[List[GetLibraryItemsLibraryType]], pydantic.Field(alias="Type")
+        Optional[List[GetLibraryItemsLibraryResponseType]], pydantic.Field(alias="Type")
     ] = None
 
     field_type: Annotated[
-        Optional[List[GetLibraryItemsFieldType]], pydantic.Field(alias="FieldType")
+        Optional[List[GetLibraryItemsLibraryFieldType]],
+        pydantic.Field(alias="FieldType"),
     ] = None
 
 
 class GetLibraryItemsMediaContainerTypedDict(TypedDict):
+    r"""The Meta object is only included in the response if the `includeMeta` parameter is set to `1`."""
+
     size: int
     total_size: int
     offset: int
@@ -922,7 +1386,7 @@ class GetLibraryItemsMediaContainerTypedDict(TypedDict):
     allow_sync: bool
     art: str
     identifier: str
-    library_section_id: LibrarySectionIDTypedDict
+    library_section_id: int
     library_section_title: str
     library_section_uuid: str
     media_tag_prefix: str
@@ -932,16 +1396,20 @@ class GetLibraryItemsMediaContainerTypedDict(TypedDict):
     title2: str
     view_group: str
     metadata: List[GetLibraryItemsMetadataTypedDict]
+    type: NotRequired[List[GetLibraryItemsTypeTypedDict]]
+    field_type: NotRequired[List[GetLibraryItemsFieldTypeTypedDict]]
     nocache: NotRequired[bool]
     view_mode: NotRequired[int]
     mixed_parents: NotRequired[bool]
-    meta: NotRequired[MetaTypedDict]
+    meta: NotRequired[GetLibraryItemsMetaTypedDict]
     r"""The Meta object is only included in the response if the `includeMeta` parameter is set to `1`.
 
     """
 
 
 class GetLibraryItemsMediaContainer(BaseModel):
+    r"""The Meta object is only included in the response if the `includeMeta` parameter is set to `1`."""
+
     size: int
 
     total_size: Annotated[int, pydantic.Field(alias="totalSize")]
@@ -956,9 +1424,7 @@ class GetLibraryItemsMediaContainer(BaseModel):
 
     identifier: str
 
-    library_section_id: Annotated[
-        LibrarySectionID, pydantic.Field(alias="librarySectionID")
-    ]
+    library_section_id: Annotated[int, pydantic.Field(alias="librarySectionID")]
 
     library_section_title: Annotated[str, pydantic.Field(alias="librarySectionTitle")]
 
@@ -978,6 +1444,14 @@ class GetLibraryItemsMediaContainer(BaseModel):
 
     metadata: Annotated[List[GetLibraryItemsMetadata], pydantic.Field(alias="Metadata")]
 
+    type: Annotated[
+        Optional[List[GetLibraryItemsType]], pydantic.Field(alias="Type")
+    ] = None
+
+    field_type: Annotated[
+        Optional[List[GetLibraryItemsFieldType]], pydantic.Field(alias="FieldType")
+    ] = None
+
     nocache: Optional[bool] = None
 
     view_mode: Annotated[Optional[int], pydantic.Field(alias="viewMode")] = None
@@ -986,7 +1460,7 @@ class GetLibraryItemsMediaContainer(BaseModel):
         None
     )
 
-    meta: Annotated[Optional[Meta], pydantic.Field(alias="Meta")] = None
+    meta: Annotated[Optional[GetLibraryItemsMeta], pydantic.Field(alias="Meta")] = None
     r"""The Meta object is only included in the response if the `includeMeta` parameter is set to `1`.
 
     """

@@ -150,6 +150,16 @@ from .get_meta_data_by_rating_key import (
     GetMetaDataByRatingKeyUnauthorized,
     GetMetaDataByRatingKeyUnauthorizedData,
 )
+from .get_recently_added_library import (
+    GetRecentlyAddedLibraryBadRequest,
+    GetRecentlyAddedLibraryBadRequestData,
+    GetRecentlyAddedLibraryErrors,
+    GetRecentlyAddedLibraryErrorsTypedDict,
+    GetRecentlyAddedLibraryLibraryErrors,
+    GetRecentlyAddedLibraryLibraryErrorsTypedDict,
+    GetRecentlyAddedLibraryUnauthorized,
+    GetRecentlyAddedLibraryUnauthorizedData,
+)
 from .get_refresh_library_metadata import (
     GetRefreshLibraryMetadataBadRequest,
     GetRefreshLibraryMetadataBadRequestData,
@@ -369,16 +379,6 @@ from .getplaylists import (
     GetPlaylistsPlaylistsErrorsTypedDict,
     GetPlaylistsUnauthorized,
     GetPlaylistsUnauthorizedData,
-)
-from .getrecentlyadded import (
-    GetRecentlyAddedBadRequest,
-    GetRecentlyAddedBadRequestData,
-    GetRecentlyAddedErrors,
-    GetRecentlyAddedErrorsTypedDict,
-    GetRecentlyAddedLibraryErrors,
-    GetRecentlyAddedLibraryErrorsTypedDict,
-    GetRecentlyAddedUnauthorized,
-    GetRecentlyAddedUnauthorizedData,
 )
 from .getresizedphoto import (
     GetResizedPhotoBadRequest,
@@ -987,14 +987,14 @@ __all__ = [
     "GetPlaylistsPlaylistsErrorsTypedDict",
     "GetPlaylistsUnauthorized",
     "GetPlaylistsUnauthorizedData",
-    "GetRecentlyAddedBadRequest",
-    "GetRecentlyAddedBadRequestData",
-    "GetRecentlyAddedErrors",
-    "GetRecentlyAddedErrorsTypedDict",
+    "GetRecentlyAddedLibraryBadRequest",
+    "GetRecentlyAddedLibraryBadRequestData",
     "GetRecentlyAddedLibraryErrors",
     "GetRecentlyAddedLibraryErrorsTypedDict",
-    "GetRecentlyAddedUnauthorized",
-    "GetRecentlyAddedUnauthorizedData",
+    "GetRecentlyAddedLibraryLibraryErrors",
+    "GetRecentlyAddedLibraryLibraryErrorsTypedDict",
+    "GetRecentlyAddedLibraryUnauthorized",
+    "GetRecentlyAddedLibraryUnauthorizedData",
     "GetRefreshLibraryMetadataBadRequest",
     "GetRefreshLibraryMetadataBadRequestData",
     "GetRefreshLibraryMetadataErrors",

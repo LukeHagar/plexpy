@@ -11,7 +11,7 @@ from plex_api_client.types import (
     UNSET,
     UNSET_SENTINEL,
 )
-from plex_api_client.utils import FieldMetadata
+from plex_api_client.utils import FieldMetadata, QueryParamMetadata, RequestMetadata
 import pydantic
 from pydantic import model_serializer
 from typing import List, Optional, TypedDict
@@ -20,6 +20,56 @@ from typing_extensions import Annotated, NotRequired
 POST_USERS_SIGN_IN_DATA_SERVERS = [
     "https://plex.tv/api/v2/",
 ]
+
+
+class PostUsersSignInDataGlobalsTypedDict(TypedDict):
+    client_id: NotRequired[str]
+    r"""The unique identifier for the client application
+    This is used to track the client application and its usage
+    (UUID, serial number, or other number unique per device)
+
+    """
+    client_name: NotRequired[str]
+    device_name: NotRequired[str]
+    client_version: NotRequired[str]
+    client_platform: NotRequired[str]
+
+
+class PostUsersSignInDataGlobals(BaseModel):
+    client_id: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Client-Identifier"),
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+    r"""The unique identifier for the client application
+    This is used to track the client application and its usage
+    (UUID, serial number, or other number unique per device)
+
+    """
+
+    client_name: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Product"),
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+
+    device_name: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Device"),
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+
+    client_version: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Version"),
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+
+    client_platform: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Platform"),
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
 
 
 class PostUsersSignInDataRequestBodyTypedDict(TypedDict):
@@ -47,6 +97,66 @@ class PostUsersSignInDataRequestBody(BaseModel):
         pydantic.Field(alias="verificationCode"),
         FieldMetadata(form=True),
     ] = None
+
+
+class PostUsersSignInDataRequestTypedDict(TypedDict):
+    client_id: NotRequired[str]
+    r"""The unique identifier for the client application
+    This is used to track the client application and its usage
+    (UUID, serial number, or other number unique per device)
+
+    """
+    client_name: NotRequired[str]
+    device_name: NotRequired[str]
+    client_version: NotRequired[str]
+    client_platform: NotRequired[str]
+    request_body: NotRequired[PostUsersSignInDataRequestBodyTypedDict]
+    r"""Login credentials"""
+
+
+class PostUsersSignInDataRequest(BaseModel):
+    client_id: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Client-Identifier"),
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+    r"""The unique identifier for the client application
+    This is used to track the client application and its usage
+    (UUID, serial number, or other number unique per device)
+
+    """
+
+    client_name: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Product"),
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+
+    device_name: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Device"),
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+
+    client_version: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Version"),
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+
+    client_platform: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Platform"),
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+
+    request_body: Annotated[
+        Optional[PostUsersSignInDataRequestBody],
+        FieldMetadata(
+            request=RequestMetadata(media_type="application/x-www-form-urlencoded")
+        ),
+    ] = None
+    r"""Login credentials"""
 
 
 class PostUsersSignInDataMailingListStatus(str, Enum):

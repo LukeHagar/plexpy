@@ -592,12 +592,10 @@ class Authentication(BaseSDK):
     def post_users_sign_in_data(
         self,
         *,
-        request: Optional[
-            Union[
-                operations.PostUsersSignInDataRequestBody,
-                operations.PostUsersSignInDataRequestBodyTypedDict,
-            ]
-        ] = None,
+        request: Union[
+            operations.PostUsersSignInDataRequest,
+            operations.PostUsersSignInDataRequestTypedDict,
+        ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -622,10 +620,8 @@ class Authentication(BaseSDK):
             base_url = operations.POST_USERS_SIGN_IN_DATA_SERVERS[0]
 
         if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, Optional[operations.PostUsersSignInDataRequestBody]
-            )
-        request = cast(Optional[operations.PostUsersSignInDataRequestBody], request)
+            request = utils.unmarshal(request, operations.PostUsersSignInDataRequest)
+        request = cast(operations.PostUsersSignInDataRequest, request)
 
         req = self.build_request(
             method="POST",
@@ -635,11 +631,18 @@ class Authentication(BaseSDK):
             request=request,
             request_body_required=False,
             request_has_path_params=False,
-            request_has_query_params=False,
+            request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            _globals=operations.PostUsersSignInDataGlobals(
+                client_id=self.sdk_configuration.globals.client_id,
+                client_name=self.sdk_configuration.globals.client_name,
+                device_name=self.sdk_configuration.globals.device_name,
+                client_version=self.sdk_configuration.globals.client_version,
+                client_platform=self.sdk_configuration.globals.client_platform,
+            ),
             get_serialized_body=lambda: utils.serialize_request_body(
-                request,
+                request.request_body,
                 False,
                 True,
                 "form",
@@ -706,12 +709,10 @@ class Authentication(BaseSDK):
     async def post_users_sign_in_data_async(
         self,
         *,
-        request: Optional[
-            Union[
-                operations.PostUsersSignInDataRequestBody,
-                operations.PostUsersSignInDataRequestBodyTypedDict,
-            ]
-        ] = None,
+        request: Union[
+            operations.PostUsersSignInDataRequest,
+            operations.PostUsersSignInDataRequestTypedDict,
+        ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -736,10 +737,8 @@ class Authentication(BaseSDK):
             base_url = operations.POST_USERS_SIGN_IN_DATA_SERVERS[0]
 
         if not isinstance(request, BaseModel):
-            request = utils.unmarshal(
-                request, Optional[operations.PostUsersSignInDataRequestBody]
-            )
-        request = cast(Optional[operations.PostUsersSignInDataRequestBody], request)
+            request = utils.unmarshal(request, operations.PostUsersSignInDataRequest)
+        request = cast(operations.PostUsersSignInDataRequest, request)
 
         req = self.build_request_async(
             method="POST",
@@ -749,11 +748,18 @@ class Authentication(BaseSDK):
             request=request,
             request_body_required=False,
             request_has_path_params=False,
-            request_has_query_params=False,
+            request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            _globals=operations.PostUsersSignInDataGlobals(
+                client_id=self.sdk_configuration.globals.client_id,
+                client_name=self.sdk_configuration.globals.client_name,
+                device_name=self.sdk_configuration.globals.device_name,
+                client_version=self.sdk_configuration.globals.client_version,
+                client_platform=self.sdk_configuration.globals.client_platform,
+            ),
             get_serialized_body=lambda: utils.serialize_request_body(
-                request,
+                request.request_body,
                 False,
                 True,
                 "form",

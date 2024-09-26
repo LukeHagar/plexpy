@@ -10,7 +10,7 @@ from typing import List, Optional, TypedDict
 from typing_extensions import Annotated, NotRequired
 
 
-class QueryParamType(int, Enum):
+class GetSearchLibraryQueryParamType(int, Enum):
     r"""The type of media to retrieve.
     1 = movie
     2 = show
@@ -32,7 +32,7 @@ class GetSearchLibraryRequestTypedDict(TypedDict):
     Note: This is unique in the context of the Plex server.
 
     """
-    type: QueryParamType
+    type: GetSearchLibraryQueryParamType
     r"""The type of media to retrieve.
     1 = movie
     2 = show
@@ -55,7 +55,7 @@ class GetSearchLibraryRequest(BaseModel):
     """
 
     type: Annotated[
-        QueryParamType,
+        GetSearchLibraryQueryParamType,
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ]
     r"""The type of media to retrieve.

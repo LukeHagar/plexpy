@@ -203,22 +203,23 @@ class Library(BaseSDK):
             http_res,
         )
 
-    def get_recently_added(
+    def get_recently_added_library(
         self,
         *,
-        x_plex_container_start: Optional[int] = 0,
-        x_plex_container_size: Optional[int] = 50,
+        request: Union[
+            operations.GetRecentlyAddedLibraryRequest,
+            operations.GetRecentlyAddedLibraryRequestTypedDict,
+        ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
-    ) -> operations.GetRecentlyAddedResponse:
+    ) -> operations.GetRecentlyAddedLibraryResponse:
         r"""Get Recently Added
 
         This endpoint will return the recently added content.
 
 
-        :param x_plex_container_start: The index of the first item to return. If not specified, the first item will be returned. If the number of items exceeds the limit, the response will be paginated. By default this is 0
-        :param x_plex_container_size: The number of items to return. If not specified, all items will be returned. If the number of items exceeds the limit, the response will be paginated. By default this is 50
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -231,10 +232,11 @@ class Library(BaseSDK):
         if server_url is not None:
             base_url = server_url
 
-        request = operations.GetRecentlyAddedRequest(
-            x_plex_container_start=x_plex_container_start,
-            x_plex_container_size=x_plex_container_size,
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(
+                request, operations.GetRecentlyAddedLibraryRequest
+            )
+        request = cast(operations.GetRecentlyAddedLibraryRequest, request)
 
         req = self.build_request(
             method="GET",
@@ -261,7 +263,7 @@ class Library(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
-                operation_id="getRecentlyAdded",
+                operation_id="get-recently-added-library",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
             ),
@@ -272,9 +274,10 @@ class Library(BaseSDK):
 
         data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return operations.GetRecentlyAddedResponse(
+            return operations.GetRecentlyAddedLibraryResponse(
                 object=utils.unmarshal_json(
-                    http_res.text, Optional[operations.GetRecentlyAddedResponseBody]
+                    http_res.text,
+                    Optional[operations.GetRecentlyAddedLibraryResponseBody],
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
@@ -282,16 +285,16 @@ class Library(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetRecentlyAddedBadRequestData
+                http_res.text, errors.GetRecentlyAddedLibraryBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetRecentlyAddedBadRequest(data=data)
+            raise errors.GetRecentlyAddedLibraryBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetRecentlyAddedUnauthorizedData
+                http_res.text, errors.GetRecentlyAddedLibraryUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetRecentlyAddedUnauthorized(data=data)
+            raise errors.GetRecentlyAddedLibraryUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -305,22 +308,23 @@ class Library(BaseSDK):
             http_res,
         )
 
-    async def get_recently_added_async(
+    async def get_recently_added_library_async(
         self,
         *,
-        x_plex_container_start: Optional[int] = 0,
-        x_plex_container_size: Optional[int] = 50,
+        request: Union[
+            operations.GetRecentlyAddedLibraryRequest,
+            operations.GetRecentlyAddedLibraryRequestTypedDict,
+        ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
-    ) -> operations.GetRecentlyAddedResponse:
+    ) -> operations.GetRecentlyAddedLibraryResponse:
         r"""Get Recently Added
 
         This endpoint will return the recently added content.
 
 
-        :param x_plex_container_start: The index of the first item to return. If not specified, the first item will be returned. If the number of items exceeds the limit, the response will be paginated. By default this is 0
-        :param x_plex_container_size: The number of items to return. If not specified, all items will be returned. If the number of items exceeds the limit, the response will be paginated. By default this is 50
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -333,10 +337,11 @@ class Library(BaseSDK):
         if server_url is not None:
             base_url = server_url
 
-        request = operations.GetRecentlyAddedRequest(
-            x_plex_container_start=x_plex_container_start,
-            x_plex_container_size=x_plex_container_size,
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(
+                request, operations.GetRecentlyAddedLibraryRequest
+            )
+        request = cast(operations.GetRecentlyAddedLibraryRequest, request)
 
         req = self.build_request_async(
             method="GET",
@@ -363,7 +368,7 @@ class Library(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
-                operation_id="getRecentlyAdded",
+                operation_id="get-recently-added-library",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
             ),
@@ -374,9 +379,10 @@ class Library(BaseSDK):
 
         data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return operations.GetRecentlyAddedResponse(
+            return operations.GetRecentlyAddedLibraryResponse(
                 object=utils.unmarshal_json(
-                    http_res.text, Optional[operations.GetRecentlyAddedResponseBody]
+                    http_res.text,
+                    Optional[operations.GetRecentlyAddedLibraryResponseBody],
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
@@ -384,16 +390,16 @@ class Library(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetRecentlyAddedBadRequestData
+                http_res.text, errors.GetRecentlyAddedLibraryBadRequestData
             )
             data.raw_response = http_res
-            raise errors.GetRecentlyAddedBadRequest(data=data)
+            raise errors.GetRecentlyAddedLibraryBadRequest(data=data)
         if utils.match_response(http_res, "401", "application/json"):
             data = utils.unmarshal_json(
-                http_res.text, errors.GetRecentlyAddedUnauthorizedData
+                http_res.text, errors.GetRecentlyAddedLibraryUnauthorizedData
             )
             data.raw_response = http_res
-            raise errors.GetRecentlyAddedUnauthorized(data=data)
+            raise errors.GetRecentlyAddedLibraryUnauthorized(data=data)
         if utils.match_response(http_res, ["4XX", "5XX"], "*"):
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res.text, http_res
@@ -1519,7 +1525,7 @@ class Library(BaseSDK):
         self,
         *,
         section_key: int,
-        type_: operations.QueryParamType,
+        type_: operations.GetSearchLibraryQueryParamType,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1638,7 +1644,7 @@ class Library(BaseSDK):
         self,
         *,
         section_key: int,
-        type_: operations.QueryParamType,
+        type_: operations.GetSearchLibraryQueryParamType,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,

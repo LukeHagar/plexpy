@@ -42,6 +42,7 @@ class GetAllLibrariesDirectoryTypedDict(TypedDict):
     content: bool
     directory: bool
     content_changed_at: int
+    r"""Unix epoch datetime in seconds"""
     hidden: int
     location: List[LocationTypedDict]
 
@@ -87,6 +88,7 @@ class GetAllLibrariesDirectory(BaseModel):
     directory: bool
 
     content_changed_at: Annotated[int, pydantic.Field(alias="contentChangedAt")]
+    r"""Unix epoch datetime in seconds"""
 
     hidden: int
 

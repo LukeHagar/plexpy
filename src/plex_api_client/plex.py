@@ -1004,6 +1004,7 @@ class Plex(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             _globals=operations.GetPinGlobals(
+                client_id=self.sdk_configuration.globals.client_id,
                 client_name=self.sdk_configuration.globals.client_name,
                 device_name=self.sdk_configuration.globals.device_name,
                 client_version=self.sdk_configuration.globals.client_version,
@@ -1099,6 +1100,7 @@ class Plex(BaseSDK):
             user_agent_header="user-agent",
             accept_header_value="application/json",
             _globals=operations.GetPinGlobals(
+                client_id=self.sdk_configuration.globals.client_id,
                 client_name=self.sdk_configuration.globals.client_name,
                 device_name=self.sdk_configuration.globals.device_name,
                 client_version=self.sdk_configuration.globals.client_version,

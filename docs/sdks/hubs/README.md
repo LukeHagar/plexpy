@@ -9,6 +9,7 @@ Hubs are a structured two-dimensional container for media, generally represented
 ### Available Operations
 
 * [get_global_hubs](#get_global_hubs) - Get Global Hubs
+* [get_recently_added](#get_recently_added) - Get Recently Added
 * [get_library_hubs](#get_library_hubs) - Get library specific hubs
 
 ## get_global_hubs
@@ -56,6 +57,59 @@ if res.object is not None:
 | errors.GetGlobalHubsBadRequest   | 400                              | application/json                 |
 | errors.GetGlobalHubsUnauthorized | 401                              | application/json                 |
 | errors.SDKError                  | 4xx-5xx                          | */*                              |
+
+
+## get_recently_added
+
+This endpoint will return the recently added content.
+
+
+### Example Usage
+
+```python
+from plex_api_client import PlexAPI
+from plex_api_client.models import operations
+
+s = PlexAPI(
+    access_token="<YOUR_API_KEY_HERE>",
+    client_id="gcgzw5rz2xovp84b4vha3a40",
+    client_name="Plex Web",
+    client_version="4.133.0",
+    client_platform="Chrome",
+    device_name="Linux",
+)
+
+res = s.hubs.get_recently_added(request={
+    "content_directory_id": 470161,
+    "type": operations.Type.TV_SHOW,
+    "section_id": 2,
+    "include_meta": operations.IncludeMeta.ENABLE,
+    "x_plex_container_start": 0,
+    "x_plex_container_size": 50,
+})
+
+if res.object is not None:
+    # handle response
+    pass
+
+```
+
+### Parameters
+
+| Parameter                                                                                | Type                                                                                     | Required                                                                                 | Description                                                                              |
+| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `request`                                                                                | [operations.GetRecentlyAddedRequest](../../models/operations/getrecentlyaddedrequest.md) | :heavy_check_mark:                                                                       | The request object to use for the request.                                               |
+| `retries`                                                                                | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                         | :heavy_minus_sign:                                                                       | Configuration to override the default retry behavior of the client.                      |
+
+### Response
+
+**[operations.GetRecentlyAddedResponse](../../models/operations/getrecentlyaddedresponse.md)**
+
+### Errors
+
+| Error Object    | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| errors.SDKError | 4xx-5xx         | */*             |
 
 
 ## get_library_hubs

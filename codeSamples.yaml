@@ -456,6 +456,36 @@ actions:
             if res.object is not None:
                 # handle response
                 pass
+  - target: $["paths"]["/hubs/home/recentlyAdded"]["get"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: added
+          source: |-
+            from plex_api_client import PlexAPI
+            from plex_api_client.models import operations
+
+            s = PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+                client_id="gcgzw5rz2xovp84b4vha3a40",
+                client_name="Plex Web",
+                client_version="4.133.0",
+                client_platform="Chrome",
+                device_name="Linux",
+            )
+
+            res = s.hubs.get_recently_added(request={
+                "content_directory_id": 470161,
+                "section_id": 2,
+                "type": operations.Type.TV_SHOW,
+                "include_meta": operations.IncludeMeta.ENABLE,
+                "x_plex_container_start": 0,
+                "x_plex_container_size": 50,
+            })
+
+            if res.object is not None:
+                # handle response
+                pass
   - target: $["paths"]["/hubs/search"]["get"]
     update:
       x-codeSamples:
@@ -716,9 +746,10 @@ actions:
     update:
       x-codeSamples:
         - lang: python
-          label: getRecentlyAdded
+          label: library
           source: |-
             from plex_api_client import PlexAPI
+            from plex_api_client.models import operations
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
@@ -729,7 +760,28 @@ actions:
                 device_name="Linux",
             )
 
-            res = s.library.get_recently_added(x_plex_container_start=0, x_plex_container_size=50)
+            res = s.library.get_recently_added_library(request={
+                "content_directory_id": 2,
+                "pinned_content_directory_id": [
+                    3,
+                    5,
+                    7,
+                    13,
+                    12,
+                    1,
+                    6,
+                    14,
+                    2,
+                    10,
+                    16,
+                    17,
+                ],
+                "section_id": 2,
+                "type": operations.QueryParamType.TV_SHOW,
+                "include_meta": operations.QueryParamIncludeMeta.ENABLE,
+                "x_plex_container_start": 0,
+                "x_plex_container_size": 50,
+            })
 
             if res.object is not None:
                 # handle response
@@ -869,7 +921,7 @@ actions:
                 device_name="Linux",
             )
 
-            res = s.library.get_search_library(section_key=9518, type_=operations.QueryParamType.TV_SHOW)
+            res = s.library.get_search_library(section_key=9518, type_=operations.GetSearchLibraryQueryParamType.TV_SHOW)
 
             if res.object is not None:
                 # handle response
@@ -896,8 +948,8 @@ actions:
                 "section_key": 9518,
                 "tag": operations.Tag.EDITION,
                 "include_guids": operations.IncludeGuids.ENABLE,
-                "include_meta": operations.IncludeMeta.ENABLE,
-                "type": operations.Type.TV_SHOW,
+                "type": operations.GetLibraryItemsQueryParamType.TV_SHOW,
+                "include_meta": operations.GetLibraryItemsQueryParamIncludeMeta.ENABLE,
                 "x_plex_container_start": 0,
                 "x_plex_container_size": 50,
             })
@@ -1670,9 +1722,11 @@ actions:
             )
 
             res = s.authentication.post_users_sign_in_data(request={
-                "login": "username@email.com",
-                "password": "password123",
-                "verification_code": "123456",
+                "request_body": {
+                    "login": "username@email.com",
+                    "password": "password123",
+                    "verification_code": "123456",
+                },
             })
 
             if res.user_plex_account is not None:

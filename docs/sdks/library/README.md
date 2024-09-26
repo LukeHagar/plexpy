@@ -9,7 +9,7 @@ API Calls interacting with Plex Media Server Libraries
 ### Available Operations
 
 * [get_file_hash](#get_file_hash) - Get Hash Value
-* [get_recently_added](#get_recently_added) - Get Recently Added
+* [get_recently_added_library](#get_recently_added_library) - Get Recently Added
 * [get_all_libraries](#get_all_libraries) - Get All Libraries
 * [get_library_details](#get_library_details) - Get Library Details
 * [delete_library](#delete_library) - Delete Library Section
@@ -68,7 +68,7 @@ if res is not None:
 | errors.SDKError                | 4xx-5xx                        | */*                            |
 
 
-## get_recently_added
+## get_recently_added_library
 
 This endpoint will return the recently added content.
 
@@ -77,6 +77,7 @@ This endpoint will return the recently added content.
 
 ```python
 from plex_api_client import PlexAPI
+from plex_api_client.models import operations
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
@@ -87,7 +88,28 @@ s = PlexAPI(
     device_name="Linux",
 )
 
-res = s.library.get_recently_added(x_plex_container_start=0, x_plex_container_size=50)
+res = s.library.get_recently_added_library(request={
+    "type": operations.QueryParamType.TV_SHOW,
+    "content_directory_id": 2,
+    "pinned_content_directory_id": [
+        3,
+        5,
+        7,
+        13,
+        12,
+        1,
+        6,
+        14,
+        2,
+        10,
+        16,
+        17,
+    ],
+    "section_id": 2,
+    "include_meta": operations.QueryParamIncludeMeta.ENABLE,
+    "x_plex_container_start": 0,
+    "x_plex_container_size": 50,
+})
 
 if res.object is not None:
     # handle response
@@ -97,23 +119,22 @@ if res.object is not None:
 
 ### Parameters
 
-| Parameter                                                                                                                                                                                 | Type                                                                                                                                                                                      | Required                                                                                                                                                                                  | Description                                                                                                                                                                               | Example                                                                                                                                                                                   |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `x_plex_container_start`                                                                                                                                                                  | *Optional[int]*                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                        | The index of the first item to return. If not specified, the first item will be returned.<br/>If the number of items exceeds the limit, the response will be paginated.<br/>By default this is 0<br/> | 0                                                                                                                                                                                         |
-| `x_plex_container_size`                                                                                                                                                                   | *Optional[int]*                                                                                                                                                                           | :heavy_minus_sign:                                                                                                                                                                        | The number of items to return. If not specified, all items will be returned.<br/>If the number of items exceeds the limit, the response will be paginated.<br/>By default this is 50<br/> | 50                                                                                                                                                                                        |
-| `retries`                                                                                                                                                                                 | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                          | :heavy_minus_sign:                                                                                                                                                                        | Configuration to override the default retry behavior of the client.                                                                                                                       |                                                                                                                                                                                           |
+| Parameter                                                                                              | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
+| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
+| `request`                                                                                              | [operations.GetRecentlyAddedLibraryRequest](../../models/operations/getrecentlyaddedlibraryrequest.md) | :heavy_check_mark:                                                                                     | The request object to use for the request.                                                             |
+| `retries`                                                                                              | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                       | :heavy_minus_sign:                                                                                     | Configuration to override the default retry behavior of the client.                                    |
 
 ### Response
 
-**[operations.GetRecentlyAddedResponse](../../models/operations/getrecentlyaddedresponse.md)**
+**[operations.GetRecentlyAddedLibraryResponse](../../models/operations/getrecentlyaddedlibraryresponse.md)**
 
 ### Errors
 
-| Error Object                        | Status Code                         | Content Type                        |
-| ----------------------------------- | ----------------------------------- | ----------------------------------- |
-| errors.GetRecentlyAddedBadRequest   | 400                                 | application/json                    |
-| errors.GetRecentlyAddedUnauthorized | 401                                 | application/json                    |
-| errors.SDKError                     | 4xx-5xx                             | */*                                 |
+| Error Object                               | Status Code                                | Content Type                               |
+| ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
+| errors.GetRecentlyAddedLibraryBadRequest   | 400                                        | application/json                           |
+| errors.GetRecentlyAddedLibraryUnauthorized | 401                                        | application/json                           |
+| errors.SDKError                            | 4xx-5xx                                    | */*                                        |
 
 
 ## get_all_libraries
@@ -342,8 +363,8 @@ res = s.library.get_library_items(request={
     "section_key": 9518,
     "tag": operations.Tag.EDITION,
     "include_guids": operations.IncludeGuids.ENABLE,
-    "include_meta": operations.IncludeMeta.ENABLE,
-    "type": operations.Type.TV_SHOW,
+    "type": operations.GetLibraryItemsQueryParamType.TV_SHOW,
+    "include_meta": operations.GetLibraryItemsQueryParamIncludeMeta.ENABLE,
     "x_plex_container_start": 0,
     "x_plex_container_size": 50,
 })
@@ -460,7 +481,7 @@ s = PlexAPI(
     device_name="Linux",
 )
 
-res = s.library.get_search_library(section_key=9518, type_=operations.QueryParamType.TV_SHOW)
+res = s.library.get_search_library(section_key=9518, type_=operations.GetSearchLibraryQueryParamType.TV_SHOW)
 
 if res.object is not None:
     # handle response
@@ -473,7 +494,7 @@ if res.object is not None:
 | Parameter                                                                                                                                                                       | Type                                                                                                                                                                            | Required                                                                                                                                                                        | Description                                                                                                                                                                     | Example                                                                                                                                                                         |
 | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `section_key`                                                                                                                                                                   | *int*                                                                                                                                                                           | :heavy_check_mark:                                                                                                                                                              | The unique key of the Plex library. <br/>Note: This is unique in the context of the Plex server.<br/>                                                                           | 9518                                                                                                                                                                            |
-| `type`                                                                                                                                                                          | [operations.QueryParamType](../../models/operations/queryparamtype.md)                                                                                                          | :heavy_check_mark:                                                                                                                                                              | The type of media to retrieve.<br/>1 = movie<br/>2 = show<br/>3 = season<br/>4 = episode<br/>E.g. A movie library will not return anything with type 3 as there are no seasons for movie libraries<br/> | 2                                                                                                                                                                               |
+| `type`                                                                                                                                                                          | [operations.GetSearchLibraryQueryParamType](../../models/operations/getsearchlibraryqueryparamtype.md)                                                                          | :heavy_check_mark:                                                                                                                                                              | The type of media to retrieve.<br/>1 = movie<br/>2 = show<br/>3 = season<br/>4 = episode<br/>E.g. A movie library will not return anything with type 3 as there are no seasons for movie libraries<br/> | 2                                                                                                                                                                               |
 | `retries`                                                                                                                                                                       | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                | :heavy_minus_sign:                                                                                                                                                              | Configuration to override the default retry behavior of the client.                                                                                                             |                                                                                                                                                                                 |
 
 ### Response

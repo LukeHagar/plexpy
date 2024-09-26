@@ -141,12 +141,13 @@ asyncio.run(main())
 ### [hubs](docs/sdks/hubs/README.md)
 
 * [get_global_hubs](docs/sdks/hubs/README.md#get_global_hubs) - Get Global Hubs
+* [get_recently_added](docs/sdks/hubs/README.md#get_recently_added) - Get Recently Added
 * [get_library_hubs](docs/sdks/hubs/README.md#get_library_hubs) - Get library specific hubs
 
 ### [library](docs/sdks/library/README.md)
 
 * [get_file_hash](docs/sdks/library/README.md#get_file_hash) - Get Hash Value
-* [get_recently_added](docs/sdks/library/README.md#get_recently_added) - Get Recently Added
+* [get_recently_added_library](docs/sdks/library/README.md#get_recently_added_library) - Get Recently Added
 * [get_all_libraries](docs/sdks/library/README.md#get_all_libraries) - Get All Libraries
 * [get_library_details](docs/sdks/library/README.md#get_library_details) - Get Library Details
 * [delete_library](docs/sdks/library/README.md#delete_library) - Delete Library Section
