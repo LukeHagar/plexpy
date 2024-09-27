@@ -560,10 +560,7 @@ The following global parameters are available.
 
 | Name | Type | Required | Description |
 | ---- | ---- |:--------:| ----------- |
-| client_id | str |  | The unique identifier for the client application
-This is used to track the client application and its usage
-(UUID, serial number, or other number unique per device)
- |
+| client_id | str |  | The unique identifier for the client application<br> This is used to track the client application and its usage<br> (UUID, serial number, or other number unique per device) |
 | client_name | str |  | The client_name parameter. |
 | client_version | str |  | The client_version parameter. |
 | client_platform | str |  | The client_platform parameter. |
