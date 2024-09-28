@@ -12,7 +12,7 @@ from typing import List, Optional, TypedDict
 from typing_extensions import Annotated, NotRequired
 
 GET_SERVER_RESOURCES_SERVERS = [
-    "https://plex.tv/api/v2/",
+    "https://plex.tv/api/v2",
 ]
 
 

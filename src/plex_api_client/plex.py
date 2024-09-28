@@ -1156,7 +1156,10 @@ class Plex(BaseSDK):
     def get_token_by_pin_id(
         self,
         *,
-        pin_id: int,
+        request: Union[
+            operations.GetTokenByPinIDRequest,
+            operations.GetTokenByPinIDRequestTypedDict,
+        ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1165,7 +1168,7 @@ class Plex(BaseSDK):
 
         Retrieve an Access Token from Plex.tv after the Pin has been authenticated
 
-        :param pin_id: The PinID to retrieve an access token for
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1180,9 +1183,9 @@ class Plex(BaseSDK):
         else:
             base_url = operations.GET_TOKEN_BY_PIN_ID_SERVERS[0]
 
-        request = operations.GetTokenByPinIDRequest(
-            pin_id=pin_id,
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, operations.GetTokenByPinIDRequest)
+        request = cast(operations.GetTokenByPinIDRequest, request)
 
         req = self.build_request(
             method="GET",
@@ -1192,9 +1195,16 @@ class Plex(BaseSDK):
             request=request,
             request_body_required=False,
             request_has_path_params=True,
-            request_has_query_params=False,
+            request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            _globals=operations.GetTokenByPinIDGlobals(
+                client_id=self.sdk_configuration.globals.client_id,
+                client_name=self.sdk_configuration.globals.client_name,
+                device_name=self.sdk_configuration.globals.device_name,
+                client_version=self.sdk_configuration.globals.client_version,
+                client_platform=self.sdk_configuration.globals.client_platform,
+            ),
             timeout_ms=timeout_ms,
         )
 
@@ -1253,7 +1263,10 @@ class Plex(BaseSDK):
     async def get_token_by_pin_id_async(
         self,
         *,
-        pin_id: int,
+        request: Union[
+            operations.GetTokenByPinIDRequest,
+            operations.GetTokenByPinIDRequestTypedDict,
+        ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1262,7 +1275,7 @@ class Plex(BaseSDK):
 
         Retrieve an Access Token from Plex.tv after the Pin has been authenticated
 
-        :param pin_id: The PinID to retrieve an access token for
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1277,9 +1290,9 @@ class Plex(BaseSDK):
         else:
             base_url = operations.GET_TOKEN_BY_PIN_ID_SERVERS[0]
 
-        request = operations.GetTokenByPinIDRequest(
-            pin_id=pin_id,
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, operations.GetTokenByPinIDRequest)
+        request = cast(operations.GetTokenByPinIDRequest, request)
 
         req = self.build_request_async(
             method="GET",
@@ -1289,9 +1302,16 @@ class Plex(BaseSDK):
             request=request,
             request_body_required=False,
             request_has_path_params=True,
-            request_has_query_params=False,
+            request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            _globals=operations.GetTokenByPinIDGlobals(
+                client_id=self.sdk_configuration.globals.client_id,
+                client_name=self.sdk_configuration.globals.client_name,
+                device_name=self.sdk_configuration.globals.device_name,
+                client_version=self.sdk_configuration.globals.client_version,
+                client_platform=self.sdk_configuration.globals.client_platform,
+            ),
             timeout_ms=timeout_ms,
         )
 

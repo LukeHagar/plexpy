@@ -17,7 +17,7 @@ from typing import Any, Optional, TypedDict
 from typing_extensions import Annotated, NotRequired
 
 GET_PIN_SERVERS = [
-    "https://plex.tv/api/v2/",
+    "https://plex.tv/api/v2",
 ]
 
 

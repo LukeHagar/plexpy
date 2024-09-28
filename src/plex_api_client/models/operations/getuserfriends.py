@@ -10,7 +10,7 @@ from typing import List, Optional, TypedDict
 from typing_extensions import Annotated, NotRequired
 
 GET_USER_FRIENDS_SERVERS = [
-    "https://plex.tv/api/v2/",
+    "https://plex.tv/api/v2",
 ]
 
 

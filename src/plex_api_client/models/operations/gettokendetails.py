@@ -17,12 +17,12 @@ from typing import List, Optional, TypedDict
 from typing_extensions import Annotated, NotRequired
 
 GET_TOKEN_DETAILS_SERVERS = [
-    "https://plex.tv/api/v2/",
+    "https://plex.tv/api/v2",
 ]
 
 
 class MailingListStatus(str, Enum):
-    r"""Your current mailing list status"""
+    r"""Your current mailing list status (active or unsubscribed)"""
 
     ACTIVE = "active"
     UNSUBSCRIBED = "unsubscribed"
@@ -529,7 +529,7 @@ class GetTokenDetailsUserPlexAccountTypedDict(TypedDict):
     locale: Nullable[str]
     r"""The account locale"""
     mailing_list_status: MailingListStatus
-    r"""Your current mailing list status"""
+    r"""Your current mailing list status (active or unsubscribed)"""
     max_home_size: int
     r"""The maximum number of accounts allowed in the Plex Home"""
     profile: UserProfileTypedDict
@@ -630,7 +630,7 @@ class GetTokenDetailsUserPlexAccount(BaseModel):
     mailing_list_status: Annotated[
         MailingListStatus, pydantic.Field(alias="mailingListStatus")
     ]
-    r"""Your current mailing list status"""
+    r"""Your current mailing list status (active or unsubscribed)"""
 
     max_home_size: Annotated[int, pydantic.Field(alias="maxHomeSize")]
     r"""The maximum number of accounts allowed in the Plex Home"""

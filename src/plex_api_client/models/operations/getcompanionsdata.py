@@ -8,7 +8,7 @@ from typing import List, Optional, TypedDict
 from typing_extensions import Annotated, NotRequired
 
 GET_COMPANIONS_DATA_SERVERS = [
-    "https://plex.tv/api/v2/",
+    "https://plex.tv/api/v2",
 ]
 
 

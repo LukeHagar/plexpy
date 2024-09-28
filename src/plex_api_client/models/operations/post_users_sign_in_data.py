@@ -18,7 +18,7 @@ from typing import List, Optional, TypedDict
 from typing_extensions import Annotated, NotRequired
 
 POST_USERS_SIGN_IN_DATA_SERVERS = [
-    "https://plex.tv/api/v2/",
+    "https://plex.tv/api/v2",
 ]
 
 
@@ -160,7 +160,7 @@ class PostUsersSignInDataRequest(BaseModel):
 
 
 class PostUsersSignInDataMailingListStatus(str, Enum):
-    r"""Your current mailing list status"""
+    r"""Your current mailing list status (active or unsubscribed)"""
 
     ACTIVE = "active"
     UNSUBSCRIBED = "unsubscribed"
@@ -828,7 +828,7 @@ class PostUsersSignInDataUserPlexAccountTypedDict(TypedDict):
     locale: Nullable[str]
     r"""The account locale"""
     mailing_list_status: PostUsersSignInDataMailingListStatus
-    r"""Your current mailing list status"""
+    r"""Your current mailing list status (active or unsubscribed)"""
     max_home_size: int
     r"""The maximum number of accounts allowed in the Plex Home"""
     profile: PostUsersSignInDataUserProfileTypedDict
@@ -931,7 +931,7 @@ class PostUsersSignInDataUserPlexAccount(BaseModel):
     mailing_list_status: Annotated[
         PostUsersSignInDataMailingListStatus, pydantic.Field(alias="mailingListStatus")
     ]
-    r"""Your current mailing list status"""
+    r"""Your current mailing list status (active or unsubscribed)"""
 
     max_home_size: Annotated[int, pydantic.Field(alias="maxHomeSize")]
     r"""The maximum number of accounts allowed in the Plex Home"""

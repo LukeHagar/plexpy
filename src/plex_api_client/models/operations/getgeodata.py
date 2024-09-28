@@ -7,7 +7,7 @@ from typing import Optional, TypedDict
 from typing_extensions import NotRequired
 
 GET_GEO_DATA_SERVERS = [
-    "https://plex.tv/api/v2/",
+    "https://plex.tv/api/v2",
 ]
 
 

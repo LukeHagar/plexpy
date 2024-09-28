@@ -310,7 +310,9 @@ s = PlexAPI(
     device_name="Linux",
 )
 
-res = s.plex.get_token_by_pin_id(pin_id=408895)
+res = s.plex.get_token_by_pin_id(request={
+    "pin_id": 408895,
+})
 
 if res.auth_pin_container is not None:
     # handle response
@@ -320,11 +322,11 @@ if res.auth_pin_container is not None:
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `pin_id`                                                            | *int*                                                               | :heavy_check_mark:                                                  | The PinID to retrieve an access token for                           |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
-| `server_url`                                                        | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | An optional server URL to use.                                      |
+| Parameter                                                                              | Type                                                                                   | Required                                                                               | Description                                                                            |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `request`                                                                              | [operations.GetTokenByPinIDRequest](../../models/operations/gettokenbypinidrequest.md) | :heavy_check_mark:                                                                     | The request object to use for the request.                                             |
+| `retries`                                                                              | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                       | :heavy_minus_sign:                                                                     | Configuration to override the default retry behavior of the client.                    |
+| `server_url`                                                                           | *Optional[str]*                                                                        | :heavy_minus_sign:                                                                     | An optional server URL to use.                                                         |
 
 ### Response
 
