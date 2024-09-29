@@ -44,7 +44,7 @@ class PlexAPI(BaseSDK):
 
     ## SDKs
 
-    The following SDKs are generated from the OpenAPI Specification. They are automatically generated and may not be fully tested. If you find any issues, please open an issue on the respective repository.
+    The following SDKs are generated from the OpenAPI Specification. They are automatically generated and may not be fully tested. If you find any issues, please open an issue on the [main specification Repository](https://github.com/LukeHagar/plex-api-spec).
 
     | Language              | Repository                                        | Releases                                                                                         | Other                                                   |
     | --------------------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------- |
