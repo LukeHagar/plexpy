@@ -749,6 +749,7 @@ class Plex(BaseSDK):
         include_i_pv6: Optional[
             operations.IncludeIPv6
         ] = operations.IncludeIPv6.DISABLE,
+        client_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -760,6 +761,7 @@ class Plex(BaseSDK):
         :param include_https: Include Https entries in the results
         :param include_relay: Include Relay addresses in the results  E.g: https://10-0-0-25.bbf8e10c7fa20447cacee74cd9914cde.plex.direct:32400
         :param include_i_pv6: Include IPv6 entries in the results
+        :param client_id: The unique identifier for the client application This is used to track the client application and its usage (UUID, serial number, or other number unique per device)
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -778,6 +780,7 @@ class Plex(BaseSDK):
             include_https=include_https,
             include_relay=include_relay,
             include_i_pv6=include_i_pv6,
+            client_id=client_id,
         )
 
         req = self.build_request(
@@ -791,6 +794,9 @@ class Plex(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            _globals=operations.GetServerResourcesGlobals(
+                client_id=self.sdk_configuration.globals.client_id,
+            ),
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
@@ -861,6 +867,7 @@ class Plex(BaseSDK):
         include_i_pv6: Optional[
             operations.IncludeIPv6
         ] = operations.IncludeIPv6.DISABLE,
+        client_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -872,6 +879,7 @@ class Plex(BaseSDK):
         :param include_https: Include Https entries in the results
         :param include_relay: Include Relay addresses in the results  E.g: https://10-0-0-25.bbf8e10c7fa20447cacee74cd9914cde.plex.direct:32400
         :param include_i_pv6: Include IPv6 entries in the results
+        :param client_id: The unique identifier for the client application This is used to track the client application and its usage (UUID, serial number, or other number unique per device)
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -890,6 +898,7 @@ class Plex(BaseSDK):
             include_https=include_https,
             include_relay=include_relay,
             include_i_pv6=include_i_pv6,
+            client_id=client_id,
         )
 
         req = self.build_request_async(
@@ -903,6 +912,9 @@ class Plex(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            _globals=operations.GetServerResourcesGlobals(
+                client_id=self.sdk_configuration.globals.client_id,
+            ),
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )

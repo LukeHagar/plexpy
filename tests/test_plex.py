@@ -111,6 +111,7 @@ def test_plex_get_server_resources():
         include_https=operations.IncludeHTTPS.ENABLE,
         include_relay=operations.IncludeRelay.ENABLE,
         include_i_pv6=operations.IncludeIPv6.ENABLE,
+        client_id="gcgzw5rz2xovp84b4vha3a40",
     )
     assert res.status_code == 200
     assert res.plex_devices is not None

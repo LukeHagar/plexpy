@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 3eeea668-4ef4-464e-a888-bdfa023bedf5
 management:
-  docChecksum: 9f62ea35c6168986c8e3557d5df50b99
+  docChecksum: f387ae03f10decba230886eaab322b20
   docVersion: 0.0.3
   speakeasyVersion: 1.404.5
   generationVersion: 2.426.2
-  releaseVersion: 0.15.1
-  configChecksum: b2cbdd18b10b3e21e2f755c06d172b90
+  releaseVersion: 0.16.0
+  configChecksum: 4fb92df989ba28339c266ea7e0e3b960
   repoURL: https://github.com/LukeHagar/plexpy.git
   repoSubDirectory: .
   installationURL: https://github.com/LukeHagar/plexpy.git
@@ -32,6 +32,7 @@ features:
     methodServerURLs: 3.0.0
     nameOverrides: 3.0.0
     nullables: 1.0.0
+    openEnums: 1.0.0
     responseFormat: 1.0.1
     retries: 3.0.2
     sdkHooks: 1.0.0
@@ -618,6 +619,7 @@ generatedFiles:
   - docs/models/operations/getserverpreferencesmediacontainer.md
   - docs/models/operations/getserverpreferencesresponse.md
   - docs/models/operations/getserverpreferencesresponsebody.md
+  - docs/models/operations/getserverresourcesglobals.md
   - docs/models/operations/getserverresourcesrequest.md
   - docs/models/operations/getserverresourcesresponse.md
   - docs/models/operations/getsessionhistorymediacontainer.md
@@ -1351,6 +1353,7 @@ examples:
           includeHttps: 1
           includeRelay: 1
           includeIPv6: 1
+          X-Plex-Client-Identifier: "gcgzw5rz2xovp84b4vha3a40"
       responses:
         "200":
           application/json: []
