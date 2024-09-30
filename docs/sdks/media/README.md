@@ -53,12 +53,11 @@ if res is not None:
 
 ### Errors
 
-| Error Object                  | Status Code                   | Content Type                  |
+| Error Type                    | Status Code                   | Content Type                  |
 | ----------------------------- | ----------------------------- | ----------------------------- |
 | errors.MarkPlayedBadRequest   | 400                           | application/json              |
 | errors.MarkPlayedUnauthorized | 401                           | application/json              |
-| errors.SDKError               | 4xx-5xx                       | */*                           |
-
+| errors.SDKError               | 4XX, 5XX                      | \*/\*                         |
 
 ## mark_unplayed
 
@@ -99,12 +98,11 @@ if res is not None:
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
+| Error Type                      | Status Code                     | Content Type                    |
 | ------------------------------- | ------------------------------- | ------------------------------- |
 | errors.MarkUnplayedBadRequest   | 400                             | application/json                |
 | errors.MarkUnplayedUnauthorized | 401                             | application/json                |
-| errors.SDKError                 | 4xx-5xx                         | */*                             |
-
+| errors.SDKError                 | 4XX, 5XX                        | \*/\*                           |
 
 ## update_play_progress
 
@@ -148,12 +146,11 @@ if res is not None:
 
 ### Errors
 
-| Error Object                          | Status Code                           | Content Type                          |
+| Error Type                            | Status Code                           | Content Type                          |
 | ------------------------------------- | ------------------------------------- | ------------------------------------- |
 | errors.UpdatePlayProgressBadRequest   | 400                                   | application/json                      |
 | errors.UpdatePlayProgressUnauthorized | 401                                   | application/json                      |
-| errors.SDKError                       | 4xx-5xx                               | */*                                   |
-
+| errors.SDKError                       | 4XX, 5XX                              | \*/\*                                 |
 
 ## get_banner_image
 
@@ -201,12 +198,11 @@ if res.response_stream is not None:
 
 ### Errors
 
-| Error Object                      | Status Code                       | Content Type                      |
+| Error Type                        | Status Code                       | Content Type                      |
 | --------------------------------- | --------------------------------- | --------------------------------- |
 | errors.GetBannerImageBadRequest   | 400                               | application/json                  |
 | errors.GetBannerImageUnauthorized | 401                               | application/json                  |
-| errors.SDKError                   | 4xx-5xx                           | */*                               |
-
+| errors.SDKError                   | 4XX, 5XX                          | \*/\*                             |
 
 ## get_thumb_image
 
@@ -254,8 +250,8 @@ if res.response_stream is not None:
 
 ### Errors
 
-| Error Object                     | Status Code                      | Content Type                     |
+| Error Type                       | Status Code                      | Content Type                     |
 | -------------------------------- | -------------------------------- | -------------------------------- |
 | errors.GetThumbImageBadRequest   | 400                              | application/json                 |
 | errors.GetThumbImageUnauthorized | 401                              | application/json                 |
-| errors.SDKError                  | 4xx-5xx                          | */*                              |
+| errors.SDKError                  | 4XX, 5XX                         | \*/\*                            |

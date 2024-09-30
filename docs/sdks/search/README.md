@@ -65,12 +65,11 @@ if res is not None:
 
 ### Errors
 
-| Error Object                     | Status Code                      | Content Type                     |
+| Error Type                       | Status Code                      | Content Type                     |
 | -------------------------------- | -------------------------------- | -------------------------------- |
 | errors.PerformSearchBadRequest   | 400                              | application/json                 |
 | errors.PerformSearchUnauthorized | 401                              | application/json                 |
-| errors.SDKError                  | 4xx-5xx                          | */*                              |
-
+| errors.SDKError                  | 4XX, 5XX                         | \*/\*                            |
 
 ## perform_voice_search
 
@@ -117,12 +116,11 @@ if res is not None:
 
 ### Errors
 
-| Error Object                          | Status Code                           | Content Type                          |
+| Error Type                            | Status Code                           | Content Type                          |
 | ------------------------------------- | ------------------------------------- | ------------------------------------- |
 | errors.PerformVoiceSearchBadRequest   | 400                                   | application/json                      |
 | errors.PerformVoiceSearchUnauthorized | 401                                   | application/json                      |
-| errors.SDKError                       | 4xx-5xx                               | */*                                   |
-
+| errors.SDKError                       | 4XX, 5XX                              | \*/\*                                 |
 
 ## get_search_results
 
@@ -163,8 +161,8 @@ if res.object is not None:
 
 ### Errors
 
-| Error Object                        | Status Code                         | Content Type                        |
+| Error Type                          | Status Code                         | Content Type                        |
 | ----------------------------------- | ----------------------------------- | ----------------------------------- |
 | errors.GetSearchResultsBadRequest   | 400                                 | application/json                    |
 | errors.GetSearchResultsUnauthorized | 401                                 | application/json                    |
-| errors.SDKError                     | 4xx-5xx                             | */*                                 |
+| errors.SDKError                     | 4XX, 5XX                            | \*/\*                               |

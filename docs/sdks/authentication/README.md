@@ -55,12 +55,11 @@ if res is not None:
 
 ### Errors
 
-| Error Object                         | Status Code                          | Content Type                         |
+| Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
 | errors.GetTransientTokenBadRequest   | 400                                  | application/json                     |
 | errors.GetTransientTokenUnauthorized | 401                                  | application/json                     |
-| errors.SDKError                      | 4xx-5xx                              | */*                                  |
-
+| errors.SDKError                      | 4XX, 5XX                             | \*/\*                                |
 
 ## get_source_connection_information
 
@@ -103,12 +102,11 @@ if res is not None:
 
 ### Errors
 
-| Error Object                                      | Status Code                                       | Content Type                                      |
+| Error Type                                        | Status Code                                       | Content Type                                      |
 | ------------------------------------------------- | ------------------------------------------------- | ------------------------------------------------- |
 | errors.GetSourceConnectionInformationBadRequest   | 400                                               | application/json                                  |
 | errors.GetSourceConnectionInformationUnauthorized | 401                                               | application/json                                  |
-| errors.SDKError                                   | 4xx-5xx                                           | */*                                               |
-
+| errors.SDKError                                   | 4XX, 5XX                                          | \*/\*                                             |
 
 ## get_token_details
 
@@ -149,12 +147,11 @@ if res.user_plex_account is not None:
 
 ### Errors
 
-| Error Object                       | Status Code                        | Content Type                       |
+| Error Type                         | Status Code                        | Content Type                       |
 | ---------------------------------- | ---------------------------------- | ---------------------------------- |
 | errors.GetTokenDetailsBadRequest   | 400                                | application/json                   |
 | errors.GetTokenDetailsUnauthorized | 401                                | application/json                   |
-| errors.SDKError                    | 4xx-5xx                            | */*                                |
-
+| errors.SDKError                    | 4XX, 5XX                           | \*/\*                              |
 
 ## post_users_sign_in_data
 
@@ -201,8 +198,8 @@ if res.user_plex_account is not None:
 
 ### Errors
 
-| Error Object                           | Status Code                            | Content Type                           |
+| Error Type                             | Status Code                            | Content Type                           |
 | -------------------------------------- | -------------------------------------- | -------------------------------------- |
 | errors.PostUsersSignInDataBadRequest   | 400                                    | application/json                       |
 | errors.PostUsersSignInDataUnauthorized | 401                                    | application/json                       |
-| errors.SDKError                        | 4xx-5xx                                | */*                                    |
+| errors.SDKError                        | 4XX, 5XX                               | \*/\*                                  |

@@ -61,12 +61,11 @@ if res is not None:
 
 ### Errors
 
-| Error Object                   | Status Code                    | Content Type                   |
+| Error Type                     | Status Code                    | Content Type                   |
 | ------------------------------ | ------------------------------ | ------------------------------ |
 | errors.GetFileHashBadRequest   | 400                            | application/json               |
 | errors.GetFileHashUnauthorized | 401                            | application/json               |
-| errors.SDKError                | 4xx-5xx                        | */*                            |
-
+| errors.SDKError                | 4XX, 5XX                       | \*/\*                          |
 
 ## get_recently_added_library
 
@@ -130,12 +129,11 @@ if res.object is not None:
 
 ### Errors
 
-| Error Object                               | Status Code                                | Content Type                               |
+| Error Type                                 | Status Code                                | Content Type                               |
 | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
 | errors.GetRecentlyAddedLibraryBadRequest   | 400                                        | application/json                           |
 | errors.GetRecentlyAddedLibraryUnauthorized | 401                                        | application/json                           |
-| errors.SDKError                            | 4xx-5xx                                    | */*                                        |
-
+| errors.SDKError                            | 4XX, 5XX                                   | \*/\*                                      |
 
 ## get_all_libraries
 
@@ -181,12 +179,11 @@ if res.object is not None:
 
 ### Errors
 
-| Error Object                       | Status Code                        | Content Type                       |
+| Error Type                         | Status Code                        | Content Type                       |
 | ---------------------------------- | ---------------------------------- | ---------------------------------- |
 | errors.GetAllLibrariesBadRequest   | 400                                | application/json                   |
 | errors.GetAllLibrariesUnauthorized | 401                                | application/json                   |
-| errors.SDKError                    | 4xx-5xx                            | */*                                |
-
+| errors.SDKError                    | 4XX, 5XX                           | \*/\*                              |
 
 ## get_library_details
 
@@ -267,12 +264,11 @@ if res.object is not None:
 
 ### Errors
 
-| Error Object                         | Status Code                          | Content Type                         |
+| Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
 | errors.GetLibraryDetailsBadRequest   | 400                                  | application/json                     |
 | errors.GetLibraryDetailsUnauthorized | 401                                  | application/json                     |
-| errors.SDKError                      | 4xx-5xx                              | */*                                  |
-
+| errors.SDKError                      | 4XX, 5XX                             | \*/\*                                |
 
 ## delete_library
 
@@ -313,12 +309,11 @@ if res is not None:
 
 ### Errors
 
-| Error Object                     | Status Code                      | Content Type                     |
+| Error Type                       | Status Code                      | Content Type                     |
 | -------------------------------- | -------------------------------- | -------------------------------- |
 | errors.DeleteLibraryBadRequest   | 400                              | application/json                 |
 | errors.DeleteLibraryUnauthorized | 401                              | application/json                 |
-| errors.SDKError                  | 4xx-5xx                          | */*                              |
-
+| errors.SDKError                  | 4XX, 5XX                         | \*/\*                            |
 
 ## get_library_items
 
@@ -388,12 +383,11 @@ if res.object is not None:
 
 ### Errors
 
-| Error Object                       | Status Code                        | Content Type                       |
+| Error Type                         | Status Code                        | Content Type                       |
 | ---------------------------------- | ---------------------------------- | ---------------------------------- |
 | errors.GetLibraryItemsBadRequest   | 400                                | application/json                   |
 | errors.GetLibraryItemsUnauthorized | 401                                | application/json                   |
-| errors.SDKError                    | 4xx-5xx                            | */*                                |
-
+| errors.SDKError                    | 4XX, 5XX                           | \*/\*                              |
 
 ## get_refresh_library_metadata
 
@@ -437,12 +431,11 @@ if res is not None:
 
 ### Errors
 
-| Error Object                                 | Status Code                                  | Content Type                                 |
+| Error Type                                   | Status Code                                  | Content Type                                 |
 | -------------------------------------------- | -------------------------------------------- | -------------------------------------------- |
 | errors.GetRefreshLibraryMetadataBadRequest   | 400                                          | application/json                             |
 | errors.GetRefreshLibraryMetadataUnauthorized | 401                                          | application/json                             |
-| errors.SDKError                              | 4xx-5xx                                      | */*                                          |
-
+| errors.SDKError                              | 4XX, 5XX                                     | \*/\*                                        |
 
 ## get_search_library
 
@@ -503,12 +496,11 @@ if res.object is not None:
 
 ### Errors
 
-| Error Object                        | Status Code                         | Content Type                        |
+| Error Type                          | Status Code                         | Content Type                        |
 | ----------------------------------- | ----------------------------------- | ----------------------------------- |
 | errors.GetSearchLibraryBadRequest   | 400                                 | application/json                    |
 | errors.GetSearchLibraryUnauthorized | 401                                 | application/json                    |
-| errors.SDKError                     | 4xx-5xx                             | */*                                 |
-
+| errors.SDKError                     | 4XX, 5XX                            | \*/\*                               |
 
 ## get_meta_data_by_rating_key
 
@@ -550,12 +542,11 @@ if res.object is not None:
 
 ### Errors
 
-| Error Object                              | Status Code                               | Content Type                              |
+| Error Type                                | Status Code                               | Content Type                              |
 | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
 | errors.GetMetaDataByRatingKeyBadRequest   | 400                                       | application/json                          |
 | errors.GetMetaDataByRatingKeyUnauthorized | 401                                       | application/json                          |
-| errors.SDKError                           | 4xx-5xx                                   | */*                                       |
-
+| errors.SDKError                           | 4XX, 5XX                                  | \*/\*                                     |
 
 ## get_metadata_children
 
@@ -598,12 +589,11 @@ if res.object is not None:
 
 ### Errors
 
-| Error Object                           | Status Code                            | Content Type                           |
+| Error Type                             | Status Code                            | Content Type                           |
 | -------------------------------------- | -------------------------------------- | -------------------------------------- |
 | errors.GetMetadataChildrenBadRequest   | 400                                    | application/json                       |
 | errors.GetMetadataChildrenUnauthorized | 401                                    | application/json                       |
-| errors.SDKError                        | 4xx-5xx                                | */*                                    |
-
+| errors.SDKError                        | 4XX, 5XX                               | \*/\*                                  |
 
 ## get_top_watched_content
 
@@ -647,12 +637,11 @@ if res.object is not None:
 
 ### Errors
 
-| Error Object                            | Status Code                             | Content Type                            |
+| Error Type                              | Status Code                             | Content Type                            |
 | --------------------------------------- | --------------------------------------- | --------------------------------------- |
 | errors.GetTopWatchedContentBadRequest   | 400                                     | application/json                        |
 | errors.GetTopWatchedContentUnauthorized | 401                                     | application/json                        |
-| errors.SDKError                         | 4xx-5xx                                 | */*                                     |
-
+| errors.SDKError                         | 4XX, 5XX                                | \*/\*                                   |
 
 ## get_on_deck
 
@@ -693,8 +682,8 @@ if res.object is not None:
 
 ### Errors
 
-| Error Object                 | Status Code                  | Content Type                 |
+| Error Type                   | Status Code                  | Content Type                 |
 | ---------------------------- | ---------------------------- | ---------------------------- |
 | errors.GetOnDeckBadRequest   | 400                          | application/json             |
 | errors.GetOnDeckUnauthorized | 401                          | application/json             |
-| errors.SDKError              | 4xx-5xx                      | */*                          |
+| errors.SDKError              | 4XX, 5XX                     | \*/\*                        |

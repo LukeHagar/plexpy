@@ -55,12 +55,11 @@ if res.response_bodies is not None:
 
 ### Errors
 
-| Error Object                         | Status Code                          | Content Type                         |
+| Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
 | errors.GetCompanionsDataBadRequest   | 400                                  | application/json                     |
 | errors.GetCompanionsDataUnauthorized | 401                                  | application/json                     |
-| errors.SDKError                      | 4xx-5xx                              | */*                                  |
-
+| errors.SDKError                      | 4XX, 5XX                             | \*/\*                                |
 
 ## get_user_friends
 
@@ -101,12 +100,11 @@ if res.friends is not None:
 
 ### Errors
 
-| Error Object                      | Status Code                       | Content Type                      |
+| Error Type                        | Status Code                       | Content Type                      |
 | --------------------------------- | --------------------------------- | --------------------------------- |
 | errors.GetUserFriendsBadRequest   | 400                               | application/json                  |
 | errors.GetUserFriendsUnauthorized | 401                               | application/json                  |
-| errors.SDKError                   | 4xx-5xx                           | */*                               |
-
+| errors.SDKError                   | 4XX, 5XX                          | \*/\*                             |
 
 ## get_geo_data
 
@@ -146,12 +144,11 @@ if res.geo_data is not None:
 
 ### Errors
 
-| Error Object                  | Status Code                   | Content Type                  |
+| Error Type                    | Status Code                   | Content Type                  |
 | ----------------------------- | ----------------------------- | ----------------------------- |
 | errors.GetGeoDataBadRequest   | 400                           | application/json              |
 | errors.GetGeoDataUnauthorized | 401                           | application/json              |
-| errors.SDKError               | 4xx-5xx                       | */*                           |
-
+| errors.SDKError               | 4XX, 5XX                      | \*/\*                         |
 
 ## get_home_data
 
@@ -191,12 +188,11 @@ if res.object is not None:
 
 ### Errors
 
-| Error Object                   | Status Code                    | Content Type                   |
+| Error Type                     | Status Code                    | Content Type                   |
 | ------------------------------ | ------------------------------ | ------------------------------ |
 | errors.GetHomeDataBadRequest   | 400                            | application/json               |
 | errors.GetHomeDataUnauthorized | 401                            | application/json               |
-| errors.SDKError                | 4xx-5xx                        | */*                            |
-
+| errors.SDKError                | 4XX, 5XX                       | \*/\*                          |
 
 ## get_server_resources
 
@@ -242,12 +238,11 @@ if res.plex_devices is not None:
 
 ### Errors
 
-| Error Object                          | Status Code                           | Content Type                          |
+| Error Type                            | Status Code                           | Content Type                          |
 | ------------------------------------- | ------------------------------------- | ------------------------------------- |
 | errors.GetServerResourcesBadRequest   | 400                                   | application/json                      |
 | errors.GetServerResourcesUnauthorized | 401                                   | application/json                      |
-| errors.SDKError                       | 4xx-5xx                               | */*                                   |
-
+| errors.SDKError                       | 4XX, 5XX                              | \*/\*                                 |
 
 ## get_pin
 
@@ -288,11 +283,10 @@ if res.auth_pin_container is not None:
 
 ### Errors
 
-| Error Object            | Status Code             | Content Type            |
+| Error Type              | Status Code             | Content Type            |
 | ----------------------- | ----------------------- | ----------------------- |
 | errors.GetPinBadRequest | 400                     | application/json        |
-| errors.SDKError         | 4xx-5xx                 | */*                     |
-
+| errors.SDKError         | 4XX, 5XX                | \*/\*                   |
 
 ## get_token_by_pin_id
 
@@ -335,8 +329,8 @@ if res.auth_pin_container is not None:
 
 ### Errors
 
-| Error Object                       | Status Code                        | Content Type                       |
+| Error Type                         | Status Code                        | Content Type                       |
 | ---------------------------------- | ---------------------------------- | ---------------------------------- |
 | errors.GetTokenByPinIDBadRequest   | 400                                | application/json                   |
 | errors.GetTokenByPinIDResponseBody | 404                                | application/json                   |
-| errors.SDKError                    | 4xx-5xx                            | */*                                |
+| errors.SDKError                    | 4XX, 5XX                           | \*/\*                              |

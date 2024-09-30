@@ -69,12 +69,11 @@ if res.object is not None:
 
 ### Errors
 
-| Error Object                      | Status Code                       | Content Type                      |
+| Error Type                        | Status Code                       | Content Type                      |
 | --------------------------------- | --------------------------------- | --------------------------------- |
 | errors.CreatePlaylistBadRequest   | 400                               | application/json                  |
 | errors.CreatePlaylistUnauthorized | 401                               | application/json                  |
-| errors.SDKError                   | 4xx-5xx                           | */*                               |
-
+| errors.SDKError                   | 4XX, 5XX                          | \*/\*                             |
 
 ## get_playlists
 
@@ -116,12 +115,11 @@ if res.object is not None:
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
+| Error Type                      | Status Code                     | Content Type                    |
 | ------------------------------- | ------------------------------- | ------------------------------- |
 | errors.GetPlaylistsBadRequest   | 400                             | application/json                |
 | errors.GetPlaylistsUnauthorized | 401                             | application/json                |
-| errors.SDKError                 | 4xx-5xx                         | */*                             |
-
+| errors.SDKError                 | 4XX, 5XX                        | \*/\*                           |
 
 ## get_playlist
 
@@ -164,12 +162,11 @@ if res.object is not None:
 
 ### Errors
 
-| Error Object                   | Status Code                    | Content Type                   |
+| Error Type                     | Status Code                    | Content Type                   |
 | ------------------------------ | ------------------------------ | ------------------------------ |
 | errors.GetPlaylistBadRequest   | 400                            | application/json               |
 | errors.GetPlaylistUnauthorized | 401                            | application/json               |
-| errors.SDKError                | 4xx-5xx                        | */*                            |
-
+| errors.SDKError                | 4XX, 5XX                       | \*/\*                          |
 
 ## delete_playlist
 
@@ -211,12 +208,11 @@ if res is not None:
 
 ### Errors
 
-| Error Object                      | Status Code                       | Content Type                      |
+| Error Type                        | Status Code                       | Content Type                      |
 | --------------------------------- | --------------------------------- | --------------------------------- |
 | errors.DeletePlaylistBadRequest   | 400                               | application/json                  |
 | errors.DeletePlaylistUnauthorized | 401                               | application/json                  |
-| errors.SDKError                   | 4xx-5xx                           | */*                               |
-
+| errors.SDKError                   | 4XX, 5XX                          | \*/\*                             |
 
 ## update_playlist
 
@@ -260,12 +256,11 @@ if res is not None:
 
 ### Errors
 
-| Error Object                      | Status Code                       | Content Type                      |
+| Error Type                        | Status Code                       | Content Type                      |
 | --------------------------------- | --------------------------------- | --------------------------------- |
 | errors.UpdatePlaylistBadRequest   | 400                               | application/json                  |
 | errors.UpdatePlaylistUnauthorized | 401                               | application/json                  |
-| errors.SDKError                   | 4xx-5xx                           | */*                               |
-
+| errors.SDKError                   | 4XX, 5XX                          | \*/\*                             |
 
 ## get_playlist_contents
 
@@ -312,12 +307,11 @@ if res.object is not None:
 
 ### Errors
 
-| Error Object                           | Status Code                            | Content Type                           |
+| Error Type                             | Status Code                            | Content Type                           |
 | -------------------------------------- | -------------------------------------- | -------------------------------------- |
 | errors.GetPlaylistContentsBadRequest   | 400                                    | application/json                       |
 | errors.GetPlaylistContentsUnauthorized | 401                                    | application/json                       |
-| errors.SDKError                        | 4xx-5xx                                | */*                                    |
-
+| errors.SDKError                        | 4XX, 5XX                               | \*/\*                                  |
 
 ## clear_playlist_contents
 
@@ -359,12 +353,11 @@ if res is not None:
 
 ### Errors
 
-| Error Object                             | Status Code                              | Content Type                             |
+| Error Type                               | Status Code                              | Content Type                             |
 | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
 | errors.ClearPlaylistContentsBadRequest   | 400                                      | application/json                         |
 | errors.ClearPlaylistContentsUnauthorized | 401                                      | application/json                         |
-| errors.SDKError                          | 4xx-5xx                                  | */*                                      |
-
+| errors.SDKError                          | 4XX, 5XX                                 | \*/\*                                    |
 
 ## add_playlist_contents
 
@@ -409,12 +402,11 @@ if res.object is not None:
 
 ### Errors
 
-| Error Object                           | Status Code                            | Content Type                           |
+| Error Type                             | Status Code                            | Content Type                           |
 | -------------------------------------- | -------------------------------------- | -------------------------------------- |
 | errors.AddPlaylistContentsBadRequest   | 400                                    | application/json                       |
 | errors.AddPlaylistContentsUnauthorized | 401                                    | application/json                       |
-| errors.SDKError                        | 4xx-5xx                                | */*                                    |
-
+| errors.SDKError                        | 4XX, 5XX                               | \*/\*                                  |
 
 ## upload_playlist
 
@@ -459,8 +451,8 @@ if res is not None:
 
 ### Errors
 
-| Error Object                      | Status Code                       | Content Type                      |
+| Error Type                        | Status Code                       | Content Type                      |
 | --------------------------------- | --------------------------------- | --------------------------------- |
 | errors.UploadPlaylistBadRequest   | 400                               | application/json                  |
 | errors.UploadPlaylistUnauthorized | 401                               | application/json                  |
-| errors.SDKError                   | 4xx-5xx                           | */*                               |
+| errors.SDKError                   | 4XX, 5XX                          | \*/\*                             |

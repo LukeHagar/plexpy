@@ -51,12 +51,11 @@ if res.object is not None:
 
 ### Errors
 
-| Error Object                       | Status Code                        | Content Type                       |
+| Error Type                         | Status Code                        | Content Type                       |
 | ---------------------------------- | ---------------------------------- | ---------------------------------- |
 | errors.GetUpdateStatusBadRequest   | 400                                | application/json                   |
 | errors.GetUpdateStatusUnauthorized | 401                                | application/json                   |
-| errors.SDKError                    | 4xx-5xx                            | */*                                |
-
+| errors.SDKError                    | 4XX, 5XX                           | \*/\*                              |
 
 ## check_for_updates
 
@@ -98,12 +97,11 @@ if res is not None:
 
 ### Errors
 
-| Error Object                       | Status Code                        | Content Type                       |
+| Error Type                         | Status Code                        | Content Type                       |
 | ---------------------------------- | ---------------------------------- | ---------------------------------- |
 | errors.CheckForUpdatesBadRequest   | 400                                | application/json                   |
 | errors.CheckForUpdatesUnauthorized | 401                                | application/json                   |
-| errors.SDKError                    | 4xx-5xx                            | */*                                |
-
+| errors.SDKError                    | 4XX, 5XX                           | \*/\*                              |
 
 ## apply_updates
 
@@ -147,8 +145,8 @@ if res is not None:
 
 ### Errors
 
-| Error Object                    | Status Code                     | Content Type                    |
+| Error Type                      | Status Code                     | Content Type                    |
 | ------------------------------- | ------------------------------- | ------------------------------- |
 | errors.ApplyUpdatesBadRequest   | 400                             | application/json                |
 | errors.ApplyUpdatesUnauthorized | 401                             | application/json                |
-| errors.SDKError                 | 4xx-5xx                         | */*                             |
+| errors.SDKError                 | 4XX, 5XX                        | \*/\*                           |

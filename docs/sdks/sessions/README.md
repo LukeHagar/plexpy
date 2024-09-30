@@ -51,12 +51,11 @@ if res.object is not None:
 
 ### Errors
 
-| Error Object                   | Status Code                    | Content Type                   |
+| Error Type                     | Status Code                    | Content Type                   |
 | ------------------------------ | ------------------------------ | ------------------------------ |
 | errors.GetSessionsBadRequest   | 400                            | application/json               |
 | errors.GetSessionsUnauthorized | 401                            | application/json               |
-| errors.SDKError                | 4xx-5xx                        | */*                            |
-
+| errors.SDKError                | 4XX, 5XX                       | \*/\*                          |
 
 ## get_session_history
 
@@ -100,12 +99,11 @@ if res.object is not None:
 
 ### Errors
 
-| Error Object                         | Status Code                          | Content Type                         |
+| Error Type                           | Status Code                          | Content Type                         |
 | ------------------------------------ | ------------------------------------ | ------------------------------------ |
 | errors.GetSessionHistoryBadRequest   | 400                                  | application/json                     |
 | errors.GetSessionHistoryUnauthorized | 401                                  | application/json                     |
-| errors.SDKError                      | 4xx-5xx                              | */*                                  |
-
+| errors.SDKError                      | 4XX, 5XX                             | \*/\*                                |
 
 ## get_transcode_sessions
 
@@ -145,12 +143,11 @@ if res.object is not None:
 
 ### Errors
 
-| Error Object                            | Status Code                             | Content Type                            |
+| Error Type                              | Status Code                             | Content Type                            |
 | --------------------------------------- | --------------------------------------- | --------------------------------------- |
 | errors.GetTranscodeSessionsBadRequest   | 400                                     | application/json                        |
 | errors.GetTranscodeSessionsUnauthorized | 401                                     | application/json                        |
-| errors.SDKError                         | 4xx-5xx                                 | */*                                     |
-
+| errors.SDKError                         | 4XX, 5XX                                | \*/\*                                   |
 
 ## stop_transcode_session
 
@@ -191,8 +188,8 @@ if res is not None:
 
 ### Errors
 
-| Error Object                            | Status Code                             | Content Type                            |
+| Error Type                              | Status Code                             | Content Type                            |
 | --------------------------------------- | --------------------------------------- | --------------------------------------- |
 | errors.StopTranscodeSessionBadRequest   | 400                                     | application/json                        |
 | errors.StopTranscodeSessionUnauthorized | 401                                     | application/json                        |
-| errors.SDKError                         | 4xx-5xx                                 | */*                                     |
+| errors.SDKError                         | 4XX, 5XX                                | \*/\*                                   |

@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 3eeea668-4ef4-464e-a888-bdfa023bedf5
 management:
-  docChecksum: f387ae03f10decba230886eaab322b20
+  docChecksum: afed3802b7464cc21bb376d0f1d86fed
   docVersion: 0.0.3
-  speakeasyVersion: 1.404.5
-  generationVersion: 2.426.2
-  releaseVersion: 0.16.0
-  configChecksum: 4fb92df989ba28339c266ea7e0e3b960
+  speakeasyVersion: 1.405.4
+  generationVersion: 2.428.1
+  releaseVersion: 0.17.0
+  configChecksum: b1c3933e3a65d25daedb93f39f38ffeb
   repoURL: https://github.com/LukeHagar/plexpy.git
   repoSubDirectory: .
   installationURL: https://github.com/LukeHagar/plexpy.git
@@ -15,14 +15,14 @@ features:
   python:
     additionalDependencies: 1.0.0
     constsAndDefaults: 1.0.3
-    core: 5.5.6
+    core: 5.5.7
     defaultEnabledRetries: 0.2.0
     deprecations: 3.0.0
     downloadStreams: 1.0.1
     enumUnions: 0.1.0
     enums: 3.1.0
     envVarSecurityUsage: 0.3.1
-    errors: 3.0.0
+    errors: 3.0.1
     flattening: 3.0.0
     globalSecurity: 3.0.2
     globalSecurityCallbacks: 1.0.0
@@ -36,7 +36,6 @@ features:
     responseFormat: 1.0.1
     retries: 3.0.2
     sdkHooks: 1.0.0
-    tests: 1.6.0
 generatedFiles:
   - .gitattributes
   - .vscode/settings.json
@@ -1032,23 +1031,6 @@ generatedFiles:
   - src/plex_api_client/utils/values.py
   - src/plex_api_client/video.py
   - src/plex_api_client/watchlist.py
-  - tests/__init__.py
-  - tests/test_activities.py
-  - tests/test_authentication.py
-  - tests/test_butler.py
-  - tests/test_hubs.py
-  - tests/test_library.py
-  - tests/test_log.py
-  - tests/test_media.py
-  - tests/test_playlists.py
-  - tests/test_plex.py
-  - tests/test_search.py
-  - tests/test_server.py
-  - tests/test_sessions.py
-  - tests/test_statistics.py
-  - tests/test_updater.py
-  - tests/test_video.py
-  - tests/test_watchlist.py
 examples:
   getServerCapabilities:
     speakeasy-default-get-server-capabilities:

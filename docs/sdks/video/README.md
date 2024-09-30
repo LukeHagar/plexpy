@@ -62,12 +62,11 @@ if res is not None:
 
 ### Errors
 
-| Error Object                   | Status Code                    | Content Type                   |
+| Error Type                     | Status Code                    | Content Type                   |
 | ------------------------------ | ------------------------------ | ------------------------------ |
 | errors.GetTimelineBadRequest   | 400                            | application/json               |
 | errors.GetTimelineUnauthorized | 401                            | application/json               |
-| errors.SDKError                | 4xx-5xx                        | */*                            |
-
+| errors.SDKError                | 4XX, 5XX                       | \*/\*                          |
 
 ## start_universal_transcode
 
@@ -125,8 +124,8 @@ if res is not None:
 
 ### Errors
 
-| Error Object                               | Status Code                                | Content Type                               |
+| Error Type                                 | Status Code                                | Content Type                               |
 | ------------------------------------------ | ------------------------------------------ | ------------------------------------------ |
 | errors.StartUniversalTranscodeBadRequest   | 400                                        | application/json                           |
 | errors.StartUniversalTranscodeUnauthorized | 401                                        | application/json                           |
-| errors.SDKError                            | 4xx-5xx                                    | */*                                        |
+| errors.SDKError                            | 4XX, 5XX                                   | \*/\*                                      |

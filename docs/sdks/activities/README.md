@@ -55,12 +55,11 @@ if res.object is not None:
 
 ### Errors
 
-| Error Object                           | Status Code                            | Content Type                           |
+| Error Type                             | Status Code                            | Content Type                           |
 | -------------------------------------- | -------------------------------------- | -------------------------------------- |
 | errors.GetServerActivitiesBadRequest   | 400                                    | application/json                       |
 | errors.GetServerActivitiesUnauthorized | 401                                    | application/json                       |
-| errors.SDKError                        | 4xx-5xx                                | */*                                    |
-
+| errors.SDKError                        | 4XX, 5XX                               | \*/\*                                  |
 
 ## cancel_server_activities
 
@@ -101,8 +100,8 @@ if res is not None:
 
 ### Errors
 
-| Error Object                              | Status Code                               | Content Type                              |
+| Error Type                                | Status Code                               | Content Type                              |
 | ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
 | errors.CancelServerActivitiesBadRequest   | 400                                       | application/json                          |
 | errors.CancelServerActivitiesUnauthorized | 401                                       | application/json                          |
-| errors.SDKError                           | 4xx-5xx                                   | */*                                       |
+| errors.SDKError                           | 4XX, 5XX                                  | \*/\*                                     |
