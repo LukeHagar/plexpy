@@ -23,11 +23,7 @@ GET_TOKEN_BY_PIN_ID_SERVERS = [
 
 class GetTokenByPinIDGlobalsTypedDict(TypedDict):
     client_id: NotRequired[str]
-    r"""The unique identifier for the client application
-    This is used to track the client application and its usage
-    (UUID, serial number, or other number unique per device)
-
-    """
+    r"""The unique identifier for the client application. This is used to track the client application and its usage. (UUID, serial number, or other number unique per device)"""
     client_name: NotRequired[str]
     device_name: NotRequired[str]
     client_version: NotRequired[str]
@@ -40,11 +36,7 @@ class GetTokenByPinIDGlobals(BaseModel):
         pydantic.Field(alias="X-Plex-Client-Identifier"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""The unique identifier for the client application
-    This is used to track the client application and its usage
-    (UUID, serial number, or other number unique per device)
-
-    """
+    r"""The unique identifier for the client application. This is used to track the client application and its usage. (UUID, serial number, or other number unique per device)"""
 
     client_name: Annotated[
         Optional[str],
@@ -75,11 +67,7 @@ class GetTokenByPinIDRequestTypedDict(TypedDict):
     pin_id: int
     r"""The PinID to retrieve an access token for"""
     client_id: NotRequired[str]
-    r"""The unique identifier for the client application
-    This is used to track the client application and its usage
-    (UUID, serial number, or other number unique per device)
-
-    """
+    r"""The unique identifier for the client application. This is used to track the client application and its usage. (UUID, serial number, or other number unique per device)"""
     client_name: NotRequired[str]
     device_name: NotRequired[str]
     client_version: NotRequired[str]
@@ -99,11 +87,7 @@ class GetTokenByPinIDRequest(BaseModel):
         pydantic.Field(alias="X-Plex-Client-Identifier"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""The unique identifier for the client application
-    This is used to track the client application and its usage
-    (UUID, serial number, or other number unique per device)
-
-    """
+    r"""The unique identifier for the client application. This is used to track the client application and its usage. (UUID, serial number, or other number unique per device)"""
 
     client_name: Annotated[
         Optional[str],

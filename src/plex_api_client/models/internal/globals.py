@@ -10,11 +10,7 @@ from typing_extensions import Annotated, NotRequired
 
 class GlobalsTypedDict(TypedDict):
     client_id: NotRequired[str]
-    r"""The unique identifier for the client application
-    This is used to track the client application and its usage
-    (UUID, serial number, or other number unique per device)
-
-    """
+    r"""The unique identifier for the client application. This is used to track the client application and its usage. (UUID, serial number, or other number unique per device)"""
     client_name: NotRequired[str]
     client_version: NotRequired[str]
     client_platform: NotRequired[str]
@@ -27,11 +23,7 @@ class Globals(BaseModel):
         pydantic.Field(alias="X-Plex-Client-Identifier"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""The unique identifier for the client application
-    This is used to track the client application and its usage
-    (UUID, serial number, or other number unique per device)
-
-    """
+    r"""The unique identifier for the client application. This is used to track the client application and its usage. (UUID, serial number, or other number unique per device)"""
 
     client_name: Annotated[
         Optional[str],

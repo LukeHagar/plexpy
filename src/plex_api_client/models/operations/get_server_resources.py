@@ -18,11 +18,7 @@ GET_SERVER_RESOURCES_SERVERS = [
 
 class GetServerResourcesGlobalsTypedDict(TypedDict):
     client_id: NotRequired[str]
-    r"""The unique identifier for the client application
-    This is used to track the client application and its usage
-    (UUID, serial number, or other number unique per device)
-
-    """
+    r"""The unique identifier for the client application. This is used to track the client application and its usage. (UUID, serial number, or other number unique per device)"""
 
 
 class GetServerResourcesGlobals(BaseModel):
@@ -31,11 +27,7 @@ class GetServerResourcesGlobals(BaseModel):
         pydantic.Field(alias="X-Plex-Client-Identifier"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""The unique identifier for the client application
-    This is used to track the client application and its usage
-    (UUID, serial number, or other number unique per device)
-
-    """
+    r"""The unique identifier for the client application. This is used to track the client application and its usage. (UUID, serial number, or other number unique per device)"""
 
 
 class IncludeHTTPS(int, Enum):
@@ -73,11 +65,7 @@ class GetServerResourcesRequestTypedDict(TypedDict):
     include_i_pv6: NotRequired[IncludeIPv6]
     r"""Include IPv6 entries in the results"""
     client_id: NotRequired[str]
-    r"""The unique identifier for the client application
-    This is used to track the client application and its usage
-    (UUID, serial number, or other number unique per device)
-
-    """
+    r"""The unique identifier for the client application. This is used to track the client application and its usage. (UUID, serial number, or other number unique per device)"""
 
 
 class GetServerResourcesRequest(BaseModel):
@@ -110,11 +98,7 @@ class GetServerResourcesRequest(BaseModel):
         pydantic.Field(alias="X-Plex-Client-Identifier"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""The unique identifier for the client application
-    This is used to track the client application and its usage
-    (UUID, serial number, or other number unique per device)
-
-    """
+    r"""The unique identifier for the client application. This is used to track the client application and its usage. (UUID, serial number, or other number unique per device)"""
 
 
 class Protocol(str, Enum):

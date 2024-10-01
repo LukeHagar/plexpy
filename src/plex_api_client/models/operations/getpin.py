@@ -23,11 +23,7 @@ GET_PIN_SERVERS = [
 
 class GetPinGlobalsTypedDict(TypedDict):
     client_id: NotRequired[str]
-    r"""The unique identifier for the client application
-    This is used to track the client application and its usage
-    (UUID, serial number, or other number unique per device)
-
-    """
+    r"""The unique identifier for the client application. This is used to track the client application and its usage. (UUID, serial number, or other number unique per device)"""
     client_name: NotRequired[str]
     device_name: NotRequired[str]
     client_version: NotRequired[str]
@@ -40,11 +36,7 @@ class GetPinGlobals(BaseModel):
         pydantic.Field(alias="X-Plex-Client-Identifier"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""The unique identifier for the client application
-    This is used to track the client application and its usage
-    (UUID, serial number, or other number unique per device)
-
-    """
+    r"""The unique identifier for the client application. This is used to track the client application and its usage. (UUID, serial number, or other number unique per device)"""
 
     client_name: Annotated[
         Optional[str],
@@ -79,11 +71,7 @@ class GetPinRequestTypedDict(TypedDict):
 
     """
     client_id: NotRequired[str]
-    r"""The unique identifier for the client application
-    This is used to track the client application and its usage
-    (UUID, serial number, or other number unique per device)
-
-    """
+    r"""The unique identifier for the client application. This is used to track the client application and its usage. (UUID, serial number, or other number unique per device)"""
     client_name: NotRequired[str]
     device_name: NotRequired[str]
     client_version: NotRequired[str]
@@ -106,11 +94,7 @@ class GetPinRequest(BaseModel):
         pydantic.Field(alias="X-Plex-Client-Identifier"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""The unique identifier for the client application
-    This is used to track the client application and its usage
-    (UUID, serial number, or other number unique per device)
-
-    """
+    r"""The unique identifier for the client application. This is used to track the client application and its usage. (UUID, serial number, or other number unique per device)"""
 
     client_name: Annotated[
         Optional[str],

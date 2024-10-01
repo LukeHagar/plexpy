@@ -761,7 +761,7 @@ class Plex(BaseSDK):
         :param include_https: Include Https entries in the results
         :param include_relay: Include Relay addresses in the results  E.g: https://10-0-0-25.bbf8e10c7fa20447cacee74cd9914cde.plex.direct:32400
         :param include_i_pv6: Include IPv6 entries in the results
-        :param client_id: The unique identifier for the client application This is used to track the client application and its usage (UUID, serial number, or other number unique per device)
+        :param client_id: The unique identifier for the client application. This is used to track the client application and its usage. (UUID, serial number, or other number unique per device)
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -879,7 +879,7 @@ class Plex(BaseSDK):
         :param include_https: Include Https entries in the results
         :param include_relay: Include Relay addresses in the results  E.g: https://10-0-0-25.bbf8e10c7fa20447cacee74cd9914cde.plex.direct:32400
         :param include_i_pv6: Include IPv6 entries in the results
-        :param client_id: The unique identifier for the client application This is used to track the client application and its usage (UUID, serial number, or other number unique per device)
+        :param client_id: The unique identifier for the client application. This is used to track the client application and its usage. (UUID, serial number, or other number unique per device)
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
