@@ -13,11 +13,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.server.get_server_capabilities()
@@ -35,11 +35,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.server.get_server_preferences()
@@ -57,11 +57,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.media.update_play_progress(key="<key>", time=90000, state="played")
@@ -79,11 +79,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.media.mark_played(key=59398)
@@ -102,11 +102,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.video.get_timeline(request={
@@ -135,11 +135,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.media.mark_unplayed(key=59398)
@@ -157,11 +157,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.activities.get_server_activities()
@@ -179,11 +179,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.activities.cancel_server_activities(activity_uuid="25b71ed5-0f9d-461c-baa7-d404e9e10d3e")
@@ -201,11 +201,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.butler.stop_all_tasks()
@@ -223,11 +223,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.butler.get_butler_tasks()
@@ -245,11 +245,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.butler.start_all_tasks()
@@ -268,11 +268,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.butler.stop_task(task_name=operations.PathParamTaskName.BACKUP_DATABASE)
@@ -291,11 +291,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.butler.start_task(task_name=operations.TaskName.CLEAN_OLD_BUNDLES)
@@ -313,11 +313,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.server.get_available_clients()
@@ -335,11 +335,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.plex.get_companions_data()
@@ -357,11 +357,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.server.get_devices()
@@ -379,11 +379,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.plex.get_user_friends()
@@ -400,11 +400,11 @@ actions:
             from plex_api_client import PlexAPI
 
             s = PlexAPI(
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.plex.get_geo_data()
@@ -422,11 +422,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.plex.get_home_data()
@@ -444,11 +444,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.hubs.get_global_hubs()
@@ -467,11 +467,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.hubs.get_recently_added(request={
@@ -496,11 +496,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.search.perform_search(query="dylan", limit=5)
@@ -518,11 +518,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.search.perform_voice_search(query="dead+poop", limit=5)
@@ -540,11 +540,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.hubs.get_library_hubs(section_id=6728.76)
@@ -561,11 +561,11 @@ actions:
             from plex_api_client import PlexAPI
 
             s = PlexAPI(
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.server.get_server_identity()
@@ -584,11 +584,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.library.get_top_watched_content(type_=operations.GetTopWatchedContentQueryParamType.TV_SHOW, include_guids=1)
@@ -606,11 +606,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.library.get_file_hash(url="file://C:\Image.png&type=13")
@@ -628,11 +628,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.library.get_meta_data_by_rating_key(rating_key=9518)
@@ -650,11 +650,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.media.get_banner_image(request={
@@ -679,11 +679,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.library.get_metadata_children(rating_key=1539.15, include_elements="Stream")
@@ -701,11 +701,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.media.get_thumb_image(request={
@@ -730,11 +730,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.library.get_on_deck()
@@ -753,11 +753,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.library.get_recently_added_library(request={
@@ -786,6 +786,36 @@ actions:
             if res.object is not None:
                 # handle response
                 pass
+  - target: $["paths"]["/library/search"]["get"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: libraries
+          source: |-
+            from plex_api_client import PlexAPI
+            from plex_api_client.models import operations
+
+            s = PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
+            )
+
+            res = s.library.get_search_all_libraries(request={
+                "query": "<value>",
+                "search_types": [
+                    operations.SearchTypes.PEOPLE,
+                ],
+                "include_collections": operations.QueryParamIncludeCollections.ENABLE,
+                "include_external_media": operations.QueryParamIncludeExternalMedia.ENABLE,
+            })
+
+            if res.object is not None:
+                # handle response
+                pass
   - target: $["paths"]["/library/sections"]["get"]
     update:
       x-codeSamples:
@@ -796,11 +826,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.library.get_all_libraries()
@@ -819,11 +849,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.watchlist.get_watch_list(request={
@@ -846,11 +876,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.library.delete_library(section_key=9518)
@@ -868,11 +898,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.library.get_library_details(section_key=9518)
@@ -891,11 +921,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.library.get_refresh_library_metadata(section_key=9518, force=operations.Force.ONE)
@@ -914,11 +944,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.library.get_search_library(section_key=9518, type_=operations.GetSearchLibraryQueryParamType.TV_SHOW)
@@ -937,18 +967,18 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.library.get_library_items(request={
-                "section_key": 9518,
                 "tag": operations.Tag.EDITION,
                 "include_guids": operations.IncludeGuids.ENABLE,
                 "type": operations.GetLibraryItemsQueryParamType.TV_SHOW,
+                "section_key": 9518,
                 "include_meta": operations.GetLibraryItemsQueryParamIncludeMeta.ENABLE,
                 "x_plex_container_start": 0,
                 "x_plex_container_size": 50,
@@ -968,11 +998,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.log.log_line(level=operations.Level.THREE, message="Test log message", source="Postman")
@@ -990,11 +1020,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.log.log_multi_line(request="level=4&message=Test%20message%201&source=postman\n" +
@@ -1014,11 +1044,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.log.enable_paper_trail()
@@ -1036,11 +1066,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.server.get_media_providers(x_plex_token="CV5xoxjTpFKUzBTShsaf")
@@ -1058,11 +1088,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.server.get_my_plex_account()
@@ -1081,11 +1111,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.server.get_resized_photo(request={
@@ -1110,11 +1140,11 @@ actions:
             from plex_api_client import PlexAPI
 
             s = PlexAPI(
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.plex.get_pin(request={})
@@ -1131,11 +1161,11 @@ actions:
             from plex_api_client import PlexAPI
 
             s = PlexAPI(
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.plex.get_token_by_pin_id(request={
@@ -1155,11 +1185,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.playlists.get_playlists()
@@ -1178,11 +1208,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.playlists.create_playlist(request={
@@ -1206,11 +1236,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.playlists.upload_playlist(path="/home/barkley/playlist.m3u", force=operations.QueryParamForce.ZERO, section_id=1)
@@ -1228,11 +1258,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.playlists.delete_playlist(playlist_id=216.22)
@@ -1250,11 +1280,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.playlists.get_playlist(playlist_id=4109.48)
@@ -1272,11 +1302,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.playlists.update_playlist(playlist_id=3915.00)
@@ -1294,11 +1324,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.playlists.clear_playlist_contents(playlist_id=1893.18)
@@ -1317,11 +1347,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.playlists.get_playlist_contents(playlist_id=5004.46, type_=operations.GetPlaylistContentsQueryParamType.TV_SHOW)
@@ -1339,11 +1369,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.playlists.add_playlist_contents(playlist_id=8502.00, uri="server://12345/com.plexapp.plugins.library/library/metadata/1", play_queue_id=123)
@@ -1362,14 +1392,14 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
-            res = s.plex.get_server_resources(include_https=operations.IncludeHTTPS.ENABLE, include_relay=operations.IncludeRelay.ENABLE, include_i_pv6=operations.IncludeIPv6.ENABLE, client_id="gcgzw5rz2xovp84b4vha3a40")
+            res = s.plex.get_server_resources(include_https=operations.IncludeHTTPS.ENABLE, include_relay=operations.IncludeRelay.ENABLE, include_i_pv6=operations.IncludeIPv6.ENABLE, client_id="3381b62b-9ab7-4e37-827b-203e9809eb58")
 
             if res.plex_devices is not None:
                 # handle response
@@ -1384,11 +1414,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.search.get_search_results(query="110")
@@ -1406,11 +1436,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.authentication.get_source_connection_information(source="provider://provider-identifier")
@@ -1429,11 +1459,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.authentication.get_transient_token(type_=operations.GetTransientTokenQueryParamType.DELEGATION, scope=operations.Scope.ALL)
@@ -1451,11 +1481,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.server.get_server_list()
@@ -1473,11 +1503,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.statistics.get_bandwidth_statistics(timespan=4)
@@ -1495,11 +1525,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.statistics.get_statistics(timespan=4)
@@ -1517,11 +1547,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.statistics.get_resources_statistics(timespan=4)
@@ -1539,11 +1569,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.sessions.get_sessions()
@@ -1561,11 +1591,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.sessions.get_session_history(sort="viewedAt:desc", account_id=1, filter_={}, library_section_id=12)
@@ -1583,11 +1613,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.sessions.get_transcode_sessions()
@@ -1605,11 +1635,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.sessions.stop_transcode_session(session_key="zz7llzqlx8w9vnrsbnwhbmep")
@@ -1628,11 +1658,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.updater.apply_updates(tonight=operations.Tonight.ONE, skip=operations.Skip.ONE)
@@ -1651,11 +1681,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.updater.check_for_updates(download=operations.Download.ONE)
@@ -1673,11 +1703,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.updater.get_update_status()
@@ -1695,11 +1725,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.authentication.get_token_details()
@@ -1716,11 +1746,11 @@ actions:
             from plex_api_client import PlexAPI
 
             s = PlexAPI(
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.authentication.post_users_sign_in_data(request={
@@ -1744,11 +1774,11 @@ actions:
 
             s = PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
-                client_id="gcgzw5rz2xovp84b4vha3a40",
-                client_name="Plex Web",
-                client_version="4.133.0",
-                client_platform="Chrome",
-                device_name="Linux",
+                client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+                client_name="Plex for Roku",
+                client_version="2.4.1",
+                platform="Roku",
+                device_nickname="Roku 3",
             )
 
             res = s.video.start_universal_transcode(request={

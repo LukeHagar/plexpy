@@ -2,49 +2,57 @@
 
 from __future__ import annotations
 from plex_api_client.types import BaseModel
-from plex_api_client.utils import FieldMetadata, QueryParamMetadata
+from plex_api_client.utils import FieldMetadata, HeaderMetadata
 import pydantic
-from typing import Optional, TypedDict
-from typing_extensions import Annotated, NotRequired
+from typing import Optional
+from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class GlobalsTypedDict(TypedDict):
     client_id: NotRequired[str]
-    r"""The unique identifier for the client application. This is used to track the client application and its usage. (UUID, serial number, or other number unique per device)"""
+    r"""An opaque identifier unique to the client (UUID, serial number, or other unique device ID)"""
     client_name: NotRequired[str]
+    r"""The name of the client application. (Plex Web, Plex Media Server, etc.)"""
     client_version: NotRequired[str]
-    client_platform: NotRequired[str]
-    device_name: NotRequired[str]
+    r"""The version of the client application."""
+    platform: NotRequired[str]
+    r"""The platform of the client application."""
+    device_nickname: NotRequired[str]
+    r"""A relatively friendly name for the client device"""
 
 
 class Globals(BaseModel):
     client_id: Annotated[
         Optional[str],
         pydantic.Field(alias="X-Plex-Client-Identifier"),
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
     ] = None
-    r"""The unique identifier for the client application. This is used to track the client application and its usage. (UUID, serial number, or other number unique per device)"""
+    r"""An opaque identifier unique to the client (UUID, serial number, or other unique device ID)"""
 
     client_name: Annotated[
         Optional[str],
         pydantic.Field(alias="X-Plex-Product"),
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
     ] = None
+    r"""The name of the client application. (Plex Web, Plex Media Server, etc.)"""
 
     client_version: Annotated[
         Optional[str],
         pydantic.Field(alias="X-Plex-Version"),
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
     ] = None
+    r"""The version of the client application."""
 
-    client_platform: Annotated[
+    platform: Annotated[
         Optional[str],
         pydantic.Field(alias="X-Plex-Platform"),
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
     ] = None
+    r"""The platform of the client application."""
 
-    device_name: Annotated[
+    device_nickname: Annotated[
         Optional[str],
         pydantic.Field(alias="X-Plex-Device"),
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
     ] = None
+    r"""A relatively friendly name for the client device"""

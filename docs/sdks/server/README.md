@@ -29,11 +29,11 @@ from plex_api_client import PlexAPI
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="gcgzw5rz2xovp84b4vha3a40",
-    client_name="Plex Web",
-    client_version="4.133.0",
-    client_platform="Chrome",
-    device_name="Linux",
+    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+    client_name="Plex for Roku",
+    client_version="2.4.1",
+    platform="Roku",
+    device_nickname="Roku 3",
 )
 
 res = s.server.get_server_capabilities()
@@ -73,11 +73,11 @@ from plex_api_client import PlexAPI
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="gcgzw5rz2xovp84b4vha3a40",
-    client_name="Plex Web",
-    client_version="4.133.0",
-    client_platform="Chrome",
-    device_name="Linux",
+    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+    client_name="Plex for Roku",
+    client_version="2.4.1",
+    platform="Roku",
+    device_nickname="Roku 3",
 )
 
 res = s.server.get_server_preferences()
@@ -117,11 +117,11 @@ from plex_api_client import PlexAPI
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="gcgzw5rz2xovp84b4vha3a40",
-    client_name="Plex Web",
-    client_version="4.133.0",
-    client_platform="Chrome",
-    device_name="Linux",
+    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+    client_name="Plex for Roku",
+    client_version="2.4.1",
+    platform="Roku",
+    device_nickname="Roku 3",
 )
 
 res = s.server.get_available_clients()
@@ -161,11 +161,11 @@ from plex_api_client import PlexAPI
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="gcgzw5rz2xovp84b4vha3a40",
-    client_name="Plex Web",
-    client_version="4.133.0",
-    client_platform="Chrome",
-    device_name="Linux",
+    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+    client_name="Plex for Roku",
+    client_version="2.4.1",
+    platform="Roku",
+    device_nickname="Roku 3",
 )
 
 res = s.server.get_devices()
@@ -204,11 +204,11 @@ This request is useful to determine if the server is online or offline
 from plex_api_client import PlexAPI
 
 s = PlexAPI(
-    client_id="gcgzw5rz2xovp84b4vha3a40",
-    client_name="Plex Web",
-    client_version="4.133.0",
-    client_platform="Chrome",
-    device_name="Linux",
+    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+    client_name="Plex for Roku",
+    client_version="2.4.1",
+    platform="Roku",
+    device_nickname="Roku 3",
 )
 
 res = s.server.get_server_identity()
@@ -247,11 +247,11 @@ from plex_api_client import PlexAPI
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="gcgzw5rz2xovp84b4vha3a40",
-    client_name="Plex Web",
-    client_version="4.133.0",
-    client_platform="Chrome",
-    device_name="Linux",
+    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+    client_name="Plex for Roku",
+    client_version="2.4.1",
+    platform="Roku",
+    device_nickname="Roku 3",
 )
 
 res = s.server.get_my_plex_account()
@@ -293,11 +293,11 @@ from plex_api_client.models import operations
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="gcgzw5rz2xovp84b4vha3a40",
-    client_name="Plex Web",
-    client_version="4.133.0",
-    client_platform="Chrome",
-    device_name="Linux",
+    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+    client_name="Plex for Roku",
+    client_version="2.4.1",
+    platform="Roku",
+    device_nickname="Roku 3",
 )
 
 res = s.server.get_resized_photo(request={
@@ -346,11 +346,11 @@ from plex_api_client import PlexAPI
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="gcgzw5rz2xovp84b4vha3a40",
-    client_name="Plex Web",
-    client_version="4.133.0",
-    client_platform="Chrome",
-    device_name="Linux",
+    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+    client_name="Plex for Roku",
+    client_version="2.4.1",
+    platform="Roku",
+    device_nickname="Roku 3",
 )
 
 res = s.server.get_media_providers(x_plex_token="CV5xoxjTpFKUzBTShsaf")
@@ -365,7 +365,7 @@ if res.object is not None:
 
 | Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `x_plex_token`                                                      | *str*                                                               | :heavy_check_mark:                                                  | Plex Authentication Token                                           | CV5xoxjTpFKUzBTShsaf                                                |
+| `x_plex_token`                                                      | *str*                                                               | :heavy_check_mark:                                                  | An authentication token, obtained from plex.tv                      | CV5xoxjTpFKUzBTShsaf                                                |
 | `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
 
 ### Response
@@ -391,11 +391,11 @@ from plex_api_client import PlexAPI
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="gcgzw5rz2xovp84b4vha3a40",
-    client_name="Plex Web",
-    client_version="4.133.0",
-    client_platform="Chrome",
-    device_name="Linux",
+    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+    client_name="Plex for Roku",
+    client_version="2.4.1",
+    platform="Roku",
+    device_nickname="Roku 3",
 )
 
 res = s.server.get_server_list()

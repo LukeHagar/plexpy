@@ -170,6 +170,16 @@ from .get_refresh_library_metadata import (
     GetRefreshLibraryMetadataUnauthorized,
     GetRefreshLibraryMetadataUnauthorizedData,
 )
+from .get_search_all_libraries import (
+    GetSearchAllLibrariesBadRequest,
+    GetSearchAllLibrariesBadRequestData,
+    GetSearchAllLibrariesErrors,
+    GetSearchAllLibrariesErrorsTypedDict,
+    GetSearchAllLibrariesLibraryErrors,
+    GetSearchAllLibrariesLibraryErrorsTypedDict,
+    GetSearchAllLibrariesUnauthorized,
+    GetSearchAllLibrariesUnauthorizedData,
+)
 from .get_search_library import (
     GetSearchLibraryBadRequest,
     GetSearchLibraryBadRequestData,
@@ -1019,6 +1029,14 @@ __all__ = [
     "GetResourcesStatisticsStatisticsErrorsTypedDict",
     "GetResourcesStatisticsUnauthorized",
     "GetResourcesStatisticsUnauthorizedData",
+    "GetSearchAllLibrariesBadRequest",
+    "GetSearchAllLibrariesBadRequestData",
+    "GetSearchAllLibrariesErrors",
+    "GetSearchAllLibrariesErrorsTypedDict",
+    "GetSearchAllLibrariesLibraryErrors",
+    "GetSearchAllLibrariesLibraryErrorsTypedDict",
+    "GetSearchAllLibrariesUnauthorized",
+    "GetSearchAllLibrariesUnauthorizedData",
     "GetSearchLibraryBadRequest",
     "GetSearchLibraryBadRequestData",
     "GetSearchLibraryErrors",

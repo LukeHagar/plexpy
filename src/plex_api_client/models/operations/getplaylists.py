@@ -6,8 +6,8 @@ import httpx
 from plex_api_client.types import BaseModel
 from plex_api_client.utils import FieldMetadata, QueryParamMetadata
 import pydantic
-from typing import List, Optional, TypedDict
-from typing_extensions import Annotated, NotRequired
+from typing import List, Optional
+from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class PlaylistType(str, Enum):

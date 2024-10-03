@@ -4,16 +4,16 @@ from __future__ import annotations
 import httpx
 from plex_api_client.types import BaseModel
 import pydantic
-from typing import List, Optional, TypedDict
-from typing_extensions import Annotated, NotRequired
+from typing import List, Optional
+from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class LocationTypedDict(TypedDict):
+class GetAllLibrariesLocationTypedDict(TypedDict):
     id: int
     path: str
 
 
-class Location(BaseModel):
+class GetAllLibrariesLocation(BaseModel):
     id: int
 
     path: str
@@ -44,7 +44,7 @@ class GetAllLibrariesDirectoryTypedDict(TypedDict):
     content_changed_at: int
     r"""Unix epoch datetime in seconds"""
     hidden: int
-    location: List[LocationTypedDict]
+    location: List[GetAllLibrariesLocationTypedDict]
 
 
 class GetAllLibrariesDirectory(BaseModel):
@@ -92,7 +92,7 @@ class GetAllLibrariesDirectory(BaseModel):
 
     hidden: int
 
-    location: Annotated[List[Location], pydantic.Field(alias="Location")]
+    location: Annotated[List[GetAllLibrariesLocation], pydantic.Field(alias="Location")]
 
 
 class GetAllLibrariesMediaContainerTypedDict(TypedDict):

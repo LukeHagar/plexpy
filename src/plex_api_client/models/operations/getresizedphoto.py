@@ -6,8 +6,7 @@ import httpx
 from plex_api_client.types import BaseModel
 from plex_api_client.utils import FieldMetadata, QueryParamMetadata
 import pydantic
-from typing import TypedDict
-from typing_extensions import Annotated
+from typing_extensions import Annotated, TypedDict
 
 
 class MinSize(int, Enum):

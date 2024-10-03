@@ -6,8 +6,8 @@ import httpx
 from plex_api_client.types import BaseModel
 from plex_api_client.utils import FieldMetadata, PathParamMetadata, QueryParamMetadata
 import pydantic
-from typing import Optional, TypedDict
-from typing_extensions import Annotated, NotRequired
+from typing import Optional
+from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class Force(int, Enum):

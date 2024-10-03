@@ -27,11 +27,11 @@ from plex_api_client import PlexAPI
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="gcgzw5rz2xovp84b4vha3a40",
-    client_name="Plex Web",
-    client_version="4.133.0",
-    client_platform="Chrome",
-    device_name="Linux",
+    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+    client_name="Plex for Roku",
+    client_version="2.4.1",
+    platform="Roku",
+    device_nickname="Roku 3",
 )
 
 res = s.plex.get_companions_data()
@@ -72,11 +72,11 @@ from plex_api_client import PlexAPI
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="gcgzw5rz2xovp84b4vha3a40",
-    client_name="Plex Web",
-    client_version="4.133.0",
-    client_platform="Chrome",
-    device_name="Linux",
+    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+    client_name="Plex for Roku",
+    client_version="2.4.1",
+    platform="Roku",
+    device_nickname="Roku 3",
 )
 
 res = s.plex.get_user_friends()
@@ -116,11 +116,11 @@ Returns the geolocation and locale data of the caller
 from plex_api_client import PlexAPI
 
 s = PlexAPI(
-    client_id="gcgzw5rz2xovp84b4vha3a40",
-    client_name="Plex Web",
-    client_version="4.133.0",
-    client_platform="Chrome",
-    device_name="Linux",
+    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+    client_name="Plex for Roku",
+    client_version="2.4.1",
+    platform="Roku",
+    device_nickname="Roku 3",
 )
 
 res = s.plex.get_geo_data()
@@ -161,11 +161,11 @@ from plex_api_client import PlexAPI
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="gcgzw5rz2xovp84b4vha3a40",
-    client_name="Plex Web",
-    client_version="4.133.0",
-    client_platform="Chrome",
-    device_name="Linux",
+    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+    client_name="Plex for Roku",
+    client_version="2.4.1",
+    platform="Roku",
+    device_nickname="Roku 3",
 )
 
 res = s.plex.get_home_data()
@@ -206,14 +206,14 @@ from plex_api_client.models import operations
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="gcgzw5rz2xovp84b4vha3a40",
-    client_name="Plex Web",
-    client_version="4.133.0",
-    client_platform="Chrome",
-    device_name="Linux",
+    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+    client_name="Plex for Roku",
+    client_version="2.4.1",
+    platform="Roku",
+    device_nickname="Roku 3",
 )
 
-res = s.plex.get_server_resources(include_https=operations.IncludeHTTPS.ENABLE, include_relay=operations.IncludeRelay.ENABLE, include_i_pv6=operations.IncludeIPv6.ENABLE, client_id="gcgzw5rz2xovp84b4vha3a40")
+res = s.plex.get_server_resources(include_https=operations.IncludeHTTPS.ENABLE, include_relay=operations.IncludeRelay.ENABLE, include_i_pv6=operations.IncludeIPv6.ENABLE, client_id="3381b62b-9ab7-4e37-827b-203e9809eb58")
 
 if res.plex_devices is not None:
     # handle response
@@ -223,14 +223,14 @@ if res.plex_devices is not None:
 
 ### Parameters
 
-| Parameter                                                                                                                                                              | Type                                                                                                                                                                   | Required                                                                                                                                                               | Description                                                                                                                                                            | Example                                                                                                                                                                |
-| ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `include_https`                                                                                                                                                        | [Optional[operations.IncludeHTTPS]](../../models/operations/includehttps.md)                                                                                           | :heavy_minus_sign:                                                                                                                                                     | Include Https entries in the results                                                                                                                                   | 1                                                                                                                                                                      |
-| `include_relay`                                                                                                                                                        | [Optional[operations.IncludeRelay]](../../models/operations/includerelay.md)                                                                                           | :heavy_minus_sign:                                                                                                                                                     | Include Relay addresses in the results <br/>E.g: https://10-0-0-25.bbf8e10c7fa20447cacee74cd9914cde.plex.direct:32400<br/>                                             | 1                                                                                                                                                                      |
-| `include_i_pv6`                                                                                                                                                        | [Optional[operations.IncludeIPv6]](../../models/operations/includeipv6.md)                                                                                             | :heavy_minus_sign:                                                                                                                                                     | Include IPv6 entries in the results                                                                                                                                    | 1                                                                                                                                                                      |
-| `client_id`                                                                                                                                                            | *Optional[str]*                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                     | The unique identifier for the client application. This is used to track the client application and its usage. (UUID, serial number, or other number unique per device) | gcgzw5rz2xovp84b4vha3a40                                                                                                                                               |
-| `retries`                                                                                                                                                              | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                       | :heavy_minus_sign:                                                                                                                                                     | Configuration to override the default retry behavior of the client.                                                                                                    |                                                                                                                                                                        |
-| `server_url`                                                                                                                                                           | *Optional[str]*                                                                                                                                                        | :heavy_minus_sign:                                                                                                                                                     | An optional server URL to use.                                                                                                                                         | http://localhost:8080                                                                                                                                                  |
+| Parameter                                                                                                          | Type                                                                                                               | Required                                                                                                           | Description                                                                                                        | Example                                                                                                            |
+| ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
+| `include_https`                                                                                                    | [Optional[operations.IncludeHTTPS]](../../models/operations/includehttps.md)                                       | :heavy_minus_sign:                                                                                                 | Include Https entries in the results                                                                               | 1                                                                                                                  |
+| `include_relay`                                                                                                    | [Optional[operations.IncludeRelay]](../../models/operations/includerelay.md)                                       | :heavy_minus_sign:                                                                                                 | Include Relay addresses in the results <br/>E.g: https://10-0-0-25.bbf8e10c7fa20447cacee74cd9914cde.plex.direct:32400<br/> | 1                                                                                                                  |
+| `include_i_pv6`                                                                                                    | [Optional[operations.IncludeIPv6]](../../models/operations/includeipv6.md)                                         | :heavy_minus_sign:                                                                                                 | Include IPv6 entries in the results                                                                                | 1                                                                                                                  |
+| `client_id`                                                                                                        | *Optional[str]*                                                                                                    | :heavy_minus_sign:                                                                                                 | An opaque identifier unique to the client (UUID, serial number, or other unique device ID)                         | 3381b62b-9ab7-4e37-827b-203e9809eb58                                                                               |
+| `retries`                                                                                                          | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                   | :heavy_minus_sign:                                                                                                 | Configuration to override the default retry behavior of the client.                                                |                                                                                                                    |
+| `server_url`                                                                                                       | *Optional[str]*                                                                                                    | :heavy_minus_sign:                                                                                                 | An optional server URL to use.                                                                                     | http://localhost:8080                                                                                              |
 
 ### Response
 
@@ -254,11 +254,11 @@ Retrieve a Pin ID from Plex.tv to use for authentication flows
 from plex_api_client import PlexAPI
 
 s = PlexAPI(
-    client_id="gcgzw5rz2xovp84b4vha3a40",
-    client_name="Plex Web",
-    client_version="4.133.0",
-    client_platform="Chrome",
-    device_name="Linux",
+    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+    client_name="Plex for Roku",
+    client_version="2.4.1",
+    platform="Roku",
+    device_nickname="Roku 3",
 )
 
 res = s.plex.get_pin(request={})
@@ -298,11 +298,11 @@ Retrieve an Access Token from Plex.tv after the Pin has been authenticated
 from plex_api_client import PlexAPI
 
 s = PlexAPI(
-    client_id="gcgzw5rz2xovp84b4vha3a40",
-    client_name="Plex Web",
-    client_version="4.133.0",
-    client_platform="Chrome",
-    device_name="Linux",
+    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+    client_name="Plex for Roku",
+    client_version="2.4.1",
+    platform="Roku",
+    device_nickname="Roku 3",
 )
 
 res = s.plex.get_token_by_pin_id(request={

@@ -16,6 +16,7 @@ API Calls interacting with Plex Media Server Libraries
 * [get_library_items](#get_library_items) - Get Library Items
 * [get_refresh_library_metadata](#get_refresh_library_metadata) - Refresh Metadata Of The Library
 * [get_search_library](#get_search_library) - Search Library
+* [get_search_all_libraries](#get_search_all_libraries) - Search All Libraries
 * [get_meta_data_by_rating_key](#get_meta_data_by_rating_key) - Get Metadata by RatingKey
 * [get_metadata_children](#get_metadata_children) - Get Items Children
 * [get_top_watched_content](#get_top_watched_content) - Get Top Watched Content
@@ -32,11 +33,11 @@ from plex_api_client import PlexAPI
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="gcgzw5rz2xovp84b4vha3a40",
-    client_name="Plex Web",
-    client_version="4.133.0",
-    client_platform="Chrome",
-    device_name="Linux",
+    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+    client_name="Plex for Roku",
+    client_version="2.4.1",
+    platform="Roku",
+    device_nickname="Roku 3",
 )
 
 res = s.library.get_file_hash(url="file://C:\Image.png&type=13")
@@ -80,11 +81,11 @@ from plex_api_client.models import operations
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="gcgzw5rz2xovp84b4vha3a40",
-    client_name="Plex Web",
-    client_version="4.133.0",
-    client_platform="Chrome",
-    device_name="Linux",
+    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+    client_name="Plex for Roku",
+    client_version="2.4.1",
+    platform="Roku",
+    device_nickname="Roku 3",
 )
 
 res = s.library.get_recently_added_library(request={
@@ -152,11 +153,11 @@ from plex_api_client import PlexAPI
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="gcgzw5rz2xovp84b4vha3a40",
-    client_name="Plex Web",
-    client_version="4.133.0",
-    client_platform="Chrome",
-    device_name="Linux",
+    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+    client_name="Plex for Roku",
+    client_version="2.4.1",
+    platform="Roku",
+    device_nickname="Roku 3",
 )
 
 res = s.library.get_all_libraries()
@@ -235,11 +236,11 @@ from plex_api_client import PlexAPI
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="gcgzw5rz2xovp84b4vha3a40",
-    client_name="Plex Web",
-    client_version="4.133.0",
-    client_platform="Chrome",
-    device_name="Linux",
+    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+    client_name="Plex for Roku",
+    client_version="2.4.1",
+    platform="Roku",
+    device_nickname="Roku 3",
 )
 
 res = s.library.get_library_details(section_key=9518)
@@ -281,11 +282,11 @@ from plex_api_client import PlexAPI
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="gcgzw5rz2xovp84b4vha3a40",
-    client_name="Plex Web",
-    client_version="4.133.0",
-    client_platform="Chrome",
-    device_name="Linux",
+    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+    client_name="Plex for Roku",
+    client_version="2.4.1",
+    platform="Roku",
+    device_nickname="Roku 3",
 )
 
 res = s.library.delete_library(section_key=9518)
@@ -347,16 +348,16 @@ from plex_api_client.models import operations
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="gcgzw5rz2xovp84b4vha3a40",
-    client_name="Plex Web",
-    client_version="4.133.0",
-    client_platform="Chrome",
-    device_name="Linux",
+    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+    client_name="Plex for Roku",
+    client_version="2.4.1",
+    platform="Roku",
+    device_nickname="Roku 3",
 )
 
 res = s.library.get_library_items(request={
-    "section_key": 9518,
     "tag": operations.Tag.EDITION,
+    "section_key": 9518,
     "include_guids": operations.IncludeGuids.ENABLE,
     "type": operations.GetLibraryItemsQueryParamType.TV_SHOW,
     "include_meta": operations.GetLibraryItemsQueryParamIncludeMeta.ENABLE,
@@ -402,11 +403,11 @@ from plex_api_client.models import operations
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="gcgzw5rz2xovp84b4vha3a40",
-    client_name="Plex Web",
-    client_version="4.133.0",
-    client_platform="Chrome",
-    device_name="Linux",
+    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+    client_name="Plex for Roku",
+    client_version="2.4.1",
+    platform="Roku",
+    device_nickname="Roku 3",
 )
 
 res = s.library.get_refresh_library_metadata(section_key=9518, force=operations.Force.ONE)
@@ -467,11 +468,11 @@ from plex_api_client.models import operations
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="gcgzw5rz2xovp84b4vha3a40",
-    client_name="Plex Web",
-    client_version="4.133.0",
-    client_platform="Chrome",
-    device_name="Linux",
+    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+    client_name="Plex for Roku",
+    client_version="2.4.1",
+    platform="Roku",
+    device_nickname="Roku 3",
 )
 
 res = s.library.get_search_library(section_key=9518, type_=operations.GetSearchLibraryQueryParamType.TV_SHOW)
@@ -502,6 +503,60 @@ if res.object is not None:
 | errors.GetSearchLibraryUnauthorized | 401                                 | application/json                    |
 | errors.SDKError                     | 4XX, 5XX                            | \*/\*                               |
 
+## get_search_all_libraries
+
+Search the provided query across all library sections, or a single section, and return matches as hubs, split up by type.
+
+
+### Example Usage
+
+```python
+from plex_api_client import PlexAPI
+from plex_api_client.models import operations
+
+s = PlexAPI(
+    access_token="<YOUR_API_KEY_HERE>",
+    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+    client_name="Plex for Roku",
+    client_version="2.4.1",
+    platform="Roku",
+    device_nickname="Roku 3",
+)
+
+res = s.library.get_search_all_libraries(request={
+    "query": "<value>",
+    "search_types": [
+        operations.SearchTypes.PEOPLE,
+    ],
+    "include_collections": operations.QueryParamIncludeCollections.ENABLE,
+    "include_external_media": operations.QueryParamIncludeExternalMedia.ENABLE,
+})
+
+if res.object is not None:
+    # handle response
+    pass
+
+```
+
+### Parameters
+
+| Parameter                                                                                          | Type                                                                                               | Required                                                                                           | Description                                                                                        |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `request`                                                                                          | [operations.GetSearchAllLibrariesRequest](../../models/operations/getsearchalllibrariesrequest.md) | :heavy_check_mark:                                                                                 | The request object to use for the request.                                                         |
+| `retries`                                                                                          | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                   | :heavy_minus_sign:                                                                                 | Configuration to override the default retry behavior of the client.                                |
+
+### Response
+
+**[operations.GetSearchAllLibrariesResponse](../../models/operations/getsearchalllibrariesresponse.md)**
+
+### Errors
+
+| Error Type                               | Status Code                              | Content Type                             |
+| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
+| errors.GetSearchAllLibrariesBadRequest   | 400                                      | application/json                         |
+| errors.GetSearchAllLibrariesUnauthorized | 401                                      | application/json                         |
+| errors.SDKError                          | 4XX, 5XX                                 | \*/\*                                    |
+
 ## get_meta_data_by_rating_key
 
 This endpoint will return the metadata of a library item specified with the ratingKey.
@@ -514,11 +569,11 @@ from plex_api_client import PlexAPI
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="gcgzw5rz2xovp84b4vha3a40",
-    client_name="Plex Web",
-    client_version="4.133.0",
-    client_platform="Chrome",
-    device_name="Linux",
+    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+    client_name="Plex for Roku",
+    client_version="2.4.1",
+    platform="Roku",
+    device_nickname="Roku 3",
 )
 
 res = s.library.get_meta_data_by_rating_key(rating_key=9518)
@@ -560,11 +615,11 @@ from plex_api_client import PlexAPI
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="gcgzw5rz2xovp84b4vha3a40",
-    client_name="Plex Web",
-    client_version="4.133.0",
-    client_platform="Chrome",
-    device_name="Linux",
+    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+    client_name="Plex for Roku",
+    client_version="2.4.1",
+    platform="Roku",
+    device_nickname="Roku 3",
 )
 
 res = s.library.get_metadata_children(rating_key=1539.14, include_elements="Stream")
@@ -608,11 +663,11 @@ from plex_api_client.models import operations
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="gcgzw5rz2xovp84b4vha3a40",
-    client_name="Plex Web",
-    client_version="4.133.0",
-    client_platform="Chrome",
-    device_name="Linux",
+    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+    client_name="Plex for Roku",
+    client_version="2.4.1",
+    platform="Roku",
+    device_nickname="Roku 3",
 )
 
 res = s.library.get_top_watched_content(type_=operations.GetTopWatchedContentQueryParamType.TV_SHOW, include_guids=1)
@@ -655,11 +710,11 @@ from plex_api_client import PlexAPI
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="gcgzw5rz2xovp84b4vha3a40",
-    client_name="Plex Web",
-    client_version="4.133.0",
-    client_platform="Chrome",
-    device_name="Linux",
+    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+    client_name="Plex for Roku",
+    client_version="2.4.1",
+    platform="Roku",
+    device_nickname="Roku 3",
 )
 
 res = s.library.get_on_deck()

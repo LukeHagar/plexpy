@@ -142,8 +142,8 @@ class PlexAPI(BaseSDK):
         client_id: Optional[str] = None,
         client_name: Optional[str] = None,
         client_version: Optional[str] = None,
-        client_platform: Optional[str] = None,
-        device_name: Optional[str] = None,
+        platform: Optional[str] = None,
+        device_nickname: Optional[str] = None,
         protocol: Optional[ServerProtocol] = None,
         ip: Optional[str] = None,
         port: Optional[str] = None,
@@ -162,8 +162,8 @@ class PlexAPI(BaseSDK):
         :param client_id: Configures the client_id parameter for all supported operations
         :param client_name: Configures the client_name parameter for all supported operations
         :param client_version: Configures the client_version parameter for all supported operations
-        :param client_platform: Configures the client_platform parameter for all supported operations
-        :param device_name: Configures the device_name parameter for all supported operations
+        :param platform: Configures the platform parameter for all supported operations
+        :param device_nickname: Configures the device_nickname parameter for all supported operations
         :param protocol: Allows setting the protocol variable for url substitution
         :param ip: Allows setting the ip variable for url substitution
         :param port: Allows setting the port variable for url substitution
@@ -215,10 +215,10 @@ class PlexAPI(BaseSDK):
             client_version=utils.get_global_from_env(
                 client_version, "CLIENT_VERSION", str
             ),
-            client_platform=utils.get_global_from_env(
-                client_platform, "CLIENT_PLATFORM", str
+            platform=utils.get_global_from_env(platform, "PLATFORM", str),
+            device_nickname=utils.get_global_from_env(
+                device_nickname, "DEVICE_NICKNAME", str
             ),
-            device_name=utils.get_global_from_env(device_name, "DEVICE_NAME", str),
         )
 
         BaseSDK.__init__(

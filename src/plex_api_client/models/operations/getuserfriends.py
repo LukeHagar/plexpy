@@ -6,8 +6,8 @@ import httpx
 from plex_api_client.types import BaseModel, Nullable, UNSET_SENTINEL
 import pydantic
 from pydantic import model_serializer
-from typing import List, Optional, TypedDict
-from typing_extensions import Annotated, NotRequired
+from typing import List, Optional
+from typing_extensions import Annotated, NotRequired, TypedDict
 
 GET_USER_FRIENDS_SERVERS = [
     "https://plex.tv/api/v2",

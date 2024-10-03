@@ -5,11 +5,11 @@ from datetime import datetime
 from enum import Enum
 import httpx
 from plex_api_client.types import BaseModel, Nullable, UNSET_SENTINEL
-from plex_api_client.utils import FieldMetadata, QueryParamMetadata
+from plex_api_client.utils import FieldMetadata, HeaderMetadata, QueryParamMetadata
 import pydantic
 from pydantic import model_serializer
-from typing import List, Optional, TypedDict
-from typing_extensions import Annotated, NotRequired
+from typing import List, Optional
+from typing_extensions import Annotated, NotRequired, TypedDict
 
 GET_SERVER_RESOURCES_SERVERS = [
     "https://plex.tv/api/v2",
@@ -18,16 +18,16 @@ GET_SERVER_RESOURCES_SERVERS = [
 
 class GetServerResourcesGlobalsTypedDict(TypedDict):
     client_id: NotRequired[str]
-    r"""The unique identifier for the client application. This is used to track the client application and its usage. (UUID, serial number, or other number unique per device)"""
+    r"""An opaque identifier unique to the client (UUID, serial number, or other unique device ID)"""
 
 
 class GetServerResourcesGlobals(BaseModel):
     client_id: Annotated[
         Optional[str],
         pydantic.Field(alias="X-Plex-Client-Identifier"),
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
     ] = None
-    r"""The unique identifier for the client application. This is used to track the client application and its usage. (UUID, serial number, or other number unique per device)"""
+    r"""An opaque identifier unique to the client (UUID, serial number, or other unique device ID)"""
 
 
 class IncludeHTTPS(int, Enum):
@@ -65,7 +65,7 @@ class GetServerResourcesRequestTypedDict(TypedDict):
     include_i_pv6: NotRequired[IncludeIPv6]
     r"""Include IPv6 entries in the results"""
     client_id: NotRequired[str]
-    r"""The unique identifier for the client application. This is used to track the client application and its usage. (UUID, serial number, or other number unique per device)"""
+    r"""An opaque identifier unique to the client (UUID, serial number, or other unique device ID)"""
 
 
 class GetServerResourcesRequest(BaseModel):
@@ -96,9 +96,9 @@ class GetServerResourcesRequest(BaseModel):
     client_id: Annotated[
         Optional[str],
         pydantic.Field(alias="X-Plex-Client-Identifier"),
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
     ] = None
-    r"""The unique identifier for the client application. This is used to track the client application and its usage. (UUID, serial number, or other number unique per device)"""
+    r"""An opaque identifier unique to the client (UUID, serial number, or other unique device ID)"""
 
 
 class Protocol(str, Enum):

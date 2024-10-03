@@ -3,7 +3,7 @@
 from __future__ import annotations
 import httpx
 from plex_api_client.types import BaseModel
-from typing import TypedDict
+from typing_extensions import TypedDict
 
 
 class LogMultiLineResponseTypedDict(TypedDict):

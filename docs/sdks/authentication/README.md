@@ -26,11 +26,11 @@ from plex_api_client.models import operations
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="gcgzw5rz2xovp84b4vha3a40",
-    client_name="Plex Web",
-    client_version="4.133.0",
-    client_platform="Chrome",
-    device_name="Linux",
+    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+    client_name="Plex for Roku",
+    client_version="2.4.1",
+    platform="Roku",
+    device_nickname="Roku 3",
 )
 
 res = s.authentication.get_transient_token(type_=operations.GetTransientTokenQueryParamType.DELEGATION, scope=operations.Scope.ALL)
@@ -74,11 +74,11 @@ from plex_api_client import PlexAPI
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="gcgzw5rz2xovp84b4vha3a40",
-    client_name="Plex Web",
-    client_version="4.133.0",
-    client_platform="Chrome",
-    device_name="Linux",
+    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+    client_name="Plex for Roku",
+    client_version="2.4.1",
+    platform="Roku",
+    device_nickname="Roku 3",
 )
 
 res = s.authentication.get_source_connection_information(source="provider://provider-identifier")
@@ -119,11 +119,11 @@ from plex_api_client import PlexAPI
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="gcgzw5rz2xovp84b4vha3a40",
-    client_name="Plex Web",
-    client_version="4.133.0",
-    client_platform="Chrome",
-    device_name="Linux",
+    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+    client_name="Plex for Roku",
+    client_version="2.4.1",
+    platform="Roku",
+    device_nickname="Roku 3",
 )
 
 res = s.authentication.get_token_details()
@@ -163,11 +163,11 @@ Sign in user with username and password and return user data with Plex authentic
 from plex_api_client import PlexAPI
 
 s = PlexAPI(
-    client_id="gcgzw5rz2xovp84b4vha3a40",
-    client_name="Plex Web",
-    client_version="4.133.0",
-    client_platform="Chrome",
-    device_name="Linux",
+    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+    client_name="Plex for Roku",
+    client_version="2.4.1",
+    platform="Roku",
+    device_nickname="Roku 3",
 )
 
 res = s.authentication.post_users_sign_in_data(request={

@@ -7,8 +7,8 @@ import httpx
 from plex_api_client.types import BaseModel
 from plex_api_client.utils import FieldMetadata, QueryParamMetadata
 import pydantic
-from typing import List, Optional, TypedDict
-from typing_extensions import Annotated, NotRequired
+from typing import List, Optional
+from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class Type(int, Enum):
@@ -560,17 +560,17 @@ class Stream(BaseModel):
 class PartTypedDict(TypedDict):
     id: int
     key: str
-    duration: int
     file: str
     size: int
     container: str
     r"""The container format of the media file.
 
     """
-    video_profile: str
+    duration: NotRequired[int]
     audio_profile: NotRequired[str]
     has64bit_offsets: NotRequired[bool]
     optimized_for_streaming: NotRequired[bool]
+    video_profile: NotRequired[str]
     indexes: NotRequired[str]
     has_thumbnail: NotRequired[HasThumbnail]
     stream: NotRequired[List[StreamTypedDict]]
@@ -581,8 +581,6 @@ class Part(BaseModel):
 
     key: str
 
-    duration: int
-
     file: str
 
     size: int
@@ -592,7 +590,7 @@ class Part(BaseModel):
 
     """
 
-    video_profile: Annotated[str, pydantic.Field(alias="videoProfile")]
+    duration: Optional[int] = None
 
     audio_profile: Annotated[Optional[str], pydantic.Field(alias="audioProfile")] = None
 
@@ -603,6 +601,8 @@ class Part(BaseModel):
     optimized_for_streaming: Annotated[
         Optional[bool], pydantic.Field(alias="optimizedForStreaming")
     ] = None
+
+    video_profile: Annotated[Optional[str], pydantic.Field(alias="videoProfile")] = None
 
     indexes: Optional[str] = None
 
@@ -615,20 +615,20 @@ class Part(BaseModel):
 
 class MediaTypedDict(TypedDict):
     id: int
-    duration: int
-    bitrate: int
-    width: int
-    height: int
-    aspect_ratio: float
-    audio_channels: int
-    audio_codec: str
-    video_codec: str
-    video_resolution: str
     container: str
-    video_frame_rate: str
-    video_profile: str
     part: List[PartTypedDict]
+    duration: NotRequired[int]
+    bitrate: NotRequired[int]
+    width: NotRequired[int]
+    height: NotRequired[int]
+    aspect_ratio: NotRequired[float]
     audio_profile: NotRequired[str]
+    audio_channels: NotRequired[int]
+    audio_codec: NotRequired[str]
+    video_codec: NotRequired[str]
+    video_resolution: NotRequired[str]
+    video_frame_rate: NotRequired[str]
+    video_profile: NotRequired[str]
     has_voice_activity: NotRequired[bool]
     optimized_for_streaming: NotRequired[OptimizedForStreaming]
     has64bit_offsets: NotRequired[bool]
@@ -637,33 +637,39 @@ class MediaTypedDict(TypedDict):
 class Media(BaseModel):
     id: int
 
-    duration: int
-
-    bitrate: int
-
-    width: int
-
-    height: int
-
-    aspect_ratio: Annotated[float, pydantic.Field(alias="aspectRatio")]
-
-    audio_channels: Annotated[int, pydantic.Field(alias="audioChannels")]
-
-    audio_codec: Annotated[str, pydantic.Field(alias="audioCodec")]
-
-    video_codec: Annotated[str, pydantic.Field(alias="videoCodec")]
-
-    video_resolution: Annotated[str, pydantic.Field(alias="videoResolution")]
-
     container: str
-
-    video_frame_rate: Annotated[str, pydantic.Field(alias="videoFrameRate")]
-
-    video_profile: Annotated[str, pydantic.Field(alias="videoProfile")]
 
     part: Annotated[List[Part], pydantic.Field(alias="Part")]
 
+    duration: Optional[int] = None
+
+    bitrate: Optional[int] = None
+
+    width: Optional[int] = None
+
+    height: Optional[int] = None
+
+    aspect_ratio: Annotated[Optional[float], pydantic.Field(alias="aspectRatio")] = None
+
     audio_profile: Annotated[Optional[str], pydantic.Field(alias="audioProfile")] = None
+
+    audio_channels: Annotated[Optional[int], pydantic.Field(alias="audioChannels")] = (
+        None
+    )
+
+    audio_codec: Annotated[Optional[str], pydantic.Field(alias="audioCodec")] = None
+
+    video_codec: Annotated[Optional[str], pydantic.Field(alias="videoCodec")] = None
+
+    video_resolution: Annotated[
+        Optional[str], pydantic.Field(alias="videoResolution")
+    ] = None
+
+    video_frame_rate: Annotated[
+        Optional[str], pydantic.Field(alias="videoFrameRate")
+    ] = None
+
+    video_profile: Annotated[Optional[str], pydantic.Field(alias="videoProfile")] = None
 
     has_voice_activity: Annotated[
         Optional[bool], pydantic.Field(alias="hasVoiceActivity")
@@ -751,6 +757,14 @@ class Role(BaseModel):
 
     role: Optional[str] = None
     r"""The role of the actor or tag in the media."""
+
+
+class LocationTypedDict(TypedDict):
+    path: NotRequired[str]
+
+
+class Location(BaseModel):
+    path: Optional[str] = None
 
 
 class MediaGUIDTypedDict(TypedDict):
@@ -895,6 +909,7 @@ class GetRecentlyAddedMetadataTypedDict(TypedDict):
     writer: NotRequired[List[WriterTypedDict]]
     collection: NotRequired[List[CollectionTypedDict]]
     role: NotRequired[List[RoleTypedDict]]
+    location: NotRequired[List[LocationTypedDict]]
     media_guid: NotRequired[List[MediaGUIDTypedDict]]
     r"""The Guid object is only included in the response if the `includeGuids` parameter is set to `1`.
 
@@ -1087,6 +1102,10 @@ class GetRecentlyAddedMetadata(BaseModel):
     ] = None
 
     role: Annotated[Optional[List[Role]], pydantic.Field(alias="Role")] = None
+
+    location: Annotated[Optional[List[Location]], pydantic.Field(alias="Location")] = (
+        None
+    )
 
     media_guid: Annotated[Optional[List[MediaGUID]], pydantic.Field(alias="Guid")] = (
         None

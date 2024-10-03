@@ -5,8 +5,7 @@ from enum import Enum
 import httpx
 from plex_api_client.types import BaseModel
 from plex_api_client.utils import FieldMetadata, QueryParamMetadata
-from typing import TypedDict
-from typing_extensions import Annotated
+from typing_extensions import Annotated, TypedDict
 
 
 class GetTransientTokenQueryParamType(str, Enum):

@@ -5,10 +5,15 @@ from datetime import date
 from enum import Enum
 import httpx
 from plex_api_client.types import BaseModel
-from plex_api_client.utils import FieldMetadata, PathParamMetadata, QueryParamMetadata
+from plex_api_client.utils import (
+    FieldMetadata,
+    HeaderMetadata,
+    PathParamMetadata,
+    QueryParamMetadata,
+)
 import pydantic
-from typing import List, Optional, TypedDict
-from typing_extensions import Annotated, NotRequired
+from typing import List, Optional
+from typing_extensions import Annotated, NotRequired, TypedDict
 
 GET_WATCH_LIST_SERVERS = [
     "https://metadata.provider.plex.tv",
@@ -49,7 +54,7 @@ class GetWatchListRequestTypedDict(TypedDict):
     filter_: Filter
     r"""Filter"""
     x_plex_token: str
-    r"""Plex Authentication Token"""
+    r"""An authentication token, obtained from plex.tv"""
     sort: NotRequired[str]
     r"""In the format \"field:dir\". Available fields are \"watchlistedAt\" (Added At),
     \"titleSort\" (Title), \"originallyAvailableAt\" (Release Date), or \"rating\" (Critic Rating).
@@ -98,9 +103,9 @@ class GetWatchListRequest(BaseModel):
     x_plex_token: Annotated[
         str,
         pydantic.Field(alias="X-Plex-Token"),
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
     ]
-    r"""Plex Authentication Token"""
+    r"""An authentication token, obtained from plex.tv"""
 
     sort: Annotated[
         Optional[str],

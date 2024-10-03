@@ -45,7 +45,6 @@ The following SDKs are generated from the OpenAPI Specification. They are automa
 * [IDE Support](#ide-support)
 * [SDK Example Usage](#sdk-example-usage)
 * [Available Resources and Operations](#available-resources-and-operations)
-* [Global Parameters](#global-parameters)
 * [Retries](#retries)
 * [Error Handling](#error-handling)
 * [Server Selection](#server-selection)
@@ -97,11 +96,11 @@ from plex_api_client import PlexAPI
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="gcgzw5rz2xovp84b4vha3a40",
-    client_name="Plex Web",
-    client_version="4.133.0",
-    client_platform="Chrome",
-    device_name="Linux",
+    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+    client_name="Plex for Roku",
+    client_version="2.4.1",
+    platform="Roku",
+    device_nickname="Roku 3",
 )
 
 res = s.server.get_server_capabilities()
@@ -122,11 +121,11 @@ from plex_api_client import PlexAPI
 async def main():
     s = PlexAPI(
         access_token="<YOUR_API_KEY_HERE>",
-        client_id="gcgzw5rz2xovp84b4vha3a40",
-        client_name="Plex Web",
-        client_version="4.133.0",
-        client_platform="Chrome",
-        device_name="Linux",
+        client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+        client_name="Plex for Roku",
+        client_version="2.4.1",
+        platform="Roku",
+        device_nickname="Roku 3",
     )
     res = await s.server.get_server_capabilities_async()
     if res.object is not None:
@@ -179,6 +178,7 @@ asyncio.run(main())
 * [get_library_items](docs/sdks/library/README.md#get_library_items) - Get Library Items
 * [get_refresh_library_metadata](docs/sdks/library/README.md#get_refresh_library_metadata) - Refresh Metadata Of The Library
 * [get_search_library](docs/sdks/library/README.md#get_search_library) - Search Library
+* [get_search_all_libraries](docs/sdks/library/README.md#get_search_all_libraries) - Search All Libraries
 * [get_meta_data_by_rating_key](docs/sdks/library/README.md#get_meta_data_by_rating_key) - Get Metadata by RatingKey
 * [get_metadata_children](docs/sdks/library/README.md#get_metadata_children) - Get Items Children
 * [get_top_watched_content](docs/sdks/library/README.md#get_top_watched_content) - Get Top Watched Content
@@ -282,11 +282,11 @@ from plex_api_client import PlexAPI
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="gcgzw5rz2xovp84b4vha3a40",
-    client_name="Plex Web",
-    client_version="4.133.0",
-    client_platform="Chrome",
-    device_name="Linux",
+    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+    client_name="Plex for Roku",
+    client_version="2.4.1",
+    platform="Roku",
+    device_nickname="Roku 3",
 )
 
 res = s.server.get_server_capabilities(,
@@ -306,11 +306,11 @@ from plex_api_client import PlexAPI
 s = PlexAPI(
     retry_config=RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False),
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="gcgzw5rz2xovp84b4vha3a40",
-    client_name="Plex Web",
-    client_version="4.133.0",
-    client_platform="Chrome",
-    device_name="Linux",
+    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+    client_name="Plex for Roku",
+    client_version="2.4.1",
+    platform="Roku",
+    device_nickname="Roku 3",
 )
 
 res = s.server.get_server_capabilities()
@@ -352,11 +352,11 @@ from plex_api_client.models import errors
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="gcgzw5rz2xovp84b4vha3a40",
-    client_name="Plex Web",
-    client_version="4.133.0",
-    client_platform="Chrome",
-    device_name="Linux",
+    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+    client_name="Plex for Roku",
+    client_version="2.4.1",
+    platform="Roku",
+    device_nickname="Roku 3",
 )
 
 res = None
@@ -398,11 +398,11 @@ from plex_api_client import PlexAPI
 s = PlexAPI(
     server_idx=0,
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="gcgzw5rz2xovp84b4vha3a40",
-    client_name="Plex Web",
-    client_version="4.133.0",
-    client_platform="Chrome",
-    device_name="Linux",
+    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+    client_name="Plex for Roku",
+    client_version="2.4.1",
+    platform="Roku",
+    device_nickname="Roku 3",
 )
 
 res = s.server.get_server_capabilities()
@@ -429,11 +429,11 @@ from plex_api_client import PlexAPI
 s = PlexAPI(
     server_url="{protocol}://{ip}:{port}",
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="gcgzw5rz2xovp84b4vha3a40",
-    client_name="Plex Web",
-    client_version="4.133.0",
-    client_platform="Chrome",
-    device_name="Linux",
+    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+    client_name="Plex for Roku",
+    client_version="2.4.1",
+    platform="Roku",
+    device_nickname="Roku 3",
 )
 
 res = s.server.get_server_capabilities()
@@ -452,11 +452,11 @@ from plex_api_client import PlexAPI
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="gcgzw5rz2xovp84b4vha3a40",
-    client_name="Plex Web",
-    client_version="4.133.0",
-    client_platform="Chrome",
-    device_name="Linux",
+    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+    client_name="Plex for Roku",
+    client_version="2.4.1",
+    platform="Roku",
+    device_nickname="Roku 3",
 )
 
 res = s.plex.get_companions_data(server_url="https://plex.tv/api/v2")
@@ -566,11 +566,11 @@ from plex_api_client import PlexAPI
 
 s = PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="gcgzw5rz2xovp84b4vha3a40",
-    client_name="Plex Web",
-    client_version="4.133.0",
-    client_platform="Chrome",
-    device_name="Linux",
+    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
+    client_name="Plex for Roku",
+    client_version="2.4.1",
+    platform="Roku",
+    device_nickname="Roku 3",
 )
 
 res = s.server.get_server_capabilities()
@@ -581,51 +581,6 @@ if res.object is not None:
 
 ```
 <!-- End Authentication [security] -->
-
-<!-- Start Global Parameters [global-parameters] -->
-## Global Parameters
-
-Certain parameters are configured globally. These parameters may be set on the SDK client instance itself during initialization. When configured as an option during SDK initialization, These global values will be used as defaults on the operations that use them. When such operations are called, there is a place in each to override the global value, if needed.
-
-For example, you can set `ClientID` to `"gcgzw5rz2xovp84b4vha3a40"` at SDK initialization and then you do not have to pass the same value on calls to operations like `get_server_resources`. But if you want to do so you may, which will locally override the global setting. See the example code below for a demonstration.
-
-
-### Available Globals
-
-The following global parameters are available.
-
-| Name | Type | Required | Description |
-| ---- | ---- |:--------:| ----------- |
-| client_id | str |  | The unique identifier for the client application. This is used to track the client application and its usage. (UUID, serial number, or other number unique per device) |
-| client_name | str |  | The client_name parameter. |
-| client_version | str |  | The client_version parameter. |
-| client_platform | str |  | The client_platform parameter. |
-| device_name | str |  | The device_name parameter. |
-
-
-### Example
-
-```python
-from plex_api_client import PlexAPI
-from plex_api_client.models import operations
-
-s = PlexAPI(
-    access_token="<YOUR_API_KEY_HERE>",
-    client_id="gcgzw5rz2xovp84b4vha3a40",
-    client_name="Plex Web",
-    client_version="4.133.0",
-    client_platform="Chrome",
-    device_name="Linux",
-)
-
-res = s.plex.get_server_resources(include_https=operations.IncludeHTTPS.ENABLE, include_relay=operations.IncludeRelay.ENABLE, include_i_pv6=operations.IncludeIPv6.ENABLE, client_id="gcgzw5rz2xovp84b4vha3a40")
-
-if res.plex_devices is not None:
-    # handle response
-    pass
-
-```
-<!-- End Global Parameters [global-parameters] -->
 
 <!-- Start Debugging [debug] -->
 ## Debugging

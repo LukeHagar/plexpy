@@ -3,24 +3,24 @@
 from __future__ import annotations
 import httpx
 from plex_api_client.types import BaseModel
-from plex_api_client.utils import FieldMetadata, QueryParamMetadata
+from plex_api_client.utils import FieldMetadata, HeaderMetadata
 import pydantic
-from typing import List, Optional, TypedDict
-from typing_extensions import Annotated, NotRequired
+from typing import List, Optional
+from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class GetMediaProvidersRequestTypedDict(TypedDict):
     x_plex_token: str
-    r"""Plex Authentication Token"""
+    r"""An authentication token, obtained from plex.tv"""
 
 
 class GetMediaProvidersRequest(BaseModel):
     x_plex_token: Annotated[
         str,
         pydantic.Field(alias="X-Plex-Token"),
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
     ]
-    r"""Plex Authentication Token"""
+    r"""An authentication token, obtained from plex.tv"""
 
 
 class PivotTypedDict(TypedDict):

@@ -3,8 +3,8 @@
 from __future__ import annotations
 import httpx
 from plex_api_client.types import BaseModel
-from typing import Optional, TypedDict
-from typing_extensions import NotRequired
+from typing import Optional
+from typing_extensions import NotRequired, TypedDict
 
 GET_GEO_DATA_SERVERS = [
     "https://plex.tv/api/v2",

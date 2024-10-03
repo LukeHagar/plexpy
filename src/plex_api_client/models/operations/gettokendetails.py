@@ -4,7 +4,6 @@ from __future__ import annotations
 from datetime import datetime
 from enum import Enum
 import httpx
-from plex_api_client import utils
 from plex_api_client.types import (
     BaseModel,
     Nullable,
@@ -12,12 +11,10 @@ from plex_api_client.types import (
     UNSET,
     UNSET_SENTINEL,
 )
-from plex_api_client.utils import validate_open_enum
 import pydantic
 from pydantic import model_serializer
-from pydantic.functional_validators import PlainValidator
-from typing import List, Optional, TypedDict
-from typing_extensions import Annotated, NotRequired
+from typing import List, Optional
+from typing_extensions import Annotated, NotRequired, TypedDict
 
 GET_TOKEN_DETAILS_SERVERS = [
     "https://plex.tv/api/v2",
@@ -210,104 +207,6 @@ class Services(BaseModel):
         return m
 
 
-class Features(str, Enum, metaclass=utils.OpenEnumMeta):
-    ANDROID_DOLBY_VISION = "Android - Dolby Vision"
-    ANDROID_PI_P = "Android - PiP"
-    CU_SUNSET = "CU Sunset"
-    HRK_ENABLE_EUR = "HRK_enable_EUR"
-    TREBLE_SHOW_FEATURES = "TREBLE-show-features"
-    AD_COUNTDOWN_TIMER = "ad-countdown-timer"
-    ADAPTIVE_BITRATE = "adaptive_bitrate"
-    ALBUM_TYPES = "album-types"
-    ALLOW_DVR = "allow_dvr"
-    AMAZON_LOOP_DEBUG = "amazon-loop-debug"
-    AVOD_AD_ANALYSIS = "avod-ad-analysis"
-    AVOD_NEW_MEDIA = "avod-new-media"
-    BLACKLIST_GET_SIGNIN = "blacklist_get_signin"
-    BOOST_VOICES = "boost-voices"
-    CAMERA_UPLOAD = "camera_upload"
-    CLIENT_RADIO_STATIONS = "client-radio-stations"
-    CLOUDFLARE_TURNSTILE_REQUIRED = "cloudflare-turnstile-required"
-    CLOUDSYNC = "cloudsync"
-    COLLECTIONS = "collections"
-    COMMENTS_AND_REPLIES_PUSH_NOTIFICATIONS = "comments_and_replies_push_notifications"
-    COMMUNITY_ACCESS_PLEX_TV = "community_access_plex_tv"
-    COMPANIONS_SONOS = "companions_sonos"
-    CONTENT_FILTER = "content_filter"
-    CUSTOM_HOME_REMOVAL = "custom-home-removal"
-    DISABLE_HOME_USER_FRIENDSHIPS = "disable_home_user_friendships"
-    DISABLE_SHARING_FRIENDSHIPS = "disable_sharing_friendships"
-    DOWNLOADS_GATING = "downloads-gating"
-    DRM_SUPPORT = "drm_support"
-    DVR = "dvr"
-    DVR_BLOCK_UNSUPPORTED_COUNTRIES = "dvr-block-unsupported-countries"
-    EPG_RECENT_CHANNELS = "epg-recent-channels"
-    EXCLUDE_RESTRICTIONS = "exclude restrictions"
-    FEDERATED_AUTH = "federated-auth"
-    FRIEND_REQUEST_PUSH_NOTIFICATIONS = "friend_request_push_notifications"
-    GRANDFATHER_SYNC = "grandfather-sync"
-    GUIDED_UPGRADE = "guided-upgrade"
-    HARDWARE_TRANSCODING = "hardware_transcoding"
-    HOME = "home"
-    HWTRANSCODE = "hwtranscode"
-    IMAGGA_V2 = "imagga-v2"
-    INCREASE_PASSWORD_COMPLEXITY = "increase-password-complexity"
-    IOS14_PRIVACY_BANNER = "ios14-privacy-banner"
-    ITERABLE_NOTIFICATION_TOKENS = "iterable-notification-tokens"
-    ITEM_CLUSTERS = "item_clusters"
-    KEEP_PAYMENT_METHOD = "keep-payment-method"
-    KEVIN_BACON = "kevin-bacon"
-    KOREA_CONSENT = "korea-consent"
-    LE_ISRG_ROOT_X1 = "le_isrg_root_x1"
-    LETS_ENCRYPT = "lets_encrypt"
-    LIGHTNING_DVR_PIVOT = "lightning-dvr-pivot"
-    LIVE_TV_SUPPORT_INCOMPLETE_SEGMENTS = "live-tv-support-incomplete-segments"
-    LIVETV = "livetv"
-    LYRICS = "lyrics"
-    METADATA_SEARCH = "metadata_search"
-    MUSIC_ANALYSIS = "music-analysis"
-    MUSIC_VIDEOS = "music_videos"
-    NEW_PLEX_PASS_PRICES = "new_plex_pass_prices"
-    NEWS_PROVIDER_SUNSET_MODAL = "news-provider-sunset-modal"
-    NOMINATIM = "nominatim"
-    PASS = "pass"
-    PHOTOS_FAVORITES = "photos-favorites"
-    PHOTOS_METADATA_EDITION = "photos-metadata-edition"
-    PHOTOS_V6_EDIT = "photosV6-edit"
-    PHOTOS_V6_TV_ALBUMS = "photosV6-tv-albums"
-    PMS_HEALTH = "pms_health"
-    PREMIUM_DASHBOARD = "premium-dashboard"
-    PREMIUM_MUSIC_METADATA = "premium_music_metadata"
-    RADIO = "radio"
-    RATE_LIMIT_CLIENT_TOKEN = "rate-limit-client-token"
-    SCROBBLING_SERVICE_PLEX_TV = "scrobbling-service-plex-tv"
-    SESSION_BANDWIDTH_RESTRICTIONS = "session_bandwidth_restrictions"
-    SESSION_KICK = "session_kick"
-    SHARED_SERVER_NOTIFICATION = "shared_server_notification"
-    SHARED_SOURCE_NOTIFICATION = "shared_source_notification"
-    SIGNIN_NOTIFICATION = "signin_notification"
-    SIGNIN_WITH_APPLE = "signin_with_apple"
-    SILENCE_REMOVAL = "silence-removal"
-    SLEEP_TIMER = "sleep-timer"
-    SPRING_SERVE_AD_PROVIDER = "spring_serve_ad_provider"
-    SYNC = "sync"
-    SWEET_FADES = "sweet-fades"
-    TRANSCODER_CACHE = "transcoder_cache"
-    TRAILERS = "trailers"
-    TUNER_SHARING = "tuner-sharing"
-    TWO_FACTOR_AUTHENTICATION = "two-factor-authentication"
-    UNSUPPORTEDTUNERS = "unsupportedtuners"
-    UPGRADE_3DS2 = "upgrade-3ds2"
-    VISUALIZERS = "visualizers"
-    VOD_SCHEMA = "vod-schema"
-    VOD_CLOUDFLARE = "vod_cloudflare"
-    VOLUME_LEVELING = "volume-leveling"
-    WATCH_TOGETHER_INVITE = "watch-together-invite"
-    WATCHLIST_RSS = "watchlist-rss"
-    WEB_SERVER_DASHBOARD = "web_server_dashboard"
-    WEBHOOKS = "webhooks"
-
-
 class GetTokenDetailsAuthenticationStatus(str, Enum):
     r"""String representation of subscriptionActive"""
 
@@ -318,7 +217,7 @@ class GetTokenDetailsAuthenticationStatus(str, Enum):
 class SubscriptionTypedDict(TypedDict):
     r"""If the account’s Plex Pass subscription is active"""
 
-    features: NotRequired[List[Features]]
+    features: NotRequired[List[str]]
     r"""List of features allowed on your Plex Pass subscription"""
     active: NotRequired[bool]
     r"""If the account's Plex Pass subscription is active"""
@@ -335,9 +234,7 @@ class SubscriptionTypedDict(TypedDict):
 class Subscription(BaseModel):
     r"""If the account’s Plex Pass subscription is active"""
 
-    features: Optional[
-        List[Annotated[Features, PlainValidator(validate_open_enum(False))]]
-    ] = None
+    features: Optional[List[str]] = None
     r"""List of features allowed on your Plex Pass subscription"""
 
     active: Optional[bool] = None
@@ -397,104 +294,6 @@ class Subscription(BaseModel):
         return m
 
 
-class GetTokenDetailsFeatures(str, Enum, metaclass=utils.OpenEnumMeta):
-    ANDROID_DOLBY_VISION = "Android - Dolby Vision"
-    ANDROID_PI_P = "Android - PiP"
-    CU_SUNSET = "CU Sunset"
-    HRK_ENABLE_EUR = "HRK_enable_EUR"
-    TREBLE_SHOW_FEATURES = "TREBLE-show-features"
-    AD_COUNTDOWN_TIMER = "ad-countdown-timer"
-    ADAPTIVE_BITRATE = "adaptive_bitrate"
-    ALBUM_TYPES = "album-types"
-    ALLOW_DVR = "allow_dvr"
-    AMAZON_LOOP_DEBUG = "amazon-loop-debug"
-    AVOD_AD_ANALYSIS = "avod-ad-analysis"
-    AVOD_NEW_MEDIA = "avod-new-media"
-    BLACKLIST_GET_SIGNIN = "blacklist_get_signin"
-    BOOST_VOICES = "boost-voices"
-    CAMERA_UPLOAD = "camera_upload"
-    CLIENT_RADIO_STATIONS = "client-radio-stations"
-    CLOUDFLARE_TURNSTILE_REQUIRED = "cloudflare-turnstile-required"
-    CLOUDSYNC = "cloudsync"
-    COLLECTIONS = "collections"
-    COMMENTS_AND_REPLIES_PUSH_NOTIFICATIONS = "comments_and_replies_push_notifications"
-    COMMUNITY_ACCESS_PLEX_TV = "community_access_plex_tv"
-    COMPANIONS_SONOS = "companions_sonos"
-    CONTENT_FILTER = "content_filter"
-    CUSTOM_HOME_REMOVAL = "custom-home-removal"
-    DISABLE_HOME_USER_FRIENDSHIPS = "disable_home_user_friendships"
-    DISABLE_SHARING_FRIENDSHIPS = "disable_sharing_friendships"
-    DOWNLOADS_GATING = "downloads-gating"
-    DRM_SUPPORT = "drm_support"
-    DVR = "dvr"
-    DVR_BLOCK_UNSUPPORTED_COUNTRIES = "dvr-block-unsupported-countries"
-    EPG_RECENT_CHANNELS = "epg-recent-channels"
-    EXCLUDE_RESTRICTIONS = "exclude restrictions"
-    FEDERATED_AUTH = "federated-auth"
-    FRIEND_REQUEST_PUSH_NOTIFICATIONS = "friend_request_push_notifications"
-    GRANDFATHER_SYNC = "grandfather-sync"
-    GUIDED_UPGRADE = "guided-upgrade"
-    HARDWARE_TRANSCODING = "hardware_transcoding"
-    HOME = "home"
-    HWTRANSCODE = "hwtranscode"
-    IMAGGA_V2 = "imagga-v2"
-    INCREASE_PASSWORD_COMPLEXITY = "increase-password-complexity"
-    IOS14_PRIVACY_BANNER = "ios14-privacy-banner"
-    ITERABLE_NOTIFICATION_TOKENS = "iterable-notification-tokens"
-    ITEM_CLUSTERS = "item_clusters"
-    KEEP_PAYMENT_METHOD = "keep-payment-method"
-    KEVIN_BACON = "kevin-bacon"
-    KOREA_CONSENT = "korea-consent"
-    LE_ISRG_ROOT_X1 = "le_isrg_root_x1"
-    LETS_ENCRYPT = "lets_encrypt"
-    LIGHTNING_DVR_PIVOT = "lightning-dvr-pivot"
-    LIVE_TV_SUPPORT_INCOMPLETE_SEGMENTS = "live-tv-support-incomplete-segments"
-    LIVETV = "livetv"
-    LYRICS = "lyrics"
-    METADATA_SEARCH = "metadata_search"
-    MUSIC_ANALYSIS = "music-analysis"
-    MUSIC_VIDEOS = "music_videos"
-    NEW_PLEX_PASS_PRICES = "new_plex_pass_prices"
-    NEWS_PROVIDER_SUNSET_MODAL = "news-provider-sunset-modal"
-    NOMINATIM = "nominatim"
-    PASS = "pass"
-    PHOTOS_FAVORITES = "photos-favorites"
-    PHOTOS_METADATA_EDITION = "photos-metadata-edition"
-    PHOTOS_V6_EDIT = "photosV6-edit"
-    PHOTOS_V6_TV_ALBUMS = "photosV6-tv-albums"
-    PMS_HEALTH = "pms_health"
-    PREMIUM_DASHBOARD = "premium-dashboard"
-    PREMIUM_MUSIC_METADATA = "premium_music_metadata"
-    RADIO = "radio"
-    RATE_LIMIT_CLIENT_TOKEN = "rate-limit-client-token"
-    SCROBBLING_SERVICE_PLEX_TV = "scrobbling-service-plex-tv"
-    SESSION_BANDWIDTH_RESTRICTIONS = "session_bandwidth_restrictions"
-    SESSION_KICK = "session_kick"
-    SHARED_SERVER_NOTIFICATION = "shared_server_notification"
-    SHARED_SOURCE_NOTIFICATION = "shared_source_notification"
-    SIGNIN_NOTIFICATION = "signin_notification"
-    SIGNIN_WITH_APPLE = "signin_with_apple"
-    SILENCE_REMOVAL = "silence-removal"
-    SLEEP_TIMER = "sleep-timer"
-    SPRING_SERVE_AD_PROVIDER = "spring_serve_ad_provider"
-    SYNC = "sync"
-    SWEET_FADES = "sweet-fades"
-    TRANSCODER_CACHE = "transcoder_cache"
-    TRAILERS = "trailers"
-    TUNER_SHARING = "tuner-sharing"
-    TWO_FACTOR_AUTHENTICATION = "two-factor-authentication"
-    UNSUPPORTEDTUNERS = "unsupportedtuners"
-    UPGRADE_3DS2 = "upgrade-3ds2"
-    VISUALIZERS = "visualizers"
-    VOD_SCHEMA = "vod-schema"
-    VOD_CLOUDFLARE = "vod_cloudflare"
-    VOLUME_LEVELING = "volume-leveling"
-    WATCH_TOGETHER_INVITE = "watch-together-invite"
-    WATCHLIST_RSS = "watchlist-rss"
-    WEB_SERVER_DASHBOARD = "web_server_dashboard"
-    WEBHOOKS = "webhooks"
-
-
 class GetTokenDetailsAuthenticationResponseStatus(str, Enum):
     r"""String representation of subscriptionActive"""
 
@@ -503,7 +302,7 @@ class GetTokenDetailsAuthenticationResponseStatus(str, Enum):
 
 
 class GetTokenDetailsSubscriptionTypedDict(TypedDict):
-    features: NotRequired[List[GetTokenDetailsFeatures]]
+    features: NotRequired[List[str]]
     r"""List of features allowed on your Plex Pass subscription"""
     active: NotRequired[bool]
     r"""If the account's Plex Pass subscription is active"""
@@ -518,13 +317,7 @@ class GetTokenDetailsSubscriptionTypedDict(TypedDict):
 
 
 class GetTokenDetailsSubscription(BaseModel):
-    features: Optional[
-        List[
-            Annotated[
-                GetTokenDetailsFeatures, PlainValidator(validate_open_enum(False))
-            ]
-        ]
-    ] = None
+    features: Optional[List[str]] = None
     r"""List of features allowed on your Plex Pass subscription"""
 
     active: Optional[bool] = None

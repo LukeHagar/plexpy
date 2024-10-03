@@ -7,8 +7,8 @@ import httpx
 from plex_api_client.types import BaseModel
 from plex_api_client.utils import FieldMetadata, PathParamMetadata, QueryParamMetadata
 import pydantic
-from typing import List, Optional, TypedDict
-from typing_extensions import Annotated, NotRequired
+from typing import List, Optional
+from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class Tag(str, Enum):
@@ -66,13 +66,13 @@ class GetLibraryItemsQueryParamIncludeMeta(int, Enum):
 
 
 class GetLibraryItemsRequestTypedDict(TypedDict):
+    tag: Tag
+    r"""A key representing a specific tag within the section."""
     section_key: int
     r"""The unique key of the Plex library.
     Note: This is unique in the context of the Plex server.
 
     """
-    tag: Tag
-    r"""A key representing a specific tag within the section."""
     include_guids: NotRequired[IncludeGuids]
     r"""Adds the Guids object to the response
 
@@ -105,6 +105,11 @@ class GetLibraryItemsRequestTypedDict(TypedDict):
 
 
 class GetLibraryItemsRequest(BaseModel):
+    tag: Annotated[
+        Tag, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
+    ]
+    r"""A key representing a specific tag within the section."""
+
     section_key: Annotated[
         int,
         pydantic.Field(alias="sectionKey"),
@@ -114,11 +119,6 @@ class GetLibraryItemsRequest(BaseModel):
     Note: This is unique in the context of the Plex server.
 
     """
-
-    tag: Annotated[
-        Tag, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
-    ]
-    r"""A key representing a specific tag within the section."""
 
     include_guids: Annotated[
         Optional[IncludeGuids],
@@ -579,17 +579,17 @@ class GetLibraryItemsStream(BaseModel):
 class GetLibraryItemsPartTypedDict(TypedDict):
     id: int
     key: str
-    duration: int
     file: str
     size: int
     container: str
     r"""The container format of the media file.
 
     """
-    video_profile: str
+    duration: NotRequired[int]
     audio_profile: NotRequired[str]
     has64bit_offsets: NotRequired[bool]
     optimized_for_streaming: NotRequired[bool]
+    video_profile: NotRequired[str]
     indexes: NotRequired[str]
     has_thumbnail: NotRequired[GetLibraryItemsHasThumbnail]
     stream: NotRequired[List[GetLibraryItemsStreamTypedDict]]
@@ -600,8 +600,6 @@ class GetLibraryItemsPart(BaseModel):
 
     key: str
 
-    duration: int
-
     file: str
 
     size: int
@@ -611,7 +609,7 @@ class GetLibraryItemsPart(BaseModel):
 
     """
 
-    video_profile: Annotated[str, pydantic.Field(alias="videoProfile")]
+    duration: Optional[int] = None
 
     audio_profile: Annotated[Optional[str], pydantic.Field(alias="audioProfile")] = None
 
@@ -622,6 +620,8 @@ class GetLibraryItemsPart(BaseModel):
     optimized_for_streaming: Annotated[
         Optional[bool], pydantic.Field(alias="optimizedForStreaming")
     ] = None
+
+    video_profile: Annotated[Optional[str], pydantic.Field(alias="videoProfile")] = None
 
     indexes: Optional[str] = None
 
@@ -636,20 +636,20 @@ class GetLibraryItemsPart(BaseModel):
 
 class GetLibraryItemsMediaTypedDict(TypedDict):
     id: int
-    duration: int
-    bitrate: int
-    width: int
-    height: int
-    aspect_ratio: float
-    audio_channels: int
-    audio_codec: str
-    video_codec: str
-    video_resolution: str
     container: str
-    video_frame_rate: str
-    video_profile: str
     part: List[GetLibraryItemsPartTypedDict]
+    duration: NotRequired[int]
+    bitrate: NotRequired[int]
+    width: NotRequired[int]
+    height: NotRequired[int]
+    aspect_ratio: NotRequired[float]
     audio_profile: NotRequired[str]
+    audio_channels: NotRequired[int]
+    audio_codec: NotRequired[str]
+    video_codec: NotRequired[str]
+    video_resolution: NotRequired[str]
+    video_frame_rate: NotRequired[str]
+    video_profile: NotRequired[str]
     has_voice_activity: NotRequired[bool]
     optimized_for_streaming: NotRequired[GetLibraryItemsOptimizedForStreaming]
     has64bit_offsets: NotRequired[bool]
@@ -658,33 +658,39 @@ class GetLibraryItemsMediaTypedDict(TypedDict):
 class GetLibraryItemsMedia(BaseModel):
     id: int
 
-    duration: int
-
-    bitrate: int
-
-    width: int
-
-    height: int
-
-    aspect_ratio: Annotated[float, pydantic.Field(alias="aspectRatio")]
-
-    audio_channels: Annotated[int, pydantic.Field(alias="audioChannels")]
-
-    audio_codec: Annotated[str, pydantic.Field(alias="audioCodec")]
-
-    video_codec: Annotated[str, pydantic.Field(alias="videoCodec")]
-
-    video_resolution: Annotated[str, pydantic.Field(alias="videoResolution")]
-
     container: str
-
-    video_frame_rate: Annotated[str, pydantic.Field(alias="videoFrameRate")]
-
-    video_profile: Annotated[str, pydantic.Field(alias="videoProfile")]
 
     part: Annotated[List[GetLibraryItemsPart], pydantic.Field(alias="Part")]
 
+    duration: Optional[int] = None
+
+    bitrate: Optional[int] = None
+
+    width: Optional[int] = None
+
+    height: Optional[int] = None
+
+    aspect_ratio: Annotated[Optional[float], pydantic.Field(alias="aspectRatio")] = None
+
     audio_profile: Annotated[Optional[str], pydantic.Field(alias="audioProfile")] = None
+
+    audio_channels: Annotated[Optional[int], pydantic.Field(alias="audioChannels")] = (
+        None
+    )
+
+    audio_codec: Annotated[Optional[str], pydantic.Field(alias="audioCodec")] = None
+
+    video_codec: Annotated[Optional[str], pydantic.Field(alias="videoCodec")] = None
+
+    video_resolution: Annotated[
+        Optional[str], pydantic.Field(alias="videoResolution")
+    ] = None
+
+    video_frame_rate: Annotated[
+        Optional[str], pydantic.Field(alias="videoFrameRate")
+    ] = None
+
+    video_profile: Annotated[Optional[str], pydantic.Field(alias="videoProfile")] = None
 
     has_voice_activity: Annotated[
         Optional[bool], pydantic.Field(alias="hasVoiceActivity")
@@ -773,6 +779,14 @@ class GetLibraryItemsRole(BaseModel):
 
     role: Optional[str] = None
     r"""The role of the actor or tag in the media."""
+
+
+class GetLibraryItemsLocationTypedDict(TypedDict):
+    path: NotRequired[str]
+
+
+class GetLibraryItemsLocation(BaseModel):
+    path: Optional[str] = None
 
 
 class GetLibraryItemsMediaGUIDTypedDict(TypedDict):
@@ -917,6 +931,7 @@ class GetLibraryItemsMetadataTypedDict(TypedDict):
     writer: NotRequired[List[GetLibraryItemsWriterTypedDict]]
     collection: NotRequired[List[GetLibraryItemsCollectionTypedDict]]
     role: NotRequired[List[GetLibraryItemsRoleTypedDict]]
+    location: NotRequired[List[GetLibraryItemsLocationTypedDict]]
     media_guid: NotRequired[List[GetLibraryItemsMediaGUIDTypedDict]]
     r"""The Guid object is only included in the response if the `includeGuids` parameter is set to `1`.
 
@@ -1118,6 +1133,10 @@ class GetLibraryItemsMetadata(BaseModel):
 
     role: Annotated[
         Optional[List[GetLibraryItemsRole]], pydantic.Field(alias="Role")
+    ] = None
+
+    location: Annotated[
+        Optional[List[GetLibraryItemsLocation]], pydantic.Field(alias="Location")
     ] = None
 
     media_guid: Annotated[
