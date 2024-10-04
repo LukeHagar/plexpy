@@ -1414,12 +1414,12 @@ class GetLibraryItemsMediaContainerTypedDict(TypedDict):
     title1: str
     title2: str
     view_group: str
-    metadata: List[GetLibraryItemsMetadataTypedDict]
     type: NotRequired[List[GetLibraryItemsTypeTypedDict]]
     field_type: NotRequired[List[GetLibraryItemsFieldTypeTypedDict]]
     nocache: NotRequired[bool]
     view_mode: NotRequired[int]
     mixed_parents: NotRequired[bool]
+    metadata: NotRequired[List[GetLibraryItemsMetadataTypedDict]]
     meta: NotRequired[GetLibraryItemsMetaTypedDict]
     r"""The Meta object is only included in the response if the `includeMeta` parameter is set to `1`.
 
@@ -1461,8 +1461,6 @@ class GetLibraryItemsMediaContainer(BaseModel):
 
     view_group: Annotated[str, pydantic.Field(alias="viewGroup")]
 
-    metadata: Annotated[List[GetLibraryItemsMetadata], pydantic.Field(alias="Metadata")]
-
     type: Annotated[
         Optional[List[GetLibraryItemsType]], pydantic.Field(alias="Type")
     ] = None
@@ -1478,6 +1476,10 @@ class GetLibraryItemsMediaContainer(BaseModel):
     mixed_parents: Annotated[Optional[bool], pydantic.Field(alias="mixedParents")] = (
         None
     )
+
+    metadata: Annotated[
+        Optional[List[GetLibraryItemsMetadata]], pydantic.Field(alias="Metadata")
+    ] = None
 
     meta: Annotated[Optional[GetLibraryItemsMeta], pydantic.Field(alias="Meta")] = None
     r"""The Meta object is only included in the response if the `includeMeta` parameter is set to `1`.
