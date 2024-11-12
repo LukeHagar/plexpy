@@ -338,11 +338,11 @@ By default, an API error will raise a errors.SDKError exception, which has the f
 
 When custom error responses are specified for an operation, the SDK may also raise their associated exceptions. You can refer to respective *Errors* tables in SDK docs for more details on possible exception types for each operation. For example, the `get_server_capabilities_async` method may raise the following exceptions:
 
-| Error Type                               | Status Code                              | Content Type                             |
-| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| errors.GetServerCapabilitiesBadRequest   | 400                                      | application/json                         |
-| errors.GetServerCapabilitiesUnauthorized | 401                                      | application/json                         |
-| errors.SDKError                          | 4XX, 5XX                                 | \*/\*                                    |
+| Error Type                               | Status Code | Content Type     |
+| ---------------------------------------- | ----------- | ---------------- |
+| errors.GetServerCapabilitiesBadRequest   | 400         | application/json |
+| errors.GetServerCapabilitiesUnauthorized | 401         | application/json |
+| errors.SDKError                          | 4XX, 5XX    | \*/\*            |
 
 ### Example
 
@@ -382,40 +382,9 @@ except errors.SDKError as e:
 <!-- Start Server Selection [server] -->
 ## Server Selection
 
-### Select Server by Index
+### Server Variables
 
-You can override the default server globally by passing a server index to the `server_idx: int` optional parameter when initializing the SDK client instance. The selected server will then be used as the default on the operations that use it. This table lists the indexes associated with the available servers:
-
-| # | Server | Variables |
-| - | ------ | --------- |
-| 0 | `{protocol}://{ip}:{port}` | `protocol` (default is `https`), `ip` (default is `10.10.10.47`), `port` (default is `32400`) |
-
-#### Example
-
-```python
-from plex_api_client import PlexAPI
-
-s = PlexAPI(
-    server_idx=0,
-    access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
-
-res = s.server.get_server_capabilities()
-
-if res.object is not None:
-    # handle response
-    pass
-
-```
-
-#### Variables
-
-Some of the server options above contain variables. If you want to set the values of those variables, the following optional parameters are available when initializing the SDK client instance:
+The default server `{protocol}://{ip}:{port}` contains variables and is set to `https://10.10.10.47:32400` by default. To override default values, the following parameters are available when initializing the SDK client instance:
  * `protocol: models.ServerProtocol`
  * `ip: str`
  * `port: str`
@@ -427,7 +396,7 @@ The default server can also be overridden globally by passing a URL to the `serv
 from plex_api_client import PlexAPI
 
 s = PlexAPI(
-    server_url="{protocol}://{ip}:{port}",
+    server_url="https://10.10.10.47:32400",
     access_token="<YOUR_API_KEY_HERE>",
     client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
     client_name="Plex for Roku",
@@ -556,9 +525,9 @@ s = PlexAPI(async_client=CustomClient(httpx.AsyncClient()))
 
 This SDK supports the following security scheme globally:
 
-| Name           | Type           | Scheme         |
-| -------------- | -------------- | -------------- |
-| `access_token` | apiKey         | API key        |
+| Name           | Type   | Scheme  |
+| -------------- | ------ | ------- |
+| `access_token` | apiKey | API key |
 
 To authenticate with the API the `access_token` parameter must be set when initializing the SDK client instance. For example:
 ```python

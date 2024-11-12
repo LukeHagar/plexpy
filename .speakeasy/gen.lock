@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 3eeea668-4ef4-464e-a888-bdfa023bedf5
 management:
-  docChecksum: 23094f3a9fe02710a8628ad5456f5d42
+  docChecksum: af45c1ae70f7fc6589adb3f8075cb275
   docVersion: 0.0.3
-  speakeasyVersion: 1.406.0
-  generationVersion: 2.429.0
-  releaseVersion: 0.18.1
-  configChecksum: 27d83bc47a0500872e772670c043a30f
+  speakeasyVersion: 1.438.1
+  generationVersion: 2.457.2
+  releaseVersion: 0.19.0
+  configChecksum: 1950f7d331e572c2e15ecf4fea8acd77
   repoURL: https://github.com/LukeHagar/plexpy.git
   repoSubDirectory: .
   installationURL: https://github.com/LukeHagar/plexpy.git
@@ -15,14 +15,14 @@ features:
   python:
     additionalDependencies: 1.0.0
     constsAndDefaults: 1.0.4
-    core: 5.5.8
+    core: 5.6.4
     defaultEnabledRetries: 0.2.0
     deprecations: 3.0.0
     downloadStreams: 1.0.1
     enumUnions: 0.1.0
-    enums: 3.1.0
-    envVarSecurityUsage: 0.3.1
-    errors: 3.0.1
+    enums: 3.1.1
+    envVarSecurityUsage: 0.3.2
+    errors: 3.2.0
     flattening: 3.1.0
     globalSecurity: 3.0.2
     globalSecurityCallbacks: 1.0.0
@@ -35,6 +35,7 @@ features:
     responseFormat: 1.0.1
     retries: 3.0.2
     sdkHooks: 1.0.0
+    tests: 1.6.0
 generatedFiles:
   - .gitattributes
   - .python-version
@@ -862,13 +863,13 @@ generatedFiles:
   - py.typed
   - pylintrc
   - pyproject.toml
-  - scripts/compile.sh
   - scripts/prepare-readme.py
   - scripts/publish.sh
   - src/plex_api_client/__init__.py
   - src/plex_api_client/_hooks/__init__.py
   - src/plex_api_client/_hooks/sdkhooks.py
   - src/plex_api_client/_hooks/types.py
+  - src/plex_api_client/_version.py
   - src/plex_api_client/activities.py
   - src/plex_api_client/authentication.py
   - src/plex_api_client/basesdk.py

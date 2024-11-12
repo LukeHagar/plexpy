@@ -25,6 +25,7 @@ class GetPlaylistContentsQueryParamType(int, Enum):
     TV_SHOW = 2
     SEASON = 3
     EPISODE = 4
+    AUDIO = 8
 
 
 class GetPlaylistContentsRequestTypedDict(TypedDict):
