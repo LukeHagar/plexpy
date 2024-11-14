@@ -20,7 +20,6 @@ class GetResourcesStatisticsRequestTypedDict(TypedDict):
 class GetResourcesStatisticsRequest(BaseModel):
     timespan: Annotated[
         Optional[int],
-        pydantic.Field(alias="Timespan"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
     r"""The timespan to retrieve statistics for
