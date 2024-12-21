@@ -21,60 +21,10 @@ GET_TOKEN_BY_PIN_ID_SERVERS = [
 ]
 
 
-class GetTokenByPinIDGlobalsTypedDict(TypedDict):
-    client_id: NotRequired[str]
-    r"""An opaque identifier unique to the client (UUID, serial number, or other unique device ID)"""
-    client_name: NotRequired[str]
-    r"""The name of the client application. (Plex Web, Plex Media Server, etc.)"""
-    device_nickname: NotRequired[str]
-    r"""A relatively friendly name for the client device"""
-    client_version: NotRequired[str]
-    r"""The version of the client application."""
-    platform: NotRequired[str]
-    r"""The platform of the client application."""
-
-
-class GetTokenByPinIDGlobals(BaseModel):
-    client_id: Annotated[
-        Optional[str],
-        pydantic.Field(alias="X-Plex-Client-Identifier"),
-        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
-    ] = None
-    r"""An opaque identifier unique to the client (UUID, serial number, or other unique device ID)"""
-
-    client_name: Annotated[
-        Optional[str],
-        pydantic.Field(alias="X-Plex-Product"),
-        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
-    ] = None
-    r"""The name of the client application. (Plex Web, Plex Media Server, etc.)"""
-
-    device_nickname: Annotated[
-        Optional[str],
-        pydantic.Field(alias="X-Plex-Device"),
-        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
-    ] = None
-    r"""A relatively friendly name for the client device"""
-
-    client_version: Annotated[
-        Optional[str],
-        pydantic.Field(alias="X-Plex-Version"),
-        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
-    ] = None
-    r"""The version of the client application."""
-
-    platform: Annotated[
-        Optional[str],
-        pydantic.Field(alias="X-Plex-Platform"),
-        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
-    ] = None
-    r"""The platform of the client application."""
-
-
 class GetTokenByPinIDRequestTypedDict(TypedDict):
     pin_id: int
     r"""The PinID to retrieve an access token for"""
-    client_id: NotRequired[str]
+    client_id: str
     r"""An opaque identifier unique to the client (UUID, serial number, or other unique device ID)"""
     client_name: NotRequired[str]
     r"""The name of the client application. (Plex Web, Plex Media Server, etc.)"""
@@ -95,10 +45,10 @@ class GetTokenByPinIDRequest(BaseModel):
     r"""The PinID to retrieve an access token for"""
 
     client_id: Annotated[
-        Optional[str],
+        str,
         pydantic.Field(alias="X-Plex-Client-Identifier"),
         FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
-    ] = None
+    ]
     r"""An opaque identifier unique to the client (UUID, serial number, or other unique device ID)"""
 
     client_name: Annotated[

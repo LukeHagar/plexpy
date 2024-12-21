@@ -21,31 +21,27 @@ Get the timeline for a media item
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.video.get_timeline(request={
-    "rating_key": 23409,
-    "key": "/library/metadata/23409",
-    "state": operations.State.PLAYING,
-    "has_mde": 1,
-    "time": 2000,
-    "duration": 10000,
-    "context": "home:hub.continueWatching",
-    "play_queue_item_id": 1,
-    "play_back_time": 2000,
-    "row": 1,
-})
+    res = plex_api.video.get_timeline(request={
+        "rating_key": 23409,
+        "key": "/library/metadata/23409",
+        "state": operations.State.PLAYING,
+        "has_mde": 1,
+        "time": 2000,
+        "duration": 10000,
+        "context": "home:hub.continueWatching",
+        "play_queue_item_id": 1,
+        "play_back_time": 2000,
+        "row": 1,
+    })
 
-if res is not None:
-    # handle response
-    pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -77,37 +73,33 @@ Begin a Universal Transcode Session
 ```python
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.video.start_universal_transcode(request={
-    "has_mde": 1,
-    "path": "/library/metadata/23409",
-    "media_index": 0,
-    "part_index": 0,
-    "protocol": "hls",
-    "fast_seek": 0,
-    "direct_play": 0,
-    "direct_stream": 0,
-    "subtitle_size": 100,
-    "subtites": "burn",
-    "audio_boost": 100,
-    "location": "lan",
-    "media_buffer_size": 102400,
-    "session": "zvcage8b7rkioqcm8f4uns4c",
-    "add_debug_overlay": 0,
-    "auto_adjust_quality": 0,
-})
+    res = plex_api.video.start_universal_transcode(request={
+        "has_mde": 1,
+        "path": "/library/metadata/23409",
+        "media_index": 0,
+        "part_index": 0,
+        "protocol": "hls",
+        "fast_seek": 0,
+        "direct_play": 0,
+        "direct_stream": 0,
+        "subtitle_size": 100,
+        "subtites": "burn",
+        "audio_boost": 100,
+        "location": "lan",
+        "media_buffer_size": 102400,
+        "session": "zvcage8b7rkioqcm8f4uns4c",
+        "add_debug_overlay": 0,
+        "auto_adjust_quality": 0,
+    })
 
-if res is not None:
-    # handle response
-    pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 

@@ -23,20 +23,16 @@ This will mark the provided media key as Played.
 ```python
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.media.mark_played(key=59398)
+    res = plex_api.media.mark_played(key=59398)
 
-if res is not None:
-    # handle response
-    pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -68,20 +64,16 @@ This will mark the provided media key as Unplayed.
 ```python
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.media.mark_unplayed(key=59398)
+    res = plex_api.media.mark_unplayed(key=59398)
 
-if res is not None:
-    # handle response
-    pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -114,20 +106,16 @@ This API command can be used to update the play progress of a media item.
 ```python
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.media.update_play_progress(key="<key>", time=90000, state="played")
+    res = plex_api.media.update_play_progress(key="<key>", time=90000, state="played")
 
-if res is not None:
-    # handle response
-    pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -161,27 +149,23 @@ Gets the banner image of the media item
 ```python
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.media.get_banner_image(request={
-    "rating_key": 9518,
-    "width": 396,
-    "height": 396,
-    "min_size": 1,
-    "upscale": 1,
-    "x_plex_token": "CV5xoxjTpFKUzBTShsaf",
-})
+    res = plex_api.media.get_banner_image(request={
+        "rating_key": 9518,
+        "width": 396,
+        "height": 396,
+        "min_size": 1,
+        "upscale": 1,
+        "x_plex_token": "CV5xoxjTpFKUzBTShsaf",
+    })
 
-if res.response_stream is not None:
-    # handle response
-    pass
+    assert res.response_stream is not None
+
+    # Handle response
+    print(res.response_stream)
 
 ```
 
@@ -213,27 +197,23 @@ Gets the thumbnail image of the media item
 ```python
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.media.get_thumb_image(request={
-    "rating_key": 9518,
-    "width": 396,
-    "height": 396,
-    "min_size": 1,
-    "upscale": 1,
-    "x_plex_token": "CV5xoxjTpFKUzBTShsaf",
-})
+    res = plex_api.media.get_thumb_image(request={
+        "rating_key": 9518,
+        "width": 396,
+        "height": 396,
+        "min_size": 1,
+        "upscale": 1,
+        "x_plex_token": "CV5xoxjTpFKUzBTShsaf",
+    })
 
-if res.response_stream is not None:
-    # handle response
-    pass
+    assert res.response_stream is not None
+
+    # Handle response
+    print(res.response_stream)
 
 ```
 

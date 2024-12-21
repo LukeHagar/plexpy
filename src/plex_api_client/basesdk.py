@@ -10,7 +10,8 @@ from plex_api_client._hooks import (
 )
 from plex_api_client.models import errors
 from plex_api_client.utils import RetryConfig, SerializedRequestBody, get_body_content
-from typing import Callable, List, Optional, Tuple
+from typing import Callable, List, Mapping, Optional, Tuple
+from urllib.parse import parse_qs, urlparse
 
 
 class BaseSDK:
@@ -49,6 +50,7 @@ class BaseSDK:
             Callable[[], Optional[SerializedRequestBody]]
         ] = None,
         url_override: Optional[str] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> httpx.Request:
         client = self.sdk_configuration.async_client
         return self.build_request_with_client(
@@ -68,6 +70,7 @@ class BaseSDK:
             timeout_ms,
             get_serialized_body,
             url_override,
+            http_headers,
         )
 
     def build_request(
@@ -89,6 +92,7 @@ class BaseSDK:
             Callable[[], Optional[SerializedRequestBody]]
         ] = None,
         url_override: Optional[str] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> httpx.Request:
         client = self.sdk_configuration.client
         return self.build_request_with_client(
@@ -108,6 +112,7 @@ class BaseSDK:
             timeout_ms,
             get_serialized_body,
             url_override,
+            http_headers,
         )
 
     def build_request_with_client(
@@ -130,6 +135,7 @@ class BaseSDK:
             Callable[[], Optional[SerializedRequestBody]]
         ] = None,
         url_override: Optional[str] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> httpx.Request:
         query_params = {}
 
@@ -146,6 +152,12 @@ class BaseSDK:
                 request if request_has_query_params else None,
                 _globals if request_has_query_params else None,
             )
+        else:
+            # Pick up the query parameter from the override so they can be
+            # preserved when building the request later on (necessary as of
+            # httpx 0.28).
+            parsed_override = urlparse(str(url_override))
+            query_params = parse_qs(parsed_override.query, keep_blank_values=True)
 
         headers = utils.get_headers(request, _globals)
         headers["Accept"] = accept_header_value
@@ -160,7 +172,7 @@ class BaseSDK:
             headers = {**headers, **security_headers}
             query_params = {**query_params, **security_query_params}
 
-        serialized_request_body = SerializedRequestBody("application/octet-stream")
+        serialized_request_body = SerializedRequestBody()
         if get_serialized_body is not None:
             rb = get_serialized_body()
             if request_body_required and rb is None:
@@ -178,6 +190,10 @@ class BaseSDK:
             )
         ):
             headers["content-type"] = serialized_request_body.media_type
+
+        if http_headers is not None:
+            for header, value in http_headers.items():
+                headers[header] = value
 
         timeout = timeout_ms / 1000 if timeout_ms is not None else None
 

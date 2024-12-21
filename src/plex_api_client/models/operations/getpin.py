@@ -21,65 +21,15 @@ GET_PIN_SERVERS = [
 ]
 
 
-class GetPinGlobalsTypedDict(TypedDict):
-    client_id: NotRequired[str]
-    r"""An opaque identifier unique to the client (UUID, serial number, or other unique device ID)"""
-    client_name: NotRequired[str]
-    r"""The name of the client application. (Plex Web, Plex Media Server, etc.)"""
-    device_nickname: NotRequired[str]
-    r"""A relatively friendly name for the client device"""
-    client_version: NotRequired[str]
-    r"""The version of the client application."""
-    platform: NotRequired[str]
-    r"""The platform of the client application."""
-
-
-class GetPinGlobals(BaseModel):
-    client_id: Annotated[
-        Optional[str],
-        pydantic.Field(alias="X-Plex-Client-Identifier"),
-        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
-    ] = None
-    r"""An opaque identifier unique to the client (UUID, serial number, or other unique device ID)"""
-
-    client_name: Annotated[
-        Optional[str],
-        pydantic.Field(alias="X-Plex-Product"),
-        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
-    ] = None
-    r"""The name of the client application. (Plex Web, Plex Media Server, etc.)"""
-
-    device_nickname: Annotated[
-        Optional[str],
-        pydantic.Field(alias="X-Plex-Device"),
-        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
-    ] = None
-    r"""A relatively friendly name for the client device"""
-
-    client_version: Annotated[
-        Optional[str],
-        pydantic.Field(alias="X-Plex-Version"),
-        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
-    ] = None
-    r"""The version of the client application."""
-
-    platform: Annotated[
-        Optional[str],
-        pydantic.Field(alias="X-Plex-Platform"),
-        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
-    ] = None
-    r"""The platform of the client application."""
-
-
 class GetPinRequestTypedDict(TypedDict):
+    client_id: str
+    r"""An opaque identifier unique to the client (UUID, serial number, or other unique device ID)"""
     strong: NotRequired[bool]
     r"""Determines the kind of code returned by the API call
     Strong codes are used for Pin authentication flows
     Non-Strong codes are used for `Plex.tv/link`
 
     """
-    client_id: NotRequired[str]
-    r"""An opaque identifier unique to the client (UUID, serial number, or other unique device ID)"""
     client_name: NotRequired[str]
     r"""The name of the client application. (Plex Web, Plex Media Server, etc.)"""
     device_nickname: NotRequired[str]
@@ -91,6 +41,13 @@ class GetPinRequestTypedDict(TypedDict):
 
 
 class GetPinRequest(BaseModel):
+    client_id: Annotated[
+        str,
+        pydantic.Field(alias="X-Plex-Client-Identifier"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ]
+    r"""An opaque identifier unique to the client (UUID, serial number, or other unique device ID)"""
+
     strong: Annotated[
         Optional[bool],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
@@ -100,13 +57,6 @@ class GetPinRequest(BaseModel):
     Non-Strong codes are used for `Plex.tv/link`
 
     """
-
-    client_id: Annotated[
-        Optional[str],
-        pydantic.Field(alias="X-Plex-Client-Identifier"),
-        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
-    ] = None
-    r"""An opaque identifier unique to the client (UUID, serial number, or other unique device ID)"""
 
     client_name: Annotated[
         Optional[str],

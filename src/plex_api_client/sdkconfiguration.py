@@ -5,7 +5,7 @@ from .httpclient import AsyncHttpClient, HttpClient
 from .utils import Logger, RetryConfig, remove_suffix
 from dataclasses import dataclass, field
 from enum import Enum
-from plex_api_client.models import components, internal
+from plex_api_client.models import components
 from plex_api_client.types import OptionalNullable, UNSET
 from pydantic import Field
 from typing import Callable, Dict, List, Optional, Tuple, Union
@@ -30,7 +30,6 @@ class SDKConfiguration:
     client: HttpClient
     async_client: AsyncHttpClient
     debug_logger: Logger
-    globals: internal.Globals
     security: Optional[
         Union[components.Security, Callable[[], components.Security]]
     ] = None
@@ -39,9 +38,9 @@ class SDKConfiguration:
     server_defaults: List[Dict[str, str]] = field(default_factory=List)
     language: str = "python"
     openapi_doc_version: str = "0.0.3"
-    sdk_version: str = "0.19.1"
-    gen_version: str = "2.457.9"
-    user_agent: str = "speakeasy-sdk/python 0.19.1 2.457.9 0.0.3 plex-api-client"
+    sdk_version: str = "0.20.0"
+    gen_version: str = "2.483.1"
+    user_agent: str = "speakeasy-sdk/python 0.20.0 2.483.1 0.0.3 plex-api-client"
     retry_config: OptionalNullable[RetryConfig] = Field(default_factory=lambda: UNSET)
     timeout_ms: Optional[int] = None
 

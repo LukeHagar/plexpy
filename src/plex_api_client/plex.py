@@ -5,7 +5,7 @@ from plex_api_client import utils
 from plex_api_client._hooks import HookContext
 from plex_api_client.models import errors, operations
 from plex_api_client.types import BaseModel, OptionalNullable, UNSET
-from typing import Any, List, Optional, Union, cast
+from typing import Any, List, Mapping, Optional, Union, cast
 
 
 class Plex(BaseSDK):
@@ -17,6 +17,7 @@ class Plex(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> operations.GetCompanionsDataResponse:
         r"""Get Companions Data
 
@@ -25,6 +26,7 @@ class Plex(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -46,6 +48,7 @@ class Plex(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
@@ -112,6 +115,7 @@ class Plex(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> operations.GetCompanionsDataResponse:
         r"""Get Companions Data
 
@@ -120,6 +124,7 @@ class Plex(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -141,6 +146,7 @@ class Plex(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
@@ -207,6 +213,7 @@ class Plex(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> operations.GetUserFriendsResponse:
         r"""Get list of friends of the user logged in
 
@@ -215,6 +222,7 @@ class Plex(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -236,6 +244,7 @@ class Plex(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
@@ -302,6 +311,7 @@ class Plex(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> operations.GetUserFriendsResponse:
         r"""Get list of friends of the user logged in
 
@@ -310,6 +320,7 @@ class Plex(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -331,6 +342,7 @@ class Plex(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
@@ -397,6 +409,7 @@ class Plex(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> operations.GetGeoDataResponse:
         r"""Get Geo Data
 
@@ -405,6 +418,7 @@ class Plex(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -426,6 +440,7 @@ class Plex(BaseSDK):
             request_has_query_params=False,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             timeout_ms=timeout_ms,
         )
 
@@ -487,6 +502,7 @@ class Plex(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> operations.GetGeoDataResponse:
         r"""Get Geo Data
 
@@ -495,6 +511,7 @@ class Plex(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -516,6 +533,7 @@ class Plex(BaseSDK):
             request_has_query_params=False,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             timeout_ms=timeout_ms,
         )
 
@@ -577,6 +595,7 @@ class Plex(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> operations.GetHomeDataResponse:
         r"""Get Plex Home Data
 
@@ -585,6 +604,7 @@ class Plex(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -604,6 +624,7 @@ class Plex(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
@@ -668,6 +689,7 @@ class Plex(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> operations.GetHomeDataResponse:
         r"""Get Plex Home Data
 
@@ -676,6 +698,7 @@ class Plex(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -695,6 +718,7 @@ class Plex(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
@@ -756,6 +780,7 @@ class Plex(BaseSDK):
     def get_server_resources(
         self,
         *,
+        client_id: str,
         include_https: Optional[
             operations.IncludeHTTPS
         ] = operations.IncludeHTTPS.DISABLE,
@@ -765,22 +790,23 @@ class Plex(BaseSDK):
         include_i_pv6: Optional[
             operations.IncludeIPv6
         ] = operations.IncludeIPv6.DISABLE,
-        client_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> operations.GetServerResourcesResponse:
         r"""Get Server Resources
 
         Get Plex server access tokens and server connections
 
+        :param client_id: An opaque identifier unique to the client (UUID, serial number, or other unique device ID)
         :param include_https: Include Https entries in the results
         :param include_relay: Include Relay addresses in the results  E.g: https://10-0-0-25.bbf8e10c7fa20447cacee74cd9914cde.plex.direct:32400
         :param include_i_pv6: Include IPv6 entries in the results
-        :param client_id: An opaque identifier unique to the client (UUID, serial number, or other unique device ID)
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -810,9 +836,7 @@ class Plex(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
-            _globals=operations.GetServerResourcesGlobals(
-                client_id=self.sdk_configuration.globals.client_id,
-            ),
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
@@ -876,6 +900,7 @@ class Plex(BaseSDK):
     async def get_server_resources_async(
         self,
         *,
+        client_id: str,
         include_https: Optional[
             operations.IncludeHTTPS
         ] = operations.IncludeHTTPS.DISABLE,
@@ -885,22 +910,23 @@ class Plex(BaseSDK):
         include_i_pv6: Optional[
             operations.IncludeIPv6
         ] = operations.IncludeIPv6.DISABLE,
-        client_id: Optional[str] = None,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> operations.GetServerResourcesResponse:
         r"""Get Server Resources
 
         Get Plex server access tokens and server connections
 
+        :param client_id: An opaque identifier unique to the client (UUID, serial number, or other unique device ID)
         :param include_https: Include Https entries in the results
         :param include_relay: Include Relay addresses in the results  E.g: https://10-0-0-25.bbf8e10c7fa20447cacee74cd9914cde.plex.direct:32400
         :param include_i_pv6: Include IPv6 entries in the results
-        :param client_id: An opaque identifier unique to the client (UUID, serial number, or other unique device ID)
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -930,9 +956,7 @@ class Plex(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
-            _globals=operations.GetServerResourcesGlobals(
-                client_id=self.sdk_configuration.globals.client_id,
-            ),
+            http_headers=http_headers,
             security=self.sdk_configuration.security,
             timeout_ms=timeout_ms,
         )
@@ -1000,6 +1024,7 @@ class Plex(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> operations.GetPinResponse:
         r"""Get a Pin
 
@@ -1009,6 +1034,7 @@ class Plex(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -1035,13 +1061,7 @@ class Plex(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
-            _globals=operations.GetPinGlobals(
-                client_id=self.sdk_configuration.globals.client_id,
-                client_name=self.sdk_configuration.globals.client_name,
-                device_nickname=self.sdk_configuration.globals.device_nickname,
-                client_version=self.sdk_configuration.globals.client_version,
-                platform=self.sdk_configuration.globals.platform,
-            ),
+            http_headers=http_headers,
             timeout_ms=timeout_ms,
         )
 
@@ -1098,6 +1118,7 @@ class Plex(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> operations.GetPinResponse:
         r"""Get a Pin
 
@@ -1107,6 +1128,7 @@ class Plex(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -1133,13 +1155,7 @@ class Plex(BaseSDK):
             request_has_query_params=True,
             user_agent_header="user-agent",
             accept_header_value="application/json",
-            _globals=operations.GetPinGlobals(
-                client_id=self.sdk_configuration.globals.client_id,
-                client_name=self.sdk_configuration.globals.client_name,
-                device_nickname=self.sdk_configuration.globals.device_nickname,
-                client_version=self.sdk_configuration.globals.client_version,
-                platform=self.sdk_configuration.globals.platform,
-            ),
+            http_headers=http_headers,
             timeout_ms=timeout_ms,
         )
 
@@ -1199,6 +1215,7 @@ class Plex(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> operations.GetTokenByPinIDResponse:
         r"""Get Access Token by PinId
 
@@ -1208,6 +1225,7 @@ class Plex(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -1234,13 +1252,7 @@ class Plex(BaseSDK):
             request_has_query_params=False,
             user_agent_header="user-agent",
             accept_header_value="application/json",
-            _globals=operations.GetTokenByPinIDGlobals(
-                client_id=self.sdk_configuration.globals.client_id,
-                client_name=self.sdk_configuration.globals.client_name,
-                device_nickname=self.sdk_configuration.globals.device_nickname,
-                client_version=self.sdk_configuration.globals.client_version,
-                platform=self.sdk_configuration.globals.platform,
-            ),
+            http_headers=http_headers,
             timeout_ms=timeout_ms,
         )
 
@@ -1308,6 +1320,7 @@ class Plex(BaseSDK):
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
     ) -> operations.GetTokenByPinIDResponse:
         r"""Get Access Token by PinId
 
@@ -1317,6 +1330,7 @@ class Plex(BaseSDK):
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
         """
         base_url = None
         url_variables = None
@@ -1343,13 +1357,7 @@ class Plex(BaseSDK):
             request_has_query_params=False,
             user_agent_header="user-agent",
             accept_header_value="application/json",
-            _globals=operations.GetTokenByPinIDGlobals(
-                client_id=self.sdk_configuration.globals.client_id,
-                client_name=self.sdk_configuration.globals.client_name,
-                device_nickname=self.sdk_configuration.globals.device_nickname,
-                client_version=self.sdk_configuration.globals.client_version,
-                platform=self.sdk_configuration.globals.platform,
-            ),
+            http_headers=http_headers,
             timeout_ms=timeout_ms,
         )
 

@@ -16,20 +16,6 @@ GET_SERVER_RESOURCES_SERVERS = [
 ]
 
 
-class GetServerResourcesGlobalsTypedDict(TypedDict):
-    client_id: NotRequired[str]
-    r"""An opaque identifier unique to the client (UUID, serial number, or other unique device ID)"""
-
-
-class GetServerResourcesGlobals(BaseModel):
-    client_id: Annotated[
-        Optional[str],
-        pydantic.Field(alias="X-Plex-Client-Identifier"),
-        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
-    ] = None
-    r"""An opaque identifier unique to the client (UUID, serial number, or other unique device ID)"""
-
-
 class IncludeHTTPS(int, Enum):
     r"""Include Https entries in the results"""
 
@@ -55,6 +41,8 @@ class IncludeIPv6(int, Enum):
 
 
 class GetServerResourcesRequestTypedDict(TypedDict):
+    client_id: str
+    r"""An opaque identifier unique to the client (UUID, serial number, or other unique device ID)"""
     include_https: NotRequired[IncludeHTTPS]
     r"""Include Https entries in the results"""
     include_relay: NotRequired[IncludeRelay]
@@ -64,11 +52,16 @@ class GetServerResourcesRequestTypedDict(TypedDict):
     """
     include_i_pv6: NotRequired[IncludeIPv6]
     r"""Include IPv6 entries in the results"""
-    client_id: NotRequired[str]
-    r"""An opaque identifier unique to the client (UUID, serial number, or other unique device ID)"""
 
 
 class GetServerResourcesRequest(BaseModel):
+    client_id: Annotated[
+        str,
+        pydantic.Field(alias="X-Plex-Client-Identifier"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ]
+    r"""An opaque identifier unique to the client (UUID, serial number, or other unique device ID)"""
+
     include_https: Annotated[
         Optional[IncludeHTTPS],
         pydantic.Field(alias="includeHttps"),
@@ -92,13 +85,6 @@ class GetServerResourcesRequest(BaseModel):
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = IncludeIPv6.DISABLE
     r"""Include IPv6 entries in the results"""
-
-    client_id: Annotated[
-        Optional[str],
-        pydantic.Field(alias="X-Plex-Client-Identifier"),
-        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
-    ] = None
-    r"""An opaque identifier unique to the client (UUID, serial number, or other unique device ID)"""
 
 
 class Protocol(str, Enum):

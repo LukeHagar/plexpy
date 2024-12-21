@@ -20,25 +20,21 @@ Get User Watchlist
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.watchlist.get_watch_list(request={
-    "filter_": operations.Filter.AVAILABLE,
-    "x_plex_token": "CV5xoxjTpFKUzBTShsaf",
-    "x_plex_container_start": 0,
-    "x_plex_container_size": 50,
-})
+    res = plex_api.watchlist.get_watch_list(request={
+        "filter_": operations.Filter.AVAILABLE,
+        "x_plex_token": "CV5xoxjTpFKUzBTShsaf",
+        "x_plex_container_start": 0,
+        "x_plex_container_size": 50,
+    })
 
-if res.object is not None:
-    # handle response
-    pass
+    assert res.object is not None
+
+    # Handle response
+    print(res.object)
 
 ```
 

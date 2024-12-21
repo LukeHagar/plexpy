@@ -21,56 +21,6 @@ POST_USERS_SIGN_IN_DATA_SERVERS = [
 ]
 
 
-class PostUsersSignInDataGlobalsTypedDict(TypedDict):
-    client_id: NotRequired[str]
-    r"""An opaque identifier unique to the client (UUID, serial number, or other unique device ID)"""
-    client_name: NotRequired[str]
-    r"""The name of the client application. (Plex Web, Plex Media Server, etc.)"""
-    device_nickname: NotRequired[str]
-    r"""A relatively friendly name for the client device"""
-    client_version: NotRequired[str]
-    r"""The version of the client application."""
-    platform: NotRequired[str]
-    r"""The platform of the client application."""
-
-
-class PostUsersSignInDataGlobals(BaseModel):
-    client_id: Annotated[
-        Optional[str],
-        pydantic.Field(alias="X-Plex-Client-Identifier"),
-        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
-    ] = None
-    r"""An opaque identifier unique to the client (UUID, serial number, or other unique device ID)"""
-
-    client_name: Annotated[
-        Optional[str],
-        pydantic.Field(alias="X-Plex-Product"),
-        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
-    ] = None
-    r"""The name of the client application. (Plex Web, Plex Media Server, etc.)"""
-
-    device_nickname: Annotated[
-        Optional[str],
-        pydantic.Field(alias="X-Plex-Device"),
-        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
-    ] = None
-    r"""A relatively friendly name for the client device"""
-
-    client_version: Annotated[
-        Optional[str],
-        pydantic.Field(alias="X-Plex-Version"),
-        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
-    ] = None
-    r"""The version of the client application."""
-
-    platform: Annotated[
-        Optional[str],
-        pydantic.Field(alias="X-Plex-Platform"),
-        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
-    ] = None
-    r"""The platform of the client application."""
-
-
 class PostUsersSignInDataRequestBodyTypedDict(TypedDict):
     r"""Login credentials"""
 
@@ -99,7 +49,7 @@ class PostUsersSignInDataRequestBody(BaseModel):
 
 
 class PostUsersSignInDataRequestTypedDict(TypedDict):
-    client_id: NotRequired[str]
+    client_id: str
     r"""An opaque identifier unique to the client (UUID, serial number, or other unique device ID)"""
     client_name: NotRequired[str]
     r"""The name of the client application. (Plex Web, Plex Media Server, etc.)"""
@@ -115,10 +65,10 @@ class PostUsersSignInDataRequestTypedDict(TypedDict):
 
 class PostUsersSignInDataRequest(BaseModel):
     client_id: Annotated[
-        Optional[str],
+        str,
         pydantic.Field(alias="X-Plex-Client-Identifier"),
         FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
-    ] = None
+    ]
     r"""An opaque identifier unique to the client (UUID, serial number, or other unique device ID)"""
 
     client_name: Annotated[

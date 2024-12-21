@@ -24,20 +24,16 @@ This endpoint provides the caller with a temporary token with the same access le
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.authentication.get_transient_token(type_=operations.GetTransientTokenQueryParamType.DELEGATION, scope=operations.Scope.ALL)
+    res = plex_api.authentication.get_transient_token(type_=operations.GetTransientTokenQueryParamType.DELEGATION, scope=operations.Scope.ALL)
 
-if res is not None:
-    # handle response
-    pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -72,20 +68,16 @@ Note: requires Plex Media Server >= 1.15.4.
 ```python
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.authentication.get_source_connection_information(source="provider://provider-identifier")
+    res = plex_api.authentication.get_source_connection_information(source="provider://provider-identifier")
 
-if res is not None:
-    # handle response
-    pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -117,20 +109,16 @@ Get the User data from the provided X-Plex-Token
 ```python
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.authentication.get_token_details()
+    res = plex_api.authentication.get_token_details()
 
-if res.user_plex_account is not None:
-    # handle response
-    pass
+    assert res.user_plex_account is not None
+
+    # Handle response
+    print(res.user_plex_account)
 
 ```
 
@@ -162,25 +150,25 @@ Sign in user with username and password and return user data with Plex authentic
 ```python
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+with PlexAPI() as plex_api:
 
-res = s.authentication.post_users_sign_in_data(request={
-    "request_body": {
-        "login": "username@email.com",
-        "password": "password123",
-        "verification_code": "123456",
-    },
-})
+    res = plex_api.authentication.post_users_sign_in_data(request={
+        "client_id": "3381b62b-9ab7-4e37-827b-203e9809eb58",
+        "client_name": "Plex for Roku",
+        "device_nickname": "Roku 3",
+        "client_version": "2.4.1",
+        "platform": "Roku",
+        "request_body": {
+            "login": "username@email.com",
+            "password": "password123",
+            "verification_code": "123456",
+        },
+    })
 
-if res.user_plex_account is not None:
-    # handle response
-    pass
+    assert res.user_plex_account is not None
+
+    # Handle response
+    print(res.user_plex_account)
 
 ```
 

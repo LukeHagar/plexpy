@@ -23,20 +23,16 @@ Returns a list of butler tasks
 ```python
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.butler.get_butler_tasks()
+    res = plex_api.butler.get_butler_tasks()
 
-if res.object is not None:
-    # handle response
-    pass
+    assert res.object is not None
+
+    # Handle response
+    print(res.object)
 
 ```
 
@@ -72,20 +68,16 @@ This endpoint will attempt to start all Butler tasks that are enabled in the set
 ```python
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.butler.start_all_tasks()
+    res = plex_api.butler.start_all_tasks()
 
-if res is not None:
-    # handle response
-    pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -117,20 +109,16 @@ This endpoint will stop all currently running tasks and remove any scheduled tas
 ```python
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.butler.stop_all_tasks()
+    res = plex_api.butler.stop_all_tasks()
 
-if res is not None:
-    # handle response
-    pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -167,20 +155,16 @@ This endpoint will attempt to start a single Butler task that is enabled in the 
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.butler.start_task(task_name=operations.TaskName.CLEAN_OLD_BUNDLES)
+    res = plex_api.butler.start_task(task_name=operations.TaskName.CLEAN_OLD_BUNDLES)
 
-if res is not None:
-    # handle response
-    pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -214,20 +198,16 @@ This endpoint will stop a currently running task by name, or remove it from the 
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.butler.stop_task(task_name=operations.PathParamTaskName.BACKUP_DATABASE)
+    res = plex_api.butler.stop_task(task_name=operations.PathParamTaskName.BACKUP_DATABASE)
 
-if res is not None:
-    # handle response
-    pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 

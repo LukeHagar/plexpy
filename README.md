@@ -40,17 +40,25 @@ The following SDKs are generated from the OpenAPI Specification. They are automa
 
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
+<!-- $toc-max-depth=2 -->
+* [plexpy](#plexpy)
+* [Plex Media Server OpenAPI Specification](#plex-media-server-openapi-specification)
+  * [Documentation](#documentation)
+  * [SDKs](#sdks)
+  * [SDK Installation](#sdk-installation)
+  * [IDE Support](#ide-support)
+  * [SDK Example Usage](#sdk-example-usage)
+  * [Available Resources and Operations](#available-resources-and-operations)
+  * [Retries](#retries)
+  * [Error Handling](#error-handling)
+  * [Server Selection](#server-selection)
+  * [Custom HTTP Client](#custom-http-client)
+  * [Authentication](#authentication)
+  * [Debugging](#debugging)
+* [Development](#development)
+  * [Maturity](#maturity)
+  * [Contributions](#contributions)
 
-* [SDK Installation](#sdk-installation)
-* [IDE Support](#ide-support)
-* [SDK Example Usage](#sdk-example-usage)
-* [Available Resources and Operations](#available-resources-and-operations)
-* [Retries](#retries)
-* [Error Handling](#error-handling)
-* [Server Selection](#server-selection)
-* [Custom HTTP Client](#custom-http-client)
-* [Authentication](#authentication)
-* [Debugging](#debugging)
 <!-- End Table of Contents [toc] -->
 
 <!-- Start SDK Installation [installation] -->
@@ -94,20 +102,16 @@ Generally, the SDK will work well with most IDEs out of the box. However, when u
 # Synchronous Example
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.server.get_server_capabilities()
+    res = plex_api.server.get_server_capabilities()
 
-if res.object is not None:
-    # handle response
-    pass
+    assert res.object is not None
+
+    # Handle response
+    print(res.object)
 ```
 
 </br>
@@ -119,18 +123,16 @@ import asyncio
 from plex_api_client import PlexAPI
 
 async def main():
-    s = PlexAPI(
+    async with PlexAPI(
         access_token="<YOUR_API_KEY_HERE>",
-        client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-        client_name="Plex for Roku",
-        client_version="2.4.1",
-        platform="Roku",
-        device_nickname="Roku 3",
-    )
-    res = await s.server.get_server_capabilities_async()
-    if res.object is not None:
-        # handle response
-        pass
+    ) as plex_api:
+
+        res = await plex_api.server.get_server_capabilities_async()
+
+        assert res.object is not None
+
+        # Handle response
+        print(res.object)
 
 asyncio.run(main())
 ```
@@ -277,47 +279,39 @@ Some of the endpoints in this SDK support retries. If you use the SDK without an
 
 To change the default retry strategy for a single API call, simply provide a `RetryConfig` object to the call:
 ```python
-from plex_api.utils import BackoffStrategy, RetryConfig
 from plex_api_client import PlexAPI
+from plex_api_client.utils import BackoffStrategy, RetryConfig
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.server.get_server_capabilities(,
-    RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False))
+    res = plex_api.server.get_server_capabilities(,
+        RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False))
 
-if res.object is not None:
-    # handle response
-    pass
+    assert res.object is not None
+
+    # Handle response
+    print(res.object)
 
 ```
 
 If you'd like to override the default retry strategy for all operations that support retries, you can use the `retry_config` optional parameter when initializing the SDK:
 ```python
-from plex_api.utils import BackoffStrategy, RetryConfig
 from plex_api_client import PlexAPI
+from plex_api_client.utils import BackoffStrategy, RetryConfig
 
-s = PlexAPI(
+with PlexAPI(
     retry_config=RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False),
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.server.get_server_capabilities()
+    res = plex_api.server.get_server_capabilities()
 
-if res.object is not None:
-    # handle response
-    pass
+    assert res.object is not None
+
+    # Handle response
+    print(res.object)
 
 ```
 <!-- End Retries [retries] -->
@@ -350,32 +344,28 @@ When custom error responses are specified for an operation, the SDK may also rai
 from plex_api_client import PlexAPI
 from plex_api_client.models import errors
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
+    res = None
+    try:
 
-res = None
-try:
-    res = s.server.get_server_capabilities()
+        res = plex_api.server.get_server_capabilities()
 
-    if res.object is not None:
-        # handle response
-        pass
+        assert res.object is not None
 
-except errors.GetServerCapabilitiesBadRequest as e:
-    # handle e.data: errors.GetServerCapabilitiesBadRequestData
-    raise(e)
-except errors.GetServerCapabilitiesUnauthorized as e:
-    # handle e.data: errors.GetServerCapabilitiesUnauthorizedData
-    raise(e)
-except errors.SDKError as e:
-    # handle exception
-    raise(e)
+        # Handle response
+        print(res.object)
+
+    except errors.GetServerCapabilitiesBadRequest as e:
+        # handle e.data: errors.GetServerCapabilitiesBadRequestData
+        raise(e)
+    except errors.GetServerCapabilitiesUnauthorized as e:
+        # handle e.data: errors.GetServerCapabilitiesUnauthorizedData
+        raise(e)
+    except errors.SDKError as e:
+        # handle exception
+        raise(e)
 ```
 <!-- End Error Handling [errors] -->
 
@@ -395,21 +385,17 @@ The default server can also be overridden globally by passing a URL to the `serv
 ```python
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
+with PlexAPI(
     server_url="https://10.10.10.47:32400",
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.server.get_server_capabilities()
+    res = plex_api.server.get_server_capabilities()
 
-if res.object is not None:
-    # handle response
-    pass
+    assert res.object is not None
+
+    # Handle response
+    print(res.object)
 
 ```
 
@@ -419,20 +405,16 @@ The server URL can also be overridden on a per-operation basis, provided a serve
 ```python
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.plex.get_companions_data(server_url="https://plex.tv/api/v2")
+    res = plex_api.plex.get_companions_data(server_url="https://plex.tv/api/v2")
 
-if res.response_bodies is not None:
-    # handle response
-    pass
+    assert res.response_bodies is not None
+
+    # Handle response
+    print(res.response_bodies)
 
 ```
 <!-- End Server Selection [server] -->
@@ -533,20 +515,16 @@ To authenticate with the API the `access_token` parameter must be set when initi
 ```python
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.server.get_server_capabilities()
+    res = plex_api.server.get_server_capabilities()
 
-if res.object is not None:
-    # handle response
-    pass
+    assert res.object is not None
+
+    # Handle response
+    print(res.object)
 
 ```
 <!-- End Authentication [security] -->

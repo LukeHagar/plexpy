@@ -33,6 +33,7 @@ class Tag(str, Enum):
     RESOLUTION = "resolution"
     FIRST_CHARACTER = "firstCharacter"
     FOLDER = "folder"
+    ALBUMS = "albums"
 
 
 class IncludeGuids(int, Enum):
@@ -57,6 +58,8 @@ class GetLibraryItemsQueryParamType(int, Enum):
     SEASON = 3
     EPISODE = 4
     AUDIO = 8
+    ALBUM = 9
+    TRACK = 10
 
 
 class GetLibraryItemsQueryParamIncludeMeta(int, Enum):
@@ -347,17 +350,17 @@ class GetLibraryItemsShowOrdering(str, Enum):
     r"""Setting that indicates the episode ordering for the show
     None = Library default,
     tmdbAiring = The Movie Database (Aired),
-    aired = TheTVDB (Aired),
-    dvd = TheTVDB (DVD),
-    absolute = TheTVDB (Absolute)).
+    tvdbAiring = TheTVDB (Aired),
+    tvdbDvd = TheTVDB (DVD),
+    tvdbAbsolute = TheTVDB (Absolute)).
 
     """
 
     NONE = "None"
     TMDB_AIRING = "tmdbAiring"
-    AIRED = "aired"
-    DVD = "dvd"
-    ABSOLUTE = "absolute"
+    TVDB_AIRING = "tvdbAiring"
+    TVDB_DVD = "tvdbDvd"
+    TVDB_ABSOLUTE = "tvdbAbsolute"
 
 
 class GetLibraryItemsOptimizedForStreaming(int, Enum):
@@ -897,9 +900,9 @@ class GetLibraryItemsMetadataTypedDict(TypedDict):
     r"""Setting that indicates the episode ordering for the show
     None = Library default,
     tmdbAiring = The Movie Database (Aired),
-    aired = TheTVDB (Aired),
-    dvd = TheTVDB (DVD),
-    absolute = TheTVDB (Absolute)).
+    tvdbAiring = TheTVDB (Aired),
+    tvdbDvd = TheTVDB (DVD),
+    tvdbAbsolute = TheTVDB (Absolute)).
 
     """
     thumb: NotRequired[str]
@@ -1036,9 +1039,9 @@ class GetLibraryItemsMetadata(BaseModel):
     r"""Setting that indicates the episode ordering for the show
     None = Library default,
     tmdbAiring = The Movie Database (Aired),
-    aired = TheTVDB (Aired),
-    dvd = TheTVDB (DVD),
-    absolute = TheTVDB (Absolute)).
+    tvdbAiring = TheTVDB (Aired),
+    tvdbDvd = TheTVDB (DVD),
+    tvdbAbsolute = TheTVDB (Absolute)).
 
     """
 

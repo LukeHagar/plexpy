@@ -27,20 +27,16 @@ Get Server Capabilities
 ```python
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.server.get_server_capabilities()
+    res = plex_api.server.get_server_capabilities()
 
-if res.object is not None:
-    # handle response
-    pass
+    assert res.object is not None
+
+    # Handle response
+    print(res.object)
 
 ```
 
@@ -71,20 +67,16 @@ Get Server Preferences
 ```python
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.server.get_server_preferences()
+    res = plex_api.server.get_server_preferences()
 
-if res.object is not None:
-    # handle response
-    pass
+    assert res.object is not None
+
+    # Handle response
+    print(res.object)
 
 ```
 
@@ -115,20 +107,16 @@ Get Available Clients
 ```python
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.server.get_available_clients()
+    res = plex_api.server.get_available_clients()
 
-if res.object is not None:
-    # handle response
-    pass
+    assert res.object is not None
+
+    # Handle response
+    print(res.object)
 
 ```
 
@@ -159,20 +147,16 @@ Get Devices
 ```python
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.server.get_devices()
+    res = plex_api.server.get_devices()
 
-if res.object is not None:
-    # handle response
-    pass
+    assert res.object is not None
+
+    # Handle response
+    print(res.object)
 
 ```
 
@@ -203,19 +187,14 @@ This request is useful to determine if the server is online or offline
 ```python
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+with PlexAPI() as plex_api:
 
-res = s.server.get_server_identity()
+    res = plex_api.server.get_server_identity()
 
-if res.object is not None:
-    # handle response
-    pass
+    assert res.object is not None
+
+    # Handle response
+    print(res.object)
 
 ```
 
@@ -245,20 +224,16 @@ Returns MyPlex Account Information
 ```python
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.server.get_my_plex_account()
+    res = plex_api.server.get_my_plex_account()
 
-if res.object is not None:
-    # handle response
-    pass
+    assert res.object is not None
+
+    # Handle response
+    print(res.object)
 
 ```
 
@@ -291,28 +266,24 @@ Plex's Photo transcoder is used throughout the service to serve images at specif
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.server.get_resized_photo(request={
-    "width": 110,
-    "height": 165,
-    "blur": 0,
-    "min_size": operations.MinSize.ONE,
-    "upscale": operations.Upscale.ONE,
-    "url": "/library/metadata/49564/thumb/1654258204",
-    "opacity": 100,
-})
+    res = plex_api.server.get_resized_photo(request={
+        "width": 110,
+        "height": 165,
+        "blur": 0,
+        "min_size": operations.MinSize.ONE,
+        "upscale": operations.Upscale.ONE,
+        "url": "/library/metadata/49564/thumb/1654258204",
+        "opacity": 100,
+    })
 
-if res is not None:
-    # handle response
-    pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -344,20 +315,16 @@ Retrieves media providers and their features from the Plex server.
 ```python
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.server.get_media_providers(x_plex_token="CV5xoxjTpFKUzBTShsaf")
+    res = plex_api.server.get_media_providers(x_plex_token="CV5xoxjTpFKUzBTShsaf")
 
-if res.object is not None:
-    # handle response
-    pass
+    assert res.object is not None
+
+    # Handle response
+    print(res.object)
 
 ```
 
@@ -389,20 +356,16 @@ Get Server List
 ```python
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.server.get_server_list()
+    res = plex_api.server.get_server_list()
 
-if res.object is not None:
-    # handle response
-    pass
+    assert res.object is not None
+
+    # Handle response
+    print(res.object)
 
 ```
 

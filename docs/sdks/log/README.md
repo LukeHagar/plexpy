@@ -23,20 +23,16 @@ This endpoint will write a single-line log message, including a level and source
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.log.log_line(level=operations.Level.THREE, message="Test log message", source="Postman")
+    res = plex_api.log.log_line(level=operations.Level.THREE, message="Test log message", source="Postman")
 
-if res is not None:
-    # handle response
-    pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -91,22 +87,18 @@ Ensure each parameter is properly URL-encoded to avoid interpretation issues.
 ```python
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.log.log_multi_line(request="level=4&message=Test%20message%201&source=postman\n" +
-"level=3&message=Test%20message%202&source=postman\n" +
-"level=1&message=Test%20message%203&source=postman")
+    res = plex_api.log.log_multi_line(request="level=4&message=Test%20message%201&source=postman\n" +
+    "level=3&message=Test%20message%202&source=postman\n" +
+    "level=1&message=Test%20message%203&source=postman")
 
-if res is not None:
-    # handle response
-    pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -139,20 +131,16 @@ This endpoint will enable all Plex Media Serverlogs to be sent to the Papertrail
 ```python
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.log.enable_paper_trail()
+    res = plex_api.log.enable_paper_trail()
 
-if res is not None:
-    # handle response
-    pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 

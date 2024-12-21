@@ -21,20 +21,16 @@ This will return the media statistics for the server
 ```python
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.statistics.get_statistics(timespan=4)
+    res = plex_api.statistics.get_statistics(timespan=4)
 
-if res.object is not None:
-    # handle response
-    pass
+    assert res.object is not None
+
+    # Handle response
+    print(res.object)
 
 ```
 
@@ -66,20 +62,16 @@ This will return the resources for the server
 ```python
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.statistics.get_resources_statistics(timespan=4)
+    res = plex_api.statistics.get_resources_statistics(timespan=4)
 
-if res.object is not None:
-    # handle response
-    pass
+    assert res.object is not None
+
+    # Handle response
+    print(res.object)
 
 ```
 
@@ -111,20 +103,16 @@ This will return the bandwidth statistics for the server
 ```python
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.statistics.get_bandwidth_statistics(timespan=4)
+    res = plex_api.statistics.get_bandwidth_statistics(timespan=4)
 
-if res.object is not None:
-    # handle response
-    pass
+    assert res.object is not None
+
+    # Handle response
+    print(res.object)
 
 ```
 

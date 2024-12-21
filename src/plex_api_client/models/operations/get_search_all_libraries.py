@@ -11,20 +11,6 @@ from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class GetSearchAllLibrariesGlobalsTypedDict(TypedDict):
-    client_id: NotRequired[str]
-    r"""An opaque identifier unique to the client (UUID, serial number, or other unique device ID)"""
-
-
-class GetSearchAllLibrariesGlobals(BaseModel):
-    client_id: Annotated[
-        Optional[str],
-        pydantic.Field(alias="X-Plex-Client-Identifier"),
-        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
-    ] = None
-    r"""An opaque identifier unique to the client (UUID, serial number, or other unique device ID)"""
-
-
 class SearchTypes(str, Enum):
     MOVIES = "movies"
     MUSIC = "music"
@@ -50,7 +36,7 @@ class QueryParamIncludeExternalMedia(int, Enum):
 class GetSearchAllLibrariesRequestTypedDict(TypedDict):
     query: str
     r"""The search query term."""
-    client_id: NotRequired[str]
+    client_id: str
     r"""An opaque identifier unique to the client (UUID, serial number, or other unique device ID)"""
     limit: NotRequired[int]
     r"""Limit the number of results returned."""
@@ -71,10 +57,10 @@ class GetSearchAllLibrariesRequest(BaseModel):
     r"""The search query term."""
 
     client_id: Annotated[
-        Optional[str],
+        str,
         pydantic.Field(alias="X-Plex-Client-Identifier"),
         FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
-    ] = None
+    ]
     r"""An opaque identifier unique to the client (UUID, serial number, or other unique device ID)"""
 
     limit: Annotated[
@@ -125,17 +111,17 @@ class GetSearchAllLibrariesShowOrdering(str, Enum):
     r"""Setting that indicates the episode ordering for the show
     None = Library default,
     tmdbAiring = The Movie Database (Aired),
-    aired = TheTVDB (Aired),
-    dvd = TheTVDB (DVD),
-    absolute = TheTVDB (Absolute)).
+    tvdbAiring = TheTVDB (Aired),
+    tvdbDvd = TheTVDB (DVD),
+    tvdbAbsolute = TheTVDB (Absolute)).
 
     """
 
     NONE = "None"
     TMDB_AIRING = "tmdbAiring"
-    AIRED = "aired"
-    DVD = "dvd"
-    ABSOLUTE = "absolute"
+    TVDB_AIRING = "tvdbAiring"
+    TVDB_DVD = "tvdbDvd"
+    TVDB_ABSOLUTE = "tvdbAbsolute"
 
 
 class GetSearchAllLibrariesOptimizedForStreaming(int, Enum):
@@ -676,9 +662,9 @@ class GetSearchAllLibrariesMetadataTypedDict(TypedDict):
     r"""Setting that indicates the episode ordering for the show
     None = Library default,
     tmdbAiring = The Movie Database (Aired),
-    aired = TheTVDB (Aired),
-    dvd = TheTVDB (DVD),
-    absolute = TheTVDB (Absolute)).
+    tvdbAiring = TheTVDB (Aired),
+    tvdbDvd = TheTVDB (DVD),
+    tvdbAbsolute = TheTVDB (Absolute)).
 
     """
     thumb: NotRequired[str]
@@ -817,9 +803,9 @@ class GetSearchAllLibrariesMetadata(BaseModel):
     r"""Setting that indicates the episode ordering for the show
     None = Library default,
     tmdbAiring = The Movie Database (Aired),
-    aired = TheTVDB (Aired),
-    dvd = TheTVDB (DVD),
-    absolute = TheTVDB (Absolute)).
+    tvdbAiring = TheTVDB (Aired),
+    tvdbDvd = TheTVDB (DVD),
+    tvdbAbsolute = TheTVDB (Absolute)).
 
     """
 

@@ -25,20 +25,16 @@ Get Companions Data
 ```python
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.plex.get_companions_data()
+    res = plex_api.plex.get_companions_data()
 
-if res.response_bodies is not None:
-    # handle response
-    pass
+    assert res.response_bodies is not None
+
+    # Handle response
+    print(res.response_bodies)
 
 ```
 
@@ -70,20 +66,16 @@ Get friends of provided auth token.
 ```python
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.plex.get_user_friends()
+    res = plex_api.plex.get_user_friends()
 
-if res.friends is not None:
-    # handle response
-    pass
+    assert res.friends is not None
+
+    # Handle response
+    print(res.friends)
 
 ```
 
@@ -115,19 +107,14 @@ Returns the geolocation and locale data of the caller
 ```python
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+with PlexAPI() as plex_api:
 
-res = s.plex.get_geo_data()
+    res = plex_api.plex.get_geo_data()
 
-if res.geo_data is not None:
-    # handle response
-    pass
+    assert res.geo_data is not None
+
+    # Handle response
+    print(res.geo_data)
 
 ```
 
@@ -159,20 +146,16 @@ Retrieves the home data for the authenticated user, including details like home 
 ```python
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.plex.get_home_data()
+    res = plex_api.plex.get_home_data()
 
-if res.object is not None:
-    # handle response
-    pass
+    assert res.object is not None
+
+    # Handle response
+    print(res.object)
 
 ```
 
@@ -204,20 +187,16 @@ Get Plex server access tokens and server connections
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.plex.get_server_resources(include_https=operations.IncludeHTTPS.ENABLE, include_relay=operations.IncludeRelay.ENABLE, include_i_pv6=operations.IncludeIPv6.ENABLE, client_id="3381b62b-9ab7-4e37-827b-203e9809eb58")
+    res = plex_api.plex.get_server_resources(client_id="3381b62b-9ab7-4e37-827b-203e9809eb58", include_https=operations.IncludeHTTPS.ENABLE, include_relay=operations.IncludeRelay.ENABLE, include_i_pv6=operations.IncludeIPv6.ENABLE)
 
-if res.plex_devices is not None:
-    # handle response
-    pass
+    assert res.plex_devices is not None
+
+    # Handle response
+    print(res.plex_devices)
 
 ```
 
@@ -225,10 +204,10 @@ if res.plex_devices is not None:
 
 | Parameter                                                                                                          | Type                                                                                                               | Required                                                                                                           | Description                                                                                                        | Example                                                                                                            |
 | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
+| `client_id`                                                                                                        | *str*                                                                                                              | :heavy_check_mark:                                                                                                 | An opaque identifier unique to the client (UUID, serial number, or other unique device ID)                         | 3381b62b-9ab7-4e37-827b-203e9809eb58                                                                               |
 | `include_https`                                                                                                    | [Optional[operations.IncludeHTTPS]](../../models/operations/includehttps.md)                                       | :heavy_minus_sign:                                                                                                 | Include Https entries in the results                                                                               | 1                                                                                                                  |
 | `include_relay`                                                                                                    | [Optional[operations.IncludeRelay]](../../models/operations/includerelay.md)                                       | :heavy_minus_sign:                                                                                                 | Include Relay addresses in the results <br/>E.g: https://10-0-0-25.bbf8e10c7fa20447cacee74cd9914cde.plex.direct:32400<br/> | 1                                                                                                                  |
 | `include_i_pv6`                                                                                                    | [Optional[operations.IncludeIPv6]](../../models/operations/includeipv6.md)                                         | :heavy_minus_sign:                                                                                                 | Include IPv6 entries in the results                                                                                | 1                                                                                                                  |
-| `client_id`                                                                                                        | *Optional[str]*                                                                                                    | :heavy_minus_sign:                                                                                                 | An opaque identifier unique to the client (UUID, serial number, or other unique device ID)                         | 3381b62b-9ab7-4e37-827b-203e9809eb58                                                                               |
 | `retries`                                                                                                          | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                   | :heavy_minus_sign:                                                                                                 | Configuration to override the default retry behavior of the client.                                                |                                                                                                                    |
 | `server_url`                                                                                                       | *Optional[str]*                                                                                                    | :heavy_minus_sign:                                                                                                 | An optional server URL to use.                                                                                     | http://localhost:8080                                                                                              |
 
@@ -253,19 +232,20 @@ Retrieve a Pin ID from Plex.tv to use for authentication flows
 ```python
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+with PlexAPI() as plex_api:
 
-res = s.plex.get_pin(request={})
+    res = plex_api.plex.get_pin(request={
+        "client_id": "3381b62b-9ab7-4e37-827b-203e9809eb58",
+        "client_name": "Plex for Roku",
+        "device_nickname": "Roku 3",
+        "client_version": "2.4.1",
+        "platform": "Roku",
+    })
 
-if res.auth_pin_container is not None:
-    # handle response
-    pass
+    assert res.auth_pin_container is not None
+
+    # Handle response
+    print(res.auth_pin_container)
 
 ```
 
@@ -297,21 +277,21 @@ Retrieve an Access Token from Plex.tv after the Pin has been authenticated
 ```python
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+with PlexAPI() as plex_api:
 
-res = s.plex.get_token_by_pin_id(request={
-    "pin_id": 408895,
-})
+    res = plex_api.plex.get_token_by_pin_id(request={
+        "pin_id": 408895,
+        "client_id": "3381b62b-9ab7-4e37-827b-203e9809eb58",
+        "client_name": "Plex for Roku",
+        "device_nickname": "Roku 3",
+        "client_version": "2.4.1",
+        "platform": "Roku",
+    })
 
-if res.auth_pin_container is not None:
-    # handle response
-    pass
+    assert res.auth_pin_container is not None
+
+    # Handle response
+    print(res.auth_pin_container)
 
 ```
 

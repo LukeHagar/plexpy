@@ -392,6 +392,16 @@ class GetMetaDataByRatingKeyMetadataTypedDict(TypedDict):
     library_section_title: NotRequired[str]
     library_section_id: NotRequired[int]
     library_section_key: NotRequired[str]
+    grandparent_title: NotRequired[str]
+    r"""The name of the album artist for the track when audio, and the name of the TV show for the episode when video."""
+    parent_title: NotRequired[str]
+    r"""The name of the album for the track when audio, and the name of the season for the episode when TV show."""
+    original_title: NotRequired[str]
+    r"""The orginal untranslated name of the media item when non-english."""
+    index: NotRequired[int]
+    r"""The index starting from 0 of this media item in the MetaData array."""
+    parent_index: NotRequired[int]
+    r"""The parent index starting from 0 of this media item in the parent MetaData array."""
     content_rating: NotRequired[str]
     summary: NotRequired[str]
     rating: NotRequired[float]
@@ -442,6 +452,25 @@ class GetMetaDataByRatingKeyMetadata(BaseModel):
     library_section_key: Annotated[
         Optional[str], pydantic.Field(alias="librarySectionKey")
     ] = None
+
+    grandparent_title: Annotated[
+        Optional[str], pydantic.Field(alias="grandparentTitle")
+    ] = None
+    r"""The name of the album artist for the track when audio, and the name of the TV show for the episode when video."""
+
+    parent_title: Annotated[Optional[str], pydantic.Field(alias="parentTitle")] = None
+    r"""The name of the album for the track when audio, and the name of the season for the episode when TV show."""
+
+    original_title: Annotated[Optional[str], pydantic.Field(alias="originalTitle")] = (
+        None
+    )
+    r"""The orginal untranslated name of the media item when non-english."""
+
+    index: Optional[int] = None
+    r"""The index starting from 0 of this media item in the MetaData array."""
+
+    parent_index: Annotated[Optional[int], pydantic.Field(alias="parentIndex")] = None
+    r"""The parent index starting from 0 of this media item in the parent MetaData array."""
 
     content_rating: Annotated[Optional[str], pydantic.Field(alias="contentRating")] = (
         None

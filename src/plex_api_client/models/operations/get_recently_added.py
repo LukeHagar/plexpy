@@ -26,6 +26,8 @@ class Type(int, Enum):
     SEASON = 3
     EPISODE = 4
     AUDIO = 8
+    ALBUM = 9
+    TRACK = 10
 
 
 class IncludeMeta(int, Enum):
@@ -328,17 +330,17 @@ class ShowOrdering(str, Enum):
     r"""Setting that indicates the episode ordering for the show
     None = Library default,
     tmdbAiring = The Movie Database (Aired),
-    aired = TheTVDB (Aired),
-    dvd = TheTVDB (DVD),
-    absolute = TheTVDB (Absolute)).
+    tvdbAiring = TheTVDB (Aired),
+    tvdbDvd = TheTVDB (DVD),
+    tvdbAbsolute = TheTVDB (Absolute)).
 
     """
 
     NONE = "None"
     TMDB_AIRING = "tmdbAiring"
-    AIRED = "aired"
-    DVD = "dvd"
-    ABSOLUTE = "absolute"
+    TVDB_AIRING = "tvdbAiring"
+    TVDB_DVD = "tvdbDvd"
+    TVDB_ABSOLUTE = "tvdbAbsolute"
 
 
 class OptimizedForStreaming(int, Enum):
@@ -875,9 +877,9 @@ class GetRecentlyAddedMetadataTypedDict(TypedDict):
     r"""Setting that indicates the episode ordering for the show
     None = Library default,
     tmdbAiring = The Movie Database (Aired),
-    aired = TheTVDB (Aired),
-    dvd = TheTVDB (DVD),
-    absolute = TheTVDB (Absolute)).
+    tvdbAiring = TheTVDB (Aired),
+    tvdbDvd = TheTVDB (DVD),
+    tvdbAbsolute = TheTVDB (Absolute)).
 
     """
     thumb: NotRequired[str]
@@ -1014,9 +1016,9 @@ class GetRecentlyAddedMetadata(BaseModel):
     r"""Setting that indicates the episode ordering for the show
     None = Library default,
     tmdbAiring = The Movie Database (Aired),
-    aired = TheTVDB (Aired),
-    dvd = TheTVDB (DVD),
-    absolute = TheTVDB (Absolute)).
+    tvdbAiring = TheTVDB (Aired),
+    tvdbDvd = TheTVDB (DVD),
+    tvdbAbsolute = TheTVDB (Absolute)).
 
     """
 

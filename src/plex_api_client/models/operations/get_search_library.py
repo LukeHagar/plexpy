@@ -25,6 +25,8 @@ class GetSearchLibraryQueryParamType(int, Enum):
     SEASON = 3
     EPISODE = 4
     AUDIO = 8
+    ALBUM = 9
+    TRACK = 10
 
 
 class GetSearchLibraryRequestTypedDict(TypedDict):

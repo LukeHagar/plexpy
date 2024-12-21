@@ -31,20 +31,16 @@ This resource returns hash values for local files
 ```python
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.library.get_file_hash(url="file://C:\Image.png&type=13")
+    res = plex_api.library.get_file_hash(url="file://C:\Image.png&type=13")
 
-if res is not None:
-    # handle response
-    pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -79,41 +75,37 @@ This endpoint will return the recently added content.
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.library.get_recently_added_library(request={
-    "type": operations.QueryParamType.TV_SHOW,
-    "content_directory_id": 2,
-    "pinned_content_directory_id": [
-        3,
-        5,
-        7,
-        13,
-        12,
-        1,
-        6,
-        14,
-        2,
-        10,
-        16,
-        17,
-    ],
-    "section_id": 2,
-    "include_meta": operations.QueryParamIncludeMeta.ENABLE,
-    "x_plex_container_start": 0,
-    "x_plex_container_size": 50,
-})
+    res = plex_api.library.get_recently_added_library(request={
+        "type": operations.QueryParamType.TV_SHOW,
+        "content_directory_id": 2,
+        "pinned_content_directory_id": [
+            3,
+            5,
+            7,
+            13,
+            12,
+            1,
+            6,
+            14,
+            2,
+            10,
+            16,
+            17,
+        ],
+        "section_id": 2,
+        "include_meta": operations.QueryParamIncludeMeta.ENABLE,
+        "x_plex_container_start": 0,
+        "x_plex_container_size": 50,
+    })
 
-if res.object is not None:
-    # handle response
-    pass
+    assert res.object is not None
+
+    # Handle response
+    print(res.object)
 
 ```
 
@@ -151,20 +143,16 @@ This allows a client to provide a rich interface around the media (e.g. allow so
 ```python
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.library.get_all_libraries()
+    res = plex_api.library.get_all_libraries()
 
-if res.object is not None:
-    # handle response
-    pass
+    assert res.object is not None
+
+    # Handle response
+    print(res.object)
 
 ```
 
@@ -234,20 +222,16 @@ Each type in the library comes with a set of filters and sorts, aiding in buildi
 ```python
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.library.get_library_details(section_key=9518)
+    res = plex_api.library.get_library_details(section_key=9518)
 
-if res.object is not None:
-    # handle response
-    pass
+    assert res.object is not None
+
+    # Handle response
+    print(res.object)
 
 ```
 
@@ -280,20 +264,16 @@ Delete a library using a specific section id
 ```python
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.library.delete_library(section_key=9518)
+    res = plex_api.library.delete_library(section_key=9518)
 
-if res is not None:
-    # handle response
-    pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -338,6 +318,7 @@ Fetches details from a specific section of the library identified by a section k
 - `resolution`: Items categorized by resolution.
 - `firstCharacter`: Items categorized by the first letter.
 - `folder`: Items categorized by folder.
+- `albums`: Items categorized by album.
 
 
 ### Example Usage
@@ -346,28 +327,24 @@ Fetches details from a specific section of the library identified by a section k
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.library.get_library_items(request={
-    "tag": operations.Tag.EDITION,
-    "section_key": 9518,
-    "include_guids": operations.IncludeGuids.ENABLE,
-    "type": operations.GetLibraryItemsQueryParamType.TV_SHOW,
-    "include_meta": operations.GetLibraryItemsQueryParamIncludeMeta.ENABLE,
-    "x_plex_container_start": 0,
-    "x_plex_container_size": 50,
-})
+    res = plex_api.library.get_library_items(request={
+        "tag": operations.Tag.EDITION,
+        "section_key": 9518,
+        "include_guids": operations.IncludeGuids.ENABLE,
+        "type": operations.GetLibraryItemsQueryParamType.TV_SHOW,
+        "include_meta": operations.GetLibraryItemsQueryParamIncludeMeta.ENABLE,
+        "x_plex_container_start": 0,
+        "x_plex_container_size": 50,
+    })
 
-if res.object is not None:
-    # handle response
-    pass
+    assert res.object is not None
+
+    # Handle response
+    print(res.object)
 
 ```
 
@@ -401,20 +378,16 @@ This endpoint Refreshes all the Metadata of the library.
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.library.get_refresh_library_metadata(section_key=9518, force=operations.Force.ONE)
+    res = plex_api.library.get_refresh_library_metadata(section_key=9518, force=operations.Force.ONE)
 
-if res is not None:
-    # handle response
-    pass
+    assert res is not None
+
+    # Handle response
+    print(res)
 
 ```
 
@@ -466,20 +439,16 @@ Each type in the library comes with a set of filters and sorts, aiding in buildi
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.library.get_search_library(section_key=9518, type_=operations.GetSearchLibraryQueryParamType.TV_SHOW)
+    res = plex_api.library.get_search_library(section_key=9518, type_=operations.GetSearchLibraryQueryParamType.TV_SHOW)
 
-if res.object is not None:
-    # handle response
-    pass
+    assert res.object is not None
+
+    # Handle response
+    print(res.object)
 
 ```
 
@@ -514,27 +483,24 @@ Search the provided query across all library sections, or a single section, and 
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.library.get_search_all_libraries(request={
-    "query": "<value>",
-    "search_types": [
-        operations.SearchTypes.PEOPLE,
-    ],
-    "include_collections": operations.QueryParamIncludeCollections.ENABLE,
-    "include_external_media": operations.QueryParamIncludeExternalMedia.ENABLE,
-})
+    res = plex_api.library.get_search_all_libraries(request={
+        "query": "<value>",
+        "client_id": "3381b62b-9ab7-4e37-827b-203e9809eb58",
+        "search_types": [
+            operations.SearchTypes.PEOPLE,
+        ],
+        "include_collections": operations.QueryParamIncludeCollections.ENABLE,
+        "include_external_media": operations.QueryParamIncludeExternalMedia.ENABLE,
+    })
 
-if res.object is not None:
-    # handle response
-    pass
+    assert res.object is not None
+
+    # Handle response
+    print(res.object)
 
 ```
 
@@ -567,20 +533,16 @@ This endpoint will return the metadata of a library item specified with the rati
 ```python
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.library.get_meta_data_by_rating_key(rating_key=9518)
+    res = plex_api.library.get_meta_data_by_rating_key(rating_key=9518)
 
-if res.object is not None:
-    # handle response
-    pass
+    assert res.object is not None
+
+    # Handle response
+    print(res.object)
 
 ```
 
@@ -613,20 +575,16 @@ This endpoint will return the children of of a library item specified with the r
 ```python
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.library.get_metadata_children(rating_key=1539.14, include_elements="Stream")
+    res = plex_api.library.get_metadata_children(rating_key=1539.14, include_elements="Stream")
 
-if res.object is not None:
-    # handle response
-    pass
+    assert res.object is not None
+
+    # Handle response
+    print(res.object)
 
 ```
 
@@ -661,20 +619,16 @@ This endpoint will return the top watched content from libraries of a certain ty
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.library.get_top_watched_content(type_=operations.GetTopWatchedContentQueryParamType.TV_SHOW, include_guids=1)
+    res = plex_api.library.get_top_watched_content(type_=operations.GetTopWatchedContentQueryParamType.TV_SHOW, include_guids=1)
 
-if res.object is not None:
-    # handle response
-    pass
+    assert res.object is not None
+
+    # Handle response
+    print(res.object)
 
 ```
 
@@ -708,20 +662,16 @@ This endpoint will return the on deck content.
 ```python
 from plex_api_client import PlexAPI
 
-s = PlexAPI(
+with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
-    client_id="3381b62b-9ab7-4e37-827b-203e9809eb58",
-    client_name="Plex for Roku",
-    client_version="2.4.1",
-    platform="Roku",
-    device_nickname="Roku 3",
-)
+) as plex_api:
 
-res = s.library.get_on_deck()
+    res = plex_api.library.get_on_deck()
 
-if res.object is not None:
-    # handle response
-    pass
+    assert res.object is not None
+
+    # Handle response
+    print(res.object)
 
 ```
 

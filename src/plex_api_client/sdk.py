@@ -15,7 +15,7 @@ from plex_api_client.hubs import Hubs
 from plex_api_client.library import Library
 from plex_api_client.log import Log
 from plex_api_client.media import Media
-from plex_api_client.models import components, internal
+from plex_api_client.models import components
 from plex_api_client.playlists import Playlists
 from plex_api_client.plex import Plex
 from plex_api_client.search import Search
@@ -139,11 +139,6 @@ class PlexAPI(BaseSDK):
         access_token: Optional[
             Union[Optional[str], Callable[[], Optional[str]]]
         ] = None,
-        client_id: Optional[str] = None,
-        client_name: Optional[str] = None,
-        client_version: Optional[str] = None,
-        platform: Optional[str] = None,
-        device_nickname: Optional[str] = None,
         protocol: Optional[ServerProtocol] = None,
         ip: Optional[str] = None,
         port: Optional[str] = None,
@@ -159,11 +154,6 @@ class PlexAPI(BaseSDK):
         r"""Instantiates the SDK configuring it with the provided parameters.
 
         :param access_token: The access_token required for authentication
-        :param client_id: Configures the client_id parameter for all supported operations
-        :param client_name: Configures the client_name parameter for all supported operations
-        :param client_version: Configures the client_version parameter for all supported operations
-        :param platform: Configures the platform parameter for all supported operations
-        :param device_nickname: Configures the device_nickname parameter for all supported operations
         :param protocol: Allows setting the protocol variable for url substitution
         :param ip: Allows setting the ip variable for url substitution
         :param port: Allows setting the port variable for url substitution
@@ -209,24 +199,11 @@ class PlexAPI(BaseSDK):
             },
         ]
 
-        _globals = internal.Globals(
-            client_id=utils.get_global_from_env(client_id, "CLIENT_ID", str),
-            client_name=utils.get_global_from_env(client_name, "CLIENT_NAME", str),
-            client_version=utils.get_global_from_env(
-                client_version, "CLIENT_VERSION", str
-            ),
-            platform=utils.get_global_from_env(platform, "PLATFORM", str),
-            device_nickname=utils.get_global_from_env(
-                device_nickname, "DEVICE_NICKNAME", str
-            ),
-        )
-
         BaseSDK.__init__(
             self,
             SDKConfiguration(
                 client=client,
                 async_client=async_client,
-                globals=_globals,
                 security=security,
                 server_url=server_url,
                 server_idx=server_idx,
@@ -268,3 +245,17 @@ class PlexAPI(BaseSDK):
         self.statistics = Statistics(self.sdk_configuration)
         self.sessions = Sessions(self.sdk_configuration)
         self.updater = Updater(self.sdk_configuration)
+
+    def __enter__(self):
+        return self
+
+    async def __aenter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        if self.sdk_configuration.client is not None:
+            self.sdk_configuration.client.close()
+
+    async def __aexit__(self, exc_type, exc_val, exc_tb):
+        if self.sdk_configuration.async_client is not None:
+            await self.sdk_configuration.async_client.aclose()
