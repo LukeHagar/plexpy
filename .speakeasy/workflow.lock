@@ -8,19 +8,19 @@ sources:
             - latest
     plexapi:
         sourceNamespace: plexapi
-        sourceRevisionDigest: sha256:ccba0c42f1644923e2209e28da7a78195a843e48da1aeaaedbf8759f1a8a0fe0
-        sourceBlobDigest: sha256:b362c110ef633288220a55ab50627374b996c64f2d9b8e020944e84ea2840332
+        sourceRevisionDigest: sha256:28e2213b78ff9c789846a4a0b7ab9fb219079a1699d44b22d28474efc4f48eac
+        sourceBlobDigest: sha256:fa76c39de0ff801844dd56a76c26ab6ca88695fc9b42bb9ff9a8aab5b2b21277
         tags:
             - latest
-            - speakeasy-sdk-regen-1734739316
+            - speakeasy-sdk-regen-1734912075
 targets:
     plexpy:
         source: plexapi
         sourceNamespace: plexapi
-        sourceRevisionDigest: sha256:ccba0c42f1644923e2209e28da7a78195a843e48da1aeaaedbf8759f1a8a0fe0
-        sourceBlobDigest: sha256:b362c110ef633288220a55ab50627374b996c64f2d9b8e020944e84ea2840332
+        sourceRevisionDigest: sha256:28e2213b78ff9c789846a4a0b7ab9fb219079a1699d44b22d28474efc4f48eac
+        sourceBlobDigest: sha256:fa76c39de0ff801844dd56a76c26ab6ca88695fc9b42bb9ff9a8aab5b2b21277
         codeSamplesNamespace: code-samples-python-plexpy
-        codeSamplesRevisionDigest: sha256:6535e67dae5267bdd609e15a94155f8793e0e60698458cefbd49b01294bd0fca
+        codeSamplesRevisionDigest: sha256:b36e3f231c3498bc845baf97f563835cf4f034c32f97ff2e8045c36af3d6c2e9
 workflow:
     workflowVersion: 1.0.0
     speakeasyVersion: latest

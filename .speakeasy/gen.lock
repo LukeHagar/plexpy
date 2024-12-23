@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 3eeea668-4ef4-464e-a888-bdfa023bedf5
 management:
-  docChecksum: 48a69156b6fa2af10cd43e971790441b
+  docChecksum: 1aad3e9216e8a6eb638f23d09b6c235a
   docVersion: 0.0.3
   speakeasyVersion: 1.459.2
   generationVersion: 2.483.1
-  releaseVersion: 0.20.0
-  configChecksum: d2358931157d7fa7e52e620a078dc77f
+  releaseVersion: 0.20.1
+  configChecksum: 9612b6820aed013643c6de9c57c32879
   repoURL: https://github.com/LukeHagar/plexpy.git
   repoSubDirectory: .
   installationURL: https://github.com/LukeHagar/plexpy.git

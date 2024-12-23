@@ -248,6 +248,8 @@ class GetSessionsMetadataTypedDict(TypedDict):
     library_section_key: NotRequired[str]
     library_section_title: NotRequired[str]
     music_analysis_version: NotRequired[str]
+    original_title: NotRequired[str]
+    r"""The original untranslated name of the media item when non-english, or the track artist if an audio Item has an album artist"""
     parent_guid: NotRequired[str]
     parent_index: NotRequired[int]
     parent_key: NotRequired[str]
@@ -323,6 +325,11 @@ class GetSessionsMetadata(BaseModel):
     music_analysis_version: Annotated[
         Optional[str], pydantic.Field(alias="musicAnalysisVersion")
     ] = None
+
+    original_title: Annotated[Optional[str], pydantic.Field(alias="originalTitle")] = (
+        None
+    )
+    r"""The original untranslated name of the media item when non-english, or the track artist if an audio Item has an album artist"""
 
     parent_guid: Annotated[Optional[str], pydantic.Field(alias="parentGuid")] = None
 
