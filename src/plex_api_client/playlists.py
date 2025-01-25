@@ -52,7 +52,7 @@ class Playlists(BaseSDK):
             request = utils.unmarshal(request, operations.CreatePlaylistRequest)
         request = cast(operations.CreatePlaylistRequest, request)
 
-        req = self.build_request(
+        req = self._build_request(
             method="POST",
             path="/playlists",
             base_url=base_url,
@@ -109,7 +109,12 @@ class Playlists(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.CreatePlaylistUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -160,7 +165,7 @@ class Playlists(BaseSDK):
             request = utils.unmarshal(request, operations.CreatePlaylistRequest)
         request = cast(operations.CreatePlaylistRequest, request)
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="POST",
             path="/playlists",
             base_url=base_url,
@@ -217,7 +222,12 @@ class Playlists(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.CreatePlaylistUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -266,7 +276,7 @@ class Playlists(BaseSDK):
             smart=smart,
         )
 
-        req = self.build_request(
+        req = self._build_request(
             method="GET",
             path="/playlists",
             base_url=base_url,
@@ -323,7 +333,12 @@ class Playlists(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetPlaylistsUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -372,7 +387,7 @@ class Playlists(BaseSDK):
             smart=smart,
         )
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="GET",
             path="/playlists",
             base_url=base_url,
@@ -429,7 +444,12 @@ class Playlists(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetPlaylistsUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -477,7 +497,7 @@ class Playlists(BaseSDK):
             playlist_id=playlist_id,
         )
 
-        req = self.build_request(
+        req = self._build_request(
             method="GET",
             path="/playlists/{playlistID}",
             base_url=base_url,
@@ -532,7 +552,12 @@ class Playlists(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetPlaylistUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -580,7 +605,7 @@ class Playlists(BaseSDK):
             playlist_id=playlist_id,
         )
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="GET",
             path="/playlists/{playlistID}",
             base_url=base_url,
@@ -635,7 +660,12 @@ class Playlists(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetPlaylistUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -682,7 +712,7 @@ class Playlists(BaseSDK):
             playlist_id=playlist_id,
         )
 
-        req = self.build_request(
+        req = self._build_request(
             method="DELETE",
             path="/playlists/{playlistID}",
             base_url=base_url,
@@ -736,7 +766,12 @@ class Playlists(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.DeletePlaylistUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -783,7 +818,7 @@ class Playlists(BaseSDK):
             playlist_id=playlist_id,
         )
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="DELETE",
             path="/playlists/{playlistID}",
             base_url=base_url,
@@ -837,7 +872,12 @@ class Playlists(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.DeletePlaylistUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -890,7 +930,7 @@ class Playlists(BaseSDK):
             summary=summary,
         )
 
-        req = self.build_request(
+        req = self._build_request(
             method="PUT",
             path="/playlists/{playlistID}",
             base_url=base_url,
@@ -944,7 +984,12 @@ class Playlists(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.UpdatePlaylistUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -997,7 +1042,7 @@ class Playlists(BaseSDK):
             summary=summary,
         )
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="PUT",
             path="/playlists/{playlistID}",
             base_url=base_url,
@@ -1051,7 +1096,12 @@ class Playlists(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.UpdatePlaylistUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -1104,7 +1154,7 @@ class Playlists(BaseSDK):
             type=type_,
         )
 
-        req = self.build_request(
+        req = self._build_request(
             method="GET",
             path="/playlists/{playlistID}/items",
             base_url=base_url,
@@ -1161,7 +1211,12 @@ class Playlists(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetPlaylistContentsUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -1214,7 +1269,7 @@ class Playlists(BaseSDK):
             type=type_,
         )
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="GET",
             path="/playlists/{playlistID}/items",
             base_url=base_url,
@@ -1271,7 +1326,12 @@ class Playlists(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetPlaylistContentsUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -1318,7 +1378,7 @@ class Playlists(BaseSDK):
             playlist_id=playlist_id,
         )
 
-        req = self.build_request(
+        req = self._build_request(
             method="DELETE",
             path="/playlists/{playlistID}/items",
             base_url=base_url,
@@ -1372,7 +1432,12 @@ class Playlists(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.ClearPlaylistContentsUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -1419,7 +1484,7 @@ class Playlists(BaseSDK):
             playlist_id=playlist_id,
         )
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="DELETE",
             path="/playlists/{playlistID}/items",
             base_url=base_url,
@@ -1473,7 +1538,12 @@ class Playlists(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.ClearPlaylistContentsUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -1527,7 +1597,7 @@ class Playlists(BaseSDK):
             play_queue_id=play_queue_id,
         )
 
-        req = self.build_request(
+        req = self._build_request(
             method="PUT",
             path="/playlists/{playlistID}/items",
             base_url=base_url,
@@ -1584,7 +1654,12 @@ class Playlists(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.AddPlaylistContentsUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -1638,7 +1713,7 @@ class Playlists(BaseSDK):
             play_queue_id=play_queue_id,
         )
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="PUT",
             path="/playlists/{playlistID}/items",
             base_url=base_url,
@@ -1695,7 +1770,12 @@ class Playlists(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.AddPlaylistContentsUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -1748,7 +1828,7 @@ class Playlists(BaseSDK):
             section_id=section_id,
         )
 
-        req = self.build_request(
+        req = self._build_request(
             method="POST",
             path="/playlists/upload",
             base_url=base_url,
@@ -1802,7 +1882,12 @@ class Playlists(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.UploadPlaylistUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -1855,7 +1940,7 @@ class Playlists(BaseSDK):
             section_id=section_id,
         )
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="POST",
             path="/playlists/upload",
             base_url=base_url,
@@ -1909,7 +1994,12 @@ class Playlists(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.UploadPlaylistUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res

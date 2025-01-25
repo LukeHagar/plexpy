@@ -42,7 +42,7 @@ with PlexAPI(
         "title": "<value>",
         "type": operations.CreatePlaylistQueryParamType.PHOTO,
         "smart": operations.Smart.ONE,
-        "uri": "https://inborn-brochure.biz",
+        "uri": "https://hoarse-testing.info/",
     })
 
     assert res.object is not None

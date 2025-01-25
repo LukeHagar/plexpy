@@ -45,7 +45,7 @@ class Library(BaseSDK):
             type=type_,
         )
 
-        req = self.build_request(
+        req = self._build_request(
             method="GET",
             path="/library/hashes",
             base_url=base_url,
@@ -97,7 +97,12 @@ class Library(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetFileHashUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -146,7 +151,7 @@ class Library(BaseSDK):
             type=type_,
         )
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="GET",
             path="/library/hashes",
             base_url=base_url,
@@ -198,7 +203,12 @@ class Library(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetFileHashUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -250,7 +260,7 @@ class Library(BaseSDK):
             )
         request = cast(operations.GetRecentlyAddedLibraryRequest, request)
 
-        req = self.build_request(
+        req = self._build_request(
             method="GET",
             path="/library/recentlyAdded",
             base_url=base_url,
@@ -308,7 +318,12 @@ class Library(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetRecentlyAddedLibraryUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -360,7 +375,7 @@ class Library(BaseSDK):
             )
         request = cast(operations.GetRecentlyAddedLibraryRequest, request)
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="GET",
             path="/library/recentlyAdded",
             base_url=base_url,
@@ -418,7 +433,12 @@ class Library(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetRecentlyAddedLibraryUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -463,7 +483,7 @@ class Library(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
-        req = self.build_request(
+        req = self._build_request(
             method="GET",
             path="/library/sections",
             base_url=base_url,
@@ -520,7 +540,12 @@ class Library(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetAllLibrariesUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -565,7 +590,7 @@ class Library(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="GET",
             path="/library/sections",
             base_url=base_url,
@@ -622,7 +647,12 @@ class Library(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetAllLibrariesUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -712,7 +742,7 @@ class Library(BaseSDK):
             section_key=section_key,
         )
 
-        req = self.build_request(
+        req = self._build_request(
             method="GET",
             path="/library/sections/{sectionKey}",
             base_url=base_url,
@@ -769,7 +799,12 @@ class Library(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetLibraryDetailsUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -859,7 +894,7 @@ class Library(BaseSDK):
             section_key=section_key,
         )
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="GET",
             path="/library/sections/{sectionKey}",
             base_url=base_url,
@@ -916,7 +951,12 @@ class Library(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetLibraryDetailsUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -962,7 +1002,7 @@ class Library(BaseSDK):
             section_key=section_key,
         )
 
-        req = self.build_request(
+        req = self._build_request(
             method="DELETE",
             path="/library/sections/{sectionKey}",
             base_url=base_url,
@@ -1016,7 +1056,12 @@ class Library(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.DeleteLibraryUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -1062,7 +1107,7 @@ class Library(BaseSDK):
             section_key=section_key,
         )
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="DELETE",
             path="/library/sections/{sectionKey}",
             base_url=base_url,
@@ -1116,7 +1161,12 @@ class Library(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.DeleteLibraryUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -1186,7 +1236,7 @@ class Library(BaseSDK):
             request = utils.unmarshal(request, operations.GetLibraryItemsRequest)
         request = cast(operations.GetLibraryItemsRequest, request)
 
-        req = self.build_request(
+        req = self._build_request(
             method="GET",
             path="/library/sections/{sectionKey}/{tag}",
             base_url=base_url,
@@ -1243,7 +1293,12 @@ class Library(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetLibraryItemsUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -1313,7 +1368,7 @@ class Library(BaseSDK):
             request = utils.unmarshal(request, operations.GetLibraryItemsRequest)
         request = cast(operations.GetLibraryItemsRequest, request)
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="GET",
             path="/library/sections/{sectionKey}/{tag}",
             base_url=base_url,
@@ -1370,7 +1425,12 @@ class Library(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetLibraryItemsUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -1420,7 +1480,7 @@ class Library(BaseSDK):
             section_key=section_key,
         )
 
-        req = self.build_request(
+        req = self._build_request(
             method="GET",
             path="/library/sections/{sectionKey}/refresh",
             base_url=base_url,
@@ -1474,7 +1534,12 @@ class Library(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetRefreshLibraryMetadataUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -1524,7 +1589,7 @@ class Library(BaseSDK):
             section_key=section_key,
         )
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="GET",
             path="/library/sections/{sectionKey}/refresh",
             base_url=base_url,
@@ -1578,7 +1643,12 @@ class Library(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetRefreshLibraryMetadataUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -1645,7 +1715,7 @@ class Library(BaseSDK):
             type=type_,
         )
 
-        req = self.build_request(
+        req = self._build_request(
             method="GET",
             path="/library/sections/{sectionKey}/search",
             base_url=base_url,
@@ -1702,7 +1772,12 @@ class Library(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetSearchLibraryUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -1769,7 +1844,7 @@ class Library(BaseSDK):
             type=type_,
         )
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="GET",
             path="/library/sections/{sectionKey}/search",
             base_url=base_url,
@@ -1826,7 +1901,12 @@ class Library(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetSearchLibraryUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -1876,7 +1956,7 @@ class Library(BaseSDK):
             request = utils.unmarshal(request, operations.GetSearchAllLibrariesRequest)
         request = cast(operations.GetSearchAllLibrariesRequest, request)
 
-        req = self.build_request(
+        req = self._build_request(
             method="GET",
             path="/library/search",
             base_url=base_url,
@@ -1934,7 +2014,12 @@ class Library(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetSearchAllLibrariesUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -1984,7 +2069,7 @@ class Library(BaseSDK):
             request = utils.unmarshal(request, operations.GetSearchAllLibrariesRequest)
         request = cast(operations.GetSearchAllLibrariesRequest, request)
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="GET",
             path="/library/search",
             base_url=base_url,
@@ -2042,7 +2127,12 @@ class Library(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetSearchAllLibrariesUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -2089,7 +2179,7 @@ class Library(BaseSDK):
             rating_key=rating_key,
         )
 
-        req = self.build_request(
+        req = self._build_request(
             method="GET",
             path="/library/metadata/{ratingKey}",
             base_url=base_url,
@@ -2147,7 +2237,12 @@ class Library(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetMetaDataByRatingKeyUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -2194,7 +2289,7 @@ class Library(BaseSDK):
             rating_key=rating_key,
         )
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="GET",
             path="/library/metadata/{ratingKey}",
             base_url=base_url,
@@ -2252,7 +2347,12 @@ class Library(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetMetaDataByRatingKeyUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -2302,7 +2402,7 @@ class Library(BaseSDK):
             include_elements=include_elements,
         )
 
-        req = self.build_request(
+        req = self._build_request(
             method="GET",
             path="/library/metadata/{ratingKey}/children",
             base_url=base_url,
@@ -2359,7 +2459,12 @@ class Library(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetMetadataChildrenUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -2409,7 +2514,7 @@ class Library(BaseSDK):
             include_elements=include_elements,
         )
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="GET",
             path="/library/metadata/{ratingKey}/children",
             base_url=base_url,
@@ -2466,7 +2571,12 @@ class Library(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetMetadataChildrenUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -2516,7 +2626,7 @@ class Library(BaseSDK):
             type=type_,
         )
 
-        req = self.build_request(
+        req = self._build_request(
             method="GET",
             path="/library/all/top",
             base_url=base_url,
@@ -2573,7 +2683,12 @@ class Library(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetTopWatchedContentUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -2623,7 +2738,7 @@ class Library(BaseSDK):
             type=type_,
         )
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="GET",
             path="/library/all/top",
             base_url=base_url,
@@ -2680,7 +2795,12 @@ class Library(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetTopWatchedContentUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -2720,7 +2840,7 @@ class Library(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
-        req = self.build_request(
+        req = self._build_request(
             method="GET",
             path="/library/onDeck",
             base_url=base_url,
@@ -2773,7 +2893,12 @@ class Library(BaseSDK):
             data = utils.unmarshal_json(http_res.text, errors.GetOnDeckUnauthorizedData)
             data.raw_response = http_res
             raise errors.GetOnDeckUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -2813,7 +2938,7 @@ class Library(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="GET",
             path="/library/onDeck",
             base_url=base_url,
@@ -2866,7 +2991,12 @@ class Library(BaseSDK):
             data = utils.unmarshal_json(http_res.text, errors.GetOnDeckUnauthorizedData)
             data.raw_response = http_res
             raise errors.GetOnDeckUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res

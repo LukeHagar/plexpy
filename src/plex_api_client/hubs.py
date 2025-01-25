@@ -45,7 +45,7 @@ class Hubs(BaseSDK):
             only_transient=only_transient,
         )
 
-        req = self.build_request(
+        req = self._build_request(
             method="GET",
             path="/hubs",
             base_url=base_url,
@@ -102,7 +102,12 @@ class Hubs(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetGlobalHubsUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -151,7 +156,7 @@ class Hubs(BaseSDK):
             only_transient=only_transient,
         )
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="GET",
             path="/hubs",
             base_url=base_url,
@@ -208,7 +213,12 @@ class Hubs(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetGlobalHubsUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -258,7 +268,7 @@ class Hubs(BaseSDK):
             request = utils.unmarshal(request, operations.GetRecentlyAddedRequest)
         request = cast(operations.GetRecentlyAddedRequest, request)
 
-        req = self.build_request(
+        req = self._build_request(
             method="GET",
             path="/hubs/home/recentlyAdded",
             base_url=base_url,
@@ -302,7 +312,12 @@ class Hubs(BaseSDK):
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
-        if utils.match_response(http_res, ["400", "401", "4XX", "5XX"], "*"):
+        if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -352,7 +367,7 @@ class Hubs(BaseSDK):
             request = utils.unmarshal(request, operations.GetRecentlyAddedRequest)
         request = cast(operations.GetRecentlyAddedRequest, request)
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="GET",
             path="/hubs/home/recentlyAdded",
             base_url=base_url,
@@ -396,7 +411,12 @@ class Hubs(BaseSDK):
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
-        if utils.match_response(http_res, ["400", "401", "4XX", "5XX"], "*"):
+        if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -449,7 +469,7 @@ class Hubs(BaseSDK):
             only_transient=only_transient,
         )
 
-        req = self.build_request(
+        req = self._build_request(
             method="GET",
             path="/hubs/sections/{sectionId}",
             base_url=base_url,
@@ -506,7 +526,12 @@ class Hubs(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetLibraryHubsUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -559,7 +584,7 @@ class Hubs(BaseSDK):
             only_transient=only_transient,
         )
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="GET",
             path="/hubs/sections/{sectionId}",
             base_url=base_url,
@@ -616,7 +641,12 @@ class Hubs(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetLibraryHubsUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res

@@ -38,7 +38,7 @@ class Updater(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
-        req = self.build_request(
+        req = self._build_request(
             method="GET",
             path="/updater/status",
             base_url=base_url,
@@ -95,7 +95,12 @@ class Updater(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetUpdateStatusUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -134,7 +139,7 @@ class Updater(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="GET",
             path="/updater/status",
             base_url=base_url,
@@ -191,7 +196,12 @@ class Updater(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetUpdateStatusUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -237,7 +247,7 @@ class Updater(BaseSDK):
             download=download,
         )
 
-        req = self.build_request(
+        req = self._build_request(
             method="PUT",
             path="/updater/check",
             base_url=base_url,
@@ -291,7 +301,12 @@ class Updater(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.CheckForUpdatesUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -337,7 +352,7 @@ class Updater(BaseSDK):
             download=download,
         )
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="PUT",
             path="/updater/check",
             base_url=base_url,
@@ -391,7 +406,12 @@ class Updater(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.CheckForUpdatesUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -441,7 +461,7 @@ class Updater(BaseSDK):
             skip=skip,
         )
 
-        req = self.build_request(
+        req = self._build_request(
             method="PUT",
             path="/updater/apply",
             base_url=base_url,
@@ -495,7 +515,12 @@ class Updater(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.ApplyUpdatesUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "500", "5XX"], "*"):
+        if utils.match_response(http_res, ["500", "5XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -545,7 +570,7 @@ class Updater(BaseSDK):
             skip=skip,
         )
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="PUT",
             path="/updater/apply",
             base_url=base_url,
@@ -599,7 +624,12 @@ class Updater(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.ApplyUpdatesUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "500", "5XX"], "*"):
+        if utils.match_response(http_res, ["500", "5XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res

@@ -221,12 +221,13 @@ Each type in the library comes with a set of filters and sorts, aiding in buildi
 
 ```python
 from plex_api_client import PlexAPI
+from plex_api_client.models import operations
 
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
 
-    res = plex_api.library.get_library_details(section_key=9518)
+    res = plex_api.library.get_library_details(section_key=9518, include_details=operations.IncludeDetails.ZERO)
 
     assert res.object is not None
 

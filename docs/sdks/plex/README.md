@@ -236,6 +236,7 @@ with PlexAPI() as plex_api:
 
     res = plex_api.plex.get_pin(request={
         "client_id": "3381b62b-9ab7-4e37-827b-203e9809eb58",
+        "strong": False,
         "client_name": "Plex for Roku",
         "device_nickname": "Roku 3",
         "client_version": "2.4.1",

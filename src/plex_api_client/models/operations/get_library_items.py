@@ -342,8 +342,26 @@ class GetLibraryItemsLibraryType(str, Enum):
 
 
 class GetLibraryItemsFlattenSeasons(str, Enum):
-    FALSE = "0"
-    TRUE = "1"
+    r"""Setting that indicates if seasons are set to hidden for the show. (-1 = Library default, 0 = Hide, 1 = Show)."""
+
+    LIBRARY_DEFAULT = "-1"
+    HIDE = "0"
+    SHOW = "1"
+
+
+class GetLibraryItemsEpisodeSort(str, Enum):
+    r"""Setting that indicates how episodes are sorted for the show. (-1 = Library default, 0 = Oldest first, 1 = Newest first)."""
+
+    LIBRARY_DEFAULT = "-1"
+    OLDEST_FIRST = "0"
+    NEWEST_FIRST = "1"
+
+
+class GetLibraryItemsEnableCreditsMarkerGeneration(str, Enum):
+    r"""Setting that indicates if credits markers detection is enabled. (-1 = Library default, 0 = Disabled)."""
+
+    LIBRARY_DEFAULT = "-1"
+    DISABLED = "0"
 
 
 class GetLibraryItemsShowOrdering(str, Enum):
@@ -896,6 +914,13 @@ class GetLibraryItemsMetadataTypedDict(TypedDict):
     season_count: NotRequired[int]
     tagline: NotRequired[str]
     flatten_seasons: NotRequired[GetLibraryItemsFlattenSeasons]
+    r"""Setting that indicates if seasons are set to hidden for the show. (-1 = Library default, 0 = Hide, 1 = Show)."""
+    episode_sort: NotRequired[GetLibraryItemsEpisodeSort]
+    r"""Setting that indicates how episodes are sorted for the show. (-1 = Library default, 0 = Oldest first, 1 = Newest first)."""
+    enable_credits_marker_generation: NotRequired[
+        GetLibraryItemsEnableCreditsMarkerGeneration
+    ]
+    r"""Setting that indicates if credits markers detection is enabled. (-1 = Library default, 0 = Disabled)."""
     show_ordering: NotRequired[GetLibraryItemsShowOrdering]
     r"""Setting that indicates the episode ordering for the show
     None = Library default,
@@ -1031,7 +1056,19 @@ class GetLibraryItemsMetadata(BaseModel):
 
     flatten_seasons: Annotated[
         Optional[GetLibraryItemsFlattenSeasons], pydantic.Field(alias="flattenSeasons")
-    ] = GetLibraryItemsFlattenSeasons.FALSE
+    ] = None
+    r"""Setting that indicates if seasons are set to hidden for the show. (-1 = Library default, 0 = Hide, 1 = Show)."""
+
+    episode_sort: Annotated[
+        Optional[GetLibraryItemsEpisodeSort], pydantic.Field(alias="episodeSort")
+    ] = None
+    r"""Setting that indicates how episodes are sorted for the show. (-1 = Library default, 0 = Oldest first, 1 = Newest first)."""
+
+    enable_credits_marker_generation: Annotated[
+        Optional[GetLibraryItemsEnableCreditsMarkerGeneration],
+        pydantic.Field(alias="enableCreditsMarkerGeneration"),
+    ] = None
+    r"""Setting that indicates if credits markers detection is enabled. (-1 = Library default, 0 = Disabled)."""
 
     show_ordering: Annotated[
         Optional[GetLibraryItemsShowOrdering], pydantic.Field(alias="showOrdering")

@@ -10,4 +10,4 @@
 | `timespan`         | *Optional[int]*    | :heavy_minus_sign: | N/A                | 6                  |
 | `at`               | *Optional[int]*    | :heavy_minus_sign: | N/A                | 1718387650         |
 | `lan`              | *Optional[bool]*   | :heavy_minus_sign: | N/A                | true               |
-| `bytes`            | *Optional[int]*    | :heavy_minus_sign: | N/A                | 22                 |
+| `bytes_`           | *Optional[int]*    | :heavy_minus_sign: | N/A                | 22                 |

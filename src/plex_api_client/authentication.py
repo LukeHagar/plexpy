@@ -46,7 +46,7 @@ class Authentication(BaseSDK):
             scope=scope,
         )
 
-        req = self.build_request(
+        req = self._build_request(
             method="GET",
             path="/security/token",
             base_url=base_url,
@@ -100,7 +100,12 @@ class Authentication(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetTransientTokenUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -150,7 +155,7 @@ class Authentication(BaseSDK):
             scope=scope,
         )
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="GET",
             path="/security/token",
             base_url=base_url,
@@ -204,7 +209,12 @@ class Authentication(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetTransientTokenUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -252,7 +262,7 @@ class Authentication(BaseSDK):
             source=source,
         )
 
-        req = self.build_request(
+        req = self._build_request(
             method="GET",
             path="/security/resources",
             base_url=base_url,
@@ -306,7 +316,12 @@ class Authentication(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetSourceConnectionInformationUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -354,7 +369,7 @@ class Authentication(BaseSDK):
             source=source,
         )
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="GET",
             path="/security/resources",
             base_url=base_url,
@@ -408,7 +423,12 @@ class Authentication(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetSourceConnectionInformationUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -449,7 +469,7 @@ class Authentication(BaseSDK):
             base_url = server_url
         else:
             base_url = operations.GET_TOKEN_DETAILS_SERVERS[0]
-        req = self.build_request(
+        req = self._build_request(
             method="GET",
             path="/user",
             base_url=base_url,
@@ -506,7 +526,12 @@ class Authentication(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetTokenDetailsUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -547,7 +572,7 @@ class Authentication(BaseSDK):
             base_url = server_url
         else:
             base_url = operations.GET_TOKEN_DETAILS_SERVERS[0]
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="GET",
             path="/user",
             base_url=base_url,
@@ -604,7 +629,12 @@ class Authentication(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetTokenDetailsUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -655,7 +685,7 @@ class Authentication(BaseSDK):
             request = utils.unmarshal(request, operations.PostUsersSignInDataRequest)
         request = cast(operations.PostUsersSignInDataRequest, request)
 
-        req = self.build_request(
+        req = self._build_request(
             method="POST",
             path="/users/signin",
             base_url=base_url,
@@ -719,7 +749,12 @@ class Authentication(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.PostUsersSignInDataUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -770,7 +805,7 @@ class Authentication(BaseSDK):
             request = utils.unmarshal(request, operations.PostUsersSignInDataRequest)
         request = cast(operations.PostUsersSignInDataRequest, request)
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="POST",
             path="/users/signin",
             base_url=base_url,
@@ -834,7 +869,12 @@ class Authentication(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.PostUsersSignInDataUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res

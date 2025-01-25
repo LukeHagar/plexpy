@@ -322,8 +322,26 @@ class GetRecentlyAddedHubsType(str, Enum):
 
 
 class FlattenSeasons(str, Enum):
-    FALSE = "0"
-    TRUE = "1"
+    r"""Setting that indicates if seasons are set to hidden for the show. (-1 = Library default, 0 = Hide, 1 = Show)."""
+
+    LIBRARY_DEFAULT = "-1"
+    HIDE = "0"
+    SHOW = "1"
+
+
+class EpisodeSort(str, Enum):
+    r"""Setting that indicates how episodes are sorted for the show. (-1 = Library default, 0 = Oldest first, 1 = Newest first)."""
+
+    LIBRARY_DEFAULT = "-1"
+    OLDEST_FIRST = "0"
+    NEWEST_FIRST = "1"
+
+
+class EnableCreditsMarkerGeneration(str, Enum):
+    r"""Setting that indicates if credits markers detection is enabled. (-1 = Library default, 0 = Disabled)."""
+
+    LIBRARY_DEFAULT = "-1"
+    DISABLED = "0"
 
 
 class ShowOrdering(str, Enum):
@@ -873,6 +891,11 @@ class GetRecentlyAddedMetadataTypedDict(TypedDict):
     season_count: NotRequired[int]
     tagline: NotRequired[str]
     flatten_seasons: NotRequired[FlattenSeasons]
+    r"""Setting that indicates if seasons are set to hidden for the show. (-1 = Library default, 0 = Hide, 1 = Show)."""
+    episode_sort: NotRequired[EpisodeSort]
+    r"""Setting that indicates how episodes are sorted for the show. (-1 = Library default, 0 = Oldest first, 1 = Newest first)."""
+    enable_credits_marker_generation: NotRequired[EnableCreditsMarkerGeneration]
+    r"""Setting that indicates if credits markers detection is enabled. (-1 = Library default, 0 = Disabled)."""
     show_ordering: NotRequired[ShowOrdering]
     r"""Setting that indicates the episode ordering for the show
     None = Library default,
@@ -1008,7 +1031,19 @@ class GetRecentlyAddedMetadata(BaseModel):
 
     flatten_seasons: Annotated[
         Optional[FlattenSeasons], pydantic.Field(alias="flattenSeasons")
-    ] = FlattenSeasons.FALSE
+    ] = None
+    r"""Setting that indicates if seasons are set to hidden for the show. (-1 = Library default, 0 = Hide, 1 = Show)."""
+
+    episode_sort: Annotated[
+        Optional[EpisodeSort], pydantic.Field(alias="episodeSort")
+    ] = None
+    r"""Setting that indicates how episodes are sorted for the show. (-1 = Library default, 0 = Oldest first, 1 = Newest first)."""
+
+    enable_credits_marker_generation: Annotated[
+        Optional[EnableCreditsMarkerGeneration],
+        pydantic.Field(alias="enableCreditsMarkerGeneration"),
+    ] = None
+    r"""Setting that indicates if credits markers detection is enabled. (-1 = Library default, 0 = Disabled)."""
 
     show_ordering: Annotated[
         Optional[ShowOrdering], pydantic.Field(alias="showOrdering")

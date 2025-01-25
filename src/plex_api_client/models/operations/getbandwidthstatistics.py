@@ -91,7 +91,7 @@ class StatisticsBandwidthTypedDict(TypedDict):
     timespan: NotRequired[int]
     at: NotRequired[int]
     lan: NotRequired[bool]
-    bytes: NotRequired[int]
+    bytes_: NotRequired[int]
 
 
 class StatisticsBandwidth(BaseModel):
@@ -105,7 +105,7 @@ class StatisticsBandwidth(BaseModel):
 
     lan: Optional[bool] = None
 
-    bytes: Optional[int] = None
+    bytes_: Annotated[Optional[int], pydantic.Field(alias="bytes")] = None
 
 
 class GetBandwidthStatisticsMediaContainerTypedDict(TypedDict):

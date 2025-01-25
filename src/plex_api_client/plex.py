@@ -37,7 +37,7 @@ class Plex(BaseSDK):
             base_url = server_url
         else:
             base_url = operations.GET_COMPANIONS_DATA_SERVERS[0]
-        req = self.build_request(
+        req = self._build_request(
             method="GET",
             path="/companions",
             base_url=base_url,
@@ -94,7 +94,12 @@ class Plex(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetCompanionsDataUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -135,7 +140,7 @@ class Plex(BaseSDK):
             base_url = server_url
         else:
             base_url = operations.GET_COMPANIONS_DATA_SERVERS[0]
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="GET",
             path="/companions",
             base_url=base_url,
@@ -192,7 +197,12 @@ class Plex(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetCompanionsDataUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -233,7 +243,7 @@ class Plex(BaseSDK):
             base_url = server_url
         else:
             base_url = operations.GET_USER_FRIENDS_SERVERS[0]
-        req = self.build_request(
+        req = self._build_request(
             method="GET",
             path="/friends",
             base_url=base_url,
@@ -290,7 +300,12 @@ class Plex(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetUserFriendsUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -331,7 +346,7 @@ class Plex(BaseSDK):
             base_url = server_url
         else:
             base_url = operations.GET_USER_FRIENDS_SERVERS[0]
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="GET",
             path="/friends",
             base_url=base_url,
@@ -388,7 +403,12 @@ class Plex(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetUserFriendsUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -429,7 +449,7 @@ class Plex(BaseSDK):
             base_url = server_url
         else:
             base_url = operations.GET_GEO_DATA_SERVERS[0]
-        req = self.build_request(
+        req = self._build_request(
             method="GET",
             path="/geoip",
             base_url=base_url,
@@ -481,7 +501,12 @@ class Plex(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetGeoDataUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -522,7 +547,7 @@ class Plex(BaseSDK):
             base_url = server_url
         else:
             base_url = operations.GET_GEO_DATA_SERVERS[0]
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="GET",
             path="/geoip",
             base_url=base_url,
@@ -574,7 +599,12 @@ class Plex(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetGeoDataUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -613,7 +643,7 @@ class Plex(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
-        req = self.build_request(
+        req = self._build_request(
             method="GET",
             path="/home",
             base_url=base_url,
@@ -668,7 +698,12 @@ class Plex(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetHomeDataUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -707,7 +742,7 @@ class Plex(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="GET",
             path="/home",
             base_url=base_url,
@@ -762,7 +797,12 @@ class Plex(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetHomeDataUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -825,7 +865,7 @@ class Plex(BaseSDK):
             client_id=client_id,
         )
 
-        req = self.build_request(
+        req = self._build_request(
             method="GET",
             path="/resources",
             base_url=base_url,
@@ -882,7 +922,12 @@ class Plex(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetServerResourcesUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -945,7 +990,7 @@ class Plex(BaseSDK):
             client_id=client_id,
         )
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="GET",
             path="/resources",
             base_url=base_url,
@@ -1002,7 +1047,12 @@ class Plex(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetServerResourcesUnauthorized(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -1050,7 +1100,7 @@ class Plex(BaseSDK):
             request = utils.unmarshal(request, operations.GetPinRequest)
         request = cast(operations.GetPinRequest, request)
 
-        req = self.build_request(
+        req = self._build_request(
             method="POST",
             path="/pins",
             base_url=base_url,
@@ -1096,7 +1146,12 @@ class Plex(BaseSDK):
             data = utils.unmarshal_json(http_res.text, errors.GetPinBadRequestData)
             data.raw_response = http_res
             raise errors.GetPinBadRequest(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -1144,7 +1199,7 @@ class Plex(BaseSDK):
             request = utils.unmarshal(request, operations.GetPinRequest)
         request = cast(operations.GetPinRequest, request)
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="POST",
             path="/pins",
             base_url=base_url,
@@ -1190,7 +1245,12 @@ class Plex(BaseSDK):
             data = utils.unmarshal_json(http_res.text, errors.GetPinBadRequestData)
             data.raw_response = http_res
             raise errors.GetPinBadRequest(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -1241,7 +1301,7 @@ class Plex(BaseSDK):
             request = utils.unmarshal(request, operations.GetTokenByPinIDRequest)
         request = cast(operations.GetTokenByPinIDRequest, request)
 
-        req = self.build_request(
+        req = self._build_request(
             method="GET",
             path="/pins/{pinID}",
             base_url=base_url,
@@ -1295,7 +1355,12 @@ class Plex(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetTokenByPinIDResponseBody(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -1346,7 +1411,7 @@ class Plex(BaseSDK):
             request = utils.unmarshal(request, operations.GetTokenByPinIDRequest)
         request = cast(operations.GetTokenByPinIDRequest, request)
 
-        req = self.build_request_async(
+        req = self._build_request_async(
             method="GET",
             path="/pins/{pinID}",
             base_url=base_url,
@@ -1400,7 +1465,12 @@ class Plex(BaseSDK):
             )
             data.raw_response = http_res
             raise errors.GetTokenByPinIDResponseBody(data=data)
-        if utils.match_response(http_res, ["4XX", "5XX"], "*"):
+        if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
