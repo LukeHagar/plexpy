@@ -1,11 +1,11 @@
 # ShowOrdering
 
-Setting that indicates the episode ordering for the show
+Setting that indicates the episode ordering for the show.
 None = Library default,
 tmdbAiring = The Movie Database (Aired),
-tvdbAiring = TheTVDB (Aired),
-tvdbDvd = TheTVDB (DVD),
-tvdbAbsolute = TheTVDB (Absolute)).
+aired = TheTVDB (Aired),
+dvd = TheTVDB (DVD),
+absolute = TheTVDB (Absolute)).
 
 
 
@@ -15,6 +15,6 @@ tvdbAbsolute = TheTVDB (Absolute)).
 | --------------- | --------------- |
 | `NONE`          | None            |
 | `TMDB_AIRING`   | tmdbAiring      |
-| `TVDB_AIRING`   | tvdbAiring      |
-| `TVDB_DVD`      | tvdbDvd         |
-| `TVDB_ABSOLUTE` | tvdbAbsolute    |
+| `TVDB_AIRED`    | aired           |
+| `TVDB_DVD`      | dvd             |
+| `TVDB_ABSOLUTE` | absolute        |

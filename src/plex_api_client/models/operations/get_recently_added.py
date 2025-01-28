@@ -345,20 +345,20 @@ class EnableCreditsMarkerGeneration(str, Enum):
 
 
 class ShowOrdering(str, Enum):
-    r"""Setting that indicates the episode ordering for the show
+    r"""Setting that indicates the episode ordering for the show.
     None = Library default,
     tmdbAiring = The Movie Database (Aired),
-    tvdbAiring = TheTVDB (Aired),
-    tvdbDvd = TheTVDB (DVD),
-    tvdbAbsolute = TheTVDB (Absolute)).
+    aired = TheTVDB (Aired),
+    dvd = TheTVDB (DVD),
+    absolute = TheTVDB (Absolute)).
 
     """
 
     NONE = "None"
     TMDB_AIRING = "tmdbAiring"
-    TVDB_AIRING = "tvdbAiring"
-    TVDB_DVD = "tvdbDvd"
-    TVDB_ABSOLUTE = "tvdbAbsolute"
+    TVDB_AIRED = "aired"
+    TVDB_DVD = "dvd"
+    TVDB_ABSOLUTE = "absolute"
 
 
 class OptimizedForStreaming(int, Enum):
@@ -897,12 +897,12 @@ class GetRecentlyAddedMetadataTypedDict(TypedDict):
     enable_credits_marker_generation: NotRequired[EnableCreditsMarkerGeneration]
     r"""Setting that indicates if credits markers detection is enabled. (-1 = Library default, 0 = Disabled)."""
     show_ordering: NotRequired[ShowOrdering]
-    r"""Setting that indicates the episode ordering for the show
+    r"""Setting that indicates the episode ordering for the show.
     None = Library default,
     tmdbAiring = The Movie Database (Aired),
-    tvdbAiring = TheTVDB (Aired),
-    tvdbDvd = TheTVDB (DVD),
-    tvdbAbsolute = TheTVDB (Absolute)).
+    aired = TheTVDB (Aired),
+    dvd = TheTVDB (DVD),
+    absolute = TheTVDB (Absolute)).
 
     """
     thumb: NotRequired[str]
@@ -1048,12 +1048,12 @@ class GetRecentlyAddedMetadata(BaseModel):
     show_ordering: Annotated[
         Optional[ShowOrdering], pydantic.Field(alias="showOrdering")
     ] = None
-    r"""Setting that indicates the episode ordering for the show
+    r"""Setting that indicates the episode ordering for the show.
     None = Library default,
     tmdbAiring = The Movie Database (Aired),
-    tvdbAiring = TheTVDB (Aired),
-    tvdbDvd = TheTVDB (DVD),
-    tvdbAbsolute = TheTVDB (Absolute)).
+    aired = TheTVDB (Aired),
+    dvd = TheTVDB (DVD),
+    absolute = TheTVDB (Absolute)).
 
     """
 
