@@ -185,13 +185,12 @@ Get Plex server access tokens and server connections
 
 ```python
 from plex_api_client import PlexAPI
-from plex_api_client.models import operations
 
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
 
-    res = plex_api.plex.get_server_resources(client_id="3381b62b-9ab7-4e37-827b-203e9809eb58", include_https=operations.IncludeHTTPS.ENABLE, include_relay=operations.IncludeRelay.ENABLE, include_i_pv6=operations.IncludeIPv6.ENABLE)
+    res = plex_api.plex.get_server_resources(client_id="3381b62b-9ab7-4e37-827b-203e9809eb58")
 
     assert res.plex_devices is not None
 
@@ -236,7 +235,6 @@ with PlexAPI() as plex_api:
 
     res = plex_api.plex.get_pin(request={
         "client_id": "3381b62b-9ab7-4e37-827b-203e9809eb58",
-        "strong": False,
         "client_name": "Plex for Roku",
         "device_nickname": "Roku 3",
         "client_version": "2.4.1",

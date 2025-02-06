@@ -87,6 +87,37 @@ pip install plex-api-client
 ```bash
 poetry add plex-api-client
 ```
+
+### Shell and script usage with `uv`
+
+You can use this SDK in a Python shell with [uv](https://docs.astral.sh/uv/) and the `uvx` command that comes with it like so:
+
+```shell
+uvx --from plex-api-client python
+```
+
+It's also possible to write a standalone Python script without needing to set up a whole project like so:
+
+```python
+#!/usr/bin/env -S uv run --script
+# /// script
+# requires-python = ">=3.9"
+# dependencies = [
+#     "plex-api-client",
+# ]
+# ///
+
+from plex_api_client import PlexAPI
+
+sdk = PlexAPI(
+  # SDK arguments
+)
+
+# Rest of script here...
+```
+
+Once that is saved to a file, you can run it with `uv run script.py` where
+`script.py` can be replaced with the actual file name.
 <!-- End SDK Installation [installation] -->
 
 <!-- Start IDE Support [idesupport] -->
@@ -186,6 +217,8 @@ asyncio.run(main())
 * [get_library_items](docs/sdks/library/README.md#get_library_items) - Get Library Items
 * [get_refresh_library_metadata](docs/sdks/library/README.md#get_refresh_library_metadata) - Refresh Metadata Of The Library
 * [get_search_library](docs/sdks/library/README.md#get_search_library) - Search Library
+* [get_genres_library](docs/sdks/library/README.md#get_genres_library) - Get Genres of library media
+* [get_countries_library](docs/sdks/library/README.md#get_countries_library) - Get Countries of library media
 * [get_search_all_libraries](docs/sdks/library/README.md#get_search_all_libraries) - Search All Libraries
 * [get_meta_data_by_rating_key](docs/sdks/library/README.md#get_meta_data_by_rating_key) - Get Metadata by RatingKey
 * [get_metadata_children](docs/sdks/library/README.md#get_metadata_children) - Get Items Children

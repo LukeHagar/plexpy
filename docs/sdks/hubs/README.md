@@ -73,9 +73,6 @@ with PlexAPI(
         "content_directory_id": 470161,
         "type": operations.Type.TV_SHOW,
         "section_id": 2,
-        "include_meta": operations.IncludeMeta.ENABLE,
-        "x_plex_container_start": 0,
-        "x_plex_container_size": 50,
     })
 
     assert res.object is not None

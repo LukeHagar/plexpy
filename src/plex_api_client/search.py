@@ -95,7 +95,7 @@ class Search(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.PerformSearchResponse(
                 status_code=http_res.status_code,
@@ -103,17 +103,17 @@ class Search(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.PerformSearchBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.PerformSearchBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.PerformSearchBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.PerformSearchUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.PerformSearchUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.PerformSearchUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -218,7 +218,7 @@ class Search(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.PerformSearchResponse(
                 status_code=http_res.status_code,
@@ -226,17 +226,17 @@ class Search(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.PerformSearchBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.PerformSearchBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.PerformSearchBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.PerformSearchUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.PerformSearchUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.PerformSearchUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -333,7 +333,7 @@ class Search(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.PerformVoiceSearchResponse(
                 status_code=http_res.status_code,
@@ -341,17 +341,17 @@ class Search(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.PerformVoiceSearchBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.PerformVoiceSearchBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.PerformVoiceSearchBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.PerformVoiceSearchUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.PerformVoiceSearchUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.PerformVoiceSearchUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -448,7 +448,7 @@ class Search(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.PerformVoiceSearchResponse(
                 status_code=http_res.status_code,
@@ -456,17 +456,17 @@ class Search(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.PerformVoiceSearchBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.PerformVoiceSearchBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.PerformVoiceSearchBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.PerformVoiceSearchUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.PerformVoiceSearchUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.PerformVoiceSearchUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -553,7 +553,7 @@ class Search(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetSearchResultsResponse(
                 object=utils.unmarshal_json(
@@ -564,17 +564,17 @@ class Search(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetSearchResultsBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetSearchResultsBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetSearchResultsBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetSearchResultsUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetSearchResultsUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetSearchResultsUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -661,7 +661,7 @@ class Search(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetSearchResultsResponse(
                 object=utils.unmarshal_json(
@@ -672,17 +672,17 @@ class Search(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetSearchResultsBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetSearchResultsBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetSearchResultsBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetSearchResultsUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetSearchResultsUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetSearchResultsUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(

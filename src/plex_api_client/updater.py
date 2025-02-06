@@ -73,7 +73,7 @@ class Updater(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetUpdateStatusResponse(
                 object=utils.unmarshal_json(
@@ -84,17 +84,17 @@ class Updater(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetUpdateStatusBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetUpdateStatusBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetUpdateStatusBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetUpdateStatusUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetUpdateStatusUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetUpdateStatusUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -174,7 +174,7 @@ class Updater(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetUpdateStatusResponse(
                 object=utils.unmarshal_json(
@@ -185,17 +185,17 @@ class Updater(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetUpdateStatusBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetUpdateStatusBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetUpdateStatusBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetUpdateStatusUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetUpdateStatusUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetUpdateStatusUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -282,7 +282,7 @@ class Updater(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.CheckForUpdatesResponse(
                 status_code=http_res.status_code,
@@ -290,17 +290,17 @@ class Updater(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.CheckForUpdatesBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.CheckForUpdatesBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.CheckForUpdatesBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.CheckForUpdatesUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.CheckForUpdatesUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.CheckForUpdatesUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -387,7 +387,7 @@ class Updater(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.CheckForUpdatesResponse(
                 status_code=http_res.status_code,
@@ -395,17 +395,17 @@ class Updater(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.CheckForUpdatesBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.CheckForUpdatesBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.CheckForUpdatesBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.CheckForUpdatesUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.CheckForUpdatesUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.CheckForUpdatesUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -496,7 +496,7 @@ class Updater(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.ApplyUpdatesResponse(
                 status_code=http_res.status_code,
@@ -504,23 +504,23 @@ class Updater(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.ApplyUpdatesBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.ApplyUpdatesBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.ApplyUpdatesBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.ApplyUpdatesUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.ApplyUpdatesUnauthorized(data=data)
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
+            response_data.raw_response = http_res
+            raise errors.ApplyUpdatesUnauthorized(data=response_data)
+        if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
             )
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["500", "5XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -605,7 +605,7 @@ class Updater(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.ApplyUpdatesResponse(
                 status_code=http_res.status_code,
@@ -613,23 +613,23 @@ class Updater(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.ApplyUpdatesBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.ApplyUpdatesBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.ApplyUpdatesBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.ApplyUpdatesUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.ApplyUpdatesUnauthorized(data=data)
-        if utils.match_response(http_res, ["500", "5XX"], "*"):
+            response_data.raw_response = http_res
+            raise errors.ApplyUpdatesUnauthorized(data=response_data)
+        if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
             )
-        if utils.match_response(http_res, "4XX", "*"):
+        if utils.match_response(http_res, ["500", "5XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res

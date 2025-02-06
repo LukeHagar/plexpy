@@ -77,7 +77,7 @@ class Statistics(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetStatisticsResponse(
                 object=utils.unmarshal_json(
@@ -88,17 +88,17 @@ class Statistics(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetStatisticsBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetStatisticsBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetStatisticsBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetStatisticsUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetStatisticsUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetStatisticsUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -185,7 +185,7 @@ class Statistics(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetStatisticsResponse(
                 object=utils.unmarshal_json(
@@ -196,17 +196,17 @@ class Statistics(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetStatisticsBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetStatisticsBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetStatisticsBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetStatisticsUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetStatisticsUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetStatisticsUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -293,7 +293,7 @@ class Statistics(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetResourcesStatisticsResponse(
                 object=utils.unmarshal_json(
@@ -305,17 +305,17 @@ class Statistics(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetResourcesStatisticsBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetResourcesStatisticsBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetResourcesStatisticsBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetResourcesStatisticsUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetResourcesStatisticsUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetResourcesStatisticsUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -402,7 +402,7 @@ class Statistics(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetResourcesStatisticsResponse(
                 object=utils.unmarshal_json(
@@ -414,17 +414,17 @@ class Statistics(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetResourcesStatisticsBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetResourcesStatisticsBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetResourcesStatisticsBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetResourcesStatisticsUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetResourcesStatisticsUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetResourcesStatisticsUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -511,7 +511,7 @@ class Statistics(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetBandwidthStatisticsResponse(
                 object=utils.unmarshal_json(
@@ -523,17 +523,17 @@ class Statistics(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetBandwidthStatisticsBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetBandwidthStatisticsBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetBandwidthStatisticsBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetBandwidthStatisticsUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetBandwidthStatisticsUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetBandwidthStatisticsUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -620,7 +620,7 @@ class Statistics(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetBandwidthStatisticsResponse(
                 object=utils.unmarshal_json(
@@ -632,17 +632,17 @@ class Statistics(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetBandwidthStatisticsBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetBandwidthStatisticsBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetBandwidthStatisticsBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetBandwidthStatisticsUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetBandwidthStatisticsUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetBandwidthStatisticsUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(

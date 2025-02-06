@@ -87,7 +87,7 @@ class Playlists(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.CreatePlaylistResponse(
                 object=utils.unmarshal_json(
@@ -98,17 +98,17 @@ class Playlists(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.CreatePlaylistBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.CreatePlaylistBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.CreatePlaylistBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.CreatePlaylistUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.CreatePlaylistUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.CreatePlaylistUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -200,7 +200,7 @@ class Playlists(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.CreatePlaylistResponse(
                 object=utils.unmarshal_json(
@@ -211,17 +211,17 @@ class Playlists(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.CreatePlaylistBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.CreatePlaylistBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.CreatePlaylistBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.CreatePlaylistUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.CreatePlaylistUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.CreatePlaylistUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -311,7 +311,7 @@ class Playlists(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetPlaylistsResponse(
                 object=utils.unmarshal_json(
@@ -322,17 +322,17 @@ class Playlists(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetPlaylistsBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetPlaylistsBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetPlaylistsBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetPlaylistsUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetPlaylistsUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetPlaylistsUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -422,7 +422,7 @@ class Playlists(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetPlaylistsResponse(
                 object=utils.unmarshal_json(
@@ -433,17 +433,17 @@ class Playlists(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetPlaylistsBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetPlaylistsBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetPlaylistsBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetPlaylistsUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetPlaylistsUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetPlaylistsUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -532,7 +532,7 @@ class Playlists(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetPlaylistResponse(
                 object=utils.unmarshal_json(
@@ -543,15 +543,17 @@ class Playlists(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.GetPlaylistBadRequestData)
-            data.raw_response = http_res
-            raise errors.GetPlaylistBadRequest(data=data)
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.GetPlaylistBadRequestData
+            )
+            response_data.raw_response = http_res
+            raise errors.GetPlaylistBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetPlaylistUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetPlaylistUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetPlaylistUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -640,7 +642,7 @@ class Playlists(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetPlaylistResponse(
                 object=utils.unmarshal_json(
@@ -651,15 +653,17 @@ class Playlists(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.GetPlaylistBadRequestData)
-            data.raw_response = http_res
-            raise errors.GetPlaylistBadRequest(data=data)
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.GetPlaylistBadRequestData
+            )
+            response_data.raw_response = http_res
+            raise errors.GetPlaylistBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetPlaylistUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetPlaylistUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetPlaylistUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -747,7 +751,7 @@ class Playlists(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "204", "*"):
             return operations.DeletePlaylistResponse(
                 status_code=http_res.status_code,
@@ -755,17 +759,17 @@ class Playlists(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.DeletePlaylistBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.DeletePlaylistBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.DeletePlaylistBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.DeletePlaylistUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.DeletePlaylistUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.DeletePlaylistUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -853,7 +857,7 @@ class Playlists(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "204", "*"):
             return operations.DeletePlaylistResponse(
                 status_code=http_res.status_code,
@@ -861,17 +865,17 @@ class Playlists(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.DeletePlaylistBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.DeletePlaylistBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.DeletePlaylistBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.DeletePlaylistUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.DeletePlaylistUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.DeletePlaylistUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -965,7 +969,7 @@ class Playlists(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.UpdatePlaylistResponse(
                 status_code=http_res.status_code,
@@ -973,17 +977,17 @@ class Playlists(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.UpdatePlaylistBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.UpdatePlaylistBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.UpdatePlaylistBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.UpdatePlaylistUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.UpdatePlaylistUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.UpdatePlaylistUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -1077,7 +1081,7 @@ class Playlists(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.UpdatePlaylistResponse(
                 status_code=http_res.status_code,
@@ -1085,17 +1089,17 @@ class Playlists(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.UpdatePlaylistBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.UpdatePlaylistBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.UpdatePlaylistBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.UpdatePlaylistUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.UpdatePlaylistUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.UpdatePlaylistUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -1189,7 +1193,7 @@ class Playlists(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetPlaylistContentsResponse(
                 object=utils.unmarshal_json(
@@ -1200,17 +1204,17 @@ class Playlists(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetPlaylistContentsBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetPlaylistContentsBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetPlaylistContentsBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetPlaylistContentsUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetPlaylistContentsUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetPlaylistContentsUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -1304,7 +1308,7 @@ class Playlists(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetPlaylistContentsResponse(
                 object=utils.unmarshal_json(
@@ -1315,17 +1319,17 @@ class Playlists(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetPlaylistContentsBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetPlaylistContentsBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetPlaylistContentsBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetPlaylistContentsUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetPlaylistContentsUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetPlaylistContentsUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -1413,7 +1417,7 @@ class Playlists(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.ClearPlaylistContentsResponse(
                 status_code=http_res.status_code,
@@ -1421,17 +1425,17 @@ class Playlists(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.ClearPlaylistContentsBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.ClearPlaylistContentsBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.ClearPlaylistContentsBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.ClearPlaylistContentsUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.ClearPlaylistContentsUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.ClearPlaylistContentsUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -1519,7 +1523,7 @@ class Playlists(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.ClearPlaylistContentsResponse(
                 status_code=http_res.status_code,
@@ -1527,17 +1531,17 @@ class Playlists(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.ClearPlaylistContentsBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.ClearPlaylistContentsBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.ClearPlaylistContentsBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.ClearPlaylistContentsUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.ClearPlaylistContentsUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.ClearPlaylistContentsUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -1632,7 +1636,7 @@ class Playlists(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.AddPlaylistContentsResponse(
                 object=utils.unmarshal_json(
@@ -1643,17 +1647,17 @@ class Playlists(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.AddPlaylistContentsBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.AddPlaylistContentsBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.AddPlaylistContentsBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.AddPlaylistContentsUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.AddPlaylistContentsUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.AddPlaylistContentsUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -1748,7 +1752,7 @@ class Playlists(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.AddPlaylistContentsResponse(
                 object=utils.unmarshal_json(
@@ -1759,17 +1763,17 @@ class Playlists(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.AddPlaylistContentsBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.AddPlaylistContentsBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.AddPlaylistContentsBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.AddPlaylistContentsUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.AddPlaylistContentsUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.AddPlaylistContentsUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -1863,7 +1867,7 @@ class Playlists(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.UploadPlaylistResponse(
                 status_code=http_res.status_code,
@@ -1871,17 +1875,17 @@ class Playlists(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.UploadPlaylistBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.UploadPlaylistBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.UploadPlaylistBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.UploadPlaylistUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.UploadPlaylistUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.UploadPlaylistUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -1975,7 +1979,7 @@ class Playlists(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.UploadPlaylistResponse(
                 status_code=http_res.status_code,
@@ -1983,17 +1987,17 @@ class Playlists(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.UploadPlaylistBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.UploadPlaylistBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.UploadPlaylistBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.UploadPlaylistUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.UploadPlaylistUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.UploadPlaylistUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(

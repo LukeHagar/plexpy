@@ -70,7 +70,7 @@ class Sessions(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetSessionsResponse(
                 object=utils.unmarshal_json(
@@ -81,15 +81,17 @@ class Sessions(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.GetSessionsBadRequestData)
-            data.raw_response = http_res
-            raise errors.GetSessionsBadRequest(data=data)
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.GetSessionsBadRequestData
+            )
+            response_data.raw_response = http_res
+            raise errors.GetSessionsBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetSessionsUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetSessionsUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetSessionsUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -169,7 +171,7 @@ class Sessions(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetSessionsResponse(
                 object=utils.unmarshal_json(
@@ -180,15 +182,17 @@ class Sessions(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.GetSessionsBadRequestData)
-            data.raw_response = http_res
-            raise errors.GetSessionsBadRequest(data=data)
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.GetSessionsBadRequestData
+            )
+            response_data.raw_response = http_res
+            raise errors.GetSessionsBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetSessionsUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetSessionsUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetSessionsUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -288,7 +292,7 @@ class Sessions(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetSessionHistoryResponse(
                 object=utils.unmarshal_json(
@@ -299,17 +303,17 @@ class Sessions(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetSessionHistoryBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetSessionHistoryBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetSessionHistoryBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetSessionHistoryUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetSessionHistoryUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetSessionHistoryUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -409,7 +413,7 @@ class Sessions(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetSessionHistoryResponse(
                 object=utils.unmarshal_json(
@@ -420,17 +424,17 @@ class Sessions(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetSessionHistoryBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetSessionHistoryBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetSessionHistoryBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetSessionHistoryUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetSessionHistoryUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetSessionHistoryUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -510,7 +514,7 @@ class Sessions(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetTranscodeSessionsResponse(
                 object=utils.unmarshal_json(
@@ -521,17 +525,17 @@ class Sessions(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetTranscodeSessionsBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetTranscodeSessionsBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetTranscodeSessionsBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetTranscodeSessionsUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetTranscodeSessionsUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetTranscodeSessionsUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -611,7 +615,7 @@ class Sessions(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetTranscodeSessionsResponse(
                 object=utils.unmarshal_json(
@@ -622,17 +626,17 @@ class Sessions(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetTranscodeSessionsBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetTranscodeSessionsBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetTranscodeSessionsBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetTranscodeSessionsUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetTranscodeSessionsUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetTranscodeSessionsUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -719,7 +723,7 @@ class Sessions(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "204", "*"):
             return operations.StopTranscodeSessionResponse(
                 status_code=http_res.status_code,
@@ -727,17 +731,17 @@ class Sessions(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.StopTranscodeSessionBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.StopTranscodeSessionBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.StopTranscodeSessionBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.StopTranscodeSessionUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.StopTranscodeSessionUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.StopTranscodeSessionUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -824,7 +828,7 @@ class Sessions(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "204", "*"):
             return operations.StopTranscodeSessionResponse(
                 status_code=http_res.status_code,
@@ -832,17 +836,17 @@ class Sessions(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.StopTranscodeSessionBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.StopTranscodeSessionBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.StopTranscodeSessionBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.StopTranscodeSessionUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.StopTranscodeSessionUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.StopTranscodeSessionUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(

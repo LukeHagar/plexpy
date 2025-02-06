@@ -215,14 +215,14 @@ class Sort(BaseModel):
     ] = None
 
 
-class FieldTypedDict(TypedDict):
+class FieldTTypedDict(TypedDict):
     key: str
     title: str
     type: str
     sub_type: NotRequired[str]
 
 
-class Field(BaseModel):
+class FieldT(BaseModel):
     key: str
 
     title: str
@@ -239,7 +239,7 @@ class GetRecentlyAddedLibraryTypeTypedDict(TypedDict):
     active: bool
     filter_: NotRequired[List[GetRecentlyAddedLibraryFilterTypedDict]]
     sort: NotRequired[List[SortTypedDict]]
-    field: NotRequired[List[FieldTypedDict]]
+    field: NotRequired[List[FieldTTypedDict]]
 
 
 class GetRecentlyAddedLibraryType(BaseModel):
@@ -257,7 +257,7 @@ class GetRecentlyAddedLibraryType(BaseModel):
 
     sort: Annotated[Optional[List[Sort]], pydantic.Field(alias="Sort")] = None
 
-    field: Annotated[Optional[List[Field]], pydantic.Field(alias="Field")] = None
+    field: Annotated[Optional[List[FieldT]], pydantic.Field(alias="Field")] = None
 
 
 class OperatorTypedDict(TypedDict):

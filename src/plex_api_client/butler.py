@@ -70,7 +70,7 @@ class Butler(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetButlerTasksResponse(
                 object=utils.unmarshal_json(
@@ -81,17 +81,17 @@ class Butler(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetButlerTasksBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetButlerTasksBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetButlerTasksBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetButlerTasksUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetButlerTasksUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetButlerTasksUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -171,7 +171,7 @@ class Butler(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetButlerTasksResponse(
                 object=utils.unmarshal_json(
@@ -182,17 +182,17 @@ class Butler(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetButlerTasksBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetButlerTasksBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetButlerTasksBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetButlerTasksUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetButlerTasksUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetButlerTasksUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -277,7 +277,7 @@ class Butler(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.StartAllTasksResponse(
                 status_code=http_res.status_code,
@@ -285,17 +285,17 @@ class Butler(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.StartAllTasksBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.StartAllTasksBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.StartAllTasksBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.StartAllTasksUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.StartAllTasksUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.StartAllTasksUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -380,7 +380,7 @@ class Butler(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.StartAllTasksResponse(
                 status_code=http_res.status_code,
@@ -388,17 +388,17 @@ class Butler(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.StartAllTasksBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.StartAllTasksBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.StartAllTasksBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.StartAllTasksUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.StartAllTasksUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.StartAllTasksUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -479,7 +479,7 @@ class Butler(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.StopAllTasksResponse(
                 status_code=http_res.status_code,
@@ -487,17 +487,17 @@ class Butler(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.StopAllTasksBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.StopAllTasksBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.StopAllTasksBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.StopAllTasksUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.StopAllTasksUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.StopAllTasksUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -578,7 +578,7 @@ class Butler(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.StopAllTasksResponse(
                 status_code=http_res.status_code,
@@ -586,17 +586,17 @@ class Butler(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.StopAllTasksBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.StopAllTasksBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.StopAllTasksBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.StopAllTasksUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.StopAllTasksUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.StopAllTasksUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -688,7 +688,7 @@ class Butler(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, ["200", "202"], "*"):
             return operations.StartTaskResponse(
                 status_code=http_res.status_code,
@@ -696,13 +696,17 @@ class Butler(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.StartTaskBadRequestData)
-            data.raw_response = http_res
-            raise errors.StartTaskBadRequest(data=data)
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.StartTaskBadRequestData
+            )
+            response_data.raw_response = http_res
+            raise errors.StartTaskBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.StartTaskUnauthorizedData)
-            data.raw_response = http_res
-            raise errors.StartTaskUnauthorized(data=data)
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.StartTaskUnauthorizedData
+            )
+            response_data.raw_response = http_res
+            raise errors.StartTaskUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -794,7 +798,7 @@ class Butler(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, ["200", "202"], "*"):
             return operations.StartTaskResponse(
                 status_code=http_res.status_code,
@@ -802,13 +806,17 @@ class Butler(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.StartTaskBadRequestData)
-            data.raw_response = http_res
-            raise errors.StartTaskBadRequest(data=data)
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.StartTaskBadRequestData
+            )
+            response_data.raw_response = http_res
+            raise errors.StartTaskBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.StartTaskUnauthorizedData)
-            data.raw_response = http_res
-            raise errors.StartTaskUnauthorized(data=data)
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.StartTaskUnauthorizedData
+            )
+            response_data.raw_response = http_res
+            raise errors.StartTaskUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -896,7 +904,7 @@ class Butler(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.StopTaskResponse(
                 status_code=http_res.status_code,
@@ -904,13 +912,17 @@ class Butler(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.StopTaskBadRequestData)
-            data.raw_response = http_res
-            raise errors.StopTaskBadRequest(data=data)
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.StopTaskBadRequestData
+            )
+            response_data.raw_response = http_res
+            raise errors.StopTaskBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.StopTaskUnauthorizedData)
-            data.raw_response = http_res
-            raise errors.StopTaskUnauthorized(data=data)
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.StopTaskUnauthorizedData
+            )
+            response_data.raw_response = http_res
+            raise errors.StopTaskUnauthorized(data=response_data)
         if utils.match_response(http_res, ["404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -998,7 +1010,7 @@ class Butler(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.StopTaskResponse(
                 status_code=http_res.status_code,
@@ -1006,13 +1018,17 @@ class Butler(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.StopTaskBadRequestData)
-            data.raw_response = http_res
-            raise errors.StopTaskBadRequest(data=data)
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.StopTaskBadRequestData
+            )
+            response_data.raw_response = http_res
+            raise errors.StopTaskBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.StopTaskUnauthorizedData)
-            data.raw_response = http_res
-            raise errors.StopTaskUnauthorized(data=data)
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.StopTaskUnauthorizedData
+            )
+            response_data.raw_response = http_res
+            raise errors.StopTaskUnauthorized(data=response_data)
         if utils.match_response(http_res, ["404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(

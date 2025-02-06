@@ -77,7 +77,7 @@ class Media(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.MarkPlayedResponse(
                 status_code=http_res.status_code,
@@ -85,15 +85,17 @@ class Media(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.MarkPlayedBadRequestData)
-            data.raw_response = http_res
-            raise errors.MarkPlayedBadRequest(data=data)
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.MarkPlayedBadRequestData
+            )
+            response_data.raw_response = http_res
+            raise errors.MarkPlayedBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.MarkPlayedUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.MarkPlayedUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.MarkPlayedUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -180,7 +182,7 @@ class Media(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.MarkPlayedResponse(
                 status_code=http_res.status_code,
@@ -188,15 +190,17 @@ class Media(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.MarkPlayedBadRequestData)
-            data.raw_response = http_res
-            raise errors.MarkPlayedBadRequest(data=data)
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.MarkPlayedBadRequestData
+            )
+            response_data.raw_response = http_res
+            raise errors.MarkPlayedBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.MarkPlayedUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.MarkPlayedUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.MarkPlayedUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -283,7 +287,7 @@ class Media(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.MarkUnplayedResponse(
                 status_code=http_res.status_code,
@@ -291,17 +295,17 @@ class Media(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.MarkUnplayedBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.MarkUnplayedBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.MarkUnplayedBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.MarkUnplayedUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.MarkUnplayedUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.MarkUnplayedUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -388,7 +392,7 @@ class Media(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.MarkUnplayedResponse(
                 status_code=http_res.status_code,
@@ -396,17 +400,17 @@ class Media(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.MarkUnplayedBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.MarkUnplayedBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.MarkUnplayedBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.MarkUnplayedUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.MarkUnplayedUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.MarkUnplayedUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -500,7 +504,7 @@ class Media(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.UpdatePlayProgressResponse(
                 status_code=http_res.status_code,
@@ -508,17 +512,17 @@ class Media(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.UpdatePlayProgressBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.UpdatePlayProgressBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.UpdatePlayProgressBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.UpdatePlayProgressUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.UpdatePlayProgressUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.UpdatePlayProgressUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -612,7 +616,7 @@ class Media(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.UpdatePlayProgressResponse(
                 status_code=http_res.status_code,
@@ -620,17 +624,17 @@ class Media(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.UpdatePlayProgressBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.UpdatePlayProgressBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.UpdatePlayProgressBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.UpdatePlayProgressUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.UpdatePlayProgressUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.UpdatePlayProgressUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -720,7 +724,7 @@ class Media(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "image/jpeg"):
             return operations.GetBannerImageResponse(
                 response_stream=http_res,
@@ -731,18 +735,18 @@ class Media(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             http_res_text = utils.stream_to_text(http_res)
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res_text, errors.GetBannerImageBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetBannerImageBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetBannerImageBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
             http_res_text = utils.stream_to_text(http_res)
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res_text, errors.GetBannerImageUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetBannerImageUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetBannerImageUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -832,7 +836,7 @@ class Media(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "image/jpeg"):
             return operations.GetBannerImageResponse(
                 response_stream=http_res,
@@ -843,18 +847,18 @@ class Media(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res_text, errors.GetBannerImageBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetBannerImageBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetBannerImageBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res_text, errors.GetBannerImageUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetBannerImageUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetBannerImageUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -944,7 +948,7 @@ class Media(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "image/jpeg"):
             return operations.GetThumbImageResponse(
                 response_stream=http_res,
@@ -955,18 +959,18 @@ class Media(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             http_res_text = utils.stream_to_text(http_res)
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res_text, errors.GetThumbImageBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetThumbImageBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetThumbImageBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
             http_res_text = utils.stream_to_text(http_res)
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res_text, errors.GetThumbImageUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetThumbImageUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetThumbImageUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -1056,7 +1060,7 @@ class Media(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "image/jpeg"):
             return operations.GetThumbImageResponse(
                 response_stream=http_res,
@@ -1067,18 +1071,18 @@ class Media(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res_text, errors.GetThumbImageBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetThumbImageBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetThumbImageBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res_text, errors.GetThumbImageUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetThumbImageUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetThumbImageUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(

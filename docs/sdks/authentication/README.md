@@ -161,7 +161,6 @@ with PlexAPI() as plex_api:
         "request_body": {
             "login": "username@email.com",
             "password": "password123",
-            "remember_me": False,
             "verification_code": "123456",
         },
     })

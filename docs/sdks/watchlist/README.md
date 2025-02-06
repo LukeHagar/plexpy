@@ -27,8 +27,6 @@ with PlexAPI(
     res = plex_api.watchlist.get_watch_list(request={
         "filter_": operations.Filter.AVAILABLE,
         "x_plex_token": "CV5xoxjTpFKUzBTShsaf",
-        "x_plex_container_start": 0,
-        "x_plex_container_size": 50,
     })
 
     assert res.object is not None

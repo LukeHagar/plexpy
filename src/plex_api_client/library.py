@@ -80,7 +80,7 @@ class Library(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.GetFileHashResponse(
                 status_code=http_res.status_code,
@@ -88,15 +88,17 @@ class Library(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.GetFileHashBadRequestData)
-            data.raw_response = http_res
-            raise errors.GetFileHashBadRequest(data=data)
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.GetFileHashBadRequestData
+            )
+            response_data.raw_response = http_res
+            raise errors.GetFileHashBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetFileHashUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetFileHashUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetFileHashUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -186,7 +188,7 @@ class Library(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.GetFileHashResponse(
                 status_code=http_res.status_code,
@@ -194,15 +196,17 @@ class Library(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.GetFileHashBadRequestData)
-            data.raw_response = http_res
-            raise errors.GetFileHashBadRequest(data=data)
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.GetFileHashBadRequestData
+            )
+            response_data.raw_response = http_res
+            raise errors.GetFileHashBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetFileHashUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetFileHashUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetFileHashUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -295,7 +299,7 @@ class Library(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetRecentlyAddedLibraryResponse(
                 object=utils.unmarshal_json(
@@ -307,17 +311,17 @@ class Library(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetRecentlyAddedLibraryBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetRecentlyAddedLibraryBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetRecentlyAddedLibraryBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetRecentlyAddedLibraryUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetRecentlyAddedLibraryUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetRecentlyAddedLibraryUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -410,7 +414,7 @@ class Library(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetRecentlyAddedLibraryResponse(
                 object=utils.unmarshal_json(
@@ -422,17 +426,17 @@ class Library(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetRecentlyAddedLibraryBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetRecentlyAddedLibraryBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetRecentlyAddedLibraryBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetRecentlyAddedLibraryUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetRecentlyAddedLibraryUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetRecentlyAddedLibraryUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -518,7 +522,7 @@ class Library(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetAllLibrariesResponse(
                 object=utils.unmarshal_json(
@@ -529,17 +533,17 @@ class Library(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetAllLibrariesBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetAllLibrariesBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetAllLibrariesBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetAllLibrariesUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetAllLibrariesUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetAllLibrariesUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -625,7 +629,7 @@ class Library(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetAllLibrariesResponse(
                 object=utils.unmarshal_json(
@@ -636,17 +640,17 @@ class Library(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetAllLibrariesBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetAllLibrariesBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetAllLibrariesBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetAllLibrariesUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetAllLibrariesUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetAllLibrariesUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -777,7 +781,7 @@ class Library(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetLibraryDetailsResponse(
                 object=utils.unmarshal_json(
@@ -788,17 +792,17 @@ class Library(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetLibraryDetailsBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetLibraryDetailsBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetLibraryDetailsBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetLibraryDetailsUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetLibraryDetailsUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetLibraryDetailsUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -929,7 +933,7 @@ class Library(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetLibraryDetailsResponse(
                 object=utils.unmarshal_json(
@@ -940,17 +944,17 @@ class Library(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetLibraryDetailsBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetLibraryDetailsBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetLibraryDetailsBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetLibraryDetailsUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetLibraryDetailsUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetLibraryDetailsUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -1037,7 +1041,7 @@ class Library(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.DeleteLibraryResponse(
                 status_code=http_res.status_code,
@@ -1045,17 +1049,17 @@ class Library(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.DeleteLibraryBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.DeleteLibraryBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.DeleteLibraryBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.DeleteLibraryUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.DeleteLibraryUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.DeleteLibraryUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -1142,7 +1146,7 @@ class Library(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.DeleteLibraryResponse(
                 status_code=http_res.status_code,
@@ -1150,17 +1154,17 @@ class Library(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.DeleteLibraryBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.DeleteLibraryBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.DeleteLibraryBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.DeleteLibraryUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.DeleteLibraryUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.DeleteLibraryUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -1271,7 +1275,7 @@ class Library(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetLibraryItemsResponse(
                 object=utils.unmarshal_json(
@@ -1282,17 +1286,17 @@ class Library(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetLibraryItemsBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetLibraryItemsBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetLibraryItemsBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetLibraryItemsUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetLibraryItemsUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetLibraryItemsUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -1403,7 +1407,7 @@ class Library(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetLibraryItemsResponse(
                 object=utils.unmarshal_json(
@@ -1414,17 +1418,17 @@ class Library(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetLibraryItemsBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetLibraryItemsBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetLibraryItemsBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetLibraryItemsUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetLibraryItemsUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetLibraryItemsUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -1515,7 +1519,7 @@ class Library(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.GetRefreshLibraryMetadataResponse(
                 status_code=http_res.status_code,
@@ -1523,17 +1527,17 @@ class Library(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetRefreshLibraryMetadataBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetRefreshLibraryMetadataBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetRefreshLibraryMetadataBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetRefreshLibraryMetadataUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetRefreshLibraryMetadataUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetRefreshLibraryMetadataUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -1624,7 +1628,7 @@ class Library(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.GetRefreshLibraryMetadataResponse(
                 status_code=http_res.status_code,
@@ -1632,17 +1636,17 @@ class Library(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetRefreshLibraryMetadataBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetRefreshLibraryMetadataBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetRefreshLibraryMetadataBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetRefreshLibraryMetadataUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetRefreshLibraryMetadataUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetRefreshLibraryMetadataUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -1750,7 +1754,7 @@ class Library(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetSearchLibraryResponse(
                 object=utils.unmarshal_json(
@@ -1761,17 +1765,17 @@ class Library(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetSearchLibraryBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetSearchLibraryBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetSearchLibraryBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetSearchLibraryUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetSearchLibraryUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetSearchLibraryUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -1879,7 +1883,7 @@ class Library(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetSearchLibraryResponse(
                 object=utils.unmarshal_json(
@@ -1890,18 +1894,454 @@ class Library(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetSearchLibraryBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetSearchLibraryBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetSearchLibraryBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetSearchLibraryUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetSearchLibraryUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetSearchLibraryUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+
+        content_type = http_res.headers.get("Content-Type")
+        http_res_text = await utils.stream_to_text_async(http_res)
+        raise errors.SDKError(
+            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
+            http_res.status_code,
+            http_res_text,
+            http_res,
+        )
+
+    def get_genres_library(
+        self,
+        *,
+        section_key: int,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> operations.GetGenresLibraryResponse:
+        r"""Get Genres of library media
+
+        Retrieves a list of all the genres that are found for the media in this library.
+
+
+        :param section_key: The unique key of the Plex library.  Note: This is unique in the context of the Plex server.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+
+        request = operations.GetGenresLibraryRequest(
+            section_key=section_key,
+        )
+
+        req = self._build_request(
+            method="GET",
+            path="/library/sections/{sectionKey}/genre",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                operation_id="get-genres-library",
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
+            ),
+            request=req,
+            error_status_codes=["400", "401", "404", "4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return operations.GetGenresLibraryResponse(
+                object=utils.unmarshal_json(
+                    http_res.text, Optional[operations.GetGenresLibraryResponseBody]
+                ),
+                status_code=http_res.status_code,
+                content_type=http_res.headers.get("Content-Type") or "",
+                raw_response=http_res,
+            )
+        if utils.match_response(http_res, "400", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.GetGenresLibraryBadRequestData
+            )
+            response_data.raw_response = http_res
+            raise errors.GetGenresLibraryBadRequest(data=response_data)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.GetGenresLibraryUnauthorizedData
+            )
+            response_data.raw_response = http_res
+            raise errors.GetGenresLibraryUnauthorized(data=response_data)
+        if utils.match_response(http_res, ["404", "4XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+
+        content_type = http_res.headers.get("Content-Type")
+        http_res_text = utils.stream_to_text(http_res)
+        raise errors.SDKError(
+            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
+            http_res.status_code,
+            http_res_text,
+            http_res,
+        )
+
+    async def get_genres_library_async(
+        self,
+        *,
+        section_key: int,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> operations.GetGenresLibraryResponse:
+        r"""Get Genres of library media
+
+        Retrieves a list of all the genres that are found for the media in this library.
+
+
+        :param section_key: The unique key of the Plex library.  Note: This is unique in the context of the Plex server.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+
+        request = operations.GetGenresLibraryRequest(
+            section_key=section_key,
+        )
+
+        req = self._build_request_async(
+            method="GET",
+            path="/library/sections/{sectionKey}/genre",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                operation_id="get-genres-library",
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
+            ),
+            request=req,
+            error_status_codes=["400", "401", "404", "4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return operations.GetGenresLibraryResponse(
+                object=utils.unmarshal_json(
+                    http_res.text, Optional[operations.GetGenresLibraryResponseBody]
+                ),
+                status_code=http_res.status_code,
+                content_type=http_res.headers.get("Content-Type") or "",
+                raw_response=http_res,
+            )
+        if utils.match_response(http_res, "400", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.GetGenresLibraryBadRequestData
+            )
+            response_data.raw_response = http_res
+            raise errors.GetGenresLibraryBadRequest(data=response_data)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.GetGenresLibraryUnauthorizedData
+            )
+            response_data.raw_response = http_res
+            raise errors.GetGenresLibraryUnauthorized(data=response_data)
+        if utils.match_response(http_res, ["404", "4XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+
+        content_type = http_res.headers.get("Content-Type")
+        http_res_text = await utils.stream_to_text_async(http_res)
+        raise errors.SDKError(
+            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
+            http_res.status_code,
+            http_res_text,
+            http_res,
+        )
+
+    def get_countries_library(
+        self,
+        *,
+        section_key: int,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> operations.GetCountriesLibraryResponse:
+        r"""Get Countries of library media
+
+        Retrieves a list of all the countries that are found for the media in this library.
+
+
+        :param section_key: The unique key of the Plex library.  Note: This is unique in the context of the Plex server.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+
+        request = operations.GetCountriesLibraryRequest(
+            section_key=section_key,
+        )
+
+        req = self._build_request(
+            method="GET",
+            path="/library/sections/{sectionKey}/country",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                operation_id="get-countries-library",
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
+            ),
+            request=req,
+            error_status_codes=["400", "401", "404", "4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return operations.GetCountriesLibraryResponse(
+                object=utils.unmarshal_json(
+                    http_res.text, Optional[operations.GetCountriesLibraryResponseBody]
+                ),
+                status_code=http_res.status_code,
+                content_type=http_res.headers.get("Content-Type") or "",
+                raw_response=http_res,
+            )
+        if utils.match_response(http_res, "400", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.GetCountriesLibraryBadRequestData
+            )
+            response_data.raw_response = http_res
+            raise errors.GetCountriesLibraryBadRequest(data=response_data)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.GetCountriesLibraryUnauthorizedData
+            )
+            response_data.raw_response = http_res
+            raise errors.GetCountriesLibraryUnauthorized(data=response_data)
+        if utils.match_response(http_res, ["404", "4XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+
+        content_type = http_res.headers.get("Content-Type")
+        http_res_text = utils.stream_to_text(http_res)
+        raise errors.SDKError(
+            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
+            http_res.status_code,
+            http_res_text,
+            http_res,
+        )
+
+    async def get_countries_library_async(
+        self,
+        *,
+        section_key: int,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> operations.GetCountriesLibraryResponse:
+        r"""Get Countries of library media
+
+        Retrieves a list of all the countries that are found for the media in this library.
+
+
+        :param section_key: The unique key of the Plex library.  Note: This is unique in the context of the Plex server.
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+
+        request = operations.GetCountriesLibraryRequest(
+            section_key=section_key,
+        )
+
+        req = self._build_request_async(
+            method="GET",
+            path="/library/sections/{sectionKey}/country",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                operation_id="get-countries-library",
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
+            ),
+            request=req,
+            error_status_codes=["400", "401", "404", "4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return operations.GetCountriesLibraryResponse(
+                object=utils.unmarshal_json(
+                    http_res.text, Optional[operations.GetCountriesLibraryResponseBody]
+                ),
+                status_code=http_res.status_code,
+                content_type=http_res.headers.get("Content-Type") or "",
+                raw_response=http_res,
+            )
+        if utils.match_response(http_res, "400", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.GetCountriesLibraryBadRequestData
+            )
+            response_data.raw_response = http_res
+            raise errors.GetCountriesLibraryBadRequest(data=response_data)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.GetCountriesLibraryUnauthorizedData
+            )
+            response_data.raw_response = http_res
+            raise errors.GetCountriesLibraryUnauthorized(data=response_data)
+        if utils.match_response(http_res, ["404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -1991,7 +2431,7 @@ class Library(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetSearchAllLibrariesResponse(
                 object=utils.unmarshal_json(
@@ -2003,17 +2443,17 @@ class Library(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetSearchAllLibrariesBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetSearchAllLibrariesBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetSearchAllLibrariesBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetSearchAllLibrariesUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetSearchAllLibrariesUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetSearchAllLibrariesUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -2104,7 +2544,7 @@ class Library(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetSearchAllLibrariesResponse(
                 object=utils.unmarshal_json(
@@ -2116,17 +2556,17 @@ class Library(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetSearchAllLibrariesBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetSearchAllLibrariesBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetSearchAllLibrariesBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetSearchAllLibrariesUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetSearchAllLibrariesUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetSearchAllLibrariesUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -2214,7 +2654,7 @@ class Library(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetMetaDataByRatingKeyResponse(
                 object=utils.unmarshal_json(
@@ -2226,17 +2666,17 @@ class Library(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetMetaDataByRatingKeyBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetMetaDataByRatingKeyBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetMetaDataByRatingKeyBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetMetaDataByRatingKeyUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetMetaDataByRatingKeyUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetMetaDataByRatingKeyUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -2324,7 +2764,7 @@ class Library(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetMetaDataByRatingKeyResponse(
                 object=utils.unmarshal_json(
@@ -2336,17 +2776,17 @@ class Library(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetMetaDataByRatingKeyBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetMetaDataByRatingKeyBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetMetaDataByRatingKeyBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetMetaDataByRatingKeyUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetMetaDataByRatingKeyUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetMetaDataByRatingKeyUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -2437,7 +2877,7 @@ class Library(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetMetadataChildrenResponse(
                 object=utils.unmarshal_json(
@@ -2448,17 +2888,17 @@ class Library(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetMetadataChildrenBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetMetadataChildrenBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetMetadataChildrenBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetMetadataChildrenUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetMetadataChildrenUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetMetadataChildrenUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -2549,7 +2989,7 @@ class Library(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetMetadataChildrenResponse(
                 object=utils.unmarshal_json(
@@ -2560,17 +3000,17 @@ class Library(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetMetadataChildrenBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetMetadataChildrenBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetMetadataChildrenBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetMetadataChildrenUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetMetadataChildrenUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetMetadataChildrenUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -2661,7 +3101,7 @@ class Library(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetTopWatchedContentResponse(
                 object=utils.unmarshal_json(
@@ -2672,17 +3112,17 @@ class Library(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetTopWatchedContentBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetTopWatchedContentBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetTopWatchedContentBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetTopWatchedContentUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetTopWatchedContentUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetTopWatchedContentUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -2773,7 +3213,7 @@ class Library(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetTopWatchedContentResponse(
                 object=utils.unmarshal_json(
@@ -2784,17 +3224,17 @@ class Library(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetTopWatchedContentBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetTopWatchedContentBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetTopWatchedContentBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetTopWatchedContentUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetTopWatchedContentUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetTopWatchedContentUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -2875,7 +3315,7 @@ class Library(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetOnDeckResponse(
                 object=utils.unmarshal_json(
@@ -2886,13 +3326,17 @@ class Library(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.GetOnDeckBadRequestData)
-            data.raw_response = http_res
-            raise errors.GetOnDeckBadRequest(data=data)
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.GetOnDeckBadRequestData
+            )
+            response_data.raw_response = http_res
+            raise errors.GetOnDeckBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.GetOnDeckUnauthorizedData)
-            data.raw_response = http_res
-            raise errors.GetOnDeckUnauthorized(data=data)
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.GetOnDeckUnauthorizedData
+            )
+            response_data.raw_response = http_res
+            raise errors.GetOnDeckUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -2973,7 +3417,7 @@ class Library(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetOnDeckResponse(
                 object=utils.unmarshal_json(
@@ -2984,13 +3428,17 @@ class Library(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.GetOnDeckBadRequestData)
-            data.raw_response = http_res
-            raise errors.GetOnDeckBadRequest(data=data)
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.GetOnDeckBadRequestData
+            )
+            response_data.raw_response = http_res
+            raise errors.GetOnDeckBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.GetOnDeckUnauthorizedData)
-            data.raw_response = http_res
-            raise errors.GetOnDeckUnauthorized(data=data)
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.GetOnDeckUnauthorizedData
+            )
+            response_data.raw_response = http_res
+            raise errors.GetOnDeckUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(

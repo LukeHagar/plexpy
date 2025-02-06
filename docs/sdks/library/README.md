@@ -16,6 +16,8 @@ API Calls interacting with Plex Media Server Libraries
 * [get_library_items](#get_library_items) - Get Library Items
 * [get_refresh_library_metadata](#get_refresh_library_metadata) - Refresh Metadata Of The Library
 * [get_search_library](#get_search_library) - Search Library
+* [get_genres_library](#get_genres_library) - Get Genres of library media
+* [get_countries_library](#get_countries_library) - Get Countries of library media
 * [get_search_all_libraries](#get_search_all_libraries) - Search All Libraries
 * [get_meta_data_by_rating_key](#get_meta_data_by_rating_key) - Get Metadata by RatingKey
 * [get_metadata_children](#get_metadata_children) - Get Items Children
@@ -97,9 +99,6 @@ with PlexAPI(
             17,
         ],
         "section_id": 2,
-        "include_meta": operations.QueryParamIncludeMeta.ENABLE,
-        "x_plex_container_start": 0,
-        "x_plex_container_size": 50,
     })
 
     assert res.object is not None
@@ -221,13 +220,12 @@ Each type in the library comes with a set of filters and sorts, aiding in buildi
 
 ```python
 from plex_api_client import PlexAPI
-from plex_api_client.models import operations
 
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
 
-    res = plex_api.library.get_library_details(section_key=9518, include_details=operations.IncludeDetails.ZERO)
+    res = plex_api.library.get_library_details(section_key=9518)
 
     assert res.object is not None
 
@@ -335,11 +333,7 @@ with PlexAPI(
     res = plex_api.library.get_library_items(request={
         "tag": operations.Tag.EDITION,
         "section_key": 9518,
-        "include_guids": operations.IncludeGuids.ENABLE,
         "type": operations.GetLibraryItemsQueryParamType.TV_SHOW,
-        "include_meta": operations.GetLibraryItemsQueryParamIncludeMeta.ENABLE,
-        "x_plex_container_start": 0,
-        "x_plex_container_size": 50,
     })
 
     assert res.object is not None
@@ -473,6 +467,90 @@ with PlexAPI(
 | errors.GetSearchLibraryUnauthorized | 401                                 | application/json                    |
 | errors.SDKError                     | 4XX, 5XX                            | \*/\*                               |
 
+## get_genres_library
+
+Retrieves a list of all the genres that are found for the media in this library.
+
+
+### Example Usage
+
+```python
+from plex_api_client import PlexAPI
+
+with PlexAPI(
+    access_token="<YOUR_API_KEY_HERE>",
+) as plex_api:
+
+    res = plex_api.library.get_genres_library(section_key=9518)
+
+    assert res.object is not None
+
+    # Handle response
+    print(res.object)
+
+```
+
+### Parameters
+
+| Parameter                                                                                     | Type                                                                                          | Required                                                                                      | Description                                                                                   | Example                                                                                       |
+| --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `section_key`                                                                                 | *int*                                                                                         | :heavy_check_mark:                                                                            | The unique key of the Plex library. <br/>Note: This is unique in the context of the Plex server.<br/> | 9518                                                                                          |
+| `retries`                                                                                     | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                              | :heavy_minus_sign:                                                                            | Configuration to override the default retry behavior of the client.                           |                                                                                               |
+
+### Response
+
+**[operations.GetGenresLibraryResponse](../../models/operations/getgenreslibraryresponse.md)**
+
+### Errors
+
+| Error Type                          | Status Code                         | Content Type                        |
+| ----------------------------------- | ----------------------------------- | ----------------------------------- |
+| errors.GetGenresLibraryBadRequest   | 400                                 | application/json                    |
+| errors.GetGenresLibraryUnauthorized | 401                                 | application/json                    |
+| errors.SDKError                     | 4XX, 5XX                            | \*/\*                               |
+
+## get_countries_library
+
+Retrieves a list of all the countries that are found for the media in this library.
+
+
+### Example Usage
+
+```python
+from plex_api_client import PlexAPI
+
+with PlexAPI(
+    access_token="<YOUR_API_KEY_HERE>",
+) as plex_api:
+
+    res = plex_api.library.get_countries_library(section_key=9518)
+
+    assert res.object is not None
+
+    # Handle response
+    print(res.object)
+
+```
+
+### Parameters
+
+| Parameter                                                                                     | Type                                                                                          | Required                                                                                      | Description                                                                                   | Example                                                                                       |
+| --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `section_key`                                                                                 | *int*                                                                                         | :heavy_check_mark:                                                                            | The unique key of the Plex library. <br/>Note: This is unique in the context of the Plex server.<br/> | 9518                                                                                          |
+| `retries`                                                                                     | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                              | :heavy_minus_sign:                                                                            | Configuration to override the default retry behavior of the client.                           |                                                                                               |
+
+### Response
+
+**[operations.GetCountriesLibraryResponse](../../models/operations/getcountrieslibraryresponse.md)**
+
+### Errors
+
+| Error Type                             | Status Code                            | Content Type                           |
+| -------------------------------------- | -------------------------------------- | -------------------------------------- |
+| errors.GetCountriesLibraryBadRequest   | 400                                    | application/json                       |
+| errors.GetCountriesLibraryUnauthorized | 401                                    | application/json                       |
+| errors.SDKError                        | 4XX, 5XX                               | \*/\*                                  |
+
 ## get_search_all_libraries
 
 Search the provided query across all library sections, or a single section, and return matches as hubs, split up by type.
@@ -494,8 +572,6 @@ with PlexAPI(
         "search_types": [
             operations.SearchTypes.PEOPLE,
         ],
-        "include_collections": operations.QueryParamIncludeCollections.ENABLE,
-        "include_external_media": operations.QueryParamIncludeExternalMedia.ENABLE,
     })
 
     assert res.object is not None

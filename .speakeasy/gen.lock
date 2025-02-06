@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 3eeea668-4ef4-464e-a888-bdfa023bedf5
 management:
-  docChecksum: a643a64d282d705e3e24f61ed6f068c6
+  docChecksum: 14b35829d4be91a88269761c3ed01426
   docVersion: 0.0.3
-  speakeasyVersion: 1.476.2
-  generationVersion: 2.495.1
-  releaseVersion: 0.21.1
-  configChecksum: db2fe2bda98c7138ce99a5ee8525cca3
+  speakeasyVersion: 1.484.1
+  generationVersion: 2.503.2
+  releaseVersion: 0.21.2
+  configChecksum: 8b6dcb5cd25065d9fbc63e5ede1119c9
   repoURL: https://github.com/LukeHagar/plexpy.git
   repoSubDirectory: .
   installationURL: https://github.com/LukeHagar/plexpy.git
@@ -15,7 +15,7 @@ features:
   python:
     additionalDependencies: 1.0.0
     constsAndDefaults: 1.0.5
-    core: 5.10.5
+    core: 5.10.9
     defaultEnabledRetries: 0.2.0
     deprecations: 3.0.2
     downloadStreams: 1.0.1
@@ -23,7 +23,7 @@ features:
     enums: 3.1.1
     envVarSecurityUsage: 0.3.2
     errors: 3.2.0
-    flattening: 3.1.0
+    flattening: 3.1.1
     globalSecurity: 3.0.2
     globalSecurityCallbacks: 1.0.0
     globalSecurityFlattening: 1.0.0
@@ -101,6 +101,10 @@ generatedFiles:
   - docs/models/errors/getcompanionsdataerrors.md
   - docs/models/errors/getcompanionsdataplexerrors.md
   - docs/models/errors/getcompanionsdataunauthorized.md
+  - docs/models/errors/getcountrieslibrarybadrequest.md
+  - docs/models/errors/getcountrieslibraryerrors.md
+  - docs/models/errors/getcountrieslibrarylibraryerrors.md
+  - docs/models/errors/getcountrieslibraryunauthorized.md
   - docs/models/errors/getdevicesbadrequest.md
   - docs/models/errors/getdeviceserrors.md
   - docs/models/errors/getdevicesservererrors.md
@@ -109,6 +113,10 @@ generatedFiles:
   - docs/models/errors/getfilehasherrors.md
   - docs/models/errors/getfilehashlibraryerrors.md
   - docs/models/errors/getfilehashunauthorized.md
+  - docs/models/errors/getgenreslibrarybadrequest.md
+  - docs/models/errors/getgenreslibraryerrors.md
+  - docs/models/errors/getgenreslibrarylibraryerrors.md
+  - docs/models/errors/getgenreslibraryunauthorized.md
   - docs/models/errors/getgeodatabadrequest.md
   - docs/models/errors/getgeodataerrors.md
   - docs/models/errors/getgeodataplexerrors.md
@@ -381,7 +389,7 @@ generatedFiles:
   - docs/models/operations/enablepapertrailresponse.md
   - docs/models/operations/episodesort.md
   - docs/models/operations/feature.md
-  - docs/models/operations/field.md
+  - docs/models/operations/fieldt.md
   - docs/models/operations/fieldtype.md
   - docs/models/operations/filter_.md
   - docs/models/operations/flattenseasons.md
@@ -408,11 +416,21 @@ generatedFiles:
   - docs/models/operations/getbutlertasksresponse.md
   - docs/models/operations/getbutlertasksresponsebody.md
   - docs/models/operations/getcompanionsdataresponse.md
+  - docs/models/operations/getcountrieslibrarydirectory.md
+  - docs/models/operations/getcountrieslibrarymediacontainer.md
+  - docs/models/operations/getcountrieslibraryrequest.md
+  - docs/models/operations/getcountrieslibraryresponse.md
+  - docs/models/operations/getcountrieslibraryresponsebody.md
   - docs/models/operations/getdevicesmediacontainer.md
   - docs/models/operations/getdevicesresponse.md
   - docs/models/operations/getdevicesresponsebody.md
   - docs/models/operations/getfilehashrequest.md
   - docs/models/operations/getfilehashresponse.md
+  - docs/models/operations/getgenreslibrarydirectory.md
+  - docs/models/operations/getgenreslibrarymediacontainer.md
+  - docs/models/operations/getgenreslibraryrequest.md
+  - docs/models/operations/getgenreslibraryresponse.md
+  - docs/models/operations/getgenreslibraryresponsebody.md
   - docs/models/operations/getgeodatageodata.md
   - docs/models/operations/getgeodataresponse.md
   - docs/models/operations/getglobalhubsmediacontainer.md
@@ -890,6 +908,8 @@ generatedFiles:
   - src/plex_api_client/models/errors/enablepapertrail.py
   - src/plex_api_client/models/errors/get_all_libraries.py
   - src/plex_api_client/models/errors/get_banner_image.py
+  - src/plex_api_client/models/errors/get_countries_library.py
+  - src/plex_api_client/models/errors/get_genres_library.py
   - src/plex_api_client/models/errors/get_library_details.py
   - src/plex_api_client/models/errors/get_library_items.py
   - src/plex_api_client/models/errors/get_media_providers.py
@@ -967,6 +987,8 @@ generatedFiles:
   - src/plex_api_client/models/operations/enablepapertrail.py
   - src/plex_api_client/models/operations/get_all_libraries.py
   - src/plex_api_client/models/operations/get_banner_image.py
+  - src/plex_api_client/models/operations/get_countries_library.py
+  - src/plex_api_client/models/operations/get_genres_library.py
   - src/plex_api_client/models/operations/get_library_details.py
   - src/plex_api_client/models/operations/get_library_items.py
   - src/plex_api_client/models/operations/get_media_providers.py
@@ -2047,5 +2069,29 @@ examples:
           application/json: {"errors": [{"code": 1000, "message": "X-Plex-Client-Identifier is missing", "status": 400}, {"code": 1000, "message": "X-Plex-Client-Identifier is missing", "status": 400}]}
         "401":
           application/json: {"errors": [{"code": 1001, "message": "User could not be authenticated", "status": 401}]}
+  get-genres-library:
+    speakeasy-default-get-genres-library:
+      parameters:
+        path:
+          sectionKey: 9518
+      responses:
+        "200":
+          application/json: {"MediaContainer": {"size": 50, "identifier": "com.plexapp.plugins.library", "allowSync": false, "art": "/:/resources/show-fanart.jpg", "content": "secondary", "mediaTagPrefix": "/system/bundle/media/flags/", "mediaTagVersion": 1734362201, "nocache": true, "thumb": "/:/resources/show.png", "title1": "TV Shows (Reality)", "title2": "By Genre", "viewGroup": "secondary", "Directory": [{"fastKey": "/library/sections/10/all?genre=89", "key": "89", "title": "Action", "type": "genre"}]}}
+        "400":
+          application/json: {"errors": [{"code": 1000, "message": "X-Plex-Client-Identifier is missing", "status": 400}]}
+        "401":
+          application/json: {"errors": [{"code": 1001, "message": "User could not be authenticated", "status": 401}, {"code": 1001, "message": "User could not be authenticated", "status": 401}, {"code": 1001, "message": "User could not be authenticated", "status": 401}]}
+  get-countries-library:
+    speakeasy-default-get-countries-library:
+      parameters:
+        path:
+          sectionKey: 9518
+      responses:
+        "200":
+          application/json: {"MediaContainer": {"size": 50, "identifier": "com.plexapp.plugins.library", "allowSync": false, "art": "/:/resources/show-fanart.jpg", "content": "secondary", "mediaTagPrefix": "/system/bundle/media/flags/", "mediaTagVersion": 1734362201, "nocache": true, "thumb": "/:/resources/show.png", "title1": "TV Series", "title2": "By Country", "viewGroup": "secondary", "Directory": [{"fastKey": "/library/sections/2/all?country=15491", "key": "15491", "title": "Japan"}]}}
+        "400":
+          application/json: {"errors": [{"code": 1000, "message": "X-Plex-Client-Identifier is missing", "status": 400}, {"code": 1000, "message": "X-Plex-Client-Identifier is missing", "status": 400}]}
+        "401":
+          application/json: {"errors": [{"code": 1001, "message": "User could not be authenticated", "status": 401}, {"code": 1001, "message": "User could not be authenticated", "status": 401}, {"code": 1001, "message": "User could not be authenticated", "status": 401}]}
 examplesVersion: 1.0.0
 generatedTests: {}

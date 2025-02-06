@@ -72,7 +72,7 @@ class Plex(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetCompanionsDataResponse(
                 response_bodies=utils.unmarshal_json(
@@ -83,17 +83,17 @@ class Plex(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetCompanionsDataBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetCompanionsDataBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetCompanionsDataBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetCompanionsDataUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetCompanionsDataUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetCompanionsDataUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -175,7 +175,7 @@ class Plex(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetCompanionsDataResponse(
                 response_bodies=utils.unmarshal_json(
@@ -186,17 +186,17 @@ class Plex(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetCompanionsDataBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetCompanionsDataBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetCompanionsDataBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetCompanionsDataUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetCompanionsDataUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetCompanionsDataUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -278,7 +278,7 @@ class Plex(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetUserFriendsResponse(
                 friends=utils.unmarshal_json(
@@ -289,17 +289,17 @@ class Plex(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetUserFriendsBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetUserFriendsBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetUserFriendsBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetUserFriendsUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetUserFriendsUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetUserFriendsUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -381,7 +381,7 @@ class Plex(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetUserFriendsResponse(
                 friends=utils.unmarshal_json(
@@ -392,17 +392,17 @@ class Plex(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetUserFriendsBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetUserFriendsBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetUserFriendsBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetUserFriendsUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetUserFriendsUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetUserFriendsUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -481,7 +481,7 @@ class Plex(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetGeoDataResponse(
                 geo_data=utils.unmarshal_json(
@@ -492,15 +492,17 @@ class Plex(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.GetGeoDataBadRequestData)
-            data.raw_response = http_res
-            raise errors.GetGeoDataBadRequest(data=data)
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.GetGeoDataBadRequestData
+            )
+            response_data.raw_response = http_res
+            raise errors.GetGeoDataBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetGeoDataUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetGeoDataUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetGeoDataUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -579,7 +581,7 @@ class Plex(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetGeoDataResponse(
                 geo_data=utils.unmarshal_json(
@@ -590,15 +592,17 @@ class Plex(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.GetGeoDataBadRequestData)
-            data.raw_response = http_res
-            raise errors.GetGeoDataBadRequest(data=data)
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.GetGeoDataBadRequestData
+            )
+            response_data.raw_response = http_res
+            raise errors.GetGeoDataBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetGeoDataUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetGeoDataUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetGeoDataUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -678,7 +682,7 @@ class Plex(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetHomeDataResponse(
                 object=utils.unmarshal_json(
@@ -689,15 +693,17 @@ class Plex(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.GetHomeDataBadRequestData)
-            data.raw_response = http_res
-            raise errors.GetHomeDataBadRequest(data=data)
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.GetHomeDataBadRequestData
+            )
+            response_data.raw_response = http_res
+            raise errors.GetHomeDataBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetHomeDataUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetHomeDataUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetHomeDataUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -777,7 +783,7 @@ class Plex(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetHomeDataResponse(
                 object=utils.unmarshal_json(
@@ -788,15 +794,17 @@ class Plex(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.GetHomeDataBadRequestData)
-            data.raw_response = http_res
-            raise errors.GetHomeDataBadRequest(data=data)
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.GetHomeDataBadRequestData
+            )
+            response_data.raw_response = http_res
+            raise errors.GetHomeDataBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetHomeDataUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetHomeDataUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetHomeDataUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -900,7 +908,7 @@ class Plex(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetServerResourcesResponse(
                 plex_devices=utils.unmarshal_json(
@@ -911,17 +919,17 @@ class Plex(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetServerResourcesBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetServerResourcesBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetServerResourcesBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetServerResourcesUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetServerResourcesUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetServerResourcesUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -1025,7 +1033,7 @@ class Plex(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetServerResourcesResponse(
                 plex_devices=utils.unmarshal_json(
@@ -1036,17 +1044,17 @@ class Plex(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetServerResourcesBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetServerResourcesBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetServerResourcesBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetServerResourcesUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetServerResourcesUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetServerResourcesUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -1132,7 +1140,7 @@ class Plex(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "201", "application/json"):
             return operations.GetPinResponse(
                 auth_pin_container=utils.unmarshal_json(
@@ -1143,9 +1151,11 @@ class Plex(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.GetPinBadRequestData)
-            data.raw_response = http_res
-            raise errors.GetPinBadRequest(data=data)
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.GetPinBadRequestData
+            )
+            response_data.raw_response = http_res
+            raise errors.GetPinBadRequest(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -1231,7 +1241,7 @@ class Plex(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "201", "application/json"):
             return operations.GetPinResponse(
                 auth_pin_container=utils.unmarshal_json(
@@ -1242,9 +1252,11 @@ class Plex(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.GetPinBadRequestData)
-            data.raw_response = http_res
-            raise errors.GetPinBadRequest(data=data)
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.GetPinBadRequestData
+            )
+            response_data.raw_response = http_res
+            raise errors.GetPinBadRequest(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -1333,7 +1345,7 @@ class Plex(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetTokenByPinIDResponse(
                 auth_pin_container=utils.unmarshal_json(
@@ -1344,17 +1356,17 @@ class Plex(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetTokenByPinIDBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetTokenByPinIDBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetTokenByPinIDBadRequest(data=response_data)
         if utils.match_response(http_res, "404", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetTokenByPinIDResponseBodyData
             )
-            data.raw_response = http_res
-            raise errors.GetTokenByPinIDResponseBody(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetTokenByPinIDResponseBody(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -1443,7 +1455,7 @@ class Plex(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetTokenByPinIDResponse(
                 auth_pin_container=utils.unmarshal_json(
@@ -1454,17 +1466,17 @@ class Plex(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetTokenByPinIDBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.GetTokenByPinIDBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetTokenByPinIDBadRequest(data=response_data)
         if utils.match_response(http_res, "404", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetTokenByPinIDResponseBodyData
             )
-            data.raw_response = http_res
-            raise errors.GetTokenByPinIDResponseBody(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetTokenByPinIDResponseBody(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(

@@ -84,7 +84,7 @@ class Log(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.LogLineResponse(
                 status_code=http_res.status_code,
@@ -92,13 +92,17 @@ class Log(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.LogLineBadRequestData)
-            data.raw_response = http_res
-            raise errors.LogLineBadRequest(data=data)
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.LogLineBadRequestData
+            )
+            response_data.raw_response = http_res
+            raise errors.LogLineBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.LogLineUnauthorizedData)
-            data.raw_response = http_res
-            raise errors.LogLineUnauthorized(data=data)
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.LogLineUnauthorizedData
+            )
+            response_data.raw_response = http_res
+            raise errors.LogLineUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -192,7 +196,7 @@ class Log(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.LogLineResponse(
                 status_code=http_res.status_code,
@@ -200,13 +204,17 @@ class Log(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.LogLineBadRequestData)
-            data.raw_response = http_res
-            raise errors.LogLineBadRequest(data=data)
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.LogLineBadRequestData
+            )
+            response_data.raw_response = http_res
+            raise errors.LogLineBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.LogLineUnauthorizedData)
-            data.raw_response = http_res
-            raise errors.LogLineUnauthorized(data=data)
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.LogLineUnauthorizedData
+            )
+            response_data.raw_response = http_res
+            raise errors.LogLineUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -313,7 +321,7 @@ class Log(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.LogMultiLineResponse(
                 status_code=http_res.status_code,
@@ -321,17 +329,17 @@ class Log(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.LogMultiLineBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.LogMultiLineBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.LogMultiLineBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.LogMultiLineUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.LogMultiLineUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.LogMultiLineUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -438,7 +446,7 @@ class Log(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.LogMultiLineResponse(
                 status_code=http_res.status_code,
@@ -446,17 +454,17 @@ class Log(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.LogMultiLineBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.LogMultiLineBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.LogMultiLineBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.LogMultiLineUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.LogMultiLineUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.LogMultiLineUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -537,7 +545,7 @@ class Log(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.EnablePaperTrailResponse(
                 status_code=http_res.status_code,
@@ -545,17 +553,17 @@ class Log(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.EnablePaperTrailBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.EnablePaperTrailBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.EnablePaperTrailBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.EnablePaperTrailUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.EnablePaperTrailUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.EnablePaperTrailUnauthorized(data=response_data)
         if utils.match_response(http_res, ["403", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -636,7 +644,7 @@ class Log(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.EnablePaperTrailResponse(
                 status_code=http_res.status_code,
@@ -644,17 +652,17 @@ class Log(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.EnablePaperTrailBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.EnablePaperTrailBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.EnablePaperTrailBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.EnablePaperTrailUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.EnablePaperTrailUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.EnablePaperTrailUnauthorized(data=response_data)
         if utils.match_response(http_res, ["403", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(

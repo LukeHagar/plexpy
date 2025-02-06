@@ -392,9 +392,6 @@ actions:
                     "content_directory_id": 470161,
                     "section_id": 2,
                     "type": operations.Type.TV_SHOW,
-                    "include_meta": operations.IncludeMeta.ENABLE,
-                    "x_plex_container_start": 0,
-                    "x_plex_container_size": 50,
                 })
 
                 assert res.object is not None
@@ -413,7 +410,7 @@ actions:
                 access_token="<YOUR_API_KEY_HERE>",
             ) as plex_api:
 
-                res = plex_api.search.perform_search(query="dylan", limit=5)
+                res = plex_api.search.perform_search(query="dylan")
 
                 assert res is not None
 
@@ -431,7 +428,7 @@ actions:
                 access_token="<YOUR_API_KEY_HERE>",
             ) as plex_api:
 
-                res = plex_api.search.perform_voice_search(query="dead+poop", limit=5)
+                res = plex_api.search.perform_voice_search(query="dead+poop")
 
                 assert res is not None
 
@@ -643,9 +640,6 @@ actions:
                     ],
                     "section_id": 2,
                     "type": operations.QueryParamType.TV_SHOW,
-                    "include_meta": operations.QueryParamIncludeMeta.ENABLE,
-                    "x_plex_container_start": 0,
-                    "x_plex_container_size": 50,
                 })
 
                 assert res.object is not None
@@ -671,8 +665,6 @@ actions:
                     "search_types": [
                         operations.SearchTypes.PEOPLE,
                     ],
-                    "include_collections": operations.QueryParamIncludeCollections.ENABLE,
-                    "include_external_media": operations.QueryParamIncludeExternalMedia.ENABLE,
                 })
 
                 assert res.object is not None
@@ -712,8 +704,6 @@ actions:
 
                 res = plex_api.watchlist.get_watch_list(request={
                     "filter_": operations.Filter.AVAILABLE,
-                    "x_plex_container_start": 0,
-                    "x_plex_container_size": 50,
                     "x_plex_token": "CV5xoxjTpFKUzBTShsaf",
                 })
 
@@ -746,13 +736,48 @@ actions:
           label: details
           source: |-
             from plex_api_client import PlexAPI
-            from plex_api_client.models import operations
 
             with PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
             ) as plex_api:
 
-                res = plex_api.library.get_library_details(section_key=9518, include_details=operations.IncludeDetails.ZERO)
+                res = plex_api.library.get_library_details(section_key=9518)
+
+                assert res.object is not None
+
+                # Handle response
+                print(res.object)
+  - target: $["paths"]["/library/sections/{sectionKey}/country"]["get"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: library
+          source: |-
+            from plex_api_client import PlexAPI
+
+            with PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+            ) as plex_api:
+
+                res = plex_api.library.get_countries_library(section_key=9518)
+
+                assert res.object is not None
+
+                # Handle response
+                print(res.object)
+  - target: $["paths"]["/library/sections/{sectionKey}/genre"]["get"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: library
+          source: |-
+            from plex_api_client import PlexAPI
+
+            with PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+            ) as plex_api:
+
+                res = plex_api.library.get_genres_library(section_key=9518)
 
                 assert res.object is not None
 
@@ -811,12 +836,8 @@ actions:
 
                 res = plex_api.library.get_library_items(request={
                     "tag": operations.Tag.EDITION,
-                    "include_guids": operations.IncludeGuids.ENABLE,
                     "type": operations.GetLibraryItemsQueryParamType.TV_SHOW,
                     "section_key": 9518,
-                    "include_meta": operations.GetLibraryItemsQueryParamIncludeMeta.ENABLE,
-                    "x_plex_container_start": 0,
-                    "x_plex_container_size": 50,
                 })
 
                 assert res.object is not None
@@ -954,7 +975,6 @@ actions:
             with PlexAPI() as plex_api:
 
                 res = plex_api.plex.get_pin(request={
-                    "strong": False,
                     "client_id": "3381b62b-9ab7-4e37-827b-203e9809eb58",
                     "client_name": "Plex for Roku",
                     "device_nickname": "Roku 3",
@@ -1166,13 +1186,12 @@ actions:
           label: resources
           source: |-
             from plex_api_client import PlexAPI
-            from plex_api_client.models import operations
 
             with PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
             ) as plex_api:
 
-                res = plex_api.plex.get_server_resources(client_id="3381b62b-9ab7-4e37-827b-203e9809eb58", include_https=operations.IncludeHTTPS.ENABLE, include_relay=operations.IncludeRelay.ENABLE, include_i_pv6=operations.IncludeIPv6.ENABLE)
+                res = plex_api.plex.get_server_resources(client_id="3381b62b-9ab7-4e37-827b-203e9809eb58")
 
                 assert res.plex_devices is not None
 
@@ -1470,7 +1489,6 @@ actions:
                     "request_body": {
                         "login": "username@email.com",
                         "password": "password123",
-                        "remember_me": False,
                         "verification_code": "123456",
                     },
                 })

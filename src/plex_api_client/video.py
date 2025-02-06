@@ -79,7 +79,7 @@ class Video(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.GetTimelineResponse(
                 status_code=http_res.status_code,
@@ -87,15 +87,17 @@ class Video(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.GetTimelineBadRequestData)
-            data.raw_response = http_res
-            raise errors.GetTimelineBadRequest(data=data)
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.GetTimelineBadRequestData
+            )
+            response_data.raw_response = http_res
+            raise errors.GetTimelineBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetTimelineUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetTimelineUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetTimelineUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -184,7 +186,7 @@ class Video(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.GetTimelineResponse(
                 status_code=http_res.status_code,
@@ -192,15 +194,17 @@ class Video(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(http_res.text, errors.GetTimelineBadRequestData)
-            data.raw_response = http_res
-            raise errors.GetTimelineBadRequest(data=data)
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.GetTimelineBadRequestData
+            )
+            response_data.raw_response = http_res
+            raise errors.GetTimelineBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.GetTimelineUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.GetTimelineUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.GetTimelineUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -292,7 +296,7 @@ class Video(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.StartUniversalTranscodeResponse(
                 status_code=http_res.status_code,
@@ -300,17 +304,17 @@ class Video(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.StartUniversalTranscodeBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.StartUniversalTranscodeBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.StartUniversalTranscodeBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.StartUniversalTranscodeUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.StartUniversalTranscodeUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.StartUniversalTranscodeUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -402,7 +406,7 @@ class Video(BaseSDK):
             retry_config=retry_config,
         )
 
-        data: Any = None
+        response_data: Any = None
         if utils.match_response(http_res, "200", "*"):
             return operations.StartUniversalTranscodeResponse(
                 status_code=http_res.status_code,
@@ -410,17 +414,17 @@ class Video(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.StartUniversalTranscodeBadRequestData
             )
-            data.raw_response = http_res
-            raise errors.StartUniversalTranscodeBadRequest(data=data)
+            response_data.raw_response = http_res
+            raise errors.StartUniversalTranscodeBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
-            data = utils.unmarshal_json(
+            response_data = utils.unmarshal_json(
                 http_res.text, errors.StartUniversalTranscodeUnauthorizedData
             )
-            data.raw_response = http_res
-            raise errors.StartUniversalTranscodeUnauthorized(data=data)
+            response_data.raw_response = http_res
+            raise errors.StartUniversalTranscodeUnauthorized(data=response_data)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
