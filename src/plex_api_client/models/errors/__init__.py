@@ -234,6 +234,16 @@ from .get_thumb_image import (
     GetThumbImageUnauthorized,
     GetThumbImageUnauthorizedData,
 )
+from .get_users import (
+    GetUsersBadRequest,
+    GetUsersBadRequestData,
+    GetUsersErrors,
+    GetUsersErrorsTypedDict,
+    GetUsersUnauthorized,
+    GetUsersUnauthorizedData,
+    GetUsersUsersErrors,
+    GetUsersUsersErrorsTypedDict,
+)
 from .get_watch_list import (
     GetWatchListBadRequest,
     GetWatchListBadRequestData,
@@ -1234,6 +1244,14 @@ __all__ = [
     "GetUserFriendsPlexErrorsTypedDict",
     "GetUserFriendsUnauthorized",
     "GetUserFriendsUnauthorizedData",
+    "GetUsersBadRequest",
+    "GetUsersBadRequestData",
+    "GetUsersErrors",
+    "GetUsersErrorsTypedDict",
+    "GetUsersUnauthorized",
+    "GetUsersUnauthorizedData",
+    "GetUsersUsersErrors",
+    "GetUsersUsersErrorsTypedDict",
     "GetWatchListBadRequest",
     "GetWatchListBadRequestData",
     "GetWatchListErrors",

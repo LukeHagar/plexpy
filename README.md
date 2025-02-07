@@ -299,6 +299,10 @@ asyncio.run(main())
 * [check_for_updates](docs/sdks/updater/README.md#check_for_updates) - Checking for updates
 * [apply_updates](docs/sdks/updater/README.md#apply_updates) - Apply Updates
 
+### [users](docs/sdks/users/README.md)
+
+* [get_users](docs/sdks/users/README.md#get_users) - Get list of all connected users
+
 ### [video](docs/sdks/video/README.md)
 
 * [get_timeline](docs/sdks/video/README.md#get_timeline) - Get the timeline for a media item

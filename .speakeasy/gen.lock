@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 3eeea668-4ef4-464e-a888-bdfa023bedf5
 management:
-  docChecksum: 14b35829d4be91a88269761c3ed01426
+  docChecksum: 7dec92ab9151a1b5a35df5faa81811ba
   docVersion: 0.0.3
-  speakeasyVersion: 1.484.1
-  generationVersion: 2.503.2
-  releaseVersion: 0.21.2
-  configChecksum: 8b6dcb5cd25065d9fbc63e5ede1119c9
+  speakeasyVersion: 1.487.0
+  generationVersion: 2.506.0
+  releaseVersion: 0.22.0
+  configChecksum: 02e21ec9a82866d44b79d54a1ec21b1d
   repoURL: https://github.com/LukeHagar/plexpy.git
   repoSubDirectory: .
   installationURL: https://github.com/LukeHagar/plexpy.git
@@ -15,7 +15,7 @@ features:
   python:
     additionalDependencies: 1.0.0
     constsAndDefaults: 1.0.5
-    core: 5.10.9
+    core: 5.11.0
     defaultEnabledRetries: 0.2.0
     deprecations: 3.0.2
     downloadStreams: 1.0.1
@@ -275,6 +275,10 @@ generatedFiles:
   - docs/models/errors/getuserfriendserrors.md
   - docs/models/errors/getuserfriendsplexerrors.md
   - docs/models/errors/getuserfriendsunauthorized.md
+  - docs/models/errors/getusersbadrequest.md
+  - docs/models/errors/getuserserrors.md
+  - docs/models/errors/getusersunauthorized.md
+  - docs/models/errors/getusersuserserrors.md
   - docs/models/errors/getwatchlistbadrequest.md
   - docs/models/errors/getwatchlisterrors.md
   - docs/models/errors/getwatchlistunauthorized.md
@@ -352,6 +356,12 @@ generatedFiles:
   - docs/models/operations/addplaylistcontentsrequest.md
   - docs/models/operations/addplaylistcontentsresponse.md
   - docs/models/operations/addplaylistcontentsresponsebody.md
+  - docs/models/operations/alllibraries.md
+  - docs/models/operations/allowcameraupload.md
+  - docs/models/operations/allowchannels.md
+  - docs/models/operations/allowsubtitleadmin.md
+  - docs/models/operations/allowsync.md
+  - docs/models/operations/allowtuners.md
   - docs/models/operations/applyupdatesrequest.md
   - docs/models/operations/applyupdatesresponse.md
   - docs/models/operations/autoselectsubtitle.md
@@ -714,6 +724,7 @@ generatedFiles:
   - docs/models/operations/gettopwatchedcontentresponse.md
   - docs/models/operations/gettopwatchedcontentresponsebody.md
   - docs/models/operations/gettopwatchedcontentrole.md
+  - docs/models/operations/gettopwatchedcontentuser.md
   - docs/models/operations/gettranscodesessionsmediacontainer.md
   - docs/models/operations/gettranscodesessionsresponse.md
   - docs/models/operations/gettranscodesessionsresponsebody.md
@@ -724,11 +735,17 @@ generatedFiles:
   - docs/models/operations/getupdatestatusresponse.md
   - docs/models/operations/getupdatestatusresponsebody.md
   - docs/models/operations/getuserfriendsresponse.md
+  - docs/models/operations/getusersmediacontainer.md
+  - docs/models/operations/getusersrequest.md
+  - docs/models/operations/getusersresponse.md
+  - docs/models/operations/getusersresponsebody.md
+  - docs/models/operations/getusersserver.md
   - docs/models/operations/getwatchlistrequest.md
   - docs/models/operations/getwatchlistresponse.md
   - docs/models/operations/getwatchlistresponsebody.md
   - docs/models/operations/guids.md
   - docs/models/operations/hasthumbnail.md
+  - docs/models/operations/home.md
   - docs/models/operations/hub.md
   - docs/models/operations/image.md
   - docs/models/operations/includecollections.md
@@ -764,9 +781,11 @@ generatedFiles:
   - docs/models/operations/onlytransient.md
   - docs/models/operations/operator.md
   - docs/models/operations/optimizedforstreaming.md
+  - docs/models/operations/owned.md
   - docs/models/operations/part.md
   - docs/models/operations/pastsubscription.md
   - docs/models/operations/pathparamtaskname.md
+  - docs/models/operations/pending.md
   - docs/models/operations/performsearchrequest.md
   - docs/models/operations/performsearchresponse.md
   - docs/models/operations/performvoicesearchrequest.md
@@ -794,6 +813,7 @@ generatedFiles:
   - docs/models/operations/postuserssignindatauserprofile.md
   - docs/models/operations/postuserssignindatawatchedindicator.md
   - docs/models/operations/producer.md
+  - docs/models/operations/protected.md
   - docs/models/operations/protocol.md
   - docs/models/operations/provider.md
   - docs/models/operations/queryparamfilter.md
@@ -807,6 +827,7 @@ generatedFiles:
   - docs/models/operations/ratings.md
   - docs/models/operations/release.md
   - docs/models/operations/responsebody.md
+  - docs/models/operations/restricted.md
   - docs/models/operations/role.md
   - docs/models/operations/scope.md
   - docs/models/operations/searchresult.md
@@ -872,6 +893,7 @@ generatedFiles:
   - docs/sdks/sessions/README.md
   - docs/sdks/statistics/README.md
   - docs/sdks/updater/README.md
+  - docs/sdks/users/README.md
   - docs/sdks/video/README.md
   - docs/sdks/watchlist/README.md
   - poetry.toml
@@ -921,6 +943,7 @@ generatedFiles:
   - src/plex_api_client/models/errors/get_server_identity.py
   - src/plex_api_client/models/errors/get_server_resources.py
   - src/plex_api_client/models/errors/get_thumb_image.py
+  - src/plex_api_client/models/errors/get_users.py
   - src/plex_api_client/models/errors/get_watch_list.py
   - src/plex_api_client/models/errors/getavailableclients.py
   - src/plex_api_client/models/errors/getbandwidthstatistics.py
@@ -1001,6 +1024,7 @@ generatedFiles:
   - src/plex_api_client/models/operations/get_server_identity.py
   - src/plex_api_client/models/operations/get_server_resources.py
   - src/plex_api_client/models/operations/get_thumb_image.py
+  - src/plex_api_client/models/operations/get_users.py
   - src/plex_api_client/models/operations/get_watch_list.py
   - src/plex_api_client/models/operations/getavailableclients.py
   - src/plex_api_client/models/operations/getbandwidthstatistics.py
@@ -1066,6 +1090,7 @@ generatedFiles:
   - src/plex_api_client/types/__init__.py
   - src/plex_api_client/types/basemodel.py
   - src/plex_api_client/updater.py
+  - src/plex_api_client/users.py
   - src/plex_api_client/utils/__init__.py
   - src/plex_api_client/utils/annotations.py
   - src/plex_api_client/utils/enums.py
@@ -2093,5 +2118,29 @@ examples:
           application/json: {"errors": [{"code": 1000, "message": "X-Plex-Client-Identifier is missing", "status": 400}, {"code": 1000, "message": "X-Plex-Client-Identifier is missing", "status": 400}]}
         "401":
           application/json: {"errors": [{"code": 1001, "message": "User could not be authenticated", "status": 401}, {"code": 1001, "message": "User could not be authenticated", "status": 401}, {"code": 1001, "message": "User could not be authenticated", "status": 401}]}
+  get-users:
+    "":
+      parameters:
+        header:
+          X-Plex-Client-Identifier: "3381b62b-9ab7-4e37-827b-203e9809eb58"
+          X-Plex-Product: "Plex for Roku"
+          X-Plex-Device: "Roku 3"
+          X-Plex-Device-Name: "Chrome"
+          X-Plex-Device-Screen-Resolution: "1487x1165,2560x1440"
+          X-Plex-Version: "2.4.1"
+          X-Plex-Platform: "Roku"
+          X-Plex-Features: "external-media,indirect-media,hub-style-list"
+          X-Plex-Model: "4200X"
+          X-Plex-Session-Id: "97e136ef-4ddd-4ff3-89a7-a5820c96c2ca"
+          X-Plex-Language: "en"
+          X-Plex-Platform-Version: "4.3 build 1057"
+          X-Plex-Token: "CV5xoxjTpFKUzBTShsaf"
+      responses:
+        "200":
+          application/xml: "0xa9CdebeF9E"
+        "400":
+          application/json: {"errors": [{"code": 1000, "message": "X-Plex-Client-Identifier is missing", "status": 400}, {"code": 1000, "message": "X-Plex-Client-Identifier is missing", "status": 400}]}
+        "401":
+          application/json: {"errors": [{"code": 1001, "message": "User could not be authenticated", "status": 401}, {"code": 1001, "message": "User could not be authenticated", "status": 401}]}
 examplesVersion: 1.0.0
 generatedTests: {}

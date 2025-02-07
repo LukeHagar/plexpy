@@ -24,6 +24,7 @@ from plex_api_client.sessions import Sessions
 from plex_api_client.statistics import Statistics
 from plex_api_client.types import OptionalNullable, UNSET
 from plex_api_client.updater import Updater
+from plex_api_client.users import Users
 from plex_api_client.video import Video
 from plex_api_client.watchlist import Watchlist
 from typing import Any, Callable, Dict, List, Optional, Union, cast
@@ -134,6 +135,7 @@ class PlexAPI(BaseSDK):
     Updates to the status can be observed via the Event API.
 
     """
+    users: Users
 
     def __init__(
         self,
@@ -255,6 +257,7 @@ class PlexAPI(BaseSDK):
         self.statistics = Statistics(self.sdk_configuration)
         self.sessions = Sessions(self.sdk_configuration)
         self.updater = Updater(self.sdk_configuration)
+        self.users = Users(self.sdk_configuration)
 
     def __enter__(self):
         return self

@@ -129,11 +129,11 @@ class GetTopWatchedContentRole(BaseModel):
     thumb: Optional[str] = None
 
 
-class UserTypedDict(TypedDict):
+class GetTopWatchedContentUserTypedDict(TypedDict):
     id: NotRequired[int]
 
 
-class User(BaseModel):
+class GetTopWatchedContentUser(BaseModel):
     id: Optional[int] = None
 
 
@@ -169,7 +169,7 @@ class GetTopWatchedContentMetadataTypedDict(TypedDict):
     country: NotRequired[List[GetTopWatchedContentCountryTypedDict]]
     guids: NotRequired[List[GetTopWatchedContentGuidsTypedDict]]
     role: NotRequired[List[GetTopWatchedContentRoleTypedDict]]
-    user: NotRequired[List[UserTypedDict]]
+    user: NotRequired[List[GetTopWatchedContentUserTypedDict]]
 
 
 class GetTopWatchedContentMetadata(BaseModel):
@@ -261,7 +261,9 @@ class GetTopWatchedContentMetadata(BaseModel):
         Optional[List[GetTopWatchedContentRole]], pydantic.Field(alias="Role")
     ] = None
 
-    user: Annotated[Optional[List[User]], pydantic.Field(alias="User")] = None
+    user: Annotated[
+        Optional[List[GetTopWatchedContentUser]], pydantic.Field(alias="User")
+    ] = None
 
 
 class GetTopWatchedContentMediaContainerTypedDict(TypedDict):
