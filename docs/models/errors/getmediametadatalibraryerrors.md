@@ -1,4 +1,4 @@
-# GetMetaDataByRatingKeyLibraryErrors
+# GetMediaMetaDataLibraryErrors
 
 
 ## Fields

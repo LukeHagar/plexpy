@@ -1139,7 +1139,7 @@ class Playlists(BaseSDK):
 
 
         :param playlist_id: the ID of the playlist
-        :param type: The type of media to retrieve. 1 = movie 2 = show 3 = season 4 = episode E.g. A movie library will not return anything with type 3 as there are no seasons for movie libraries
+        :param type: The type of media to retrieve or filter by. 1 = movie 2 = show 3 = season 4 = episode E.g. A movie library will not return anything with type 3 as there are no seasons for movie libraries
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1254,7 +1254,7 @@ class Playlists(BaseSDK):
 
 
         :param playlist_id: the ID of the playlist
-        :param type: The type of media to retrieve. 1 = movie 2 = show 3 = season 4 = episode E.g. A movie library will not return anything with type 3 as there are no seasons for movie libraries
+        :param type: The type of media to retrieve or filter by. 1 = movie 2 = show 3 = season 4 = episode E.g. A movie library will not return anything with type 3 as there are no seasons for movie libraries
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds

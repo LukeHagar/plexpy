@@ -219,8 +219,9 @@ asyncio.run(main())
 * [get_search_library](docs/sdks/library/README.md#get_search_library) - Search Library
 * [get_genres_library](docs/sdks/library/README.md#get_genres_library) - Get Genres of library media
 * [get_countries_library](docs/sdks/library/README.md#get_countries_library) - Get Countries of library media
+* [get_actors_library](docs/sdks/library/README.md#get_actors_library) - Get Actors of library media
 * [get_search_all_libraries](docs/sdks/library/README.md#get_search_all_libraries) - Search All Libraries
-* [get_meta_data_by_rating_key](docs/sdks/library/README.md#get_meta_data_by_rating_key) - Get Metadata by RatingKey
+* [get_media_meta_data](docs/sdks/library/README.md#get_media_meta_data) - Get Media Metadata
 * [get_metadata_children](docs/sdks/library/README.md#get_metadata_children) - Get Items Children
 * [get_top_watched_content](docs/sdks/library/README.md#get_top_watched_content) - Get Top Watched Content
 * [get_on_deck](docs/sdks/library/README.md#get_on_deck) - Get On Deck

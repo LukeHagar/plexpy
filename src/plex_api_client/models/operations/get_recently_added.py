@@ -12,7 +12,7 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class Type(int, Enum):
-    r"""The type of media to retrieve.
+    r"""The type of media to retrieve or filter by.
     1 = movie
     2 = show
     3 = season
@@ -41,7 +41,7 @@ class GetRecentlyAddedRequestTypedDict(TypedDict):
     content_directory_id: int
     r"""The content directory ID."""
     type: Type
-    r"""The type of media to retrieve.
+    r"""The type of media to retrieve or filter by.
     1 = movie
     2 = show
     3 = season
@@ -82,7 +82,7 @@ class GetRecentlyAddedRequest(BaseModel):
     type: Annotated[
         Type, FieldMetadata(query=QueryParamMetadata(style="form", explode=True))
     ]
-    r"""The type of media to retrieve.
+    r"""The type of media to retrieve or filter by.
     1 = movie
     2 = show
     3 = season

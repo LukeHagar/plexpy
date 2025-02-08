@@ -509,7 +509,7 @@ actions:
     update:
       x-codeSamples:
         - lang: python
-          label: key
+          label: data
           source: |-
             from plex_api_client import PlexAPI
 
@@ -517,7 +517,22 @@ actions:
                 access_token="<YOUR_API_KEY_HERE>",
             ) as plex_api:
 
-                res = plex_api.library.get_meta_data_by_rating_key(rating_key=9518)
+                res = plex_api.library.get_media_meta_data(request={
+                    "rating_key": 9518,
+                    "include_concerts": True,
+                    "include_extras": True,
+                    "include_on_deck": True,
+                    "include_popular_leaves": True,
+                    "include_preferences": True,
+                    "include_reviews": True,
+                    "include_chapters": True,
+                    "include_stations": True,
+                    "include_external_media": True,
+                    "async_augment_metadata": True,
+                    "async_check_files": True,
+                    "async_refresh_analysis": True,
+                    "async_refresh_local_media_agent": True,
+                })
 
                 assert res.object is not None
 
@@ -747,6 +762,25 @@ actions:
 
                 # Handle response
                 print(res.object)
+  - target: $["paths"]["/library/sections/{sectionKey}/actor"]["get"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: library
+          source: |-
+            from plex_api_client import PlexAPI
+            from plex_api_client.models import operations
+
+            with PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+            ) as plex_api:
+
+                res = plex_api.library.get_actors_library(section_key=9518, type_=operations.GetActorsLibraryQueryParamType.TV_SHOW)
+
+                assert res.object is not None
+
+                # Handle response
+                print(res.object)
   - target: $["paths"]["/library/sections/{sectionKey}/country"]["get"]
     update:
       x-codeSamples:
@@ -754,12 +788,13 @@ actions:
           label: library
           source: |-
             from plex_api_client import PlexAPI
+            from plex_api_client.models import operations
 
             with PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
             ) as plex_api:
 
-                res = plex_api.library.get_countries_library(section_key=9518)
+                res = plex_api.library.get_countries_library(section_key=9518, type_=operations.GetCountriesLibraryQueryParamType.TV_SHOW)
 
                 assert res.object is not None
 
@@ -772,12 +807,13 @@ actions:
           label: library
           source: |-
             from plex_api_client import PlexAPI
+            from plex_api_client.models import operations
 
             with PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
             ) as plex_api:
 
-                res = plex_api.library.get_genres_library(section_key=9518)
+                res = plex_api.library.get_genres_library(section_key=9518, type_=operations.GetGenresLibraryQueryParamType.TV_SHOW)
 
                 assert res.object is not None
 

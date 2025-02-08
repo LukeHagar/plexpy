@@ -1700,7 +1700,7 @@ class Library(BaseSDK):
 
 
         :param section_key: The unique key of the Plex library.  Note: This is unique in the context of the Plex server.
-        :param type: The type of media to retrieve. 1 = movie 2 = show 3 = season 4 = episode E.g. A movie library will not return anything with type 3 as there are no seasons for movie libraries
+        :param type: The type of media to retrieve or filter by. 1 = movie 2 = show 3 = season 4 = episode E.g. A movie library will not return anything with type 3 as there are no seasons for movie libraries
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1829,7 +1829,7 @@ class Library(BaseSDK):
 
 
         :param section_key: The unique key of the Plex library.  Note: This is unique in the context of the Plex server.
-        :param type: The type of media to retrieve. 1 = movie 2 = show 3 = season 4 = episode E.g. A movie library will not return anything with type 3 as there are no seasons for movie libraries
+        :param type: The type of media to retrieve or filter by. 1 = movie 2 = show 3 = season 4 = episode E.g. A movie library will not return anything with type 3 as there are no seasons for movie libraries
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1929,6 +1929,7 @@ class Library(BaseSDK):
         self,
         *,
         section_key: int,
+        type_: operations.GetGenresLibraryQueryParamType,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -1940,6 +1941,7 @@ class Library(BaseSDK):
 
 
         :param section_key: The unique key of the Plex library.  Note: This is unique in the context of the Plex server.
+        :param type: The type of media to retrieve or filter by. 1 = movie 2 = show 3 = season 4 = episode E.g. A movie library will not return anything with type 3 as there are no seasons for movie libraries
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -1955,6 +1957,7 @@ class Library(BaseSDK):
 
         request = operations.GetGenresLibraryRequest(
             section_key=section_key,
+            type=type_,
         )
 
         req = self._build_request(
@@ -2038,6 +2041,7 @@ class Library(BaseSDK):
         self,
         *,
         section_key: int,
+        type_: operations.GetGenresLibraryQueryParamType,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -2049,6 +2053,7 @@ class Library(BaseSDK):
 
 
         :param section_key: The unique key of the Plex library.  Note: This is unique in the context of the Plex server.
+        :param type: The type of media to retrieve or filter by. 1 = movie 2 = show 3 = season 4 = episode E.g. A movie library will not return anything with type 3 as there are no seasons for movie libraries
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2064,6 +2069,7 @@ class Library(BaseSDK):
 
         request = operations.GetGenresLibraryRequest(
             section_key=section_key,
+            type=type_,
         )
 
         req = self._build_request_async(
@@ -2147,6 +2153,7 @@ class Library(BaseSDK):
         self,
         *,
         section_key: int,
+        type_: operations.GetCountriesLibraryQueryParamType,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -2158,6 +2165,7 @@ class Library(BaseSDK):
 
 
         :param section_key: The unique key of the Plex library.  Note: This is unique in the context of the Plex server.
+        :param type: The type of media to retrieve or filter by. 1 = movie 2 = show 3 = season 4 = episode E.g. A movie library will not return anything with type 3 as there are no seasons for movie libraries
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2173,6 +2181,7 @@ class Library(BaseSDK):
 
         request = operations.GetCountriesLibraryRequest(
             section_key=section_key,
+            type=type_,
         )
 
         req = self._build_request(
@@ -2256,6 +2265,7 @@ class Library(BaseSDK):
         self,
         *,
         section_key: int,
+        type_: operations.GetCountriesLibraryQueryParamType,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -2267,6 +2277,7 @@ class Library(BaseSDK):
 
 
         :param section_key: The unique key of the Plex library.  Note: This is unique in the context of the Plex server.
+        :param type: The type of media to retrieve or filter by. 1 = movie 2 = show 3 = season 4 = episode E.g. A movie library will not return anything with type 3 as there are no seasons for movie libraries
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2282,6 +2293,7 @@ class Library(BaseSDK):
 
         request = operations.GetCountriesLibraryRequest(
             section_key=section_key,
+            type=type_,
         )
 
         req = self._build_request_async(
@@ -2341,6 +2353,230 @@ class Library(BaseSDK):
             )
             response_data.raw_response = http_res
             raise errors.GetCountriesLibraryUnauthorized(data=response_data)
+        if utils.match_response(http_res, ["404", "4XX"], "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = await utils.stream_to_text_async(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+
+        content_type = http_res.headers.get("Content-Type")
+        http_res_text = await utils.stream_to_text_async(http_res)
+        raise errors.SDKError(
+            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
+            http_res.status_code,
+            http_res_text,
+            http_res,
+        )
+
+    def get_actors_library(
+        self,
+        *,
+        section_key: int,
+        type_: operations.GetActorsLibraryQueryParamType,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> operations.GetActorsLibraryResponse:
+        r"""Get Actors of library media
+
+        Retrieves a list of all the actors that are found for the media in this library.
+
+
+        :param section_key: The unique key of the Plex library.  Note: This is unique in the context of the Plex server.
+        :param type: The type of media to retrieve or filter by. 1 = movie 2 = show 3 = season 4 = episode E.g. A movie library will not return anything with type 3 as there are no seasons for movie libraries
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+
+        request = operations.GetActorsLibraryRequest(
+            section_key=section_key,
+            type=type_,
+        )
+
+        req = self._build_request(
+            method="GET",
+            path="/library/sections/{sectionKey}/actor",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = self.do_request(
+            hook_ctx=HookContext(
+                operation_id="get-actors-library",
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
+            ),
+            request=req,
+            error_status_codes=["400", "401", "404", "4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return operations.GetActorsLibraryResponse(
+                object=utils.unmarshal_json(
+                    http_res.text, Optional[operations.GetActorsLibraryResponseBody]
+                ),
+                status_code=http_res.status_code,
+                content_type=http_res.headers.get("Content-Type") or "",
+                raw_response=http_res,
+            )
+        if utils.match_response(http_res, "400", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.GetActorsLibraryBadRequestData
+            )
+            response_data.raw_response = http_res
+            raise errors.GetActorsLibraryBadRequest(data=response_data)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.GetActorsLibraryUnauthorizedData
+            )
+            response_data.raw_response = http_res
+            raise errors.GetActorsLibraryUnauthorized(data=response_data)
+        if utils.match_response(http_res, ["404", "4XX"], "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+        if utils.match_response(http_res, "5XX", "*"):
+            http_res_text = utils.stream_to_text(http_res)
+            raise errors.SDKError(
+                "API error occurred", http_res.status_code, http_res_text, http_res
+            )
+
+        content_type = http_res.headers.get("Content-Type")
+        http_res_text = utils.stream_to_text(http_res)
+        raise errors.SDKError(
+            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
+            http_res.status_code,
+            http_res_text,
+            http_res,
+        )
+
+    async def get_actors_library_async(
+        self,
+        *,
+        section_key: int,
+        type_: operations.GetActorsLibraryQueryParamType,
+        retries: OptionalNullable[utils.RetryConfig] = UNSET,
+        server_url: Optional[str] = None,
+        timeout_ms: Optional[int] = None,
+        http_headers: Optional[Mapping[str, str]] = None,
+    ) -> operations.GetActorsLibraryResponse:
+        r"""Get Actors of library media
+
+        Retrieves a list of all the actors that are found for the media in this library.
+
+
+        :param section_key: The unique key of the Plex library.  Note: This is unique in the context of the Plex server.
+        :param type: The type of media to retrieve or filter by. 1 = movie 2 = show 3 = season 4 = episode E.g. A movie library will not return anything with type 3 as there are no seasons for movie libraries
+        :param retries: Override the default retry configuration for this method
+        :param server_url: Override the default server URL for this method
+        :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
+        :param http_headers: Additional headers to set or replace on requests.
+        """
+        base_url = None
+        url_variables = None
+        if timeout_ms is None:
+            timeout_ms = self.sdk_configuration.timeout_ms
+
+        if server_url is not None:
+            base_url = server_url
+
+        request = operations.GetActorsLibraryRequest(
+            section_key=section_key,
+            type=type_,
+        )
+
+        req = self._build_request_async(
+            method="GET",
+            path="/library/sections/{sectionKey}/actor",
+            base_url=base_url,
+            url_variables=url_variables,
+            request=request,
+            request_body_required=False,
+            request_has_path_params=True,
+            request_has_query_params=True,
+            user_agent_header="user-agent",
+            accept_header_value="application/json",
+            http_headers=http_headers,
+            security=self.sdk_configuration.security,
+            timeout_ms=timeout_ms,
+        )
+
+        if retries == UNSET:
+            if self.sdk_configuration.retry_config is not UNSET:
+                retries = self.sdk_configuration.retry_config
+
+        retry_config = None
+        if isinstance(retries, utils.RetryConfig):
+            retry_config = (retries, ["429", "500", "502", "503", "504"])
+
+        http_res = await self.do_request_async(
+            hook_ctx=HookContext(
+                operation_id="get-actors-library",
+                oauth2_scopes=[],
+                security_source=self.sdk_configuration.security,
+            ),
+            request=req,
+            error_status_codes=["400", "401", "404", "4XX", "5XX"],
+            retry_config=retry_config,
+        )
+
+        response_data: Any = None
+        if utils.match_response(http_res, "200", "application/json"):
+            return operations.GetActorsLibraryResponse(
+                object=utils.unmarshal_json(
+                    http_res.text, Optional[operations.GetActorsLibraryResponseBody]
+                ),
+                status_code=http_res.status_code,
+                content_type=http_res.headers.get("Content-Type") or "",
+                raw_response=http_res,
+            )
+        if utils.match_response(http_res, "400", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.GetActorsLibraryBadRequestData
+            )
+            response_data.raw_response = http_res
+            raise errors.GetActorsLibraryBadRequest(data=response_data)
+        if utils.match_response(http_res, "401", "application/json"):
+            response_data = utils.unmarshal_json(
+                http_res.text, errors.GetActorsLibraryUnauthorizedData
+            )
+            response_data.raw_response = http_res
+            raise errors.GetActorsLibraryUnauthorized(data=response_data)
         if utils.match_response(http_res, ["404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -2587,21 +2823,24 @@ class Library(BaseSDK):
             http_res,
         )
 
-    def get_meta_data_by_rating_key(
+    def get_media_meta_data(
         self,
         *,
-        rating_key: int,
+        request: Union[
+            operations.GetMediaMetaDataRequest,
+            operations.GetMediaMetaDataRequestTypedDict,
+        ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> operations.GetMetaDataByRatingKeyResponse:
-        r"""Get Metadata by RatingKey
+    ) -> operations.GetMediaMetaDataResponse:
+        r"""Get Media Metadata
 
-        This endpoint will return the metadata of a library item specified with the ratingKey.
+        This endpoint will return all the (meta)data of a library item specified with by the ratingKey.
 
 
-        :param rating_key: the id of the library item to return the children of.
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2615,9 +2854,9 @@ class Library(BaseSDK):
         if server_url is not None:
             base_url = server_url
 
-        request = operations.GetMetaDataByRatingKeyRequest(
-            rating_key=rating_key,
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, operations.GetMediaMetaDataRequest)
+        request = cast(operations.GetMediaMetaDataRequest, request)
 
         req = self._build_request(
             method="GET",
@@ -2645,21 +2884,20 @@ class Library(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
-                operation_id="get-meta-data-by-rating-key",
+                operation_id="get-media-meta-data",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["400", "401", "4XX", "5XX"],
+            error_status_codes=["400", "401", "404", "4XX", "5XX"],
             retry_config=retry_config,
         )
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return operations.GetMetaDataByRatingKeyResponse(
+            return operations.GetMediaMetaDataResponse(
                 object=utils.unmarshal_json(
-                    http_res.text,
-                    Optional[operations.GetMetaDataByRatingKeyResponseBody],
+                    http_res.text, Optional[operations.GetMediaMetaDataResponseBody]
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
@@ -2667,17 +2905,17 @@ class Library(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             response_data = utils.unmarshal_json(
-                http_res.text, errors.GetMetaDataByRatingKeyBadRequestData
+                http_res.text, errors.GetMediaMetaDataBadRequestData
             )
             response_data.raw_response = http_res
-            raise errors.GetMetaDataByRatingKeyBadRequest(data=response_data)
+            raise errors.GetMediaMetaDataBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
             response_data = utils.unmarshal_json(
-                http_res.text, errors.GetMetaDataByRatingKeyUnauthorizedData
+                http_res.text, errors.GetMediaMetaDataUnauthorizedData
             )
             response_data.raw_response = http_res
-            raise errors.GetMetaDataByRatingKeyUnauthorized(data=response_data)
-        if utils.match_response(http_res, "4XX", "*"):
+            raise errors.GetMediaMetaDataUnauthorized(data=response_data)
+        if utils.match_response(http_res, ["404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -2697,21 +2935,24 @@ class Library(BaseSDK):
             http_res,
         )
 
-    async def get_meta_data_by_rating_key_async(
+    async def get_media_meta_data_async(
         self,
         *,
-        rating_key: int,
+        request: Union[
+            operations.GetMediaMetaDataRequest,
+            operations.GetMediaMetaDataRequestTypedDict,
+        ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> operations.GetMetaDataByRatingKeyResponse:
-        r"""Get Metadata by RatingKey
+    ) -> operations.GetMediaMetaDataResponse:
+        r"""Get Media Metadata
 
-        This endpoint will return the metadata of a library item specified with the ratingKey.
+        This endpoint will return all the (meta)data of a library item specified with by the ratingKey.
 
 
-        :param rating_key: the id of the library item to return the children of.
+        :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -2725,9 +2966,9 @@ class Library(BaseSDK):
         if server_url is not None:
             base_url = server_url
 
-        request = operations.GetMetaDataByRatingKeyRequest(
-            rating_key=rating_key,
-        )
+        if not isinstance(request, BaseModel):
+            request = utils.unmarshal(request, operations.GetMediaMetaDataRequest)
+        request = cast(operations.GetMediaMetaDataRequest, request)
 
         req = self._build_request_async(
             method="GET",
@@ -2755,21 +2996,20 @@ class Library(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
-                operation_id="get-meta-data-by-rating-key",
+                operation_id="get-media-meta-data",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
             ),
             request=req,
-            error_status_codes=["400", "401", "4XX", "5XX"],
+            error_status_codes=["400", "401", "404", "4XX", "5XX"],
             retry_config=retry_config,
         )
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return operations.GetMetaDataByRatingKeyResponse(
+            return operations.GetMediaMetaDataResponse(
                 object=utils.unmarshal_json(
-                    http_res.text,
-                    Optional[operations.GetMetaDataByRatingKeyResponseBody],
+                    http_res.text, Optional[operations.GetMediaMetaDataResponseBody]
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
@@ -2777,17 +3017,17 @@ class Library(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             response_data = utils.unmarshal_json(
-                http_res.text, errors.GetMetaDataByRatingKeyBadRequestData
+                http_res.text, errors.GetMediaMetaDataBadRequestData
             )
             response_data.raw_response = http_res
-            raise errors.GetMetaDataByRatingKeyBadRequest(data=response_data)
+            raise errors.GetMediaMetaDataBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
             response_data = utils.unmarshal_json(
-                http_res.text, errors.GetMetaDataByRatingKeyUnauthorizedData
+                http_res.text, errors.GetMediaMetaDataUnauthorizedData
             )
             response_data.raw_response = http_res
-            raise errors.GetMetaDataByRatingKeyUnauthorized(data=response_data)
-        if utils.match_response(http_res, "4XX", "*"):
+            raise errors.GetMediaMetaDataUnauthorized(data=response_data)
+        if utils.match_response(http_res, ["404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
                 "API error occurred", http_res.status_code, http_res_text, http_res
@@ -3046,7 +3286,7 @@ class Library(BaseSDK):
         This endpoint will return the top watched content from libraries of a certain type
 
 
-        :param type: The type of media to retrieve. 1 = movie 2 = show 3 = season 4 = episode E.g. A movie library will not return anything with type 3 as there are no seasons for movie libraries
+        :param type: The type of media to retrieve or filter by. 1 = movie 2 = show 3 = season 4 = episode E.g. A movie library will not return anything with type 3 as there are no seasons for movie libraries
         :param include_guids: Adds the Guids object to the response
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
@@ -3158,7 +3398,7 @@ class Library(BaseSDK):
         This endpoint will return the top watched content from libraries of a certain type
 
 
-        :param type: The type of media to retrieve. 1 = movie 2 = show 3 = season 4 = episode E.g. A movie library will not return anything with type 3 as there are no seasons for movie libraries
+        :param type: The type of media to retrieve or filter by. 1 = movie 2 = show 3 = season 4 = episode E.g. A movie library will not return anything with type 3 as there are no seasons for movie libraries
         :param include_guids: Adds the Guids object to the response
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method

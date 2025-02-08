@@ -12,7 +12,7 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class QueryParamType(int, Enum):
-    r"""The type of media to retrieve.
+    r"""The type of media to retrieve or filter by.
     1 = movie
     2 = show
     3 = season
@@ -39,7 +39,7 @@ class QueryParamIncludeMeta(int, Enum):
 
 class GetRecentlyAddedLibraryRequestTypedDict(TypedDict):
     type: QueryParamType
-    r"""The type of media to retrieve.
+    r"""The type of media to retrieve or filter by.
     1 = movie
     2 = show
     3 = season
@@ -74,7 +74,7 @@ class GetRecentlyAddedLibraryRequest(BaseModel):
         QueryParamType,
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ]
-    r"""The type of media to retrieve.
+    r"""The type of media to retrieve or filter by.
     1 = movie
     2 = show
     3 = season

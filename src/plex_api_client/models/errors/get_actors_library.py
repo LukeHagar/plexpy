@@ -9,13 +9,13 @@ from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class GetMetaDataByRatingKeyLibraryErrorsTypedDict(TypedDict):
+class GetActorsLibraryLibraryErrorsTypedDict(TypedDict):
     code: NotRequired[int]
     message: NotRequired[str]
     status: NotRequired[int]
 
 
-class GetMetaDataByRatingKeyLibraryErrors(BaseModel):
+class GetActorsLibraryLibraryErrors(BaseModel):
     code: Optional[int] = None
 
     message: Optional[str] = None
@@ -23,8 +23,8 @@ class GetMetaDataByRatingKeyLibraryErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetMetaDataByRatingKeyUnauthorizedData(BaseModel):
-    errors: Optional[List[GetMetaDataByRatingKeyLibraryErrors]] = None
+class GetActorsLibraryUnauthorizedData(BaseModel):
+    errors: Optional[List[GetActorsLibraryLibraryErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
         None
@@ -32,25 +32,25 @@ class GetMetaDataByRatingKeyUnauthorizedData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetMetaDataByRatingKeyUnauthorized(Exception):
+class GetActorsLibraryUnauthorized(Exception):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
-    data: GetMetaDataByRatingKeyUnauthorizedData
+    data: GetActorsLibraryUnauthorizedData
 
-    def __init__(self, data: GetMetaDataByRatingKeyUnauthorizedData):
+    def __init__(self, data: GetActorsLibraryUnauthorizedData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetMetaDataByRatingKeyUnauthorizedData)
+        return utils.marshal_json(self.data, GetActorsLibraryUnauthorizedData)
 
 
-class GetMetaDataByRatingKeyErrorsTypedDict(TypedDict):
+class GetActorsLibraryErrorsTypedDict(TypedDict):
     code: NotRequired[int]
     message: NotRequired[str]
     status: NotRequired[int]
 
 
-class GetMetaDataByRatingKeyErrors(BaseModel):
+class GetActorsLibraryErrors(BaseModel):
     code: Optional[int] = None
 
     message: Optional[str] = None
@@ -58,8 +58,8 @@ class GetMetaDataByRatingKeyErrors(BaseModel):
     status: Optional[int] = None
 
 
-class GetMetaDataByRatingKeyBadRequestData(BaseModel):
-    errors: Optional[List[GetMetaDataByRatingKeyErrors]] = None
+class GetActorsLibraryBadRequestData(BaseModel):
+    errors: Optional[List[GetActorsLibraryErrors]] = None
 
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
         None
@@ -67,13 +67,13 @@ class GetMetaDataByRatingKeyBadRequestData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetMetaDataByRatingKeyBadRequest(Exception):
+class GetActorsLibraryBadRequest(Exception):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
-    data: GetMetaDataByRatingKeyBadRequestData
+    data: GetActorsLibraryBadRequestData
 
-    def __init__(self, data: GetMetaDataByRatingKeyBadRequestData):
+    def __init__(self, data: GetActorsLibraryBadRequestData):
         self.data = data
 
     def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetMetaDataByRatingKeyBadRequestData)
+        return utils.marshal_json(self.data, GetActorsLibraryBadRequestData)

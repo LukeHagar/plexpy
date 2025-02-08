@@ -44,7 +44,7 @@ class IncludeGuids(int, Enum):
 
 
 class GetLibraryItemsQueryParamType(int, Enum):
-    r"""The type of media to retrieve.
+    r"""The type of media to retrieve or filter by.
     1 = movie
     2 = show
     3 = season
@@ -72,6 +72,15 @@ class GetLibraryItemsQueryParamIncludeMeta(int, Enum):
 class GetLibraryItemsRequestTypedDict(TypedDict):
     tag: Tag
     r"""A key representing a specific tag within the section."""
+    type: GetLibraryItemsQueryParamType
+    r"""The type of media to retrieve or filter by.
+    1 = movie
+    2 = show
+    3 = season
+    4 = episode
+    E.g. A movie library will not return anything with type 3 as there are no seasons for movie libraries
+
+    """
     section_key: int
     r"""The unique key of the Plex library.
     Note: This is unique in the context of the Plex server.
@@ -79,15 +88,6 @@ class GetLibraryItemsRequestTypedDict(TypedDict):
     """
     include_guids: NotRequired[IncludeGuids]
     r"""Adds the Guids object to the response
-
-    """
-    type: NotRequired[GetLibraryItemsQueryParamType]
-    r"""The type of media to retrieve.
-    1 = movie
-    2 = show
-    3 = season
-    4 = episode
-    E.g. A movie library will not return anything with type 3 as there are no seasons for movie libraries
 
     """
     include_meta: NotRequired[GetLibraryItemsQueryParamIncludeMeta]
@@ -114,6 +114,19 @@ class GetLibraryItemsRequest(BaseModel):
     ]
     r"""A key representing a specific tag within the section."""
 
+    type: Annotated[
+        GetLibraryItemsQueryParamType,
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ]
+    r"""The type of media to retrieve or filter by.
+    1 = movie
+    2 = show
+    3 = season
+    4 = episode
+    E.g. A movie library will not return anything with type 3 as there are no seasons for movie libraries
+
+    """
+
     section_key: Annotated[
         int,
         pydantic.Field(alias="sectionKey"),
@@ -130,19 +143,6 @@ class GetLibraryItemsRequest(BaseModel):
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = IncludeGuids.DISABLE
     r"""Adds the Guids object to the response
-
-    """
-
-    type: Annotated[
-        Optional[GetLibraryItemsQueryParamType],
-        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
-    r"""The type of media to retrieve.
-    1 = movie
-    2 = show
-    3 = season
-    4 = episode
-    E.g. A movie library will not return anything with type 3 as there are no seasons for movie libraries
 
     """
 

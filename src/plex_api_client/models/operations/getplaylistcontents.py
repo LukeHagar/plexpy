@@ -12,7 +12,7 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class GetPlaylistContentsQueryParamType(int, Enum):
-    r"""The type of media to retrieve.
+    r"""The type of media to retrieve or filter by.
     1 = movie
     2 = show
     3 = season
@@ -34,7 +34,7 @@ class GetPlaylistContentsRequestTypedDict(TypedDict):
     playlist_id: float
     r"""the ID of the playlist"""
     type: GetPlaylistContentsQueryParamType
-    r"""The type of media to retrieve.
+    r"""The type of media to retrieve or filter by.
     1 = movie
     2 = show
     3 = season
@@ -56,7 +56,7 @@ class GetPlaylistContentsRequest(BaseModel):
         GetPlaylistContentsQueryParamType,
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ]
-    r"""The type of media to retrieve.
+    r"""The type of media to retrieve or filter by.
     1 = movie
     2 = show
     3 = season

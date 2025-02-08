@@ -11,7 +11,7 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class GetSearchLibraryQueryParamType(int, Enum):
-    r"""The type of media to retrieve.
+    r"""The type of media to retrieve or filter by.
     1 = movie
     2 = show
     3 = season
@@ -36,7 +36,7 @@ class GetSearchLibraryRequestTypedDict(TypedDict):
 
     """
     type: GetSearchLibraryQueryParamType
-    r"""The type of media to retrieve.
+    r"""The type of media to retrieve or filter by.
     1 = movie
     2 = show
     3 = season
@@ -61,7 +61,7 @@ class GetSearchLibraryRequest(BaseModel):
         GetSearchLibraryQueryParamType,
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ]
-    r"""The type of media to retrieve.
+    r"""The type of media to retrieve or filter by.
     1 = movie
     2 = show
     3 = season
