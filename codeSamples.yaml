@@ -781,6 +781,28 @@ actions:
 
                 # Handle response
                 print(res.object)
+  - target: $["paths"]["/library/sections/{sectionKey}/all"]["get"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: library
+          source: |-
+            from plex_api_client import PlexAPI
+            from plex_api_client.models import operations
+
+            with PlexAPI(
+                access_token="<YOUR_API_KEY_HERE>",
+            ) as plex_api:
+
+                res = plex_api.library.get_all_media_library(request={
+                    "section_key": 9518,
+                    "type": operations.GetAllMediaLibraryQueryParamType.TV_SHOW,
+                })
+
+                assert res.object is not None
+
+                # Handle response
+                print(res.object)
   - target: $["paths"]["/library/sections/{sectionKey}/country"]["get"]
     update:
       x-codeSamples:

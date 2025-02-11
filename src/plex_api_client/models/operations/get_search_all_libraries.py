@@ -19,14 +19,14 @@ class SearchTypes(str, Enum):
     TV = "tv"
 
 
-class QueryParamIncludeCollections(int, Enum):
+class GetSearchAllLibrariesQueryParamIncludeCollections(int, Enum):
     r"""Whether to include collections in the search results."""
 
     DISABLE = 0
     ENABLE = 1
 
 
-class QueryParamIncludeExternalMedia(int, Enum):
+class GetSearchAllLibrariesQueryParamIncludeExternalMedia(int, Enum):
     r"""Whether to include external media in the search results."""
 
     DISABLE = 0
@@ -44,9 +44,11 @@ class GetSearchAllLibrariesRequestTypedDict(TypedDict):
     r"""A comma-separated list of search types to include. Valid values are: movies, music, otherVideos, people, tv.
 
     """
-    include_collections: NotRequired[QueryParamIncludeCollections]
+    include_collections: NotRequired[GetSearchAllLibrariesQueryParamIncludeCollections]
     r"""Whether to include collections in the search results."""
-    include_external_media: NotRequired[QueryParamIncludeExternalMedia]
+    include_external_media: NotRequired[
+        GetSearchAllLibrariesQueryParamIncludeExternalMedia
+    ]
     r"""Whether to include external media in the search results."""
 
 
@@ -79,17 +81,17 @@ class GetSearchAllLibrariesRequest(BaseModel):
     """
 
     include_collections: Annotated[
-        Optional[QueryParamIncludeCollections],
+        Optional[GetSearchAllLibrariesQueryParamIncludeCollections],
         pydantic.Field(alias="includeCollections"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = QueryParamIncludeCollections.DISABLE
+    ] = GetSearchAllLibrariesQueryParamIncludeCollections.DISABLE
     r"""Whether to include collections in the search results."""
 
     include_external_media: Annotated[
-        Optional[QueryParamIncludeExternalMedia],
+        Optional[GetSearchAllLibrariesQueryParamIncludeExternalMedia],
         pydantic.Field(alias="includeExternalMedia"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = QueryParamIncludeExternalMedia.DISABLE
+    ] = GetSearchAllLibrariesQueryParamIncludeExternalMedia.DISABLE
     r"""Whether to include external media in the search results."""
 
 
@@ -100,6 +102,8 @@ class GetSearchAllLibrariesType(str, Enum):
     TV_SHOW = "show"
     SEASON = "season"
     EPISODE = "episode"
+    ARTIST = "artist"
+    ALBUM = "album"
 
 
 class GetSearchAllLibrariesFlattenSeasons(str, Enum):

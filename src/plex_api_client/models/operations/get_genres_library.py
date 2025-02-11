@@ -89,51 +89,69 @@ class GetGenresLibraryDirectory(BaseModel):
 
 
 class GetGenresLibraryMediaContainerTypedDict(TypedDict):
-    size: float
-    identifier: str
+    size: int
+    r"""Number of media items returned in this response."""
     allow_sync: bool
+    r"""Indicates whether syncing is allowed."""
     art: str
+    r"""URL for the background artwork of the media container."""
     content: str
+    r"""The content type or mode."""
+    identifier: str
+    r"""An plugin identifier for the media container."""
     media_tag_prefix: str
+    r"""The prefix used for media tag resource paths."""
     media_tag_version: int
+    r"""The version number for media tags."""
     nocache: bool
+    r"""Specifies whether caching is disabled."""
     thumb: str
+    r"""URL for the thumbnail image of the media container."""
     title1: str
+    r"""The primary title of the media container."""
     title2: str
+    r"""The secondary title of the media container."""
     view_group: str
-    offset: NotRequired[int]
-    total_size: NotRequired[int]
+    r"""Identifier for the view group layout."""
     directory: NotRequired[List[GetGenresLibraryDirectoryTypedDict]]
 
 
 class GetGenresLibraryMediaContainer(BaseModel):
-    size: float
-
-    identifier: str
+    size: int
+    r"""Number of media items returned in this response."""
 
     allow_sync: Annotated[bool, pydantic.Field(alias="allowSync")]
+    r"""Indicates whether syncing is allowed."""
 
     art: str
+    r"""URL for the background artwork of the media container."""
 
     content: str
+    r"""The content type or mode."""
+
+    identifier: str
+    r"""An plugin identifier for the media container."""
 
     media_tag_prefix: Annotated[str, pydantic.Field(alias="mediaTagPrefix")]
+    r"""The prefix used for media tag resource paths."""
 
     media_tag_version: Annotated[int, pydantic.Field(alias="mediaTagVersion")]
+    r"""The version number for media tags."""
 
     nocache: bool
+    r"""Specifies whether caching is disabled."""
 
     thumb: str
+    r"""URL for the thumbnail image of the media container."""
 
     title1: str
+    r"""The primary title of the media container."""
 
     title2: str
+    r"""The secondary title of the media container."""
 
     view_group: Annotated[str, pydantic.Field(alias="viewGroup")]
-
-    offset: Optional[int] = None
-
-    total_size: Annotated[Optional[int], pydantic.Field(alias="totalSize")] = None
+    r"""Identifier for the view group layout."""
 
     directory: Annotated[
         Optional[List[GetGenresLibraryDirectory]], pydantic.Field(alias="Directory")

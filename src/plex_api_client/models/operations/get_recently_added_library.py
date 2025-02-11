@@ -140,6 +140,7 @@ class GetRecentlyAddedLibraryFilterTypedDict(TypedDict):
     key: str
     title: str
     type: str
+    advanced: NotRequired[bool]
 
 
 class GetRecentlyAddedLibraryFilter(BaseModel):
@@ -152,6 +153,8 @@ class GetRecentlyAddedLibraryFilter(BaseModel):
     title: str
 
     type: str
+
+    advanced: Optional[bool] = None
 
 
 class ActiveDirection(str, Enum):
@@ -237,6 +240,7 @@ class GetRecentlyAddedLibraryTypeTypedDict(TypedDict):
     type: str
     title: str
     active: bool
+    subtype: NotRequired[str]
     filter_: NotRequired[List[GetRecentlyAddedLibraryFilterTypedDict]]
     sort: NotRequired[List[SortTypedDict]]
     field: NotRequired[List[FieldTTypedDict]]
@@ -250,6 +254,8 @@ class GetRecentlyAddedLibraryType(BaseModel):
     title: str
 
     active: bool
+
+    subtype: Optional[str] = None
 
     filter_: Annotated[
         Optional[List[GetRecentlyAddedLibraryFilter]], pydantic.Field(alias="Filter")

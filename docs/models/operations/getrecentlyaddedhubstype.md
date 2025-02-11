@@ -12,3 +12,5 @@ The type of media content
 | `TV_SHOW` | show      |
 | `SEASON`  | season    |
 | `EPISODE` | episode   |
+| `ARTIST`  | artist    |
+| `ALBUM`   | album     |

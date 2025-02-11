@@ -97,7 +97,8 @@ class GetActorsLibraryDirectory(BaseModel):
 
 
 class GetActorsLibraryMediaContainerTypedDict(TypedDict):
-    size: float
+    size: int
+    r"""Number of media items returned in this response."""
     allow_sync: bool
     r"""Indicates whether syncing is allowed."""
     art: str
@@ -125,7 +126,8 @@ class GetActorsLibraryMediaContainerTypedDict(TypedDict):
 
 
 class GetActorsLibraryMediaContainer(BaseModel):
-    size: float
+    size: int
+    r"""Number of media items returned in this response."""
 
     allow_sync: Annotated[bool, pydantic.Field(alias="allowSync")]
     r"""Indicates whether syncing is allowed."""

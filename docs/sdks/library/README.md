@@ -14,6 +14,7 @@ API Calls interacting with Plex Media Server Libraries
 * [get_library_details](#get_library_details) - Get Library Details
 * [delete_library](#delete_library) - Delete Library Section
 * [get_library_items](#get_library_items) - Get Library Items
+* [get_all_media_library](#get_all_media_library) - Get all media of library
 * [get_refresh_library_metadata](#get_refresh_library_metadata) - Refresh Metadata Of The Library
 * [get_search_library](#get_search_library) - Search Library
 * [get_genres_library](#get_genres_library) - Get Genres of library media
@@ -362,6 +363,52 @@ with PlexAPI(
 | errors.GetLibraryItemsBadRequest   | 400                                | application/json                   |
 | errors.GetLibraryItemsUnauthorized | 401                                | application/json                   |
 | errors.SDKError                    | 4XX, 5XX                           | \*/\*                              |
+
+## get_all_media_library
+
+Retrieves a list of all general media data for this library.
+
+
+### Example Usage
+
+```python
+from plex_api_client import PlexAPI
+from plex_api_client.models import operations
+
+with PlexAPI(
+    access_token="<YOUR_API_KEY_HERE>",
+) as plex_api:
+
+    res = plex_api.library.get_all_media_library(request={
+        "section_key": 9518,
+        "type": operations.GetAllMediaLibraryQueryParamType.TV_SHOW,
+    })
+
+    assert res.object is not None
+
+    # Handle response
+    print(res.object)
+
+```
+
+### Parameters
+
+| Parameter                                                                                    | Type                                                                                         | Required                                                                                     | Description                                                                                  |
+| -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
+| `request`                                                                                    | [operations.GetAllMediaLibraryRequest](../../models/operations/getallmedialibraryrequest.md) | :heavy_check_mark:                                                                           | The request object to use for the request.                                                   |
+| `retries`                                                                                    | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                             | :heavy_minus_sign:                                                                           | Configuration to override the default retry behavior of the client.                          |
+
+### Response
+
+**[operations.GetAllMediaLibraryResponse](../../models/operations/getallmedialibraryresponse.md)**
+
+### Errors
+
+| Error Type                            | Status Code                           | Content Type                          |
+| ------------------------------------- | ------------------------------------- | ------------------------------------- |
+| errors.GetAllMediaLibraryBadRequest   | 400                                   | application/json                      |
+| errors.GetAllMediaLibraryUnauthorized | 401                                   | application/json                      |
+| errors.SDKError                       | 4XX, 5XX                              | \*/\*                                 |
 
 ## get_refresh_library_metadata
 

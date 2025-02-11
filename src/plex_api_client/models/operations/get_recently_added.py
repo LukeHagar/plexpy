@@ -143,6 +143,7 @@ class GetRecentlyAddedFilterTypedDict(TypedDict):
     key: str
     title: str
     type: str
+    advanced: NotRequired[bool]
 
 
 class GetRecentlyAddedFilter(BaseModel):
@@ -155,6 +156,8 @@ class GetRecentlyAddedFilter(BaseModel):
     title: str
 
     type: str
+
+    advanced: Optional[bool] = None
 
 
 class GetRecentlyAddedActiveDirection(str, Enum):
@@ -242,6 +245,7 @@ class GetRecentlyAddedTypeTypedDict(TypedDict):
     type: str
     title: str
     active: bool
+    subtype: NotRequired[str]
     filter_: NotRequired[List[GetRecentlyAddedFilterTypedDict]]
     sort: NotRequired[List[GetRecentlyAddedSortTypedDict]]
     field: NotRequired[List[GetRecentlyAddedFieldTypedDict]]
@@ -255,6 +259,8 @@ class GetRecentlyAddedType(BaseModel):
     title: str
 
     active: bool
+
+    subtype: Optional[str] = None
 
     filter_: Annotated[
         Optional[List[GetRecentlyAddedFilter]], pydantic.Field(alias="Filter")
@@ -319,6 +325,8 @@ class GetRecentlyAddedHubsType(str, Enum):
     TV_SHOW = "show"
     SEASON = "season"
     EPISODE = "episode"
+    ARTIST = "artist"
+    ALBUM = "album"
 
 
 class FlattenSeasons(str, Enum):
@@ -1225,7 +1233,7 @@ class GetRecentlyAddedMetadata(BaseModel):
 
 
 class GetRecentlyAddedMediaContainerTypedDict(TypedDict):
-    size: float
+    size: int
     offset: NotRequired[int]
     total_size: NotRequired[int]
     identifier: NotRequired[str]
@@ -1238,7 +1246,7 @@ class GetRecentlyAddedMediaContainerTypedDict(TypedDict):
 
 
 class GetRecentlyAddedMediaContainer(BaseModel):
-    size: float
+    size: int
 
     offset: Optional[int] = None
 

@@ -14,7 +14,6 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 class Tag(str, Enum):
     r"""A key representing a specific tag within the section."""
 
-    ALL = "all"
     UNWATCHED = "unwatched"
     NEWEST = "newest"
     RECENTLY_ADDED = "recentlyAdded"
@@ -22,12 +21,9 @@ class Tag(str, Enum):
     ON_DECK = "onDeck"
     COLLECTION = "collection"
     EDITION = "edition"
-    GENRE = "genre"
     YEAR = "year"
     DECADE = "decade"
     DIRECTOR = "director"
-    ACTOR = "actor"
-    COUNTRY = "country"
     CONTENT_RATING = "contentRating"
     RATING = "rating"
     RESOLUTION = "resolution"
@@ -184,6 +180,7 @@ class GetLibraryItemsFilterTypedDict(TypedDict):
     key: str
     title: str
     type: str
+    advanced: NotRequired[bool]
 
 
 class GetLibraryItemsFilter(BaseModel):
@@ -196,6 +193,8 @@ class GetLibraryItemsFilter(BaseModel):
     title: str
 
     type: str
+
+    advanced: Optional[bool] = None
 
 
 class GetLibraryItemsActiveDirection(str, Enum):
@@ -283,6 +282,7 @@ class GetLibraryItemsTypeTypedDict(TypedDict):
     type: str
     title: str
     active: bool
+    subtype: NotRequired[str]
     filter_: NotRequired[List[GetLibraryItemsFilterTypedDict]]
     sort: NotRequired[List[GetLibraryItemsSortTypedDict]]
     field: NotRequired[List[GetLibraryItemsFieldTypedDict]]
@@ -296,6 +296,8 @@ class GetLibraryItemsType(BaseModel):
     title: str
 
     active: bool
+
+    subtype: Optional[str] = None
 
     filter_: Annotated[
         Optional[List[GetLibraryItemsFilter]], pydantic.Field(alias="Filter")
@@ -339,6 +341,8 @@ class GetLibraryItemsLibraryType(str, Enum):
     TV_SHOW = "show"
     SEASON = "season"
     EPISODE = "episode"
+    ARTIST = "artist"
+    ALBUM = "album"
 
 
 class GetLibraryItemsFlattenSeasons(str, Enum):
