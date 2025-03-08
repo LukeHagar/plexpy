@@ -3,6 +3,7 @@
 # Synchronous Example
 from plex_api_client import PlexAPI
 
+
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
@@ -24,6 +25,7 @@ import asyncio
 from plex_api_client import PlexAPI
 
 async def main():
+
     async with PlexAPI(
         access_token="<YOUR_API_KEY_HERE>",
     ) as plex_api:

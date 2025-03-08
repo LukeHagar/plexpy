@@ -27,6 +27,7 @@ Get Server Capabilities
 ```python
 from plex_api_client import PlexAPI
 
+
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
@@ -66,6 +67,7 @@ Get Server Preferences
 
 ```python
 from plex_api_client import PlexAPI
+
 
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
@@ -107,6 +109,7 @@ Get Available Clients
 ```python
 from plex_api_client import PlexAPI
 
+
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
@@ -146,6 +149,7 @@ Get Devices
 
 ```python
 from plex_api_client import PlexAPI
+
 
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
@@ -187,6 +191,7 @@ This request is useful to determine if the server is online or offline
 ```python
 from plex_api_client import PlexAPI
 
+
 with PlexAPI() as plex_api:
 
     res = plex_api.server.get_server_identity()
@@ -223,6 +228,7 @@ Returns MyPlex Account Information
 
 ```python
 from plex_api_client import PlexAPI
+
 
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
@@ -265,6 +271,7 @@ Plex's Photo transcoder is used throughout the service to serve images at specif
 ```python
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
+
 
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
@@ -315,6 +322,7 @@ Retrieves media providers and their features from the Plex server.
 ```python
 from plex_api_client import PlexAPI
 
+
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
@@ -355,6 +363,7 @@ Get Server List
 
 ```python
 from plex_api_client import PlexAPI
+
 
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",

@@ -24,6 +24,7 @@ This endpoint provides the caller with a temporary token with the same access le
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
 
+
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
@@ -68,6 +69,7 @@ Note: requires Plex Media Server >= 1.15.4.
 ```python
 from plex_api_client import PlexAPI
 
+
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
@@ -109,6 +111,7 @@ Get the User data from the provided X-Plex-Token
 ```python
 from plex_api_client import PlexAPI
 
+
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
@@ -149,6 +152,7 @@ Sign in user with username and password and return user data with Plex authentic
 
 ```python
 from plex_api_client import PlexAPI
+
 
 with PlexAPI() as plex_api:
 

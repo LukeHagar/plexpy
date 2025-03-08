@@ -7,6 +7,7 @@ import pydantic
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
+
 GET_COMPANIONS_DATA_SERVERS = [
     "https://plex.tv/api/v2",
 ]

@@ -35,6 +35,7 @@ This resource returns hash values for local files
 ```python
 from plex_api_client import PlexAPI
 
+
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
@@ -78,6 +79,7 @@ This endpoint will return the recently added content.
 ```python
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
+
 
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
@@ -143,6 +145,7 @@ This allows a client to provide a rich interface around the media (e.g. allow so
 
 ```python
 from plex_api_client import PlexAPI
+
 
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
@@ -223,6 +226,7 @@ Each type in the library comes with a set of filters and sorts, aiding in buildi
 ```python
 from plex_api_client import PlexAPI
 
+
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
@@ -264,6 +268,7 @@ Delete a library using a specific section id
 
 ```python
 from plex_api_client import PlexAPI
+
 
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
@@ -328,6 +333,7 @@ Fetches details from a specific section of the library identified by a section k
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
 
+
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
@@ -375,6 +381,7 @@ Retrieves a list of all general media data for this library.
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
 
+
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
@@ -420,6 +427,7 @@ This endpoint Refreshes all the Metadata of the library.
 ```python
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
+
 
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
@@ -482,6 +490,7 @@ Each type in the library comes with a set of filters and sorts, aiding in buildi
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
 
+
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
@@ -525,6 +534,7 @@ Retrieves a list of all the genres that are found for the media in this library.
 ```python
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
+
 
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
@@ -570,6 +580,7 @@ Retrieves a list of all the countries that are found for the media in this libra
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
 
+
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
@@ -614,6 +625,7 @@ Retrieves a list of all the actors that are found for the media in this library.
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
 
+
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
@@ -657,6 +669,7 @@ Search the provided query across all library sections, or a single section, and 
 ```python
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
+
 
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
@@ -705,6 +718,7 @@ This endpoint will return all the (meta)data of a library item specified with by
 
 ```python
 from plex_api_client import PlexAPI
+
 
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
@@ -763,6 +777,7 @@ This endpoint will return the children of of a library item specified with the r
 ```python
 from plex_api_client import PlexAPI
 
+
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
@@ -807,6 +822,7 @@ This endpoint will return the top watched content from libraries of a certain ty
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
 
+
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
@@ -849,6 +865,7 @@ This endpoint will return the on deck content.
 
 ```python
 from plex_api_client import PlexAPI
+
 
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",

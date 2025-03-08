@@ -25,6 +25,7 @@ Get Companions Data
 ```python
 from plex_api_client import PlexAPI
 
+
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
@@ -65,6 +66,7 @@ Get friends of provided auth token.
 
 ```python
 from plex_api_client import PlexAPI
+
 
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
@@ -107,6 +109,7 @@ Returns the geolocation and locale data of the caller
 ```python
 from plex_api_client import PlexAPI
 
+
 with PlexAPI() as plex_api:
 
     res = plex_api.plex.get_geo_data()
@@ -145,6 +148,7 @@ Retrieves the home data for the authenticated user, including details like home 
 
 ```python
 from plex_api_client import PlexAPI
+
 
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
@@ -185,6 +189,7 @@ Get Plex server access tokens and server connections
 
 ```python
 from plex_api_client import PlexAPI
+
 
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
@@ -231,6 +236,7 @@ Retrieve a Pin ID from Plex.tv to use for authentication flows
 ```python
 from plex_api_client import PlexAPI
 
+
 with PlexAPI() as plex_api:
 
     res = plex_api.plex.get_pin(request={
@@ -275,6 +281,7 @@ Retrieve an Access Token from Plex.tv after the Pin has been authenticated
 
 ```python
 from plex_api_client import PlexAPI
+
 
 with PlexAPI() as plex_api:
 

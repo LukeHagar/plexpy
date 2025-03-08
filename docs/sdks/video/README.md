@@ -21,6 +21,7 @@ Get the timeline for a media item
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
 
+
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
@@ -72,6 +73,7 @@ Begin a Universal Transcode Session
 
 ```python
 from plex_api_client import PlexAPI
+
 
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",

@@ -35,6 +35,8 @@ class Server(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
         req = self._build_request(
             method="GET",
             path="/",
@@ -61,6 +63,7 @@ class Server(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="getServerCapabilities",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -137,6 +140,8 @@ class Server(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
         req = self._build_request_async(
             method="GET",
             path="/",
@@ -163,6 +168,7 @@ class Server(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="getServerCapabilities",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -239,6 +245,8 @@ class Server(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
         req = self._build_request(
             method="GET",
             path="/:/prefs",
@@ -265,6 +273,7 @@ class Server(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="getServerPreferences",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -340,6 +349,8 @@ class Server(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
         req = self._build_request_async(
             method="GET",
             path="/:/prefs",
@@ -366,6 +377,7 @@ class Server(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="getServerPreferences",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -441,6 +453,8 @@ class Server(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
         req = self._build_request(
             method="GET",
             path="/clients",
@@ -467,6 +481,7 @@ class Server(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="getAvailableClients",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -542,6 +557,8 @@ class Server(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
         req = self._build_request_async(
             method="GET",
             path="/clients",
@@ -568,6 +585,7 @@ class Server(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="getAvailableClients",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -643,6 +661,8 @@ class Server(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
         req = self._build_request(
             method="GET",
             path="/devices",
@@ -669,6 +689,7 @@ class Server(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="getDevices",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -744,6 +765,8 @@ class Server(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
         req = self._build_request_async(
             method="GET",
             path="/devices",
@@ -770,6 +793,7 @@ class Server(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="getDevices",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -845,6 +869,8 @@ class Server(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
         req = self._build_request(
             method="GET",
             path="/identity",
@@ -870,6 +896,7 @@ class Server(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="get-server-identity",
                 oauth2_scopes=[],
                 security_source=None,
@@ -939,6 +966,8 @@ class Server(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
         req = self._build_request_async(
             method="GET",
             path="/identity",
@@ -964,6 +993,7 @@ class Server(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="get-server-identity",
                 oauth2_scopes=[],
                 security_source=None,
@@ -1033,6 +1063,8 @@ class Server(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
         req = self._build_request(
             method="GET",
             path="/myplex/account",
@@ -1059,6 +1091,7 @@ class Server(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="getMyPlexAccount",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -1134,6 +1167,8 @@ class Server(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
         req = self._build_request_async(
             method="GET",
             path="/myplex/account",
@@ -1160,6 +1195,7 @@ class Server(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="getMyPlexAccount",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -1241,6 +1277,8 @@ class Server(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         if not isinstance(request, BaseModel):
             request = utils.unmarshal(request, operations.GetResizedPhotoRequest)
@@ -1272,6 +1310,7 @@ class Server(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="getResizedPhoto",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -1350,6 +1389,8 @@ class Server(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         if not isinstance(request, BaseModel):
             request = utils.unmarshal(request, operations.GetResizedPhotoRequest)
@@ -1381,6 +1422,7 @@ class Server(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="getResizedPhoto",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -1455,6 +1497,8 @@ class Server(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.GetMediaProvidersRequest(
             x_plex_token=x_plex_token,
@@ -1486,6 +1530,7 @@ class Server(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="get-media-providers",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -1563,6 +1608,8 @@ class Server(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.GetMediaProvidersRequest(
             x_plex_token=x_plex_token,
@@ -1594,6 +1641,7 @@ class Server(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="get-media-providers",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -1669,6 +1717,8 @@ class Server(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
         req = self._build_request(
             method="GET",
             path="/servers",
@@ -1695,6 +1745,7 @@ class Server(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="getServerList",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -1770,6 +1821,8 @@ class Server(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
         req = self._build_request_async(
             method="GET",
             path="/servers",
@@ -1796,6 +1849,7 @@ class Server(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="getServerList",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,

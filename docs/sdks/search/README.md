@@ -33,6 +33,7 @@ This request is intended to be very fast, and called as the user types.
 ```python
 from plex_api_client import PlexAPI
 
+
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
@@ -80,6 +81,7 @@ Results, as well as their containing per-type hubs, contain a `distance` attribu
 ```python
 from plex_api_client import PlexAPI
 
+
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
@@ -122,6 +124,7 @@ This will search the database for the string provided.
 
 ```python
 from plex_api_client import PlexAPI
+
 
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",

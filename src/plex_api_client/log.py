@@ -42,6 +42,8 @@ class Log(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.LogLineRequest(
             level=level,
@@ -75,6 +77,7 @@ class Log(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="logLine",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -154,6 +157,8 @@ class Log(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.LogLineRequest(
             level=level,
@@ -187,6 +192,7 @@ class Log(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="logLine",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -282,6 +288,8 @@ class Log(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         req = self._build_request(
             method="POST",
@@ -312,6 +320,7 @@ class Log(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="logMultiLine",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -407,6 +416,8 @@ class Log(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         req = self._build_request_async(
             method="POST",
@@ -437,6 +448,7 @@ class Log(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="logMultiLine",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -510,6 +522,8 @@ class Log(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
         req = self._build_request(
             method="GET",
             path="/log/networked",
@@ -536,6 +550,7 @@ class Log(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="enablePaperTrail",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -609,6 +624,8 @@ class Log(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
         req = self._build_request_async(
             method="GET",
             path="/log/networked",
@@ -635,6 +652,7 @@ class Log(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="enablePaperTrail",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,

@@ -43,6 +43,8 @@ class Activities(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
         req = self._build_request(
             method="GET",
             path="/activities",
@@ -69,6 +71,7 @@ class Activities(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="getServerActivities",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -144,6 +147,8 @@ class Activities(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
         req = self._build_request_async(
             method="GET",
             path="/activities",
@@ -170,6 +175,7 @@ class Activities(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="getServerActivities",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -247,6 +253,8 @@ class Activities(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.CancelServerActivitiesRequest(
             activity_uuid=activity_uuid,
@@ -278,6 +286,7 @@ class Activities(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="cancelServerActivities",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -352,6 +361,8 @@ class Activities(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.CancelServerActivitiesRequest(
             activity_uuid=activity_uuid,
@@ -383,6 +394,7 @@ class Activities(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="cancelServerActivities",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,

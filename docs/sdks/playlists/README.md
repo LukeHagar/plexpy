@@ -34,6 +34,7 @@ Create a new playlist. By default the playlist is blank. To create a playlist al
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
 
+
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
@@ -80,6 +81,7 @@ Get All Playlists given the specified filters.
 ```python
 from plex_api_client import PlexAPI
 
+
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
@@ -124,6 +126,7 @@ Smart playlist details contain the `content` attribute. This is the content URI 
 ```python
 from plex_api_client import PlexAPI
 
+
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
@@ -166,6 +169,7 @@ This endpoint will delete a playlist
 ```python
 from plex_api_client import PlexAPI
 
+
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
@@ -207,6 +211,7 @@ From PMS version 1.9.1 clients can also edit playlist metadata using this endpoi
 
 ```python
 from plex_api_client import PlexAPI
+
 
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
@@ -256,6 +261,7 @@ Note that for dumb playlists, items have a `playlistItemID` attribute which is u
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
 
+
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
@@ -299,6 +305,7 @@ Clears a playlist, only works with dumb playlists. Returns the playlist.
 ```python
 from plex_api_client import PlexAPI
 
+
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
@@ -341,6 +348,7 @@ With a smart playlist, passing a new `uri` parameter replaces the rules for the 
 
 ```python
 from plex_api_client import PlexAPI
+
 
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
@@ -386,6 +394,7 @@ Imports m3u playlists by passing a path on the server to scan for m3u-formatted 
 ```python
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
+
 
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",

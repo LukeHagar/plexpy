@@ -9,6 +9,7 @@ from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
+
 GET_USER_FRIENDS_SERVERS = [
     "https://plex.tv/api/v2",
 ]

@@ -23,6 +23,7 @@ Returns a list of butler tasks
 ```python
 from plex_api_client import PlexAPI
 
+
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
@@ -68,6 +69,7 @@ This endpoint will attempt to start all Butler tasks that are enabled in the set
 ```python
 from plex_api_client import PlexAPI
 
+
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
@@ -108,6 +110,7 @@ This endpoint will stop all currently running tasks and remove any scheduled tas
 
 ```python
 from plex_api_client import PlexAPI
+
 
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
@@ -155,6 +158,7 @@ This endpoint will attempt to start a single Butler task that is enabled in the 
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
 
+
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
@@ -197,6 +201,7 @@ This endpoint will stop a currently running task by name, or remove it from the 
 ```python
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
+
 
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",

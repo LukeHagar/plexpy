@@ -47,6 +47,8 @@ class Playlists(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         if not isinstance(request, BaseModel):
             request = utils.unmarshal(request, operations.CreatePlaylistRequest)
@@ -78,6 +80,7 @@ class Playlists(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="createPlaylist",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -160,6 +163,8 @@ class Playlists(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         if not isinstance(request, BaseModel):
             request = utils.unmarshal(request, operations.CreatePlaylistRequest)
@@ -191,6 +196,7 @@ class Playlists(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="createPlaylist",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -270,6 +276,8 @@ class Playlists(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.GetPlaylistsRequest(
             playlist_type=playlist_type,
@@ -302,6 +310,7 @@ class Playlists(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="getPlaylists",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -381,6 +390,8 @@ class Playlists(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.GetPlaylistsRequest(
             playlist_type=playlist_type,
@@ -413,6 +424,7 @@ class Playlists(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="getPlaylists",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -492,6 +504,8 @@ class Playlists(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.GetPlaylistRequest(
             playlist_id=playlist_id,
@@ -523,6 +537,7 @@ class Playlists(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="getPlaylist",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -602,6 +617,8 @@ class Playlists(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.GetPlaylistRequest(
             playlist_id=playlist_id,
@@ -633,6 +650,7 @@ class Playlists(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="getPlaylist",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -711,6 +729,8 @@ class Playlists(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.DeletePlaylistRequest(
             playlist_id=playlist_id,
@@ -742,6 +762,7 @@ class Playlists(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="deletePlaylist",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -817,6 +838,8 @@ class Playlists(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.DeletePlaylistRequest(
             playlist_id=playlist_id,
@@ -848,6 +871,7 @@ class Playlists(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="deletePlaylist",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -927,6 +951,8 @@ class Playlists(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.UpdatePlaylistRequest(
             playlist_id=playlist_id,
@@ -960,6 +986,7 @@ class Playlists(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="updatePlaylist",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -1039,6 +1066,8 @@ class Playlists(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.UpdatePlaylistRequest(
             playlist_id=playlist_id,
@@ -1072,6 +1101,7 @@ class Playlists(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="updatePlaylist",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -1152,6 +1182,8 @@ class Playlists(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.GetPlaylistContentsRequest(
             playlist_id=playlist_id,
@@ -1184,6 +1216,7 @@ class Playlists(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="getPlaylistContents",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -1267,6 +1300,8 @@ class Playlists(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.GetPlaylistContentsRequest(
             playlist_id=playlist_id,
@@ -1299,6 +1334,7 @@ class Playlists(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="getPlaylistContents",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -1377,6 +1413,8 @@ class Playlists(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.ClearPlaylistContentsRequest(
             playlist_id=playlist_id,
@@ -1408,6 +1446,7 @@ class Playlists(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="clearPlaylistContents",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -1483,6 +1522,8 @@ class Playlists(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.ClearPlaylistContentsRequest(
             playlist_id=playlist_id,
@@ -1514,6 +1555,7 @@ class Playlists(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="clearPlaylistContents",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -1594,6 +1636,8 @@ class Playlists(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.AddPlaylistContentsRequest(
             playlist_id=playlist_id,
@@ -1627,6 +1671,7 @@ class Playlists(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="addPlaylistContents",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -1710,6 +1755,8 @@ class Playlists(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.AddPlaylistContentsRequest(
             playlist_id=playlist_id,
@@ -1743,6 +1790,7 @@ class Playlists(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="addPlaylistContents",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -1825,6 +1873,8 @@ class Playlists(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.UploadPlaylistRequest(
             path=path,
@@ -1858,6 +1908,7 @@ class Playlists(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="uploadPlaylist",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -1937,6 +1988,8 @@ class Playlists(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.UploadPlaylistRequest(
             path=path,
@@ -1970,6 +2023,7 @@ class Playlists(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="uploadPlaylist",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,

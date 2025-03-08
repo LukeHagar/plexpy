@@ -35,6 +35,8 @@ class Butler(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
         req = self._build_request(
             method="GET",
             path="/butler",
@@ -61,6 +63,7 @@ class Butler(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="getButlerTasks",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -136,6 +139,8 @@ class Butler(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
         req = self._build_request_async(
             method="GET",
             path="/butler",
@@ -162,6 +167,7 @@ class Butler(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="getButlerTasks",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -242,6 +248,8 @@ class Butler(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
         req = self._build_request(
             method="POST",
             path="/butler",
@@ -268,6 +276,7 @@ class Butler(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="startAllTasks",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -345,6 +354,8 @@ class Butler(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
         req = self._build_request_async(
             method="POST",
             path="/butler",
@@ -371,6 +382,7 @@ class Butler(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="startAllTasks",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -444,6 +456,8 @@ class Butler(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
         req = self._build_request(
             method="DELETE",
             path="/butler",
@@ -470,6 +484,7 @@ class Butler(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="stopAllTasks",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -543,6 +558,8 @@ class Butler(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
         req = self._build_request_async(
             method="DELETE",
             path="/butler",
@@ -569,6 +586,7 @@ class Butler(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="stopAllTasks",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -648,6 +666,8 @@ class Butler(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.StartTaskRequest(
             task_name=task_name,
@@ -679,6 +699,7 @@ class Butler(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="startTask",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -758,6 +779,8 @@ class Butler(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.StartTaskRequest(
             task_name=task_name,
@@ -789,6 +812,7 @@ class Butler(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="startTask",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -864,6 +888,8 @@ class Butler(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.StopTaskRequest(
             task_name=task_name,
@@ -895,6 +921,7 @@ class Butler(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="stopTask",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -970,6 +997,8 @@ class Butler(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.StopTaskRequest(
             task_name=task_name,
@@ -1001,6 +1030,7 @@ class Butler(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="stopTask",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,

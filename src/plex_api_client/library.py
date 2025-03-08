@@ -39,6 +39,8 @@ class Library(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.GetFileHashRequest(
             url=url,
@@ -71,6 +73,7 @@ class Library(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="getFileHash",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -147,6 +150,8 @@ class Library(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.GetFileHashRequest(
             url=url,
@@ -179,6 +184,7 @@ class Library(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="getFileHash",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -257,6 +263,8 @@ class Library(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         if not isinstance(request, BaseModel):
             request = utils.unmarshal(
@@ -290,6 +298,7 @@ class Library(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="get-recently-added-library",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -372,6 +381,8 @@ class Library(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         if not isinstance(request, BaseModel):
             request = utils.unmarshal(
@@ -405,6 +416,7 @@ class Library(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="get-recently-added-library",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -487,6 +499,8 @@ class Library(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
         req = self._build_request(
             method="GET",
             path="/library/sections",
@@ -513,6 +527,7 @@ class Library(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="get-all-libraries",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -594,6 +609,8 @@ class Library(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
         req = self._build_request_async(
             method="GET",
             path="/library/sections",
@@ -620,6 +637,7 @@ class Library(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="get-all-libraries",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -740,6 +758,8 @@ class Library(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.GetLibraryDetailsRequest(
             include_details=include_details,
@@ -772,6 +792,7 @@ class Library(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="get-library-details",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -892,6 +913,8 @@ class Library(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.GetLibraryDetailsRequest(
             include_details=include_details,
@@ -924,6 +947,7 @@ class Library(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="get-library-details",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -1001,6 +1025,8 @@ class Library(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.DeleteLibraryRequest(
             section_key=section_key,
@@ -1032,6 +1058,7 @@ class Library(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="deleteLibrary",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -1106,6 +1133,8 @@ class Library(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.DeleteLibraryRequest(
             section_key=section_key,
@@ -1137,6 +1166,7 @@ class Library(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="deleteLibrary",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -1235,6 +1265,8 @@ class Library(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         if not isinstance(request, BaseModel):
             request = utils.unmarshal(request, operations.GetLibraryItemsRequest)
@@ -1266,6 +1298,7 @@ class Library(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="get-library-items",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -1367,6 +1400,8 @@ class Library(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         if not isinstance(request, BaseModel):
             request = utils.unmarshal(request, operations.GetLibraryItemsRequest)
@@ -1398,6 +1433,7 @@ class Library(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="get-library-items",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -1479,6 +1515,8 @@ class Library(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         if not isinstance(request, BaseModel):
             request = utils.unmarshal(request, operations.GetAllMediaLibraryRequest)
@@ -1510,6 +1548,7 @@ class Library(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="get-all-media-library",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -1591,6 +1630,8 @@ class Library(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         if not isinstance(request, BaseModel):
             request = utils.unmarshal(request, operations.GetAllMediaLibraryRequest)
@@ -1622,6 +1663,7 @@ class Library(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="get-all-media-library",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -1702,6 +1744,8 @@ class Library(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.GetRefreshLibraryMetadataRequest(
             force=force,
@@ -1734,6 +1778,7 @@ class Library(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="get-refresh-library-metadata",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -1811,6 +1856,8 @@ class Library(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.GetRefreshLibraryMetadataRequest(
             force=force,
@@ -1843,6 +1890,7 @@ class Library(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="get-refresh-library-metadata",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -1937,6 +1985,8 @@ class Library(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.GetSearchLibraryRequest(
             section_key=section_key,
@@ -1969,6 +2019,7 @@ class Library(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="get-search-library",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -2066,6 +2117,8 @@ class Library(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.GetSearchLibraryRequest(
             section_key=section_key,
@@ -2098,6 +2151,7 @@ class Library(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="get-search-library",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -2178,6 +2232,8 @@ class Library(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.GetGenresLibraryRequest(
             section_key=section_key,
@@ -2210,6 +2266,7 @@ class Library(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="get-genres-library",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -2290,6 +2347,8 @@ class Library(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.GetGenresLibraryRequest(
             section_key=section_key,
@@ -2322,6 +2381,7 @@ class Library(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="get-genres-library",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -2402,6 +2462,8 @@ class Library(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.GetCountriesLibraryRequest(
             section_key=section_key,
@@ -2434,6 +2496,7 @@ class Library(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="get-countries-library",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -2514,6 +2577,8 @@ class Library(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.GetCountriesLibraryRequest(
             section_key=section_key,
@@ -2546,6 +2611,7 @@ class Library(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="get-countries-library",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -2626,6 +2692,8 @@ class Library(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.GetActorsLibraryRequest(
             section_key=section_key,
@@ -2658,6 +2726,7 @@ class Library(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="get-actors-library",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -2738,6 +2807,8 @@ class Library(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.GetActorsLibraryRequest(
             section_key=section_key,
@@ -2770,6 +2841,7 @@ class Library(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="get-actors-library",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -2851,6 +2923,8 @@ class Library(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         if not isinstance(request, BaseModel):
             request = utils.unmarshal(request, operations.GetSearchAllLibrariesRequest)
@@ -2882,6 +2956,7 @@ class Library(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="get-search-all-libraries",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -2964,6 +3039,8 @@ class Library(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         if not isinstance(request, BaseModel):
             request = utils.unmarshal(request, operations.GetSearchAllLibrariesRequest)
@@ -2995,6 +3072,7 @@ class Library(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="get-search-all-libraries",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -3077,6 +3155,8 @@ class Library(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         if not isinstance(request, BaseModel):
             request = utils.unmarshal(request, operations.GetMediaMetaDataRequest)
@@ -3108,6 +3188,7 @@ class Library(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="get-media-meta-data",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -3189,6 +3270,8 @@ class Library(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         if not isinstance(request, BaseModel):
             request = utils.unmarshal(request, operations.GetMediaMetaDataRequest)
@@ -3220,6 +3303,7 @@ class Library(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="get-media-meta-data",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -3300,6 +3384,8 @@ class Library(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.GetMetadataChildrenRequest(
             rating_key=rating_key,
@@ -3332,6 +3418,7 @@ class Library(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="getMetadataChildren",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -3412,6 +3499,8 @@ class Library(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.GetMetadataChildrenRequest(
             rating_key=rating_key,
@@ -3444,6 +3533,7 @@ class Library(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="getMetadataChildren",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -3524,6 +3614,8 @@ class Library(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.GetTopWatchedContentRequest(
             include_guids=include_guids,
@@ -3556,6 +3648,7 @@ class Library(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="getTopWatchedContent",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -3636,6 +3729,8 @@ class Library(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
 
         request = operations.GetTopWatchedContentRequest(
             include_guids=include_guids,
@@ -3668,6 +3763,7 @@ class Library(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="getTopWatchedContent",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -3744,6 +3840,8 @@ class Library(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
         req = self._build_request(
             method="GET",
             path="/library/onDeck",
@@ -3770,6 +3868,7 @@ class Library(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="getOnDeck",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
@@ -3846,6 +3945,8 @@ class Library(BaseSDK):
 
         if server_url is not None:
             base_url = server_url
+        else:
+            base_url = self._get_url(base_url, url_variables)
         req = self._build_request_async(
             method="GET",
             path="/library/onDeck",
@@ -3872,6 +3973,7 @@ class Library(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                base_url=base_url or "",
                 operation_id="getOnDeck",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,

@@ -67,7 +67,10 @@ class Users(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
-                operation_id="get-users", oauth2_scopes=[], security_source=None
+                base_url=base_url or "",
+                operation_id="get-users",
+                oauth2_scopes=[],
+                security_source=None,
             ),
             request=req,
             error_status_codes=["400", "401", "4XX", "5XX"],
@@ -173,7 +176,10 @@ class Users(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
-                operation_id="get-users", oauth2_scopes=[], security_source=None
+                base_url=base_url or "",
+                operation_id="get-users",
+                oauth2_scopes=[],
+                security_source=None,
             ),
             request=req,
             error_status_codes=["400", "401", "4XX", "5XX"],

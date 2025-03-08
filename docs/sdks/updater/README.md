@@ -22,6 +22,7 @@ Querying status of updates
 ```python
 from plex_api_client import PlexAPI
 
+
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
@@ -62,6 +63,7 @@ Checking for updates
 ```python
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
+
 
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
@@ -105,6 +107,7 @@ Note that these two parameters are effectively mutually exclusive. The `tonight`
 ```python
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
+
 
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",

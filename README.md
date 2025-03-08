@@ -139,6 +139,7 @@ Generally, the SDK will work well with most IDEs out of the box. However, when u
 # Synchronous Example
 from plex_api_client import PlexAPI
 
+
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
@@ -160,6 +161,7 @@ import asyncio
 from plex_api_client import PlexAPI
 
 async def main():
+
     async with PlexAPI(
         access_token="<YOUR_API_KEY_HERE>",
     ) as plex_api:
@@ -327,6 +329,7 @@ To change the default retry strategy for a single API call, simply provide a `Re
 from plex_api_client import PlexAPI
 from plex_api_client.utils import BackoffStrategy, RetryConfig
 
+
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
@@ -345,6 +348,7 @@ If you'd like to override the default retry strategy for all operations that sup
 ```python
 from plex_api_client import PlexAPI
 from plex_api_client.utils import BackoffStrategy, RetryConfig
+
 
 with PlexAPI(
     retry_config=RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False),
@@ -389,6 +393,7 @@ When custom error responses are specified for an operation, the SDK may also rai
 from plex_api_client import PlexAPI
 from plex_api_client.models import errors
 
+
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
@@ -420,15 +425,41 @@ with PlexAPI(
 ### Server Variables
 
 The default server `{protocol}://{ip}:{port}` contains variables and is set to `https://10.10.10.47:32400` by default. To override default values, the following parameters are available when initializing the SDK client instance:
- * `protocol: models.ServerProtocol`
- * `ip: str`
- * `port: str`
+
+| Variable   | Parameter                         | Supported Values           | Default         | Description                                    |
+| ---------- | --------------------------------- | -------------------------- | --------------- | ---------------------------------------------- |
+| `protocol` | `protocol: models.ServerProtocol` | - `"http"`<br/>- `"https"` | `"https"`       | The protocol to use for the server connection  |
+| `ip`       | `ip: str`                         | str                        | `"10.10.10.47"` | The IP address or hostname of your Plex Server |
+| `port`     | `port: str`                       | str                        | `"32400"`       | The port of your Plex Server                   |
+
+#### Example
+
+```python
+from plex_api_client import PlexAPI
+
+
+with PlexAPI(
+    protocol="https"
+    ip="e0c3:bcc0:6bac:dccc:c4ec:34b1:ca98:4cb9"
+    port="40311"
+    access_token="<YOUR_API_KEY_HERE>",
+) as plex_api:
+
+    res = plex_api.server.get_server_capabilities()
+
+    assert res.object is not None
+
+    # Handle response
+    print(res.object)
+
+```
 
 ### Override Server URL Per-Client
 
-The default server can also be overridden globally by passing a URL to the `server_url: str` optional parameter when initializing the SDK client instance. For example:
+The default server can be overridden globally by passing a URL to the `server_url: str` optional parameter when initializing the SDK client instance. For example:
 ```python
 from plex_api_client import PlexAPI
+
 
 with PlexAPI(
     server_url="https://10.10.10.47:32400",
@@ -449,6 +480,7 @@ with PlexAPI(
 The server URL can also be overridden on a per-operation basis, provided a server list was specified for the operation. For example:
 ```python
 from plex_api_client import PlexAPI
+
 
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
@@ -560,6 +592,7 @@ To authenticate with the API the `access_token` parameter must be set when initi
 ```python
 from plex_api_client import PlexAPI
 
+
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
@@ -584,6 +617,7 @@ The `PlexAPI` class implements the context manager protocol and registers a fina
 ```python
 from plex_api_client import PlexAPI
 def main():
+
     with PlexAPI(
         access_token="<YOUR_API_KEY_HERE>",
     ) as plex_api:
@@ -592,6 +626,7 @@ def main():
 
 # Or when using async:
 async def amain():
+
     async with PlexAPI(
         access_token="<YOUR_API_KEY_HERE>",
     ) as plex_api:

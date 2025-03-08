@@ -23,6 +23,7 @@ This endpoint will write a single-line log message, including a level and source
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
 
+
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
@@ -87,13 +88,14 @@ Ensure each parameter is properly URL-encoded to avoid interpretation issues.
 ```python
 from plex_api_client import PlexAPI
 
+
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
 
-    res = plex_api.log.log_multi_line(request="level=4&message=Test%20message%201&source=postman\n" +
-    "level=3&message=Test%20message%202&source=postman\n" +
-    "level=1&message=Test%20message%203&source=postman")
+    res = plex_api.log.log_multi_line(request=("level=4&message=Test%20message%201&source=postman\n"
+    "level=3&message=Test%20message%202&source=postman\n"
+    "level=1&message=Test%20message%203&source=postman"))
 
     assert res is not None
 
@@ -130,6 +132,7 @@ This endpoint will enable all Plex Media Serverlogs to be sent to the Papertrail
 
 ```python
 from plex_api_client import PlexAPI
+
 
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",

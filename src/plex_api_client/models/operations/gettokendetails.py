@@ -15,6 +15,7 @@ from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
+
 GET_TOKEN_DETAILS_SERVERS = [
     "https://plex.tv/api/v2",
 ]
@@ -415,7 +416,6 @@ class GetTokenDetailsUserPlexAccountTypedDict(TypedDict):
     r"""If the account’s Plex Pass subscription is active"""
     subscription_description: Nullable[str]
     r"""Description of the Plex Pass subscription"""
-    subscriptions: List[GetTokenDetailsSubscriptionTypedDict]
     thumb: str
     r"""URL of the account thumbnail"""
     title: str
@@ -453,6 +453,7 @@ class GetTokenDetailsUserPlexAccountTypedDict(TypedDict):
     r"""If the account is a Plex Home managed user"""
     roles: NotRequired[List[str]]
     r"""[Might be removed] List of account roles. Plexpass membership listed here"""
+    subscriptions: NotRequired[List[GetTokenDetailsSubscriptionTypedDict]]
     two_factor_enabled: NotRequired[bool]
     r"""If two-factor authentication is enabled"""
 
@@ -523,8 +524,6 @@ class GetTokenDetailsUserPlexAccount(BaseModel):
         Nullable[str], pydantic.Field(alias="subscriptionDescription")
     ]
     r"""Description of the Plex Pass subscription"""
-
-    subscriptions: List[GetTokenDetailsSubscription]
 
     thumb: str
     r"""URL of the account thumbnail"""
@@ -597,6 +596,8 @@ class GetTokenDetailsUserPlexAccount(BaseModel):
     roles: Optional[List[str]] = None
     r"""[Might be removed] List of account roles. Plexpass membership listed here"""
 
+    subscriptions: Optional[List[GetTokenDetailsSubscription]] = None
+
     two_factor_enabled: Annotated[
         Optional[bool], pydantic.Field(alias="twoFactorEnabled")
     ] = False
@@ -619,6 +620,7 @@ class GetTokenDetailsUserPlexAccount(BaseModel):
             "protected",
             "restricted",
             "roles",
+            "subscriptions",
             "twoFactorEnabled",
         ]
         nullable_fields = [

@@ -11,6 +11,7 @@ from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
+
 GET_SERVER_RESOURCES_SERVERS = [
     "https://plex.tv/api/v2",
 ]

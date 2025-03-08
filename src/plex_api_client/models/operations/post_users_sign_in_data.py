@@ -16,6 +16,7 @@ from pydantic import model_serializer
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
+
 POST_USERS_SIGN_IN_DATA_SERVERS = [
     "https://plex.tv/api/v2",
 ]
@@ -664,7 +665,6 @@ class PostUsersSignInDataUserPlexAccountTypedDict(TypedDict):
     r"""If the account’s Plex Pass subscription is active"""
     subscription_description: Nullable[str]
     r"""Description of the Plex Pass subscription"""
-    subscriptions: List[PostUsersSignInDataAuthenticationSubscriptionTypedDict]
     thumb: str
     r"""URL of the account thumbnail"""
     title: str
@@ -704,6 +704,9 @@ class PostUsersSignInDataUserPlexAccountTypedDict(TypedDict):
     r"""If the account is a Plex Home managed user"""
     roles: NotRequired[List[str]]
     r"""[Might be removed] List of account roles. Plexpass membership listed here"""
+    subscriptions: NotRequired[
+        List[PostUsersSignInDataAuthenticationSubscriptionTypedDict]
+    ]
     two_factor_enabled: NotRequired[bool]
     r"""If two-factor authentication is enabled"""
 
@@ -774,8 +777,6 @@ class PostUsersSignInDataUserPlexAccount(BaseModel):
         Nullable[str], pydantic.Field(alias="subscriptionDescription")
     ]
     r"""Description of the Plex Pass subscription"""
-
-    subscriptions: List[PostUsersSignInDataAuthenticationSubscription]
 
     thumb: str
     r"""URL of the account thumbnail"""
@@ -854,6 +855,8 @@ class PostUsersSignInDataUserPlexAccount(BaseModel):
     roles: Optional[List[str]] = None
     r"""[Might be removed] List of account roles. Plexpass membership listed here"""
 
+    subscriptions: Optional[List[PostUsersSignInDataAuthenticationSubscription]] = None
+
     two_factor_enabled: Annotated[
         Optional[bool], pydantic.Field(alias="twoFactorEnabled")
     ] = False
@@ -876,6 +879,7 @@ class PostUsersSignInDataUserPlexAccount(BaseModel):
             "protected",
             "restricted",
             "roles",
+            "subscriptions",
             "twoFactorEnabled",
         ]
         nullable_fields = [

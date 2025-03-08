@@ -16,6 +16,7 @@ Get list of all users that are friends and have library access with the provided
 ```python
 from plex_api_client import PlexAPI
 
+
 with PlexAPI() as plex_api:
 
     res = plex_api.users.get_users(request={
