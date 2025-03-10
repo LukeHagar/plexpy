@@ -345,7 +345,7 @@ class GetLibraryItemsLibraryType(str, Enum):
     ALBUM = "album"
 
 
-class GetLibraryItemsFlattenSeasons(str, Enum):
+class FlattenSeasons(str, Enum):
     r"""Setting that indicates if seasons are set to hidden for the show. (-1 = Library default, 0 = Hide, 1 = Show)."""
 
     LIBRARY_DEFAULT = "-1"
@@ -353,7 +353,7 @@ class GetLibraryItemsFlattenSeasons(str, Enum):
     SHOW = "1"
 
 
-class GetLibraryItemsEpisodeSort(str, Enum):
+class EpisodeSort(str, Enum):
     r"""Setting that indicates how episodes are sorted for the show. (-1 = Library default, 0 = Oldest first, 1 = Newest first)."""
 
     LIBRARY_DEFAULT = "-1"
@@ -361,14 +361,14 @@ class GetLibraryItemsEpisodeSort(str, Enum):
     NEWEST_FIRST = "1"
 
 
-class GetLibraryItemsEnableCreditsMarkerGeneration(str, Enum):
+class EnableCreditsMarkerGeneration(str, Enum):
     r"""Setting that indicates if credits markers detection is enabled. (-1 = Library default, 0 = Disabled)."""
 
     LIBRARY_DEFAULT = "-1"
     DISABLED = "0"
 
 
-class GetLibraryItemsShowOrdering(str, Enum):
+class ShowOrdering(str, Enum):
     r"""Setting that indicates the episode ordering for the show.
     None = Library default,
     tmdbAiring = The Movie Database (Aired),
@@ -815,7 +815,7 @@ class GetLibraryItemsLocation(BaseModel):
     path: Optional[str] = None
 
 
-class GetLibraryItemsMediaGUIDTypedDict(TypedDict):
+class MediaGUIDTypedDict(TypedDict):
     id: str
     r"""Can be one of the following formats:
     imdb://tt13015952, tmdb://2434012, tvdb://7945991
@@ -823,7 +823,7 @@ class GetLibraryItemsMediaGUIDTypedDict(TypedDict):
     """
 
 
-class GetLibraryItemsMediaGUID(BaseModel):
+class MediaGUID(BaseModel):
     id: str
     r"""Can be one of the following formats:
     imdb://tt13015952, tmdb://2434012, tvdb://7945991
@@ -848,7 +848,7 @@ class GetLibraryItemsUltraBlurColors(BaseModel):
     bottom_left: Annotated[str, pydantic.Field(alias="bottomLeft")]
 
 
-class GetLibraryItemsMetaDataRatingTypedDict(TypedDict):
+class MetaDataRatingTypedDict(TypedDict):
     image: str
     r"""A URI or path to the rating image."""
     value: float
@@ -857,7 +857,7 @@ class GetLibraryItemsMetaDataRatingTypedDict(TypedDict):
     r"""The type of rating (e.g., audience, critic)."""
 
 
-class GetLibraryItemsMetaDataRating(BaseModel):
+class MetaDataRating(BaseModel):
     image: str
     r"""A URI or path to the rating image."""
 
@@ -917,15 +917,13 @@ class GetLibraryItemsMetadataTypedDict(TypedDict):
     year: NotRequired[int]
     season_count: NotRequired[int]
     tagline: NotRequired[str]
-    flatten_seasons: NotRequired[GetLibraryItemsFlattenSeasons]
+    flatten_seasons: NotRequired[FlattenSeasons]
     r"""Setting that indicates if seasons are set to hidden for the show. (-1 = Library default, 0 = Hide, 1 = Show)."""
-    episode_sort: NotRequired[GetLibraryItemsEpisodeSort]
+    episode_sort: NotRequired[EpisodeSort]
     r"""Setting that indicates how episodes are sorted for the show. (-1 = Library default, 0 = Oldest first, 1 = Newest first)."""
-    enable_credits_marker_generation: NotRequired[
-        GetLibraryItemsEnableCreditsMarkerGeneration
-    ]
+    enable_credits_marker_generation: NotRequired[EnableCreditsMarkerGeneration]
     r"""Setting that indicates if credits markers detection is enabled. (-1 = Library default, 0 = Disabled)."""
-    show_ordering: NotRequired[GetLibraryItemsShowOrdering]
+    show_ordering: NotRequired[ShowOrdering]
     r"""Setting that indicates the episode ordering for the show.
     None = Library default,
     tmdbAiring = The Movie Database (Aired),
@@ -965,12 +963,12 @@ class GetLibraryItemsMetadataTypedDict(TypedDict):
     collection: NotRequired[List[GetLibraryItemsCollectionTypedDict]]
     role: NotRequired[List[GetLibraryItemsRoleTypedDict]]
     location: NotRequired[List[GetLibraryItemsLocationTypedDict]]
-    media_guid: NotRequired[List[GetLibraryItemsMediaGUIDTypedDict]]
+    media_guid: NotRequired[List[MediaGUIDTypedDict]]
     r"""The Guid object is only included in the response if the `includeGuids` parameter is set to `1`.
 
     """
     ultra_blur_colors: NotRequired[GetLibraryItemsUltraBlurColorsTypedDict]
-    meta_data_rating: NotRequired[List[GetLibraryItemsMetaDataRatingTypedDict]]
+    meta_data_rating: NotRequired[List[MetaDataRatingTypedDict]]
     image: NotRequired[List[GetLibraryItemsImageTypedDict]]
     title_sort: NotRequired[str]
     view_count: NotRequired[int]
@@ -1059,23 +1057,23 @@ class GetLibraryItemsMetadata(BaseModel):
     tagline: Optional[str] = None
 
     flatten_seasons: Annotated[
-        Optional[GetLibraryItemsFlattenSeasons], pydantic.Field(alias="flattenSeasons")
+        Optional[FlattenSeasons], pydantic.Field(alias="flattenSeasons")
     ] = None
     r"""Setting that indicates if seasons are set to hidden for the show. (-1 = Library default, 0 = Hide, 1 = Show)."""
 
     episode_sort: Annotated[
-        Optional[GetLibraryItemsEpisodeSort], pydantic.Field(alias="episodeSort")
+        Optional[EpisodeSort], pydantic.Field(alias="episodeSort")
     ] = None
     r"""Setting that indicates how episodes are sorted for the show. (-1 = Library default, 0 = Oldest first, 1 = Newest first)."""
 
     enable_credits_marker_generation: Annotated[
-        Optional[GetLibraryItemsEnableCreditsMarkerGeneration],
+        Optional[EnableCreditsMarkerGeneration],
         pydantic.Field(alias="enableCreditsMarkerGeneration"),
     ] = None
     r"""Setting that indicates if credits markers detection is enabled. (-1 = Library default, 0 = Disabled)."""
 
     show_ordering: Annotated[
-        Optional[GetLibraryItemsShowOrdering], pydantic.Field(alias="showOrdering")
+        Optional[ShowOrdering], pydantic.Field(alias="showOrdering")
     ] = None
     r"""Setting that indicates the episode ordering for the show.
     None = Library default,
@@ -1184,9 +1182,9 @@ class GetLibraryItemsMetadata(BaseModel):
         Optional[List[GetLibraryItemsLocation]], pydantic.Field(alias="Location")
     ] = None
 
-    media_guid: Annotated[
-        Optional[List[GetLibraryItemsMediaGUID]], pydantic.Field(alias="Guid")
-    ] = None
+    media_guid: Annotated[Optional[List[MediaGUID]], pydantic.Field(alias="Guid")] = (
+        None
+    )
     r"""The Guid object is only included in the response if the `includeGuids` parameter is set to `1`.
 
     """
@@ -1197,7 +1195,7 @@ class GetLibraryItemsMetadata(BaseModel):
     ] = None
 
     meta_data_rating: Annotated[
-        Optional[List[GetLibraryItemsMetaDataRating]], pydantic.Field(alias="Rating")
+        Optional[List[MetaDataRating]], pydantic.Field(alias="Rating")
     ] = None
 
     image: Annotated[

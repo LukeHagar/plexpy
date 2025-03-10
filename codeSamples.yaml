@@ -637,25 +637,6 @@ actions:
 
                 # Handle response
                 print(res.response_stream)
-  - target: $["paths"]["/library/onDeck"]["get"]
-    update:
-      x-codeSamples:
-        - lang: python
-          label: getOnDeck
-          source: |-
-            from plex_api_client import PlexAPI
-
-
-            with PlexAPI(
-                access_token="<YOUR_API_KEY_HERE>",
-            ) as plex_api:
-
-                res = plex_api.library.get_on_deck()
-
-                assert res.object is not None
-
-                # Handle response
-                print(res.object)
   - target: $["paths"]["/library/recentlyAdded"]["get"]
     update:
       x-codeSamples:

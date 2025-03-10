@@ -1,10 +1,12 @@
 # Similar
 
+The display tag for the similar item, typically the title.
+
 
 ## Fields
 
-| Field                                    | Type                                     | Required                                 | Description                              | Example                                  |
-| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
-| `id`                                     | *int*                                    | :heavy_check_mark:                       | The unique similar item identifier.      | 26                                       |
-| `filter_`                                | *str*                                    | :heavy_check_mark:                       | The filter string for similar items.     | similar=26                               |
-| `tag`                                    | *str*                                    | :heavy_check_mark:                       | The tag or title of the similar content. | Breaking Bad                             |
+| Field                 | Type                  | Required              | Description           | Example               |
+| --------------------- | --------------------- | --------------------- | --------------------- | --------------------- |
+| `id`                  | *int*                 | :heavy_check_mark:    | N/A                   | 259                   |
+| `filter_`             | *str*                 | :heavy_check_mark:    | N/A                   | similar=259           |
+| `tag`                 | *str*                 | :heavy_check_mark:    | N/A                   | Criss Angel Mindfreak |

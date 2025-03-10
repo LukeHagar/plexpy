@@ -227,7 +227,6 @@ asyncio.run(main())
 * [get_media_meta_data](docs/sdks/library/README.md#get_media_meta_data) - Get Media Metadata
 * [get_metadata_children](docs/sdks/library/README.md#get_metadata_children) - Get Items Children
 * [get_top_watched_content](docs/sdks/library/README.md#get_top_watched_content) - Get Top Watched Content
-* [get_on_deck](docs/sdks/library/README.md#get_on_deck) - Get On Deck
 
 ### [log](docs/sdks/log/README.md)
 

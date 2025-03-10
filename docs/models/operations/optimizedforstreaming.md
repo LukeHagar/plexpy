@@ -1,9 +1,19 @@
 # OptimizedForStreaming
 
+Has this media been optimized for streaming. NOTE: This can be 0, 1, false or true
 
-## Values
 
-| Name      | Value     |
-| --------- | --------- |
-| `DISABLE` | 0         |
-| `ENABLE`  | 1         |
+## Supported Types
+
+### `operations.One`
+
+```python
+value: operations.One = /* values here */
+```
+
+### `bool`
+
+```python
+value: bool = /* values here */
+```
+

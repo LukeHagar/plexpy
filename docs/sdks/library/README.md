@@ -24,7 +24,6 @@ API Calls interacting with Plex Media Server Libraries
 * [get_media_meta_data](#get_media_meta_data) - Get Media Metadata
 * [get_metadata_children](#get_metadata_children) - Get Items Children
 * [get_top_watched_content](#get_top_watched_content) - Get Top Watched Content
-* [get_on_deck](#get_on_deck) - Get On Deck
 
 ## get_file_hash
 
@@ -855,45 +854,3 @@ with PlexAPI(
 | errors.GetTopWatchedContentBadRequest   | 400                                     | application/json                        |
 | errors.GetTopWatchedContentUnauthorized | 401                                     | application/json                        |
 | errors.SDKError                         | 4XX, 5XX                                | \*/\*                                   |
-
-## get_on_deck
-
-This endpoint will return the on deck content.
-
-
-### Example Usage
-
-```python
-from plex_api_client import PlexAPI
-
-
-with PlexAPI(
-    access_token="<YOUR_API_KEY_HERE>",
-) as plex_api:
-
-    res = plex_api.library.get_on_deck()
-
-    assert res.object is not None
-
-    # Handle response
-    print(res.object)
-
-```
-
-### Parameters
-
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
-
-### Response
-
-**[operations.GetOnDeckResponse](../../models/operations/getondeckresponse.md)**
-
-### Errors
-
-| Error Type                   | Status Code                  | Content Type                 |
-| ---------------------------- | ---------------------------- | ---------------------------- |
-| errors.GetOnDeckBadRequest   | 400                          | application/json             |
-| errors.GetOnDeckUnauthorized | 401                          | application/json             |
-| errors.SDKError              | 4XX, 5XX                     | \*/\*                        |

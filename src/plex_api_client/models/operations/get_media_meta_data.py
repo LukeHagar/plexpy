@@ -142,39 +142,40 @@ class GetMediaMetaDataRequest(BaseModel):
     r"""Trigger asynchronous refresh of the local media agent."""
 
 
-class OptimizedForStreaming1(int, Enum):
+class GetMediaMetaDataOptimizedForStreaming1(int, Enum):
     ZERO = 0
     ONE = 1
 
 
 GetMediaMetaDataOptimizedForStreamingTypedDict = TypeAliasType(
     "GetMediaMetaDataOptimizedForStreamingTypedDict",
-    Union[OptimizedForStreaming1, bool],
+    Union[GetMediaMetaDataOptimizedForStreaming1, bool],
 )
 r"""Has this media been optimized for streaming. NOTE: This can be 0, 1, false or true"""
 
 
 GetMediaMetaDataOptimizedForStreaming = TypeAliasType(
-    "GetMediaMetaDataOptimizedForStreaming", Union[OptimizedForStreaming1, bool]
+    "GetMediaMetaDataOptimizedForStreaming",
+    Union[GetMediaMetaDataOptimizedForStreaming1, bool],
 )
 r"""Has this media been optimized for streaming. NOTE: This can be 0, 1, false or true"""
 
 
-class GetMediaMetaDataOptimizedForStreaming1(int, Enum):
+class GetMediaMetaDataOptimizedForStreamingLibrary1(int, Enum):
     ZERO = 0
     ONE = 1
 
 
 GetMediaMetaDataLibraryOptimizedForStreamingTypedDict = TypeAliasType(
     "GetMediaMetaDataLibraryOptimizedForStreamingTypedDict",
-    Union[GetMediaMetaDataOptimizedForStreaming1, bool],
+    Union[GetMediaMetaDataOptimizedForStreamingLibrary1, bool],
 )
 r"""Has this media been optimized for streaming. NOTE: This can be 0, 1, false or true"""
 
 
 GetMediaMetaDataLibraryOptimizedForStreaming = TypeAliasType(
     "GetMediaMetaDataLibraryOptimizedForStreaming",
-    Union[GetMediaMetaDataOptimizedForStreaming1, bool],
+    Union[GetMediaMetaDataOptimizedForStreamingLibrary1, bool],
 )
 r"""Has this media been optimized for streaming. NOTE: This can be 0, 1, false or true"""
 
@@ -195,12 +196,6 @@ class GetMediaMetaDataStreamTypedDict(TypedDict):
     r"""Codec used by the stream."""
     index: int
     r"""Index of the stream."""
-    language: str
-    r"""Language of the stream."""
-    language_tag: str
-    r"""Language tag (e.g., en)."""
-    language_code: str
-    r"""ISO language code."""
     display_title: str
     r"""Display title for the stream."""
     extended_display_title: str
@@ -209,6 +204,12 @@ class GetMediaMetaDataStreamTypedDict(TypedDict):
     r"""Indicates if this stream is default."""
     bitrate: NotRequired[int]
     r"""Bitrate of the stream."""
+    language: NotRequired[str]
+    r"""Language of the stream."""
+    language_tag: NotRequired[str]
+    r"""Language tag (e.g., en)."""
+    language_code: NotRequired[str]
+    r"""ISO language code."""
     header_compression: NotRequired[bool]
     r"""Indicates whether header compression is enabled."""
     dovibl_compat_id: NotRequired[int]
@@ -237,6 +238,7 @@ class GetMediaMetaDataStreamTypedDict(TypedDict):
     r"""Coded video height."""
     coded_width: NotRequired[int]
     r"""Coded video width."""
+    closed_captions: NotRequired[bool]
     color_primaries: NotRequired[str]
     r"""Color primaries used."""
     color_range: NotRequired[str]
@@ -257,6 +259,7 @@ class GetMediaMetaDataStreamTypedDict(TypedDict):
     profile: NotRequired[str]
     r"""Video profile."""
     scan_type: NotRequired[str]
+    embedded_in_video: NotRequired[str]
     ref_frames: NotRequired[int]
     r"""Number of reference frames."""
     width: NotRequired[int]
@@ -293,15 +296,6 @@ class GetMediaMetaDataStream(BaseModel):
     index: int
     r"""Index of the stream."""
 
-    language: str
-    r"""Language of the stream."""
-
-    language_tag: Annotated[str, pydantic.Field(alias="languageTag")]
-    r"""Language tag (e.g., en)."""
-
-    language_code: Annotated[str, pydantic.Field(alias="languageCode")]
-    r"""ISO language code."""
-
     display_title: Annotated[str, pydantic.Field(alias="displayTitle")]
     r"""Display title for the stream."""
 
@@ -313,6 +307,15 @@ class GetMediaMetaDataStream(BaseModel):
 
     bitrate: Optional[int] = None
     r"""Bitrate of the stream."""
+
+    language: Optional[str] = None
+    r"""Language of the stream."""
+
+    language_tag: Annotated[Optional[str], pydantic.Field(alias="languageTag")] = None
+    r"""Language tag (e.g., en)."""
+
+    language_code: Annotated[Optional[str], pydantic.Field(alias="languageCode")] = None
+    r"""ISO language code."""
 
     header_compression: Annotated[
         Optional[bool], pydantic.Field(alias="headerCompression")
@@ -370,6 +373,10 @@ class GetMediaMetaDataStream(BaseModel):
     coded_width: Annotated[Optional[int], pydantic.Field(alias="codedWidth")] = None
     r"""Coded video width."""
 
+    closed_captions: Annotated[
+        Optional[bool], pydantic.Field(alias="closedCaptions")
+    ] = None
+
     color_primaries: Annotated[
         Optional[str], pydantic.Field(alias="colorPrimaries")
     ] = None
@@ -404,6 +411,10 @@ class GetMediaMetaDataStream(BaseModel):
     r"""Video profile."""
 
     scan_type: Annotated[Optional[str], pydantic.Field(alias="scanType")] = None
+
+    embedded_in_video: Annotated[
+        Optional[str], pydantic.Field(alias="embeddedInVideo")
+    ] = None
 
     ref_frames: Annotated[Optional[int], pydantic.Field(alias="refFrames")] = None
     r"""Number of reference frames."""
@@ -533,10 +544,6 @@ class GetMediaMetaDataPart(BaseModel):
 class GetMediaMetaDataMediaTypedDict(TypedDict):
     id: int
     r"""Unique media identifier."""
-    has_voice_activity: bool
-    r"""Indicates whether voice activity is detected."""
-    part: List[GetMediaMetaDataPartTypedDict]
-    r"""An array of parts for this media item."""
     duration: NotRequired[int]
     r"""Duration of the media in milliseconds."""
     bitrate: NotRequired[int]
@@ -564,22 +571,20 @@ class GetMediaMetaDataMediaTypedDict(TypedDict):
     """
     video_profile: NotRequired[str]
     r"""Video profile (e.g., main 10)."""
+    has_voice_activity: NotRequired[bool]
+    r"""Indicates whether voice activity is detected."""
     audio_profile: NotRequired[str]
     r"""The audio profile used for the media (e.g., DTS, Dolby Digital, etc.)."""
     optimized_for_streaming: NotRequired[GetMediaMetaDataOptimizedForStreamingTypedDict]
     r"""Has this media been optimized for streaming. NOTE: This can be 0, 1, false or true"""
     has64bit_offsets: NotRequired[bool]
+    part: NotRequired[List[GetMediaMetaDataPartTypedDict]]
+    r"""An array of parts for this media item."""
 
 
 class GetMediaMetaDataMedia(BaseModel):
     id: int
     r"""Unique media identifier."""
-
-    has_voice_activity: Annotated[bool, pydantic.Field(alias="hasVoiceActivity")]
-    r"""Indicates whether voice activity is detected."""
-
-    part: Annotated[List[GetMediaMetaDataPart], pydantic.Field(alias="Part")]
-    r"""An array of parts for this media item."""
 
     duration: Optional[int] = None
     r"""Duration of the media in milliseconds."""
@@ -629,6 +634,11 @@ class GetMediaMetaDataMedia(BaseModel):
     video_profile: Annotated[Optional[str], pydantic.Field(alias="videoProfile")] = None
     r"""Video profile (e.g., main 10)."""
 
+    has_voice_activity: Annotated[
+        Optional[bool], pydantic.Field(alias="hasVoiceActivity")
+    ] = None
+    r"""Indicates whether voice activity is detected."""
+
     audio_profile: Annotated[Optional[str], pydantic.Field(alias="audioProfile")] = None
     r"""The audio profile used for the media (e.g., DTS, Dolby Digital, etc.)."""
 
@@ -641,6 +651,11 @@ class GetMediaMetaDataMedia(BaseModel):
     has64bit_offsets: Annotated[
         Optional[bool], pydantic.Field(alias="has64bitOffsets")
     ] = None
+
+    part: Annotated[
+        Optional[List[GetMediaMetaDataPart]], pydantic.Field(alias="Part")
+    ] = None
+    r"""An array of parts for this media item."""
 
 
 class GetMediaMetaDataImageTypedDict(TypedDict):
@@ -863,7 +878,7 @@ class GetMediaMetaDataWriter(BaseModel):
     r"""URL for the role thumbnail image."""
 
 
-class ProducerTypedDict(TypedDict):
+class GetMediaMetaDataProducerTypedDict(TypedDict):
     id: int
     r"""The unique role identifier."""
     filter_: str
@@ -878,7 +893,7 @@ class ProducerTypedDict(TypedDict):
     r"""URL for the role thumbnail image."""
 
 
-class Producer(BaseModel):
+class GetMediaMetaDataProducer(BaseModel):
     id: int
     r"""The unique role identifier."""
 
@@ -898,7 +913,7 @@ class Producer(BaseModel):
     r"""URL for the role thumbnail image."""
 
 
-class SimilarTypedDict(TypedDict):
+class GetMediaMetaDataSimilarTypedDict(TypedDict):
     id: int
     r"""The unique similar item identifier."""
     filter_: str
@@ -907,7 +922,7 @@ class SimilarTypedDict(TypedDict):
     r"""The tag or title of the similar content."""
 
 
-class Similar(BaseModel):
+class GetMediaMetaDataSimilar(BaseModel):
     id: int
     r"""The unique similar item identifier."""
 
@@ -1039,9 +1054,9 @@ class GetMediaMetaDataMetadataTypedDict(TypedDict):
     r"""An array of Director roles."""
     writer: NotRequired[List[GetMediaMetaDataWriterTypedDict]]
     r"""An array of Writer roles."""
-    producer: NotRequired[List[ProducerTypedDict]]
+    producer: NotRequired[List[GetMediaMetaDataProducerTypedDict]]
     r"""An array of Writer roles."""
-    similar: NotRequired[List[SimilarTypedDict]]
+    similar: NotRequired[List[GetMediaMetaDataSimilarTypedDict]]
     r"""An array of similar content objects."""
     location: NotRequired[List[GetMediaMetaDataLocationTypedDict]]
     r"""An array of location objects."""
@@ -1266,12 +1281,14 @@ class GetMediaMetaDataMetadata(BaseModel):
     ] = None
     r"""An array of Writer roles."""
 
-    producer: Annotated[Optional[List[Producer]], pydantic.Field(alias="Producer")] = (
-        None
-    )
+    producer: Annotated[
+        Optional[List[GetMediaMetaDataProducer]], pydantic.Field(alias="Producer")
+    ] = None
     r"""An array of Writer roles."""
 
-    similar: Annotated[Optional[List[Similar]], pydantic.Field(alias="Similar")] = None
+    similar: Annotated[
+        Optional[List[GetMediaMetaDataSimilar]], pydantic.Field(alias="Similar")
+    ] = None
     r"""An array of similar content objects."""
 
     location: Annotated[

@@ -412,19 +412,20 @@ class GetAllMediaLibraryUltraBlurColors(BaseModel):
     bottom_left: Annotated[str, pydantic.Field(alias="bottomLeft")]
 
 
-class One(int, Enum):
+class OptimizedForStreaming1(int, Enum):
     ZERO = 0
     ONE = 1
 
 
 GetAllMediaLibraryOptimizedForStreamingTypedDict = TypeAliasType(
-    "GetAllMediaLibraryOptimizedForStreamingTypedDict", Union[One, bool]
+    "GetAllMediaLibraryOptimizedForStreamingTypedDict",
+    Union[OptimizedForStreaming1, bool],
 )
 r"""Has this media been optimized for streaming. NOTE: This can be 0, 1, false or true"""
 
 
 GetAllMediaLibraryOptimizedForStreaming = TypeAliasType(
-    "GetAllMediaLibraryOptimizedForStreaming", Union[One, bool]
+    "GetAllMediaLibraryOptimizedForStreaming", Union[OptimizedForStreaming1, bool]
 )
 r"""Has this media been optimized for streaming. NOTE: This can be 0, 1, false or true"""
 
@@ -464,12 +465,6 @@ class GetAllMediaLibraryStreamTypedDict(TypedDict):
     r"""Codec used by the stream."""
     index: int
     r"""Index of the stream."""
-    language: str
-    r"""Language of the stream."""
-    language_tag: str
-    r"""Language tag (e.g., en)."""
-    language_code: str
-    r"""ISO language code."""
     display_title: str
     r"""Display title for the stream."""
     extended_display_title: str
@@ -478,6 +473,12 @@ class GetAllMediaLibraryStreamTypedDict(TypedDict):
     r"""Indicates if this stream is default."""
     bitrate: NotRequired[int]
     r"""Bitrate of the stream."""
+    language: NotRequired[str]
+    r"""Language of the stream."""
+    language_tag: NotRequired[str]
+    r"""Language tag (e.g., en)."""
+    language_code: NotRequired[str]
+    r"""ISO language code."""
     header_compression: NotRequired[bool]
     r"""Indicates whether header compression is enabled."""
     dovibl_compat_id: NotRequired[int]
@@ -506,6 +507,7 @@ class GetAllMediaLibraryStreamTypedDict(TypedDict):
     r"""Coded video height."""
     coded_width: NotRequired[int]
     r"""Coded video width."""
+    closed_captions: NotRequired[bool]
     color_primaries: NotRequired[str]
     r"""Color primaries used."""
     color_range: NotRequired[str]
@@ -526,6 +528,7 @@ class GetAllMediaLibraryStreamTypedDict(TypedDict):
     profile: NotRequired[str]
     r"""Video profile."""
     scan_type: NotRequired[str]
+    embedded_in_video: NotRequired[str]
     ref_frames: NotRequired[int]
     r"""Number of reference frames."""
     width: NotRequired[int]
@@ -562,15 +565,6 @@ class GetAllMediaLibraryStream(BaseModel):
     index: int
     r"""Index of the stream."""
 
-    language: str
-    r"""Language of the stream."""
-
-    language_tag: Annotated[str, pydantic.Field(alias="languageTag")]
-    r"""Language tag (e.g., en)."""
-
-    language_code: Annotated[str, pydantic.Field(alias="languageCode")]
-    r"""ISO language code."""
-
     display_title: Annotated[str, pydantic.Field(alias="displayTitle")]
     r"""Display title for the stream."""
 
@@ -582,6 +576,15 @@ class GetAllMediaLibraryStream(BaseModel):
 
     bitrate: Optional[int] = None
     r"""Bitrate of the stream."""
+
+    language: Optional[str] = None
+    r"""Language of the stream."""
+
+    language_tag: Annotated[Optional[str], pydantic.Field(alias="languageTag")] = None
+    r"""Language tag (e.g., en)."""
+
+    language_code: Annotated[Optional[str], pydantic.Field(alias="languageCode")] = None
+    r"""ISO language code."""
 
     header_compression: Annotated[
         Optional[bool], pydantic.Field(alias="headerCompression")
@@ -639,6 +642,10 @@ class GetAllMediaLibraryStream(BaseModel):
     coded_width: Annotated[Optional[int], pydantic.Field(alias="codedWidth")] = None
     r"""Coded video width."""
 
+    closed_captions: Annotated[
+        Optional[bool], pydantic.Field(alias="closedCaptions")
+    ] = None
+
     color_primaries: Annotated[
         Optional[str], pydantic.Field(alias="colorPrimaries")
     ] = None
@@ -673,6 +680,10 @@ class GetAllMediaLibraryStream(BaseModel):
     r"""Video profile."""
 
     scan_type: Annotated[Optional[str], pydantic.Field(alias="scanType")] = None
+
+    embedded_in_video: Annotated[
+        Optional[str], pydantic.Field(alias="embeddedInVideo")
+    ] = None
 
     ref_frames: Annotated[Optional[int], pydantic.Field(alias="refFrames")] = None
     r"""Number of reference frames."""
@@ -802,10 +813,6 @@ class GetAllMediaLibraryPart(BaseModel):
 class GetAllMediaLibraryMediaTypedDict(TypedDict):
     id: int
     r"""Unique media identifier."""
-    has_voice_activity: bool
-    r"""Indicates whether voice activity is detected."""
-    part: List[GetAllMediaLibraryPartTypedDict]
-    r"""An array of parts for this media item."""
     duration: NotRequired[int]
     r"""Duration of the media in milliseconds."""
     bitrate: NotRequired[int]
@@ -833,6 +840,8 @@ class GetAllMediaLibraryMediaTypedDict(TypedDict):
     """
     video_profile: NotRequired[str]
     r"""Video profile (e.g., main 10)."""
+    has_voice_activity: NotRequired[bool]
+    r"""Indicates whether voice activity is detected."""
     audio_profile: NotRequired[str]
     r"""The audio profile used for the media (e.g., DTS, Dolby Digital, etc.)."""
     optimized_for_streaming: NotRequired[
@@ -840,17 +849,13 @@ class GetAllMediaLibraryMediaTypedDict(TypedDict):
     ]
     r"""Has this media been optimized for streaming. NOTE: This can be 0, 1, false or true"""
     has64bit_offsets: NotRequired[bool]
+    part: NotRequired[List[GetAllMediaLibraryPartTypedDict]]
+    r"""An array of parts for this media item."""
 
 
 class GetAllMediaLibraryMedia(BaseModel):
     id: int
     r"""Unique media identifier."""
-
-    has_voice_activity: Annotated[bool, pydantic.Field(alias="hasVoiceActivity")]
-    r"""Indicates whether voice activity is detected."""
-
-    part: Annotated[List[GetAllMediaLibraryPart], pydantic.Field(alias="Part")]
-    r"""An array of parts for this media item."""
 
     duration: Optional[int] = None
     r"""Duration of the media in milliseconds."""
@@ -900,6 +905,11 @@ class GetAllMediaLibraryMedia(BaseModel):
     video_profile: Annotated[Optional[str], pydantic.Field(alias="videoProfile")] = None
     r"""Video profile (e.g., main 10)."""
 
+    has_voice_activity: Annotated[
+        Optional[bool], pydantic.Field(alias="hasVoiceActivity")
+    ] = None
+    r"""Indicates whether voice activity is detected."""
+
     audio_profile: Annotated[Optional[str], pydantic.Field(alias="audioProfile")] = None
     r"""The audio profile used for the media (e.g., DTS, Dolby Digital, etc.)."""
 
@@ -913,15 +923,24 @@ class GetAllMediaLibraryMedia(BaseModel):
         Optional[bool], pydantic.Field(alias="has64bitOffsets")
     ] = None
 
+    part: Annotated[
+        Optional[List[GetAllMediaLibraryPart]], pydantic.Field(alias="Part")
+    ] = None
+    r"""An array of parts for this media item."""
+
 
 class GetAllMediaLibraryGenreTypedDict(TypedDict):
     tag: str
-    r"""The country of origin of this media item"""
+    r"""The genre name of this media-item
+
+    """
 
 
 class GetAllMediaLibraryGenre(BaseModel):
     tag: str
-    r"""The country of origin of this media item"""
+    r"""The genre name of this media-item
+
+    """
 
 
 class GetAllMediaLibraryCountryTypedDict(TypedDict):
@@ -956,22 +975,22 @@ class GetAllMediaLibraryWriter(BaseModel):
 
 class GetAllMediaLibraryRoleTypedDict(TypedDict):
     tag: str
-    r"""The name of the actor for this role"""
+    r"""The display tag for the actor (typically the actor's name)."""
 
 
 class GetAllMediaLibraryRole(BaseModel):
     tag: str
-    r"""The name of the actor for this role"""
+    r"""The display tag for the actor (typically the actor's name)."""
 
 
-class GuidsTypedDict(TypedDict):
+class GetAllMediaLibraryGuidsTypedDict(TypedDict):
     id: NotRequired[str]
     r"""The unique identifier for the Guid. Can be imdb://tt0286347, tmdb://1763, tvdb://2337
 
     """
 
 
-class Guids(BaseModel):
+class GetAllMediaLibraryGuids(BaseModel):
     id: Optional[str] = None
     r"""The unique identifier for the Guid. Can be imdb://tt0286347, tmdb://1763, tvdb://2337
 
@@ -1010,8 +1029,6 @@ class GetAllMediaLibraryMetadataTypedDict(TypedDict):
     r"""The critic rating for the media item."""
     audience_rating: float
     r"""The audience rating for the media item."""
-    year: int
-    r"""The release year of the media item."""
     tagline: str
     r"""A brief tagline for the media item."""
     thumb: str
@@ -1035,6 +1052,8 @@ class GetAllMediaLibraryMetadataTypedDict(TypedDict):
     r"""The studio that produced the media item."""
     content_rating: NotRequired[str]
     r"""The content rating for the media item."""
+    year: NotRequired[int]
+    r"""The release year of the media item."""
     leaf_count: NotRequired[int]
     r"""The number of leaf items (end nodes) under this media item."""
     viewed_leaf_count: NotRequired[int]
@@ -1105,7 +1124,7 @@ class GetAllMediaLibraryMetadataTypedDict(TypedDict):
     director: NotRequired[List[GetAllMediaLibraryDirectorTypedDict]]
     writer: NotRequired[List[GetAllMediaLibraryWriterTypedDict]]
     role: NotRequired[List[GetAllMediaLibraryRoleTypedDict]]
-    guids: NotRequired[List[GuidsTypedDict]]
+    guids: NotRequired[List[GetAllMediaLibraryGuidsTypedDict]]
     collection: NotRequired[List[GetAllMediaLibraryCollectionTypedDict]]
 
 
@@ -1140,9 +1159,6 @@ class GetAllMediaLibraryMetadata(BaseModel):
 
     audience_rating: Annotated[float, pydantic.Field(alias="audienceRating")]
     r"""The audience rating for the media item."""
-
-    year: int
-    r"""The release year of the media item."""
 
     tagline: str
     r"""A brief tagline for the media item."""
@@ -1182,6 +1198,9 @@ class GetAllMediaLibraryMetadata(BaseModel):
         None
     )
     r"""The content rating for the media item."""
+
+    year: Optional[int] = None
+    r"""The release year of the media item."""
 
     leaf_count: Annotated[Optional[int], pydantic.Field(alias="leafCount")] = None
     r"""The number of leaf items (end nodes) under this media item."""
@@ -1343,7 +1362,9 @@ class GetAllMediaLibraryMetadata(BaseModel):
         Optional[List[GetAllMediaLibraryRole]], pydantic.Field(alias="Role")
     ] = None
 
-    guids: Annotated[Optional[List[Guids]], pydantic.Field(alias="Guid")] = None
+    guids: Annotated[
+        Optional[List[GetAllMediaLibraryGuids]], pydantic.Field(alias="Guid")
+    ] = None
 
     collection: Annotated[
         Optional[List[GetAllMediaLibraryCollection]], pydantic.Field(alias="Collection")

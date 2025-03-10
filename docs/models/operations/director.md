@@ -3,6 +3,6 @@
 
 ## Fields
 
-| Field              | Type               | Required           | Description        | Example            |
-| ------------------ | ------------------ | ------------------ | ------------------ | ------------------ |
-| `tag`              | *Optional[str]*    | :heavy_minus_sign: | N/A                | James Cameron      |
+| Field                | Type                 | Required             | Description          | Example              |
+| -------------------- | -------------------- | -------------------- | -------------------- | -------------------- |
+| `tag`                | *str*                | :heavy_check_mark:   | The role of Director | Danny Boyle          |

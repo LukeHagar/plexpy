@@ -5,10 +5,10 @@ Has this media been optimized for streaming. NOTE: This can be 0, 1, false or tr
 
 ## Supported Types
 
-### `operations.OptimizedForStreaming1`
+### `operations.GetMediaMetaDataOptimizedForStreaming1`
 
 ```python
-value: operations.OptimizedForStreaming1 = /* values here */
+value: operations.GetMediaMetaDataOptimizedForStreaming1 = /* values here */
 ```
 
 ### `bool`
