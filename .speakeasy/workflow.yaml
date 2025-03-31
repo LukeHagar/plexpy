@@ -12,6 +12,8 @@ targets:
             pypi:
                 token: $pypi_token
         codeSamples:
+            labelOverride: 
+                fixedValue: PlexPy
             output: codeSamples.yaml
             registry:
                 location: registry.speakeasyapi.dev/plexapi/plexapi/code-samples-python-plexpy
