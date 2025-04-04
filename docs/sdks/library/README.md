@@ -22,6 +22,10 @@ API Calls interacting with Plex Media Server Libraries
 * [get_actors_library](#get_actors_library) - Get Actors of library media
 * [get_search_all_libraries](#get_search_all_libraries) - Search All Libraries
 * [get_media_meta_data](#get_media_meta_data) - Get Media Metadata
+* [get_media_arts](#get_media_arts) - Get Media Background Artwork
+* [post_media_arts](#post_media_arts) - Upload Media Background Artwork
+* [get_media_posters](#get_media_posters) - Get Media Posters
+* [post_media_poster](#post_media_poster) - Upload Media Poster
 * [get_metadata_children](#get_metadata_children) - Get Items Children
 * [get_top_watched_content](#get_top_watched_content) - Get Top Watched Content
 
@@ -765,6 +769,170 @@ with PlexAPI(
 | errors.GetMediaMetaDataBadRequest   | 400                                 | application/json                    |
 | errors.GetMediaMetaDataUnauthorized | 401                                 | application/json                    |
 | errors.SDKError                     | 4XX, 5XX                            | \*/\*                               |
+
+## get_media_arts
+
+Returns the background artwork for a library item.
+
+### Example Usage
+
+```python
+from plex_api_client import PlexAPI
+
+
+with PlexAPI(
+    access_token="<YOUR_API_KEY_HERE>",
+) as plex_api:
+
+    res = plex_api.library.get_media_arts(rating_key=16099)
+
+    assert res.object is not None
+
+    # Handle response
+    print(res.object)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `rating_key`                                                        | *int*                                                               | :heavy_check_mark:                                                  | the id of the library item to return the artwork of.                | 16099                                                               |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
+
+### Response
+
+**[operations.GetMediaArtsResponse](../../models/operations/getmediaartsresponse.md)**
+
+### Errors
+
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
+
+## post_media_arts
+
+Uploads an image to use as the background artwork for a library item, either from a local file or a remote URL
+
+### Example Usage
+
+```python
+from plex_api_client import PlexAPI
+
+
+with PlexAPI(
+    access_token="<YOUR_API_KEY_HERE>",
+) as plex_api:
+
+    res = plex_api.library.post_media_arts(rating_key=2268, url="https://api.mediux.pro/assets/fcfdc487-dd07-4993-a0c1-0a3015362e5b")
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `rating_key`                                                        | *int*                                                               | :heavy_check_mark:                                                  | the id of the library item to return the posters of.                | 2268                                                                |
+| `url`                                                               | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | The URL of the image, if uploading a remote image                   | https://api.mediux.pro/assets/fcfdc487-dd07-4993-a0c1-0a3015362e5b  |
+| `request_body`                                                      | *Optional[Union[bytes, IO[bytes], io.BufferedReader]]*              | :heavy_minus_sign:                                                  | The contents of the image, if uploading a local file                |                                                                     |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
+
+### Response
+
+**[operations.PostMediaArtsResponse](../../models/operations/postmediaartsresponse.md)**
+
+### Errors
+
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
+
+## get_media_posters
+
+Returns the available posters for a library item.
+
+### Example Usage
+
+```python
+from plex_api_client import PlexAPI
+
+
+with PlexAPI(
+    access_token="<YOUR_API_KEY_HERE>",
+) as plex_api:
+
+    res = plex_api.library.get_media_posters(rating_key=16099)
+
+    assert res.object is not None
+
+    # Handle response
+    print(res.object)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `rating_key`                                                        | *int*                                                               | :heavy_check_mark:                                                  | the id of the library item to return the posters of.                | 16099                                                               |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
+
+### Response
+
+**[operations.GetMediaPostersResponse](../../models/operations/getmediapostersresponse.md)**
+
+### Errors
+
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
+
+## post_media_poster
+
+Uploads a poster to a library item, either from a local file or a remote URL
+
+### Example Usage
+
+```python
+from plex_api_client import PlexAPI
+
+
+with PlexAPI(
+    access_token="<YOUR_API_KEY_HERE>",
+) as plex_api:
+
+    res = plex_api.library.post_media_poster(rating_key=2268, url="https://api.mediux.pro/assets/fcfdc487-dd07-4993-a0c1-0a3015362e5b")
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `rating_key`                                                        | *int*                                                               | :heavy_check_mark:                                                  | the id of the library item to return the posters of.                | 2268                                                                |
+| `url`                                                               | *Optional[str]*                                                     | :heavy_minus_sign:                                                  | The URL of the image, if uploading a remote image                   | https://api.mediux.pro/assets/fcfdc487-dd07-4993-a0c1-0a3015362e5b  |
+| `request_body`                                                      | *Optional[Union[bytes, IO[bytes], io.BufferedReader]]*              | :heavy_minus_sign:                                                  | The contents of the image, if uploading a local file                |                                                                     |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
+
+### Response
+
+**[operations.PostMediaPosterResponse](../../models/operations/postmediaposterresponse.md)**
+
+### Errors
+
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
 ## get_metadata_children
 

@@ -49,6 +49,7 @@ The following SDKs are generated from the OpenAPI Specification. They are automa
   * [IDE Support](#ide-support)
   * [SDK Example Usage](#sdk-example-usage)
   * [Available Resources and Operations](#available-resources-and-operations)
+  * [File uploads](#file-uploads)
   * [Retries](#retries)
   * [Error Handling](#error-handling)
   * [Server Selection](#server-selection)
@@ -225,6 +226,10 @@ asyncio.run(main())
 * [get_actors_library](docs/sdks/library/README.md#get_actors_library) - Get Actors of library media
 * [get_search_all_libraries](docs/sdks/library/README.md#get_search_all_libraries) - Search All Libraries
 * [get_media_meta_data](docs/sdks/library/README.md#get_media_meta_data) - Get Media Metadata
+* [get_media_arts](docs/sdks/library/README.md#get_media_arts) - Get Media Background Artwork
+* [post_media_arts](docs/sdks/library/README.md#post_media_arts) - Upload Media Background Artwork
+* [get_media_posters](docs/sdks/library/README.md#get_media_posters) - Get Media Posters
+* [post_media_poster](docs/sdks/library/README.md#post_media_poster) - Upload Media Poster
 * [get_metadata_children](docs/sdks/library/README.md#get_metadata_children) - Get Items Children
 * [get_top_watched_content](docs/sdks/library/README.md#get_top_watched_content) - Get Top Watched Content
 
@@ -317,6 +322,34 @@ asyncio.run(main())
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
+
+<!-- Start File uploads [file-upload] -->
+## File uploads
+
+Certain SDK methods accept file objects as part of a request body or multi-part request. It is possible and typically recommended to upload files as a stream rather than reading the entire contents into memory. This avoids excessive memory consumption and potentially crashing with out-of-memory errors when working with very large files. The following example demonstrates how to attach a file stream to a request.
+
+> [!TIP]
+>
+> For endpoints that handle file uploads bytes arrays can also be used. However, using streams is recommended for large files.
+>
+
+```python
+from plex_api_client import PlexAPI
+
+
+with PlexAPI(
+    access_token="<YOUR_API_KEY_HERE>",
+) as plex_api:
+
+    res = plex_api.library.post_media_arts(rating_key=2268, url="https://api.mediux.pro/assets/fcfdc487-dd07-4993-a0c1-0a3015362e5b")
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+<!-- End File uploads [file-upload] -->
 
 <!-- Start Retries [retries] -->
 ## Retries
