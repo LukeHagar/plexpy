@@ -21,7 +21,6 @@ with PlexAPI() as plex_api:
 
     res = plex_api.users.get_users(request={
         "client_id": "3381b62b-9ab7-4e37-827b-203e9809eb58",
-        "x_plex_token": "CV5xoxjTpFKUzBTShsaf",
         "client_name": "Plex for Roku",
         "device_nickname": "Roku 3",
         "device_name": "Chrome",
@@ -33,6 +32,7 @@ with PlexAPI() as plex_api:
         "x_plex_session_id": "97e136ef-4ddd-4ff3-89a7-a5820c96c2ca",
         "x_plex_language": "en",
         "platform_version": "4.3 build 1057",
+        "x_plex_token": "CV5xoxjTpFKUzBTShsaf",
     })
 
     assert res.body is not None

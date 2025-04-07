@@ -280,11 +280,11 @@ with PlexAPI(
     res = plex_api.server.get_resized_photo(request={
         "width": 110,
         "height": 165,
+        "opacity": 100,
         "blur": 0,
         "min_size": operations.MinSize.ONE,
         "upscale": operations.Upscale.ONE,
         "url": "/library/metadata/49564/thumb/1654258204",
-        "opacity": 100,
     })
 
     assert res is not None

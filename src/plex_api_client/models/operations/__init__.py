@@ -93,6 +93,8 @@ from .get_all_libraries import (
     GetAllLibrariesResponseBody,
     GetAllLibrariesResponseBodyTypedDict,
     GetAllLibrariesResponseTypedDict,
+    GetAllLibrariesType,
+    Hidden,
 )
 from .get_all_media_library import (
     GetAllMediaLibraryActiveDirection,
@@ -1369,6 +1371,7 @@ __all__ = [
     "GetAllLibrariesResponseBody",
     "GetAllLibrariesResponseBodyTypedDict",
     "GetAllLibrariesResponseTypedDict",
+    "GetAllLibrariesType",
     "GetAllMediaLibraryActiveDirection",
     "GetAllMediaLibraryCollection",
     "GetAllMediaLibraryCollectionTypedDict",
@@ -2083,6 +2086,7 @@ __all__ = [
     "Guids",
     "GuidsTypedDict",
     "HasThumbnail",
+    "Hidden",
     "Home",
     "Hub",
     "HubTypedDict",

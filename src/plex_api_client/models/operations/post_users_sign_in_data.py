@@ -886,10 +886,10 @@ class PostUsersSignInDataUserPlexAccount(BaseModel):
             "adsConsent",
             "adsConsentReminderAt",
             "adsConsentSetAt",
+            "anonymous",
             "locale",
             "subscriptionDescription",
             "attributionPartner",
-            "anonymous",
         ]
         null_default_fields = []
 

@@ -89,7 +89,6 @@ with PlexAPI(
 ) as plex_api:
 
     res = plex_api.library.get_recently_added_library(request={
-        "type": operations.QueryParamType.TV_SHOW,
         "content_directory_id": 2,
         "pinned_content_directory_id": [
             3,
@@ -106,6 +105,7 @@ with PlexAPI(
             17,
         ],
         "section_id": 2,
+        "type": operations.QueryParamType.TV_SHOW,
     })
 
     assert res.object is not None
