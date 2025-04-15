@@ -77,7 +77,10 @@ class GetAllLibrariesDirectoryTypedDict(TypedDict):
     directory: bool
     r"""UNKNOWN"""
     content_changed_at: int
-    r"""The number of seconds since the content was last changed relative to now."""
+    r"""Timestamp (in seconds) representing the last time the content was modified.
+    NOTE: Some Plex server have some absurd values for this field, like 8457612157633039800 so it should be int64
+
+    """
     location: List[GetAllLibrariesLocationTypedDict]
     created_at: NotRequired[int]
     hidden: NotRequired[Hidden]
@@ -135,7 +138,10 @@ class GetAllLibrariesDirectory(BaseModel):
     r"""UNKNOWN"""
 
     content_changed_at: Annotated[int, pydantic.Field(alias="contentChangedAt")]
-    r"""The number of seconds since the content was last changed relative to now."""
+    r"""Timestamp (in seconds) representing the last time the content was modified.
+    NOTE: Some Plex server have some absurd values for this field, like 8457612157633039800 so it should be int64
+
+    """
 
     location: Annotated[List[GetAllLibrariesLocation], pydantic.Field(alias="Location")]
 
