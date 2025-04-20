@@ -27,7 +27,7 @@ class Log(BaseSDK):
         This endpoint will write a single-line log message, including a level and source to the main Plex Media Server log.
 
 
-        :param level: An integer log level to write to the PMS log with.   0: Error   1: Warning   2: Info   3: Debug   4: Verbose
+        :param level: An integer log level to write to the PMS log with. 0: Error 1: Warning 2: Info 3: Debug 4: Verbose
         :param message: The text of the message to write to the log.
         :param source: a string indicating the source of the message.
         :param retries: Override the default retry configuration for this method
@@ -142,7 +142,7 @@ class Log(BaseSDK):
         This endpoint will write a single-line log message, including a level and source to the main Plex Media Server log.
 
 
-        :param level: An integer log level to write to the PMS log with.   0: Error   1: Warning   2: Info   3: Debug   4: Verbose
+        :param level: An integer log level to write to the PMS log with. 0: Error 1: Warning 2: Info 3: Debug 4: Verbose
         :param message: The text of the message to write to the log.
         :param source: a string indicating the source of the message.
         :param retries: Override the default retry configuration for this method

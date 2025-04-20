@@ -4,14 +4,21 @@ from __future__ import annotations
 from datetime import date
 from enum import Enum
 import httpx
+from plex_api_client import utils
 from plex_api_client.types import BaseModel
-from plex_api_client.utils import FieldMetadata, HeaderMetadata, QueryParamMetadata
+from plex_api_client.utils import (
+    FieldMetadata,
+    HeaderMetadata,
+    QueryParamMetadata,
+    validate_open_enum,
+)
 import pydantic
+from pydantic.functional_validators import PlainValidator
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class SearchTypes(str, Enum):
+class SearchTypes(str, Enum, metaclass=utils.OpenEnumMeta):
     MOVIES = "movies"
     MUSIC = "music"
     OTHER_VIDEOS = "otherVideos"
@@ -72,7 +79,9 @@ class GetSearchAllLibrariesRequest(BaseModel):
     r"""Limit the number of results returned."""
 
     search_types: Annotated[
-        Optional[List[SearchTypes]],
+        Optional[
+            List[Annotated[SearchTypes, PlainValidator(validate_open_enum(False))]]
+        ],
         pydantic.Field(alias="searchTypes"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=False)),
     ] = None
@@ -95,7 +104,7 @@ class GetSearchAllLibrariesRequest(BaseModel):
     r"""Whether to include external media in the search results."""
 
 
-class GetSearchAllLibrariesType(str, Enum):
+class GetSearchAllLibrariesType(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""The type of media content"""
 
     MOVIE = "movie"
@@ -106,7 +115,7 @@ class GetSearchAllLibrariesType(str, Enum):
     ALBUM = "album"
 
 
-class GetSearchAllLibrariesFlattenSeasons(str, Enum):
+class GetSearchAllLibrariesFlattenSeasons(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""Setting that indicates if seasons are set to hidden for the show. (-1 = Library default, 0 = Hide, 1 = Show)."""
 
     LIBRARY_DEFAULT = "-1"
@@ -114,7 +123,7 @@ class GetSearchAllLibrariesFlattenSeasons(str, Enum):
     SHOW = "1"
 
 
-class GetSearchAllLibrariesEpisodeSort(str, Enum):
+class GetSearchAllLibrariesEpisodeSort(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""Setting that indicates how episodes are sorted for the show. (-1 = Library default, 0 = Oldest first, 1 = Newest first)."""
 
     LIBRARY_DEFAULT = "-1"
@@ -122,14 +131,16 @@ class GetSearchAllLibrariesEpisodeSort(str, Enum):
     NEWEST_FIRST = "1"
 
 
-class GetSearchAllLibrariesEnableCreditsMarkerGeneration(str, Enum):
+class GetSearchAllLibrariesEnableCreditsMarkerGeneration(
+    str, Enum, metaclass=utils.OpenEnumMeta
+):
     r"""Setting that indicates if credits markers detection is enabled. (-1 = Library default, 0 = Disabled)."""
 
     LIBRARY_DEFAULT = "-1"
     DISABLED = "0"
 
 
-class GetSearchAllLibrariesShowOrdering(str, Enum):
+class GetSearchAllLibrariesShowOrdering(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""Setting that indicates the episode ordering for the show.
     None = Library default,
     tmdbAiring = The Movie Database (Aired),
@@ -630,7 +641,7 @@ class GetSearchAllLibrariesMetaDataRating(BaseModel):
     r"""The type of rating (e.g., audience, critic)."""
 
 
-class GetSearchAllLibrariesLibraryType(str, Enum):
+class GetSearchAllLibrariesLibraryType(str, Enum, metaclass=utils.OpenEnumMeta):
     COVER_POSTER = "coverPoster"
     BACKGROUND = "background"
     SNAPSHOT = "snapshot"
@@ -646,7 +657,9 @@ class GetSearchAllLibrariesImageTypedDict(TypedDict):
 class GetSearchAllLibrariesImage(BaseModel):
     alt: str
 
-    type: GetSearchAllLibrariesLibraryType
+    type: Annotated[
+        GetSearchAllLibrariesLibraryType, PlainValidator(validate_open_enum(False))
+    ]
 
     url: str
 
@@ -772,7 +785,9 @@ class GetSearchAllLibrariesMetadata(BaseModel):
 
     guid: str
 
-    type: GetSearchAllLibrariesType
+    type: Annotated[
+        GetSearchAllLibrariesType, PlainValidator(validate_open_enum(False))
+    ]
     r"""The type of media content
 
     """
@@ -821,24 +836,37 @@ class GetSearchAllLibrariesMetadata(BaseModel):
     tagline: Optional[str] = None
 
     flatten_seasons: Annotated[
-        Optional[GetSearchAllLibrariesFlattenSeasons],
+        Annotated[
+            Optional[GetSearchAllLibrariesFlattenSeasons],
+            PlainValidator(validate_open_enum(False)),
+        ],
         pydantic.Field(alias="flattenSeasons"),
     ] = None
     r"""Setting that indicates if seasons are set to hidden for the show. (-1 = Library default, 0 = Hide, 1 = Show)."""
 
     episode_sort: Annotated[
-        Optional[GetSearchAllLibrariesEpisodeSort], pydantic.Field(alias="episodeSort")
+        Annotated[
+            Optional[GetSearchAllLibrariesEpisodeSort],
+            PlainValidator(validate_open_enum(False)),
+        ],
+        pydantic.Field(alias="episodeSort"),
     ] = None
     r"""Setting that indicates how episodes are sorted for the show. (-1 = Library default, 0 = Oldest first, 1 = Newest first)."""
 
     enable_credits_marker_generation: Annotated[
-        Optional[GetSearchAllLibrariesEnableCreditsMarkerGeneration],
+        Annotated[
+            Optional[GetSearchAllLibrariesEnableCreditsMarkerGeneration],
+            PlainValidator(validate_open_enum(False)),
+        ],
         pydantic.Field(alias="enableCreditsMarkerGeneration"),
     ] = None
     r"""Setting that indicates if credits markers detection is enabled. (-1 = Library default, 0 = Disabled)."""
 
     show_ordering: Annotated[
-        Optional[GetSearchAllLibrariesShowOrdering],
+        Annotated[
+            Optional[GetSearchAllLibrariesShowOrdering],
+            PlainValidator(validate_open_enum(False)),
+        ],
         pydantic.Field(alias="showOrdering"),
     ] = None
     r"""Setting that indicates the episode ordering for the show.

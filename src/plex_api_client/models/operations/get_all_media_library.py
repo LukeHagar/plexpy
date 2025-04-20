@@ -4,14 +4,21 @@ from __future__ import annotations
 from datetime import date
 from enum import Enum
 import httpx
+from plex_api_client import utils
 from plex_api_client.types import BaseModel
-from plex_api_client.utils import FieldMetadata, PathParamMetadata, QueryParamMetadata
+from plex_api_client.utils import (
+    FieldMetadata,
+    PathParamMetadata,
+    QueryParamMetadata,
+    validate_open_enum,
+)
 import pydantic
+from pydantic.functional_validators import PlainValidator
 from typing import List, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-class GetAllMediaLibraryQueryParamType(int, Enum):
+class GetAllMediaLibraryQueryParamType(int, Enum, metaclass=utils.OpenEnumMeta):
     r"""The type of media to retrieve or filter by.
     1 = movie
     2 = show
@@ -111,7 +118,9 @@ class GetAllMediaLibraryRequest(BaseModel):
     """
 
     type: Annotated[
-        GetAllMediaLibraryQueryParamType,
+        Annotated[
+            GetAllMediaLibraryQueryParamType, PlainValidator(validate_open_enum(True))
+        ],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ]
     r"""The type of media to retrieve or filter by.
@@ -363,7 +372,7 @@ class GetAllMediaLibraryMeta(BaseModel):
     ] = None
 
 
-class GetAllMediaLibraryLibraryType(str, Enum):
+class GetAllMediaLibraryLibraryType(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""The type of media content"""
 
     MOVIE = "movie"
@@ -374,7 +383,7 @@ class GetAllMediaLibraryLibraryType(str, Enum):
     ALBUM = "album"
 
 
-class GetAllMediaLibraryLibraryResponseType(str, Enum):
+class GetAllMediaLibraryLibraryResponseType(str, Enum, metaclass=utils.OpenEnumMeta):
     COVER_POSTER = "coverPoster"
     BACKGROUND = "background"
     SNAPSHOT = "snapshot"
@@ -390,7 +399,9 @@ class GetAllMediaLibraryImageTypedDict(TypedDict):
 class GetAllMediaLibraryImage(BaseModel):
     alt: str
 
-    type: GetAllMediaLibraryLibraryResponseType
+    type: Annotated[
+        GetAllMediaLibraryLibraryResponseType, PlainValidator(validate_open_enum(False))
+    ]
 
     url: str
 
@@ -1143,7 +1154,9 @@ class GetAllMediaLibraryMetadata(BaseModel):
     slug: str
     r"""A URL‐friendly version of the media title."""
 
-    type: GetAllMediaLibraryLibraryType
+    type: Annotated[
+        GetAllMediaLibraryLibraryType, PlainValidator(validate_open_enum(False))
+    ]
 
     title: str
     r"""The title of the media item."""

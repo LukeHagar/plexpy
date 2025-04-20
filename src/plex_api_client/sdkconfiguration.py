@@ -18,7 +18,7 @@ from typing import Callable, Dict, List, Optional, Tuple, Union
 
 
 SERVERS = [
-    "{protocol}://{ip}:{port}",
+    "https://10.10.10.47:32400",
     # The full address of your Plex Server
 ]
 """Contains the list of servers available to the SDK"""

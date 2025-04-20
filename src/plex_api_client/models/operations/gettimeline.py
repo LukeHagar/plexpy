@@ -3,13 +3,15 @@
 from __future__ import annotations
 from enum import Enum
 import httpx
+from plex_api_client import utils
 from plex_api_client.types import BaseModel
-from plex_api_client.utils import FieldMetadata, QueryParamMetadata
+from plex_api_client.utils import FieldMetadata, QueryParamMetadata, validate_open_enum
 import pydantic
+from pydantic.functional_validators import PlainValidator
 from typing_extensions import Annotated, TypedDict
 
 
-class State(str, Enum):
+class State(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""The state of the media item"""
 
     PLAYING = "playing"
@@ -54,7 +56,8 @@ class GetTimelineRequest(BaseModel):
     r"""The key of the media item to get the timeline for"""
 
     state: Annotated[
-        State, FieldMetadata(query=QueryParamMetadata(style="form", explode=True))
+        Annotated[State, PlainValidator(validate_open_enum(False))],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ]
     r"""The state of the media item"""
 

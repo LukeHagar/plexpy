@@ -3,14 +3,16 @@
 from __future__ import annotations
 from enum import Enum
 import httpx
+from plex_api_client import utils
 from plex_api_client.types import BaseModel
-from plex_api_client.utils import FieldMetadata, QueryParamMetadata
+from plex_api_client.utils import FieldMetadata, QueryParamMetadata, validate_open_enum
 import pydantic
+from pydantic.functional_validators import PlainValidator
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class PlaylistType(str, Enum):
+class PlaylistType(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""limit to a type of playlist."""
 
     AUDIO = "audio"
@@ -18,7 +20,7 @@ class PlaylistType(str, Enum):
     PHOTO = "photo"
 
 
-class QueryParamSmart(int, Enum):
+class QueryParamSmart(int, Enum, metaclass=utils.OpenEnumMeta):
     r"""type of playlists to return (default is all)."""
 
     ZERO = 0
@@ -34,14 +36,14 @@ class GetPlaylistsRequestTypedDict(TypedDict):
 
 class GetPlaylistsRequest(BaseModel):
     playlist_type: Annotated[
-        Optional[PlaylistType],
+        Annotated[Optional[PlaylistType], PlainValidator(validate_open_enum(False))],
         pydantic.Field(alias="playlistType"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
     r"""limit to a type of playlist."""
 
     smart: Annotated[
-        Optional[QueryParamSmart],
+        Annotated[Optional[QueryParamSmart], PlainValidator(validate_open_enum(True))],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
     r"""type of playlists to return (default is all)."""

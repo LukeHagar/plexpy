@@ -4,14 +4,16 @@ from __future__ import annotations
 from datetime import date
 from enum import Enum
 import httpx
+from plex_api_client import utils
 from plex_api_client.types import BaseModel
-from plex_api_client.utils import FieldMetadata, QueryParamMetadata
+from plex_api_client.utils import FieldMetadata, QueryParamMetadata, validate_open_enum
 import pydantic
+from pydantic.functional_validators import PlainValidator
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class GetTopWatchedContentQueryParamType(int, Enum):
+class GetTopWatchedContentQueryParamType(int, Enum, metaclass=utils.OpenEnumMeta):
     r"""The type of media to retrieve or filter by.
     1 = movie
     2 = show
@@ -48,7 +50,9 @@ class GetTopWatchedContentRequestTypedDict(TypedDict):
 
 class GetTopWatchedContentRequest(BaseModel):
     type: Annotated[
-        GetTopWatchedContentQueryParamType,
+        Annotated[
+            GetTopWatchedContentQueryParamType, PlainValidator(validate_open_enum(True))
+        ],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ]
     r"""The type of media to retrieve or filter by.

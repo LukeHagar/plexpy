@@ -3,14 +3,16 @@
 from __future__ import annotations
 from enum import Enum
 import httpx
+from plex_api_client import utils
 from plex_api_client.types import BaseModel
-from plex_api_client.utils import FieldMetadata, QueryParamMetadata
+from plex_api_client.utils import FieldMetadata, QueryParamMetadata, validate_open_enum
 import pydantic
+from pydantic.functional_validators import PlainValidator
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class CreatePlaylistQueryParamType(str, Enum):
+class CreatePlaylistQueryParamType(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""type of playlist to create"""
 
     AUDIO = "audio"
@@ -45,7 +47,9 @@ class CreatePlaylistRequest(BaseModel):
     r"""name of the playlist"""
 
     type: Annotated[
-        CreatePlaylistQueryParamType,
+        Annotated[
+            CreatePlaylistQueryParamType, PlainValidator(validate_open_enum(False))
+        ],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ]
     r"""type of playlist to create"""

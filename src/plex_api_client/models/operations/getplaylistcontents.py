@@ -4,14 +4,21 @@ from __future__ import annotations
 from datetime import date
 from enum import Enum
 import httpx
+from plex_api_client import utils
 from plex_api_client.types import BaseModel
-from plex_api_client.utils import FieldMetadata, PathParamMetadata, QueryParamMetadata
+from plex_api_client.utils import (
+    FieldMetadata,
+    PathParamMetadata,
+    QueryParamMetadata,
+    validate_open_enum,
+)
 import pydantic
+from pydantic.functional_validators import PlainValidator
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class GetPlaylistContentsQueryParamType(int, Enum):
+class GetPlaylistContentsQueryParamType(int, Enum, metaclass=utils.OpenEnumMeta):
     r"""The type of media to retrieve or filter by.
     1 = movie
     2 = show
@@ -53,7 +60,9 @@ class GetPlaylistContentsRequest(BaseModel):
     r"""the ID of the playlist"""
 
     type: Annotated[
-        GetPlaylistContentsQueryParamType,
+        Annotated[
+            GetPlaylistContentsQueryParamType, PlainValidator(validate_open_enum(True))
+        ],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ]
     r"""The type of media to retrieve or filter by.

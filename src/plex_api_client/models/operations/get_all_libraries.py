@@ -3,13 +3,16 @@
 from __future__ import annotations
 from enum import Enum
 import httpx
+from plex_api_client import utils
 from plex_api_client.types import BaseModel
+from plex_api_client.utils import validate_open_enum
 import pydantic
+from pydantic.functional_validators import PlainValidator
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class GetAllLibrariesType(str, Enum):
+class GetAllLibrariesType(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""The library type"""
 
     MOVIE = "movie"
@@ -108,7 +111,7 @@ class GetAllLibrariesDirectory(BaseModel):
     key: str
     r"""The library key representing the unique identifier"""
 
-    type: GetAllLibrariesType
+    type: Annotated[GetAllLibrariesType, PlainValidator(validate_open_enum(False))]
 
     title: str
     r"""The title of the library"""

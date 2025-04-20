@@ -4,14 +4,16 @@ from __future__ import annotations
 from datetime import date
 from enum import Enum
 import httpx
+from plex_api_client import utils
 from plex_api_client.types import BaseModel
-from plex_api_client.utils import FieldMetadata, QueryParamMetadata
+from plex_api_client.utils import FieldMetadata, QueryParamMetadata, validate_open_enum
 import pydantic
+from pydantic.functional_validators import PlainValidator
 from typing import List, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
-class Type(int, Enum):
+class Type(int, Enum, metaclass=utils.OpenEnumMeta):
     r"""The type of media to retrieve or filter by.
     1 = movie
     2 = show
@@ -80,7 +82,8 @@ class GetRecentlyAddedRequest(BaseModel):
     r"""The content directory ID."""
 
     type: Annotated[
-        Type, FieldMetadata(query=QueryParamMetadata(style="form", explode=True))
+        Annotated[Type, PlainValidator(validate_open_enum(True))],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ]
     r"""The type of media to retrieve or filter by.
     1 = movie
@@ -318,7 +321,7 @@ class Meta(BaseModel):
     ] = None
 
 
-class GetRecentlyAddedHubsType(str, Enum):
+class GetRecentlyAddedHubsType(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""The type of media content"""
 
     MOVIE = "movie"
@@ -329,7 +332,7 @@ class GetRecentlyAddedHubsType(str, Enum):
     ALBUM = "album"
 
 
-class GetRecentlyAddedHubsResponseType(str, Enum):
+class GetRecentlyAddedHubsResponseType(str, Enum, metaclass=utils.OpenEnumMeta):
     COVER_POSTER = "coverPoster"
     BACKGROUND = "background"
     SNAPSHOT = "snapshot"
@@ -345,7 +348,9 @@ class GetRecentlyAddedImageTypedDict(TypedDict):
 class GetRecentlyAddedImage(BaseModel):
     alt: str
 
-    type: GetRecentlyAddedHubsResponseType
+    type: Annotated[
+        GetRecentlyAddedHubsResponseType, PlainValidator(validate_open_enum(False))
+    ]
 
     url: str
 
@@ -1303,7 +1308,7 @@ class GetRecentlyAddedMetadata(BaseModel):
     title: str
     r"""The title of the media item."""
 
-    type: GetRecentlyAddedHubsType
+    type: Annotated[GetRecentlyAddedHubsType, PlainValidator(validate_open_enum(False))]
 
     audience_rating_image: Annotated[
         Optional[str], pydantic.Field(alias="audienceRatingImage")

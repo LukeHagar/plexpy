@@ -3,9 +3,12 @@
 from __future__ import annotations
 from enum import Enum
 import httpx
+from plex_api_client import utils
 from plex_api_client.types import BaseModel, Nullable, UNSET_SENTINEL
+from plex_api_client.utils import validate_open_enum
 import pydantic
 from pydantic import model_serializer
+from pydantic.functional_validators import PlainValidator
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -31,7 +34,7 @@ class SharedSources(BaseModel):
     pass
 
 
-class Status(str, Enum):
+class Status(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""Current friend request status"""
 
     ACCEPTED = "accepted"
@@ -83,7 +86,7 @@ class Friend(BaseModel):
         List[SharedSources], pydantic.Field(alias="sharedSources")
     ]
 
-    status: Status
+    status: Annotated[Status, PlainValidator(validate_open_enum(False))]
     r"""Current friend request status"""
 
     thumb: str

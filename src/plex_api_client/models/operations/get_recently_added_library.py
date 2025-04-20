@@ -4,14 +4,16 @@ from __future__ import annotations
 from datetime import datetime
 from enum import Enum
 import httpx
+from plex_api_client import utils
 from plex_api_client.types import BaseModel
-from plex_api_client.utils import FieldMetadata, QueryParamMetadata
+from plex_api_client.utils import FieldMetadata, QueryParamMetadata, validate_open_enum
 import pydantic
+from pydantic.functional_validators import PlainValidator
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class QueryParamType(int, Enum):
+class QueryParamType(int, Enum, metaclass=utils.OpenEnumMeta):
     r"""The type of media to retrieve or filter by.
     1 = movie
     2 = show
@@ -71,7 +73,7 @@ class GetRecentlyAddedLibraryRequestTypedDict(TypedDict):
 
 class GetRecentlyAddedLibraryRequest(BaseModel):
     type: Annotated[
-        QueryParamType,
+        Annotated[QueryParamType, PlainValidator(validate_open_enum(True))],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ]
     r"""The type of media to retrieve or filter by.

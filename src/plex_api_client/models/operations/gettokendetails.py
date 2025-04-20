@@ -3,6 +3,7 @@
 from __future__ import annotations
 from enum import Enum
 import httpx
+from plex_api_client import utils
 from plex_api_client.types import (
     BaseModel,
     Nullable,
@@ -10,8 +11,10 @@ from plex_api_client.types import (
     UNSET,
     UNSET_SENTINEL,
 )
+from plex_api_client.utils import validate_open_enum
 import pydantic
 from pydantic import model_serializer
+from pydantic.functional_validators import PlainValidator
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -21,7 +24,7 @@ GET_TOKEN_DETAILS_SERVERS = [
 ]
 
 
-class MailingListStatus(str, Enum):
+class MailingListStatus(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""Your current mailing list status (active or unsubscribed)"""
 
     ACTIVE = "active"
@@ -152,7 +155,7 @@ class UserProfile(BaseModel):
         return m
 
 
-class GetTokenDetailsStatus(str, Enum):
+class GetTokenDetailsStatus(str, Enum, metaclass=utils.OpenEnumMeta):
     ONLINE = "online"
     OFFLINE = "offline"
 
@@ -174,7 +177,7 @@ class Services(BaseModel):
 
     secret: Nullable[str]
 
-    status: GetTokenDetailsStatus
+    status: Annotated[GetTokenDetailsStatus, PlainValidator(validate_open_enum(False))]
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -207,7 +210,7 @@ class Services(BaseModel):
         return m
 
 
-class GetTokenDetailsAuthenticationStatus(str, Enum):
+class GetTokenDetailsAuthenticationStatus(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""String representation of subscriptionActive"""
 
     INACTIVE = "Inactive"
@@ -245,7 +248,10 @@ class Subscription(BaseModel):
     ] = UNSET
     r"""Date the account subscribed to Plex Pass"""
 
-    status: Optional[GetTokenDetailsAuthenticationStatus] = None
+    status: Annotated[
+        Optional[GetTokenDetailsAuthenticationStatus],
+        PlainValidator(validate_open_enum(False)),
+    ] = None
     r"""String representation of subscriptionActive"""
 
     payment_service: Annotated[
@@ -294,7 +300,9 @@ class Subscription(BaseModel):
         return m
 
 
-class GetTokenDetailsAuthenticationResponseStatus(str, Enum):
+class GetTokenDetailsAuthenticationResponseStatus(
+    str, Enum, metaclass=utils.OpenEnumMeta
+):
     r"""String representation of subscriptionActive"""
 
     INACTIVE = "Inactive"
@@ -328,7 +336,10 @@ class GetTokenDetailsSubscription(BaseModel):
     ] = UNSET
     r"""Date the account subscribed to Plex Pass"""
 
-    status: Optional[GetTokenDetailsAuthenticationResponseStatus] = None
+    status: Annotated[
+        Optional[GetTokenDetailsAuthenticationResponseStatus],
+        PlainValidator(validate_open_enum(False)),
+    ] = None
     r"""String representation of subscriptionActive"""
 
     payment_service: Annotated[
@@ -500,7 +511,8 @@ class GetTokenDetailsUserPlexAccount(BaseModel):
     r"""The account locale"""
 
     mailing_list_status: Annotated[
-        MailingListStatus, pydantic.Field(alias="mailingListStatus")
+        Annotated[MailingListStatus, PlainValidator(validate_open_enum(False))],
+        pydantic.Field(alias="mailingListStatus"),
     ]
     r"""Your current mailing list status (active or unsubscribed)"""
 

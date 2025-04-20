@@ -3,12 +3,14 @@
 from __future__ import annotations
 from enum import Enum
 import httpx
+from plex_api_client import utils
 from plex_api_client.types import BaseModel
-from plex_api_client.utils import FieldMetadata, QueryParamMetadata
+from plex_api_client.utils import FieldMetadata, QueryParamMetadata, validate_open_enum
+from pydantic.functional_validators import PlainValidator
 from typing_extensions import Annotated, TypedDict
 
 
-class Level(int, Enum):
+class Level(int, Enum, metaclass=utils.OpenEnumMeta):
     r"""An integer log level to write to the PMS log with.
     0: Error
     1: Warning
@@ -43,7 +45,8 @@ class LogLineRequestTypedDict(TypedDict):
 
 class LogLineRequest(BaseModel):
     level: Annotated[
-        Level, FieldMetadata(query=QueryParamMetadata(style="form", explode=True))
+        Annotated[Level, PlainValidator(validate_open_enum(True))],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ]
     r"""An integer log level to write to the PMS log with.
     0: Error

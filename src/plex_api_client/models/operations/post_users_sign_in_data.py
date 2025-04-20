@@ -3,6 +3,7 @@
 from __future__ import annotations
 from enum import Enum
 import httpx
+from plex_api_client import utils
 from plex_api_client.types import (
     BaseModel,
     Nullable,
@@ -10,9 +11,15 @@ from plex_api_client.types import (
     UNSET,
     UNSET_SENTINEL,
 )
-from plex_api_client.utils import FieldMetadata, HeaderMetadata, RequestMetadata
+from plex_api_client.utils import (
+    FieldMetadata,
+    HeaderMetadata,
+    RequestMetadata,
+    validate_open_enum,
+)
 import pydantic
 from pydantic import model_serializer
+from pydantic.functional_validators import PlainValidator
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -109,7 +116,7 @@ class PostUsersSignInDataRequest(BaseModel):
     r"""Login credentials"""
 
 
-class PostUsersSignInDataMailingListStatus(str, Enum):
+class PostUsersSignInDataMailingListStatus(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""Your current mailing list status (active or unsubscribed)"""
 
     ACTIVE = "active"
@@ -246,7 +253,7 @@ class PostUsersSignInDataUserProfile(BaseModel):
         return m
 
 
-class PostUsersSignInDataStatus(str, Enum):
+class PostUsersSignInDataStatus(str, Enum, metaclass=utils.OpenEnumMeta):
     ONLINE = "online"
     OFFLINE = "offline"
 
@@ -268,7 +275,9 @@ class PostUsersSignInDataServices(BaseModel):
 
     secret: Nullable[str]
 
-    status: PostUsersSignInDataStatus
+    status: Annotated[
+        PostUsersSignInDataStatus, PlainValidator(validate_open_enum(False))
+    ]
 
     @model_serializer(mode="wrap")
     def serialize_model(self, handler):
@@ -301,7 +310,7 @@ class PostUsersSignInDataServices(BaseModel):
         return m
 
 
-class PostUsersSignInDataAuthenticationStatus(str, Enum):
+class PostUsersSignInDataAuthenticationStatus(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""String representation of subscriptionActive"""
 
     INACTIVE = "Inactive"
@@ -339,7 +348,10 @@ class PostUsersSignInDataSubscription(BaseModel):
     ] = UNSET
     r"""Date the account subscribed to Plex Pass"""
 
-    status: Optional[PostUsersSignInDataAuthenticationStatus] = None
+    status: Annotated[
+        Optional[PostUsersSignInDataAuthenticationStatus],
+        PlainValidator(validate_open_enum(False)),
+    ] = None
     r"""String representation of subscriptionActive"""
 
     payment_service: Annotated[
@@ -388,7 +400,9 @@ class PostUsersSignInDataSubscription(BaseModel):
         return m
 
 
-class PostUsersSignInDataAuthenticationResponseStatus(str, Enum):
+class PostUsersSignInDataAuthenticationResponseStatus(
+    str, Enum, metaclass=utils.OpenEnumMeta
+):
     r"""String representation of subscriptionActive"""
 
     INACTIVE = "Inactive"
@@ -422,7 +436,10 @@ class PostUsersSignInDataAuthenticationSubscription(BaseModel):
     ] = UNSET
     r"""Date the account subscribed to Plex Pass"""
 
-    status: Optional[PostUsersSignInDataAuthenticationResponseStatus] = None
+    status: Annotated[
+        Optional[PostUsersSignInDataAuthenticationResponseStatus],
+        PlainValidator(validate_open_enum(False)),
+    ] = None
     r"""String representation of subscriptionActive"""
 
     payment_service: Annotated[
@@ -471,7 +488,7 @@ class PostUsersSignInDataAuthenticationSubscription(BaseModel):
         return m
 
 
-class PostUsersSignInDataState(str, Enum):
+class PostUsersSignInDataState(str, Enum, metaclass=utils.OpenEnumMeta):
     ENDED = "ended"
 
 
@@ -557,7 +574,9 @@ class PastSubscription(BaseModel):
 
     transfer: Nullable[str]
 
-    state: PostUsersSignInDataState
+    state: Annotated[
+        PostUsersSignInDataState, PlainValidator(validate_open_enum(False))
+    ]
 
     billing: Billing
 
@@ -753,7 +772,11 @@ class PostUsersSignInDataUserPlexAccount(BaseModel):
     r"""The account locale"""
 
     mailing_list_status: Annotated[
-        PostUsersSignInDataMailingListStatus, pydantic.Field(alias="mailingListStatus")
+        Annotated[
+            PostUsersSignInDataMailingListStatus,
+            PlainValidator(validate_open_enum(False)),
+        ],
+        pydantic.Field(alias="mailingListStatus"),
     ]
     r"""Your current mailing list status (active or unsubscribed)"""
 

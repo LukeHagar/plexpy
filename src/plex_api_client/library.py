@@ -746,7 +746,7 @@ class Library(BaseSDK):
 
 
         :param section_key: The unique key of the Plex library.  Note: This is unique in the context of the Plex server.
-        :param include_details: Whether or not to include details for a section (types, filters, and sorts).  Only exists for backwards compatibility, media providers other than the server libraries have it on always.
+        :param include_details: Whether or not to include details for a section (types, filters, and sorts). Only exists for backwards compatibility, media providers other than the server libraries have it on always.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -901,7 +901,7 @@ class Library(BaseSDK):
 
 
         :param section_key: The unique key of the Plex library.  Note: This is unique in the context of the Plex server.
-        :param include_details: Whether or not to include details for a section (types, filters, and sorts).  Only exists for backwards compatibility, media providers other than the server libraries have it on always.
+        :param include_details: Whether or not to include details for a section (types, filters, and sorts). Only exists for backwards compatibility, media providers other than the server libraries have it on always.
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds

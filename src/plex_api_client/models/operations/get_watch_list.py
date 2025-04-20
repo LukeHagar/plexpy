@@ -4,14 +4,17 @@ from __future__ import annotations
 from datetime import date
 from enum import Enum
 import httpx
+from plex_api_client import utils
 from plex_api_client.types import BaseModel
 from plex_api_client.utils import (
     FieldMetadata,
     HeaderMetadata,
     PathParamMetadata,
     QueryParamMetadata,
+    validate_open_enum,
 )
 import pydantic
+from pydantic.functional_validators import PlainValidator
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -22,7 +25,7 @@ GET_WATCH_LIST_SERVERS = [
 ]
 
 
-class Filter(str, Enum):
+class Filter(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""Filter"""
 
     ALL = "all"
@@ -30,7 +33,7 @@ class Filter(str, Enum):
     RELEASED = "released"
 
 
-class Libtype(str, Enum):
+class Libtype(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""The type of library to filter. Can be \"movie\" or \"show\", or all if not present."""
 
     MOVIE = "movie"
@@ -95,7 +98,7 @@ class GetWatchListRequestTypedDict(TypedDict):
 
 class GetWatchListRequest(BaseModel):
     filter_: Annotated[
-        Filter,
+        Annotated[Filter, PlainValidator(validate_open_enum(False))],
         pydantic.Field(alias="filter"),
         FieldMetadata(path=PathParamMetadata(style="simple", explode=False)),
     ]
@@ -119,7 +122,7 @@ class GetWatchListRequest(BaseModel):
     """
 
     libtype: Annotated[
-        Optional[Libtype],
+        Annotated[Optional[Libtype], PlainValidator(validate_open_enum(False))],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
     r"""The type of library to filter. Can be \"movie\" or \"show\", or all if not present.

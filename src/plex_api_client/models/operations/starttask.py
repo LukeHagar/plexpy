@@ -3,13 +3,15 @@
 from __future__ import annotations
 from enum import Enum
 import httpx
+from plex_api_client import utils
 from plex_api_client.types import BaseModel
-from plex_api_client.utils import FieldMetadata, PathParamMetadata
+from plex_api_client.utils import FieldMetadata, PathParamMetadata, validate_open_enum
 import pydantic
+from pydantic.functional_validators import PlainValidator
 from typing_extensions import Annotated, TypedDict
 
 
-class TaskName(str, Enum):
+class TaskName(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""the name of the task to be started."""
 
     BACKUP_DATABASE = "BackupDatabase"
@@ -35,7 +37,7 @@ class StartTaskRequestTypedDict(TypedDict):
 
 class StartTaskRequest(BaseModel):
     task_name: Annotated[
-        TaskName,
+        Annotated[TaskName, PlainValidator(validate_open_enum(False))],
         pydantic.Field(alias="taskName"),
         FieldMetadata(path=PathParamMetadata(style="simple", explode=False)),
     ]
