@@ -413,21 +413,41 @@ class HasThumbnail(str, Enum):
     TRUE = "1"
 
 
+class StreamType(int, Enum, metaclass=utils.OpenEnumMeta):
+    r"""Stream type:
+    - 1 = video
+    - 2 = audio
+    - 3 = subtitle
+
+    """
+
+    VIDEO = 1
+    AUDIO = 2
+    SUBTITLE = 3
+
+
 class StreamTypedDict(TypedDict):
     id: int
     r"""Unique stream identifier."""
-    stream_type: int
-    r"""Stream type (1=video, 2=audio, 3=subtitle)."""
+    stream_type: StreamType
+    r"""Stream type:
+    - 1 = video
+    - 2 = audio
+    - 3 = subtitle
+
+    """
     codec: str
     r"""Codec used by the stream."""
-    index: int
-    r"""Index of the stream."""
     display_title: str
     r"""Display title for the stream."""
     extended_display_title: str
     r"""Extended display title for the stream."""
+    format_: NotRequired[str]
+    r"""Format of the stream (e.g., srt)."""
     default: NotRequired[bool]
     r"""Indicates if this stream is default."""
+    index: NotRequired[int]
+    r"""Index of the stream."""
     bitrate: NotRequired[int]
     r"""Bitrate of the stream."""
     language: NotRequired[str]
@@ -475,6 +495,8 @@ class StreamTypedDict(TypedDict):
     r"""Color transfer characteristics."""
     frame_rate: NotRequired[float]
     r"""Frame rate of the stream."""
+    key: NotRequired[str]
+    r"""Key to access this stream part."""
     height: NotRequired[int]
     r"""Height of the video stream."""
     level: NotRequired[int]
@@ -513,14 +535,19 @@ class Stream(BaseModel):
     id: int
     r"""Unique stream identifier."""
 
-    stream_type: Annotated[int, pydantic.Field(alias="streamType")]
-    r"""Stream type (1=video, 2=audio, 3=subtitle)."""
+    stream_type: Annotated[
+        Annotated[StreamType, PlainValidator(validate_open_enum(True))],
+        pydantic.Field(alias="streamType"),
+    ]
+    r"""Stream type:
+    - 1 = video
+    - 2 = audio
+    - 3 = subtitle
+
+    """
 
     codec: str
     r"""Codec used by the stream."""
-
-    index: int
-    r"""Index of the stream."""
 
     display_title: Annotated[str, pydantic.Field(alias="displayTitle")]
     r"""Display title for the stream."""
@@ -528,8 +555,14 @@ class Stream(BaseModel):
     extended_display_title: Annotated[str, pydantic.Field(alias="extendedDisplayTitle")]
     r"""Extended display title for the stream."""
 
+    format_: Annotated[Optional[str], pydantic.Field(alias="format")] = None
+    r"""Format of the stream (e.g., srt)."""
+
     default: Optional[bool] = None
     r"""Indicates if this stream is default."""
+
+    index: Optional[int] = None
+    r"""Index of the stream."""
 
     bitrate: Optional[int] = None
     r"""Bitrate of the stream."""
@@ -619,6 +652,9 @@ class Stream(BaseModel):
 
     frame_rate: Annotated[Optional[float], pydantic.Field(alias="frameRate")] = None
     r"""Frame rate of the stream."""
+
+    key: Optional[str] = None
+    r"""Key to access this stream part."""
 
     height: Optional[int] = None
     r"""Height of the video stream."""
