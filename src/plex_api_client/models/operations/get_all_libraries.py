@@ -24,10 +24,11 @@ class GetAllLibrariesType(str, Enum, metaclass=utils.OpenEnumMeta):
 
 
 class Hidden(int, Enum):
-    r"""UNKNOWN"""
+    r"""The Plex library visibility setting"""
 
-    DISABLE = 0
-    ENABLE = 1
+    VISIBLE = 0
+    EXCLUDE_HOME_SCREEN = 1
+    EXCLUDE_HOME_SCREEN_AND_GLOBAL_SEARCH = 2
 
 
 class GetAllLibrariesLocationTypedDict(TypedDict):
@@ -87,6 +88,7 @@ class GetAllLibrariesDirectoryTypedDict(TypedDict):
     location: List[GetAllLibrariesLocationTypedDict]
     created_at: NotRequired[int]
     hidden: NotRequired[Hidden]
+    r"""The Plex library visibility setting"""
 
 
 class GetAllLibrariesDirectory(BaseModel):
@@ -150,7 +152,8 @@ class GetAllLibrariesDirectory(BaseModel):
 
     created_at: Annotated[Optional[int], pydantic.Field(alias="createdAt")] = None
 
-    hidden: Optional[Hidden] = Hidden.DISABLE
+    hidden: Optional[Hidden] = Hidden.VISIBLE
+    r"""The Plex library visibility setting"""
 
 
 class GetAllLibrariesMediaContainerTypedDict(TypedDict):
