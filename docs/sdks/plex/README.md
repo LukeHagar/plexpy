@@ -286,7 +286,7 @@ from plex_api_client import PlexAPI
 with PlexAPI() as plex_api:
 
     res = plex_api.plex.get_token_by_pin_id(request={
-        "pin_id": 408895,
+        "pin_id": 232248,
         "client_id": "3381b62b-9ab7-4e37-827b-203e9809eb58",
         "client_name": "Plex for Roku",
         "device_nickname": "Roku 3",

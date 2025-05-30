@@ -72,7 +72,7 @@ with PlexAPI(
 ) as plex_api:
 
     res = plex_api.hubs.get_recently_added(request={
-        "content_directory_id": 470161,
+        "content_directory_id": 39486,
         "section_id": 2,
         "type": operations.Type.TV_SHOW,
     })
@@ -116,7 +116,7 @@ with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
 
-    res = plex_api.hubs.get_library_hubs(section_id=6728.76)
+    res = plex_api.hubs.get_library_hubs(section_id=492.74)
 
     assert res.object is not None
 

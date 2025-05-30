@@ -63,6 +63,7 @@ class Plex(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getCompanionsData",
                 oauth2_scopes=[],
@@ -167,6 +168,7 @@ class Plex(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getCompanionsData",
                 oauth2_scopes=[],
@@ -271,6 +273,7 @@ class Plex(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getUserFriends",
                 oauth2_scopes=[],
@@ -375,6 +378,7 @@ class Plex(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getUserFriends",
                 oauth2_scopes=[],
@@ -478,6 +482,7 @@ class Plex(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getGeoData",
                 oauth2_scopes=[],
@@ -581,6 +586,7 @@ class Plex(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getGeoData",
                 oauth2_scopes=[],
@@ -685,6 +691,7 @@ class Plex(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getHomeData",
                 oauth2_scopes=[],
@@ -789,6 +796,7 @@ class Plex(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getHomeData",
                 oauth2_scopes=[],
@@ -915,6 +923,7 @@ class Plex(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get-server-resources",
                 oauth2_scopes=[],
@@ -1041,6 +1050,7 @@ class Plex(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get-server-resources",
                 oauth2_scopes=[],
@@ -1151,6 +1161,7 @@ class Plex(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getPin",
                 oauth2_scopes=[],
@@ -1255,6 +1266,7 @@ class Plex(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getPin",
                 oauth2_scopes=[],
@@ -1362,6 +1374,7 @@ class Plex(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getTokenByPinId",
                 oauth2_scopes=[],
@@ -1475,6 +1488,7 @@ class Plex(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getTokenByPinId",
                 oauth2_scopes=[],

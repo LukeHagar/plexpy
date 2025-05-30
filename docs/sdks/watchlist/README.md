@@ -26,7 +26,7 @@ with PlexAPI(
 ) as plex_api:
 
     res = plex_api.watchlist.get_watch_list(request={
-        "filter_": operations.Filter.AVAILABLE,
+        "filter_": operations.Filter.RELEASED,
         "x_plex_token": "CV5xoxjTpFKUzBTShsaf",
     })
 

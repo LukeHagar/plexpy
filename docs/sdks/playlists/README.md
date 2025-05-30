@@ -41,9 +41,9 @@ with PlexAPI(
 
     res = plex_api.playlists.create_playlist(request={
         "title": "<value>",
-        "type": operations.CreatePlaylistQueryParamType.PHOTO,
+        "type": operations.CreatePlaylistQueryParamType.AUDIO,
         "smart": operations.Smart.ONE,
-        "uri": "https://hoarse-testing.info/",
+        "uri": "https://short-term-disconnection.name/",
     })
 
     assert res.object is not None
@@ -131,7 +131,7 @@ with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
 
-    res = plex_api.playlists.get_playlist(playlist_id=4109.48)
+    res = plex_api.playlists.get_playlist(playlist_id=8419.53)
 
     assert res.object is not None
 
@@ -174,7 +174,7 @@ with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
 
-    res = plex_api.playlists.delete_playlist(playlist_id=216.22)
+    res = plex_api.playlists.delete_playlist(playlist_id=3432.93)
 
     assert res is not None
 
@@ -217,7 +217,7 @@ with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
 
-    res = plex_api.playlists.update_playlist(playlist_id=3915)
+    res = plex_api.playlists.update_playlist(playlist_id=1579.66)
 
     assert res is not None
 
@@ -266,7 +266,7 @@ with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
 
-    res = plex_api.playlists.get_playlist_contents(playlist_id=5004.46, type_=operations.GetPlaylistContentsQueryParamType.TV_SHOW)
+    res = plex_api.playlists.get_playlist_contents(playlist_id=5535.42, type_=operations.GetPlaylistContentsQueryParamType.TV_SHOW)
 
     assert res.object is not None
 
@@ -310,7 +310,7 @@ with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
 
-    res = plex_api.playlists.clear_playlist_contents(playlist_id=1893.18)
+    res = plex_api.playlists.clear_playlist_contents(playlist_id=4137.37)
 
     assert res is not None
 
@@ -354,7 +354,7 @@ with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
 
-    res = plex_api.playlists.add_playlist_contents(playlist_id=8502.01, uri="server://12345/com.plexapp.plugins.library/library/metadata/1", play_queue_id=123)
+    res = plex_api.playlists.add_playlist_contents(playlist_id=7013.44, uri="server://12345/com.plexapp.plugins.library/library/metadata/1", play_queue_id=123)
 
     assert res.object is not None
 
@@ -400,7 +400,7 @@ with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
 
-    res = plex_api.playlists.upload_playlist(path="/home/barkley/playlist.m3u", force=operations.QueryParamForce.ZERO, section_id=1)
+    res = plex_api.playlists.upload_playlist(path="/home/barkley/playlist.m3u", force=operations.QueryParamForce.ONE, section_id=1)
 
     assert res is not None
 

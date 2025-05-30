@@ -4,6 +4,7 @@ generation:
   maintainOpenAPIOrder: true
   usageSnippets:
     optionalPropertyRendering: withExample
+    sdkInitStyle: constructor
   useClassNamesForArrayFields: true
   fixes:
     nameResolutionDec2023: true
@@ -16,7 +17,7 @@ generation:
     oAuth2ClientCredentialsEnabled: true
     oAuth2PasswordEnabled: false
 python:
-  version: 0.27.1
+  version: 0.28.0
   additionalDependencies:
     dev: {}
     main: {}
@@ -48,6 +49,7 @@ python:
   outputModelSuffix: output
   packageName: plex-api-client
   projectUrls: {}
+  pytestFilterWarnings: []
   pytestTimeout: 0
   responseFormat: envelope
   templateVersion: v2

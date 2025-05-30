@@ -74,6 +74,7 @@ class Library(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getFileHash",
                 oauth2_scopes=[],
@@ -185,6 +186,7 @@ class Library(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getFileHash",
                 oauth2_scopes=[],
@@ -299,6 +301,7 @@ class Library(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get-recently-added-library",
                 oauth2_scopes=[],
@@ -417,6 +420,7 @@ class Library(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get-recently-added-library",
                 oauth2_scopes=[],
@@ -528,6 +532,7 @@ class Library(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get-all-libraries",
                 oauth2_scopes=[],
@@ -638,6 +643,7 @@ class Library(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get-all-libraries",
                 oauth2_scopes=[],
@@ -793,6 +799,7 @@ class Library(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get-library-details",
                 oauth2_scopes=[],
@@ -948,6 +955,7 @@ class Library(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get-library-details",
                 oauth2_scopes=[],
@@ -1059,6 +1067,7 @@ class Library(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="deleteLibrary",
                 oauth2_scopes=[],
@@ -1167,6 +1176,7 @@ class Library(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="deleteLibrary",
                 oauth2_scopes=[],
@@ -1299,6 +1309,7 @@ class Library(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get-library-items",
                 oauth2_scopes=[],
@@ -1434,6 +1445,7 @@ class Library(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get-library-items",
                 oauth2_scopes=[],
@@ -1549,6 +1561,7 @@ class Library(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get-all-media-library",
                 oauth2_scopes=[],
@@ -1664,6 +1677,7 @@ class Library(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get-all-media-library",
                 oauth2_scopes=[],
@@ -1779,6 +1793,7 @@ class Library(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get-refresh-library-metadata",
                 oauth2_scopes=[],
@@ -1891,6 +1906,7 @@ class Library(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get-refresh-library-metadata",
                 oauth2_scopes=[],
@@ -2020,6 +2036,7 @@ class Library(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get-search-library",
                 oauth2_scopes=[],
@@ -2152,6 +2169,7 @@ class Library(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get-search-library",
                 oauth2_scopes=[],
@@ -2267,6 +2285,7 @@ class Library(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get-genres-library",
                 oauth2_scopes=[],
@@ -2382,6 +2401,7 @@ class Library(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get-genres-library",
                 oauth2_scopes=[],
@@ -2497,6 +2517,7 @@ class Library(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get-countries-library",
                 oauth2_scopes=[],
@@ -2612,6 +2633,7 @@ class Library(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get-countries-library",
                 oauth2_scopes=[],
@@ -2727,6 +2749,7 @@ class Library(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get-actors-library",
                 oauth2_scopes=[],
@@ -2842,6 +2865,7 @@ class Library(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get-actors-library",
                 oauth2_scopes=[],
@@ -2957,6 +2981,7 @@ class Library(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get-search-all-libraries",
                 oauth2_scopes=[],
@@ -3073,6 +3098,7 @@ class Library(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get-search-all-libraries",
                 oauth2_scopes=[],
@@ -3189,6 +3215,7 @@ class Library(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get-media-meta-data",
                 oauth2_scopes=[],
@@ -3304,6 +3331,7 @@ class Library(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get-media-meta-data",
                 oauth2_scopes=[],
@@ -3415,6 +3443,7 @@ class Library(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get-media-arts",
                 oauth2_scopes=[],
@@ -3513,6 +3542,7 @@ class Library(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get-media-arts",
                 oauth2_scopes=[],
@@ -3624,6 +3654,7 @@ class Library(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post-media-arts",
                 oauth2_scopes=[],
@@ -3732,6 +3763,7 @@ class Library(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post-media-arts",
                 oauth2_scopes=[],
@@ -3827,6 +3859,7 @@ class Library(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get-media-posters",
                 oauth2_scopes=[],
@@ -3925,6 +3958,7 @@ class Library(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get-media-posters",
                 oauth2_scopes=[],
@@ -4036,6 +4070,7 @@ class Library(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post-media-poster",
                 oauth2_scopes=[],
@@ -4144,6 +4179,7 @@ class Library(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="post-media-poster",
                 oauth2_scopes=[],
@@ -4243,6 +4279,7 @@ class Library(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getMetadataChildren",
                 oauth2_scopes=[],
@@ -4358,6 +4395,7 @@ class Library(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getMetadataChildren",
                 oauth2_scopes=[],
@@ -4473,6 +4511,7 @@ class Library(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getTopWatchedContent",
                 oauth2_scopes=[],
@@ -4588,6 +4627,7 @@ class Library(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getTopWatchedContent",
                 oauth2_scopes=[],

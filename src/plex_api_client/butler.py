@@ -63,6 +63,7 @@ class Butler(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getButlerTasks",
                 oauth2_scopes=[],
@@ -167,6 +168,7 @@ class Butler(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getButlerTasks",
                 oauth2_scopes=[],
@@ -276,6 +278,7 @@ class Butler(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="startAllTasks",
                 oauth2_scopes=[],
@@ -382,6 +385,7 @@ class Butler(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="startAllTasks",
                 oauth2_scopes=[],
@@ -484,6 +488,7 @@ class Butler(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="stopAllTasks",
                 oauth2_scopes=[],
@@ -586,6 +591,7 @@ class Butler(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="stopAllTasks",
                 oauth2_scopes=[],
@@ -699,6 +705,7 @@ class Butler(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="startTask",
                 oauth2_scopes=[],
@@ -812,6 +819,7 @@ class Butler(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="startTask",
                 oauth2_scopes=[],
@@ -921,6 +929,7 @@ class Butler(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="stopTask",
                 oauth2_scopes=[],
@@ -1030,6 +1039,7 @@ class Butler(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="stopTask",
                 oauth2_scopes=[],

@@ -80,6 +80,7 @@ class Playlists(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="createPlaylist",
                 oauth2_scopes=[],
@@ -196,6 +197,7 @@ class Playlists(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="createPlaylist",
                 oauth2_scopes=[],
@@ -310,6 +312,7 @@ class Playlists(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getPlaylists",
                 oauth2_scopes=[],
@@ -424,6 +427,7 @@ class Playlists(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getPlaylists",
                 oauth2_scopes=[],
@@ -537,6 +541,7 @@ class Playlists(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getPlaylist",
                 oauth2_scopes=[],
@@ -650,6 +655,7 @@ class Playlists(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getPlaylist",
                 oauth2_scopes=[],
@@ -762,6 +768,7 @@ class Playlists(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="deletePlaylist",
                 oauth2_scopes=[],
@@ -871,6 +878,7 @@ class Playlists(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="deletePlaylist",
                 oauth2_scopes=[],
@@ -986,6 +994,7 @@ class Playlists(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="updatePlaylist",
                 oauth2_scopes=[],
@@ -1101,6 +1110,7 @@ class Playlists(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="updatePlaylist",
                 oauth2_scopes=[],
@@ -1216,6 +1226,7 @@ class Playlists(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getPlaylistContents",
                 oauth2_scopes=[],
@@ -1334,6 +1345,7 @@ class Playlists(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getPlaylistContents",
                 oauth2_scopes=[],
@@ -1446,6 +1458,7 @@ class Playlists(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="clearPlaylistContents",
                 oauth2_scopes=[],
@@ -1555,6 +1568,7 @@ class Playlists(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="clearPlaylistContents",
                 oauth2_scopes=[],
@@ -1671,6 +1685,7 @@ class Playlists(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="addPlaylistContents",
                 oauth2_scopes=[],
@@ -1790,6 +1805,7 @@ class Playlists(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="addPlaylistContents",
                 oauth2_scopes=[],
@@ -1908,6 +1924,7 @@ class Playlists(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="uploadPlaylist",
                 oauth2_scopes=[],
@@ -2023,6 +2040,7 @@ class Playlists(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="uploadPlaylist",
                 oauth2_scopes=[],

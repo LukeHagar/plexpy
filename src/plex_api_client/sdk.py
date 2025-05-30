@@ -6,29 +6,32 @@ from .sdkconfiguration import SDKConfiguration, ServerProtocol
 from .utils.logger import Logger, get_default_logger
 from .utils.retries import RetryConfig
 import httpx
+import importlib
 from plex_api_client import utils
 from plex_api_client._hooks import SDKHooks
-from plex_api_client.activities import Activities
-from plex_api_client.authentication import Authentication
-from plex_api_client.butler import Butler
-from plex_api_client.hubs import Hubs
-from plex_api_client.library import Library
-from plex_api_client.log import Log
-from plex_api_client.media import Media
 from plex_api_client.models import components
-from plex_api_client.playlists import Playlists
-from plex_api_client.plex import Plex
-from plex_api_client.search import Search
-from plex_api_client.server import Server
-from plex_api_client.sessions import Sessions
-from plex_api_client.statistics import Statistics
 from plex_api_client.types import OptionalNullable, UNSET
-from plex_api_client.updater import Updater
-from plex_api_client.users import Users
-from plex_api_client.video import Video
-from plex_api_client.watchlist import Watchlist
-from typing import Any, Callable, Dict, List, Optional, Union, cast
+from typing import Any, Callable, Dict, List, Optional, TYPE_CHECKING, Union, cast
 import weakref
+
+if TYPE_CHECKING:
+    from plex_api_client.activities import Activities
+    from plex_api_client.authentication import Authentication
+    from plex_api_client.butler import Butler
+    from plex_api_client.hubs import Hubs
+    from plex_api_client.library import Library
+    from plex_api_client.log import Log
+    from plex_api_client.media import Media
+    from plex_api_client.playlists import Playlists
+    from plex_api_client.plex import Plex
+    from plex_api_client.search import Search
+    from plex_api_client.server import Server
+    from plex_api_client.sessions import Sessions
+    from plex_api_client.statistics import Statistics
+    from plex_api_client.updater import Updater
+    from plex_api_client.users import Users
+    from plex_api_client.video import Video
+    from plex_api_client.watchlist import Watchlist
 
 
 class PlexAPI(BaseSDK):
@@ -61,19 +64,19 @@ class PlexAPI(BaseSDK):
 
     """
 
-    server: Server
+    server: "Server"
     r"""Operations against the Plex Media Server System.
 
     """
-    media: Media
+    media: "Media"
     r"""API Calls interacting with Plex Media Server Media
 
     """
-    video: Video
+    video: "Video"
     r"""API Calls that perform operations with Plex Media Server Videos
 
     """
-    activities: Activities
+    activities: "Activities"
     r"""Activities are awesome. They provide a way to monitor and control asynchronous operations on the server. In order to receive real-time updates for activities, a client would normally subscribe via either EventSource or Websocket endpoints.
     Activities are associated with HTTP replies via a special `X-Plex-Activity` header which contains the UUID of the activity.
     Activities are optional cancellable. If cancellable, they may be cancelled via the `DELETE` endpoint. Other details:
@@ -83,59 +86,78 @@ class PlexAPI(BaseSDK):
     - The may contain a `Response` object which attributes which represent the result of the asynchronous operation.
 
     """
-    butler: Butler
+    butler: "Butler"
     r"""Butler is the task manager of the Plex Media Server Ecosystem.
 
     """
-    plex: Plex
+    plex: "Plex"
     r"""API Calls that perform operations directly against https://Plex.tv
 
     """
-    hubs: Hubs
+    hubs: "Hubs"
     r"""Hubs are a structured two-dimensional container for media, generally represented by multiple horizontal rows.
 
     """
-    search: Search
+    search: "Search"
     r"""API Calls that perform search operations with Plex Media Server
 
     """
-    library: Library
+    library: "Library"
     r"""API Calls interacting with Plex Media Server Libraries
 
     """
-    watchlist: Watchlist
+    watchlist: "Watchlist"
     r"""API Calls that perform operations with Plex Media Server Watchlists
 
     """
-    log: Log
+    log: "Log"
     r"""Submit logs to the Log Handler for Plex Media Server
 
     """
-    playlists: Playlists
+    playlists: "Playlists"
     r"""Playlists are ordered collections of media. They can be dumb (just a list of media) or smart (based on a media query, such as \"all albums from 2017\").
     They can be organized in (optionally nesting) folders.
     Retrieving a playlist, or its items, will trigger a refresh of its metadata.
     This may cause the duration and number of items to change.
 
     """
-    authentication: Authentication
+    authentication: "Authentication"
     r"""API Calls regarding authentication for Plex Media Server
 
     """
-    statistics: Statistics
+    statistics: "Statistics"
     r"""API Calls that perform operations with Plex Media Server Statistics
 
     """
-    sessions: Sessions
+    sessions: "Sessions"
     r"""API Calls that perform search operations with Plex Media Server Sessions
 
     """
-    updater: Updater
+    updater: "Updater"
     r"""This describes the API for searching and applying updates to the Plex Media Server.
     Updates to the status can be observed via the Event API.
 
     """
-    users: Users
+    users: "Users"
+    _sub_sdk_map = {
+        "server": ("plex_api_client.server", "Server"),
+        "media": ("plex_api_client.media", "Media"),
+        "video": ("plex_api_client.video", "Video"),
+        "activities": ("plex_api_client.activities", "Activities"),
+        "butler": ("plex_api_client.butler", "Butler"),
+        "plex": ("plex_api_client.plex", "Plex"),
+        "hubs": ("plex_api_client.hubs", "Hubs"),
+        "search": ("plex_api_client.search", "Search"),
+        "library": ("plex_api_client.library", "Library"),
+        "watchlist": ("plex_api_client.watchlist", "Watchlist"),
+        "log": ("plex_api_client.log", "Log"),
+        "playlists": ("plex_api_client.playlists", "Playlists"),
+        "authentication": ("plex_api_client.authentication", "Authentication"),
+        "statistics": ("plex_api_client.statistics", "Statistics"),
+        "sessions": ("plex_api_client.sessions", "Sessions"),
+        "updater": ("plex_api_client.updater", "Updater"),
+        "users": ("plex_api_client.users", "Users"),
+    }
 
     def __init__(
         self,
@@ -226,15 +248,15 @@ class PlexAPI(BaseSDK):
 
         hooks = SDKHooks()
 
+        # pylint: disable=protected-access
+        self.sdk_configuration.__dict__["_hooks"] = hooks
+
         current_server_url, *_ = self.sdk_configuration.get_server_details()
         server_url, self.sdk_configuration.client = hooks.sdk_init(
             current_server_url, client
         )
         if current_server_url != server_url:
             self.sdk_configuration.server_url = server_url
-
-        # pylint: disable=protected-access
-        self.sdk_configuration.__dict__["_hooks"] = hooks
 
         weakref.finalize(
             self,
@@ -246,26 +268,32 @@ class PlexAPI(BaseSDK):
             self.sdk_configuration.async_client_supplied,
         )
 
-        self._init_sdks()
+    def __getattr__(self, name: str):
+        if name in self._sub_sdk_map:
+            module_path, class_name = self._sub_sdk_map[name]
+            try:
+                module = importlib.import_module(module_path)
+                klass = getattr(module, class_name)
+                instance = klass(self.sdk_configuration)
+                setattr(self, name, instance)
+                return instance
+            except ImportError as e:
+                raise AttributeError(
+                    f"Failed to import module {module_path} for attribute {name}: {e}"
+                ) from e
+            except AttributeError as e:
+                raise AttributeError(
+                    f"Failed to find class {class_name} in module {module_path} for attribute {name}: {e}"
+                ) from e
 
-    def _init_sdks(self):
-        self.server = Server(self.sdk_configuration)
-        self.media = Media(self.sdk_configuration)
-        self.video = Video(self.sdk_configuration)
-        self.activities = Activities(self.sdk_configuration)
-        self.butler = Butler(self.sdk_configuration)
-        self.plex = Plex(self.sdk_configuration)
-        self.hubs = Hubs(self.sdk_configuration)
-        self.search = Search(self.sdk_configuration)
-        self.library = Library(self.sdk_configuration)
-        self.watchlist = Watchlist(self.sdk_configuration)
-        self.log = Log(self.sdk_configuration)
-        self.playlists = Playlists(self.sdk_configuration)
-        self.authentication = Authentication(self.sdk_configuration)
-        self.statistics = Statistics(self.sdk_configuration)
-        self.sessions = Sessions(self.sdk_configuration)
-        self.updater = Updater(self.sdk_configuration)
-        self.users = Users(self.sdk_configuration)
+        raise AttributeError(
+            f"'{type(self).__name__}' object has no attribute '{name}'"
+        )
+
+    def __dir__(self):
+        default_attrs = list(super().__dir__())
+        lazy_attrs = list(self._sub_sdk_map.keys())
+        return sorted(list(set(default_attrs + lazy_attrs)))
 
     def __enter__(self):
         return self

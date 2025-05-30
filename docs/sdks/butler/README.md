@@ -163,7 +163,7 @@ with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
 
-    res = plex_api.butler.start_task(task_name=operations.TaskName.CLEAN_OLD_BUNDLES)
+    res = plex_api.butler.start_task(task_name=operations.TaskName.REFRESH_PERIODIC_METADATA)
 
     assert res is not None
 
@@ -207,7 +207,7 @@ with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
 
-    res = plex_api.butler.stop_task(task_name=operations.PathParamTaskName.BACKUP_DATABASE)
+    res = plex_api.butler.stop_task(task_name=operations.PathParamTaskName.CLEAN_OLD_CACHE_FILES)
 
     assert res is not None
 

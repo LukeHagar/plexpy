@@ -282,8 +282,8 @@ with PlexAPI(
         "height": 165,
         "opacity": 100,
         "blur": 0,
-        "min_size": operations.MinSize.ONE,
-        "upscale": operations.Upscale.ONE,
+        "min_size": operations.MinSize.ZERO,
+        "upscale": operations.Upscale.ZERO,
         "url": "/library/metadata/49564/thumb/1654258204",
     })
 

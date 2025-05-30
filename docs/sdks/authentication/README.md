@@ -74,7 +74,7 @@ with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
 
-    res = plex_api.authentication.get_source_connection_information(source="provider://provider-identifier")
+    res = plex_api.authentication.get_source_connection_information(source="server://client-identifier")
 
     assert res is not None
 

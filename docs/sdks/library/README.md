@@ -342,7 +342,7 @@ with PlexAPI(
 ) as plex_api:
 
     res = plex_api.library.get_library_items(request={
-        "tag": operations.Tag.EDITION,
+        "tag": operations.Tag.NEWEST,
         "type": operations.GetLibraryItemsQueryParamType.TV_SHOW,
         "section_key": 9518,
     })
@@ -436,7 +436,7 @@ with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
 
-    res = plex_api.library.get_refresh_library_metadata(section_key=9518, force=operations.Force.ONE)
+    res = plex_api.library.get_refresh_library_metadata(section_key=9518, force=operations.Force.ZERO)
 
     assert res is not None
 
@@ -949,7 +949,7 @@ with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
 
-    res = plex_api.library.get_metadata_children(rating_key=1539.14, include_elements="Stream")
+    res = plex_api.library.get_metadata_children(rating_key=2403.67, include_elements="Stream")
 
     assert res.object is not None
 

@@ -63,6 +63,7 @@ class Server(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getServerCapabilities",
                 oauth2_scopes=[],
@@ -168,6 +169,7 @@ class Server(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getServerCapabilities",
                 oauth2_scopes=[],
@@ -273,6 +275,7 @@ class Server(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getServerPreferences",
                 oauth2_scopes=[],
@@ -377,6 +380,7 @@ class Server(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getServerPreferences",
                 oauth2_scopes=[],
@@ -481,6 +485,7 @@ class Server(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getAvailableClients",
                 oauth2_scopes=[],
@@ -585,6 +590,7 @@ class Server(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getAvailableClients",
                 oauth2_scopes=[],
@@ -689,6 +695,7 @@ class Server(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getDevices",
                 oauth2_scopes=[],
@@ -793,6 +800,7 @@ class Server(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getDevices",
                 oauth2_scopes=[],
@@ -896,6 +904,7 @@ class Server(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get-server-identity",
                 oauth2_scopes=[],
@@ -993,6 +1002,7 @@ class Server(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get-server-identity",
                 oauth2_scopes=[],
@@ -1091,6 +1101,7 @@ class Server(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getMyPlexAccount",
                 oauth2_scopes=[],
@@ -1195,6 +1206,7 @@ class Server(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getMyPlexAccount",
                 oauth2_scopes=[],
@@ -1310,6 +1322,7 @@ class Server(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getResizedPhoto",
                 oauth2_scopes=[],
@@ -1422,6 +1435,7 @@ class Server(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getResizedPhoto",
                 oauth2_scopes=[],
@@ -1530,6 +1544,7 @@ class Server(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get-media-providers",
                 oauth2_scopes=[],
@@ -1641,6 +1656,7 @@ class Server(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="get-media-providers",
                 oauth2_scopes=[],
@@ -1745,6 +1761,7 @@ class Server(BaseSDK):
 
         http_res = self.do_request(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getServerList",
                 oauth2_scopes=[],
@@ -1849,6 +1866,7 @@ class Server(BaseSDK):
 
         http_res = await self.do_request_async(
             hook_ctx=HookContext(
+                config=self.sdk_configuration,
                 base_url=base_url or "",
                 operation_id="getServerList",
                 oauth2_scopes=[],

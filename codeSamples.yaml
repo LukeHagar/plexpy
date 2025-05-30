@@ -238,7 +238,7 @@ actions:
                 access_token="<YOUR_API_KEY_HERE>",
             ) as plex_api:
 
-                res = plex_api.butler.stop_task(task_name=operations.PathParamTaskName.BACKUP_DATABASE)
+                res = plex_api.butler.stop_task(task_name=operations.PathParamTaskName.CLEAN_OLD_CACHE_FILES)
 
                 assert res is not None
 
@@ -258,7 +258,7 @@ actions:
                 access_token="<YOUR_API_KEY_HERE>",
             ) as plex_api:
 
-                res = plex_api.butler.start_task(task_name=operations.TaskName.CLEAN_OLD_BUNDLES)
+                res = plex_api.butler.start_task(task_name=operations.TaskName.REFRESH_PERIODIC_METADATA)
 
                 assert res is not None
 
@@ -410,7 +410,7 @@ actions:
             ) as plex_api:
 
                 res = plex_api.hubs.get_recently_added(request={
-                    "content_directory_id": 470161,
+                    "content_directory_id": 39486,
                     "section_id": 2,
                     "type": operations.Type.TV_SHOW,
                 })
@@ -432,7 +432,7 @@ actions:
                 access_token="<YOUR_API_KEY_HERE>",
             ) as plex_api:
 
-                res = plex_api.search.perform_search(query="dylan")
+                res = plex_api.search.perform_search(query="arnold")
 
                 assert res is not None
 
@@ -470,7 +470,7 @@ actions:
                 access_token="<YOUR_API_KEY_HERE>",
             ) as plex_api:
 
-                res = plex_api.hubs.get_library_hubs(section_id=6728.76)
+                res = plex_api.hubs.get_library_hubs(section_id=492.74)
 
                 assert res.object is not None
 
@@ -643,7 +643,7 @@ actions:
                 access_token="<YOUR_API_KEY_HERE>",
             ) as plex_api:
 
-                res = plex_api.library.get_metadata_children(rating_key=1539.14, include_elements="Stream")
+                res = plex_api.library.get_metadata_children(rating_key=2403.67, include_elements="Stream")
 
                 assert res.object is not None
 
@@ -811,7 +811,7 @@ actions:
             ) as plex_api:
 
                 res = plex_api.watchlist.get_watch_list(request={
-                    "filter_": operations.Filter.AVAILABLE,
+                    "filter_": operations.Filter.RELEASED,
                     "x_plex_token": "CV5xoxjTpFKUzBTShsaf",
                 })
 
@@ -954,7 +954,7 @@ actions:
                 access_token="<YOUR_API_KEY_HERE>",
             ) as plex_api:
 
-                res = plex_api.library.get_refresh_library_metadata(section_key=9518, force=operations.Force.ONE)
+                res = plex_api.library.get_refresh_library_metadata(section_key=9518, force=operations.Force.ZERO)
 
                 assert res is not None
 
@@ -995,7 +995,7 @@ actions:
             ) as plex_api:
 
                 res = plex_api.library.get_library_items(request={
-                    "tag": operations.Tag.EDITION,
+                    "tag": operations.Tag.NEWEST,
                     "type": operations.GetLibraryItemsQueryParamType.TV_SHOW,
                     "section_key": 9518,
                 })
@@ -1121,8 +1121,8 @@ actions:
                     "height": 165,
                     "opacity": 100,
                     "blur": 0,
-                    "min_size": operations.MinSize.ONE,
-                    "upscale": operations.Upscale.ONE,
+                    "min_size": operations.MinSize.ZERO,
+                    "upscale": operations.Upscale.ZERO,
                     "url": "/library/metadata/49564/thumb/1654258204",
                 })
 
@@ -1165,7 +1165,7 @@ actions:
             with PlexAPI() as plex_api:
 
                 res = plex_api.plex.get_token_by_pin_id(request={
-                    "pin_id": 408895,
+                    "pin_id": 232248,
                     "client_id": "3381b62b-9ab7-4e37-827b-203e9809eb58",
                     "client_name": "Plex for Roku",
                     "device_nickname": "Roku 3",
@@ -1212,9 +1212,9 @@ actions:
 
                 res = plex_api.playlists.create_playlist(request={
                     "title": "<value>",
-                    "type": operations.CreatePlaylistQueryParamType.PHOTO,
+                    "type": operations.CreatePlaylistQueryParamType.AUDIO,
                     "smart": operations.Smart.ONE,
-                    "uri": "https://hoarse-testing.info/",
+                    "uri": "https://short-term-disconnection.name/",
                 })
 
                 assert res.object is not None
@@ -1235,7 +1235,7 @@ actions:
                 access_token="<YOUR_API_KEY_HERE>",
             ) as plex_api:
 
-                res = plex_api.playlists.upload_playlist(path="/home/barkley/playlist.m3u", force=operations.QueryParamForce.ZERO, section_id=1)
+                res = plex_api.playlists.upload_playlist(path="/home/barkley/playlist.m3u", force=operations.QueryParamForce.ONE, section_id=1)
 
                 assert res is not None
 
@@ -1254,7 +1254,7 @@ actions:
                 access_token="<YOUR_API_KEY_HERE>",
             ) as plex_api:
 
-                res = plex_api.playlists.delete_playlist(playlist_id=216.22)
+                res = plex_api.playlists.delete_playlist(playlist_id=3432.93)
 
                 assert res is not None
 
@@ -1273,7 +1273,7 @@ actions:
                 access_token="<YOUR_API_KEY_HERE>",
             ) as plex_api:
 
-                res = plex_api.playlists.get_playlist(playlist_id=4109.48)
+                res = plex_api.playlists.get_playlist(playlist_id=8419.53)
 
                 assert res.object is not None
 
@@ -1292,7 +1292,7 @@ actions:
                 access_token="<YOUR_API_KEY_HERE>",
             ) as plex_api:
 
-                res = plex_api.playlists.update_playlist(playlist_id=3915)
+                res = plex_api.playlists.update_playlist(playlist_id=1579.66)
 
                 assert res is not None
 
@@ -1311,7 +1311,7 @@ actions:
                 access_token="<YOUR_API_KEY_HERE>",
             ) as plex_api:
 
-                res = plex_api.playlists.clear_playlist_contents(playlist_id=1893.18)
+                res = plex_api.playlists.clear_playlist_contents(playlist_id=4137.37)
 
                 assert res is not None
 
@@ -1331,7 +1331,7 @@ actions:
                 access_token="<YOUR_API_KEY_HERE>",
             ) as plex_api:
 
-                res = plex_api.playlists.get_playlist_contents(playlist_id=5004.46, type_=operations.GetPlaylistContentsQueryParamType.TV_SHOW)
+                res = plex_api.playlists.get_playlist_contents(playlist_id=5535.42, type_=operations.GetPlaylistContentsQueryParamType.TV_SHOW)
 
                 assert res.object is not None
 
@@ -1350,7 +1350,7 @@ actions:
                 access_token="<YOUR_API_KEY_HERE>",
             ) as plex_api:
 
-                res = plex_api.playlists.add_playlist_contents(playlist_id=8502.01, uri="server://12345/com.plexapp.plugins.library/library/metadata/1", play_queue_id=123)
+                res = plex_api.playlists.add_playlist_contents(playlist_id=7013.44, uri="server://12345/com.plexapp.plugins.library/library/metadata/1", play_queue_id=123)
 
                 assert res.object is not None
 
@@ -1407,7 +1407,7 @@ actions:
                 access_token="<YOUR_API_KEY_HERE>",
             ) as plex_api:
 
-                res = plex_api.authentication.get_source_connection_information(source="provider://provider-identifier")
+                res = plex_api.authentication.get_source_connection_information(source="server://client-identifier")
 
                 assert res is not None
 
