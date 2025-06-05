@@ -105,7 +105,7 @@ class GetSearchAllLibrariesRequest(BaseModel):
 
 
 class GetSearchAllLibrariesType(str, Enum, metaclass=utils.OpenEnumMeta):
-    r"""The type of media content"""
+    r"""The type of media content in the Plex library. This can represent videos, music, or photos."""
 
     MOVIE = "movie"
     TV_SHOW = "show"
@@ -113,6 +113,10 @@ class GetSearchAllLibrariesType(str, Enum, metaclass=utils.OpenEnumMeta):
     EPISODE = "episode"
     ARTIST = "artist"
     ALBUM = "album"
+    TRACK = "track"
+    PHOTO_ALBUM = "photoalbum"
+    PHOTO = "photo"
+    COLLECTION = "collection"
 
 
 class GetSearchAllLibrariesFlattenSeasons(str, Enum, metaclass=utils.OpenEnumMeta):
@@ -673,7 +677,7 @@ class GetSearchAllLibrariesMetadataTypedDict(TypedDict):
     key: str
     guid: str
     type: GetSearchAllLibrariesType
-    r"""The type of media content
+    r"""The type of media content in the Plex library. This can represent videos, music, or photos.
 
     """
     title: str
@@ -788,7 +792,7 @@ class GetSearchAllLibrariesMetadata(BaseModel):
     type: Annotated[
         GetSearchAllLibrariesType, PlainValidator(validate_open_enum(False))
     ]
-    r"""The type of media content
+    r"""The type of media content in the Plex library. This can represent videos, music, or photos.
 
     """
 

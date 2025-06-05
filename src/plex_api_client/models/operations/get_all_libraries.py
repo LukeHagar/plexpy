@@ -21,6 +21,10 @@ class GetAllLibrariesType(str, Enum, metaclass=utils.OpenEnumMeta):
     EPISODE = "episode"
     ARTIST = "artist"
     ALBUM = "album"
+    TRACK = "track"
+    PHOTO_ALBUM = "photoalbum"
+    PHOTO = "photo"
+    COLLECTION = "collection"
 
 
 class Hidden(int, Enum):

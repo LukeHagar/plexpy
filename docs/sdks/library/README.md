@@ -14,7 +14,7 @@ API Calls interacting with Plex Media Server Libraries
 * [get_library_details](#get_library_details) - Get Library Details
 * [delete_library](#delete_library) - Delete Library Section
 * [get_library_items](#get_library_items) - Get Library Items
-* [get_all_media_library](#get_all_media_library) - Get all media of library
+* [get_library_sections_all](#get_library_sections_all) - Get Library section media by tag ALL
 * [get_refresh_library_metadata](#get_refresh_library_metadata) - Refresh Metadata Of The Library
 * [get_search_library](#get_search_library) - Search Library
 * [get_genres_library](#get_genres_library) - Get Genres of library media
@@ -106,6 +106,7 @@ with PlexAPI(
         ],
         "section_id": 2,
         "type": operations.QueryParamType.TV_SHOW,
+        "include_meta": operations.QueryParamIncludeMeta.ENABLE,
     })
 
     assert res.object is not None
@@ -228,13 +229,14 @@ Each type in the library comes with a set of filters and sorts, aiding in buildi
 
 ```python
 from plex_api_client import PlexAPI
+from plex_api_client.models import operations
 
 
 with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
 
-    res = plex_api.library.get_library_details(section_key=9518)
+    res = plex_api.library.get_library_details(section_key=9518, include_details=operations.IncludeDetails.ZERO)
 
     assert res.object is not None
 
@@ -343,8 +345,10 @@ with PlexAPI(
 
     res = plex_api.library.get_library_items(request={
         "tag": operations.Tag.NEWEST,
+        "include_guids": operations.IncludeGuids.ENABLE,
         "type": operations.GetLibraryItemsQueryParamType.TV_SHOW,
         "section_key": 9518,
+        "include_meta": operations.GetLibraryItemsQueryParamIncludeMeta.ENABLE,
     })
 
     assert res.object is not None
@@ -373,7 +377,7 @@ with PlexAPI(
 | errors.GetLibraryItemsUnauthorized | 401                                | application/json                   |
 | errors.SDKError                    | 4XX, 5XX                           | \*/\*                              |
 
-## get_all_media_library
+## get_library_sections_all
 
 Retrieves a list of all general media data for this library.
 
@@ -389,9 +393,14 @@ with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
 
-    res = plex_api.library.get_all_media_library(request={
+    res = plex_api.library.get_library_sections_all(request={
         "section_key": 9518,
-        "type": operations.GetAllMediaLibraryQueryParamType.TV_SHOW,
+        "type": operations.GetLibrarySectionsAllQueryParamType.TV_SHOW,
+        "include_meta": operations.GetLibrarySectionsAllQueryParamIncludeMeta.ENABLE,
+        "include_guids": operations.QueryParamIncludeGuids.ENABLE,
+        "include_advanced": operations.IncludeAdvanced.ENABLE,
+        "include_collections": operations.QueryParamIncludeCollections.ENABLE,
+        "include_external_media": operations.QueryParamIncludeExternalMedia.ENABLE,
     })
 
     assert res.object is not None
@@ -403,22 +412,22 @@ with PlexAPI(
 
 ### Parameters
 
-| Parameter                                                                                    | Type                                                                                         | Required                                                                                     | Description                                                                                  |
-| -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- |
-| `request`                                                                                    | [operations.GetAllMediaLibraryRequest](../../models/operations/getallmedialibraryrequest.md) | :heavy_check_mark:                                                                           | The request object to use for the request.                                                   |
-| `retries`                                                                                    | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                             | :heavy_minus_sign:                                                                           | Configuration to override the default retry behavior of the client.                          |
+| Parameter                                                                                          | Type                                                                                               | Required                                                                                           | Description                                                                                        |
+| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+| `request`                                                                                          | [operations.GetLibrarySectionsAllRequest](../../models/operations/getlibrarysectionsallrequest.md) | :heavy_check_mark:                                                                                 | The request object to use for the request.                                                         |
+| `retries`                                                                                          | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                   | :heavy_minus_sign:                                                                                 | Configuration to override the default retry behavior of the client.                                |
 
 ### Response
 
-**[operations.GetAllMediaLibraryResponse](../../models/operations/getallmedialibraryresponse.md)**
+**[operations.GetLibrarySectionsAllResponse](../../models/operations/getlibrarysectionsallresponse.md)**
 
 ### Errors
 
-| Error Type                            | Status Code                           | Content Type                          |
-| ------------------------------------- | ------------------------------------- | ------------------------------------- |
-| errors.GetAllMediaLibraryBadRequest   | 400                                   | application/json                      |
-| errors.GetAllMediaLibraryUnauthorized | 401                                   | application/json                      |
-| errors.SDKError                       | 4XX, 5XX                              | \*/\*                                 |
+| Error Type                               | Status Code                              | Content Type                             |
+| ---------------------------------------- | ---------------------------------------- | ---------------------------------------- |
+| errors.GetLibrarySectionsAllBadRequest   | 400                                      | application/json                         |
+| errors.GetLibrarySectionsAllUnauthorized | 401                                      | application/json                         |
+| errors.SDKError                          | 4XX, 5XX                                 | \*/\*                                    |
 
 ## get_refresh_library_metadata
 
@@ -684,6 +693,8 @@ with PlexAPI(
         "search_types": [
             operations.SearchTypes.PEOPLE,
         ],
+        "include_collections": operations.GetSearchAllLibrariesQueryParamIncludeCollections.ENABLE,
+        "include_external_media": operations.GetSearchAllLibrariesQueryParamIncludeExternalMedia.ENABLE,
     })
 
     assert res.object is not None
@@ -714,7 +725,8 @@ with PlexAPI(
 
 ## get_media_meta_data
 
-This endpoint will return all the (meta)data of a library item specified with by the ratingKey.
+This endpoint will return all the (meta)data of one or more library items specified by the ratingKey.
+Multiple rating keys can be provided as a comma-separated list (e.g., "21119,21617").
 
 
 ### Example Usage
@@ -728,7 +740,7 @@ with PlexAPI(
 ) as plex_api:
 
     res = plex_api.library.get_media_meta_data(request={
-        "rating_key": 9518,
+        "rating_key": "21119,21617",
         "include_concerts": True,
         "include_extras": True,
         "include_on_deck": True,
@@ -994,7 +1006,7 @@ with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
 
-    res = plex_api.library.get_top_watched_content(type_=operations.GetTopWatchedContentQueryParamType.TV_SHOW, include_guids=1)
+    res = plex_api.library.get_top_watched_content(type_=operations.GetTopWatchedContentQueryParamType.TV_SHOW, include_guids=operations.GetTopWatchedContentQueryParamIncludeGuids.ENABLE)
 
     assert res.object is not None
 
@@ -1008,7 +1020,7 @@ with PlexAPI(
 | Parameter                                                                                                                                                                                    | Type                                                                                                                                                                                         | Required                                                                                                                                                                                     | Description                                                                                                                                                                                  | Example                                                                                                                                                                                      |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `type`                                                                                                                                                                                       | [operations.GetTopWatchedContentQueryParamType](../../models/operations/gettopwatchedcontentqueryparamtype.md)                                                                               | :heavy_check_mark:                                                                                                                                                                           | The type of media to retrieve or filter by.<br/>1 = movie<br/>2 = show<br/>3 = season<br/>4 = episode<br/>E.g. A movie library will not return anything with type 3 as there are no seasons for movie libraries<br/> | 2                                                                                                                                                                                            |
-| `include_guids`                                                                                                                                                                              | *Optional[int]*                                                                                                                                                                              | :heavy_minus_sign:                                                                                                                                                                           | Adds the Guids object to the response<br/>                                                                                                                                                   | 1                                                                                                                                                                                            |
+| `include_guids`                                                                                                                                                                              | [Optional[operations.GetTopWatchedContentQueryParamIncludeGuids]](../../models/operations/gettopwatchedcontentqueryparamincludeguids.md)                                                     | :heavy_minus_sign:                                                                                                                                                                           | Adds the Guid object to the response<br/>                                                                                                                                                    | 1                                                                                                                                                                                            |
 | `retries`                                                                                                                                                                                    | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                                                             | :heavy_minus_sign:                                                                                                                                                                           | Configuration to override the default retry behavior of the client.                                                                                                                          |                                                                                                                                                                                              |
 
 ### Response

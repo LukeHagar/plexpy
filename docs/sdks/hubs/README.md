@@ -75,6 +75,7 @@ with PlexAPI(
         "content_directory_id": 39486,
         "section_id": 2,
         "type": operations.Type.TV_SHOW,
+        "include_meta": operations.IncludeMeta.ENABLE,
     })
 
     assert res.object is not None

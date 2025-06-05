@@ -19,8 +19,8 @@ from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
 class GetMediaMetaDataRequestTypedDict(TypedDict):
-    rating_key: int
-    r"""the id of the library item to return the children of."""
+    rating_key: str
+    r"""The id(s) of the library item(s) to return metadata for. Can be a single ID or comma-separated list of IDs."""
     include_concerts: NotRequired[bool]
     r"""Include concerts data if set to true."""
     include_extras: NotRequired[bool]
@@ -51,11 +51,11 @@ class GetMediaMetaDataRequestTypedDict(TypedDict):
 
 class GetMediaMetaDataRequest(BaseModel):
     rating_key: Annotated[
-        int,
+        str,
         pydantic.Field(alias="ratingKey"),
         FieldMetadata(path=PathParamMetadata(style="simple", explode=False)),
     ]
-    r"""the id of the library item to return the children of."""
+    r"""The id(s) of the library item(s) to return metadata for. Can be a single ID or comma-separated list of IDs."""
 
     include_concerts: Annotated[
         Optional[bool],
@@ -150,7 +150,7 @@ class GetMediaMetaDataRequest(BaseModel):
 
 
 class GetMediaMetaDataType(str, Enum, metaclass=utils.OpenEnumMeta):
-    r"""The type of media content"""
+    r"""The type of media content in the Plex library. This can represent videos, music, or photos."""
 
     MOVIE = "movie"
     TV_SHOW = "show"
@@ -158,6 +158,10 @@ class GetMediaMetaDataType(str, Enum, metaclass=utils.OpenEnumMeta):
     EPISODE = "episode"
     ARTIST = "artist"
     ALBUM = "album"
+    TRACK = "track"
+    PHOTO_ALBUM = "photoalbum"
+    PHOTO = "photo"
+    COLLECTION = "collection"
 
 
 class GetMediaMetaDataLibraryType(str, Enum, metaclass=utils.OpenEnumMeta):
@@ -198,6 +202,20 @@ class GetMediaMetaDataUltraBlurColors(BaseModel):
     bottom_right: Annotated[str, pydantic.Field(alias="bottomRight")]
 
     bottom_left: Annotated[str, pydantic.Field(alias="bottomLeft")]
+
+
+class GetMediaMetaDataGuidsTypedDict(TypedDict):
+    id: str
+    r"""The unique identifier for the Guid. Can be prefixed with imdb://, tmdb://, tvdb://
+
+    """
+
+
+class GetMediaMetaDataGuids(BaseModel):
+    id: str
+    r"""The unique identifier for the Guid. Can be prefixed with imdb://, tmdb://, tvdb://
+
+    """
 
 
 class GetMediaMetaDataOptimizedForStreaming1(int, Enum):
@@ -756,6 +774,10 @@ class GetMediaMetaDataGenreTypedDict(TypedDict):
     r"""The filter query string for similar items."""
 
     id: int
+    r"""The unique identifier for the genre.
+    NOTE: This is different for each Plex server and is not globally unique.
+
+    """
     tag: str
     r"""The genre name of this media-item
 
@@ -767,6 +789,10 @@ class GetMediaMetaDataGenre(BaseModel):
     r"""The filter query string for similar items."""
 
     id: int
+    r"""The unique identifier for the genre.
+    NOTE: This is different for each Plex server and is not globally unique.
+
+    """
 
     tag: str
     r"""The genre name of this media-item
@@ -780,20 +806,28 @@ class GetMediaMetaDataCountryTypedDict(TypedDict):
     r"""The filter query string for country media items."""
 
     id: int
+    r"""The unique identifier for the country.
+    NOTE: This is different for each Plex server and is not globally unique.
+
+    """
     tag: str
     r"""The country of origin of this media item"""
-    filter_: NotRequired[str]
+    filter_: str
 
 
 class GetMediaMetaDataCountry(BaseModel):
     r"""The filter query string for country media items."""
 
     id: int
+    r"""The unique identifier for the country.
+    NOTE: This is different for each Plex server and is not globally unique.
+
+    """
 
     tag: str
     r"""The country of origin of this media item"""
 
-    filter_: Annotated[Optional[str], pydantic.Field(alias="filter")] = None
+    filter_: Annotated[str, pydantic.Field(alias="filter")]
 
 
 class GetMediaMetaDataDirectorTypedDict(TypedDict):
@@ -803,10 +837,10 @@ class GetMediaMetaDataDirectorTypedDict(TypedDict):
     r"""The role of Director"""
     filter_: str
     r"""The filter string used to query this director."""
-    tag_key: NotRequired[str]
-    r"""A unique key associated with the director's tag, used for internal identification."""
+    tag_key: str
+    r"""A unique 24-character hexadecimal key associated with the director's tag, used for internal identification."""
     thumb: NotRequired[str]
-    r"""The URL of the thumbnail image for the director."""
+    r"""The absolute URL of the thumbnail image for the director."""
 
 
 class GetMediaMetaDataDirector(BaseModel):
@@ -819,11 +853,11 @@ class GetMediaMetaDataDirector(BaseModel):
     filter_: Annotated[str, pydantic.Field(alias="filter")]
     r"""The filter string used to query this director."""
 
-    tag_key: Annotated[Optional[str], pydantic.Field(alias="tagKey")] = None
-    r"""A unique key associated with the director's tag, used for internal identification."""
+    tag_key: Annotated[str, pydantic.Field(alias="tagKey")]
+    r"""A unique 24-character hexadecimal key associated with the director's tag, used for internal identification."""
 
     thumb: Optional[str] = None
-    r"""The URL of the thumbnail image for the director."""
+    r"""The absolute URL of the thumbnail image for the director."""
 
 
 class GetMediaMetaDataWriterTypedDict(TypedDict):
@@ -834,9 +868,9 @@ class GetMediaMetaDataWriterTypedDict(TypedDict):
     filter_: str
     r"""The filter string used to query this writer."""
     thumb: NotRequired[str]
-    r"""The URL of the thumbnail image for the writer."""
+    r"""The absolute URL of the thumbnail image for the writer."""
     tag_key: NotRequired[str]
-    r"""A unique key associated with the writers tag, used for internal identification."""
+    r"""A 24-character hexadecimal unique key associated with the writer’s tag, used for internal identification."""
 
 
 class GetMediaMetaDataWriter(BaseModel):
@@ -850,10 +884,10 @@ class GetMediaMetaDataWriter(BaseModel):
     r"""The filter string used to query this writer."""
 
     thumb: Optional[str] = None
-    r"""The URL of the thumbnail image for the writer."""
+    r"""The absolute URL of the thumbnail image for the writer."""
 
     tag_key: Annotated[Optional[str], pydantic.Field(alias="tagKey")] = None
-    r"""A unique key associated with the writers tag, used for internal identification."""
+    r"""A 24-character hexadecimal unique key associated with the writer’s tag, used for internal identification."""
 
 
 class GetMediaMetaDataProducerTypedDict(TypedDict):
@@ -893,22 +927,31 @@ class GetMediaMetaDataProducer(BaseModel):
 
 class GetMediaMetaDataRoleTypedDict(TypedDict):
     id: int
-    r"""Unique identifier for the actor or role."""
+    r"""The unique identifier for the role.
+    NOTE: This is different for each Plex server and is not globally unique.
+
+    """
     tag: str
     r"""The display tag for the actor (typically the actor's name)."""
     filter_: str
     r"""The filter string used to query this actor. For example, it may indicate that this is an actor with a given key."""
+    tag_key: str
+    r"""A 24-character hexadecimal unique key associated with the actor's tag, used for internal identification.
+    NOTE: This is globally unique across all Plex Servers.
+
+    """
     role: NotRequired[str]
     r"""The role played by the actor in the media item."""
-    tag_key: NotRequired[str]
-    r"""A unique key associated with the actor's tag, used for internal identification."""
     thumb: NotRequired[str]
-    r"""The URL of the thumbnail image for the actor."""
+    r"""The absolute URL of the thumbnail image for the actor."""
 
 
 class GetMediaMetaDataRole(BaseModel):
     id: int
-    r"""Unique identifier for the actor or role."""
+    r"""The unique identifier for the role.
+    NOTE: This is different for each Plex server and is not globally unique.
+
+    """
 
     tag: str
     r"""The display tag for the actor (typically the actor's name)."""
@@ -916,24 +959,17 @@ class GetMediaMetaDataRole(BaseModel):
     filter_: Annotated[str, pydantic.Field(alias="filter")]
     r"""The filter string used to query this actor. For example, it may indicate that this is an actor with a given key."""
 
+    tag_key: Annotated[str, pydantic.Field(alias="tagKey")]
+    r"""A 24-character hexadecimal unique key associated with the actor's tag, used for internal identification.
+    NOTE: This is globally unique across all Plex Servers.
+
+    """
+
     role: Optional[str] = None
     r"""The role played by the actor in the media item."""
 
-    tag_key: Annotated[Optional[str], pydantic.Field(alias="tagKey")] = None
-    r"""A unique key associated with the actor's tag, used for internal identification."""
-
     thumb: Optional[str] = None
-    r"""The URL of the thumbnail image for the actor."""
-
-
-class GetMediaMetaDataGuidsTypedDict(TypedDict):
-    id: str
-    r"""The GUID value."""
-
-
-class GetMediaMetaDataGuids(BaseModel):
-    id: str
-    r"""The GUID value."""
+    r"""The absolute URL of the thumbnail image for the actor."""
 
 
 class RatingsTypedDict(TypedDict):
@@ -1190,6 +1226,7 @@ class GetMediaMetaDataMetadataTypedDict(TypedDict):
     r"""The rating provided by a user for the item. This value is expressed as a decimal number."""
     image: NotRequired[List[GetMediaMetaDataImageTypedDict]]
     ultra_blur_colors: NotRequired[GetMediaMetaDataUltraBlurColorsTypedDict]
+    guids: NotRequired[List[GetMediaMetaDataGuidsTypedDict]]
     media: NotRequired[List[GetMediaMetaDataMediaTypedDict]]
     genre: NotRequired[List[GetMediaMetaDataGenreTypedDict]]
     country: NotRequired[List[GetMediaMetaDataCountryTypedDict]]
@@ -1197,7 +1234,6 @@ class GetMediaMetaDataMetadataTypedDict(TypedDict):
     writer: NotRequired[List[GetMediaMetaDataWriterTypedDict]]
     producer: NotRequired[List[GetMediaMetaDataProducerTypedDict]]
     role: NotRequired[List[GetMediaMetaDataRoleTypedDict]]
-    guids: NotRequired[List[GetMediaMetaDataGuidsTypedDict]]
     ratings: NotRequired[List[RatingsTypedDict]]
     similar: NotRequired[List[GetMediaMetaDataSimilarTypedDict]]
     location: NotRequired[List[GetMediaMetaDataLocationTypedDict]]
@@ -1425,6 +1461,10 @@ class GetMediaMetaDataMetadata(BaseModel):
         pydantic.Field(alias="UltraBlurColors"),
     ] = None
 
+    guids: Annotated[
+        Optional[List[GetMediaMetaDataGuids]], pydantic.Field(alias="Guid")
+    ] = None
+
     media: Annotated[
         Optional[List[GetMediaMetaDataMedia]], pydantic.Field(alias="Media")
     ] = None
@@ -1451,10 +1491,6 @@ class GetMediaMetaDataMetadata(BaseModel):
 
     role: Annotated[
         Optional[List[GetMediaMetaDataRole]], pydantic.Field(alias="Role")
-    ] = None
-
-    guids: Annotated[
-        Optional[List[GetMediaMetaDataGuids]], pydantic.Field(alias="Guid")
     ] = None
 
     ratings: Annotated[Optional[List[Ratings]], pydantic.Field(alias="Rating")] = None

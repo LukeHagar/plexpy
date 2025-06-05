@@ -60,9 +60,11 @@ class GetLibraryItemsQueryParamType(int, Enum, metaclass=utils.OpenEnumMeta):
     TV_SHOW = 2
     SEASON = 3
     EPISODE = 4
-    AUDIO = 8
-    ALBUM = 9
-    TRACK = 10
+    ARTIST = 5
+    ALBUM = 6
+    TRACK = 7
+    PHOTO_ALBUM = 8
+    PHOTO = 9
 
 
 class GetLibraryItemsQueryParamIncludeMeta(int, Enum):
@@ -345,7 +347,7 @@ class GetLibraryItemsFieldType(BaseModel):
 
 
 class GetLibraryItemsLibraryType(str, Enum, metaclass=utils.OpenEnumMeta):
-    r"""The type of media content"""
+    r"""The type of media content in the Plex library. This can represent videos, music, or photos."""
 
     MOVIE = "movie"
     TV_SHOW = "show"
@@ -353,6 +355,10 @@ class GetLibraryItemsLibraryType(str, Enum, metaclass=utils.OpenEnumMeta):
     EPISODE = "episode"
     ARTIST = "artist"
     ALBUM = "album"
+    TRACK = "track"
+    PHOTO_ALBUM = "photoalbum"
+    PHOTO = "photo"
+    COLLECTION = "collection"
 
 
 class FlattenSeasons(str, Enum, metaclass=utils.OpenEnumMeta):
@@ -910,7 +916,7 @@ class GetLibraryItemsMetadataTypedDict(TypedDict):
     key: str
     guid: str
     type: GetLibraryItemsLibraryType
-    r"""The type of media content
+    r"""The type of media content in the Plex library. This can represent videos, music, or photos.
 
     """
     title: str
@@ -1023,7 +1029,7 @@ class GetLibraryItemsMetadata(BaseModel):
     type: Annotated[
         GetLibraryItemsLibraryType, PlainValidator(validate_open_enum(False))
     ]
-    r"""The type of media content
+    r"""The type of media content in the Plex library. This can represent videos, music, or photos.
 
     """
 

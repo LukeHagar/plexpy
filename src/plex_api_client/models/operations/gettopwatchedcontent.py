@@ -27,9 +27,18 @@ class GetTopWatchedContentQueryParamType(int, Enum, metaclass=utils.OpenEnumMeta
     TV_SHOW = 2
     SEASON = 3
     EPISODE = 4
-    AUDIO = 8
-    ALBUM = 9
-    TRACK = 10
+    ARTIST = 5
+    ALBUM = 6
+    TRACK = 7
+    PHOTO_ALBUM = 8
+    PHOTO = 9
+
+
+class GetTopWatchedContentQueryParamIncludeGuids(int, Enum):
+    r"""Adds the Guid object to the response"""
+
+    DISABLE = 0
+    ENABLE = 1
 
 
 class GetTopWatchedContentRequestTypedDict(TypedDict):
@@ -42,8 +51,8 @@ class GetTopWatchedContentRequestTypedDict(TypedDict):
     E.g. A movie library will not return anything with type 3 as there are no seasons for movie libraries
 
     """
-    include_guids: NotRequired[int]
-    r"""Adds the Guids object to the response
+    include_guids: NotRequired[GetTopWatchedContentQueryParamIncludeGuids]
+    r"""Adds the Guid object to the response
 
     """
 
@@ -65,11 +74,11 @@ class GetTopWatchedContentRequest(BaseModel):
     """
 
     include_guids: Annotated[
-        Optional[int],
+        Optional[GetTopWatchedContentQueryParamIncludeGuids],
         pydantic.Field(alias="includeGuids"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
-    r"""Adds the Guids object to the response
+    ] = GetTopWatchedContentQueryParamIncludeGuids.DISABLE
+    r"""Adds the Guid object to the response
 
     """
 
@@ -271,28 +280,34 @@ class GetTopWatchedContentMetadata(BaseModel):
 
 
 class GetTopWatchedContentMediaContainerTypedDict(TypedDict):
-    size: NotRequired[int]
-    allow_sync: NotRequired[bool]
-    identifier: NotRequired[str]
-    media_tag_prefix: NotRequired[str]
-    media_tag_version: NotRequired[int]
+    size: int
+    r"""Number of media items returned in this response."""
+    allow_sync: bool
+    r"""Indicates whether syncing is allowed."""
+    identifier: str
+    r"""An plugin identifier for the media container."""
+    media_tag_prefix: str
+    r"""The prefix used for media tag resource paths."""
+    media_tag_version: int
+    r"""The version number for media tags."""
     metadata: NotRequired[List[GetTopWatchedContentMetadataTypedDict]]
 
 
 class GetTopWatchedContentMediaContainer(BaseModel):
-    size: Optional[int] = None
+    size: int
+    r"""Number of media items returned in this response."""
 
-    allow_sync: Annotated[Optional[bool], pydantic.Field(alias="allowSync")] = None
+    allow_sync: Annotated[bool, pydantic.Field(alias="allowSync")]
+    r"""Indicates whether syncing is allowed."""
 
-    identifier: Optional[str] = None
+    identifier: str
+    r"""An plugin identifier for the media container."""
 
-    media_tag_prefix: Annotated[
-        Optional[str], pydantic.Field(alias="mediaTagPrefix")
-    ] = None
+    media_tag_prefix: Annotated[str, pydantic.Field(alias="mediaTagPrefix")]
+    r"""The prefix used for media tag resource paths."""
 
-    media_tag_version: Annotated[
-        Optional[int], pydantic.Field(alias="mediaTagVersion")
-    ] = None
+    media_tag_version: Annotated[int, pydantic.Field(alias="mediaTagVersion")]
+    r"""The version number for media tags."""
 
     metadata: Annotated[
         Optional[List[GetTopWatchedContentMetadata]], pydantic.Field(alias="Metadata")

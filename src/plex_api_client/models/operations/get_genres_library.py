@@ -31,9 +31,11 @@ class GetGenresLibraryQueryParamType(int, Enum, metaclass=utils.OpenEnumMeta):
     TV_SHOW = 2
     SEASON = 3
     EPISODE = 4
-    AUDIO = 8
-    ALBUM = 9
-    TRACK = 10
+    ARTIST = 5
+    ALBUM = 6
+    TRACK = 7
+    PHOTO_ALBUM = 8
+    PHOTO = 9
 
 
 class GetGenresLibraryRequestTypedDict(TypedDict):

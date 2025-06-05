@@ -38,7 +38,7 @@ with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
 
-    res = plex_api.search.perform_search(query="arnold")
+    res = plex_api.search.perform_search(query="arnold", limit=5)
 
     assert res is not None
 
@@ -86,7 +86,7 @@ with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
 
-    res = plex_api.search.perform_voice_search(query="dead+poop")
+    res = plex_api.search.perform_voice_search(query="dead+poop", limit=5)
 
     assert res is not None
 

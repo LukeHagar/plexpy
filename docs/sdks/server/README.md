@@ -280,7 +280,6 @@ with PlexAPI(
     res = plex_api.server.get_resized_photo(request={
         "width": 110,
         "height": 165,
-        "opacity": 100,
         "blur": 0,
         "min_size": operations.MinSize.ZERO,
         "upscale": operations.Upscale.ZERO,

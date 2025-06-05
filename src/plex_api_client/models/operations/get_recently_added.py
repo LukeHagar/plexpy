@@ -27,9 +27,11 @@ class Type(int, Enum, metaclass=utils.OpenEnumMeta):
     TV_SHOW = 2
     SEASON = 3
     EPISODE = 4
-    AUDIO = 8
-    ALBUM = 9
-    TRACK = 10
+    ARTIST = 5
+    ALBUM = 6
+    TRACK = 7
+    PHOTO_ALBUM = 8
+    PHOTO = 9
 
 
 class IncludeMeta(int, Enum):
@@ -322,7 +324,7 @@ class Meta(BaseModel):
 
 
 class GetRecentlyAddedHubsType(str, Enum, metaclass=utils.OpenEnumMeta):
-    r"""The type of media content"""
+    r"""The type of media content in the Plex library. This can represent videos, music, or photos."""
 
     MOVIE = "movie"
     TV_SHOW = "show"
@@ -330,6 +332,10 @@ class GetRecentlyAddedHubsType(str, Enum, metaclass=utils.OpenEnumMeta):
     EPISODE = "episode"
     ARTIST = "artist"
     ALBUM = "album"
+    TRACK = "track"
+    PHOTO_ALBUM = "photoalbum"
+    PHOTO = "photo"
+    COLLECTION = "collection"
 
 
 class GetRecentlyAddedHubsResponseType(str, Enum, metaclass=utils.OpenEnumMeta):
@@ -370,6 +376,20 @@ class UltraBlurColors(BaseModel):
     bottom_right: Annotated[str, pydantic.Field(alias="bottomRight")]
 
     bottom_left: Annotated[str, pydantic.Field(alias="bottomLeft")]
+
+
+class GuidsTypedDict(TypedDict):
+    id: str
+    r"""The unique identifier for the Guid. Can be prefixed with imdb://, tmdb://, tvdb://
+
+    """
+
+
+class Guids(BaseModel):
+    id: str
+    r"""The unique identifier for the Guid. Can be prefixed with imdb://, tmdb://, tvdb://
+
+    """
 
 
 class One(int, Enum):
@@ -917,6 +937,10 @@ class GenreTypedDict(TypedDict):
     r"""The filter query string for similar items."""
 
     id: int
+    r"""The unique identifier for the genre.
+    NOTE: This is different for each Plex server and is not globally unique.
+
+    """
     filter_: str
     tag: str
     r"""The genre name of this media-item
@@ -928,6 +952,10 @@ class Genre(BaseModel):
     r"""The filter query string for similar items."""
 
     id: int
+    r"""The unique identifier for the genre.
+    NOTE: This is different for each Plex server and is not globally unique.
+
+    """
 
     filter_: Annotated[str, pydantic.Field(alias="filter")]
 
@@ -941,30 +969,58 @@ class CountryTypedDict(TypedDict):
     r"""The filter query string for country media items."""
 
     id: int
+    r"""The unique identifier for the country.
+    NOTE: This is different for each Plex server and is not globally unique.
+
+    """
     tag: str
     r"""The country of origin of this media item"""
-    filter_: NotRequired[str]
+    filter_: str
 
 
 class Country(BaseModel):
     r"""The filter query string for country media items."""
 
     id: int
+    r"""The unique identifier for the country.
+    NOTE: This is different for each Plex server and is not globally unique.
+
+    """
 
     tag: str
     r"""The country of origin of this media item"""
 
-    filter_: Annotated[Optional[str], pydantic.Field(alias="filter")] = None
+    filter_: Annotated[str, pydantic.Field(alias="filter")]
 
 
 class DirectorTypedDict(TypedDict):
+    id: int
+    r"""Unique identifier for the director."""
+    filter_: str
+    r"""The filter string used to query this director."""
     tag: str
     r"""The role of Director"""
+    tag_key: str
+    r"""A unique 24-character hexadecimal key associated with the director's tag, used for internal identification."""
+    thumb: NotRequired[str]
+    r"""The absolute URL of the thumbnail image for the director."""
 
 
 class Director(BaseModel):
+    id: int
+    r"""Unique identifier for the director."""
+
+    filter_: Annotated[str, pydantic.Field(alias="filter")]
+    r"""The filter string used to query this director."""
+
     tag: str
     r"""The role of Director"""
+
+    tag_key: Annotated[str, pydantic.Field(alias="tagKey")]
+    r"""A unique 24-character hexadecimal key associated with the director's tag, used for internal identification."""
+
+    thumb: Optional[str] = None
+    r"""The absolute URL of the thumbnail image for the director."""
 
 
 class WriterTypedDict(TypedDict):
@@ -975,7 +1031,9 @@ class WriterTypedDict(TypedDict):
     tag: str
     r"""The role of Writer"""
     tag_key: NotRequired[str]
-    r"""A unique key associated with the writers tag, used for internal identification."""
+    r"""A 24-character hexadecimal unique key associated with the writer’s tag, used for internal identification."""
+    thumb: NotRequired[str]
+    r"""The absolute URL of the thumbnail image for the writer."""
 
 
 class Writer(BaseModel):
@@ -989,27 +1047,39 @@ class Writer(BaseModel):
     r"""The role of Writer"""
 
     tag_key: Annotated[Optional[str], pydantic.Field(alias="tagKey")] = None
-    r"""A unique key associated with the writers tag, used for internal identification."""
+    r"""A 24-character hexadecimal unique key associated with the writer’s tag, used for internal identification."""
+
+    thumb: Optional[str] = None
+    r"""The absolute URL of the thumbnail image for the writer."""
 
 
 class RoleTypedDict(TypedDict):
     id: int
-    r"""Unique identifier for the actor or role."""
+    r"""The unique identifier for the role.
+    NOTE: This is different for each Plex server and is not globally unique.
+
+    """
     filter_: str
     r"""The filter string used to query this actor. For example, it may indicate that this is an actor with a given key."""
     tag: str
     r"""The display tag for the actor (typically the actor's name)."""
-    tag_key: NotRequired[str]
-    r"""A unique key associated with the actor's tag, used for internal identification."""
+    tag_key: str
+    r"""A 24-character hexadecimal unique key associated with the actor's tag, used for internal identification.
+    NOTE: This is globally unique across all Plex Servers.
+
+    """
     role: NotRequired[str]
     r"""The role played by the actor in the media item."""
     thumb: NotRequired[str]
-    r"""The URL of the thumbnail image for the actor."""
+    r"""The absolute URL of the thumbnail image for the actor."""
 
 
 class Role(BaseModel):
     id: int
-    r"""Unique identifier for the actor or role."""
+    r"""The unique identifier for the role.
+    NOTE: This is different for each Plex server and is not globally unique.
+
+    """
 
     filter_: Annotated[str, pydantic.Field(alias="filter")]
     r"""The filter string used to query this actor. For example, it may indicate that this is an actor with a given key."""
@@ -1017,14 +1087,17 @@ class Role(BaseModel):
     tag: str
     r"""The display tag for the actor (typically the actor's name)."""
 
-    tag_key: Annotated[Optional[str], pydantic.Field(alias="tagKey")] = None
-    r"""A unique key associated with the actor's tag, used for internal identification."""
+    tag_key: Annotated[str, pydantic.Field(alias="tagKey")]
+    r"""A 24-character hexadecimal unique key associated with the actor's tag, used for internal identification.
+    NOTE: This is globally unique across all Plex Servers.
+
+    """
 
     role: Optional[str] = None
     r"""The role played by the actor in the media item."""
 
     thumb: Optional[str] = None
-    r"""The URL of the thumbnail image for the actor."""
+    r"""The absolute URL of the thumbnail image for the actor."""
 
 
 class ProducerTypedDict(TypedDict):
@@ -1034,10 +1107,12 @@ class ProducerTypedDict(TypedDict):
     r"""The filter string used to query this producer."""
     tag: str
     r"""The name of the producer"""
-    tag_key: NotRequired[str]
-    r"""A unique key associated with the producer's tag, used for internal identification."""
+    tag_key: str
+    r"""A 24-character hexadecimal unique key associated with the producer's tag, used for internal identification.
+
+    """
     thumb: NotRequired[str]
-    r"""The URL of the thumbnail image for the actor."""
+    r"""The absolute URL of the thumbnail image for the producer."""
 
 
 class Producer(BaseModel):
@@ -1050,17 +1125,20 @@ class Producer(BaseModel):
     tag: str
     r"""The name of the producer"""
 
-    tag_key: Annotated[Optional[str], pydantic.Field(alias="tagKey")] = None
-    r"""A unique key associated with the producer's tag, used for internal identification."""
+    tag_key: Annotated[str, pydantic.Field(alias="tagKey")]
+    r"""A 24-character hexadecimal unique key associated with the producer's tag, used for internal identification.
+
+    """
 
     thumb: Optional[str] = None
-    r"""The URL of the thumbnail image for the actor."""
+    r"""The absolute URL of the thumbnail image for the producer."""
 
 
 class RatingTypedDict(TypedDict):
     r"""The type of rating, for example 'audience' or 'critic'."""
 
     image: str
+    r"""The URL for the rating image, for example from IMDb."""
     value: float
     type: str
 
@@ -1069,6 +1147,7 @@ class Rating(BaseModel):
     r"""The type of rating, for example 'audience' or 'critic'."""
 
     image: str
+    r"""The URL for the rating image, for example from IMDb."""
 
     value: float
 
@@ -1103,20 +1182,6 @@ class Location(BaseModel):
     r"""The folder path for the media item."""
 
     path: str
-
-
-class GuidsTypedDict(TypedDict):
-    id: NotRequired[str]
-    r"""The unique identifier for the Guid. Can be imdb://tt0286347, tmdb://1763, tvdb://2337
-
-    """
-
-
-class Guids(BaseModel):
-    id: Optional[str] = None
-    r"""The unique identifier for the Guid. Can be imdb://tt0286347, tmdb://1763, tvdb://2337
-
-    """
 
 
 class CollectionTypedDict(TypedDict):
@@ -1254,6 +1319,7 @@ class GetRecentlyAddedMetadataTypedDict(TypedDict):
     r"""The release year of the media item."""
     image: NotRequired[List[GetRecentlyAddedImageTypedDict]]
     ultra_blur_colors: NotRequired[UltraBlurColorsTypedDict]
+    guids: NotRequired[List[GuidsTypedDict]]
     media: NotRequired[List[MediaTypedDict]]
     genre: NotRequired[List[GenreTypedDict]]
     country: NotRequired[List[CountryTypedDict]]
@@ -1264,7 +1330,6 @@ class GetRecentlyAddedMetadataTypedDict(TypedDict):
     rating1: NotRequired[List[RatingTypedDict]]
     similar: NotRequired[List[SimilarTypedDict]]
     location: NotRequired[List[LocationTypedDict]]
-    guids: NotRequired[List[GuidsTypedDict]]
     collection: NotRequired[List[CollectionTypedDict]]
 
 
@@ -1498,6 +1563,8 @@ class GetRecentlyAddedMetadata(BaseModel):
         Optional[UltraBlurColors], pydantic.Field(alias="UltraBlurColors")
     ] = None
 
+    guids: Annotated[Optional[List[Guids]], pydantic.Field(alias="Guid")] = None
+
     media: Annotated[Optional[List[Media]], pydantic.Field(alias="Media")] = None
 
     genre: Annotated[Optional[List[Genre]], pydantic.Field(alias="Genre")] = None
@@ -1523,8 +1590,6 @@ class GetRecentlyAddedMetadata(BaseModel):
     location: Annotated[Optional[List[Location]], pydantic.Field(alias="Location")] = (
         None
     )
-
-    guids: Annotated[Optional[List[Guids]], pydantic.Field(alias="Guid")] = None
 
     collection: Annotated[
         Optional[List[Collection]], pydantic.Field(alias="Collection")

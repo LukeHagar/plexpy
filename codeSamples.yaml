@@ -413,6 +413,7 @@ actions:
                     "content_directory_id": 39486,
                     "section_id": 2,
                     "type": operations.Type.TV_SHOW,
+                    "include_meta": operations.IncludeMeta.ENABLE,
                 })
 
                 assert res.object is not None
@@ -432,7 +433,7 @@ actions:
                 access_token="<YOUR_API_KEY_HERE>",
             ) as plex_api:
 
-                res = plex_api.search.perform_search(query="arnold")
+                res = plex_api.search.perform_search(query="arnold", limit=5)
 
                 assert res is not None
 
@@ -451,7 +452,7 @@ actions:
                 access_token="<YOUR_API_KEY_HERE>",
             ) as plex_api:
 
-                res = plex_api.search.perform_voice_search(query="dead+poop")
+                res = plex_api.search.perform_voice_search(query="dead+poop", limit=5)
 
                 assert res is not None
 
@@ -507,7 +508,7 @@ actions:
                 access_token="<YOUR_API_KEY_HERE>",
             ) as plex_api:
 
-                res = plex_api.library.get_top_watched_content(type_=operations.GetTopWatchedContentQueryParamType.TV_SHOW, include_guids=1)
+                res = plex_api.library.get_top_watched_content(type_=operations.GetTopWatchedContentQueryParamType.TV_SHOW, include_guids=operations.GetTopWatchedContentQueryParamIncludeGuids.ENABLE)
 
                 assert res.object is not None
 
@@ -546,7 +547,7 @@ actions:
             ) as plex_api:
 
                 res = plex_api.library.get_media_meta_data(request={
-                    "rating_key": 9518,
+                    "rating_key": "21119,21617",
                     "include_concerts": True,
                     "include_extras": True,
                     "include_on_deck": True,
@@ -745,6 +746,7 @@ actions:
                     ],
                     "section_id": 2,
                     "type": operations.QueryParamType.TV_SHOW,
+                    "include_meta": operations.QueryParamIncludeMeta.ENABLE,
                 })
 
                 assert res.object is not None
@@ -771,6 +773,8 @@ actions:
                     "search_types": [
                         operations.SearchTypes.PEOPLE,
                     ],
+                    "include_collections": operations.GetSearchAllLibrariesQueryParamIncludeCollections.ENABLE,
+                    "include_external_media": operations.GetSearchAllLibrariesQueryParamIncludeExternalMedia.ENABLE,
                 })
 
                 assert res.object is not None
@@ -845,13 +849,14 @@ actions:
           label: PlexPy
           source: |-
             from plex_api_client import PlexAPI
+            from plex_api_client.models import operations
 
 
             with PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
             ) as plex_api:
 
-                res = plex_api.library.get_library_details(section_key=9518)
+                res = plex_api.library.get_library_details(section_key=9518, include_details=operations.IncludeDetails.ZERO)
 
                 assert res.object is not None
 
@@ -891,9 +896,14 @@ actions:
                 access_token="<YOUR_API_KEY_HERE>",
             ) as plex_api:
 
-                res = plex_api.library.get_all_media_library(request={
+                res = plex_api.library.get_library_sections_all(request={
                     "section_key": 9518,
-                    "type": operations.GetAllMediaLibraryQueryParamType.TV_SHOW,
+                    "type": operations.GetLibrarySectionsAllQueryParamType.TV_SHOW,
+                    "include_meta": operations.GetLibrarySectionsAllQueryParamIncludeMeta.ENABLE,
+                    "include_guids": operations.QueryParamIncludeGuids.ENABLE,
+                    "include_advanced": operations.IncludeAdvanced.ENABLE,
+                    "include_collections": operations.QueryParamIncludeCollections.ENABLE,
+                    "include_external_media": operations.QueryParamIncludeExternalMedia.ENABLE,
                 })
 
                 assert res.object is not None
@@ -996,8 +1006,10 @@ actions:
 
                 res = plex_api.library.get_library_items(request={
                     "tag": operations.Tag.NEWEST,
+                    "include_guids": operations.IncludeGuids.ENABLE,
                     "type": operations.GetLibraryItemsQueryParamType.TV_SHOW,
                     "section_key": 9518,
+                    "include_meta": operations.GetLibraryItemsQueryParamIncludeMeta.ENABLE,
                 })
 
                 assert res.object is not None
@@ -1119,7 +1131,6 @@ actions:
                 res = plex_api.server.get_resized_photo(request={
                     "width": 110,
                     "height": 165,
-                    "opacity": 100,
                     "blur": 0,
                     "min_size": operations.MinSize.ZERO,
                     "upscale": operations.Upscale.ZERO,
@@ -1363,13 +1374,14 @@ actions:
           label: PlexPy
           source: |-
             from plex_api_client import PlexAPI
+            from plex_api_client.models import operations
 
 
             with PlexAPI(
                 access_token="<YOUR_API_KEY_HERE>",
             ) as plex_api:
 
-                res = plex_api.plex.get_server_resources(client_id="3381b62b-9ab7-4e37-827b-203e9809eb58")
+                res = plex_api.plex.get_server_resources(client_id="3381b62b-9ab7-4e37-827b-203e9809eb58", include_https=operations.IncludeHTTPS.ENABLE, include_relay=operations.IncludeRelay.ENABLE, include_i_pv6=operations.IncludeIPv6.ENABLE)
 
                 assert res.plex_devices is not None
 

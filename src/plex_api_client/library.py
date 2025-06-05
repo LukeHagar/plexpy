@@ -1498,19 +1498,19 @@ class Library(BaseSDK):
             http_res,
         )
 
-    def get_all_media_library(
+    def get_library_sections_all(
         self,
         *,
         request: Union[
-            operations.GetAllMediaLibraryRequest,
-            operations.GetAllMediaLibraryRequestTypedDict,
+            operations.GetLibrarySectionsAllRequest,
+            operations.GetLibrarySectionsAllRequestTypedDict,
         ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> operations.GetAllMediaLibraryResponse:
-        r"""Get all media of library
+    ) -> operations.GetLibrarySectionsAllResponse:
+        r"""Get Library section media by tag ALL
 
         Retrieves a list of all general media data for this library.
 
@@ -1532,8 +1532,8 @@ class Library(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, operations.GetAllMediaLibraryRequest)
-        request = cast(operations.GetAllMediaLibraryRequest, request)
+            request = utils.unmarshal(request, operations.GetLibrarySectionsAllRequest)
+        request = cast(operations.GetLibrarySectionsAllRequest, request)
 
         req = self._build_request(
             method="GET",
@@ -1563,7 +1563,7 @@ class Library(BaseSDK):
             hook_ctx=HookContext(
                 config=self.sdk_configuration,
                 base_url=base_url or "",
-                operation_id="get-all-media-library",
+                operation_id="get-library-sections-all",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
             ),
@@ -1574,9 +1574,10 @@ class Library(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return operations.GetAllMediaLibraryResponse(
+            return operations.GetLibrarySectionsAllResponse(
                 object=utils.unmarshal_json(
-                    http_res.text, Optional[operations.GetAllMediaLibraryResponseBody]
+                    http_res.text,
+                    Optional[operations.GetLibrarySectionsAllResponseBody],
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
@@ -1584,16 +1585,16 @@ class Library(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             response_data = utils.unmarshal_json(
-                http_res.text, errors.GetAllMediaLibraryBadRequestData
+                http_res.text, errors.GetLibrarySectionsAllBadRequestData
             )
             response_data.raw_response = http_res
-            raise errors.GetAllMediaLibraryBadRequest(data=response_data)
+            raise errors.GetLibrarySectionsAllBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
             response_data = utils.unmarshal_json(
-                http_res.text, errors.GetAllMediaLibraryUnauthorizedData
+                http_res.text, errors.GetLibrarySectionsAllUnauthorizedData
             )
             response_data.raw_response = http_res
-            raise errors.GetAllMediaLibraryUnauthorized(data=response_data)
+            raise errors.GetLibrarySectionsAllUnauthorized(data=response_data)
         if utils.match_response(http_res, ["404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
             raise errors.SDKError(
@@ -1614,19 +1615,19 @@ class Library(BaseSDK):
             http_res,
         )
 
-    async def get_all_media_library_async(
+    async def get_library_sections_all_async(
         self,
         *,
         request: Union[
-            operations.GetAllMediaLibraryRequest,
-            operations.GetAllMediaLibraryRequestTypedDict,
+            operations.GetLibrarySectionsAllRequest,
+            operations.GetLibrarySectionsAllRequestTypedDict,
         ],
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
         http_headers: Optional[Mapping[str, str]] = None,
-    ) -> operations.GetAllMediaLibraryResponse:
-        r"""Get all media of library
+    ) -> operations.GetLibrarySectionsAllResponse:
+        r"""Get Library section media by tag ALL
 
         Retrieves a list of all general media data for this library.
 
@@ -1648,8 +1649,8 @@ class Library(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         if not isinstance(request, BaseModel):
-            request = utils.unmarshal(request, operations.GetAllMediaLibraryRequest)
-        request = cast(operations.GetAllMediaLibraryRequest, request)
+            request = utils.unmarshal(request, operations.GetLibrarySectionsAllRequest)
+        request = cast(operations.GetLibrarySectionsAllRequest, request)
 
         req = self._build_request_async(
             method="GET",
@@ -1679,7 +1680,7 @@ class Library(BaseSDK):
             hook_ctx=HookContext(
                 config=self.sdk_configuration,
                 base_url=base_url or "",
-                operation_id="get-all-media-library",
+                operation_id="get-library-sections-all",
                 oauth2_scopes=[],
                 security_source=self.sdk_configuration.security,
             ),
@@ -1690,9 +1691,10 @@ class Library(BaseSDK):
 
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
-            return operations.GetAllMediaLibraryResponse(
+            return operations.GetLibrarySectionsAllResponse(
                 object=utils.unmarshal_json(
-                    http_res.text, Optional[operations.GetAllMediaLibraryResponseBody]
+                    http_res.text,
+                    Optional[operations.GetLibrarySectionsAllResponseBody],
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
@@ -1700,16 +1702,16 @@ class Library(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             response_data = utils.unmarshal_json(
-                http_res.text, errors.GetAllMediaLibraryBadRequestData
+                http_res.text, errors.GetLibrarySectionsAllBadRequestData
             )
             response_data.raw_response = http_res
-            raise errors.GetAllMediaLibraryBadRequest(data=response_data)
+            raise errors.GetLibrarySectionsAllBadRequest(data=response_data)
         if utils.match_response(http_res, "401", "application/json"):
             response_data = utils.unmarshal_json(
-                http_res.text, errors.GetAllMediaLibraryUnauthorizedData
+                http_res.text, errors.GetLibrarySectionsAllUnauthorizedData
             )
             response_data.raw_response = http_res
-            raise errors.GetAllMediaLibraryUnauthorized(data=response_data)
+            raise errors.GetLibrarySectionsAllUnauthorized(data=response_data)
         if utils.match_response(http_res, ["404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
             raise errors.SDKError(
@@ -3166,7 +3168,8 @@ class Library(BaseSDK):
     ) -> operations.GetMediaMetaDataResponse:
         r"""Get Media Metadata
 
-        This endpoint will return all the (meta)data of a library item specified with by the ratingKey.
+        This endpoint will return all the (meta)data of one or more library items specified by the ratingKey.
+        Multiple rating keys can be provided as a comma-separated list (e.g., \"21119,21617\").
 
 
         :param request: The request object to send.
@@ -3282,7 +3285,8 @@ class Library(BaseSDK):
     ) -> operations.GetMediaMetaDataResponse:
         r"""Get Media Metadata
 
-        This endpoint will return all the (meta)data of a library item specified with by the ratingKey.
+        This endpoint will return all the (meta)data of one or more library items specified by the ratingKey.
+        Multiple rating keys can be provided as a comma-separated list (e.g., \"21119,21617\").
 
 
         :param request: The request object to send.
@@ -4452,7 +4456,9 @@ class Library(BaseSDK):
         self,
         *,
         type_: operations.GetTopWatchedContentQueryParamType,
-        include_guids: Optional[int] = None,
+        include_guids: Optional[
+            operations.GetTopWatchedContentQueryParamIncludeGuids
+        ] = operations.GetTopWatchedContentQueryParamIncludeGuids.DISABLE,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -4464,7 +4470,7 @@ class Library(BaseSDK):
 
 
         :param type: The type of media to retrieve or filter by. 1 = movie 2 = show 3 = season 4 = episode E.g. A movie library will not return anything with type 3 as there are no seasons for movie libraries
-        :param include_guids: Adds the Guids object to the response
+        :param include_guids: Adds the Guid object to the response
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -4481,8 +4487,8 @@ class Library(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = operations.GetTopWatchedContentRequest(
-            include_guids=include_guids,
             type=type_,
+            include_guids=include_guids,
         )
 
         req = self._build_request(
@@ -4568,7 +4574,9 @@ class Library(BaseSDK):
         self,
         *,
         type_: operations.GetTopWatchedContentQueryParamType,
-        include_guids: Optional[int] = None,
+        include_guids: Optional[
+            operations.GetTopWatchedContentQueryParamIncludeGuids
+        ] = operations.GetTopWatchedContentQueryParamIncludeGuids.DISABLE,
         retries: OptionalNullable[utils.RetryConfig] = UNSET,
         server_url: Optional[str] = None,
         timeout_ms: Optional[int] = None,
@@ -4580,7 +4588,7 @@ class Library(BaseSDK):
 
 
         :param type: The type of media to retrieve or filter by. 1 = movie 2 = show 3 = season 4 = episode E.g. A movie library will not return anything with type 3 as there are no seasons for movie libraries
-        :param include_guids: Adds the Guids object to the response
+        :param include_guids: Adds the Guid object to the response
         :param retries: Override the default retry configuration for this method
         :param server_url: Override the default server URL for this method
         :param timeout_ms: Override the default request timeout configuration for this method in milliseconds
@@ -4597,8 +4605,8 @@ class Library(BaseSDK):
             base_url = self._get_url(base_url, url_variables)
 
         request = operations.GetTopWatchedContentRequest(
-            include_guids=include_guids,
             type=type_,
+            include_guids=include_guids,
         )
 
         req = self._build_request_async(
