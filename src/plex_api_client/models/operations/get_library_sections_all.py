@@ -10,11 +10,12 @@ from plex_api_client.utils import (
     FieldMetadata,
     PathParamMetadata,
     QueryParamMetadata,
+    validate_const,
     validate_open_enum,
 )
 import pydantic
-from pydantic.functional_validators import PlainValidator
-from typing import List, Optional, Union
+from pydantic.functional_validators import AfterValidator, PlainValidator
+from typing import List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
@@ -446,39 +447,40 @@ class GetLibrarySectionsAllGuids(BaseModel):
     """
 
 
-class OptimizedForStreaming1(int, Enum):
+class GetLibrarySectionsAllOptimizedForStreaming1(int, Enum):
     ZERO = 0
     ONE = 1
 
 
 GetLibrarySectionsAllOptimizedForStreamingTypedDict = TypeAliasType(
     "GetLibrarySectionsAllOptimizedForStreamingTypedDict",
-    Union[OptimizedForStreaming1, bool],
+    Union[GetLibrarySectionsAllOptimizedForStreaming1, bool],
 )
 r"""Has this media been optimized for streaming. NOTE: This can be 0, 1, false or true"""
 
 
 GetLibrarySectionsAllOptimizedForStreaming = TypeAliasType(
-    "GetLibrarySectionsAllOptimizedForStreaming", Union[OptimizedForStreaming1, bool]
+    "GetLibrarySectionsAllOptimizedForStreaming",
+    Union[GetLibrarySectionsAllOptimizedForStreaming1, bool],
 )
 r"""Has this media been optimized for streaming. NOTE: This can be 0, 1, false or true"""
 
 
-class GetLibrarySectionsAllOptimizedForStreaming1(int, Enum):
+class GetLibrarySectionsAllOptimizedForStreamingLibrary1(int, Enum):
     ZERO = 0
     ONE = 1
 
 
 GetLibrarySectionsAllLibraryOptimizedForStreamingTypedDict = TypeAliasType(
     "GetLibrarySectionsAllLibraryOptimizedForStreamingTypedDict",
-    Union[GetLibrarySectionsAllOptimizedForStreaming1, bool],
+    Union[GetLibrarySectionsAllOptimizedForStreamingLibrary1, bool],
 )
 r"""Has this media been optimized for streaming. NOTE: This can be 0, 1, false or true"""
 
 
 GetLibrarySectionsAllLibraryOptimizedForStreaming = TypeAliasType(
     "GetLibrarySectionsAllLibraryOptimizedForStreaming",
-    Union[GetLibrarySectionsAllOptimizedForStreaming1, bool],
+    Union[GetLibrarySectionsAllOptimizedForStreamingLibrary1, bool],
 )
 r"""Has this media been optimized for streaming. NOTE: This can be 0, 1, false or true"""
 
@@ -490,35 +492,22 @@ class GetLibrarySectionsAllHasThumbnail(str, Enum):
     TRUE = "1"
 
 
-class GetLibrarySectionsAllStreamType(int, Enum, metaclass=utils.OpenEnumMeta):
-    r"""Stream type:
-    - 1 = video
-    - 2 = audio
-    - 3 = subtitle
-
-    """
-
-    VIDEO = 1
-    AUDIO = 2
-    SUBTITLE = 3
-
-
 class GetLibrarySectionsAllStreamTypedDict(TypedDict):
     id: int
     r"""Unique stream identifier."""
-    stream_type: GetLibrarySectionsAllStreamType
-    r"""Stream type:
-    - 1 = video
-    - 2 = audio
-    - 3 = subtitle
-
-    """
     codec: str
     r"""Codec used by the stream."""
     display_title: str
     r"""Display title for the stream."""
     extended_display_title: str
     r"""Extended display title for the stream."""
+    stream_type: Literal[1]
+    r"""Stream type:
+    - VIDEO = 1
+    - AUDIO = 2
+    - SUBTITLE = 3
+
+    """
     format_: NotRequired[str]
     r"""Format of the stream (e.g., srt)."""
     default: NotRequired[bool]
@@ -612,19 +601,6 @@ class GetLibrarySectionsAllStream(BaseModel):
     id: int
     r"""Unique stream identifier."""
 
-    stream_type: Annotated[
-        Annotated[
-            GetLibrarySectionsAllStreamType, PlainValidator(validate_open_enum(True))
-        ],
-        pydantic.Field(alias="streamType"),
-    ]
-    r"""Stream type:
-    - 1 = video
-    - 2 = audio
-    - 3 = subtitle
-
-    """
-
     codec: str
     r"""Codec used by the stream."""
 
@@ -633,6 +609,17 @@ class GetLibrarySectionsAllStream(BaseModel):
 
     extended_display_title: Annotated[str, pydantic.Field(alias="extendedDisplayTitle")]
     r"""Extended display title for the stream."""
+
+    STREAM_TYPE: Annotated[
+        Annotated[Literal[1], AfterValidator(validate_const(1))],
+        pydantic.Field(alias="streamType"),
+    ] = 1
+    r"""Stream type:
+    - VIDEO = 1
+    - AUDIO = 2
+    - SUBTITLE = 3
+
+    """
 
     format_: Annotated[Optional[str], pydantic.Field(alias="format")] = None
     r"""Format of the stream (e.g., srt)."""
@@ -1104,8 +1091,6 @@ class GetLibrarySectionsAllMetadataTypedDict(TypedDict):
     r"""The total number of seasons (for TV shows)."""
     duration: int
     r"""The duration of the media item in milliseconds."""
-    originally_available_at: date
-    r"""The original release date of the media item."""
     added_at: int
     studio: NotRequired[str]
     r"""The studio that produced the media item."""
@@ -1117,6 +1102,8 @@ class GetLibrarySectionsAllMetadataTypedDict(TypedDict):
     r"""The number of leaf items (end nodes) under this media item."""
     viewed_leaf_count: NotRequired[int]
     r"""The number of leaf items that have been viewed."""
+    originally_available_at: NotRequired[date]
+    r"""The original release date of the media item."""
     updated_at: NotRequired[int]
     r"""Unix epoch datetime in seconds"""
     audience_rating_image: NotRequired[str]
@@ -1245,11 +1232,6 @@ class GetLibrarySectionsAllMetadata(BaseModel):
     duration: int
     r"""The duration of the media item in milliseconds."""
 
-    originally_available_at: Annotated[
-        date, pydantic.Field(alias="originallyAvailableAt")
-    ]
-    r"""The original release date of the media item."""
-
     added_at: Annotated[int, pydantic.Field(alias="addedAt")]
 
     studio: Optional[str] = None
@@ -1270,6 +1252,11 @@ class GetLibrarySectionsAllMetadata(BaseModel):
         Optional[int], pydantic.Field(alias="viewedLeafCount")
     ] = None
     r"""The number of leaf items that have been viewed."""
+
+    originally_available_at: Annotated[
+        Optional[date], pydantic.Field(alias="originallyAvailableAt")
+    ] = None
+    r"""The original release date of the media item."""
 
     updated_at: Annotated[Optional[int], pydantic.Field(alias="updatedAt")] = None
     r"""Unix epoch datetime in seconds"""
@@ -1448,10 +1435,6 @@ class GetLibrarySectionsAllMediaContainerTypedDict(TypedDict):
     r"""The content type or mode."""
     identifier: str
     r"""An plugin identifier for the media container."""
-    library_section_id: int
-    r"""The unique identifier for the library section."""
-    library_section_title: str
-    r"""The title of the library section."""
     media_tag_prefix: str
     r"""The prefix used for media tag resource paths."""
     media_tag_version: int
@@ -1466,6 +1449,10 @@ class GetLibrarySectionsAllMediaContainerTypedDict(TypedDict):
     r"""The secondary title of the media container."""
     view_group: str
     r"""Identifier for the view group layout."""
+    library_section_id: NotRequired[int]
+    r"""The unique identifier for the library section."""
+    library_section_title: NotRequired[str]
+    r"""The title of the library section."""
     library_section_uuid: NotRequired[str]
     r"""The universally unique identifier for the library section."""
     meta: NotRequired[GetLibrarySectionsAllMetaTypedDict]
@@ -1498,12 +1485,6 @@ class GetLibrarySectionsAllMediaContainer(BaseModel):
     identifier: str
     r"""An plugin identifier for the media container."""
 
-    library_section_id: Annotated[int, pydantic.Field(alias="librarySectionID")]
-    r"""The unique identifier for the library section."""
-
-    library_section_title: Annotated[str, pydantic.Field(alias="librarySectionTitle")]
-    r"""The title of the library section."""
-
     media_tag_prefix: Annotated[str, pydantic.Field(alias="mediaTagPrefix")]
     r"""The prefix used for media tag resource paths."""
 
@@ -1524,6 +1505,16 @@ class GetLibrarySectionsAllMediaContainer(BaseModel):
 
     view_group: Annotated[str, pydantic.Field(alias="viewGroup")]
     r"""Identifier for the view group layout."""
+
+    library_section_id: Annotated[
+        Optional[int], pydantic.Field(alias="librarySectionID")
+    ] = None
+    r"""The unique identifier for the library section."""
+
+    library_section_title: Annotated[
+        Optional[str], pydantic.Field(alias="librarySectionTitle")
+    ] = None
+    r"""The title of the library section."""
 
     library_section_uuid: Annotated[
         Optional[str], pydantic.Field(alias="librarySectionUUID")

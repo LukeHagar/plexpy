@@ -10,12 +10,13 @@ from plex_api_client.utils import (
     FieldMetadata,
     HeaderMetadata,
     QueryParamMetadata,
+    validate_const,
     validate_open_enum,
 )
 import pydantic
-from pydantic.functional_validators import PlainValidator
-from typing import List, Optional
-from typing_extensions import Annotated, NotRequired, TypedDict
+from pydantic.functional_validators import AfterValidator, PlainValidator
+from typing import List, Literal, Optional, Union
+from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
 class SearchTypes(str, Enum, metaclass=utils.OpenEnumMeta):
@@ -104,6 +105,76 @@ class GetSearchAllLibrariesRequest(BaseModel):
     r"""Whether to include external media in the search results."""
 
 
+class GetSearchAllLibrariesDirectoryTypedDict(TypedDict):
+    key: str
+    r"""The unique identifier path for the search result item."""
+    library_section_id: int
+    r"""The identifier for the library section."""
+    library_section_key: str
+    r"""The key corresponding to the library section."""
+    library_section_title: str
+    r"""The title of the library section."""
+    type: str
+    r"""The type of the directory."""
+    id: int
+    tag: str
+    library_section_type: Literal[1]
+    filter_: NotRequired[str]
+    r"""The filter string used to query this specific item in the library."""
+    tag_type: Literal[4]
+    r"""The type of tag associated with this search result (e.g., Director, Actor)."""
+    tag_key: NotRequired[str]
+    r"""The unique identifier for the tag associated with this search result."""
+    thumb: NotRequired[str]
+    r"""The URL to the thumbnail image associated with this search result."""
+    count: NotRequired[int]
+    r"""The number of items associated with this search result."""
+
+
+class GetSearchAllLibrariesDirectory(BaseModel):
+    key: str
+    r"""The unique identifier path for the search result item."""
+
+    library_section_id: Annotated[int, pydantic.Field(alias="librarySectionID")]
+    r"""The identifier for the library section."""
+
+    library_section_key: Annotated[str, pydantic.Field(alias="librarySectionKey")]
+    r"""The key corresponding to the library section."""
+
+    library_section_title: Annotated[str, pydantic.Field(alias="librarySectionTitle")]
+    r"""The title of the library section."""
+
+    type: str
+    r"""The type of the directory."""
+
+    id: int
+
+    tag: str
+
+    LIBRARY_SECTION_TYPE: Annotated[
+        Annotated[Optional[Literal[1]], AfterValidator(validate_const(1))],
+        pydantic.Field(alias="librarySectionType"),
+    ] = 1
+
+    filter_: Annotated[Optional[str], pydantic.Field(alias="filter")] = None
+    r"""The filter string used to query this specific item in the library."""
+
+    TAG_TYPE: Annotated[
+        Annotated[Optional[Literal[4]], AfterValidator(validate_const(4))],
+        pydantic.Field(alias="tagType"),
+    ] = 4
+    r"""The type of tag associated with this search result (e.g., Director, Actor)."""
+
+    tag_key: Annotated[Optional[str], pydantic.Field(alias="tagKey")] = None
+    r"""The unique identifier for the tag associated with this search result."""
+
+    thumb: Optional[str] = None
+    r"""The URL to the thumbnail image associated with this search result."""
+
+    count: Optional[int] = None
+    r"""The number of items associated with this search result."""
+
+
 class GetSearchAllLibrariesType(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""The type of media content in the Plex library. This can represent videos, music, or photos."""
 
@@ -117,532 +188,6 @@ class GetSearchAllLibrariesType(str, Enum, metaclass=utils.OpenEnumMeta):
     PHOTO_ALBUM = "photoalbum"
     PHOTO = "photo"
     COLLECTION = "collection"
-
-
-class GetSearchAllLibrariesFlattenSeasons(str, Enum, metaclass=utils.OpenEnumMeta):
-    r"""Setting that indicates if seasons are set to hidden for the show. (-1 = Library default, 0 = Hide, 1 = Show)."""
-
-    LIBRARY_DEFAULT = "-1"
-    HIDE = "0"
-    SHOW = "1"
-
-
-class GetSearchAllLibrariesEpisodeSort(str, Enum, metaclass=utils.OpenEnumMeta):
-    r"""Setting that indicates how episodes are sorted for the show. (-1 = Library default, 0 = Oldest first, 1 = Newest first)."""
-
-    LIBRARY_DEFAULT = "-1"
-    OLDEST_FIRST = "0"
-    NEWEST_FIRST = "1"
-
-
-class GetSearchAllLibrariesEnableCreditsMarkerGeneration(
-    str, Enum, metaclass=utils.OpenEnumMeta
-):
-    r"""Setting that indicates if credits markers detection is enabled. (-1 = Library default, 0 = Disabled)."""
-
-    LIBRARY_DEFAULT = "-1"
-    DISABLED = "0"
-
-
-class GetSearchAllLibrariesShowOrdering(str, Enum, metaclass=utils.OpenEnumMeta):
-    r"""Setting that indicates the episode ordering for the show.
-    None = Library default,
-    tmdbAiring = The Movie Database (Aired),
-    aired = TheTVDB (Aired),
-    dvd = TheTVDB (DVD),
-    absolute = TheTVDB (Absolute)).
-
-    """
-
-    NONE = "None"
-    TMDB_AIRING = "tmdbAiring"
-    TVDB_AIRED = "aired"
-    TVDB_DVD = "dvd"
-    TVDB_ABSOLUTE = "absolute"
-
-
-class GetSearchAllLibrariesOptimizedForStreaming(int, Enum):
-    DISABLE = 0
-    ENABLE = 1
-
-
-class GetSearchAllLibrariesHasThumbnail(str, Enum):
-    FALSE = "0"
-    TRUE = "1"
-
-
-class GetSearchAllLibrariesStreamTypedDict(TypedDict):
-    id: int
-    stream_type: int
-    r"""Type of stream (1 = video, 2 = audio, 3 = subtitle)"""
-    codec: str
-    r"""Codec used by the stream"""
-    index: int
-    r"""The index of the stream"""
-    default: NotRequired[bool]
-    r"""Indicates if this is the default stream"""
-    selected: NotRequired[bool]
-    r"""Indicates if the stream is selected"""
-    bitrate: NotRequired[int]
-    r"""The bitrate of the stream in kbps"""
-    color_primaries: NotRequired[str]
-    r"""The color primaries of the video stream"""
-    color_range: NotRequired[str]
-    r"""The color range of the video stream"""
-    color_space: NotRequired[str]
-    r"""The color space of the video stream"""
-    color_trc: NotRequired[str]
-    r"""The transfer characteristics (TRC) of the video stream"""
-    bit_depth: NotRequired[int]
-    r"""The bit depth of the video stream"""
-    chroma_location: NotRequired[str]
-    r"""The chroma location of the video stream"""
-    stream_identifier: NotRequired[str]
-    r"""The identifier of the video stream"""
-    chroma_subsampling: NotRequired[str]
-    r"""The chroma subsampling format"""
-    coded_height: NotRequired[int]
-    r"""The coded height of the video stream"""
-    coded_width: NotRequired[int]
-    r"""The coded width of the video stream"""
-    frame_rate: NotRequired[float]
-    r"""The frame rate of the video stream"""
-    has_scaling_matrix: NotRequired[bool]
-    r"""Indicates if the stream has a scaling matrix"""
-    hearing_impaired: NotRequired[bool]
-    closed_captions: NotRequired[bool]
-    embedded_in_video: NotRequired[str]
-    height: NotRequired[int]
-    r"""The height of the video stream"""
-    level: NotRequired[int]
-    r"""The level of the video codec"""
-    profile: NotRequired[str]
-    r"""The profile of the video codec"""
-    ref_frames: NotRequired[int]
-    r"""Number of reference frames"""
-    scan_type: NotRequired[str]
-    r"""The scan type (progressive or interlaced)"""
-    width: NotRequired[int]
-    r"""The width of the video stream"""
-    display_title: NotRequired[str]
-    r"""Display title of the stream"""
-    extended_display_title: NotRequired[str]
-    r"""Extended display title of the stream"""
-    channels: NotRequired[int]
-    r"""Number of audio channels (for audio streams)"""
-    language: NotRequired[str]
-    r"""The language of the stream (for audio/subtitle streams)"""
-    language_tag: NotRequired[str]
-    r"""Language tag of the stream"""
-    language_code: NotRequired[str]
-    r"""Language code of the stream"""
-    audio_channel_layout: NotRequired[str]
-    r"""The audio channel layout"""
-    sampling_rate: NotRequired[int]
-    r"""Sampling rate of the audio stream in Hz"""
-    title: NotRequired[str]
-    r"""Title of the subtitle track (for subtitle streams)"""
-    can_auto_sync: NotRequired[bool]
-    r"""Indicates if the subtitle stream can auto-sync"""
-
-
-class GetSearchAllLibrariesStream(BaseModel):
-    id: int
-
-    stream_type: Annotated[int, pydantic.Field(alias="streamType")]
-    r"""Type of stream (1 = video, 2 = audio, 3 = subtitle)"""
-
-    codec: str
-    r"""Codec used by the stream"""
-
-    index: int
-    r"""The index of the stream"""
-
-    default: Optional[bool] = None
-    r"""Indicates if this is the default stream"""
-
-    selected: Optional[bool] = None
-    r"""Indicates if the stream is selected"""
-
-    bitrate: Optional[int] = None
-    r"""The bitrate of the stream in kbps"""
-
-    color_primaries: Annotated[
-        Optional[str], pydantic.Field(alias="colorPrimaries")
-    ] = None
-    r"""The color primaries of the video stream"""
-
-    color_range: Annotated[Optional[str], pydantic.Field(alias="colorRange")] = None
-    r"""The color range of the video stream"""
-
-    color_space: Annotated[Optional[str], pydantic.Field(alias="colorSpace")] = None
-    r"""The color space of the video stream"""
-
-    color_trc: Annotated[Optional[str], pydantic.Field(alias="colorTrc")] = None
-    r"""The transfer characteristics (TRC) of the video stream"""
-
-    bit_depth: Annotated[Optional[int], pydantic.Field(alias="bitDepth")] = None
-    r"""The bit depth of the video stream"""
-
-    chroma_location: Annotated[
-        Optional[str], pydantic.Field(alias="chromaLocation")
-    ] = None
-    r"""The chroma location of the video stream"""
-
-    stream_identifier: Annotated[
-        Optional[str], pydantic.Field(alias="streamIdentifier")
-    ] = None
-    r"""The identifier of the video stream"""
-
-    chroma_subsampling: Annotated[
-        Optional[str], pydantic.Field(alias="chromaSubsampling")
-    ] = None
-    r"""The chroma subsampling format"""
-
-    coded_height: Annotated[Optional[int], pydantic.Field(alias="codedHeight")] = None
-    r"""The coded height of the video stream"""
-
-    coded_width: Annotated[Optional[int], pydantic.Field(alias="codedWidth")] = None
-    r"""The coded width of the video stream"""
-
-    frame_rate: Annotated[Optional[float], pydantic.Field(alias="frameRate")] = None
-    r"""The frame rate of the video stream"""
-
-    has_scaling_matrix: Annotated[
-        Optional[bool], pydantic.Field(alias="hasScalingMatrix")
-    ] = None
-    r"""Indicates if the stream has a scaling matrix"""
-
-    hearing_impaired: Annotated[
-        Optional[bool], pydantic.Field(alias="hearingImpaired")
-    ] = None
-
-    closed_captions: Annotated[
-        Optional[bool], pydantic.Field(alias="closedCaptions")
-    ] = None
-
-    embedded_in_video: Annotated[
-        Optional[str], pydantic.Field(alias="embeddedInVideo")
-    ] = None
-
-    height: Optional[int] = None
-    r"""The height of the video stream"""
-
-    level: Optional[int] = None
-    r"""The level of the video codec"""
-
-    profile: Optional[str] = None
-    r"""The profile of the video codec"""
-
-    ref_frames: Annotated[Optional[int], pydantic.Field(alias="refFrames")] = None
-    r"""Number of reference frames"""
-
-    scan_type: Annotated[Optional[str], pydantic.Field(alias="scanType")] = None
-    r"""The scan type (progressive or interlaced)"""
-
-    width: Optional[int] = None
-    r"""The width of the video stream"""
-
-    display_title: Annotated[Optional[str], pydantic.Field(alias="displayTitle")] = None
-    r"""Display title of the stream"""
-
-    extended_display_title: Annotated[
-        Optional[str], pydantic.Field(alias="extendedDisplayTitle")
-    ] = None
-    r"""Extended display title of the stream"""
-
-    channels: Optional[int] = None
-    r"""Number of audio channels (for audio streams)"""
-
-    language: Optional[str] = None
-    r"""The language of the stream (for audio/subtitle streams)"""
-
-    language_tag: Annotated[Optional[str], pydantic.Field(alias="languageTag")] = None
-    r"""Language tag of the stream"""
-
-    language_code: Annotated[Optional[str], pydantic.Field(alias="languageCode")] = None
-    r"""Language code of the stream"""
-
-    audio_channel_layout: Annotated[
-        Optional[str], pydantic.Field(alias="audioChannelLayout")
-    ] = None
-    r"""The audio channel layout"""
-
-    sampling_rate: Annotated[Optional[int], pydantic.Field(alias="samplingRate")] = None
-    r"""Sampling rate of the audio stream in Hz"""
-
-    title: Optional[str] = None
-    r"""Title of the subtitle track (for subtitle streams)"""
-
-    can_auto_sync: Annotated[Optional[bool], pydantic.Field(alias="canAutoSync")] = None
-    r"""Indicates if the subtitle stream can auto-sync"""
-
-
-class GetSearchAllLibrariesPartTypedDict(TypedDict):
-    id: int
-    key: str
-    file: str
-    size: int
-    container: str
-    r"""The container format of the media file.
-
-    """
-    duration: NotRequired[int]
-    audio_profile: NotRequired[str]
-    has64bit_offsets: NotRequired[bool]
-    optimized_for_streaming: NotRequired[bool]
-    video_profile: NotRequired[str]
-    indexes: NotRequired[str]
-    has_thumbnail: NotRequired[GetSearchAllLibrariesHasThumbnail]
-    stream: NotRequired[List[GetSearchAllLibrariesStreamTypedDict]]
-
-
-class GetSearchAllLibrariesPart(BaseModel):
-    id: int
-
-    key: str
-
-    file: str
-
-    size: int
-
-    container: str
-    r"""The container format of the media file.
-
-    """
-
-    duration: Optional[int] = None
-
-    audio_profile: Annotated[Optional[str], pydantic.Field(alias="audioProfile")] = None
-
-    has64bit_offsets: Annotated[
-        Optional[bool], pydantic.Field(alias="has64bitOffsets")
-    ] = None
-
-    optimized_for_streaming: Annotated[
-        Optional[bool], pydantic.Field(alias="optimizedForStreaming")
-    ] = None
-
-    video_profile: Annotated[Optional[str], pydantic.Field(alias="videoProfile")] = None
-
-    indexes: Optional[str] = None
-
-    has_thumbnail: Annotated[
-        Optional[GetSearchAllLibrariesHasThumbnail],
-        pydantic.Field(alias="hasThumbnail"),
-    ] = GetSearchAllLibrariesHasThumbnail.FALSE
-
-    stream: Annotated[
-        Optional[List[GetSearchAllLibrariesStream]], pydantic.Field(alias="Stream")
-    ] = None
-
-
-class GetSearchAllLibrariesMediaTypedDict(TypedDict):
-    id: int
-    container: str
-    part: List[GetSearchAllLibrariesPartTypedDict]
-    duration: NotRequired[int]
-    bitrate: NotRequired[int]
-    width: NotRequired[int]
-    height: NotRequired[int]
-    aspect_ratio: NotRequired[float]
-    audio_profile: NotRequired[str]
-    audio_channels: NotRequired[int]
-    audio_codec: NotRequired[str]
-    video_codec: NotRequired[str]
-    video_resolution: NotRequired[str]
-    video_frame_rate: NotRequired[str]
-    video_profile: NotRequired[str]
-    has_voice_activity: NotRequired[bool]
-    optimized_for_streaming: NotRequired[GetSearchAllLibrariesOptimizedForStreaming]
-    has64bit_offsets: NotRequired[bool]
-
-
-class GetSearchAllLibrariesMedia(BaseModel):
-    id: int
-
-    container: str
-
-    part: Annotated[List[GetSearchAllLibrariesPart], pydantic.Field(alias="Part")]
-
-    duration: Optional[int] = None
-
-    bitrate: Optional[int] = None
-
-    width: Optional[int] = None
-
-    height: Optional[int] = None
-
-    aspect_ratio: Annotated[Optional[float], pydantic.Field(alias="aspectRatio")] = None
-
-    audio_profile: Annotated[Optional[str], pydantic.Field(alias="audioProfile")] = None
-
-    audio_channels: Annotated[Optional[int], pydantic.Field(alias="audioChannels")] = (
-        None
-    )
-
-    audio_codec: Annotated[Optional[str], pydantic.Field(alias="audioCodec")] = None
-
-    video_codec: Annotated[Optional[str], pydantic.Field(alias="videoCodec")] = None
-
-    video_resolution: Annotated[
-        Optional[str], pydantic.Field(alias="videoResolution")
-    ] = None
-
-    video_frame_rate: Annotated[
-        Optional[str], pydantic.Field(alias="videoFrameRate")
-    ] = None
-
-    video_profile: Annotated[Optional[str], pydantic.Field(alias="videoProfile")] = None
-
-    has_voice_activity: Annotated[
-        Optional[bool], pydantic.Field(alias="hasVoiceActivity")
-    ] = None
-
-    optimized_for_streaming: Annotated[
-        Optional[GetSearchAllLibrariesOptimizedForStreaming],
-        pydantic.Field(alias="optimizedForStreaming"),
-    ] = GetSearchAllLibrariesOptimizedForStreaming.DISABLE
-
-    has64bit_offsets: Annotated[
-        Optional[bool], pydantic.Field(alias="has64bitOffsets")
-    ] = None
-
-
-class GetSearchAllLibrariesGenreTypedDict(TypedDict):
-    tag: NotRequired[str]
-
-
-class GetSearchAllLibrariesGenre(BaseModel):
-    tag: Optional[str] = None
-
-
-class GetSearchAllLibrariesCountryTypedDict(TypedDict):
-    tag: NotRequired[str]
-
-
-class GetSearchAllLibrariesCountry(BaseModel):
-    tag: Optional[str] = None
-
-
-class GetSearchAllLibrariesDirectorTypedDict(TypedDict):
-    tag: NotRequired[str]
-
-
-class GetSearchAllLibrariesDirector(BaseModel):
-    tag: Optional[str] = None
-
-
-class GetSearchAllLibrariesWriterTypedDict(TypedDict):
-    tag: NotRequired[str]
-
-
-class GetSearchAllLibrariesWriter(BaseModel):
-    tag: Optional[str] = None
-
-
-class GetSearchAllLibrariesCollectionTypedDict(TypedDict):
-    tag: NotRequired[str]
-
-
-class GetSearchAllLibrariesCollection(BaseModel):
-    tag: Optional[str] = None
-
-
-class GetSearchAllLibrariesRoleTypedDict(TypedDict):
-    id: NotRequired[int]
-    r"""The ID of the tag or actor."""
-    filter_: NotRequired[str]
-    r"""The filter used to find the actor or tag."""
-    thumb: NotRequired[str]
-    r"""The thumbnail of the actor"""
-    tag: NotRequired[str]
-    r"""The name of the tag or actor."""
-    tag_key: NotRequired[str]
-    r"""Unique identifier for the tag."""
-    role: NotRequired[str]
-    r"""The role of the actor or tag in the media."""
-
-
-class GetSearchAllLibrariesRole(BaseModel):
-    id: Optional[int] = None
-    r"""The ID of the tag or actor."""
-
-    filter_: Annotated[Optional[str], pydantic.Field(alias="filter")] = None
-    r"""The filter used to find the actor or tag."""
-
-    thumb: Optional[str] = None
-    r"""The thumbnail of the actor"""
-
-    tag: Optional[str] = None
-    r"""The name of the tag or actor."""
-
-    tag_key: Annotated[Optional[str], pydantic.Field(alias="tagKey")] = None
-    r"""Unique identifier for the tag."""
-
-    role: Optional[str] = None
-    r"""The role of the actor or tag in the media."""
-
-
-class GetSearchAllLibrariesLocationTypedDict(TypedDict):
-    path: NotRequired[str]
-
-
-class GetSearchAllLibrariesLocation(BaseModel):
-    path: Optional[str] = None
-
-
-class GetSearchAllLibrariesMediaGUIDTypedDict(TypedDict):
-    id: str
-    r"""Can be one of the following formats:
-    imdb://tt13015952, tmdb://2434012, tvdb://7945991
-
-    """
-
-
-class GetSearchAllLibrariesMediaGUID(BaseModel):
-    id: str
-    r"""Can be one of the following formats:
-    imdb://tt13015952, tmdb://2434012, tvdb://7945991
-
-    """
-
-
-class GetSearchAllLibrariesUltraBlurColorsTypedDict(TypedDict):
-    top_left: str
-    top_right: str
-    bottom_right: str
-    bottom_left: str
-
-
-class GetSearchAllLibrariesUltraBlurColors(BaseModel):
-    top_left: Annotated[str, pydantic.Field(alias="topLeft")]
-
-    top_right: Annotated[str, pydantic.Field(alias="topRight")]
-
-    bottom_right: Annotated[str, pydantic.Field(alias="bottomRight")]
-
-    bottom_left: Annotated[str, pydantic.Field(alias="bottomLeft")]
-
-
-class GetSearchAllLibrariesMetaDataRatingTypedDict(TypedDict):
-    image: str
-    r"""A URI or path to the rating image."""
-    value: float
-    r"""The value of the rating."""
-    type: str
-    r"""The type of rating (e.g., audience, critic)."""
-
-
-class GetSearchAllLibrariesMetaDataRating(BaseModel):
-    image: str
-    r"""A URI or path to the rating image."""
-
-    value: float
-    r"""The value of the rating."""
-
-    type: str
-    r"""The type of rating (e.g., audience, critic)."""
 
 
 class GetSearchAllLibrariesLibraryType(str, Enum, metaclass=utils.OpenEnumMeta):
@@ -668,203 +213,835 @@ class GetSearchAllLibrariesImage(BaseModel):
     url: str
 
 
-class GetSearchAllLibrariesMetadataTypedDict(TypedDict):
-    rating_key: str
-    r"""The rating key (Media ID) of this media item.
-    Note: This is always an integer, but is represented as a string in the API.
+class GetSearchAllLibrariesUltraBlurColorsTypedDict(TypedDict):
+    top_left: str
+    top_right: str
+    bottom_right: str
+    bottom_left: str
+
+
+class GetSearchAllLibrariesUltraBlurColors(BaseModel):
+    top_left: Annotated[str, pydantic.Field(alias="topLeft")]
+
+    top_right: Annotated[str, pydantic.Field(alias="topRight")]
+
+    bottom_right: Annotated[str, pydantic.Field(alias="bottomRight")]
+
+    bottom_left: Annotated[str, pydantic.Field(alias="bottomLeft")]
+
+
+class GetSearchAllLibrariesGuidsTypedDict(TypedDict):
+    id: str
+    r"""The unique identifier for the Guid. Can be prefixed with imdb://, tmdb://, tvdb://
 
     """
-    key: str
-    guid: str
-    type: GetSearchAllLibrariesType
-    r"""The type of media content in the Plex library. This can represent videos, music, or photos.
+
+
+class GetSearchAllLibrariesGuids(BaseModel):
+    id: str
+    r"""The unique identifier for the Guid. Can be prefixed with imdb://, tmdb://, tvdb://
 
     """
-    title: str
-    summary: str
-    added_at: int
-    r"""Unix epoch datetime in seconds"""
-    studio: NotRequired[str]
-    skip_children: NotRequired[bool]
-    library_section_id: NotRequired[int]
-    library_section_title: NotRequired[str]
-    library_section_key: NotRequired[str]
-    slug: NotRequired[str]
-    content_rating: NotRequired[str]
-    rating: NotRequired[float]
-    audience_rating: NotRequired[float]
-    year: NotRequired[int]
-    season_count: NotRequired[int]
-    tagline: NotRequired[str]
-    flatten_seasons: NotRequired[GetSearchAllLibrariesFlattenSeasons]
-    r"""Setting that indicates if seasons are set to hidden for the show. (-1 = Library default, 0 = Hide, 1 = Show)."""
-    episode_sort: NotRequired[GetSearchAllLibrariesEpisodeSort]
-    r"""Setting that indicates how episodes are sorted for the show. (-1 = Library default, 0 = Oldest first, 1 = Newest first)."""
-    enable_credits_marker_generation: NotRequired[
-        GetSearchAllLibrariesEnableCreditsMarkerGeneration
-    ]
-    r"""Setting that indicates if credits markers detection is enabled. (-1 = Library default, 0 = Disabled)."""
-    show_ordering: NotRequired[GetSearchAllLibrariesShowOrdering]
+
+
+class GetSearchAllLibrariesShowOrdering(str, Enum, metaclass=utils.OpenEnumMeta):
     r"""Setting that indicates the episode ordering for the show.
-    None = Library default,
-    tmdbAiring = The Movie Database (Aired),
-    aired = TheTVDB (Aired),
-    dvd = TheTVDB (DVD),
-    absolute = TheTVDB (Absolute)).
+    Options:
+    - None = Library default
+    - tmdbAiring = The Movie Database (Aired)
+    - aired = TheTVDB (Aired)
+    - dvd = TheTVDB (DVD)
+    - absolute = TheTVDB (Absolute)
 
     """
-    thumb: NotRequired[str]
-    art: NotRequired[str]
-    banner: NotRequired[str]
+
+    NONE = "None"
+    TMDB_AIRING = "tmdbAiring"
+    TVDB_AIRED = "aired"
+    TVDB_DVD = "dvd"
+    TVDB_ABSOLUTE = "absolute"
+
+
+class GetSearchAllLibrariesFlattenSeasons(str, Enum, metaclass=utils.OpenEnumMeta):
+    r"""Setting that indicates if seasons are set to hidden for the show. (-1 = Library default, 0 = Hide, 1 = Show)."""
+
+    LIBRARY_DEFAULT = "-1"
+    HIDE = "0"
+    SHOW = "1"
+
+
+class GetSearchAllLibrariesOptimizedForStreaming1(int, Enum):
+    ZERO = 0
+    ONE = 1
+
+
+GetSearchAllLibrariesOptimizedForStreamingTypedDict = TypeAliasType(
+    "GetSearchAllLibrariesOptimizedForStreamingTypedDict",
+    Union[GetSearchAllLibrariesOptimizedForStreaming1, bool],
+)
+r"""Has this media been optimized for streaming. NOTE: This can be 0, 1, false or true"""
+
+
+GetSearchAllLibrariesOptimizedForStreaming = TypeAliasType(
+    "GetSearchAllLibrariesOptimizedForStreaming",
+    Union[GetSearchAllLibrariesOptimizedForStreaming1, bool],
+)
+r"""Has this media been optimized for streaming. NOTE: This can be 0, 1, false or true"""
+
+
+class GetSearchAllLibrariesOptimizedForStreamingLibrary1(int, Enum):
+    ZERO = 0
+    ONE = 1
+
+
+GetSearchAllLibrariesLibraryOptimizedForStreamingTypedDict = TypeAliasType(
+    "GetSearchAllLibrariesLibraryOptimizedForStreamingTypedDict",
+    Union[GetSearchAllLibrariesOptimizedForStreamingLibrary1, bool],
+)
+r"""Has this media been optimized for streaming. NOTE: This can be 0, 1, false or true
+
+"""
+
+
+GetSearchAllLibrariesLibraryOptimizedForStreaming = TypeAliasType(
+    "GetSearchAllLibrariesLibraryOptimizedForStreaming",
+    Union[GetSearchAllLibrariesOptimizedForStreamingLibrary1, bool],
+)
+r"""Has this media been optimized for streaming. NOTE: This can be 0, 1, false or true
+
+"""
+
+
+class GetSearchAllLibrariesHasThumbnail(str, Enum):
+    r"""Indicates if the part has a thumbnail."""
+
+    FALSE = "0"
+    TRUE = "1"
+
+
+class GetSearchAllLibrariesPartTypedDict(TypedDict):
+    id: int
+    r"""Unique part identifier."""
+    accessible: NotRequired[bool]
+    r"""Indicates if the part is accessible."""
+    exists: NotRequired[bool]
+    r"""Indicates if the part exists."""
+    key: NotRequired[str]
+    r"""Key to access this part."""
+    indexes: NotRequired[str]
     duration: NotRequired[int]
+    r"""Duration of the part in milliseconds."""
+    file: NotRequired[str]
+    r"""File path for the part."""
+    size: NotRequired[int]
+    r"""File size in bytes."""
+    packet_length: NotRequired[int]
+    container: NotRequired[str]
+    r"""Container format of the part."""
+    video_profile: NotRequired[str]
+    r"""Video profile for the part."""
+    audio_profile: NotRequired[str]
+    r"""The audio profile used for the media (e.g., DTS, Dolby Digital, etc.)."""
+    has64bit_offsets: NotRequired[bool]
+    optimized_for_streaming: NotRequired[
+        GetSearchAllLibrariesLibraryOptimizedForStreamingTypedDict
+    ]
+    r"""Has this media been optimized for streaming. NOTE: This can be 0, 1, false or true
+
+    """
+    has_thumbnail: NotRequired[GetSearchAllLibrariesHasThumbnail]
+
+
+class GetSearchAllLibrariesPart(BaseModel):
+    id: int
+    r"""Unique part identifier."""
+
+    accessible: Optional[bool] = None
+    r"""Indicates if the part is accessible."""
+
+    exists: Optional[bool] = None
+    r"""Indicates if the part exists."""
+
+    key: Optional[str] = None
+    r"""Key to access this part."""
+
+    indexes: Optional[str] = None
+
+    duration: Optional[int] = None
+    r"""Duration of the part in milliseconds."""
+
+    file: Optional[str] = None
+    r"""File path for the part."""
+
+    size: Optional[int] = None
+    r"""File size in bytes."""
+
+    packet_length: Annotated[Optional[int], pydantic.Field(alias="packetLength")] = None
+
+    container: Optional[str] = None
+    r"""Container format of the part."""
+
+    video_profile: Annotated[Optional[str], pydantic.Field(alias="videoProfile")] = None
+    r"""Video profile for the part."""
+
+    audio_profile: Annotated[Optional[str], pydantic.Field(alias="audioProfile")] = None
+    r"""The audio profile used for the media (e.g., DTS, Dolby Digital, etc.)."""
+
+    has64bit_offsets: Annotated[
+        Optional[bool], pydantic.Field(alias="has64bitOffsets")
+    ] = None
+
+    optimized_for_streaming: Annotated[
+        Optional[GetSearchAllLibrariesLibraryOptimizedForStreaming],
+        pydantic.Field(alias="optimizedForStreaming"),
+    ] = None
+    r"""Has this media been optimized for streaming. NOTE: This can be 0, 1, false or true
+
+    """
+
+    has_thumbnail: Annotated[
+        Optional[GetSearchAllLibrariesHasThumbnail],
+        pydantic.Field(alias="hasThumbnail"),
+    ] = GetSearchAllLibrariesHasThumbnail.FALSE
+
+
+class GetSearchAllLibrariesMediaTypedDict(TypedDict):
+    id: int
+    r"""Unique media identifier."""
+    duration: NotRequired[int]
+    r"""Duration of the media in milliseconds."""
+    bitrate: NotRequired[int]
+    r"""Bitrate in bits per second."""
+    width: NotRequired[int]
+    r"""Video width in pixels."""
+    height: NotRequired[int]
+    r"""Video height in pixels."""
+    aspect_ratio: NotRequired[float]
+    r"""Aspect ratio of the video."""
+    audio_channels: NotRequired[int]
+    r"""Number of audio channels."""
+    display_offset: NotRequired[int]
+    audio_codec: NotRequired[str]
+    r"""Audio codec used."""
+    video_codec: NotRequired[str]
+    r"""Video codec used."""
+    video_resolution: NotRequired[str]
+    r"""Video resolution (e.g., 4k)."""
+    container: NotRequired[str]
+    r"""Container format of the media."""
+    video_frame_rate: NotRequired[str]
+    r"""Frame rate of the video. Values found include NTSC, PAL, 24p
+
+    """
+    video_profile: NotRequired[str]
+    r"""Video profile (e.g., main 10)."""
+    has_voice_activity: NotRequired[bool]
+    r"""Indicates whether voice activity is detected."""
+    audio_profile: NotRequired[str]
+    r"""The audio profile used for the media (e.g., DTS, Dolby Digital, etc.)."""
+    optimized_for_streaming: NotRequired[
+        GetSearchAllLibrariesOptimizedForStreamingTypedDict
+    ]
+    r"""Has this media been optimized for streaming. NOTE: This can be 0, 1, false or true"""
+    has64bit_offsets: NotRequired[bool]
+    r"""Indicates whether the media has 64-bit offsets.
+    This is relevant for media files that may require larger offsets than what 32-bit integers can provide.
+
+    """
+    part: NotRequired[List[GetSearchAllLibrariesPartTypedDict]]
+
+
+class GetSearchAllLibrariesMedia(BaseModel):
+    id: int
+    r"""Unique media identifier."""
+
+    duration: Optional[int] = None
+    r"""Duration of the media in milliseconds."""
+
+    bitrate: Optional[int] = None
+    r"""Bitrate in bits per second."""
+
+    width: Optional[int] = None
+    r"""Video width in pixels."""
+
+    height: Optional[int] = None
+    r"""Video height in pixels."""
+
+    aspect_ratio: Annotated[Optional[float], pydantic.Field(alias="aspectRatio")] = None
+    r"""Aspect ratio of the video."""
+
+    audio_channels: Annotated[Optional[int], pydantic.Field(alias="audioChannels")] = (
+        None
+    )
+    r"""Number of audio channels."""
+
+    display_offset: Annotated[Optional[int], pydantic.Field(alias="displayOffset")] = (
+        None
+    )
+
+    audio_codec: Annotated[Optional[str], pydantic.Field(alias="audioCodec")] = None
+    r"""Audio codec used."""
+
+    video_codec: Annotated[Optional[str], pydantic.Field(alias="videoCodec")] = None
+    r"""Video codec used."""
+
+    video_resolution: Annotated[
+        Optional[str], pydantic.Field(alias="videoResolution")
+    ] = None
+    r"""Video resolution (e.g., 4k)."""
+
+    container: Optional[str] = None
+    r"""Container format of the media."""
+
+    video_frame_rate: Annotated[
+        Optional[str], pydantic.Field(alias="videoFrameRate")
+    ] = None
+    r"""Frame rate of the video. Values found include NTSC, PAL, 24p
+
+    """
+
+    video_profile: Annotated[Optional[str], pydantic.Field(alias="videoProfile")] = None
+    r"""Video profile (e.g., main 10)."""
+
+    has_voice_activity: Annotated[
+        Optional[bool], pydantic.Field(alias="hasVoiceActivity")
+    ] = None
+    r"""Indicates whether voice activity is detected."""
+
+    audio_profile: Annotated[Optional[str], pydantic.Field(alias="audioProfile")] = None
+    r"""The audio profile used for the media (e.g., DTS, Dolby Digital, etc.)."""
+
+    optimized_for_streaming: Annotated[
+        Optional[GetSearchAllLibrariesOptimizedForStreaming],
+        pydantic.Field(alias="optimizedForStreaming"),
+    ] = None
+    r"""Has this media been optimized for streaming. NOTE: This can be 0, 1, false or true"""
+
+    has64bit_offsets: Annotated[
+        Optional[bool], pydantic.Field(alias="has64bitOffsets")
+    ] = None
+    r"""Indicates whether the media has 64-bit offsets.
+    This is relevant for media files that may require larger offsets than what 32-bit integers can provide.
+
+    """
+
+    part: Annotated[
+        Optional[List[GetSearchAllLibrariesPart]], pydantic.Field(alias="Part")
+    ] = None
+
+
+class GetSearchAllLibrariesGenreTypedDict(TypedDict):
+    id: int
+    r"""The unique identifier for the genre.
+    NOTE: This is different for each Plex server and is not globally unique.
+
+    """
+    tag: str
+    r"""The genre name of this media-item
+
+    """
+
+
+class GetSearchAllLibrariesGenre(BaseModel):
+    id: int
+    r"""The unique identifier for the genre.
+    NOTE: This is different for each Plex server and is not globally unique.
+
+    """
+
+    tag: str
+    r"""The genre name of this media-item
+
+    """
+
+
+class GetSearchAllLibrariesCountryTypedDict(TypedDict):
+    id: int
+    r"""The unique identifier for the country.
+    NOTE: This is different for each Plex server and is not globally unique.
+
+    """
+    tag: str
+    r"""The country of origin of this media item"""
+
+
+class GetSearchAllLibrariesCountry(BaseModel):
+    id: int
+    r"""The unique identifier for the country.
+    NOTE: This is different for each Plex server and is not globally unique.
+
+    """
+
+    tag: str
+    r"""The country of origin of this media item"""
+
+
+class GetSearchAllLibrariesDirectorTypedDict(TypedDict):
+    id: int
+    r"""Unique identifier for the director."""
+    tag: str
+    r"""The role of Director"""
+    thumb: NotRequired[str]
+    r"""The absolute URL of the thumbnail image for the director."""
+
+
+class GetSearchAllLibrariesDirector(BaseModel):
+    id: int
+    r"""Unique identifier for the director."""
+
+    tag: str
+    r"""The role of Director"""
+
+    thumb: Optional[str] = None
+    r"""The absolute URL of the thumbnail image for the director."""
+
+
+class GetSearchAllLibrariesWriterTypedDict(TypedDict):
+    id: int
+    r"""Unique identifier for the writer."""
+    tag: str
+    r"""The role of Writer"""
+    thumb: NotRequired[str]
+    r"""The absolute URL of the thumbnail image for the writer."""
+
+
+class GetSearchAllLibrariesWriter(BaseModel):
+    id: int
+    r"""Unique identifier for the writer."""
+
+    tag: str
+    r"""The role of Writer"""
+
+    thumb: Optional[str] = None
+    r"""The absolute URL of the thumbnail image for the writer."""
+
+
+class GetSearchAllLibrariesRoleTypedDict(TypedDict):
+    id: int
+    r"""The unique identifier for the role.
+    NOTE: This is different for each Plex server and is not globally unique.
+
+    """
+    tag: str
+    r"""The display tag for the actor (typically the actor's name)."""
+    role: NotRequired[str]
+    r"""The role played by the actor in the media item."""
+    thumb: NotRequired[str]
+    r"""The absolute URL of the thumbnail image for the actor."""
+
+
+class GetSearchAllLibrariesRole(BaseModel):
+    id: int
+    r"""The unique identifier for the role.
+    NOTE: This is different for each Plex server and is not globally unique.
+
+    """
+
+    tag: str
+    r"""The display tag for the actor (typically the actor's name)."""
+
+    role: Optional[str] = None
+    r"""The role played by the actor in the media item."""
+
+    thumb: Optional[str] = None
+    r"""The absolute URL of the thumbnail image for the actor."""
+
+
+class GetSearchAllLibrariesLocationTypedDict(TypedDict):
+    r"""The folder path for the media item."""
+
+    path: str
+
+
+class GetSearchAllLibrariesLocation(BaseModel):
+    r"""The folder path for the media item."""
+
+    path: str
+
+
+class GetSearchAllLibrariesMetadataTypedDict(TypedDict):
+    r"""Unknown"""
+
+    rating_key: str
+    r"""The rating key (Media ID) of this media item. Note: Although this is always an integer, it is represented as a string in the API."""
+    key: str
+    r"""The unique key for the media item."""
+    guid: str
+    r"""The globally unique identifier for the media item."""
+    slug: str
+    r"""A URL‐friendly version of the media title."""
+    type: GetSearchAllLibrariesType
+    title: str
+    r"""The title of the media item."""
+    banner: str
+    r"""The banner image URL for the media item."""
+    title_sort: str
+    r"""The sort title used for ordering media items."""
+    summary: str
+    r"""A synopsis of the media item."""
+    rating: float
+    r"""The critic rating for the media item."""
+    audience_rating: float
+    r"""The audience rating for the media item."""
+    tagline: str
+    r"""A brief tagline for the media item."""
+    thumb: str
+    r"""The thumbnail image URL for the media item."""
+    art: str
+    r"""The art image URL for the media item."""
+    theme: str
+    r"""The theme URL for the media item."""
+    index: int
+    r"""The index position of the media item."""
+    child_count: int
+    r"""The number of child items associated with this media item."""
+    season_count: int
+    r"""The total number of seasons (for TV shows)."""
+    duration: int
+    r"""The duration of the media item in milliseconds."""
+    added_at: int
+    studio: NotRequired[str]
+    r"""The studio that produced the media item."""
+    content_rating: NotRequired[str]
+    r"""The content rating for the media item."""
+    year: NotRequired[int]
+    r"""The release year of the media item."""
+    leaf_count: NotRequired[int]
+    r"""The number of leaf items (end nodes) under this media item."""
+    viewed_leaf_count: NotRequired[int]
+    r"""The number of leaf items that have been viewed."""
     originally_available_at: NotRequired[date]
+    r"""The original release date of the media item."""
     updated_at: NotRequired[int]
     r"""Unix epoch datetime in seconds"""
+    parent_year: NotRequired[int]
+    r"""The release year of the parent media item."""
     audience_rating_image: NotRequired[str]
+    r"""The URL for the audience rating image."""
     chapter_source: NotRequired[str]
+    r"""The source from which chapter data is derived."""
     primary_extra_key: NotRequired[str]
-    rating_image: NotRequired[str]
+    r"""The primary extra key associated with this media item."""
+    original_title: NotRequired[str]
+    r"""The original title of the media item (if different)."""
+    parent_rating_key: NotRequired[str]
+    r"""The rating key of the parent media item."""
     grandparent_rating_key: NotRequired[str]
+    r"""The rating key of the grandparent media item."""
+    parent_guid: NotRequired[str]
+    r"""The GUID of the parent media item."""
     grandparent_guid: NotRequired[str]
-    grandparent_key: NotRequired[str]
-    grandparent_title: NotRequired[str]
-    grandparent_thumb: NotRequired[str]
-    parent_slug: NotRequired[str]
+    r"""The GUID of the grandparent media item."""
     grandparent_slug: NotRequired[str]
-    grandparent_art: NotRequired[str]
+    r"""The slug for the grandparent media item."""
+    grandparent_key: NotRequired[str]
+    r"""The key of the grandparent media item."""
+    parent_key: NotRequired[str]
+    r"""The key of the parent media item."""
+    grandparent_title: NotRequired[str]
+    r"""The title of the grandparent media item."""
+    grandparent_thumb: NotRequired[str]
+    r"""The thumbnail URL for the grandparent media item."""
     grandparent_theme: NotRequired[str]
-    media: NotRequired[List[GetSearchAllLibrariesMediaTypedDict]]
-    r"""The Media object is only included when type query is `4` or higher.
+    r"""The theme URL for the grandparent media item."""
+    grandparent_art: NotRequired[str]
+    r"""The art URL for the grandparent media item."""
+    parent_title: NotRequired[str]
+    r"""The title of the parent media item."""
+    parent_index: NotRequired[int]
+    r"""The index position of the parent media item."""
+    parent_thumb: NotRequired[str]
+    r"""The thumbnail URL for the parent media item."""
+    rating_image: NotRequired[str]
+    r"""The URL for the rating image."""
+    view_count: NotRequired[int]
+    r"""The number of times this media item has been viewed."""
+    view_offset: NotRequired[int]
+    r"""The current playback offset (in milliseconds)."""
+    skip_count: NotRequired[int]
+    r"""The number of times this media item has been skipped."""
+    subtype: NotRequired[str]
+    r"""A classification that further describes the type of media item. For example, 'clip' indicates that the item is a short video clip."""
+    last_rated_at: NotRequired[int]
+    r"""The Unix timestamp representing the last time the item was rated."""
+    created_at_accuracy: NotRequired[str]
+    r"""The accuracy of the creation timestamp. This value indicates the format(s) provided (for example, 'epoch,local' means both epoch and local time formats are available)."""
+    created_at_tz_offset: NotRequired[str]
+    r"""The time zone offset for the creation timestamp, represented as a string. This offset indicates the difference from UTC."""
+    last_viewed_at: NotRequired[int]
+    r"""Unix timestamp for when the media item was last viewed."""
+    user_rating: NotRequired[float]
+    r"""The rating provided by a user for the item. This value is expressed as a decimal number."""
+    image: NotRequired[List[GetSearchAllLibrariesImageTypedDict]]
+    ultra_blur_colors: NotRequired[GetSearchAllLibrariesUltraBlurColorsTypedDict]
+    guids: NotRequired[List[GetSearchAllLibrariesGuidsTypedDict]]
+    library_section_id: NotRequired[int]
+    r"""The identifier for the library section."""
+    library_section_title: NotRequired[str]
+    r"""The title of the library section."""
+    library_section_key: NotRequired[str]
+    r"""The key corresponding to the library section."""
+    show_ordering: NotRequired[GetSearchAllLibrariesShowOrdering]
+    r"""Setting that indicates the episode ordering for the show.
+    Options:
+    - None = Library default
+    - tmdbAiring = The Movie Database (Aired)
+    - aired = TheTVDB (Aired)
+    - dvd = TheTVDB (DVD)
+    - absolute = TheTVDB (Absolute)
 
     """
+    flatten_seasons: NotRequired[GetSearchAllLibrariesFlattenSeasons]
+    r"""Setting that indicates if seasons are set to hidden for the show. (-1 = Library default, 0 = Hide, 1 = Show).
+
+    """
+    skip_children: NotRequired[bool]
+    r"""Indicates whether child items should be skipped."""
+    media: NotRequired[List[GetSearchAllLibrariesMediaTypedDict]]
     genre: NotRequired[List[GetSearchAllLibrariesGenreTypedDict]]
     country: NotRequired[List[GetSearchAllLibrariesCountryTypedDict]]
     director: NotRequired[List[GetSearchAllLibrariesDirectorTypedDict]]
     writer: NotRequired[List[GetSearchAllLibrariesWriterTypedDict]]
-    collection: NotRequired[List[GetSearchAllLibrariesCollectionTypedDict]]
     role: NotRequired[List[GetSearchAllLibrariesRoleTypedDict]]
     location: NotRequired[List[GetSearchAllLibrariesLocationTypedDict]]
-    media_guid: NotRequired[List[GetSearchAllLibrariesMediaGUIDTypedDict]]
-    r"""The Guid object is only included in the response if the `includeGuids` parameter is set to `1`.
-
-    """
-    ultra_blur_colors: NotRequired[GetSearchAllLibrariesUltraBlurColorsTypedDict]
-    meta_data_rating: NotRequired[List[GetSearchAllLibrariesMetaDataRatingTypedDict]]
-    image: NotRequired[List[GetSearchAllLibrariesImageTypedDict]]
-    title_sort: NotRequired[str]
-    view_count: NotRequired[int]
-    last_viewed_at: NotRequired[int]
-    original_title: NotRequired[str]
-    view_offset: NotRequired[int]
-    skip_count: NotRequired[int]
-    index: NotRequired[int]
-    theme: NotRequired[str]
-    leaf_count: NotRequired[int]
-    viewed_leaf_count: NotRequired[int]
-    child_count: NotRequired[int]
-    has_premium_extras: NotRequired[str]
-    has_premium_primary_extra: NotRequired[str]
-    parent_rating_key: NotRequired[str]
-    r"""The rating key of the parent item.
-
-    """
-    parent_guid: NotRequired[str]
-    parent_studio: NotRequired[str]
-    parent_key: NotRequired[str]
-    parent_title: NotRequired[str]
-    parent_index: NotRequired[int]
-    parent_year: NotRequired[int]
-    parent_thumb: NotRequired[str]
-    parent_theme: NotRequired[str]
 
 
 class GetSearchAllLibrariesMetadata(BaseModel):
-    rating_key: Annotated[str, pydantic.Field(alias="ratingKey")]
-    r"""The rating key (Media ID) of this media item.
-    Note: This is always an integer, but is represented as a string in the API.
+    r"""Unknown"""
 
-    """
+    rating_key: Annotated[str, pydantic.Field(alias="ratingKey")]
+    r"""The rating key (Media ID) of this media item. Note: Although this is always an integer, it is represented as a string in the API."""
 
     key: str
+    r"""The unique key for the media item."""
 
     guid: str
+    r"""The globally unique identifier for the media item."""
+
+    slug: str
+    r"""A URL‐friendly version of the media title."""
 
     type: Annotated[
         GetSearchAllLibrariesType, PlainValidator(validate_open_enum(False))
     ]
-    r"""The type of media content in the Plex library. This can represent videos, music, or photos.
-
-    """
 
     title: str
+    r"""The title of the media item."""
+
+    banner: str
+    r"""The banner image URL for the media item."""
+
+    title_sort: Annotated[str, pydantic.Field(alias="titleSort")]
+    r"""The sort title used for ordering media items."""
 
     summary: str
+    r"""A synopsis of the media item."""
+
+    rating: float
+    r"""The critic rating for the media item."""
+
+    audience_rating: Annotated[float, pydantic.Field(alias="audienceRating")]
+    r"""The audience rating for the media item."""
+
+    tagline: str
+    r"""A brief tagline for the media item."""
+
+    thumb: str
+    r"""The thumbnail image URL for the media item."""
+
+    art: str
+    r"""The art image URL for the media item."""
+
+    theme: str
+    r"""The theme URL for the media item."""
+
+    index: int
+    r"""The index position of the media item."""
+
+    child_count: Annotated[int, pydantic.Field(alias="childCount")]
+    r"""The number of child items associated with this media item."""
+
+    season_count: Annotated[int, pydantic.Field(alias="seasonCount")]
+    r"""The total number of seasons (for TV shows)."""
+
+    duration: int
+    r"""The duration of the media item in milliseconds."""
 
     added_at: Annotated[int, pydantic.Field(alias="addedAt")]
-    r"""Unix epoch datetime in seconds"""
 
     studio: Optional[str] = None
-
-    skip_children: Annotated[Optional[bool], pydantic.Field(alias="skipChildren")] = (
-        None
-    )
-
-    library_section_id: Annotated[
-        Optional[int], pydantic.Field(alias="librarySectionID")
-    ] = None
-
-    library_section_title: Annotated[
-        Optional[str], pydantic.Field(alias="librarySectionTitle")
-    ] = None
-
-    library_section_key: Annotated[
-        Optional[str], pydantic.Field(alias="librarySectionKey")
-    ] = None
-
-    slug: Optional[str] = None
+    r"""The studio that produced the media item."""
 
     content_rating: Annotated[Optional[str], pydantic.Field(alias="contentRating")] = (
         None
     )
-
-    rating: Optional[float] = None
-
-    audience_rating: Annotated[
-        Optional[float], pydantic.Field(alias="audienceRating")
-    ] = None
+    r"""The content rating for the media item."""
 
     year: Optional[int] = None
+    r"""The release year of the media item."""
 
-    season_count: Annotated[Optional[int], pydantic.Field(alias="seasonCount")] = None
+    leaf_count: Annotated[Optional[int], pydantic.Field(alias="leafCount")] = None
+    r"""The number of leaf items (end nodes) under this media item."""
 
-    tagline: Optional[str] = None
-
-    flatten_seasons: Annotated[
-        Annotated[
-            Optional[GetSearchAllLibrariesFlattenSeasons],
-            PlainValidator(validate_open_enum(False)),
-        ],
-        pydantic.Field(alias="flattenSeasons"),
+    viewed_leaf_count: Annotated[
+        Optional[int], pydantic.Field(alias="viewedLeafCount")
     ] = None
-    r"""Setting that indicates if seasons are set to hidden for the show. (-1 = Library default, 0 = Hide, 1 = Show)."""
+    r"""The number of leaf items that have been viewed."""
 
-    episode_sort: Annotated[
-        Annotated[
-            Optional[GetSearchAllLibrariesEpisodeSort],
-            PlainValidator(validate_open_enum(False)),
-        ],
-        pydantic.Field(alias="episodeSort"),
+    originally_available_at: Annotated[
+        Optional[date], pydantic.Field(alias="originallyAvailableAt")
     ] = None
-    r"""Setting that indicates how episodes are sorted for the show. (-1 = Library default, 0 = Oldest first, 1 = Newest first)."""
+    r"""The original release date of the media item."""
 
-    enable_credits_marker_generation: Annotated[
-        Annotated[
-            Optional[GetSearchAllLibrariesEnableCreditsMarkerGeneration],
-            PlainValidator(validate_open_enum(False)),
-        ],
-        pydantic.Field(alias="enableCreditsMarkerGeneration"),
+    updated_at: Annotated[Optional[int], pydantic.Field(alias="updatedAt")] = None
+    r"""Unix epoch datetime in seconds"""
+
+    parent_year: Annotated[Optional[int], pydantic.Field(alias="parentYear")] = None
+    r"""The release year of the parent media item."""
+
+    audience_rating_image: Annotated[
+        Optional[str], pydantic.Field(alias="audienceRatingImage")
     ] = None
-    r"""Setting that indicates if credits markers detection is enabled. (-1 = Library default, 0 = Disabled)."""
+    r"""The URL for the audience rating image."""
+
+    chapter_source: Annotated[Optional[str], pydantic.Field(alias="chapterSource")] = (
+        None
+    )
+    r"""The source from which chapter data is derived."""
+
+    primary_extra_key: Annotated[
+        Optional[str], pydantic.Field(alias="primaryExtraKey")
+    ] = None
+    r"""The primary extra key associated with this media item."""
+
+    original_title: Annotated[Optional[str], pydantic.Field(alias="originalTitle")] = (
+        None
+    )
+    r"""The original title of the media item (if different)."""
+
+    parent_rating_key: Annotated[
+        Optional[str], pydantic.Field(alias="parentRatingKey")
+    ] = None
+    r"""The rating key of the parent media item."""
+
+    grandparent_rating_key: Annotated[
+        Optional[str], pydantic.Field(alias="grandparentRatingKey")
+    ] = None
+    r"""The rating key of the grandparent media item."""
+
+    parent_guid: Annotated[Optional[str], pydantic.Field(alias="parentGuid")] = None
+    r"""The GUID of the parent media item."""
+
+    grandparent_guid: Annotated[
+        Optional[str], pydantic.Field(alias="grandparentGuid")
+    ] = None
+    r"""The GUID of the grandparent media item."""
+
+    grandparent_slug: Annotated[
+        Optional[str], pydantic.Field(alias="grandparentSlug")
+    ] = None
+    r"""The slug for the grandparent media item."""
+
+    grandparent_key: Annotated[
+        Optional[str], pydantic.Field(alias="grandparentKey")
+    ] = None
+    r"""The key of the grandparent media item."""
+
+    parent_key: Annotated[Optional[str], pydantic.Field(alias="parentKey")] = None
+    r"""The key of the parent media item."""
+
+    grandparent_title: Annotated[
+        Optional[str], pydantic.Field(alias="grandparentTitle")
+    ] = None
+    r"""The title of the grandparent media item."""
+
+    grandparent_thumb: Annotated[
+        Optional[str], pydantic.Field(alias="grandparentThumb")
+    ] = None
+    r"""The thumbnail URL for the grandparent media item."""
+
+    grandparent_theme: Annotated[
+        Optional[str], pydantic.Field(alias="grandparentTheme")
+    ] = None
+    r"""The theme URL for the grandparent media item."""
+
+    grandparent_art: Annotated[
+        Optional[str], pydantic.Field(alias="grandparentArt")
+    ] = None
+    r"""The art URL for the grandparent media item."""
+
+    parent_title: Annotated[Optional[str], pydantic.Field(alias="parentTitle")] = None
+    r"""The title of the parent media item."""
+
+    parent_index: Annotated[Optional[int], pydantic.Field(alias="parentIndex")] = None
+    r"""The index position of the parent media item."""
+
+    parent_thumb: Annotated[Optional[str], pydantic.Field(alias="parentThumb")] = None
+    r"""The thumbnail URL for the parent media item."""
+
+    rating_image: Annotated[Optional[str], pydantic.Field(alias="ratingImage")] = None
+    r"""The URL for the rating image."""
+
+    view_count: Annotated[Optional[int], pydantic.Field(alias="viewCount")] = None
+    r"""The number of times this media item has been viewed."""
+
+    view_offset: Annotated[Optional[int], pydantic.Field(alias="viewOffset")] = None
+    r"""The current playback offset (in milliseconds)."""
+
+    skip_count: Annotated[Optional[int], pydantic.Field(alias="skipCount")] = None
+    r"""The number of times this media item has been skipped."""
+
+    subtype: Optional[str] = None
+    r"""A classification that further describes the type of media item. For example, 'clip' indicates that the item is a short video clip."""
+
+    last_rated_at: Annotated[Optional[int], pydantic.Field(alias="lastRatedAt")] = None
+    r"""The Unix timestamp representing the last time the item was rated."""
+
+    created_at_accuracy: Annotated[
+        Optional[str], pydantic.Field(alias="createdAtAccuracy")
+    ] = None
+    r"""The accuracy of the creation timestamp. This value indicates the format(s) provided (for example, 'epoch,local' means both epoch and local time formats are available)."""
+
+    created_at_tz_offset: Annotated[
+        Optional[str], pydantic.Field(alias="createdAtTZOffset")
+    ] = None
+    r"""The time zone offset for the creation timestamp, represented as a string. This offset indicates the difference from UTC."""
+
+    last_viewed_at: Annotated[Optional[int], pydantic.Field(alias="lastViewedAt")] = (
+        None
+    )
+    r"""Unix timestamp for when the media item was last viewed."""
+
+    user_rating: Annotated[Optional[float], pydantic.Field(alias="userRating")] = None
+    r"""The rating provided by a user for the item. This value is expressed as a decimal number."""
+
+    image: Annotated[
+        Optional[List[GetSearchAllLibrariesImage]], pydantic.Field(alias="Image")
+    ] = None
+
+    ultra_blur_colors: Annotated[
+        Optional[GetSearchAllLibrariesUltraBlurColors],
+        pydantic.Field(alias="UltraBlurColors"),
+    ] = None
+
+    guids: Annotated[
+        Optional[List[GetSearchAllLibrariesGuids]], pydantic.Field(alias="Guid")
+    ] = None
+
+    library_section_id: Annotated[
+        Optional[int], pydantic.Field(alias="librarySectionID")
+    ] = None
+    r"""The identifier for the library section."""
+
+    library_section_title: Annotated[
+        Optional[str], pydantic.Field(alias="librarySectionTitle")
+    ] = None
+    r"""The title of the library section."""
+
+    library_section_key: Annotated[
+        Optional[str], pydantic.Field(alias="librarySectionKey")
+    ] = None
+    r"""The key corresponding to the library section."""
 
     show_ordering: Annotated[
         Annotated[
@@ -874,83 +1051,34 @@ class GetSearchAllLibrariesMetadata(BaseModel):
         pydantic.Field(alias="showOrdering"),
     ] = None
     r"""Setting that indicates the episode ordering for the show.
-    None = Library default,
-    tmdbAiring = The Movie Database (Aired),
-    aired = TheTVDB (Aired),
-    dvd = TheTVDB (DVD),
-    absolute = TheTVDB (Absolute)).
+    Options:
+    - None = Library default
+    - tmdbAiring = The Movie Database (Aired)
+    - aired = TheTVDB (Aired)
+    - dvd = TheTVDB (DVD)
+    - absolute = TheTVDB (Absolute)
 
     """
 
-    thumb: Optional[str] = None
-
-    art: Optional[str] = None
-
-    banner: Optional[str] = None
-
-    duration: Optional[int] = None
-
-    originally_available_at: Annotated[
-        Optional[date], pydantic.Field(alias="originallyAvailableAt")
+    flatten_seasons: Annotated[
+        Annotated[
+            Optional[GetSearchAllLibrariesFlattenSeasons],
+            PlainValidator(validate_open_enum(False)),
+        ],
+        pydantic.Field(alias="flattenSeasons"),
     ] = None
+    r"""Setting that indicates if seasons are set to hidden for the show. (-1 = Library default, 0 = Hide, 1 = Show).
 
-    updated_at: Annotated[Optional[int], pydantic.Field(alias="updatedAt")] = None
-    r"""Unix epoch datetime in seconds"""
+    """
 
-    audience_rating_image: Annotated[
-        Optional[str], pydantic.Field(alias="audienceRatingImage")
-    ] = None
-
-    chapter_source: Annotated[Optional[str], pydantic.Field(alias="chapterSource")] = (
+    skip_children: Annotated[Optional[bool], pydantic.Field(alias="skipChildren")] = (
         None
     )
-
-    primary_extra_key: Annotated[
-        Optional[str], pydantic.Field(alias="primaryExtraKey")
-    ] = None
-
-    rating_image: Annotated[Optional[str], pydantic.Field(alias="ratingImage")] = None
-
-    grandparent_rating_key: Annotated[
-        Optional[str], pydantic.Field(alias="grandparentRatingKey")
-    ] = None
-
-    grandparent_guid: Annotated[
-        Optional[str], pydantic.Field(alias="grandparentGuid")
-    ] = None
-
-    grandparent_key: Annotated[
-        Optional[str], pydantic.Field(alias="grandparentKey")
-    ] = None
-
-    grandparent_title: Annotated[
-        Optional[str], pydantic.Field(alias="grandparentTitle")
-    ] = None
-
-    grandparent_thumb: Annotated[
-        Optional[str], pydantic.Field(alias="grandparentThumb")
-    ] = None
-
-    parent_slug: Annotated[Optional[str], pydantic.Field(alias="parentSlug")] = None
-
-    grandparent_slug: Annotated[
-        Optional[str], pydantic.Field(alias="grandparentSlug")
-    ] = None
-
-    grandparent_art: Annotated[
-        Optional[str], pydantic.Field(alias="grandparentArt")
-    ] = None
-
-    grandparent_theme: Annotated[
-        Optional[str], pydantic.Field(alias="grandparentTheme")
-    ] = None
+    r"""Indicates whether child items should be skipped."""
 
     media: Annotated[
         Optional[List[GetSearchAllLibrariesMedia]], pydantic.Field(alias="Media")
     ] = None
-    r"""The Media object is only included when type query is `4` or higher.
-
-    """
 
     genre: Annotated[
         Optional[List[GetSearchAllLibrariesGenre]], pydantic.Field(alias="Genre")
@@ -968,11 +1096,6 @@ class GetSearchAllLibrariesMetadata(BaseModel):
         Optional[List[GetSearchAllLibrariesWriter]], pydantic.Field(alias="Writer")
     ] = None
 
-    collection: Annotated[
-        Optional[List[GetSearchAllLibrariesCollection]],
-        pydantic.Field(alias="Collection"),
-    ] = None
-
     role: Annotated[
         Optional[List[GetSearchAllLibrariesRole]], pydantic.Field(alias="Role")
     ] = None
@@ -981,107 +1104,79 @@ class GetSearchAllLibrariesMetadata(BaseModel):
         Optional[List[GetSearchAllLibrariesLocation]], pydantic.Field(alias="Location")
     ] = None
 
-    media_guid: Annotated[
-        Optional[List[GetSearchAllLibrariesMediaGUID]], pydantic.Field(alias="Guid")
-    ] = None
-    r"""The Guid object is only included in the response if the `includeGuids` parameter is set to `1`.
-
-    """
-
-    ultra_blur_colors: Annotated[
-        Optional[GetSearchAllLibrariesUltraBlurColors],
-        pydantic.Field(alias="UltraBlurColors"),
-    ] = None
-
-    meta_data_rating: Annotated[
-        Optional[List[GetSearchAllLibrariesMetaDataRating]],
-        pydantic.Field(alias="Rating"),
-    ] = None
-
-    image: Annotated[
-        Optional[List[GetSearchAllLibrariesImage]], pydantic.Field(alias="Image")
-    ] = None
-
-    title_sort: Annotated[Optional[str], pydantic.Field(alias="titleSort")] = None
-
-    view_count: Annotated[Optional[int], pydantic.Field(alias="viewCount")] = None
-
-    last_viewed_at: Annotated[Optional[int], pydantic.Field(alias="lastViewedAt")] = (
-        None
-    )
-
-    original_title: Annotated[Optional[str], pydantic.Field(alias="originalTitle")] = (
-        None
-    )
-
-    view_offset: Annotated[Optional[int], pydantic.Field(alias="viewOffset")] = None
-
-    skip_count: Annotated[Optional[int], pydantic.Field(alias="skipCount")] = None
-
-    index: Optional[int] = None
-
-    theme: Optional[str] = None
-
-    leaf_count: Annotated[Optional[int], pydantic.Field(alias="leafCount")] = None
-
-    viewed_leaf_count: Annotated[
-        Optional[int], pydantic.Field(alias="viewedLeafCount")
-    ] = None
-
-    child_count: Annotated[Optional[int], pydantic.Field(alias="childCount")] = None
-
-    has_premium_extras: Annotated[
-        Optional[str], pydantic.Field(alias="hasPremiumExtras")
-    ] = None
-
-    has_premium_primary_extra: Annotated[
-        Optional[str], pydantic.Field(alias="hasPremiumPrimaryExtra")
-    ] = None
-
-    parent_rating_key: Annotated[
-        Optional[str], pydantic.Field(alias="parentRatingKey")
-    ] = None
-    r"""The rating key of the parent item.
-
-    """
-
-    parent_guid: Annotated[Optional[str], pydantic.Field(alias="parentGuid")] = None
-
-    parent_studio: Annotated[Optional[str], pydantic.Field(alias="parentStudio")] = None
-
-    parent_key: Annotated[Optional[str], pydantic.Field(alias="parentKey")] = None
-
-    parent_title: Annotated[Optional[str], pydantic.Field(alias="parentTitle")] = None
-
-    parent_index: Annotated[Optional[int], pydantic.Field(alias="parentIndex")] = None
-
-    parent_year: Annotated[Optional[int], pydantic.Field(alias="parentYear")] = None
-
-    parent_thumb: Annotated[Optional[str], pydantic.Field(alias="parentThumb")] = None
-
-    parent_theme: Annotated[Optional[str], pydantic.Field(alias="parentTheme")] = None
-
 
 class SearchResultTypedDict(TypedDict):
     score: float
-    metadata: GetSearchAllLibrariesMetadataTypedDict
+    r"""The score of the search result, typically a float value between 0 and 1."""
+    directory: NotRequired[GetSearchAllLibrariesDirectoryTypedDict]
+    metadata: NotRequired[GetSearchAllLibrariesMetadataTypedDict]
 
 
 class SearchResult(BaseModel):
     score: float
+    r"""The score of the search result, typically a float value between 0 and 1."""
 
-    metadata: Annotated[GetSearchAllLibrariesMetadata, pydantic.Field(alias="Metadata")]
+    directory: Annotated[
+        Optional[GetSearchAllLibrariesDirectory], pydantic.Field(alias="Directory")
+    ] = None
+
+    metadata: Annotated[
+        Optional[GetSearchAllLibrariesMetadata], pydantic.Field(alias="Metadata")
+    ] = None
 
 
 class GetSearchAllLibrariesMediaContainerTypedDict(TypedDict):
-    size: float
+    size: int
+    r"""Number of media items returned in this response."""
+    allow_sync: bool
+    r"""Indicates whether syncing is allowed."""
+    identifier: str
+    r"""An plugin identifier for the media container."""
+    media_tag_prefix: str
+    r"""The prefix used for media tag resource paths."""
+    media_tag_version: int
+    r"""The version number for media tags."""
     search_result: List[SearchResultTypedDict]
+    library_section_id: NotRequired[int]
+    r"""The unique identifier for the library section."""
+    library_section_title: NotRequired[str]
+    r"""The title of the library section."""
+    library_section_uuid: NotRequired[str]
+    r"""The universally unique identifier for the library section."""
 
 
 class GetSearchAllLibrariesMediaContainer(BaseModel):
-    size: float
+    size: int
+    r"""Number of media items returned in this response."""
+
+    allow_sync: Annotated[bool, pydantic.Field(alias="allowSync")]
+    r"""Indicates whether syncing is allowed."""
+
+    identifier: str
+    r"""An plugin identifier for the media container."""
+
+    media_tag_prefix: Annotated[str, pydantic.Field(alias="mediaTagPrefix")]
+    r"""The prefix used for media tag resource paths."""
+
+    media_tag_version: Annotated[int, pydantic.Field(alias="mediaTagVersion")]
+    r"""The version number for media tags."""
 
     search_result: Annotated[List[SearchResult], pydantic.Field(alias="SearchResult")]
+
+    library_section_id: Annotated[
+        Optional[int], pydantic.Field(alias="librarySectionID")
+    ] = None
+    r"""The unique identifier for the library section."""
+
+    library_section_title: Annotated[
+        Optional[str], pydantic.Field(alias="librarySectionTitle")
+    ] = None
+    r"""The title of the library section."""
+
+    library_section_uuid: Annotated[
+        Optional[str], pydantic.Field(alias="librarySectionUUID")
+    ] = None
+    r"""The universally unique identifier for the library section."""
 
 
 class GetSearchAllLibrariesResponseBodyTypedDict(TypedDict):

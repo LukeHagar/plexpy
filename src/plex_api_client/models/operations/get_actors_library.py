@@ -130,7 +130,7 @@ class GetActorsLibraryMediaContainerTypedDict(TypedDict):
     r"""The secondary title of the media container."""
     view_group: str
     r"""Identifier for the view group layout."""
-    view_mode: str
+    view_mode: NotRequired[str]
     r"""Identifier for the view mode."""
     directory: NotRequired[List[GetActorsLibraryDirectoryTypedDict]]
     r"""An array of actor entries for media items."""
@@ -170,7 +170,7 @@ class GetActorsLibraryMediaContainer(BaseModel):
     view_group: Annotated[str, pydantic.Field(alias="viewGroup")]
     r"""Identifier for the view group layout."""
 
-    view_mode: Annotated[str, pydantic.Field(alias="viewMode")]
+    view_mode: Annotated[Optional[str], pydantic.Field(alias="viewMode")] = None
     r"""Identifier for the view mode."""
 
     directory: Annotated[

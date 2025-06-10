@@ -3,6 +3,8 @@
 
 ## Fields
 
-| Field              | Type               | Required           | Description        | Example            |
-| ------------------ | ------------------ | ------------------ | ------------------ | ------------------ |
-| `tag`              | *Optional[str]*    | :heavy_minus_sign: | N/A                | James Cameron      |
+| Field                                                                         | Type                                                                          | Required                                                                      | Description                                                                   | Example                                                                       |
+| ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| `id`                                                                          | *int*                                                                         | :heavy_check_mark:                                                            | Unique identifier for the director.                                           | 126522                                                                        |
+| `tag`                                                                         | *str*                                                                         | :heavy_check_mark:                                                            | The role of Director                                                          | Danny Boyle                                                                   |
+| `thumb`                                                                       | *Optional[str]*                                                               | :heavy_minus_sign:                                                            | The absolute URL of the thumbnail image for the director.                     | https://metadata-static.plex.tv/8/people/8d65fa96804802e08f2de09fe014408e.jpg |

@@ -6,10 +6,15 @@ from enum import Enum
 import httpx
 from plex_api_client import utils
 from plex_api_client.types import BaseModel
-from plex_api_client.utils import FieldMetadata, QueryParamMetadata, validate_open_enum
+from plex_api_client.utils import (
+    FieldMetadata,
+    QueryParamMetadata,
+    validate_const,
+    validate_open_enum,
+)
 import pydantic
-from pydantic.functional_validators import PlainValidator
-from typing import List, Optional, Union
+from pydantic.functional_validators import AfterValidator, PlainValidator
+from typing import List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
@@ -433,35 +438,22 @@ class HasThumbnail(str, Enum):
     TRUE = "1"
 
 
-class StreamType(int, Enum, metaclass=utils.OpenEnumMeta):
-    r"""Stream type:
-    - 1 = video
-    - 2 = audio
-    - 3 = subtitle
-
-    """
-
-    VIDEO = 1
-    AUDIO = 2
-    SUBTITLE = 3
-
-
 class StreamTypedDict(TypedDict):
     id: int
     r"""Unique stream identifier."""
-    stream_type: StreamType
-    r"""Stream type:
-    - 1 = video
-    - 2 = audio
-    - 3 = subtitle
-
-    """
     codec: str
     r"""Codec used by the stream."""
     display_title: str
     r"""Display title for the stream."""
     extended_display_title: str
     r"""Extended display title for the stream."""
+    stream_type: Literal[1]
+    r"""Stream type:
+    - VIDEO = 1
+    - AUDIO = 2
+    - SUBTITLE = 3
+
+    """
     format_: NotRequired[str]
     r"""Format of the stream (e.g., srt)."""
     default: NotRequired[bool]
@@ -555,17 +547,6 @@ class Stream(BaseModel):
     id: int
     r"""Unique stream identifier."""
 
-    stream_type: Annotated[
-        Annotated[StreamType, PlainValidator(validate_open_enum(True))],
-        pydantic.Field(alias="streamType"),
-    ]
-    r"""Stream type:
-    - 1 = video
-    - 2 = audio
-    - 3 = subtitle
-
-    """
-
     codec: str
     r"""Codec used by the stream."""
 
@@ -574,6 +555,17 @@ class Stream(BaseModel):
 
     extended_display_title: Annotated[str, pydantic.Field(alias="extendedDisplayTitle")]
     r"""Extended display title for the stream."""
+
+    STREAM_TYPE: Annotated[
+        Annotated[Literal[1], AfterValidator(validate_const(1))],
+        pydantic.Field(alias="streamType"),
+    ] = 1
+    r"""Stream type:
+    - VIDEO = 1
+    - AUDIO = 2
+    - SUBTITLE = 3
+
+    """
 
     format_: Annotated[Optional[str], pydantic.Field(alias="format")] = None
     r"""Format of the stream (e.g., srt)."""
@@ -1212,14 +1204,6 @@ class GetRecentlyAddedMetadataTypedDict(TypedDict):
     r"""The index position of the media item."""
     key: str
     r"""The unique key for the media item."""
-    library_section_id: int
-    r"""The identifier for the library section."""
-    library_section_key: str
-    r"""The key corresponding to the library section."""
-    library_section_title: str
-    r"""The title of the library section."""
-    originally_available_at: date
-    r"""The original release date of the media item."""
     parent_studio: str
     r"""The studio of the parent media item."""
     parent_theme: str
@@ -1277,8 +1261,16 @@ class GetRecentlyAddedMetadataTypedDict(TypedDict):
     r"""Unix timestamp for when the media item was last viewed."""
     leaf_count: NotRequired[int]
     r"""The number of leaf items (end nodes) under this media item."""
+    library_section_id: NotRequired[int]
+    r"""The identifier for the library section."""
+    library_section_key: NotRequired[str]
+    r"""The key corresponding to the library section."""
+    library_section_title: NotRequired[str]
+    r"""The title of the library section."""
     original_title: NotRequired[str]
     r"""The original title of the media item (if different)."""
+    originally_available_at: NotRequired[date]
+    r"""The original release date of the media item."""
     parent_guid: NotRequired[str]
     r"""The GUID of the parent media item."""
     parent_index: NotRequired[int]
@@ -1358,20 +1350,6 @@ class GetRecentlyAddedMetadata(BaseModel):
 
     key: str
     r"""The unique key for the media item."""
-
-    library_section_id: Annotated[int, pydantic.Field(alias="librarySectionID")]
-    r"""The identifier for the library section."""
-
-    library_section_key: Annotated[str, pydantic.Field(alias="librarySectionKey")]
-    r"""The key corresponding to the library section."""
-
-    library_section_title: Annotated[str, pydantic.Field(alias="librarySectionTitle")]
-    r"""The title of the library section."""
-
-    originally_available_at: Annotated[
-        date, pydantic.Field(alias="originallyAvailableAt")
-    ]
-    r"""The original release date of the media item."""
 
     parent_studio: Annotated[str, pydantic.Field(alias="parentStudio")]
     r"""The studio of the parent media item."""
@@ -1487,10 +1465,30 @@ class GetRecentlyAddedMetadata(BaseModel):
     leaf_count: Annotated[Optional[int], pydantic.Field(alias="leafCount")] = None
     r"""The number of leaf items (end nodes) under this media item."""
 
+    library_section_id: Annotated[
+        Optional[int], pydantic.Field(alias="librarySectionID")
+    ] = None
+    r"""The identifier for the library section."""
+
+    library_section_key: Annotated[
+        Optional[str], pydantic.Field(alias="librarySectionKey")
+    ] = None
+    r"""The key corresponding to the library section."""
+
+    library_section_title: Annotated[
+        Optional[str], pydantic.Field(alias="librarySectionTitle")
+    ] = None
+    r"""The title of the library section."""
+
     original_title: Annotated[Optional[str], pydantic.Field(alias="originalTitle")] = (
         None
     )
     r"""The original title of the media item (if different)."""
+
+    originally_available_at: Annotated[
+        Optional[date], pydantic.Field(alias="originallyAvailableAt")
+    ] = None
+    r"""The original release date of the media item."""
 
     parent_guid: Annotated[Optional[str], pydantic.Field(alias="parentGuid")] = None
     r"""The GUID of the parent media item."""

@@ -1,15 +1,20 @@
 # GetLibraryItemsType
 
+The type of media content in the Plex library. This can represent videos, music, or photos.
 
-## Fields
 
-| Field                                                                                      | Type                                                                                       | Required                                                                                   | Description                                                                                | Example                                                                                    |
-| ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------ |
-| `key`                                                                                      | *str*                                                                                      | :heavy_check_mark:                                                                         | N/A                                                                                        | /library/sections/2/all?type=2                                                             |
-| `type`                                                                                     | *str*                                                                                      | :heavy_check_mark:                                                                         | N/A                                                                                        | filter                                                                                     |
-| `subtype`                                                                                  | *Optional[str]*                                                                            | :heavy_minus_sign:                                                                         | N/A                                                                                        | clip                                                                                       |
-| `title`                                                                                    | *str*                                                                                      | :heavy_check_mark:                                                                         | N/A                                                                                        | TV Shows                                                                                   |
-| `active`                                                                                   | *bool*                                                                                     | :heavy_check_mark:                                                                         | N/A                                                                                        | false                                                                                      |
-| `filter_`                                                                                  | List[[operations.GetLibraryItemsFilter](../../models/operations/getlibraryitemsfilter.md)] | :heavy_minus_sign:                                                                         | N/A                                                                                        |                                                                                            |
-| `sort`                                                                                     | List[[operations.GetLibraryItemsSort](../../models/operations/getlibraryitemssort.md)]     | :heavy_minus_sign:                                                                         | N/A                                                                                        |                                                                                            |
-| `field`                                                                                    | List[[operations.GetLibraryItemsField](../../models/operations/getlibraryitemsfield.md)]   | :heavy_minus_sign:                                                                         | N/A                                                                                        |                                                                                            |
+
+## Values
+
+| Name          | Value         |
+| ------------- | ------------- |
+| `MOVIE`       | movie         |
+| `TV_SHOW`     | show          |
+| `SEASON`      | season        |
+| `EPISODE`     | episode       |
+| `ARTIST`      | artist        |
+| `ALBUM`       | album         |
+| `TRACK`       | track         |
+| `PHOTO_ALBUM` | photoalbum    |
+| `PHOTO`       | photo         |
+| `COLLECTION`  | collection    |

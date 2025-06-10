@@ -10,11 +10,12 @@ from plex_api_client.utils import (
     FieldMetadata,
     PathParamMetadata,
     QueryParamMetadata,
+    validate_const,
     validate_open_enum,
 )
 import pydantic
-from pydantic.functional_validators import PlainValidator
-from typing import List, Optional, Union
+from pydantic.functional_validators import AfterValidator, PlainValidator
+from typing import List, Literal, Optional, Union
 from typing_extensions import Annotated, NotRequired, TypeAliasType, TypedDict
 
 
@@ -246,14 +247,18 @@ GetMediaMetaDataLibraryOptimizedForStreamingTypedDict = TypeAliasType(
     "GetMediaMetaDataLibraryOptimizedForStreamingTypedDict",
     Union[GetMediaMetaDataOptimizedForStreamingLibrary1, bool],
 )
-r"""Has this media been optimized for streaming. NOTE: This can be 0, 1, false or true"""
+r"""Has this media been optimized for streaming. NOTE: This can be 0, 1, false or true
+
+"""
 
 
 GetMediaMetaDataLibraryOptimizedForStreaming = TypeAliasType(
     "GetMediaMetaDataLibraryOptimizedForStreaming",
     Union[GetMediaMetaDataOptimizedForStreamingLibrary1, bool],
 )
-r"""Has this media been optimized for streaming. NOTE: This can be 0, 1, false or true"""
+r"""Has this media been optimized for streaming. NOTE: This can be 0, 1, false or true
+
+"""
 
 
 class GetMediaMetaDataHasThumbnail(str, Enum):
@@ -263,39 +268,22 @@ class GetMediaMetaDataHasThumbnail(str, Enum):
     TRUE = "1"
 
 
-class GetMediaMetaDataStreamType(int, Enum, metaclass=utils.OpenEnumMeta):
-    r"""Stream type:
-    - 1 = video
-    - 2 = audio
-    - 3 = subtitle
-
-    """
-
-    VIDEO = 1
-    AUDIO = 2
-    SUBTITLE = 3
-
-
 class GetMediaMetaDataStreamTypedDict(TypedDict):
     id: int
     r"""Unique stream identifier."""
-    stream_type: GetMediaMetaDataStreamType
+    stream_type: Literal[1]
     r"""Stream type:
-    - 1 = video
-    - 2 = audio
-    - 3 = subtitle
+    - VIDEO = 1
+    - AUDIO = 2
+    - SUBTITLE = 3
 
     """
-    codec: str
-    r"""Codec used by the stream."""
-    display_title: str
-    r"""Display title for the stream."""
-    extended_display_title: str
-    r"""Extended display title for the stream."""
     format_: NotRequired[str]
     r"""Format of the stream (e.g., srt)."""
     default: NotRequired[bool]
     r"""Indicates if this stream is default."""
+    codec: NotRequired[str]
+    r"""Codec used by the stream."""
     index: NotRequired[int]
     r"""Index of the stream."""
     bitrate: NotRequired[int]
@@ -362,6 +350,10 @@ class GetMediaMetaDataStreamTypedDict(TypedDict):
     r"""Number of reference frames."""
     width: NotRequired[int]
     r"""Width of the video stream."""
+    display_title: NotRequired[str]
+    r"""Display title for the stream."""
+    extended_display_title: NotRequired[str]
+    r"""Extended display title for the stream."""
     selected: NotRequired[bool]
     r"""Indicates if this stream is selected (applicable for audio streams)."""
     forced: NotRequired[bool]
@@ -385,31 +377,25 @@ class GetMediaMetaDataStream(BaseModel):
     id: int
     r"""Unique stream identifier."""
 
-    stream_type: Annotated[
-        Annotated[GetMediaMetaDataStreamType, PlainValidator(validate_open_enum(True))],
+    STREAM_TYPE: Annotated[
+        Annotated[Literal[1], AfterValidator(validate_const(1))],
         pydantic.Field(alias="streamType"),
-    ]
+    ] = 1
     r"""Stream type:
-    - 1 = video
-    - 2 = audio
-    - 3 = subtitle
+    - VIDEO = 1
+    - AUDIO = 2
+    - SUBTITLE = 3
 
     """
-
-    codec: str
-    r"""Codec used by the stream."""
-
-    display_title: Annotated[str, pydantic.Field(alias="displayTitle")]
-    r"""Display title for the stream."""
-
-    extended_display_title: Annotated[str, pydantic.Field(alias="extendedDisplayTitle")]
-    r"""Extended display title for the stream."""
 
     format_: Annotated[Optional[str], pydantic.Field(alias="format")] = None
     r"""Format of the stream (e.g., srt)."""
 
     default: Optional[bool] = None
     r"""Indicates if this stream is default."""
+
+    codec: Optional[str] = None
+    r"""Codec used by the stream."""
 
     index: Optional[int] = None
     r"""Index of the stream."""
@@ -534,6 +520,14 @@ class GetMediaMetaDataStream(BaseModel):
     width: Optional[int] = None
     r"""Width of the video stream."""
 
+    display_title: Annotated[Optional[str], pydantic.Field(alias="displayTitle")] = None
+    r"""Display title for the stream."""
+
+    extended_display_title: Annotated[
+        Optional[str], pydantic.Field(alias="extendedDisplayTitle")
+    ] = None
+    r"""Extended display title for the stream."""
+
     selected: Optional[bool] = None
     r"""Indicates if this stream is selected (applicable for audio streams)."""
 
@@ -568,19 +562,19 @@ class GetMediaMetaDataStream(BaseModel):
 class GetMediaMetaDataPartTypedDict(TypedDict):
     id: int
     r"""Unique part identifier."""
-    key: str
-    r"""Key to access this part."""
-    file: str
-    r"""File path for the part."""
-    size: int
-    r"""File size in bytes."""
     accessible: NotRequired[bool]
     r"""Indicates if the part is accessible."""
     exists: NotRequired[bool]
     r"""Indicates if the part exists."""
+    key: NotRequired[str]
+    r"""Key to access this part."""
     indexes: NotRequired[str]
     duration: NotRequired[int]
     r"""Duration of the part in milliseconds."""
+    file: NotRequired[str]
+    r"""File path for the part."""
+    size: NotRequired[int]
+    r"""File size in bytes."""
     packet_length: NotRequired[int]
     container: NotRequired[str]
     r"""Container format of the part."""
@@ -592,24 +586,16 @@ class GetMediaMetaDataPartTypedDict(TypedDict):
     optimized_for_streaming: NotRequired[
         GetMediaMetaDataLibraryOptimizedForStreamingTypedDict
     ]
-    r"""Has this media been optimized for streaming. NOTE: This can be 0, 1, false or true"""
+    r"""Has this media been optimized for streaming. NOTE: This can be 0, 1, false or true
+
+    """
     has_thumbnail: NotRequired[GetMediaMetaDataHasThumbnail]
     stream: NotRequired[List[GetMediaMetaDataStreamTypedDict]]
-    r"""An array of streams for this part."""
 
 
 class GetMediaMetaDataPart(BaseModel):
     id: int
     r"""Unique part identifier."""
-
-    key: str
-    r"""Key to access this part."""
-
-    file: str
-    r"""File path for the part."""
-
-    size: int
-    r"""File size in bytes."""
 
     accessible: Optional[bool] = None
     r"""Indicates if the part is accessible."""
@@ -617,10 +603,19 @@ class GetMediaMetaDataPart(BaseModel):
     exists: Optional[bool] = None
     r"""Indicates if the part exists."""
 
+    key: Optional[str] = None
+    r"""Key to access this part."""
+
     indexes: Optional[str] = None
 
     duration: Optional[int] = None
     r"""Duration of the part in milliseconds."""
+
+    file: Optional[str] = None
+    r"""File path for the part."""
+
+    size: Optional[int] = None
+    r"""File size in bytes."""
 
     packet_length: Annotated[Optional[int], pydantic.Field(alias="packetLength")] = None
 
@@ -641,7 +636,9 @@ class GetMediaMetaDataPart(BaseModel):
         Optional[GetMediaMetaDataLibraryOptimizedForStreaming],
         pydantic.Field(alias="optimizedForStreaming"),
     ] = None
-    r"""Has this media been optimized for streaming. NOTE: This can be 0, 1, false or true"""
+    r"""Has this media been optimized for streaming. NOTE: This can be 0, 1, false or true
+
+    """
 
     has_thumbnail: Annotated[
         Optional[GetMediaMetaDataHasThumbnail], pydantic.Field(alias="hasThumbnail")
@@ -650,7 +647,6 @@ class GetMediaMetaDataPart(BaseModel):
     stream: Annotated[
         Optional[List[GetMediaMetaDataStream]], pydantic.Field(alias="Stream")
     ] = None
-    r"""An array of streams for this part."""
 
 
 class GetMediaMetaDataMediaTypedDict(TypedDict):
@@ -676,7 +672,7 @@ class GetMediaMetaDataMediaTypedDict(TypedDict):
     video_resolution: NotRequired[str]
     r"""Video resolution (e.g., 4k)."""
     container: NotRequired[str]
-    r"""File container type."""
+    r"""Container format of the media."""
     video_frame_rate: NotRequired[str]
     r"""Frame rate of the video. Values found include NTSC, PAL, 24p
 
@@ -690,8 +686,11 @@ class GetMediaMetaDataMediaTypedDict(TypedDict):
     optimized_for_streaming: NotRequired[GetMediaMetaDataOptimizedForStreamingTypedDict]
     r"""Has this media been optimized for streaming. NOTE: This can be 0, 1, false or true"""
     has64bit_offsets: NotRequired[bool]
+    r"""Indicates whether the media has 64-bit offsets.
+    This is relevant for media files that may require larger offsets than what 32-bit integers can provide.
+
+    """
     part: NotRequired[List[GetMediaMetaDataPartTypedDict]]
-    r"""An array of parts for this media item."""
 
 
 class GetMediaMetaDataMedia(BaseModel):
@@ -734,7 +733,7 @@ class GetMediaMetaDataMedia(BaseModel):
     r"""Video resolution (e.g., 4k)."""
 
     container: Optional[str] = None
-    r"""File container type."""
+    r"""Container format of the media."""
 
     video_frame_rate: Annotated[
         Optional[str], pydantic.Field(alias="videoFrameRate")
@@ -763,11 +762,14 @@ class GetMediaMetaDataMedia(BaseModel):
     has64bit_offsets: Annotated[
         Optional[bool], pydantic.Field(alias="has64bitOffsets")
     ] = None
+    r"""Indicates whether the media has 64-bit offsets.
+    This is relevant for media files that may require larger offsets than what 32-bit integers can provide.
+
+    """
 
     part: Annotated[
         Optional[List[GetMediaMetaDataPart]], pydantic.Field(alias="Part")
     ] = None
-    r"""An array of parts for this media item."""
 
 
 class GetMediaMetaDataGenreTypedDict(TypedDict):
@@ -972,7 +974,7 @@ class GetMediaMetaDataRole(BaseModel):
     r"""The absolute URL of the thumbnail image for the actor."""
 
 
-class RatingsTypedDict(TypedDict):
+class GetMediaMetaDataRatingsTypedDict(TypedDict):
     image: str
     r"""The image or reference for the rating."""
     value: float
@@ -981,7 +983,7 @@ class RatingsTypedDict(TypedDict):
     r"""The type of rating (e.g., audience, critic)."""
 
 
-class Ratings(BaseModel):
+class GetMediaMetaDataRatings(BaseModel):
     image: str
     r"""The image or reference for the rating."""
 
@@ -1022,7 +1024,7 @@ class GetMediaMetaDataLocation(BaseModel):
     r"""The file path for the location."""
 
 
-class ChapterTypedDict(TypedDict):
+class GetMediaMetaDataChapterTypedDict(TypedDict):
     r"""The thumbnail for the chapter"""
 
     id: int
@@ -1033,7 +1035,7 @@ class ChapterTypedDict(TypedDict):
     thumb: str
 
 
-class Chapter(BaseModel):
+class GetMediaMetaDataChapter(BaseModel):
     r"""The thumbnail for the chapter"""
 
     id: int
@@ -1049,7 +1051,7 @@ class Chapter(BaseModel):
     thumb: str
 
 
-class AttributesTypedDict(TypedDict):
+class GetMediaMetaDataAttributesTypedDict(TypedDict):
     r"""Attributes associated with the marker."""
 
     id: int
@@ -1058,7 +1060,7 @@ class AttributesTypedDict(TypedDict):
     r"""The version number of the marker attributes."""
 
 
-class Attributes(BaseModel):
+class GetMediaMetaDataAttributes(BaseModel):
     r"""Attributes associated with the marker."""
 
     id: int
@@ -1068,7 +1070,7 @@ class Attributes(BaseModel):
     r"""The version number of the marker attributes."""
 
 
-class MarkerTypedDict(TypedDict):
+class GetMediaMetaDataMarkerTypedDict(TypedDict):
     r"""The final status of the marker"""
 
     id: int
@@ -1076,11 +1078,11 @@ class MarkerTypedDict(TypedDict):
     start_time_offset: int
     end_time_offset: int
     final: NotRequired[bool]
-    attributes: NotRequired[AttributesTypedDict]
+    attributes: NotRequired[GetMediaMetaDataAttributesTypedDict]
     r"""Attributes associated with the marker."""
 
 
-class Marker(BaseModel):
+class GetMediaMetaDataMarker(BaseModel):
     r"""The final status of the marker"""
 
     id: int
@@ -1093,18 +1095,18 @@ class Marker(BaseModel):
 
     final: Optional[bool] = None
 
-    attributes: Annotated[Optional[Attributes], pydantic.Field(alias="Attributes")] = (
-        None
-    )
+    attributes: Annotated[
+        Optional[GetMediaMetaDataAttributes], pydantic.Field(alias="Attributes")
+    ] = None
     r"""Attributes associated with the marker."""
 
 
-class ExtrasTypedDict(TypedDict):
+class GetMediaMetaDataExtrasTypedDict(TypedDict):
     size: NotRequired[int]
     r"""The size of the extras."""
 
 
-class Extras(BaseModel):
+class GetMediaMetaDataExtras(BaseModel):
     size: Optional[int] = None
     r"""The size of the extras."""
 
@@ -1147,15 +1149,7 @@ class GetMediaMetaDataMetadataTypedDict(TypedDict):
     r"""The total number of seasons (for TV shows)."""
     duration: int
     r"""The duration of the media item in milliseconds."""
-    originally_available_at: date
-    r"""The original release date of the media item."""
     added_at: int
-    library_section_id: int
-    r"""The identifier for the library section."""
-    library_section_title: str
-    r"""The title of the library section."""
-    library_section_key: str
-    r"""The key corresponding to the library section."""
     studio: NotRequired[str]
     r"""The studio that produced the media item."""
     content_rating: NotRequired[str]
@@ -1166,6 +1160,8 @@ class GetMediaMetaDataMetadataTypedDict(TypedDict):
     r"""The number of leaf items (end nodes) under this media item."""
     viewed_leaf_count: NotRequired[int]
     r"""The number of leaf items that have been viewed."""
+    originally_available_at: NotRequired[date]
+    r"""The original release date of the media item."""
     updated_at: NotRequired[int]
     r"""Unix epoch datetime in seconds"""
     audience_rating_image: NotRequired[str]
@@ -1226,6 +1222,12 @@ class GetMediaMetaDataMetadataTypedDict(TypedDict):
     r"""The rating provided by a user for the item. This value is expressed as a decimal number."""
     image: NotRequired[List[GetMediaMetaDataImageTypedDict]]
     ultra_blur_colors: NotRequired[GetMediaMetaDataUltraBlurColorsTypedDict]
+    library_section_id: NotRequired[int]
+    r"""The identifier for the library section."""
+    library_section_title: NotRequired[str]
+    r"""The title of the library section."""
+    library_section_key: NotRequired[str]
+    r"""The key corresponding to the library section."""
     guids: NotRequired[List[GetMediaMetaDataGuidsTypedDict]]
     media: NotRequired[List[GetMediaMetaDataMediaTypedDict]]
     genre: NotRequired[List[GetMediaMetaDataGenreTypedDict]]
@@ -1234,12 +1236,12 @@ class GetMediaMetaDataMetadataTypedDict(TypedDict):
     writer: NotRequired[List[GetMediaMetaDataWriterTypedDict]]
     producer: NotRequired[List[GetMediaMetaDataProducerTypedDict]]
     role: NotRequired[List[GetMediaMetaDataRoleTypedDict]]
-    ratings: NotRequired[List[RatingsTypedDict]]
+    ratings: NotRequired[List[GetMediaMetaDataRatingsTypedDict]]
     similar: NotRequired[List[GetMediaMetaDataSimilarTypedDict]]
     location: NotRequired[List[GetMediaMetaDataLocationTypedDict]]
-    chapter: NotRequired[List[ChapterTypedDict]]
-    marker: NotRequired[List[MarkerTypedDict]]
-    extras: NotRequired[ExtrasTypedDict]
+    chapter: NotRequired[List[GetMediaMetaDataChapterTypedDict]]
+    marker: NotRequired[List[GetMediaMetaDataMarkerTypedDict]]
+    extras: NotRequired[GetMediaMetaDataExtrasTypedDict]
 
 
 class GetMediaMetaDataMetadata(BaseModel):
@@ -1298,21 +1300,7 @@ class GetMediaMetaDataMetadata(BaseModel):
     duration: int
     r"""The duration of the media item in milliseconds."""
 
-    originally_available_at: Annotated[
-        date, pydantic.Field(alias="originallyAvailableAt")
-    ]
-    r"""The original release date of the media item."""
-
     added_at: Annotated[int, pydantic.Field(alias="addedAt")]
-
-    library_section_id: Annotated[int, pydantic.Field(alias="librarySectionID")]
-    r"""The identifier for the library section."""
-
-    library_section_title: Annotated[str, pydantic.Field(alias="librarySectionTitle")]
-    r"""The title of the library section."""
-
-    library_section_key: Annotated[str, pydantic.Field(alias="librarySectionKey")]
-    r"""The key corresponding to the library section."""
 
     studio: Optional[str] = None
     r"""The studio that produced the media item."""
@@ -1332,6 +1320,11 @@ class GetMediaMetaDataMetadata(BaseModel):
         Optional[int], pydantic.Field(alias="viewedLeafCount")
     ] = None
     r"""The number of leaf items that have been viewed."""
+
+    originally_available_at: Annotated[
+        Optional[date], pydantic.Field(alias="originallyAvailableAt")
+    ] = None
+    r"""The original release date of the media item."""
 
     updated_at: Annotated[Optional[int], pydantic.Field(alias="updatedAt")] = None
     r"""Unix epoch datetime in seconds"""
@@ -1461,6 +1454,21 @@ class GetMediaMetaDataMetadata(BaseModel):
         pydantic.Field(alias="UltraBlurColors"),
     ] = None
 
+    library_section_id: Annotated[
+        Optional[int], pydantic.Field(alias="librarySectionID")
+    ] = None
+    r"""The identifier for the library section."""
+
+    library_section_title: Annotated[
+        Optional[str], pydantic.Field(alias="librarySectionTitle")
+    ] = None
+    r"""The title of the library section."""
+
+    library_section_key: Annotated[
+        Optional[str], pydantic.Field(alias="librarySectionKey")
+    ] = None
+    r"""The key corresponding to the library section."""
+
     guids: Annotated[
         Optional[List[GetMediaMetaDataGuids]], pydantic.Field(alias="Guid")
     ] = None
@@ -1493,7 +1501,9 @@ class GetMediaMetaDataMetadata(BaseModel):
         Optional[List[GetMediaMetaDataRole]], pydantic.Field(alias="Role")
     ] = None
 
-    ratings: Annotated[Optional[List[Ratings]], pydantic.Field(alias="Rating")] = None
+    ratings: Annotated[
+        Optional[List[GetMediaMetaDataRatings]], pydantic.Field(alias="Rating")
+    ] = None
 
     similar: Annotated[
         Optional[List[GetMediaMetaDataSimilar]], pydantic.Field(alias="Similar")
@@ -1503,11 +1513,17 @@ class GetMediaMetaDataMetadata(BaseModel):
         Optional[List[GetMediaMetaDataLocation]], pydantic.Field(alias="Location")
     ] = None
 
-    chapter: Annotated[Optional[List[Chapter]], pydantic.Field(alias="Chapter")] = None
+    chapter: Annotated[
+        Optional[List[GetMediaMetaDataChapter]], pydantic.Field(alias="Chapter")
+    ] = None
 
-    marker: Annotated[Optional[List[Marker]], pydantic.Field(alias="Marker")] = None
+    marker: Annotated[
+        Optional[List[GetMediaMetaDataMarker]], pydantic.Field(alias="Marker")
+    ] = None
 
-    extras: Annotated[Optional[Extras], pydantic.Field(alias="Extras")] = None
+    extras: Annotated[
+        Optional[GetMediaMetaDataExtras], pydantic.Field(alias="Extras")
+    ] = None
 
 
 class GetMediaMetaDataMediaContainerTypedDict(TypedDict):
@@ -1517,16 +1533,16 @@ class GetMediaMetaDataMediaContainerTypedDict(TypedDict):
     r"""Indicates whether syncing is allowed."""
     identifier: str
     r"""An plugin identifier for the media container."""
-    library_section_id: int
-    r"""The unique identifier for the library section."""
-    library_section_title: str
-    r"""The title of the library section."""
     media_tag_prefix: str
     r"""The prefix used for media tag resource paths."""
     media_tag_version: int
     r"""The version number for media tags."""
     metadata: List[GetMediaMetaDataMetadataTypedDict]
     r"""An array of metadata items."""
+    library_section_id: NotRequired[int]
+    r"""The unique identifier for the library section."""
+    library_section_title: NotRequired[str]
+    r"""The title of the library section."""
     library_section_uuid: NotRequired[str]
     r"""The universally unique identifier for the library section."""
 
@@ -1541,12 +1557,6 @@ class GetMediaMetaDataMediaContainer(BaseModel):
     identifier: str
     r"""An plugin identifier for the media container."""
 
-    library_section_id: Annotated[int, pydantic.Field(alias="librarySectionID")]
-    r"""The unique identifier for the library section."""
-
-    library_section_title: Annotated[str, pydantic.Field(alias="librarySectionTitle")]
-    r"""The title of the library section."""
-
     media_tag_prefix: Annotated[str, pydantic.Field(alias="mediaTagPrefix")]
     r"""The prefix used for media tag resource paths."""
 
@@ -1557,6 +1567,16 @@ class GetMediaMetaDataMediaContainer(BaseModel):
         List[GetMediaMetaDataMetadata], pydantic.Field(alias="Metadata")
     ]
     r"""An array of metadata items."""
+
+    library_section_id: Annotated[
+        Optional[int], pydantic.Field(alias="librarySectionID")
+    ] = None
+    r"""The unique identifier for the library section."""
+
+    library_section_title: Annotated[
+        Optional[str], pydantic.Field(alias="librarySectionTitle")
+    ] = None
+    r"""The title of the library section."""
 
     library_section_uuid: Annotated[
         Optional[str], pydantic.Field(alias="librarySectionUUID")
