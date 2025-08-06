@@ -2,6 +2,7 @@
 
 from typing import TYPE_CHECKING
 from importlib import import_module
+import builtins
 
 if TYPE_CHECKING:
     from .addplaylistcontents import (
@@ -664,6 +665,7 @@ if TYPE_CHECKING:
         MarkUnplayedUnauthorized,
         MarkUnplayedUnauthorizedData,
     )
+    from .no_response_error import NoResponseError
     from .performsearch import (
         PerformSearchBadRequest,
         PerformSearchBadRequestData,
@@ -684,6 +686,7 @@ if TYPE_CHECKING:
         PerformVoiceSearchUnauthorized,
         PerformVoiceSearchUnauthorizedData,
     )
+    from .plexapierror import PlexAPIError
     from .post_users_sign_in_data import (
         PostUsersSignInDataAuthenticationErrors,
         PostUsersSignInDataAuthenticationErrorsTypedDict,
@@ -694,6 +697,7 @@ if TYPE_CHECKING:
         PostUsersSignInDataUnauthorized,
         PostUsersSignInDataUnauthorizedData,
     )
+    from .responsevalidationerror import ResponseValidationError
     from .sdkerror import SDKError
     from .startalltasks import (
         StartAllTasksBadRequest,
@@ -1313,6 +1317,7 @@ __all__ = [
     "MarkUnplayedMediaErrorsTypedDict",
     "MarkUnplayedUnauthorized",
     "MarkUnplayedUnauthorizedData",
+    "NoResponseError",
     "PerformSearchBadRequest",
     "PerformSearchBadRequestData",
     "PerformSearchErrors",
@@ -1329,6 +1334,7 @@ __all__ = [
     "PerformVoiceSearchSearchErrorsTypedDict",
     "PerformVoiceSearchUnauthorized",
     "PerformVoiceSearchUnauthorizedData",
+    "PlexAPIError",
     "PostUsersSignInDataAuthenticationErrors",
     "PostUsersSignInDataAuthenticationErrorsTypedDict",
     "PostUsersSignInDataBadRequest",
@@ -1337,6 +1343,7 @@ __all__ = [
     "PostUsersSignInDataErrorsTypedDict",
     "PostUsersSignInDataUnauthorized",
     "PostUsersSignInDataUnauthorizedData",
+    "ResponseValidationError",
     "SDKError",
     "StartAllTasksBadRequest",
     "StartAllTasksBadRequestData",
@@ -1939,6 +1946,7 @@ _dynamic_imports: dict[str, str] = {
     "MarkUnplayedMediaErrorsTypedDict": ".markunplayed",
     "MarkUnplayedUnauthorized": ".markunplayed",
     "MarkUnplayedUnauthorizedData": ".markunplayed",
+    "NoResponseError": ".no_response_error",
     "PerformSearchBadRequest": ".performsearch",
     "PerformSearchBadRequestData": ".performsearch",
     "PerformSearchErrors": ".performsearch",
@@ -1955,6 +1963,7 @@ _dynamic_imports: dict[str, str] = {
     "PerformVoiceSearchSearchErrorsTypedDict": ".performvoicesearch",
     "PerformVoiceSearchUnauthorized": ".performvoicesearch",
     "PerformVoiceSearchUnauthorizedData": ".performvoicesearch",
+    "PlexAPIError": ".plexapierror",
     "PostUsersSignInDataAuthenticationErrors": ".post_users_sign_in_data",
     "PostUsersSignInDataAuthenticationErrorsTypedDict": ".post_users_sign_in_data",
     "PostUsersSignInDataBadRequest": ".post_users_sign_in_data",
@@ -1963,6 +1972,7 @@ _dynamic_imports: dict[str, str] = {
     "PostUsersSignInDataErrorsTypedDict": ".post_users_sign_in_data",
     "PostUsersSignInDataUnauthorized": ".post_users_sign_in_data",
     "PostUsersSignInDataUnauthorizedData": ".post_users_sign_in_data",
+    "ResponseValidationError": ".responsevalidationerror",
     "SDKError": ".sdkerror",
     "StartAllTasksBadRequest": ".startalltasks",
     "StartAllTasksBadRequestData": ".startalltasks",
@@ -2061,5 +2071,5 @@ def __getattr__(attr_name: str) -> object:
 
 
 def __dir__():
-    lazy_attrs = list(_dynamic_imports.keys())
-    return sorted(lazy_attrs)
+    lazy_attrs = builtins.list(_dynamic_imports.keys())
+    return builtins.sorted(lazy_attrs)

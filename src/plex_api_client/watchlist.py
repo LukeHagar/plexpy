@@ -5,6 +5,7 @@ from plex_api_client import utils
 from plex_api_client._hooks import HookContext
 from plex_api_client.models import errors, operations
 from plex_api_client.types import BaseModel, OptionalNullable, UNSET
+from plex_api_client.utils.unmarshal_json_response import unmarshal_json_response
 from typing import Any, Mapping, Optional, Union, cast
 
 
@@ -86,44 +87,33 @@ class Watchlist(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetWatchListResponse(
-                object=utils.unmarshal_json(
-                    http_res.text, Optional[operations.GetWatchListResponseBody]
+                object=unmarshal_json_response(
+                    Optional[operations.GetWatchListResponseBody], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetWatchListBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetWatchListBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetWatchListBadRequest(data=response_data)
+            raise errors.GetWatchListBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetWatchListUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetWatchListUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetWatchListUnauthorized(data=response_data)
+            raise errors.GetWatchListUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     async def get_watch_list_async(
         self,
@@ -200,41 +190,30 @@ class Watchlist(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetWatchListResponse(
-                object=utils.unmarshal_json(
-                    http_res.text, Optional[operations.GetWatchListResponseBody]
+                object=unmarshal_json_response(
+                    Optional[operations.GetWatchListResponseBody], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetWatchListBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetWatchListBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetWatchListBadRequest(data=response_data)
+            raise errors.GetWatchListBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetWatchListUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetWatchListUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetWatchListUnauthorized(data=response_data)
+            raise errors.GetWatchListUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)

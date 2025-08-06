@@ -5,6 +5,7 @@ from plex_api_client import utils
 from plex_api_client._hooks import HookContext
 from plex_api_client.models import errors, operations
 from plex_api_client.types import OptionalNullable, UNSET
+from plex_api_client.utils.unmarshal_json_response import unmarshal_json_response
 from typing import Any, Mapping, Optional
 
 
@@ -77,44 +78,33 @@ class Butler(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetButlerTasksResponse(
-                object=utils.unmarshal_json(
-                    http_res.text, Optional[operations.GetButlerTasksResponseBody]
+                object=unmarshal_json_response(
+                    Optional[operations.GetButlerTasksResponseBody], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetButlerTasksBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetButlerTasksBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetButlerTasksBadRequest(data=response_data)
+            raise errors.GetButlerTasksBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetButlerTasksUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetButlerTasksUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetButlerTasksUnauthorized(data=response_data)
+            raise errors.GetButlerTasksUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     async def get_butler_tasks_async(
         self,
@@ -182,44 +172,33 @@ class Butler(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetButlerTasksResponse(
-                object=utils.unmarshal_json(
-                    http_res.text, Optional[operations.GetButlerTasksResponseBody]
+                object=unmarshal_json_response(
+                    Optional[operations.GetButlerTasksResponseBody], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetButlerTasksBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetButlerTasksBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetButlerTasksBadRequest(data=response_data)
+            raise errors.GetButlerTasksBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetButlerTasksUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetButlerTasksUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetButlerTasksUnauthorized(data=response_data)
+            raise errors.GetButlerTasksUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     def start_all_tasks(
         self,
@@ -297,36 +276,25 @@ class Butler(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.StartAllTasksBadRequestData
+            response_data = unmarshal_json_response(
+                errors.StartAllTasksBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.StartAllTasksBadRequest(data=response_data)
+            raise errors.StartAllTasksBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.StartAllTasksUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.StartAllTasksUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.StartAllTasksUnauthorized(data=response_data)
+            raise errors.StartAllTasksUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     async def start_all_tasks_async(
         self,
@@ -404,36 +372,25 @@ class Butler(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.StartAllTasksBadRequestData
+            response_data = unmarshal_json_response(
+                errors.StartAllTasksBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.StartAllTasksBadRequest(data=response_data)
+            raise errors.StartAllTasksBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.StartAllTasksUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.StartAllTasksUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.StartAllTasksUnauthorized(data=response_data)
+            raise errors.StartAllTasksUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     def stop_all_tasks(
         self,
@@ -507,36 +464,25 @@ class Butler(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.StopAllTasksBadRequestData
+            response_data = unmarshal_json_response(
+                errors.StopAllTasksBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.StopAllTasksBadRequest(data=response_data)
+            raise errors.StopAllTasksBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.StopAllTasksUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.StopAllTasksUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.StopAllTasksUnauthorized(data=response_data)
+            raise errors.StopAllTasksUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     async def stop_all_tasks_async(
         self,
@@ -610,36 +556,25 @@ class Butler(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.StopAllTasksBadRequestData
+            response_data = unmarshal_json_response(
+                errors.StopAllTasksBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.StopAllTasksBadRequest(data=response_data)
+            raise errors.StopAllTasksBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.StopAllTasksUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.StopAllTasksUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.StopAllTasksUnauthorized(data=response_data)
+            raise errors.StopAllTasksUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     def start_task(
         self,
@@ -724,36 +659,25 @@ class Butler(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.StartTaskBadRequestData
+            response_data = unmarshal_json_response(
+                errors.StartTaskBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.StartTaskBadRequest(data=response_data)
+            raise errors.StartTaskBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.StartTaskUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.StartTaskUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.StartTaskUnauthorized(data=response_data)
+            raise errors.StartTaskUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     async def start_task_async(
         self,
@@ -838,36 +762,25 @@ class Butler(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.StartTaskBadRequestData
+            response_data = unmarshal_json_response(
+                errors.StartTaskBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.StartTaskBadRequest(data=response_data)
+            raise errors.StartTaskBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.StartTaskUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.StartTaskUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.StartTaskUnauthorized(data=response_data)
+            raise errors.StartTaskUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     def stop_task(
         self,
@@ -948,36 +861,25 @@ class Butler(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.StopTaskBadRequestData
+            response_data = unmarshal_json_response(
+                errors.StopTaskBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.StopTaskBadRequest(data=response_data)
+            raise errors.StopTaskBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.StopTaskUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.StopTaskUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.StopTaskUnauthorized(data=response_data)
+            raise errors.StopTaskUnauthorized(response_data, http_res)
         if utils.match_response(http_res, ["404", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     async def stop_task_async(
         self,
@@ -1058,33 +960,22 @@ class Butler(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.StopTaskBadRequestData
+            response_data = unmarshal_json_response(
+                errors.StopTaskBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.StopTaskBadRequest(data=response_data)
+            raise errors.StopTaskBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.StopTaskUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.StopTaskUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.StopTaskUnauthorized(data=response_data)
+            raise errors.StopTaskUnauthorized(response_data, http_res)
         if utils.match_response(http_res, ["404", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)

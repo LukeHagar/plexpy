@@ -18,6 +18,7 @@ This will return the media statistics for the server
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getStatistics" method="get" path="/statistics/media" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -60,6 +61,7 @@ This will return the resources for the server
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getResourcesStatistics" method="get" path="/statistics/resources" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -102,6 +104,7 @@ This will return the bandwidth statistics for the server
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getBandwidthStatistics" method="get" path="/statistics/bandwidth" -->
 ```python
 from plex_api_client import PlexAPI
 

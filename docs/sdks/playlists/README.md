@@ -30,6 +30,7 @@ Create a new playlist. By default the playlist is blank. To create a playlist al
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="createPlaylist" method="post" path="/playlists" -->
 ```python
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
@@ -78,6 +79,7 @@ Get All Playlists given the specified filters.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getPlaylists" method="get" path="/playlists" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -123,6 +125,7 @@ Smart playlist details contain the `content` attribute. This is the content URI 
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getPlaylist" method="get" path="/playlists/{playlistID}" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -166,6 +169,7 @@ This endpoint will delete a playlist
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="deletePlaylist" method="delete" path="/playlists/{playlistID}" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -209,6 +213,7 @@ From PMS version 1.9.1 clients can also edit playlist metadata using this endpoi
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="updatePlaylist" method="put" path="/playlists/{playlistID}" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -257,6 +262,7 @@ Note that for dumb playlists, items have a `playlistItemID` attribute which is u
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getPlaylistContents" method="get" path="/playlists/{playlistID}/items" -->
 ```python
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
@@ -302,6 +308,7 @@ Clears a playlist, only works with dumb playlists. Returns the playlist.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="clearPlaylistContents" method="delete" path="/playlists/{playlistID}/items" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -346,6 +353,7 @@ With a smart playlist, passing a new `uri` parameter replaces the rules for the 
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="addPlaylistContents" method="put" path="/playlists/{playlistID}/items" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -391,6 +399,7 @@ Imports m3u playlists by passing a path on the server to scan for m3u-formatted 
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="uploadPlaylist" method="post" path="/playlists/upload" -->
 ```python
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations

@@ -5,6 +5,7 @@ from plex_api_client import utils
 from plex_api_client._hooks import HookContext
 from plex_api_client.models import errors, operations
 from plex_api_client.types import BaseModel, OptionalNullable, UNSET
+from plex_api_client.utils.unmarshal_json_response import unmarshal_json_response
 from typing import Any, Mapping, Optional, Union, cast
 
 
@@ -91,36 +92,25 @@ class Video(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetTimelineBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetTimelineBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetTimelineBadRequest(data=response_data)
+            raise errors.GetTimelineBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetTimelineUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetTimelineUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetTimelineUnauthorized(data=response_data)
+            raise errors.GetTimelineUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     async def get_timeline_async(
         self,
@@ -202,36 +192,25 @@ class Video(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetTimelineBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetTimelineBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetTimelineBadRequest(data=response_data)
+            raise errors.GetTimelineBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetTimelineUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetTimelineUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetTimelineUnauthorized(data=response_data)
+            raise errors.GetTimelineUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     def start_universal_transcode(
         self,
@@ -316,36 +295,25 @@ class Video(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.StartUniversalTranscodeBadRequestData
+            response_data = unmarshal_json_response(
+                errors.StartUniversalTranscodeBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.StartUniversalTranscodeBadRequest(data=response_data)
+            raise errors.StartUniversalTranscodeBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.StartUniversalTranscodeUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.StartUniversalTranscodeUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.StartUniversalTranscodeUnauthorized(data=response_data)
+            raise errors.StartUniversalTranscodeUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     async def start_universal_transcode_async(
         self,
@@ -430,33 +398,22 @@ class Video(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.StartUniversalTranscodeBadRequestData
+            response_data = unmarshal_json_response(
+                errors.StartUniversalTranscodeBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.StartUniversalTranscodeBadRequest(data=response_data)
+            raise errors.StartUniversalTranscodeBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.StartUniversalTranscodeUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.StartUniversalTranscodeUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.StartUniversalTranscodeUnauthorized(data=response_data)
+            raise errors.StartUniversalTranscodeUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)

@@ -20,6 +20,7 @@ This will mark the provided media key as Played.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="markPlayed" method="get" path="/:/scrobble" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -62,6 +63,7 @@ This will mark the provided media key as Unplayed.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="markUnplayed" method="get" path="/:/unscrobble" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -105,6 +107,7 @@ This API command can be used to update the play progress of a media item.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="updatePlayProgress" method="post" path="/:/progress" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -149,6 +152,7 @@ Gets the banner image of the media item
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="get-banner-image" method="get" path="/library/metadata/{ratingKey}/banner" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -198,6 +202,7 @@ Gets the thumbnail image of the media item
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="get-thumb-image" method="get" path="/library/metadata/{ratingKey}/thumb" -->
 ```python
 from plex_api_client import PlexAPI
 

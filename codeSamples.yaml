@@ -527,7 +527,7 @@ actions:
                 access_token="<YOUR_API_KEY_HERE>",
             ) as plex_api:
 
-                res = plex_api.library.get_file_hash(url="file://C:\Image.png&type=13")
+                res = plex_api.library.get_file_hash(url="file://C:\\Image.png&type=13")
 
                 assert res is not None
 

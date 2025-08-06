@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 import httpx
+from plex_api_client.models.errors import PlexAPIError
 from plex_api_client.types import BaseModel
 import pydantic
 from typing import Optional
@@ -19,13 +20,18 @@ class GetServerIdentityRequestTimeoutData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetServerIdentityRequestTimeout(Exception):
+class GetServerIdentityRequestTimeout(PlexAPIError):
     r"""Request Timeout"""
 
     data: GetServerIdentityRequestTimeoutData
 
-    def __init__(self, data: GetServerIdentityRequestTimeoutData):
+    def __init__(
+        self,
+        data: GetServerIdentityRequestTimeoutData,
+        raw_response: httpx.Response,
+        body: Optional[str] = None,
+    ):
+        fallback = body or raw_response.text
+        message = str(data.message) or fallback
+        super().__init__(message, raw_response, body)
         self.data = data
-
-    def __str__(self) -> str:
-        return self.data.message if self.data.message is not None else "unknown error"

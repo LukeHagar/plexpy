@@ -24,6 +24,7 @@ Get Server Capabilities
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getServerCapabilities" method="get" path="/" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -65,6 +66,7 @@ Get Server Preferences
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getServerPreferences" method="get" path="/:/prefs" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -106,6 +108,7 @@ Get Available Clients
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getAvailableClients" method="get" path="/clients" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -147,6 +150,7 @@ Get Devices
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getDevices" method="get" path="/devices" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -188,6 +192,7 @@ This request is useful to determine if the server is online or offline
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="get-server-identity" method="get" path="/identity" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -226,6 +231,7 @@ Returns MyPlex Account Information
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getMyPlexAccount" method="get" path="/myplex/account" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -268,6 +274,7 @@ Plex's Photo transcoder is used throughout the service to serve images at specif
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getResizedPhoto" method="get" path="/photo/:/transcode" -->
 ```python
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
@@ -318,6 +325,7 @@ Retrieves media providers and their features from the Plex server.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="get-media-providers" method="get" path="/media/providers" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -360,6 +368,7 @@ Get Server List
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getServerList" method="get" path="/servers" -->
 ```python
 from plex_api_client import PlexAPI
 

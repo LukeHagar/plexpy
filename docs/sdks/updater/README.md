@@ -19,6 +19,7 @@ Querying status of updates
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getUpdateStatus" method="get" path="/updater/status" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -60,6 +61,7 @@ Checking for updates
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="checkForUpdates" method="put" path="/updater/check" -->
 ```python
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
@@ -104,6 +106,7 @@ Note that these two parameters are effectively mutually exclusive. The `tonight`
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="applyUpdates" method="put" path="/updater/apply" -->
 ```python
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations

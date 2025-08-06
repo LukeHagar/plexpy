@@ -20,6 +20,7 @@ Returns a list of butler tasks
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getButlerTasks" method="get" path="/butler" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -66,6 +67,7 @@ This endpoint will attempt to start all Butler tasks that are enabled in the set
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="startAllTasks" method="post" path="/butler" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -108,6 +110,7 @@ This endpoint will stop all currently running tasks and remove any scheduled tas
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="stopAllTasks" method="delete" path="/butler" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -154,6 +157,7 @@ This endpoint will attempt to start a single Butler task that is enabled in the 
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="startTask" method="post" path="/butler/{taskName}" -->
 ```python
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
@@ -198,6 +202,7 @@ This endpoint will stop a currently running task by name, or remove it from the 
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="stopTask" method="delete" path="/butler/{taskName}" -->
 ```python
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations

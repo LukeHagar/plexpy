@@ -5,6 +5,7 @@ from plex_api_client import utils
 from plex_api_client._hooks import HookContext
 from plex_api_client.models import errors, operations
 from plex_api_client.types import BaseModel, OptionalNullable, UNSET
+from plex_api_client.utils.unmarshal_json_response import unmarshal_json_response
 from typing import Any, Mapping, Optional, Union, cast
 
 
@@ -89,36 +90,25 @@ class Media(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.MarkPlayedBadRequestData
+            response_data = unmarshal_json_response(
+                errors.MarkPlayedBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.MarkPlayedBadRequest(data=response_data)
+            raise errors.MarkPlayedBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.MarkPlayedUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.MarkPlayedUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.MarkPlayedUnauthorized(data=response_data)
+            raise errors.MarkPlayedUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     async def mark_played_async(
         self,
@@ -198,36 +188,25 @@ class Media(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.MarkPlayedBadRequestData
+            response_data = unmarshal_json_response(
+                errors.MarkPlayedBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.MarkPlayedBadRequest(data=response_data)
+            raise errors.MarkPlayedBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.MarkPlayedUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.MarkPlayedUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.MarkPlayedUnauthorized(data=response_data)
+            raise errors.MarkPlayedUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     def mark_unplayed(
         self,
@@ -307,36 +286,25 @@ class Media(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.MarkUnplayedBadRequestData
+            response_data = unmarshal_json_response(
+                errors.MarkUnplayedBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.MarkUnplayedBadRequest(data=response_data)
+            raise errors.MarkUnplayedBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.MarkUnplayedUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.MarkUnplayedUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.MarkUnplayedUnauthorized(data=response_data)
+            raise errors.MarkUnplayedUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     async def mark_unplayed_async(
         self,
@@ -416,36 +384,25 @@ class Media(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.MarkUnplayedBadRequestData
+            response_data = unmarshal_json_response(
+                errors.MarkUnplayedBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.MarkUnplayedBadRequest(data=response_data)
+            raise errors.MarkUnplayedBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.MarkUnplayedUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.MarkUnplayedUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.MarkUnplayedUnauthorized(data=response_data)
+            raise errors.MarkUnplayedUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     def update_play_progress(
         self,
@@ -532,36 +489,25 @@ class Media(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.UpdatePlayProgressBadRequestData
+            response_data = unmarshal_json_response(
+                errors.UpdatePlayProgressBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.UpdatePlayProgressBadRequest(data=response_data)
+            raise errors.UpdatePlayProgressBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.UpdatePlayProgressUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.UpdatePlayProgressUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.UpdatePlayProgressUnauthorized(data=response_data)
+            raise errors.UpdatePlayProgressUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     async def update_play_progress_async(
         self,
@@ -648,36 +594,25 @@ class Media(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.UpdatePlayProgressBadRequestData
+            response_data = unmarshal_json_response(
+                errors.UpdatePlayProgressBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.UpdatePlayProgressBadRequest(data=response_data)
+            raise errors.UpdatePlayProgressBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.UpdatePlayProgressUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.UpdatePlayProgressUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.UpdatePlayProgressUnauthorized(data=response_data)
+            raise errors.UpdatePlayProgressUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     def get_banner_image(
         self,
@@ -763,37 +698,31 @@ class Media(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             http_res_text = utils.stream_to_text(http_res)
-            response_data = utils.unmarshal_json(
-                http_res_text, errors.GetBannerImageBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetBannerImageBadRequestData, http_res, http_res_text
             )
             response_data.raw_response = http_res
-            raise errors.GetBannerImageBadRequest(data=response_data)
+            raise errors.GetBannerImageBadRequest(
+                response_data, http_res, http_res_text
+            )
         if utils.match_response(http_res, "401", "application/json"):
             http_res_text = utils.stream_to_text(http_res)
-            response_data = utils.unmarshal_json(
-                http_res_text, errors.GetBannerImageUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetBannerImageUnauthorizedData, http_res, http_res_text
             )
             response_data.raw_response = http_res
-            raise errors.GetBannerImageUnauthorized(data=response_data)
+            raise errors.GetBannerImageUnauthorized(
+                response_data, http_res, http_res_text
+            )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
         http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res, http_res_text)
 
     async def get_banner_image_async(
         self,
@@ -879,37 +808,31 @@ class Media(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            response_data = utils.unmarshal_json(
-                http_res_text, errors.GetBannerImageBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetBannerImageBadRequestData, http_res, http_res_text
             )
             response_data.raw_response = http_res
-            raise errors.GetBannerImageBadRequest(data=response_data)
+            raise errors.GetBannerImageBadRequest(
+                response_data, http_res, http_res_text
+            )
         if utils.match_response(http_res, "401", "application/json"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            response_data = utils.unmarshal_json(
-                http_res_text, errors.GetBannerImageUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetBannerImageUnauthorizedData, http_res, http_res_text
             )
             response_data.raw_response = http_res
-            raise errors.GetBannerImageUnauthorized(data=response_data)
+            raise errors.GetBannerImageUnauthorized(
+                response_data, http_res, http_res_text
+            )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
         http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res, http_res_text)
 
     def get_thumb_image(
         self,
@@ -995,37 +918,29 @@ class Media(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             http_res_text = utils.stream_to_text(http_res)
-            response_data = utils.unmarshal_json(
-                http_res_text, errors.GetThumbImageBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetThumbImageBadRequestData, http_res, http_res_text
             )
             response_data.raw_response = http_res
-            raise errors.GetThumbImageBadRequest(data=response_data)
+            raise errors.GetThumbImageBadRequest(response_data, http_res, http_res_text)
         if utils.match_response(http_res, "401", "application/json"):
             http_res_text = utils.stream_to_text(http_res)
-            response_data = utils.unmarshal_json(
-                http_res_text, errors.GetThumbImageUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetThumbImageUnauthorizedData, http_res, http_res_text
             )
             response_data.raw_response = http_res
-            raise errors.GetThumbImageUnauthorized(data=response_data)
+            raise errors.GetThumbImageUnauthorized(
+                response_data, http_res, http_res_text
+            )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
         http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res, http_res_text)
 
     async def get_thumb_image_async(
         self,
@@ -1111,34 +1026,26 @@ class Media(BaseSDK):
             )
         if utils.match_response(http_res, "400", "application/json"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            response_data = utils.unmarshal_json(
-                http_res_text, errors.GetThumbImageBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetThumbImageBadRequestData, http_res, http_res_text
             )
             response_data.raw_response = http_res
-            raise errors.GetThumbImageBadRequest(data=response_data)
+            raise errors.GetThumbImageBadRequest(response_data, http_res, http_res_text)
         if utils.match_response(http_res, "401", "application/json"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            response_data = utils.unmarshal_json(
-                http_res_text, errors.GetThumbImageUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetThumbImageUnauthorizedData, http_res, http_res_text
             )
             response_data.raw_response = http_res
-            raise errors.GetThumbImageUnauthorized(data=response_data)
+            raise errors.GetThumbImageUnauthorized(
+                response_data, http_res, http_res_text
+            )
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
         http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res, http_res_text)

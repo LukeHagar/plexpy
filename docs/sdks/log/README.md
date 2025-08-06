@@ -19,6 +19,7 @@ This endpoint will write a single-line log message, including a level and source
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="logLine" method="get" path="/log" -->
 ```python
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
@@ -85,6 +86,7 @@ Ensure each parameter is properly URL-encoded to avoid interpretation issues.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="logMultiLine" method="post" path="/log" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -130,6 +132,7 @@ This endpoint will enable all Plex Media Serverlogs to be sent to the Papertrail
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="enablePaperTrail" method="get" path="/log/networked" -->
 ```python
 from plex_api_client import PlexAPI
 

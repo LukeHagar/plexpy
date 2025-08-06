@@ -23,6 +23,7 @@ Get Server Activities
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getServerActivities" method="get" path="/activities" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -64,6 +65,7 @@ Cancel Server Activities
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="cancelServerActivities" method="delete" path="/activities/{activityUUID}" -->
 ```python
 from plex_api_client import PlexAPI
 

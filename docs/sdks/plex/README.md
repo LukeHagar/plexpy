@@ -22,6 +22,7 @@ Get Companions Data
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getCompanionsData" method="get" path="/companions" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -64,6 +65,7 @@ Get friends of provided auth token.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getUserFriends" method="get" path="/friends" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -106,6 +108,7 @@ Returns the geolocation and locale data of the caller
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getGeoData" method="get" path="/geoip" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -146,6 +149,7 @@ Retrieves the home data for the authenticated user, including details like home 
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getHomeData" method="get" path="/home" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -187,6 +191,7 @@ Get Plex server access tokens and server connections
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="get-server-resources" method="get" path="/resources" -->
 ```python
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
@@ -234,6 +239,7 @@ Retrieve a Pin ID from Plex.tv to use for authentication flows
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getPin" method="post" path="/pins" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -280,6 +286,7 @@ Retrieve an Access Token from Plex.tv after the Pin has been authenticated
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getTokenByPinId" method="get" path="/pins/{pinID}" -->
 ```python
 from plex_api_client import PlexAPI
 

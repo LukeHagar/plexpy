@@ -35,6 +35,7 @@ This resource returns hash values for local files
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getFileHash" method="get" path="/library/hashes" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -43,7 +44,7 @@ with PlexAPI(
     access_token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
 
-    res = plex_api.library.get_file_hash(url="file://C:\Image.png&type=13")
+    res = plex_api.library.get_file_hash(url="file://C:\\Image.png&type=13")
 
     assert res is not None
 
@@ -79,6 +80,7 @@ This endpoint will return the recently added content.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="get-recently-added-library" method="get" path="/library/recentlyAdded" -->
 ```python
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
@@ -147,6 +149,7 @@ This allows a client to provide a rich interface around the media (e.g. allow so
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="get-all-libraries" method="get" path="/library/sections" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -227,6 +230,7 @@ Each type in the library comes with a set of filters and sorts, aiding in buildi
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="get-library-details" method="get" path="/library/sections/{sectionKey}" -->
 ```python
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
@@ -271,6 +275,7 @@ Delete a library using a specific section id
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="deleteLibrary" method="delete" path="/library/sections/{sectionKey}" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -334,6 +339,7 @@ Fetches details from a specific section of the library identified by a section k
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="get-library-items" method="get" path="/library/sections/{sectionKey}/{tag}" -->
 ```python
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
@@ -384,6 +390,7 @@ Retrieves a list of all general media data for this library.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="get-library-sections-all" method="get" path="/library/sections/{sectionKey}/all" -->
 ```python
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
@@ -436,6 +443,7 @@ This endpoint Refreshes all the Metadata of the library.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="get-refresh-library-metadata" method="get" path="/library/sections/{sectionKey}/refresh" -->
 ```python
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
@@ -498,6 +506,7 @@ Each type in the library comes with a set of filters and sorts, aiding in buildi
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="get-search-library" method="get" path="/library/sections/{sectionKey}/search" -->
 ```python
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
@@ -543,6 +552,7 @@ Retrieves a list of all the genres that are found for the media in this library.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="get-genres-library" method="get" path="/library/sections/{sectionKey}/genre" -->
 ```python
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
@@ -588,6 +598,7 @@ Retrieves a list of all the countries that are found for the media in this libra
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="get-countries-library" method="get" path="/library/sections/{sectionKey}/country" -->
 ```python
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
@@ -633,6 +644,7 @@ Retrieves a list of all the actors that are found for the media in this library.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="get-actors-library" method="get" path="/library/sections/{sectionKey}/actor" -->
 ```python
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
@@ -678,6 +690,7 @@ Search the provided query across all library sections, or a single section, and 
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="get-search-all-libraries" method="get" path="/library/search" -->
 ```python
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
@@ -731,6 +744,7 @@ Multiple rating keys can be provided as a comma-separated list (e.g., "21119,216
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="get-media-meta-data" method="get" path="/library/metadata/{ratingKey}" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -788,6 +802,7 @@ Returns the background artwork for a library item.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="get-media-arts" method="get" path="/library/metadata/{ratingKey}/arts" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -828,6 +843,7 @@ Uploads an image to use as the background artwork for a library item, either fro
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="post-media-arts" method="post" path="/library/metadata/{ratingKey}/arts" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -870,6 +886,7 @@ Returns the available posters for a library item.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="get-media-posters" method="get" path="/library/metadata/{ratingKey}/posters" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -910,6 +927,7 @@ Uploads a poster to a library item, either from a local file or a remote URL
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="post-media-poster" method="post" path="/library/metadata/{ratingKey}/posters" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -953,6 +971,7 @@ This endpoint will return the children of of a library item specified with the r
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getMetadataChildren" method="get" path="/library/metadata/{ratingKey}/children" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -997,6 +1016,7 @@ This endpoint will return the top watched content from libraries of a certain ty
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getTopWatchedContent" method="get" path="/library/all/top" -->
 ```python
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations

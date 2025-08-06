@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 import httpx
-from plex_api_client import utils
+from plex_api_client.models.errors import PlexAPIError
 from plex_api_client.types import BaseModel
 import pydantic
 from typing import List, Optional
@@ -29,16 +29,20 @@ class GetTokenByPinIDResponseBodyData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetTokenByPinIDResponseBody(Exception):
+class GetTokenByPinIDResponseBody(PlexAPIError):
     r"""Not Found or Expired"""
 
     data: GetTokenByPinIDResponseBodyData
 
-    def __init__(self, data: GetTokenByPinIDResponseBodyData):
+    def __init__(
+        self,
+        data: GetTokenByPinIDResponseBodyData,
+        raw_response: httpx.Response,
+        body: Optional[str] = None,
+    ):
+        message = body or raw_response.text
+        super().__init__(message, raw_response, body)
         self.data = data
-
-    def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetTokenByPinIDResponseBodyData)
 
 
 class GetTokenByPinIDErrorsTypedDict(TypedDict):
@@ -64,13 +68,17 @@ class GetTokenByPinIDBadRequestData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetTokenByPinIDBadRequest(Exception):
+class GetTokenByPinIDBadRequest(PlexAPIError):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
     data: GetTokenByPinIDBadRequestData
 
-    def __init__(self, data: GetTokenByPinIDBadRequestData):
+    def __init__(
+        self,
+        data: GetTokenByPinIDBadRequestData,
+        raw_response: httpx.Response,
+        body: Optional[str] = None,
+    ):
+        message = body or raw_response.text
+        super().__init__(message, raw_response, body)
         self.data = data
-
-    def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetTokenByPinIDBadRequestData)

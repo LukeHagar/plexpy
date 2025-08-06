@@ -16,8 +16,12 @@ generation:
   auth:
     oAuth2ClientCredentialsEnabled: true
     oAuth2PasswordEnabled: false
+  tests:
+    generateTests: true
+    generateNewTests: false
+    skipResponseBodyAssertions: false
 python:
-  version: 0.28.2
+  version: 0.29.0
   additionalDependencies:
     dev: {}
     main: {}

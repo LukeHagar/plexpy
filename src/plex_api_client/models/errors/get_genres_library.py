@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 import httpx
-from plex_api_client import utils
+from plex_api_client.models.errors import PlexAPIError
 from plex_api_client.types import BaseModel
 import pydantic
 from typing import List, Optional
@@ -32,16 +32,20 @@ class GetGenresLibraryUnauthorizedData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetGenresLibraryUnauthorized(Exception):
+class GetGenresLibraryUnauthorized(PlexAPIError):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
     data: GetGenresLibraryUnauthorizedData
 
-    def __init__(self, data: GetGenresLibraryUnauthorizedData):
+    def __init__(
+        self,
+        data: GetGenresLibraryUnauthorizedData,
+        raw_response: httpx.Response,
+        body: Optional[str] = None,
+    ):
+        message = body or raw_response.text
+        super().__init__(message, raw_response, body)
         self.data = data
-
-    def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetGenresLibraryUnauthorizedData)
 
 
 class GetGenresLibraryErrorsTypedDict(TypedDict):
@@ -67,13 +71,17 @@ class GetGenresLibraryBadRequestData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetGenresLibraryBadRequest(Exception):
+class GetGenresLibraryBadRequest(PlexAPIError):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
     data: GetGenresLibraryBadRequestData
 
-    def __init__(self, data: GetGenresLibraryBadRequestData):
+    def __init__(
+        self,
+        data: GetGenresLibraryBadRequestData,
+        raw_response: httpx.Response,
+        body: Optional[str] = None,
+    ):
+        message = body or raw_response.text
+        super().__init__(message, raw_response, body)
         self.data = data
-
-    def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetGenresLibraryBadRequestData)

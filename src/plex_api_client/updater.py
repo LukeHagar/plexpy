@@ -5,6 +5,7 @@ from plex_api_client import utils
 from plex_api_client._hooks import HookContext
 from plex_api_client.models import errors, operations
 from plex_api_client.types import OptionalNullable, UNSET
+from plex_api_client.utils.unmarshal_json_response import unmarshal_json_response
 from typing import Any, Mapping, Optional
 
 
@@ -80,44 +81,33 @@ class Updater(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetUpdateStatusResponse(
-                object=utils.unmarshal_json(
-                    http_res.text, Optional[operations.GetUpdateStatusResponseBody]
+                object=unmarshal_json_response(
+                    Optional[operations.GetUpdateStatusResponseBody], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetUpdateStatusBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetUpdateStatusBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetUpdateStatusBadRequest(data=response_data)
+            raise errors.GetUpdateStatusBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetUpdateStatusUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetUpdateStatusUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetUpdateStatusUnauthorized(data=response_data)
+            raise errors.GetUpdateStatusUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     async def get_update_status_async(
         self,
@@ -185,44 +175,33 @@ class Updater(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetUpdateStatusResponse(
-                object=utils.unmarshal_json(
-                    http_res.text, Optional[operations.GetUpdateStatusResponseBody]
+                object=unmarshal_json_response(
+                    Optional[operations.GetUpdateStatusResponseBody], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetUpdateStatusBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetUpdateStatusBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetUpdateStatusBadRequest(data=response_data)
+            raise errors.GetUpdateStatusBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetUpdateStatusUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetUpdateStatusUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetUpdateStatusUnauthorized(data=response_data)
+            raise errors.GetUpdateStatusUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     def check_for_updates(
         self,
@@ -302,36 +281,25 @@ class Updater(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.CheckForUpdatesBadRequestData
+            response_data = unmarshal_json_response(
+                errors.CheckForUpdatesBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.CheckForUpdatesBadRequest(data=response_data)
+            raise errors.CheckForUpdatesBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.CheckForUpdatesUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.CheckForUpdatesUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.CheckForUpdatesUnauthorized(data=response_data)
+            raise errors.CheckForUpdatesUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     async def check_for_updates_async(
         self,
@@ -411,36 +379,25 @@ class Updater(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.CheckForUpdatesBadRequestData
+            response_data = unmarshal_json_response(
+                errors.CheckForUpdatesBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.CheckForUpdatesBadRequest(data=response_data)
+            raise errors.CheckForUpdatesBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.CheckForUpdatesUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.CheckForUpdatesUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.CheckForUpdatesUnauthorized(data=response_data)
+            raise errors.CheckForUpdatesUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     def apply_updates(
         self,
@@ -524,36 +481,25 @@ class Updater(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.ApplyUpdatesBadRequestData
+            response_data = unmarshal_json_response(
+                errors.ApplyUpdatesBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.ApplyUpdatesBadRequest(data=response_data)
+            raise errors.ApplyUpdatesBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.ApplyUpdatesUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.ApplyUpdatesUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.ApplyUpdatesUnauthorized(data=response_data)
+            raise errors.ApplyUpdatesUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, ["500", "5XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     async def apply_updates_async(
         self,
@@ -637,33 +583,22 @@ class Updater(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.ApplyUpdatesBadRequestData
+            response_data = unmarshal_json_response(
+                errors.ApplyUpdatesBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.ApplyUpdatesBadRequest(data=response_data)
+            raise errors.ApplyUpdatesBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.ApplyUpdatesUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.ApplyUpdatesUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.ApplyUpdatesUnauthorized(data=response_data)
+            raise errors.ApplyUpdatesUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, ["500", "5XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)

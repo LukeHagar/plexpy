@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 import httpx
-from plex_api_client import utils
+from plex_api_client.models.errors import PlexAPIError
 from plex_api_client.types import BaseModel
 import pydantic
 from typing import List, Optional
@@ -32,16 +32,20 @@ class GetPlaylistsUnauthorizedData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetPlaylistsUnauthorized(Exception):
+class GetPlaylistsUnauthorized(PlexAPIError):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
     data: GetPlaylistsUnauthorizedData
 
-    def __init__(self, data: GetPlaylistsUnauthorizedData):
+    def __init__(
+        self,
+        data: GetPlaylistsUnauthorizedData,
+        raw_response: httpx.Response,
+        body: Optional[str] = None,
+    ):
+        message = body or raw_response.text
+        super().__init__(message, raw_response, body)
         self.data = data
-
-    def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetPlaylistsUnauthorizedData)
 
 
 class GetPlaylistsErrorsTypedDict(TypedDict):
@@ -67,13 +71,17 @@ class GetPlaylistsBadRequestData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetPlaylistsBadRequest(Exception):
+class GetPlaylistsBadRequest(PlexAPIError):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
     data: GetPlaylistsBadRequestData
 
-    def __init__(self, data: GetPlaylistsBadRequestData):
+    def __init__(
+        self,
+        data: GetPlaylistsBadRequestData,
+        raw_response: httpx.Response,
+        body: Optional[str] = None,
+    ):
+        message = body or raw_response.text
+        super().__init__(message, raw_response, body)
         self.data = data
-
-    def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetPlaylistsBadRequestData)

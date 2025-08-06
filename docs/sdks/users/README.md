@@ -13,6 +13,7 @@ Get list of all users that are friends and have library access with the provided
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="get-users" method="get" path="/users" -->
 ```python
 from plex_api_client import PlexAPI
 

@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 import httpx
-from plex_api_client import utils
+from plex_api_client.models.errors import PlexAPIError
 from plex_api_client.types import BaseModel
 import pydantic
 from typing import List, Optional
@@ -32,16 +32,20 @@ class GetServerCapabilitiesUnauthorizedData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetServerCapabilitiesUnauthorized(Exception):
+class GetServerCapabilitiesUnauthorized(PlexAPIError):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
     data: GetServerCapabilitiesUnauthorizedData
 
-    def __init__(self, data: GetServerCapabilitiesUnauthorizedData):
+    def __init__(
+        self,
+        data: GetServerCapabilitiesUnauthorizedData,
+        raw_response: httpx.Response,
+        body: Optional[str] = None,
+    ):
+        message = body or raw_response.text
+        super().__init__(message, raw_response, body)
         self.data = data
-
-    def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetServerCapabilitiesUnauthorizedData)
 
 
 class ErrorsTypedDict(TypedDict):
@@ -67,13 +71,17 @@ class GetServerCapabilitiesBadRequestData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetServerCapabilitiesBadRequest(Exception):
+class GetServerCapabilitiesBadRequest(PlexAPIError):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
     data: GetServerCapabilitiesBadRequestData
 
-    def __init__(self, data: GetServerCapabilitiesBadRequestData):
+    def __init__(
+        self,
+        data: GetServerCapabilitiesBadRequestData,
+        raw_response: httpx.Response,
+        body: Optional[str] = None,
+    ):
+        message = body or raw_response.text
+        super().__init__(message, raw_response, body)
         self.data = data
-
-    def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetServerCapabilitiesBadRequestData)

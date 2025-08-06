@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 import httpx
-from plex_api_client import utils
+from plex_api_client.models.errors import PlexAPIError
 from plex_api_client.types import BaseModel
 import pydantic
 from typing import List, Optional
@@ -32,16 +32,20 @@ class GetTransientTokenUnauthorizedData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetTransientTokenUnauthorized(Exception):
+class GetTransientTokenUnauthorized(PlexAPIError):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
     data: GetTransientTokenUnauthorizedData
 
-    def __init__(self, data: GetTransientTokenUnauthorizedData):
+    def __init__(
+        self,
+        data: GetTransientTokenUnauthorizedData,
+        raw_response: httpx.Response,
+        body: Optional[str] = None,
+    ):
+        message = body or raw_response.text
+        super().__init__(message, raw_response, body)
         self.data = data
-
-    def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetTransientTokenUnauthorizedData)
 
 
 class GetTransientTokenErrorsTypedDict(TypedDict):
@@ -67,13 +71,17 @@ class GetTransientTokenBadRequestData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetTransientTokenBadRequest(Exception):
+class GetTransientTokenBadRequest(PlexAPIError):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
     data: GetTransientTokenBadRequestData
 
-    def __init__(self, data: GetTransientTokenBadRequestData):
+    def __init__(
+        self,
+        data: GetTransientTokenBadRequestData,
+        raw_response: httpx.Response,
+        body: Optional[str] = None,
+    ):
+        message = body or raw_response.text
+        super().__init__(message, raw_response, body)
         self.data = data
-
-    def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetTransientTokenBadRequestData)

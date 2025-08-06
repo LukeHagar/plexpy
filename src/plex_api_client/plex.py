@@ -5,6 +5,7 @@ from plex_api_client import utils
 from plex_api_client._hooks import HookContext
 from plex_api_client.models import errors, operations
 from plex_api_client.types import BaseModel, OptionalNullable, UNSET
+from plex_api_client.utils.unmarshal_json_response import unmarshal_json_response
 from typing import Any, List, Mapping, Optional, Union, cast
 
 
@@ -77,44 +78,33 @@ class Plex(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetCompanionsDataResponse(
-                response_bodies=utils.unmarshal_json(
-                    http_res.text, Optional[List[operations.ResponseBody]]
+                response_bodies=unmarshal_json_response(
+                    Optional[List[operations.ResponseBody]], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetCompanionsDataBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetCompanionsDataBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetCompanionsDataBadRequest(data=response_data)
+            raise errors.GetCompanionsDataBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetCompanionsDataUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetCompanionsDataUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetCompanionsDataUnauthorized(data=response_data)
+            raise errors.GetCompanionsDataUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     async def get_companions_data_async(
         self,
@@ -182,44 +172,33 @@ class Plex(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetCompanionsDataResponse(
-                response_bodies=utils.unmarshal_json(
-                    http_res.text, Optional[List[operations.ResponseBody]]
+                response_bodies=unmarshal_json_response(
+                    Optional[List[operations.ResponseBody]], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetCompanionsDataBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetCompanionsDataBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetCompanionsDataBadRequest(data=response_data)
+            raise errors.GetCompanionsDataBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetCompanionsDataUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetCompanionsDataUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetCompanionsDataUnauthorized(data=response_data)
+            raise errors.GetCompanionsDataUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     def get_user_friends(
         self,
@@ -287,44 +266,33 @@ class Plex(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetUserFriendsResponse(
-                friends=utils.unmarshal_json(
-                    http_res.text, Optional[List[operations.Friend]]
+                friends=unmarshal_json_response(
+                    Optional[List[operations.Friend]], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetUserFriendsBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetUserFriendsBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetUserFriendsBadRequest(data=response_data)
+            raise errors.GetUserFriendsBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetUserFriendsUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetUserFriendsUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetUserFriendsUnauthorized(data=response_data)
+            raise errors.GetUserFriendsUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     async def get_user_friends_async(
         self,
@@ -392,44 +360,33 @@ class Plex(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetUserFriendsResponse(
-                friends=utils.unmarshal_json(
-                    http_res.text, Optional[List[operations.Friend]]
+                friends=unmarshal_json_response(
+                    Optional[List[operations.Friend]], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetUserFriendsBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetUserFriendsBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetUserFriendsBadRequest(data=response_data)
+            raise errors.GetUserFriendsBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetUserFriendsUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetUserFriendsUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetUserFriendsUnauthorized(data=response_data)
+            raise errors.GetUserFriendsUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     def get_geo_data(
         self,
@@ -496,44 +453,33 @@ class Plex(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetGeoDataResponse(
-                geo_data=utils.unmarshal_json(
-                    http_res.text, Optional[operations.GetGeoDataGeoData]
+                geo_data=unmarshal_json_response(
+                    Optional[operations.GetGeoDataGeoData], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetGeoDataBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetGeoDataBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetGeoDataBadRequest(data=response_data)
+            raise errors.GetGeoDataBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetGeoDataUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetGeoDataUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetGeoDataUnauthorized(data=response_data)
+            raise errors.GetGeoDataUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     async def get_geo_data_async(
         self,
@@ -600,44 +546,33 @@ class Plex(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetGeoDataResponse(
-                geo_data=utils.unmarshal_json(
-                    http_res.text, Optional[operations.GetGeoDataGeoData]
+                geo_data=unmarshal_json_response(
+                    Optional[operations.GetGeoDataGeoData], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetGeoDataBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetGeoDataBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetGeoDataBadRequest(data=response_data)
+            raise errors.GetGeoDataBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetGeoDataUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetGeoDataUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetGeoDataUnauthorized(data=response_data)
+            raise errors.GetGeoDataUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     def get_home_data(
         self,
@@ -705,44 +640,33 @@ class Plex(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetHomeDataResponse(
-                object=utils.unmarshal_json(
-                    http_res.text, Optional[operations.GetHomeDataResponseBody]
+                object=unmarshal_json_response(
+                    Optional[operations.GetHomeDataResponseBody], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetHomeDataBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetHomeDataBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetHomeDataBadRequest(data=response_data)
+            raise errors.GetHomeDataBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetHomeDataUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetHomeDataUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetHomeDataUnauthorized(data=response_data)
+            raise errors.GetHomeDataUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     async def get_home_data_async(
         self,
@@ -810,44 +734,33 @@ class Plex(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetHomeDataResponse(
-                object=utils.unmarshal_json(
-                    http_res.text, Optional[operations.GetHomeDataResponseBody]
+                object=unmarshal_json_response(
+                    Optional[operations.GetHomeDataResponseBody], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetHomeDataBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetHomeDataBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetHomeDataBadRequest(data=response_data)
+            raise errors.GetHomeDataBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetHomeDataUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetHomeDataUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetHomeDataUnauthorized(data=response_data)
+            raise errors.GetHomeDataUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     def get_server_resources(
         self,
@@ -937,44 +850,33 @@ class Plex(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetServerResourcesResponse(
-                plex_devices=utils.unmarshal_json(
-                    http_res.text, Optional[List[operations.PlexDevice]]
+                plex_devices=unmarshal_json_response(
+                    Optional[List[operations.PlexDevice]], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetServerResourcesBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetServerResourcesBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetServerResourcesBadRequest(data=response_data)
+            raise errors.GetServerResourcesBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetServerResourcesUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetServerResourcesUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetServerResourcesUnauthorized(data=response_data)
+            raise errors.GetServerResourcesUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     async def get_server_resources_async(
         self,
@@ -1064,44 +966,33 @@ class Plex(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetServerResourcesResponse(
-                plex_devices=utils.unmarshal_json(
-                    http_res.text, Optional[List[operations.PlexDevice]]
+                plex_devices=unmarshal_json_response(
+                    Optional[List[operations.PlexDevice]], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetServerResourcesBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetServerResourcesBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetServerResourcesBadRequest(data=response_data)
+            raise errors.GetServerResourcesBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetServerResourcesUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetServerResourcesUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetServerResourcesUnauthorized(data=response_data)
+            raise errors.GetServerResourcesUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     def get_pin(
         self,
@@ -1175,38 +1066,27 @@ class Plex(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "201", "application/json"):
             return operations.GetPinResponse(
-                auth_pin_container=utils.unmarshal_json(
-                    http_res.text, Optional[operations.GetPinAuthPinContainer]
+                auth_pin_container=unmarshal_json_response(
+                    Optional[operations.GetPinAuthPinContainer], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetPinBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetPinBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetPinBadRequest(data=response_data)
+            raise errors.GetPinBadRequest(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     async def get_pin_async(
         self,
@@ -1280,38 +1160,27 @@ class Plex(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "201", "application/json"):
             return operations.GetPinResponse(
-                auth_pin_container=utils.unmarshal_json(
-                    http_res.text, Optional[operations.GetPinAuthPinContainer]
+                auth_pin_container=unmarshal_json_response(
+                    Optional[operations.GetPinAuthPinContainer], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetPinBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetPinBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetPinBadRequest(data=response_data)
+            raise errors.GetPinBadRequest(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     def get_token_by_pin_id(
         self,
@@ -1388,44 +1257,33 @@ class Plex(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetTokenByPinIDResponse(
-                auth_pin_container=utils.unmarshal_json(
-                    http_res.text, Optional[operations.GetTokenByPinIDAuthPinContainer]
+                auth_pin_container=unmarshal_json_response(
+                    Optional[operations.GetTokenByPinIDAuthPinContainer], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetTokenByPinIDBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetTokenByPinIDBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetTokenByPinIDBadRequest(data=response_data)
+            raise errors.GetTokenByPinIDBadRequest(response_data, http_res)
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetTokenByPinIDResponseBodyData
+            response_data = unmarshal_json_response(
+                errors.GetTokenByPinIDResponseBodyData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetTokenByPinIDResponseBody(data=response_data)
+            raise errors.GetTokenByPinIDResponseBody(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     async def get_token_by_pin_id_async(
         self,
@@ -1502,41 +1360,30 @@ class Plex(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetTokenByPinIDResponse(
-                auth_pin_container=utils.unmarshal_json(
-                    http_res.text, Optional[operations.GetTokenByPinIDAuthPinContainer]
+                auth_pin_container=unmarshal_json_response(
+                    Optional[operations.GetTokenByPinIDAuthPinContainer], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetTokenByPinIDBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetTokenByPinIDBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetTokenByPinIDBadRequest(data=response_data)
+            raise errors.GetTokenByPinIDBadRequest(response_data, http_res)
         if utils.match_response(http_res, "404", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetTokenByPinIDResponseBodyData
+            response_data = unmarshal_json_response(
+                errors.GetTokenByPinIDResponseBodyData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetTokenByPinIDResponseBody(data=response_data)
+            raise errors.GetTokenByPinIDResponseBody(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)

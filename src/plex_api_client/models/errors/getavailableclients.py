@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 import httpx
-from plex_api_client import utils
+from plex_api_client.models.errors import PlexAPIError
 from plex_api_client.types import BaseModel
 import pydantic
 from typing import List, Optional
@@ -32,16 +32,20 @@ class GetAvailableClientsUnauthorizedData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetAvailableClientsUnauthorized(Exception):
+class GetAvailableClientsUnauthorized(PlexAPIError):
     r"""Unauthorized - Returned if the X-Plex-Token is missing from the header or query."""
 
     data: GetAvailableClientsUnauthorizedData
 
-    def __init__(self, data: GetAvailableClientsUnauthorizedData):
+    def __init__(
+        self,
+        data: GetAvailableClientsUnauthorizedData,
+        raw_response: httpx.Response,
+        body: Optional[str] = None,
+    ):
+        message = body or raw_response.text
+        super().__init__(message, raw_response, body)
         self.data = data
-
-    def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetAvailableClientsUnauthorizedData)
 
 
 class GetAvailableClientsErrorsTypedDict(TypedDict):
@@ -67,13 +71,17 @@ class GetAvailableClientsBadRequestData(BaseModel):
     r"""Raw HTTP response; suitable for custom response parsing"""
 
 
-class GetAvailableClientsBadRequest(Exception):
+class GetAvailableClientsBadRequest(PlexAPIError):
     r"""Bad Request - A parameter was not specified, or was specified incorrectly."""
 
     data: GetAvailableClientsBadRequestData
 
-    def __init__(self, data: GetAvailableClientsBadRequestData):
+    def __init__(
+        self,
+        data: GetAvailableClientsBadRequestData,
+        raw_response: httpx.Response,
+        body: Optional[str] = None,
+    ):
+        message = body or raw_response.text
+        super().__init__(message, raw_response, body)
         self.data = data
-
-    def __str__(self) -> str:
-        return utils.marshal_json(self.data, GetAvailableClientsBadRequestData)

@@ -400,27 +400,18 @@ with PlexAPI(
 <!-- Start Error Handling [errors] -->
 ## Error Handling
 
-Handling errors in this SDK should largely match your expectations. All operations return a response object or raise an exception.
+[`PlexAPIError`](./src/plex_api_client/models/errors/plexapierror.py) is the base class for all HTTP error responses. It has the following properties:
 
-By default, an API error will raise a errors.SDKError exception, which has the following properties:
-
-| Property        | Type             | Description           |
-|-----------------|------------------|-----------------------|
-| `.status_code`  | *int*            | The HTTP status code  |
-| `.message`      | *str*            | The error message     |
-| `.raw_response` | *httpx.Response* | The raw HTTP response |
-| `.body`         | *str*            | The response content  |
-
-When custom error responses are specified for an operation, the SDK may also raise their associated exceptions. You can refer to respective *Errors* tables in SDK docs for more details on possible exception types for each operation. For example, the `get_server_capabilities_async` method may raise the following exceptions:
-
-| Error Type                               | Status Code | Content Type     |
-| ---------------------------------------- | ----------- | ---------------- |
-| errors.GetServerCapabilitiesBadRequest   | 400         | application/json |
-| errors.GetServerCapabilitiesUnauthorized | 401         | application/json |
-| errors.SDKError                          | 4XX, 5XX    | \*/\*            |
+| Property           | Type             | Description                                                                             |
+| ------------------ | ---------------- | --------------------------------------------------------------------------------------- |
+| `err.message`      | `str`            | Error message                                                                           |
+| `err.status_code`  | `int`            | HTTP response status code eg `404`                                                      |
+| `err.headers`      | `httpx.Headers`  | HTTP response headers                                                                   |
+| `err.body`         | `str`            | HTTP body. Can be empty string if no body is returned.                                  |
+| `err.raw_response` | `httpx.Response` | Raw HTTP response                                                                       |
+| `err.data`         |                  | Optional. Some errors may contain structured data. [See Error Classes](#error-classes). |
 
 ### Example
-
 ```python
 from plex_api_client import PlexAPI
 from plex_api_client.models import errors
@@ -439,16 +430,197 @@ with PlexAPI(
         # Handle response
         print(res.object)
 
-    except errors.GetServerCapabilitiesBadRequest as e:
-        # handle e.data: errors.GetServerCapabilitiesBadRequestData
-        raise(e)
-    except errors.GetServerCapabilitiesUnauthorized as e:
-        # handle e.data: errors.GetServerCapabilitiesUnauthorizedData
-        raise(e)
-    except errors.SDKError as e:
-        # handle exception
-        raise(e)
+
+    except errors.PlexAPIError as e:
+        # The base class for HTTP error responses
+        print(e.message)
+        print(e.status_code)
+        print(e.body)
+        print(e.headers)
+        print(e.raw_response)
+
+        # Depending on the method different errors may be thrown
+        if isinstance(e, errors.GetServerCapabilitiesBadRequest):
+            print(e.data.errors)  # Optional[List[errors.Errors]]
+            print(e.data.raw_response)  # Optional[httpx.Response]
 ```
+
+### Error Classes
+**Primary error:**
+* [`PlexAPIError`](./src/plex_api_client/models/errors/plexapierror.py): The base class for HTTP error responses.
+
+<details><summary>Less common errors (161)</summary>
+
+<br />
+
+**Network errors:**
+* [`httpx.RequestError`](https://www.python-httpx.org/exceptions/#httpx.RequestError): Base class for request errors.
+    * [`httpx.ConnectError`](https://www.python-httpx.org/exceptions/#httpx.ConnectError): HTTP client was unable to make a request to a server.
+    * [`httpx.TimeoutException`](https://www.python-httpx.org/exceptions/#httpx.TimeoutException): HTTP request timed out.
+
+
+**Inherit from [`PlexAPIError`](./src/plex_api_client/models/errors/plexapierror.py)**:
+* [`GetServerCapabilitiesBadRequest`](./src/plex_api_client/models/errors/getservercapabilitiesbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetServerPreferencesBadRequest`](./src/plex_api_client/models/errors/getserverpreferencesbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetAvailableClientsBadRequest`](./src/plex_api_client/models/errors/getavailableclientsbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetDevicesBadRequest`](./src/plex_api_client/models/errors/getdevicesbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetMyPlexAccountBadRequest`](./src/plex_api_client/models/errors/getmyplexaccountbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetResizedPhotoBadRequest`](./src/plex_api_client/models/errors/getresizedphotobadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetMediaProvidersBadRequest`](./src/plex_api_client/models/errors/getmediaprovidersbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetServerListBadRequest`](./src/plex_api_client/models/errors/getserverlistbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`MarkPlayedBadRequest`](./src/plex_api_client/models/errors/markplayedbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`MarkUnplayedBadRequest`](./src/plex_api_client/models/errors/markunplayedbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`UpdatePlayProgressBadRequest`](./src/plex_api_client/models/errors/updateplayprogressbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetBannerImageBadRequest`](./src/plex_api_client/models/errors/getbannerimagebadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetThumbImageBadRequest`](./src/plex_api_client/models/errors/getthumbimagebadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetTimelineBadRequest`](./src/plex_api_client/models/errors/gettimelinebadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`StartUniversalTranscodeBadRequest`](./src/plex_api_client/models/errors/startuniversaltranscodebadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetServerActivitiesBadRequest`](./src/plex_api_client/models/errors/getserveractivitiesbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`CancelServerActivitiesBadRequest`](./src/plex_api_client/models/errors/cancelserveractivitiesbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetButlerTasksBadRequest`](./src/plex_api_client/models/errors/getbutlertasksbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`StartAllTasksBadRequest`](./src/plex_api_client/models/errors/startalltasksbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`StopAllTasksBadRequest`](./src/plex_api_client/models/errors/stopalltasksbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`StartTaskBadRequest`](./src/plex_api_client/models/errors/starttaskbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`StopTaskBadRequest`](./src/plex_api_client/models/errors/stoptaskbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetCompanionsDataBadRequest`](./src/plex_api_client/models/errors/getcompanionsdatabadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetUserFriendsBadRequest`](./src/plex_api_client/models/errors/getuserfriendsbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetGeoDataBadRequest`](./src/plex_api_client/models/errors/getgeodatabadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetHomeDataBadRequest`](./src/plex_api_client/models/errors/gethomedatabadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetServerResourcesBadRequest`](./src/plex_api_client/models/errors/getserverresourcesbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetPinBadRequest`](./src/plex_api_client/models/errors/getpinbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetTokenByPinIDBadRequest`](./src/plex_api_client/models/errors/gettokenbypinidbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetGlobalHubsBadRequest`](./src/plex_api_client/models/errors/getglobalhubsbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetLibraryHubsBadRequest`](./src/plex_api_client/models/errors/getlibraryhubsbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`PerformSearchBadRequest`](./src/plex_api_client/models/errors/performsearchbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`PerformVoiceSearchBadRequest`](./src/plex_api_client/models/errors/performvoicesearchbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetSearchResultsBadRequest`](./src/plex_api_client/models/errors/getsearchresultsbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetFileHashBadRequest`](./src/plex_api_client/models/errors/getfilehashbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetRecentlyAddedLibraryBadRequest`](./src/plex_api_client/models/errors/getrecentlyaddedlibrarybadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetAllLibrariesBadRequest`](./src/plex_api_client/models/errors/getalllibrariesbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetLibraryDetailsBadRequest`](./src/plex_api_client/models/errors/getlibrarydetailsbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`DeleteLibraryBadRequest`](./src/plex_api_client/models/errors/deletelibrarybadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetLibraryItemsBadRequest`](./src/plex_api_client/models/errors/getlibraryitemsbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetLibrarySectionsAllBadRequest`](./src/plex_api_client/models/errors/getlibrarysectionsallbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetRefreshLibraryMetadataBadRequest`](./src/plex_api_client/models/errors/getrefreshlibrarymetadatabadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetSearchLibraryBadRequest`](./src/plex_api_client/models/errors/getsearchlibrarybadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetGenresLibraryBadRequest`](./src/plex_api_client/models/errors/getgenreslibrarybadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetCountriesLibraryBadRequest`](./src/plex_api_client/models/errors/getcountrieslibrarybadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetActorsLibraryBadRequest`](./src/plex_api_client/models/errors/getactorslibrarybadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetSearchAllLibrariesBadRequest`](./src/plex_api_client/models/errors/getsearchalllibrariesbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetMediaMetaDataBadRequest`](./src/plex_api_client/models/errors/getmediametadatabadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetMetadataChildrenBadRequest`](./src/plex_api_client/models/errors/getmetadatachildrenbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetTopWatchedContentBadRequest`](./src/plex_api_client/models/errors/gettopwatchedcontentbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetWatchListBadRequest`](./src/plex_api_client/models/errors/getwatchlistbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`LogLineBadRequest`](./src/plex_api_client/models/errors/loglinebadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`LogMultiLineBadRequest`](./src/plex_api_client/models/errors/logmultilinebadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`EnablePaperTrailBadRequest`](./src/plex_api_client/models/errors/enablepapertrailbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`CreatePlaylistBadRequest`](./src/plex_api_client/models/errors/createplaylistbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetPlaylistsBadRequest`](./src/plex_api_client/models/errors/getplaylistsbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetPlaylistBadRequest`](./src/plex_api_client/models/errors/getplaylistbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`DeletePlaylistBadRequest`](./src/plex_api_client/models/errors/deleteplaylistbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`UpdatePlaylistBadRequest`](./src/plex_api_client/models/errors/updateplaylistbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetPlaylistContentsBadRequest`](./src/plex_api_client/models/errors/getplaylistcontentsbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`ClearPlaylistContentsBadRequest`](./src/plex_api_client/models/errors/clearplaylistcontentsbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`AddPlaylistContentsBadRequest`](./src/plex_api_client/models/errors/addplaylistcontentsbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`UploadPlaylistBadRequest`](./src/plex_api_client/models/errors/uploadplaylistbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetTransientTokenBadRequest`](./src/plex_api_client/models/errors/gettransienttokenbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetSourceConnectionInformationBadRequest`](./src/plex_api_client/models/errors/getsourceconnectioninformationbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetTokenDetailsBadRequest`](./src/plex_api_client/models/errors/gettokendetailsbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`PostUsersSignInDataBadRequest`](./src/plex_api_client/models/errors/postuserssignindatabadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetStatisticsBadRequest`](./src/plex_api_client/models/errors/getstatisticsbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetResourcesStatisticsBadRequest`](./src/plex_api_client/models/errors/getresourcesstatisticsbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetBandwidthStatisticsBadRequest`](./src/plex_api_client/models/errors/getbandwidthstatisticsbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetSessionsBadRequest`](./src/plex_api_client/models/errors/getsessionsbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetSessionHistoryBadRequest`](./src/plex_api_client/models/errors/getsessionhistorybadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetTranscodeSessionsBadRequest`](./src/plex_api_client/models/errors/gettranscodesessionsbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`StopTranscodeSessionBadRequest`](./src/plex_api_client/models/errors/stoptranscodesessionbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetUpdateStatusBadRequest`](./src/plex_api_client/models/errors/getupdatestatusbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`CheckForUpdatesBadRequest`](./src/plex_api_client/models/errors/checkforupdatesbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`ApplyUpdatesBadRequest`](./src/plex_api_client/models/errors/applyupdatesbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetUsersBadRequest`](./src/plex_api_client/models/errors/getusersbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
+* [`GetServerCapabilitiesUnauthorized`](./src/plex_api_client/models/errors/getservercapabilitiesunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetServerPreferencesUnauthorized`](./src/plex_api_client/models/errors/getserverpreferencesunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetAvailableClientsUnauthorized`](./src/plex_api_client/models/errors/getavailableclientsunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetDevicesUnauthorized`](./src/plex_api_client/models/errors/getdevicesunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetMyPlexAccountUnauthorized`](./src/plex_api_client/models/errors/getmyplexaccountunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetResizedPhotoUnauthorized`](./src/plex_api_client/models/errors/getresizedphotounauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetMediaProvidersUnauthorized`](./src/plex_api_client/models/errors/getmediaprovidersunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetServerListUnauthorized`](./src/plex_api_client/models/errors/getserverlistunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`MarkPlayedUnauthorized`](./src/plex_api_client/models/errors/markplayedunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`MarkUnplayedUnauthorized`](./src/plex_api_client/models/errors/markunplayedunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`UpdatePlayProgressUnauthorized`](./src/plex_api_client/models/errors/updateplayprogressunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetBannerImageUnauthorized`](./src/plex_api_client/models/errors/getbannerimageunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetThumbImageUnauthorized`](./src/plex_api_client/models/errors/getthumbimageunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetTimelineUnauthorized`](./src/plex_api_client/models/errors/gettimelineunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`StartUniversalTranscodeUnauthorized`](./src/plex_api_client/models/errors/startuniversaltranscodeunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetServerActivitiesUnauthorized`](./src/plex_api_client/models/errors/getserveractivitiesunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`CancelServerActivitiesUnauthorized`](./src/plex_api_client/models/errors/cancelserveractivitiesunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetButlerTasksUnauthorized`](./src/plex_api_client/models/errors/getbutlertasksunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`StartAllTasksUnauthorized`](./src/plex_api_client/models/errors/startalltasksunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`StopAllTasksUnauthorized`](./src/plex_api_client/models/errors/stopalltasksunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`StartTaskUnauthorized`](./src/plex_api_client/models/errors/starttaskunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`StopTaskUnauthorized`](./src/plex_api_client/models/errors/stoptaskunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetCompanionsDataUnauthorized`](./src/plex_api_client/models/errors/getcompanionsdataunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetUserFriendsUnauthorized`](./src/plex_api_client/models/errors/getuserfriendsunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetGeoDataUnauthorized`](./src/plex_api_client/models/errors/getgeodataunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetHomeDataUnauthorized`](./src/plex_api_client/models/errors/gethomedataunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetServerResourcesUnauthorized`](./src/plex_api_client/models/errors/getserverresourcesunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetGlobalHubsUnauthorized`](./src/plex_api_client/models/errors/getglobalhubsunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetLibraryHubsUnauthorized`](./src/plex_api_client/models/errors/getlibraryhubsunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`PerformSearchUnauthorized`](./src/plex_api_client/models/errors/performsearchunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`PerformVoiceSearchUnauthorized`](./src/plex_api_client/models/errors/performvoicesearchunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetSearchResultsUnauthorized`](./src/plex_api_client/models/errors/getsearchresultsunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetFileHashUnauthorized`](./src/plex_api_client/models/errors/getfilehashunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetRecentlyAddedLibraryUnauthorized`](./src/plex_api_client/models/errors/getrecentlyaddedlibraryunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetAllLibrariesUnauthorized`](./src/plex_api_client/models/errors/getalllibrariesunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetLibraryDetailsUnauthorized`](./src/plex_api_client/models/errors/getlibrarydetailsunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`DeleteLibraryUnauthorized`](./src/plex_api_client/models/errors/deletelibraryunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetLibraryItemsUnauthorized`](./src/plex_api_client/models/errors/getlibraryitemsunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetLibrarySectionsAllUnauthorized`](./src/plex_api_client/models/errors/getlibrarysectionsallunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetRefreshLibraryMetadataUnauthorized`](./src/plex_api_client/models/errors/getrefreshlibrarymetadataunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetSearchLibraryUnauthorized`](./src/plex_api_client/models/errors/getsearchlibraryunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetGenresLibraryUnauthorized`](./src/plex_api_client/models/errors/getgenreslibraryunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetCountriesLibraryUnauthorized`](./src/plex_api_client/models/errors/getcountrieslibraryunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetActorsLibraryUnauthorized`](./src/plex_api_client/models/errors/getactorslibraryunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetSearchAllLibrariesUnauthorized`](./src/plex_api_client/models/errors/getsearchalllibrariesunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetMediaMetaDataUnauthorized`](./src/plex_api_client/models/errors/getmediametadataunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetMetadataChildrenUnauthorized`](./src/plex_api_client/models/errors/getmetadatachildrenunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetTopWatchedContentUnauthorized`](./src/plex_api_client/models/errors/gettopwatchedcontentunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetWatchListUnauthorized`](./src/plex_api_client/models/errors/getwatchlistunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`LogLineUnauthorized`](./src/plex_api_client/models/errors/loglineunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`LogMultiLineUnauthorized`](./src/plex_api_client/models/errors/logmultilineunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`EnablePaperTrailUnauthorized`](./src/plex_api_client/models/errors/enablepapertrailunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`CreatePlaylistUnauthorized`](./src/plex_api_client/models/errors/createplaylistunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetPlaylistsUnauthorized`](./src/plex_api_client/models/errors/getplaylistsunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetPlaylistUnauthorized`](./src/plex_api_client/models/errors/getplaylistunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`DeletePlaylistUnauthorized`](./src/plex_api_client/models/errors/deleteplaylistunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`UpdatePlaylistUnauthorized`](./src/plex_api_client/models/errors/updateplaylistunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetPlaylistContentsUnauthorized`](./src/plex_api_client/models/errors/getplaylistcontentsunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`ClearPlaylistContentsUnauthorized`](./src/plex_api_client/models/errors/clearplaylistcontentsunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`AddPlaylistContentsUnauthorized`](./src/plex_api_client/models/errors/addplaylistcontentsunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`UploadPlaylistUnauthorized`](./src/plex_api_client/models/errors/uploadplaylistunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetTransientTokenUnauthorized`](./src/plex_api_client/models/errors/gettransienttokenunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetSourceConnectionInformationUnauthorized`](./src/plex_api_client/models/errors/getsourceconnectioninformationunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetTokenDetailsUnauthorized`](./src/plex_api_client/models/errors/gettokendetailsunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`PostUsersSignInDataUnauthorized`](./src/plex_api_client/models/errors/postuserssignindataunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetStatisticsUnauthorized`](./src/plex_api_client/models/errors/getstatisticsunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetResourcesStatisticsUnauthorized`](./src/plex_api_client/models/errors/getresourcesstatisticsunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetBandwidthStatisticsUnauthorized`](./src/plex_api_client/models/errors/getbandwidthstatisticsunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetSessionsUnauthorized`](./src/plex_api_client/models/errors/getsessionsunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetSessionHistoryUnauthorized`](./src/plex_api_client/models/errors/getsessionhistoryunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetTranscodeSessionsUnauthorized`](./src/plex_api_client/models/errors/gettranscodesessionsunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`StopTranscodeSessionUnauthorized`](./src/plex_api_client/models/errors/stoptranscodesessionunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetUpdateStatusUnauthorized`](./src/plex_api_client/models/errors/getupdatestatusunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`CheckForUpdatesUnauthorized`](./src/plex_api_client/models/errors/checkforupdatesunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`ApplyUpdatesUnauthorized`](./src/plex_api_client/models/errors/applyupdatesunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetUsersUnauthorized`](./src/plex_api_client/models/errors/getusersunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
+* [`GetTokenByPinIDResponseBody`](./src/plex_api_client/models/errors/gettokenbypinidresponsebody.py): Not Found or Expired. Status code `404`. Applicable to 1 of 84 methods.*
+* [`GetServerIdentityRequestTimeout`](./src/plex_api_client/models/errors/getserveridentityrequesttimeout.py): Request Timeout. Status code `408`. Applicable to 1 of 84 methods.*
+* [`ResponseValidationError`](./src/plex_api_client/models/errors/responsevalidationerror.py): Type mismatch between the response data and the expected Pydantic model. Provides access to the Pydantic validation error via the `cause` attribute.
+
+</details>
+
+\* Check [the method documentation](#available-resources-and-operations) to see if the error is applicable.
 <!-- End Error Handling [errors] -->
 
 <!-- Start Server Selection [server] -->

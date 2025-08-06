@@ -20,6 +20,7 @@ This endpoint provides the caller with a temporary token with the same access le
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getTransientToken" method="get" path="/security/token" -->
 ```python
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
@@ -66,6 +67,7 @@ Note: requires Plex Media Server >= 1.15.4.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getSourceConnectionInformation" method="get" path="/security/resources" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -108,6 +110,7 @@ Get the User data from the provided X-Plex-Token
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getTokenDetails" method="get" path="/user" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -150,6 +153,7 @@ Sign in user with username and password and return user data with Plex authentic
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="post-users-sign-in-data" method="post" path="/users/signin" -->
 ```python
 from plex_api_client import PlexAPI
 

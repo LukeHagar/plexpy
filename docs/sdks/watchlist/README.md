@@ -16,6 +16,7 @@ Get User Watchlist
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="get-watch-list" method="get" path="/library/sections/watchlist/{filter}" -->
 ```python
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations

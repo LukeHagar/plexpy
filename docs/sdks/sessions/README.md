@@ -19,6 +19,7 @@ This will retrieve the "Now Playing" Information of the PMS.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getSessions" method="get" path="/status/sessions" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -60,6 +61,7 @@ This will Retrieve a listing of all history views.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getSessionHistory" method="get" path="/status/sessions/history/all" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -105,6 +107,7 @@ Get Transcode Sessions
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getTranscodeSessions" method="get" path="/transcode/sessions" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -146,6 +149,7 @@ Stop a Transcode Session
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="stopTranscodeSession" method="delete" path="/transcode/sessions/{sessionKey}" -->
 ```python
 from plex_api_client import PlexAPI
 

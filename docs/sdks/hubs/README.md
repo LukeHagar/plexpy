@@ -18,6 +18,7 @@ Get Global Hubs filtered by the parameters provided.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getGlobalHubs" method="get" path="/hubs" -->
 ```python
 from plex_api_client import PlexAPI
 
@@ -62,6 +63,7 @@ This endpoint will return the recently added content.
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="get-recently-added" method="get" path="/hubs/home/recentlyAdded" -->
 ```python
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
@@ -109,6 +111,7 @@ This endpoint will return a list of library specific hubs
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getLibraryHubs" method="get" path="/hubs/sections/{sectionId}" -->
 ```python
 from plex_api_client import PlexAPI
 

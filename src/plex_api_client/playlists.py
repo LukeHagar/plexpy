@@ -5,6 +5,7 @@ from plex_api_client import utils
 from plex_api_client._hooks import HookContext
 from plex_api_client.models import errors, operations
 from plex_api_client.types import BaseModel, OptionalNullable, UNSET
+from plex_api_client.utils.unmarshal_json_response import unmarshal_json_response
 from typing import Any, Mapping, Optional, Union, cast
 
 
@@ -94,44 +95,33 @@ class Playlists(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.CreatePlaylistResponse(
-                object=utils.unmarshal_json(
-                    http_res.text, Optional[operations.CreatePlaylistResponseBody]
+                object=unmarshal_json_response(
+                    Optional[operations.CreatePlaylistResponseBody], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.CreatePlaylistBadRequestData
+            response_data = unmarshal_json_response(
+                errors.CreatePlaylistBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.CreatePlaylistBadRequest(data=response_data)
+            raise errors.CreatePlaylistBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.CreatePlaylistUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.CreatePlaylistUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.CreatePlaylistUnauthorized(data=response_data)
+            raise errors.CreatePlaylistUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     async def create_playlist_async(
         self,
@@ -211,44 +201,33 @@ class Playlists(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.CreatePlaylistResponse(
-                object=utils.unmarshal_json(
-                    http_res.text, Optional[operations.CreatePlaylistResponseBody]
+                object=unmarshal_json_response(
+                    Optional[operations.CreatePlaylistResponseBody], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.CreatePlaylistBadRequestData
+            response_data = unmarshal_json_response(
+                errors.CreatePlaylistBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.CreatePlaylistBadRequest(data=response_data)
+            raise errors.CreatePlaylistBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.CreatePlaylistUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.CreatePlaylistUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.CreatePlaylistUnauthorized(data=response_data)
+            raise errors.CreatePlaylistUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     def get_playlists(
         self,
@@ -326,44 +305,33 @@ class Playlists(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetPlaylistsResponse(
-                object=utils.unmarshal_json(
-                    http_res.text, Optional[operations.GetPlaylistsResponseBody]
+                object=unmarshal_json_response(
+                    Optional[operations.GetPlaylistsResponseBody], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetPlaylistsBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetPlaylistsBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetPlaylistsBadRequest(data=response_data)
+            raise errors.GetPlaylistsBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetPlaylistsUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetPlaylistsUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetPlaylistsUnauthorized(data=response_data)
+            raise errors.GetPlaylistsUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     async def get_playlists_async(
         self,
@@ -441,44 +409,33 @@ class Playlists(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetPlaylistsResponse(
-                object=utils.unmarshal_json(
-                    http_res.text, Optional[operations.GetPlaylistsResponseBody]
+                object=unmarshal_json_response(
+                    Optional[operations.GetPlaylistsResponseBody], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetPlaylistsBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetPlaylistsBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetPlaylistsBadRequest(data=response_data)
+            raise errors.GetPlaylistsBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetPlaylistsUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetPlaylistsUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetPlaylistsUnauthorized(data=response_data)
+            raise errors.GetPlaylistsUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     def get_playlist(
         self,
@@ -555,44 +512,33 @@ class Playlists(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetPlaylistResponse(
-                object=utils.unmarshal_json(
-                    http_res.text, Optional[operations.GetPlaylistResponseBody]
+                object=unmarshal_json_response(
+                    Optional[operations.GetPlaylistResponseBody], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetPlaylistBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetPlaylistBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetPlaylistBadRequest(data=response_data)
+            raise errors.GetPlaylistBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetPlaylistUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetPlaylistUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetPlaylistUnauthorized(data=response_data)
+            raise errors.GetPlaylistUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     async def get_playlist_async(
         self,
@@ -669,44 +615,33 @@ class Playlists(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetPlaylistResponse(
-                object=utils.unmarshal_json(
-                    http_res.text, Optional[operations.GetPlaylistResponseBody]
+                object=unmarshal_json_response(
+                    Optional[operations.GetPlaylistResponseBody], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetPlaylistBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetPlaylistBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetPlaylistBadRequest(data=response_data)
+            raise errors.GetPlaylistBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetPlaylistUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetPlaylistUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetPlaylistUnauthorized(data=response_data)
+            raise errors.GetPlaylistUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     def delete_playlist(
         self,
@@ -787,36 +722,25 @@ class Playlists(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.DeletePlaylistBadRequestData
+            response_data = unmarshal_json_response(
+                errors.DeletePlaylistBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.DeletePlaylistBadRequest(data=response_data)
+            raise errors.DeletePlaylistBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.DeletePlaylistUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.DeletePlaylistUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.DeletePlaylistUnauthorized(data=response_data)
+            raise errors.DeletePlaylistUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     async def delete_playlist_async(
         self,
@@ -897,36 +821,25 @@ class Playlists(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.DeletePlaylistBadRequestData
+            response_data = unmarshal_json_response(
+                errors.DeletePlaylistBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.DeletePlaylistBadRequest(data=response_data)
+            raise errors.DeletePlaylistBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.DeletePlaylistUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.DeletePlaylistUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.DeletePlaylistUnauthorized(data=response_data)
+            raise errors.DeletePlaylistUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     def update_playlist(
         self,
@@ -1013,36 +926,25 @@ class Playlists(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.UpdatePlaylistBadRequestData
+            response_data = unmarshal_json_response(
+                errors.UpdatePlaylistBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.UpdatePlaylistBadRequest(data=response_data)
+            raise errors.UpdatePlaylistBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.UpdatePlaylistUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.UpdatePlaylistUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.UpdatePlaylistUnauthorized(data=response_data)
+            raise errors.UpdatePlaylistUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     async def update_playlist_async(
         self,
@@ -1129,36 +1031,25 @@ class Playlists(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.UpdatePlaylistBadRequestData
+            response_data = unmarshal_json_response(
+                errors.UpdatePlaylistBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.UpdatePlaylistBadRequest(data=response_data)
+            raise errors.UpdatePlaylistBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.UpdatePlaylistUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.UpdatePlaylistUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.UpdatePlaylistUnauthorized(data=response_data)
+            raise errors.UpdatePlaylistUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     def get_playlist_contents(
         self,
@@ -1240,44 +1131,33 @@ class Playlists(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetPlaylistContentsResponse(
-                object=utils.unmarshal_json(
-                    http_res.text, Optional[operations.GetPlaylistContentsResponseBody]
+                object=unmarshal_json_response(
+                    Optional[operations.GetPlaylistContentsResponseBody], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetPlaylistContentsBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetPlaylistContentsBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetPlaylistContentsBadRequest(data=response_data)
+            raise errors.GetPlaylistContentsBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetPlaylistContentsUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetPlaylistContentsUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetPlaylistContentsUnauthorized(data=response_data)
+            raise errors.GetPlaylistContentsUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     async def get_playlist_contents_async(
         self,
@@ -1359,44 +1239,33 @@ class Playlists(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetPlaylistContentsResponse(
-                object=utils.unmarshal_json(
-                    http_res.text, Optional[operations.GetPlaylistContentsResponseBody]
+                object=unmarshal_json_response(
+                    Optional[operations.GetPlaylistContentsResponseBody], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetPlaylistContentsBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetPlaylistContentsBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetPlaylistContentsBadRequest(data=response_data)
+            raise errors.GetPlaylistContentsBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetPlaylistContentsUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetPlaylistContentsUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetPlaylistContentsUnauthorized(data=response_data)
+            raise errors.GetPlaylistContentsUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     def clear_playlist_contents(
         self,
@@ -1477,36 +1346,25 @@ class Playlists(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.ClearPlaylistContentsBadRequestData
+            response_data = unmarshal_json_response(
+                errors.ClearPlaylistContentsBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.ClearPlaylistContentsBadRequest(data=response_data)
+            raise errors.ClearPlaylistContentsBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.ClearPlaylistContentsUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.ClearPlaylistContentsUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.ClearPlaylistContentsUnauthorized(data=response_data)
+            raise errors.ClearPlaylistContentsUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     async def clear_playlist_contents_async(
         self,
@@ -1587,36 +1445,25 @@ class Playlists(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.ClearPlaylistContentsBadRequestData
+            response_data = unmarshal_json_response(
+                errors.ClearPlaylistContentsBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.ClearPlaylistContentsBadRequest(data=response_data)
+            raise errors.ClearPlaylistContentsBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.ClearPlaylistContentsUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.ClearPlaylistContentsUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.ClearPlaylistContentsUnauthorized(data=response_data)
+            raise errors.ClearPlaylistContentsUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     def add_playlist_contents(
         self,
@@ -1699,44 +1546,33 @@ class Playlists(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.AddPlaylistContentsResponse(
-                object=utils.unmarshal_json(
-                    http_res.text, Optional[operations.AddPlaylistContentsResponseBody]
+                object=unmarshal_json_response(
+                    Optional[operations.AddPlaylistContentsResponseBody], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.AddPlaylistContentsBadRequestData
+            response_data = unmarshal_json_response(
+                errors.AddPlaylistContentsBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.AddPlaylistContentsBadRequest(data=response_data)
+            raise errors.AddPlaylistContentsBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.AddPlaylistContentsUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.AddPlaylistContentsUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.AddPlaylistContentsUnauthorized(data=response_data)
+            raise errors.AddPlaylistContentsUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     async def add_playlist_contents_async(
         self,
@@ -1819,44 +1655,33 @@ class Playlists(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.AddPlaylistContentsResponse(
-                object=utils.unmarshal_json(
-                    http_res.text, Optional[operations.AddPlaylistContentsResponseBody]
+                object=unmarshal_json_response(
+                    Optional[operations.AddPlaylistContentsResponseBody], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.AddPlaylistContentsBadRequestData
+            response_data = unmarshal_json_response(
+                errors.AddPlaylistContentsBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.AddPlaylistContentsBadRequest(data=response_data)
+            raise errors.AddPlaylistContentsBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.AddPlaylistContentsUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.AddPlaylistContentsUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.AddPlaylistContentsUnauthorized(data=response_data)
+            raise errors.AddPlaylistContentsUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     def upload_playlist(
         self,
@@ -1943,36 +1768,25 @@ class Playlists(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.UploadPlaylistBadRequestData
+            response_data = unmarshal_json_response(
+                errors.UploadPlaylistBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.UploadPlaylistBadRequest(data=response_data)
+            raise errors.UploadPlaylistBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.UploadPlaylistUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.UploadPlaylistUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.UploadPlaylistUnauthorized(data=response_data)
+            raise errors.UploadPlaylistUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     async def upload_playlist_async(
         self,
@@ -2059,33 +1873,22 @@ class Playlists(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.UploadPlaylistBadRequestData
+            response_data = unmarshal_json_response(
+                errors.UploadPlaylistBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.UploadPlaylistBadRequest(data=response_data)
+            raise errors.UploadPlaylistBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.UploadPlaylistUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.UploadPlaylistUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.UploadPlaylistUnauthorized(data=response_data)
+            raise errors.UploadPlaylistUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)

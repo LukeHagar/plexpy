@@ -5,6 +5,7 @@ from plex_api_client import utils
 from plex_api_client._hooks import HookContext
 from plex_api_client.models import errors, operations
 from plex_api_client.types import OptionalNullable, UNSET
+from plex_api_client.utils.unmarshal_json_response import unmarshal_json_response
 from typing import Any, Mapping, Optional, Union
 
 
@@ -77,44 +78,33 @@ class Sessions(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetSessionsResponse(
-                object=utils.unmarshal_json(
-                    http_res.text, Optional[operations.GetSessionsResponseBody]
+                object=unmarshal_json_response(
+                    Optional[operations.GetSessionsResponseBody], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetSessionsBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetSessionsBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetSessionsBadRequest(data=response_data)
+            raise errors.GetSessionsBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetSessionsUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetSessionsUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetSessionsUnauthorized(data=response_data)
+            raise errors.GetSessionsUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     async def get_sessions_async(
         self,
@@ -182,44 +172,33 @@ class Sessions(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetSessionsResponse(
-                object=utils.unmarshal_json(
-                    http_res.text, Optional[operations.GetSessionsResponseBody]
+                object=unmarshal_json_response(
+                    Optional[operations.GetSessionsResponseBody], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetSessionsBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetSessionsBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetSessionsBadRequest(data=response_data)
+            raise errors.GetSessionsBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetSessionsUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetSessionsUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetSessionsUnauthorized(data=response_data)
+            raise errors.GetSessionsUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     def get_session_history(
         self,
@@ -307,44 +286,33 @@ class Sessions(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetSessionHistoryResponse(
-                object=utils.unmarshal_json(
-                    http_res.text, Optional[operations.GetSessionHistoryResponseBody]
+                object=unmarshal_json_response(
+                    Optional[operations.GetSessionHistoryResponseBody], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetSessionHistoryBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetSessionHistoryBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetSessionHistoryBadRequest(data=response_data)
+            raise errors.GetSessionHistoryBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetSessionHistoryUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetSessionHistoryUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetSessionHistoryUnauthorized(data=response_data)
+            raise errors.GetSessionHistoryUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     async def get_session_history_async(
         self,
@@ -432,44 +400,33 @@ class Sessions(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetSessionHistoryResponse(
-                object=utils.unmarshal_json(
-                    http_res.text, Optional[operations.GetSessionHistoryResponseBody]
+                object=unmarshal_json_response(
+                    Optional[operations.GetSessionHistoryResponseBody], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetSessionHistoryBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetSessionHistoryBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetSessionHistoryBadRequest(data=response_data)
+            raise errors.GetSessionHistoryBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetSessionHistoryUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetSessionHistoryUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetSessionHistoryUnauthorized(data=response_data)
+            raise errors.GetSessionHistoryUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     def get_transcode_sessions(
         self,
@@ -537,44 +494,33 @@ class Sessions(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetTranscodeSessionsResponse(
-                object=utils.unmarshal_json(
-                    http_res.text, Optional[operations.GetTranscodeSessionsResponseBody]
+                object=unmarshal_json_response(
+                    Optional[operations.GetTranscodeSessionsResponseBody], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetTranscodeSessionsBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetTranscodeSessionsBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetTranscodeSessionsBadRequest(data=response_data)
+            raise errors.GetTranscodeSessionsBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetTranscodeSessionsUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetTranscodeSessionsUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetTranscodeSessionsUnauthorized(data=response_data)
+            raise errors.GetTranscodeSessionsUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     async def get_transcode_sessions_async(
         self,
@@ -642,44 +588,33 @@ class Sessions(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetTranscodeSessionsResponse(
-                object=utils.unmarshal_json(
-                    http_res.text, Optional[operations.GetTranscodeSessionsResponseBody]
+                object=unmarshal_json_response(
+                    Optional[operations.GetTranscodeSessionsResponseBody], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetTranscodeSessionsBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetTranscodeSessionsBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetTranscodeSessionsBadRequest(data=response_data)
+            raise errors.GetTranscodeSessionsBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetTranscodeSessionsUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetTranscodeSessionsUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetTranscodeSessionsUnauthorized(data=response_data)
+            raise errors.GetTranscodeSessionsUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     def stop_transcode_session(
         self,
@@ -759,36 +694,25 @@ class Sessions(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.StopTranscodeSessionBadRequestData
+            response_data = unmarshal_json_response(
+                errors.StopTranscodeSessionBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.StopTranscodeSessionBadRequest(data=response_data)
+            raise errors.StopTranscodeSessionBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.StopTranscodeSessionUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.StopTranscodeSessionUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.StopTranscodeSessionUnauthorized(data=response_data)
+            raise errors.StopTranscodeSessionUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     async def stop_transcode_session_async(
         self,
@@ -868,33 +792,22 @@ class Sessions(BaseSDK):
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.StopTranscodeSessionBadRequestData
+            response_data = unmarshal_json_response(
+                errors.StopTranscodeSessionBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.StopTranscodeSessionBadRequest(data=response_data)
+            raise errors.StopTranscodeSessionBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.StopTranscodeSessionUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.StopTranscodeSessionUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.StopTranscodeSessionUnauthorized(data=response_data)
+            raise errors.StopTranscodeSessionUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)

@@ -17,6 +17,7 @@ Get the timeline for a media item
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="getTimeline" method="get" path="/:/timeline" -->
 ```python
 from plex_api_client import PlexAPI
 from plex_api_client.models import operations
@@ -71,6 +72,7 @@ Begin a Universal Transcode Session
 
 ### Example Usage
 
+<!-- UsageSnippet language="python" operationID="startUniversalTranscode" method="get" path="/video/:/transcode/universal/start.mpd" -->
 ```python
 from plex_api_client import PlexAPI
 

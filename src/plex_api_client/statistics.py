@@ -5,6 +5,7 @@ from plex_api_client import utils
 from plex_api_client._hooks import HookContext
 from plex_api_client.models import errors, operations
 from plex_api_client.types import OptionalNullable, UNSET
+from plex_api_client.utils.unmarshal_json_response import unmarshal_json_response
 from typing import Any, Mapping, Optional
 
 
@@ -84,44 +85,33 @@ class Statistics(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetStatisticsResponse(
-                object=utils.unmarshal_json(
-                    http_res.text, Optional[operations.GetStatisticsResponseBody]
+                object=unmarshal_json_response(
+                    Optional[operations.GetStatisticsResponseBody], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetStatisticsBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetStatisticsBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetStatisticsBadRequest(data=response_data)
+            raise errors.GetStatisticsBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetStatisticsUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetStatisticsUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetStatisticsUnauthorized(data=response_data)
+            raise errors.GetStatisticsUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     async def get_statistics_async(
         self,
@@ -196,44 +186,33 @@ class Statistics(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetStatisticsResponse(
-                object=utils.unmarshal_json(
-                    http_res.text, Optional[operations.GetStatisticsResponseBody]
+                object=unmarshal_json_response(
+                    Optional[operations.GetStatisticsResponseBody], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetStatisticsBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetStatisticsBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetStatisticsBadRequest(data=response_data)
+            raise errors.GetStatisticsBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetStatisticsUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetStatisticsUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetStatisticsUnauthorized(data=response_data)
+            raise errors.GetStatisticsUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     def get_resources_statistics(
         self,
@@ -308,45 +287,33 @@ class Statistics(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetResourcesStatisticsResponse(
-                object=utils.unmarshal_json(
-                    http_res.text,
-                    Optional[operations.GetResourcesStatisticsResponseBody],
+                object=unmarshal_json_response(
+                    Optional[operations.GetResourcesStatisticsResponseBody], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetResourcesStatisticsBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetResourcesStatisticsBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetResourcesStatisticsBadRequest(data=response_data)
+            raise errors.GetResourcesStatisticsBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetResourcesStatisticsUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetResourcesStatisticsUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetResourcesStatisticsUnauthorized(data=response_data)
+            raise errors.GetResourcesStatisticsUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     async def get_resources_statistics_async(
         self,
@@ -421,45 +388,33 @@ class Statistics(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetResourcesStatisticsResponse(
-                object=utils.unmarshal_json(
-                    http_res.text,
-                    Optional[operations.GetResourcesStatisticsResponseBody],
+                object=unmarshal_json_response(
+                    Optional[operations.GetResourcesStatisticsResponseBody], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetResourcesStatisticsBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetResourcesStatisticsBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetResourcesStatisticsBadRequest(data=response_data)
+            raise errors.GetResourcesStatisticsBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetResourcesStatisticsUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetResourcesStatisticsUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetResourcesStatisticsUnauthorized(data=response_data)
+            raise errors.GetResourcesStatisticsUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     def get_bandwidth_statistics(
         self,
@@ -534,45 +489,33 @@ class Statistics(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetBandwidthStatisticsResponse(
-                object=utils.unmarshal_json(
-                    http_res.text,
-                    Optional[operations.GetBandwidthStatisticsResponseBody],
+                object=unmarshal_json_response(
+                    Optional[operations.GetBandwidthStatisticsResponseBody], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetBandwidthStatisticsBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetBandwidthStatisticsBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetBandwidthStatisticsBadRequest(data=response_data)
+            raise errors.GetBandwidthStatisticsBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetBandwidthStatisticsUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetBandwidthStatisticsUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetBandwidthStatisticsUnauthorized(data=response_data)
+            raise errors.GetBandwidthStatisticsUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     async def get_bandwidth_statistics_async(
         self,
@@ -647,42 +590,30 @@ class Statistics(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetBandwidthStatisticsResponse(
-                object=utils.unmarshal_json(
-                    http_res.text,
-                    Optional[operations.GetBandwidthStatisticsResponseBody],
+                object=unmarshal_json_response(
+                    Optional[operations.GetBandwidthStatisticsResponseBody], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetBandwidthStatisticsBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetBandwidthStatisticsBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetBandwidthStatisticsBadRequest(data=response_data)
+            raise errors.GetBandwidthStatisticsBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetBandwidthStatisticsUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetBandwidthStatisticsUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetBandwidthStatisticsUnauthorized(data=response_data)
+            raise errors.GetBandwidthStatisticsUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)

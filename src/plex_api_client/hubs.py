@@ -5,6 +5,7 @@ from plex_api_client import utils
 from plex_api_client._hooks import HookContext
 from plex_api_client.models import errors, operations
 from plex_api_client.types import BaseModel, OptionalNullable, UNSET
+from plex_api_client.utils.unmarshal_json_response import unmarshal_json_response
 from typing import Any, Mapping, Optional, Union, cast
 
 
@@ -87,44 +88,33 @@ class Hubs(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetGlobalHubsResponse(
-                object=utils.unmarshal_json(
-                    http_res.text, Optional[operations.GetGlobalHubsResponseBody]
+                object=unmarshal_json_response(
+                    Optional[operations.GetGlobalHubsResponseBody], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetGlobalHubsBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetGlobalHubsBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetGlobalHubsBadRequest(data=response_data)
+            raise errors.GetGlobalHubsBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetGlobalHubsUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetGlobalHubsUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetGlobalHubsUnauthorized(data=response_data)
+            raise errors.GetGlobalHubsUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     async def get_global_hubs_async(
         self,
@@ -202,44 +192,33 @@ class Hubs(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetGlobalHubsResponse(
-                object=utils.unmarshal_json(
-                    http_res.text, Optional[operations.GetGlobalHubsResponseBody]
+                object=unmarshal_json_response(
+                    Optional[operations.GetGlobalHubsResponseBody], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetGlobalHubsBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetGlobalHubsBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetGlobalHubsBadRequest(data=response_data)
+            raise errors.GetGlobalHubsBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetGlobalHubsUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetGlobalHubsUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetGlobalHubsUnauthorized(data=response_data)
+            raise errors.GetGlobalHubsUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     def get_recently_added(
         self,
@@ -317,8 +296,8 @@ class Hubs(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetRecentlyAddedResponse(
-                object=utils.unmarshal_json(
-                    http_res.text, Optional[operations.GetRecentlyAddedResponseBody]
+                object=unmarshal_json_response(
+                    Optional[operations.GetRecentlyAddedResponseBody], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
@@ -326,23 +305,12 @@ class Hubs(BaseSDK):
             )
         if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     async def get_recently_added_async(
         self,
@@ -420,8 +388,8 @@ class Hubs(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetRecentlyAddedResponse(
-                object=utils.unmarshal_json(
-                    http_res.text, Optional[operations.GetRecentlyAddedResponseBody]
+                object=unmarshal_json_response(
+                    Optional[operations.GetRecentlyAddedResponseBody], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
@@ -429,23 +397,12 @@ class Hubs(BaseSDK):
             )
         if utils.match_response(http_res, ["400", "401", "4XX"], "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     def get_library_hubs(
         self,
@@ -527,44 +484,33 @@ class Hubs(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetLibraryHubsResponse(
-                object=utils.unmarshal_json(
-                    http_res.text, Optional[operations.GetLibraryHubsResponseBody]
+                object=unmarshal_json_response(
+                    Optional[operations.GetLibraryHubsResponseBody], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetLibraryHubsBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetLibraryHubsBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetLibraryHubsBadRequest(data=response_data)
+            raise errors.GetLibraryHubsBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetLibraryHubsUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetLibraryHubsUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetLibraryHubsUnauthorized(data=response_data)
+            raise errors.GetLibraryHubsUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = utils.stream_to_text(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = utils.stream_to_text(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
 
     async def get_library_hubs_async(
         self,
@@ -646,41 +592,30 @@ class Hubs(BaseSDK):
         response_data: Any = None
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetLibraryHubsResponse(
-                object=utils.unmarshal_json(
-                    http_res.text, Optional[operations.GetLibraryHubsResponseBody]
+                object=unmarshal_json_response(
+                    Optional[operations.GetLibraryHubsResponseBody], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
                 raw_response=http_res,
             )
         if utils.match_response(http_res, "400", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetLibraryHubsBadRequestData
+            response_data = unmarshal_json_response(
+                errors.GetLibraryHubsBadRequestData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetLibraryHubsBadRequest(data=response_data)
+            raise errors.GetLibraryHubsBadRequest(response_data, http_res)
         if utils.match_response(http_res, "401", "application/json"):
-            response_data = utils.unmarshal_json(
-                http_res.text, errors.GetLibraryHubsUnauthorizedData
+            response_data = unmarshal_json_response(
+                errors.GetLibraryHubsUnauthorizedData, http_res
             )
             response_data.raw_response = http_res
-            raise errors.GetLibraryHubsUnauthorized(data=response_data)
+            raise errors.GetLibraryHubsUnauthorized(response_data, http_res)
         if utils.match_response(http_res, "4XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
         if utils.match_response(http_res, "5XX", "*"):
             http_res_text = await utils.stream_to_text_async(http_res)
-            raise errors.SDKError(
-                "API error occurred", http_res.status_code, http_res_text, http_res
-            )
+            raise errors.SDKError("API error occurred", http_res, http_res_text)
 
-        content_type = http_res.headers.get("Content-Type")
-        http_res_text = await utils.stream_to_text_async(http_res)
-        raise errors.SDKError(
-            f"Unexpected response received (code: {http_res.status_code}, type: {content_type})",
-            http_res.status_code,
-            http_res_text,
-            http_res,
-        )
+        raise errors.SDKError("Unexpected response received", http_res)
