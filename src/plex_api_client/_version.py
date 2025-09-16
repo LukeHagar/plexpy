@@ -3,10 +3,10 @@
 import importlib.metadata
 
 __title__: str = "plex-api-client"
-__version__: str = "0.29.1"
+__version__: str = "0.30.0"
 __openapi_doc_version__: str = "0.0.3"
-__gen_version__: str = "2.674.3"
-__user_agent__: str = "speakeasy-sdk/python 0.29.1 2.674.3 0.0.3 plex-api-client"
+__gen_version__: str = "2.698.4"
+__user_agent__: str = "speakeasy-sdk/python 0.30.0 2.698.4 0.0.3 plex-api-client"
 
 try:
     if __package__ is not None:

@@ -20,8 +20,8 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 GET_WATCH_LIST_SERVERS = [
-    # The plex metadata provider server
-    "https://metadata.provider.plex.tv",
+    # The plex discover provider server
+    "https://discover.provider.plex.tv",
 ]
 
 

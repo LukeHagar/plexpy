@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 3eeea668-4ef4-464e-a888-bdfa023bedf5
 management:
-  docChecksum: 77bdddd188d0778dc73b7f7906e1677c
+  docChecksum: addaf2dfdac23cef2e234b64492b9c90
   docVersion: 0.0.3
-  speakeasyVersion: 1.598.3
-  generationVersion: 2.674.3
-  releaseVersion: 0.29.1
-  configChecksum: 4c64b23eb2bdceb31042a86bc975e504
+  speakeasyVersion: 1.615.2
+  generationVersion: 2.698.4
+  releaseVersion: 0.30.0
+  configChecksum: b2bfbb4d0b11fb9a5233c243839e5dbf
   repoURL: https://github.com/LukeHagar/plexpy.git
   repoSubDirectory: .
   installationURL: https://github.com/LukeHagar/plexpy.git
@@ -15,16 +15,16 @@ features:
   python:
     additionalDependencies: 1.0.0
     constsAndDefaults: 1.0.5
-    core: 5.19.7
+    core: 5.20.4
     defaultEnabledRetries: 0.2.0
     deprecations: 3.0.2
     downloadStreams: 1.0.1
     enumUnions: 0.1.0
     enums: 3.1.2
     envVarSecurityUsage: 0.3.2
-    errors: 3.3.1
+    errors: 3.3.3
     flattening: 3.1.1
-    globalSecurity: 3.0.3
+    globalSecurity: 3.0.4
     globalSecurityCallbacks: 1.0.0
     globalSecurityFlattening: 1.0.0
     globalServerURLs: 3.1.1

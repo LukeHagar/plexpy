@@ -16,15 +16,19 @@ generation:
   auth:
     oAuth2ClientCredentialsEnabled: true
     oAuth2PasswordEnabled: false
+    hoistGlobalSecurity: true
   tests:
     generateTests: true
     generateNewTests: false
     skipResponseBodyAssertions: false
 python:
-  version: 0.29.1
+  version: 0.30.0
   additionalDependencies:
     dev: {}
     main: {}
+  allowedRedefinedBuiltins:
+    - id
+    - object
   author: LukeHagar
   authors:
     - Speakeasy
@@ -52,9 +56,11 @@ python:
   methodArguments: require-security-and-request
   moduleName: ""
   outputModelSuffix: output
+  packageManager: poetry
   packageName: plex-api-client
   projectUrls: {}
   pytestFilterWarnings: []
   pytestTimeout: 0
   responseFormat: envelope
+  sseFlatResponse: false
   templateVersion: v2

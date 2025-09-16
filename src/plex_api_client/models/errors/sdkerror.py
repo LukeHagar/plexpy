@@ -2,12 +2,14 @@
 
 import httpx
 from typing import Optional
+from dataclasses import dataclass
 
 from plex_api_client.models.errors import PlexAPIError
 
 MAX_MESSAGE_LEN = 10_000
 
 
+@dataclass(frozen=True)
 class SDKError(PlexAPIError):
     """The fallback error class if no more specific error class is matched."""
 

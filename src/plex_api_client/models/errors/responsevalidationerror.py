@@ -2,10 +2,12 @@
 
 import httpx
 from typing import Optional
+from dataclasses import dataclass
 
 from plex_api_client.models.errors import PlexAPIError
 
 
+@dataclass(frozen=True)
 class ResponseValidationError(PlexAPIError):
     """Error raised when there is a type mismatch between the response data and the expected Pydantic model."""
 
