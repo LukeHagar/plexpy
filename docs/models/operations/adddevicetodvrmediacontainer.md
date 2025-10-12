@@ -1,0 +1,9 @@
+# AddDeviceToDVRMediaContainer
+
+
+## Fields
+
+| Field                                                                                                                | Type                                                                                                                 | Required                                                                                                             | Description                                                                                                          |
+| -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| `media_container`                                                                                                    | [Optional[operations.AddDeviceToDVRDVRsMediaContainer]](../../models/operations/adddevicetodvrdvrsmediacontainer.md) | :heavy_minus_sign:                                                                                                   | N/A                                                                                                                  |
+| `dvr`                                                                                                                | List[[operations.AddDeviceToDVRDVR](../../models/operations/adddevicetodvrdvr.md)]                                   | :heavy_minus_sign:                                                                                                   | N/A                                                                                                                  |

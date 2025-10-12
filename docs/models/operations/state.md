@@ -1,12 +1,13 @@
 # State
 
-The state of the media item
+The current state of the media.
 
 
 ## Values
 
-| Name      | Value     |
-| --------- | --------- |
-| `PLAYING` | playing   |
-| `PAUSED`  | paused    |
-| `STOPPED` | stopped   |
+| Name        | Value       |
+| ----------- | ----------- |
+| `STOPPED`   | stopped     |
+| `BUFFERING` | buffering   |
+| `PLAYING`   | playing     |
+| `PAUSED`    | paused      |

@@ -10,41 +10,13 @@
 <!-- Start Summary [summary] -->
 ## Summary
 
-Plex-API: An Open API Spec for interacting with Plex.tv and Plex Media Server
 
-# Plex Media Server OpenAPI Specification
-
-An Open Source OpenAPI Specification for Plex Media Server
-
-Automation and SDKs provided by [Speakeasy](https://speakeasyapi.dev/)
-
-## Documentation
-
-[API Documentation](https://plexapi.dev)
-
-## SDKs
-
-The following SDKs are generated from the OpenAPI Specification. They are automatically generated and may not be fully tested. If you find any issues, please open an issue on the [main specification Repository](https://github.com/LukeHagar/plex-api-spec).
-
-| Language              | Repository                                        | Releases                                                                                         | Other                                                   |
-| --------------------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------- |
-| Python                | [GitHub](https://github.com/LukeHagar/plexpy)     | [PyPI](https://pypi.org/project/plex-api-client/)                                                | -                                                       |
-| JavaScript/TypeScript | [GitHub](https://github.com/LukeHagar/plexjs)     | [NPM](https://www.npmjs.com/package/@lukehagar/plexjs) \ [JSR](https://jsr.io/@lukehagar/plexjs) | -                                                       |
-| Go                    | [GitHub](https://github.com/LukeHagar/plexgo)     | [Releases](https://github.com/LukeHagar/plexgo/releases)                                         | [GoDoc](https://pkg.go.dev/github.com/LukeHagar/plexgo) |
-| Ruby                  | [GitHub](https://github.com/LukeHagar/plexruby)   | [Releases](https://github.com/LukeHagar/plexruby/releases)                                       | -                                                       |
-| Swift                 | [GitHub](https://github.com/LukeHagar/plexswift)  | [Releases](https://github.com/LukeHagar/plexswift/releases)                                      | -                                                       |
-| PHP                   | [GitHub](https://github.com/LukeHagar/plexphp)    | [Releases](https://github.com/LukeHagar/plexphp/releases)                                        | -                                                       |
-| Java                  | [GitHub](https://github.com/LukeHagar/plexjava)   | [Releases](https://github.com/LukeHagar/plexjava/releases)                                       | -                                                       |
-| C#                    | [GitHub](https://github.com/LukeHagar/plexcsharp) | [Releases](https://github.com/LukeHagar/plexcsharp/releases)                                     | -
 <!-- End Summary [summary] -->
 
 <!-- Start Table of Contents [toc] -->
 ## Table of Contents
 <!-- $toc-max-depth=2 -->
 * [plexpy](#plexpy)
-* [Plex Media Server OpenAPI Specification](#plex-media-server-openapi-specification)
-  * [Documentation](#documentation)
-  * [SDKs](#sdks)
   * [SDK Installation](#sdk-installation)
   * [IDE Support](#ide-support)
   * [SDK Example Usage](#sdk-example-usage)
@@ -147,40 +119,125 @@ Generally, the SDK will work well with most IDEs out of the box. However, when u
 ```python
 # Synchronous Example
 from plex_api_client import PlexAPI
+from plex_api_client.models import components, operations
 
 
 with PlexAPI(
-    access_token="<YOUR_API_KEY_HERE>",
+    accepts=components.Accepts.APPLICATION_XML,
+    client_identifier="abc123",
+    product="Plex for Roku",
+    version="2.4.1",
+    platform="Roku",
+    platform_version="4.3 build 1057",
+    device="Roku 3",
+    model="4200X",
+    device_vendor="Roku",
+    device_name="Living Room TV",
+    marketplace="googlePlay",
+    token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
 
-    res = plex_api.server.get_server_capabilities()
+    res = plex_api.transcoder.start_transcode_session(request=operations.StartTranscodeSessionRequest(
+        transcode_type=components.TranscodeType.MUSIC,
+        extension=operations.Extension.MPD,
+        advanced_subtitles=components.AdvancedSubtitles.BURN,
+        audio_boost=50,
+        audio_channel_count=5,
+        auto_adjust_quality=components.BoolInt.ONE,
+        auto_adjust_subtitle=components.BoolInt.ONE,
+        direct_play=components.BoolInt.ONE,
+        direct_stream=components.BoolInt.ONE,
+        direct_stream_audio=components.BoolInt.ONE,
+        disable_resolution_rotation=components.BoolInt.ONE,
+        has_mde=components.BoolInt.ONE,
+        location=operations.StartTranscodeSessionQueryParamLocation.WAN,
+        media_buffer_size=102400,
+        media_index=0,
+        music_bitrate=5000,
+        offset=90.5,
+        part_index=0,
+        path="/library/metadata/151671",
+        peak_bitrate=12000,
+        photo_resolution="1080x1080",
+        protocol=operations.StartTranscodeSessionQueryParamProtocol.DASH,
+        seconds_per_segment=5,
+        subtitle_size=50,
+        video_bitrate=12000,
+        video_quality=50,
+        video_resolution="1080x1080",
+        x_plex_client_profile_extra="add-limitation(scope=videoCodec&scopeName=*&type=upperBound&name=video.frameRate&value=60&replace=true)+append-transcode-target-codec(type=videoProfile&context=streaming&videoCodec=h264%2Chevc&audioCodec=aac&protocol=dash)",
+        x_plex_client_profile_name="generic",
+    ))
 
-    assert res.object is not None
+    assert res.response_stream is not None
 
     # Handle response
-    print(res.object)
+    print(res.response_stream)
 ```
 
 </br>
 
 The same SDK client can also be used to make asynchronous requests by importing asyncio.
+
 ```python
 # Asynchronous Example
 import asyncio
 from plex_api_client import PlexAPI
+from plex_api_client.models import components, operations
 
 async def main():
 
     async with PlexAPI(
-        access_token="<YOUR_API_KEY_HERE>",
+        accepts=components.Accepts.APPLICATION_XML,
+        client_identifier="abc123",
+        product="Plex for Roku",
+        version="2.4.1",
+        platform="Roku",
+        platform_version="4.3 build 1057",
+        device="Roku 3",
+        model="4200X",
+        device_vendor="Roku",
+        device_name="Living Room TV",
+        marketplace="googlePlay",
+        token="<YOUR_API_KEY_HERE>",
     ) as plex_api:
 
-        res = await plex_api.server.get_server_capabilities_async()
+        res = await plex_api.transcoder.start_transcode_session_async(request=operations.StartTranscodeSessionRequest(
+            transcode_type=components.TranscodeType.MUSIC,
+            extension=operations.Extension.MPD,
+            advanced_subtitles=components.AdvancedSubtitles.BURN,
+            audio_boost=50,
+            audio_channel_count=5,
+            auto_adjust_quality=components.BoolInt.ONE,
+            auto_adjust_subtitle=components.BoolInt.ONE,
+            direct_play=components.BoolInt.ONE,
+            direct_stream=components.BoolInt.ONE,
+            direct_stream_audio=components.BoolInt.ONE,
+            disable_resolution_rotation=components.BoolInt.ONE,
+            has_mde=components.BoolInt.ONE,
+            location=operations.StartTranscodeSessionQueryParamLocation.WAN,
+            media_buffer_size=102400,
+            media_index=0,
+            music_bitrate=5000,
+            offset=90.5,
+            part_index=0,
+            path="/library/metadata/151671",
+            peak_bitrate=12000,
+            photo_resolution="1080x1080",
+            protocol=operations.StartTranscodeSessionQueryParamProtocol.DASH,
+            seconds_per_segment=5,
+            subtitle_size=50,
+            video_bitrate=12000,
+            video_quality=50,
+            video_resolution="1080x1080",
+            x_plex_client_profile_extra="add-limitation(scope=videoCodec&scopeName=*&type=upperBound&name=video.frameRate&value=60&replace=true)+append-transcode-target-codec(type=videoProfile&context=streaming&videoCodec=h264%2Chevc&audioCodec=aac&protocol=dash)",
+            x_plex_client_profile_name="generic",
+        ))
 
-        assert res.object is not None
+        assert res.response_stream is not None
 
         # Handle response
-        print(res.object)
+        print(res.response_stream)
 
 asyncio.run(main())
 ```
@@ -194,139 +251,324 @@ asyncio.run(main())
 
 ### [activities](docs/sdks/activities/README.md)
 
-* [get_server_activities](docs/sdks/activities/README.md#get_server_activities) - Get Server Activities
-* [cancel_server_activities](docs/sdks/activities/README.md#cancel_server_activities) - Cancel Server Activities
-
-### [authentication](docs/sdks/authentication/README.md)
-
-* [get_transient_token](docs/sdks/authentication/README.md#get_transient_token) - Get a Transient Token
-* [get_source_connection_information](docs/sdks/authentication/README.md#get_source_connection_information) - Get Source Connection Information
-* [get_token_details](docs/sdks/authentication/README.md#get_token_details) - Get Token Details
-* [post_users_sign_in_data](docs/sdks/authentication/README.md#post_users_sign_in_data) - Get User Sign In Data
+* [list_activities](docs/sdks/activities/README.md#list_activities) - Get all activities
+* [cancel_activity](docs/sdks/activities/README.md#cancel_activity) - Cancel a running activity
 
 ### [butler](docs/sdks/butler/README.md)
 
-* [get_butler_tasks](docs/sdks/butler/README.md#get_butler_tasks) - Get Butler tasks
-* [start_all_tasks](docs/sdks/butler/README.md#start_all_tasks) - Start all Butler tasks
-* [stop_all_tasks](docs/sdks/butler/README.md#stop_all_tasks) - Stop all Butler tasks
-* [start_task](docs/sdks/butler/README.md#start_task) - Start a single Butler task
+* [stop_tasks](docs/sdks/butler/README.md#stop_tasks) - Stop all Butler tasks
+* [get_tasks](docs/sdks/butler/README.md#get_tasks) - Get all Butler tasks
+* [start_tasks](docs/sdks/butler/README.md#start_tasks) - Start all Butler tasks
 * [stop_task](docs/sdks/butler/README.md#stop_task) - Stop a single Butler task
+* [start_task](docs/sdks/butler/README.md#start_task) - Start a single Butler task
+
+### [collections](docs/sdks/collections/README.md)
+
+* [create_collection](docs/sdks/collections/README.md#create_collection) - Create collection
+
+### [content](docs/sdks/content/README.md)
+
+* [get_collection_items](docs/sdks/content/README.md#get_collection_items) - Get items in a collection
+* [get_metadata_item](docs/sdks/content/README.md#get_metadata_item) - Get a metadata item
+* [get_albums](docs/sdks/content/README.md#get_albums) - Set section albums
+* [list_content](docs/sdks/content/README.md#list_content) - Get items in the section
+* [get_all_leaves](docs/sdks/content/README.md#get_all_leaves) - Set section leaves
+* [get_arts](docs/sdks/content/README.md#get_arts) - Set section artwork
+* [get_categories](docs/sdks/content/README.md#get_categories) - Set section categories
+* [get_cluster](docs/sdks/content/README.md#get_cluster) - Set section clusters
+* [get_sonic_path](docs/sdks/content/README.md#get_sonic_path) - Similar tracks to transition from one to another
+* [get_folders](docs/sdks/content/README.md#get_folders) - Get all folder locations
+* [list_moments](docs/sdks/content/README.md#list_moments) - Set section moments
+* [get_sonically_similar](docs/sdks/content/README.md#get_sonically_similar) - The nearest audio tracks
+* [get_collection_image](docs/sdks/content/README.md#get_collection_image) - Get a collection's image
+
+### [devices](docs/sdks/devices/README.md)
+
+* [get_available_grabbers](docs/sdks/devices/README.md#get_available_grabbers) - Get available grabbers
+* [list_devices](docs/sdks/devices/README.md#list_devices) - Get all devices
+* [add_device](docs/sdks/devices/README.md#add_device) - Add a device
+* [discover_devices](docs/sdks/devices/README.md#discover_devices) - Tell grabbers to discover devices
+* [remove_device](docs/sdks/devices/README.md#remove_device) - Remove a device
+* [get_device_details](docs/sdks/devices/README.md#get_device_details) - Get device details
+* [modify_device](docs/sdks/devices/README.md#modify_device) - Enable or disable a device
+* [set_channelmap](docs/sdks/devices/README.md#set_channelmap) - Set a device's channel mapping
+* [get_devices_channels](docs/sdks/devices/README.md#get_devices_channels) - Get a device's channels
+* [set_device_preferences](docs/sdks/devices/README.md#set_device_preferences) - Set device preferences
+* [stop_scan](docs/sdks/devices/README.md#stop_scan) - Tell a device to stop scanning for channels
+* [scan](docs/sdks/devices/README.md#scan) - Tell a device to scan for channels
+* [get_thumb](docs/sdks/devices/README.md#get_thumb) - Get device thumb
+
+### [download_queue](docs/sdks/downloadqueue/README.md)
+
+* [create_download_queue](docs/sdks/downloadqueue/README.md#create_download_queue) - Create download queue
+* [get_download_queue](docs/sdks/downloadqueue/README.md#get_download_queue) - Get a download queue
+* [add_download_queue_items](docs/sdks/downloadqueue/README.md#add_download_queue_items) - Add to download queue
+* [list_download_queue_items](docs/sdks/downloadqueue/README.md#list_download_queue_items) - Get download queue items
+* [get_item_decision](docs/sdks/downloadqueue/README.md#get_item_decision) - Grab download queue item decision
+* [get_download_queue_media](docs/sdks/downloadqueue/README.md#get_download_queue_media) - Grab download queue media
+* [remove_download_queue_items](docs/sdks/downloadqueue/README.md#remove_download_queue_items) - Delete download queue items
+* [get_download_queue_items](docs/sdks/downloadqueue/README.md#get_download_queue_items) - Get download queue items
+* [restart_processing_download_queue_items](docs/sdks/downloadqueue/README.md#restart_processing_download_queue_items) - Restart processing of items from the decision
+
+### [dv_rs](docs/sdks/dvrs/README.md)
+
+* [list_dv_rs](docs/sdks/dvrs/README.md#list_dv_rs) - Get DVRs
+* [create_dvr](docs/sdks/dvrs/README.md#create_dvr) - Create a DVR
+* [delete_dvr](docs/sdks/dvrs/README.md#delete_dvr) - Delete a single DVR
+* [get_dvr](docs/sdks/dvrs/README.md#get_dvr) - Get a single DVR
+* [delete_lineup](docs/sdks/dvrs/README.md#delete_lineup) - Delete a DVR Lineup
+* [add_lineup](docs/sdks/dvrs/README.md#add_lineup) - Add a DVR Lineup
+* [set_dvr_preferences](docs/sdks/dvrs/README.md#set_dvr_preferences) - Set DVR preferences
+* [stop_dvr_reload](docs/sdks/dvrs/README.md#stop_dvr_reload) - Tell a DVR to stop reloading program guide
+* [reload_guide](docs/sdks/dvrs/README.md#reload_guide) - Tell a DVR to reload program guide
+* [tune_channel](docs/sdks/dvrs/README.md#tune_channel) - Tune a channel on a DVR
+* [remove_device_from_dvr](docs/sdks/dvrs/README.md#remove_device_from_dvr) - Remove a device from an existing DVR
+* [add_device_to_dvr](docs/sdks/dvrs/README.md#add_device_to_dvr) - Add a device to an existing DVR
+
+### [epg](docs/sdks/epg/README.md)
+
+* [compute_channel_map](docs/sdks/epg/README.md#compute_channel_map) - Compute the best channel map
+* [get_channels](docs/sdks/epg/README.md#get_channels) - Get channels for a lineup
+* [get_countries](docs/sdks/epg/README.md#get_countries) - Get all countries
+* [get_all_languages](docs/sdks/epg/README.md#get_all_languages) - Get all languages
+* [get_lineup](docs/sdks/epg/README.md#get_lineup) - Compute the best lineup
+* [get_lineup_channels](docs/sdks/epg/README.md#get_lineup_channels) - Get the channels for mulitple lineups
+* [get_countries_lineups](docs/sdks/epg/README.md#get_countries_lineups) - Get lineups for a country via postal code
+* [get_country_regions](docs/sdks/epg/README.md#get_country_regions) - Get regions for a country
+* [list_lineups](docs/sdks/epg/README.md#list_lineups) - Get lineups for a region
+
+### [events](docs/sdks/events/README.md)
+
+* [get_notifications](docs/sdks/events/README.md#get_notifications) - Connect to Eventsource
+* [connect_web_socket](docs/sdks/events/README.md#connect_web_socket) - Connect to WebSocket
+
+### [general](docs/sdks/general/README.md)
+
+* [get_server_info](docs/sdks/general/README.md#get_server_info) - Get PMS info
+* [get_identity](docs/sdks/general/README.md#get_identity) - Get PMS identity
+* [get_source_connection_information](docs/sdks/general/README.md#get_source_connection_information) - Get Source Connection Information
+* [get_transient_token](docs/sdks/general/README.md#get_transient_token) - Get Transient Tokens
 
 ### [hubs](docs/sdks/hubs/README.md)
 
-* [get_global_hubs](docs/sdks/hubs/README.md#get_global_hubs) - Get Global Hubs
-* [get_recently_added](docs/sdks/hubs/README.md#get_recently_added) - Get Recently Added
-* [get_library_hubs](docs/sdks/hubs/README.md#get_library_hubs) - Get library specific hubs
+* [get_all_hubs](docs/sdks/hubs/README.md#get_all_hubs) - Get global hubs
+* [get_continue_watching](docs/sdks/hubs/README.md#get_continue_watching) - Get the continue watching hub
+* [get_hub_items](docs/sdks/hubs/README.md#get_hub_items) - Get a hub's items
+* [get_promoted_hubs](docs/sdks/hubs/README.md#get_promoted_hubs) - Get the hubs which are promoted
+* [get_metadata_hubs](docs/sdks/hubs/README.md#get_metadata_hubs) - Get hubs for section by metadata item
+* [get_postplay_hubs](docs/sdks/hubs/README.md#get_postplay_hubs) - Get postplay hubs
+* [get_related_hubs](docs/sdks/hubs/README.md#get_related_hubs) - Get related hubs
+* [get_section_hubs](docs/sdks/hubs/README.md#get_section_hubs) - Get section hubs
+* [reset_section_defaults](docs/sdks/hubs/README.md#reset_section_defaults) - Reset hubs to defaults
+* [list_hubs](docs/sdks/hubs/README.md#list_hubs) - Get hubs
+* [create_custom_hub](docs/sdks/hubs/README.md#create_custom_hub) - Create a custom hub
+* [move_hub](docs/sdks/hubs/README.md#move_hub) - Move Hub
+* [delete_custom_hub](docs/sdks/hubs/README.md#delete_custom_hub) - Delete a custom hub
+* [update_hub_visibility](docs/sdks/hubs/README.md#update_hub_visibility) - Change hub visibility
 
 ### [library](docs/sdks/library/README.md)
 
-* [get_file_hash](docs/sdks/library/README.md#get_file_hash) - Get Hash Value
-* [get_recently_added_library](docs/sdks/library/README.md#get_recently_added_library) - Get Recently Added
-* [get_all_libraries](docs/sdks/library/README.md#get_all_libraries) - Get All Libraries
-* [get_library_details](docs/sdks/library/README.md#get_library_details) - Get Library Details
-* [delete_library](docs/sdks/library/README.md#delete_library) - Delete Library Section
-* [get_library_items](docs/sdks/library/README.md#get_library_items) - Get Library Items
-* [get_library_sections_all](docs/sdks/library/README.md#get_library_sections_all) - Get Library section media by tag ALL
-* [get_refresh_library_metadata](docs/sdks/library/README.md#get_refresh_library_metadata) - Refresh Metadata Of The Library
-* [get_search_library](docs/sdks/library/README.md#get_search_library) - Search Library
-* [get_genres_library](docs/sdks/library/README.md#get_genres_library) - Get Genres of library media
-* [get_countries_library](docs/sdks/library/README.md#get_countries_library) - Get Countries of library media
-* [get_actors_library](docs/sdks/library/README.md#get_actors_library) - Get Actors of library media
-* [get_search_all_libraries](docs/sdks/library/README.md#get_search_all_libraries) - Search All Libraries
-* [get_media_meta_data](docs/sdks/library/README.md#get_media_meta_data) - Get Media Metadata
-* [get_media_arts](docs/sdks/library/README.md#get_media_arts) - Get Media Background Artwork
-* [post_media_arts](docs/sdks/library/README.md#post_media_arts) - Upload Media Background Artwork
-* [get_media_posters](docs/sdks/library/README.md#get_media_posters) - Get Media Posters
-* [post_media_poster](docs/sdks/library/README.md#post_media_poster) - Upload Media Poster
-* [get_metadata_children](docs/sdks/library/README.md#get_metadata_children) - Get Items Children
-* [get_top_watched_content](docs/sdks/library/README.md#get_top_watched_content) - Get Top Watched Content
+* [get_library_items](docs/sdks/library/README.md#get_library_items) - Get all items in library
+* [delete_caches](docs/sdks/library/README.md#delete_caches) - Delete library caches
+* [clean_bundles](docs/sdks/library/README.md#clean_bundles) - Clean bundles
+* [ingest_transient_item](docs/sdks/library/README.md#ingest_transient_item) - Ingest a transient item
+* [get_library_matches](docs/sdks/library/README.md#get_library_matches) - Get library matches
+* [optimize_database](docs/sdks/library/README.md#optimize_database) - Optimize the Database
+* [get_random_artwork](docs/sdks/library/README.md#get_random_artwork) - Get random artwork
+* [get_sections](docs/sdks/library/README.md#get_sections) - Get library sections (main Media Provider Only)
+* [add_section](docs/sdks/library/README.md#add_section) - Add a library section
+* [stop_all_refreshes](docs/sdks/library/README.md#stop_all_refreshes) - Stop refresh
+* [get_sections_prefs](docs/sdks/library/README.md#get_sections_prefs) - Get section prefs
+* [refresh_sections_metadata](docs/sdks/library/README.md#refresh_sections_metadata) - Refresh all sections
+* [get_tags](docs/sdks/library/README.md#get_tags) - Get all library tags of a type
+* [delete_metadata_item](docs/sdks/library/README.md#delete_metadata_item) - Delete a metadata item
+* [edit_metadata_item](docs/sdks/library/README.md#edit_metadata_item) - Edit a metadata item
+* [detect_ads](docs/sdks/library/README.md#detect_ads) - Ad-detect an item
+* [get_all_item_leaves](docs/sdks/library/README.md#get_all_item_leaves) - Get the leaves of an item
+* [analyze_metadata](docs/sdks/library/README.md#analyze_metadata) - Analyze an item
+* [generate_thumbs](docs/sdks/library/README.md#generate_thumbs) - Generate thumbs of chapters for an item
+* [detect_credits](docs/sdks/library/README.md#detect_credits) - Credit detect a metadata item
+* [get_extras](docs/sdks/library/README.md#get_extras) - Get an item's extras
+* [add_extras](docs/sdks/library/README.md#add_extras) - Add to an item's extras
+* [get_file](docs/sdks/library/README.md#get_file) - Get a file from a metadata or media bundle
+* [start_bif_generation](docs/sdks/library/README.md#start_bif_generation) - Start BIF generation of an item
+* [detect_intros](docs/sdks/library/README.md#detect_intros) - Intro detect an item
+* [create_marker](docs/sdks/library/README.md#create_marker) - Create a marker
+* [match_item](docs/sdks/library/README.md#match_item) - Match a metadata item
+* [list_matches](docs/sdks/library/README.md#list_matches) - Get metadata matches for an item
+* [merge_items](docs/sdks/library/README.md#merge_items) - Merge a metadata item
+* [list_sonically_similar](docs/sdks/library/README.md#list_sonically_similar) - Get nearest tracks to metadata item
+* [set_item_preferences](docs/sdks/library/README.md#set_item_preferences) - Set metadata preferences
+* [refresh_items_metadata](docs/sdks/library/README.md#refresh_items_metadata) - Refresh a metadata item
+* [get_related_items](docs/sdks/library/README.md#get_related_items) - Get related items
+* [list_similar](docs/sdks/library/README.md#list_similar) - Get similar items
+* [split_item](docs/sdks/library/README.md#split_item) - Split a metadata item
+* [add_subtitles](docs/sdks/library/README.md#add_subtitles) - Add subtitles
+* [get_item_tree](docs/sdks/library/README.md#get_item_tree) - Get metadata items as a tree
+* [unmatch](docs/sdks/library/README.md#unmatch) - Unmatch a metadata item
+* [list_top_users](docs/sdks/library/README.md#list_top_users) - Get metadata top users
+* [detect_voice_activity](docs/sdks/library/README.md#detect_voice_activity) - Detect voice activity
+* [get_augmentation_status](docs/sdks/library/README.md#get_augmentation_status) - Get augmentation status
+* [set_stream_selection](docs/sdks/library/README.md#set_stream_selection) - Set stream selection
+* [get_person](docs/sdks/library/README.md#get_person) - Get person details
+* [list_person_media](docs/sdks/library/README.md#list_person_media) - Get media for a person
+* [delete_library_section](docs/sdks/library/README.md#delete_library_section) - Delete a library section
+* [get_library_details](docs/sdks/library/README.md#get_library_details) - Get a library section by id
+* [edit_section](docs/sdks/library/README.md#edit_section) - Edit a library section
+* [update_items](docs/sdks/library/README.md#update_items) - Set the fields of the filtered items
+* [start_analysis](docs/sdks/library/README.md#start_analysis) - Analyze a section
+* [autocomplete](docs/sdks/library/README.md#autocomplete) - Get autocompletions for search
+* [get_collections](docs/sdks/library/README.md#get_collections) - Get collections in a section
+* [get_common](docs/sdks/library/README.md#get_common) - Get common fields for items
+* [empty_trash](docs/sdks/library/README.md#empty_trash) - Empty section trash
+* [get_section_filters](docs/sdks/library/README.md#get_section_filters) - Get section filters
+* [get_first_characters](docs/sdks/library/README.md#get_first_characters) - Get list of first characters
+* [delete_indexes](docs/sdks/library/README.md#delete_indexes) - Delete section indexes
+* [delete_intros](docs/sdks/library/README.md#delete_intros) - Delete section intro markers
+* [get_section_preferences](docs/sdks/library/README.md#get_section_preferences) - Get section prefs
+* [set_section_preferences](docs/sdks/library/README.md#set_section_preferences) - Set section prefs
+* [cancel_refresh](docs/sdks/library/README.md#cancel_refresh) - Cancel section refresh
+* [refresh_section](docs/sdks/library/README.md#refresh_section) - Refresh section
+* [get_available_sorts](docs/sdks/library/README.md#get_available_sorts) - Get a section sorts
+* [get_stream_levels](docs/sdks/library/README.md#get_stream_levels) - Get loudness about a stream in json
+* [get_stream_loudness](docs/sdks/library/README.md#get_stream_loudness) - Get loudness about a stream
+* [get_chapter_image](docs/sdks/library/README.md#get_chapter_image) - Get a chapter image
+* [set_item_artwork](docs/sdks/library/README.md#set_item_artwork) - Set an item's artwork, theme, etc
+* [update_item_artwork](docs/sdks/library/README.md#update_item_artwork) - Set an item's artwork, theme, etc
+* [delete_marker](docs/sdks/library/README.md#delete_marker) - Delete a marker
+* [edit_marker](docs/sdks/library/README.md#edit_marker) - Edit a marker
+* [delete_media_item](docs/sdks/library/README.md#delete_media_item) - Delete a media item
+* [get_part_index](docs/sdks/library/README.md#get_part_index) - Get BIF index for a part
+* [delete_collection](docs/sdks/library/README.md#delete_collection) - Delete a collection
+* [get_section_image](docs/sdks/library/README.md#get_section_image) - Get a section composite image
+* [delete_stream](docs/sdks/library/README.md#delete_stream) - Delete a stream
+* [get_stream](docs/sdks/library/README.md#get_stream) - Get a stream
+* [set_stream_offset](docs/sdks/library/README.md#set_stream_offset) - Set a stream offset
+* [get_item_artwork](docs/sdks/library/README.md#get_item_artwork) - Get an item's artwork, theme, etc
+* [get_media_part](docs/sdks/library/README.md#get_media_part) - Get a media part
+* [get_image_from_bif](docs/sdks/library/README.md#get_image_from_bif) - Get an image from part BIF
+
+### [library_collections](docs/sdks/librarycollections/README.md)
+
+* [add_collection_items](docs/sdks/librarycollections/README.md#add_collection_items) - Add items to a collection
+* [delete_collection_item](docs/sdks/librarycollections/README.md#delete_collection_item) - Delete an item from a collection
+* [move_collection_item](docs/sdks/librarycollections/README.md#move_collection_item) - Reorder an item in the collection
+
+### [library_playlists](docs/sdks/libraryplaylists/README.md)
+
+* [create_playlist](docs/sdks/libraryplaylists/README.md#create_playlist) - Create a Playlist
+* [upload_playlist](docs/sdks/libraryplaylists/README.md#upload_playlist) - Upload
+* [delete_playlist](docs/sdks/libraryplaylists/README.md#delete_playlist) - Delete a Playlist
+* [update_playlist](docs/sdks/libraryplaylists/README.md#update_playlist) - Editing a Playlist
+* [get_playlist_generators](docs/sdks/libraryplaylists/README.md#get_playlist_generators) - Get a playlist's generators
+* [clear_playlist_items](docs/sdks/libraryplaylists/README.md#clear_playlist_items) - Clearing a playlist
+* [add_playlist_items](docs/sdks/libraryplaylists/README.md#add_playlist_items) - Adding to  a Playlist
+* [delete_playlist_item](docs/sdks/libraryplaylists/README.md#delete_playlist_item) - Delete a Generator
+* [get_playlist_generator](docs/sdks/libraryplaylists/README.md#get_playlist_generator) - Get a playlist generator
+* [modify_playlist_generator](docs/sdks/libraryplaylists/README.md#modify_playlist_generator) - Modify a Generator
+* [get_playlist_generator_items](docs/sdks/libraryplaylists/README.md#get_playlist_generator_items) - Get a playlist generator's items
+* [move_playlist_item](docs/sdks/libraryplaylists/README.md#move_playlist_item) - Moving items in a playlist
+* [refresh_playlist](docs/sdks/libraryplaylists/README.md#refresh_playlist) - Reprocess a generator
+
+### [live_tv](docs/sdks/livetv/README.md)
+
+* [get_sessions](docs/sdks/livetv/README.md#get_sessions) - Get all sessions
+* [get_live_tv_session](docs/sdks/livetv/README.md#get_live_tv_session) - Get a single session
+* [get_session_playlist_index](docs/sdks/livetv/README.md#get_session_playlist_index) - Get a session playlist index
+* [get_session_segment](docs/sdks/livetv/README.md#get_session_segment) - Get a single session segment
 
 ### [log](docs/sdks/log/README.md)
 
-* [log_line](docs/sdks/log/README.md#log_line) - Logging a single line message.
-* [log_multi_line](docs/sdks/log/README.md#log_multi_line) - Logging a multi-line message
-* [enable_paper_trail](docs/sdks/log/README.md#enable_paper_trail) - Enabling Papertrail
+* [write_log](docs/sdks/log/README.md#write_log) - Logging a multi-line message to the Plex Media Server log
+* [write_message](docs/sdks/log/README.md#write_message) - Logging a single-line message to the Plex Media Server log
+* [enable_papertrail](docs/sdks/log/README.md#enable_papertrail) - Enabling Papertrail
 
-### [media](docs/sdks/media/README.md)
+### [play_queue](docs/sdks/playqueue/README.md)
 
-* [mark_played](docs/sdks/media/README.md#mark_played) - Mark Media Played
-* [mark_unplayed](docs/sdks/media/README.md#mark_unplayed) - Mark Media Unplayed
-* [update_play_progress](docs/sdks/media/README.md#update_play_progress) - Update Media Play Progress
-* [get_banner_image](docs/sdks/media/README.md#get_banner_image) - Get Banner Image
-* [get_thumb_image](docs/sdks/media/README.md#get_thumb_image) - Get Thumb Image
+* [create_play_queue](docs/sdks/playqueue/README.md#create_play_queue) - Create a play queue
+* [get_play_queue](docs/sdks/playqueue/README.md#get_play_queue) - Retrieve a play queue
+* [add_to_play_queue](docs/sdks/playqueue/README.md#add_to_play_queue) - Add a generator or playlist to a play queue
+* [clear_play_queue](docs/sdks/playqueue/README.md#clear_play_queue) - Clear a play queue
+* [reset_play_queue](docs/sdks/playqueue/README.md#reset_play_queue) - Reset a play queue
+* [shuffle](docs/sdks/playqueue/README.md#shuffle) - Shuffle a play queue
+* [unshuffle](docs/sdks/playqueue/README.md#unshuffle) - Unshuffle a play queue
+* [delete_play_queue_item](docs/sdks/playqueue/README.md#delete_play_queue_item) - Delete an item from a play queue
+* [move_play_queue_item](docs/sdks/playqueue/README.md#move_play_queue_item) - Move an item in a play queue
 
-### [playlists](docs/sdks/playlists/README.md)
+### [playlist](docs/sdks/playlist/README.md)
 
-* [create_playlist](docs/sdks/playlists/README.md#create_playlist) - Create a Playlist
-* [get_playlists](docs/sdks/playlists/README.md#get_playlists) - Get All Playlists
-* [get_playlist](docs/sdks/playlists/README.md#get_playlist) - Retrieve Playlist
-* [delete_playlist](docs/sdks/playlists/README.md#delete_playlist) - Deletes a Playlist
-* [update_playlist](docs/sdks/playlists/README.md#update_playlist) - Update a Playlist
-* [get_playlist_contents](docs/sdks/playlists/README.md#get_playlist_contents) - Retrieve Playlist Contents
-* [clear_playlist_contents](docs/sdks/playlists/README.md#clear_playlist_contents) - Delete Playlist Contents
-* [add_playlist_contents](docs/sdks/playlists/README.md#add_playlist_contents) - Adding to a Playlist
-* [upload_playlist](docs/sdks/playlists/README.md#upload_playlist) - Upload Playlist
+* [list_playlists](docs/sdks/playlist/README.md#list_playlists) - List playlists
+* [get_playlist](docs/sdks/playlist/README.md#get_playlist) - Retrieve Playlist
+* [get_playlist_items](docs/sdks/playlist/README.md#get_playlist_items) - Retrieve Playlist Contents
 
-### [plex](docs/sdks/plex/README.md)
+### [preferences](docs/sdks/preferences/README.md)
 
-* [get_companions_data](docs/sdks/plex/README.md#get_companions_data) - Get Companions Data
-* [get_user_friends](docs/sdks/plex/README.md#get_user_friends) - Get list of friends of the user logged in
-* [get_geo_data](docs/sdks/plex/README.md#get_geo_data) - Get Geo Data
-* [get_home_data](docs/sdks/plex/README.md#get_home_data) - Get Plex Home Data
-* [get_server_resources](docs/sdks/plex/README.md#get_server_resources) - Get Server Resources
-* [get_pin](docs/sdks/plex/README.md#get_pin) - Get a Pin
-* [get_token_by_pin_id](docs/sdks/plex/README.md#get_token_by_pin_id) - Get Access Token by PinId
+* [get_all_preferences](docs/sdks/preferences/README.md#get_all_preferences) - Get all preferences
+* [set_preferences](docs/sdks/preferences/README.md#set_preferences) - Set preferences
+* [get_preference](docs/sdks/preferences/README.md#get_preference) - Get a preferences
 
+### [provider](docs/sdks/provider/README.md)
+
+* [list_providers](docs/sdks/provider/README.md#list_providers) - Get the list of available media providers
+* [add_provider](docs/sdks/provider/README.md#add_provider) - Add a media provider
+* [refresh_providers](docs/sdks/provider/README.md#refresh_providers) - Refresh media providers
+* [delete_media_provider](docs/sdks/provider/README.md#delete_media_provider) - Delete a media provider
+
+### [rate](docs/sdks/rate/README.md)
+
+* [set_rating](docs/sdks/rate/README.md#set_rating) - Rate an item
 
 ### [search](docs/sdks/search/README.md)
 
-* [perform_search](docs/sdks/search/README.md#perform_search) - Perform a search
-* [perform_voice_search](docs/sdks/search/README.md#perform_voice_search) - Perform a voice search
-* [get_search_results](docs/sdks/search/README.md#get_search_results) - Get Search Results
+* [search_hubs](docs/sdks/search/README.md#search_hubs) - Search Hub
+* [voice_search_hubs](docs/sdks/search/README.md#voice_search_hubs) - Voice Search Hub
 
-### [server](docs/sdks/server/README.md)
+### [status](docs/sdks/status/README.md)
 
-* [get_server_capabilities](docs/sdks/server/README.md#get_server_capabilities) - Get Server Capabilities
-* [get_server_preferences](docs/sdks/server/README.md#get_server_preferences) - Get Server Preferences
-* [get_available_clients](docs/sdks/server/README.md#get_available_clients) - Get Available Clients
-* [get_devices](docs/sdks/server/README.md#get_devices) - Get Devices
-* [get_server_identity](docs/sdks/server/README.md#get_server_identity) - Get Server Identity
-* [get_my_plex_account](docs/sdks/server/README.md#get_my_plex_account) - Get MyPlex Account
-* [get_resized_photo](docs/sdks/server/README.md#get_resized_photo) - Get a Resized Photo
-* [get_media_providers](docs/sdks/server/README.md#get_media_providers) - Get Media Providers
-* [get_server_list](docs/sdks/server/README.md#get_server_list) - Get Server List
+* [list_sessions](docs/sdks/status/README.md#list_sessions) - List Sessions
+* [get_background_tasks](docs/sdks/status/README.md#get_background_tasks) - Get background tasks
+* [list_playback_history](docs/sdks/status/README.md#list_playback_history) - List Playback History
+* [terminate_session](docs/sdks/status/README.md#terminate_session) - Terminate a session
+* [delete_history](docs/sdks/status/README.md#delete_history) - Delete Single History Item
+* [get_history_item](docs/sdks/status/README.md#get_history_item) - Get Single History Item
 
-### [sessions](docs/sdks/sessions/README.md)
+### [subscriptions](docs/sdks/subscriptions/README.md)
 
-* [get_sessions](docs/sdks/sessions/README.md#get_sessions) - Get Active Sessions
-* [get_session_history](docs/sdks/sessions/README.md#get_session_history) - Get Session History
-* [get_transcode_sessions](docs/sdks/sessions/README.md#get_transcode_sessions) - Get Transcode Sessions
-* [stop_transcode_session](docs/sdks/sessions/README.md#stop_transcode_session) - Stop a Transcode Session
+* [get_all_subscriptions](docs/sdks/subscriptions/README.md#get_all_subscriptions) - Get all subscriptions
+* [create_subscription](docs/sdks/subscriptions/README.md#create_subscription) - Create a subscription
+* [process_subscriptions](docs/sdks/subscriptions/README.md#process_subscriptions) - Process all subscriptions
+* [get_scheduled_recordings](docs/sdks/subscriptions/README.md#get_scheduled_recordings) - Get all scheduled recordings
+* [get_template](docs/sdks/subscriptions/README.md#get_template) - Get the subscription template
+* [cancel_grab](docs/sdks/subscriptions/README.md#cancel_grab) - Cancel an existing grab
+* [delete_subscription](docs/sdks/subscriptions/README.md#delete_subscription) - Delete a subscription
+* [get_subscription](docs/sdks/subscriptions/README.md#get_subscription) - Get a single subscription
+* [edit_subscription_preferences](docs/sdks/subscriptions/README.md#edit_subscription_preferences) - Edit a subscription
+* [reorder_subscription](docs/sdks/subscriptions/README.md#reorder_subscription) - Re-order a subscription
 
-### [statistics](docs/sdks/statistics/README.md)
+### [timeline](docs/sdks/timeline/README.md)
 
-* [get_statistics](docs/sdks/statistics/README.md#get_statistics) - Get Media Statistics
-* [get_resources_statistics](docs/sdks/statistics/README.md#get_resources_statistics) - Get Resources Statistics
-* [get_bandwidth_statistics](docs/sdks/statistics/README.md#get_bandwidth_statistics) - Get Bandwidth Statistics
+* [mark_played](docs/sdks/timeline/README.md#mark_played) - Mark an item as played
+* [report](docs/sdks/timeline/README.md#report) - Report media timeline
+* [unscrobble](docs/sdks/timeline/README.md#unscrobble) - Mark an item as unplayed
+
+### [transcoder](docs/sdks/transcoder/README.md)
+
+* [transcode_image](docs/sdks/transcoder/README.md#transcode_image) - Transcode an image
+* [make_decision](docs/sdks/transcoder/README.md#make_decision) - Make a decision on media playback
+* [trigger_fallback](docs/sdks/transcoder/README.md#trigger_fallback) - Manually trigger a transcoder fallback
+* [transcode_subtitles](docs/sdks/transcoder/README.md#transcode_subtitles) - Transcode subtitles
+* [start_transcode_session](docs/sdks/transcoder/README.md#start_transcode_session) - Start A Transcoding Session
+
+### [ultra_blur](docs/sdks/ultrablur/README.md)
+
+* [get_colors](docs/sdks/ultrablur/README.md#get_colors) - Get UltraBlur Colors
+* [get_image](docs/sdks/ultrablur/README.md#get_image) - Get UltraBlur Image
 
 ### [updater](docs/sdks/updater/README.md)
 
-* [get_update_status](docs/sdks/updater/README.md#get_update_status) - Querying status of updates
-* [check_for_updates](docs/sdks/updater/README.md#check_for_updates) - Checking for updates
-* [apply_updates](docs/sdks/updater/README.md#apply_updates) - Apply Updates
-
-### [users](docs/sdks/users/README.md)
-
-* [get_users](docs/sdks/users/README.md#get_users) - Get list of all connected users
-
-### [video](docs/sdks/video/README.md)
-
-* [get_timeline](docs/sdks/video/README.md#get_timeline) - Get the timeline for a media item
-* [start_universal_transcode](docs/sdks/video/README.md#start_universal_transcode) - Start Universal Transcode
-
-### [watchlist](docs/sdks/watchlist/README.md)
-
-* [get_watch_list](docs/sdks/watchlist/README.md#get_watch_list) - Get User Watchlist
+* [apply_updates](docs/sdks/updater/README.md#apply_updates) - Applying updates
+* [check_updates](docs/sdks/updater/README.md#check_updates) - Checking for updates
+* [get_updates_status](docs/sdks/updater/README.md#get_updates_status) - Querying status of updates
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
@@ -346,10 +588,10 @@ from plex_api_client import PlexAPI
 
 
 with PlexAPI(
-    access_token="<YOUR_API_KEY_HERE>",
+    token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
 
-    res = plex_api.library.post_media_arts(rating_key=2268, url="https://api.mediux.pro/assets/fcfdc487-dd07-4993-a0c1-0a3015362e5b")
+    res = plex_api.log.write_log(request=open("example.file", "rb"))
 
     assert res is not None
 
@@ -367,40 +609,64 @@ Some of the endpoints in this SDK support retries. If you use the SDK without an
 To change the default retry strategy for a single API call, simply provide a `RetryConfig` object to the call:
 ```python
 from plex_api_client import PlexAPI
+from plex_api_client.models import components
 from plex_api_client.utils import BackoffStrategy, RetryConfig
 
 
 with PlexAPI(
-    access_token="<YOUR_API_KEY_HERE>",
+    accepts=components.Accepts.APPLICATION_XML,
+    client_identifier="abc123",
+    product="Plex for Roku",
+    version="2.4.1",
+    platform="Roku",
+    platform_version="4.3 build 1057",
+    device="Roku 3",
+    model="4200X",
+    device_vendor="Roku",
+    device_name="Living Room TV",
+    marketplace="googlePlay",
+    token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
 
-    res = plex_api.server.get_server_capabilities(,
+    res = plex_api.general.get_server_info(request={},
         RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False))
 
-    assert res.object is not None
+    assert res.media_container_with_directory is not None
 
     # Handle response
-    print(res.object)
+    print(res.media_container_with_directory)
 
 ```
 
 If you'd like to override the default retry strategy for all operations that support retries, you can use the `retry_config` optional parameter when initializing the SDK:
 ```python
 from plex_api_client import PlexAPI
+from plex_api_client.models import components
 from plex_api_client.utils import BackoffStrategy, RetryConfig
 
 
 with PlexAPI(
     retry_config=RetryConfig("backoff", BackoffStrategy(1, 50, 1.1, 100), False),
-    access_token="<YOUR_API_KEY_HERE>",
+    accepts=components.Accepts.APPLICATION_XML,
+    client_identifier="abc123",
+    product="Plex for Roku",
+    version="2.4.1",
+    platform="Roku",
+    platform_version="4.3 build 1057",
+    device="Roku 3",
+    model="4200X",
+    device_vendor="Roku",
+    device_name="Living Room TV",
+    marketplace="googlePlay",
+    token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
 
-    res = plex_api.server.get_server_capabilities()
+    res = plex_api.general.get_server_info(request={})
 
-    assert res.object is not None
+    assert res.media_container_with_directory is not None
 
     # Handle response
-    print(res.object)
+    print(res.media_container_with_directory)
 
 ```
 <!-- End Retries [retries] -->
@@ -410,33 +676,43 @@ with PlexAPI(
 
 [`PlexAPIError`](./src/plex_api_client/models/errors/plexapierror.py) is the base class for all HTTP error responses. It has the following properties:
 
-| Property           | Type             | Description                                                                             |
-| ------------------ | ---------------- | --------------------------------------------------------------------------------------- |
-| `err.message`      | `str`            | Error message                                                                           |
-| `err.status_code`  | `int`            | HTTP response status code eg `404`                                                      |
-| `err.headers`      | `httpx.Headers`  | HTTP response headers                                                                   |
-| `err.body`         | `str`            | HTTP body. Can be empty string if no body is returned.                                  |
-| `err.raw_response` | `httpx.Response` | Raw HTTP response                                                                       |
-| `err.data`         |                  | Optional. Some errors may contain structured data. [See Error Classes](#error-classes). |
+| Property           | Type             | Description                                            |
+| ------------------ | ---------------- | ------------------------------------------------------ |
+| `err.message`      | `str`            | Error message                                          |
+| `err.status_code`  | `int`            | HTTP response status code eg `404`                     |
+| `err.headers`      | `httpx.Headers`  | HTTP response headers                                  |
+| `err.body`         | `str`            | HTTP body. Can be empty string if no body is returned. |
+| `err.raw_response` | `httpx.Response` | Raw HTTP response                                      |
 
 ### Example
 ```python
 from plex_api_client import PlexAPI
-from plex_api_client.models import errors
+from plex_api_client.models import components, errors
 
 
 with PlexAPI(
-    access_token="<YOUR_API_KEY_HERE>",
+    accepts=components.Accepts.APPLICATION_XML,
+    client_identifier="abc123",
+    product="Plex for Roku",
+    version="2.4.1",
+    platform="Roku",
+    platform_version="4.3 build 1057",
+    device="Roku 3",
+    model="4200X",
+    device_vendor="Roku",
+    device_name="Living Room TV",
+    marketplace="googlePlay",
+    token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
     res = None
     try:
 
-        res = plex_api.server.get_server_capabilities()
+        res = plex_api.general.get_server_info(request={})
 
-        assert res.object is not None
+        assert res.media_container_with_directory is not None
 
         # Handle response
-        print(res.object)
+        print(res.media_container_with_directory)
 
 
     except errors.PlexAPIError as e:
@@ -447,17 +723,13 @@ with PlexAPI(
         print(e.headers)
         print(e.raw_response)
 
-        # Depending on the method different errors may be thrown
-        if isinstance(e, errors.GetServerCapabilitiesBadRequest):
-            print(e.data.errors)  # Optional[List[errors.Errors]]
-            print(e.data.raw_response)  # Optional[httpx.Response]
 ```
 
 ### Error Classes
 **Primary error:**
 * [`PlexAPIError`](./src/plex_api_client/models/errors/plexapierror.py): The base class for HTTP error responses.
 
-<details><summary>Less common errors (161)</summary>
+<details><summary>Less common errors (5)</summary>
 
 <br />
 
@@ -468,242 +740,100 @@ with PlexAPI(
 
 
 **Inherit from [`PlexAPIError`](./src/plex_api_client/models/errors/plexapierror.py)**:
-* [`GetServerCapabilitiesBadRequest`](./src/plex_api_client/models/errors/getservercapabilitiesbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetServerPreferencesBadRequest`](./src/plex_api_client/models/errors/getserverpreferencesbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetAvailableClientsBadRequest`](./src/plex_api_client/models/errors/getavailableclientsbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetDevicesBadRequest`](./src/plex_api_client/models/errors/getdevicesbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetMyPlexAccountBadRequest`](./src/plex_api_client/models/errors/getmyplexaccountbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetResizedPhotoBadRequest`](./src/plex_api_client/models/errors/getresizedphotobadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetMediaProvidersBadRequest`](./src/plex_api_client/models/errors/getmediaprovidersbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetServerListBadRequest`](./src/plex_api_client/models/errors/getserverlistbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`MarkPlayedBadRequest`](./src/plex_api_client/models/errors/markplayedbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`MarkUnplayedBadRequest`](./src/plex_api_client/models/errors/markunplayedbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`UpdatePlayProgressBadRequest`](./src/plex_api_client/models/errors/updateplayprogressbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetBannerImageBadRequest`](./src/plex_api_client/models/errors/getbannerimagebadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetThumbImageBadRequest`](./src/plex_api_client/models/errors/getthumbimagebadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetTimelineBadRequest`](./src/plex_api_client/models/errors/gettimelinebadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`StartUniversalTranscodeBadRequest`](./src/plex_api_client/models/errors/startuniversaltranscodebadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetServerActivitiesBadRequest`](./src/plex_api_client/models/errors/getserveractivitiesbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`CancelServerActivitiesBadRequest`](./src/plex_api_client/models/errors/cancelserveractivitiesbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetButlerTasksBadRequest`](./src/plex_api_client/models/errors/getbutlertasksbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`StartAllTasksBadRequest`](./src/plex_api_client/models/errors/startalltasksbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`StopAllTasksBadRequest`](./src/plex_api_client/models/errors/stopalltasksbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`StartTaskBadRequest`](./src/plex_api_client/models/errors/starttaskbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`StopTaskBadRequest`](./src/plex_api_client/models/errors/stoptaskbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetCompanionsDataBadRequest`](./src/plex_api_client/models/errors/getcompanionsdatabadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetUserFriendsBadRequest`](./src/plex_api_client/models/errors/getuserfriendsbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetGeoDataBadRequest`](./src/plex_api_client/models/errors/getgeodatabadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetHomeDataBadRequest`](./src/plex_api_client/models/errors/gethomedatabadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetServerResourcesBadRequest`](./src/plex_api_client/models/errors/getserverresourcesbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetPinBadRequest`](./src/plex_api_client/models/errors/getpinbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetTokenByPinIDBadRequest`](./src/plex_api_client/models/errors/gettokenbypinidbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetGlobalHubsBadRequest`](./src/plex_api_client/models/errors/getglobalhubsbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetLibraryHubsBadRequest`](./src/plex_api_client/models/errors/getlibraryhubsbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`PerformSearchBadRequest`](./src/plex_api_client/models/errors/performsearchbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`PerformVoiceSearchBadRequest`](./src/plex_api_client/models/errors/performvoicesearchbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetSearchResultsBadRequest`](./src/plex_api_client/models/errors/getsearchresultsbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetFileHashBadRequest`](./src/plex_api_client/models/errors/getfilehashbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetRecentlyAddedLibraryBadRequest`](./src/plex_api_client/models/errors/getrecentlyaddedlibrarybadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetAllLibrariesBadRequest`](./src/plex_api_client/models/errors/getalllibrariesbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetLibraryDetailsBadRequest`](./src/plex_api_client/models/errors/getlibrarydetailsbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`DeleteLibraryBadRequest`](./src/plex_api_client/models/errors/deletelibrarybadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetLibraryItemsBadRequest`](./src/plex_api_client/models/errors/getlibraryitemsbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetLibrarySectionsAllBadRequest`](./src/plex_api_client/models/errors/getlibrarysectionsallbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetRefreshLibraryMetadataBadRequest`](./src/plex_api_client/models/errors/getrefreshlibrarymetadatabadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetSearchLibraryBadRequest`](./src/plex_api_client/models/errors/getsearchlibrarybadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetGenresLibraryBadRequest`](./src/plex_api_client/models/errors/getgenreslibrarybadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetCountriesLibraryBadRequest`](./src/plex_api_client/models/errors/getcountrieslibrarybadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetActorsLibraryBadRequest`](./src/plex_api_client/models/errors/getactorslibrarybadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetSearchAllLibrariesBadRequest`](./src/plex_api_client/models/errors/getsearchalllibrariesbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetMediaMetaDataBadRequest`](./src/plex_api_client/models/errors/getmediametadatabadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetMetadataChildrenBadRequest`](./src/plex_api_client/models/errors/getmetadatachildrenbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetTopWatchedContentBadRequest`](./src/plex_api_client/models/errors/gettopwatchedcontentbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetWatchListBadRequest`](./src/plex_api_client/models/errors/getwatchlistbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`LogLineBadRequest`](./src/plex_api_client/models/errors/loglinebadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`LogMultiLineBadRequest`](./src/plex_api_client/models/errors/logmultilinebadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`EnablePaperTrailBadRequest`](./src/plex_api_client/models/errors/enablepapertrailbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`CreatePlaylistBadRequest`](./src/plex_api_client/models/errors/createplaylistbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetPlaylistsBadRequest`](./src/plex_api_client/models/errors/getplaylistsbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetPlaylistBadRequest`](./src/plex_api_client/models/errors/getplaylistbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`DeletePlaylistBadRequest`](./src/plex_api_client/models/errors/deleteplaylistbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`UpdatePlaylistBadRequest`](./src/plex_api_client/models/errors/updateplaylistbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetPlaylistContentsBadRequest`](./src/plex_api_client/models/errors/getplaylistcontentsbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`ClearPlaylistContentsBadRequest`](./src/plex_api_client/models/errors/clearplaylistcontentsbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`AddPlaylistContentsBadRequest`](./src/plex_api_client/models/errors/addplaylistcontentsbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`UploadPlaylistBadRequest`](./src/plex_api_client/models/errors/uploadplaylistbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetTransientTokenBadRequest`](./src/plex_api_client/models/errors/gettransienttokenbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetSourceConnectionInformationBadRequest`](./src/plex_api_client/models/errors/getsourceconnectioninformationbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetTokenDetailsBadRequest`](./src/plex_api_client/models/errors/gettokendetailsbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`PostUsersSignInDataBadRequest`](./src/plex_api_client/models/errors/postuserssignindatabadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetStatisticsBadRequest`](./src/plex_api_client/models/errors/getstatisticsbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetResourcesStatisticsBadRequest`](./src/plex_api_client/models/errors/getresourcesstatisticsbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetBandwidthStatisticsBadRequest`](./src/plex_api_client/models/errors/getbandwidthstatisticsbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetSessionsBadRequest`](./src/plex_api_client/models/errors/getsessionsbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetSessionHistoryBadRequest`](./src/plex_api_client/models/errors/getsessionhistorybadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetTranscodeSessionsBadRequest`](./src/plex_api_client/models/errors/gettranscodesessionsbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`StopTranscodeSessionBadRequest`](./src/plex_api_client/models/errors/stoptranscodesessionbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetUpdateStatusBadRequest`](./src/plex_api_client/models/errors/getupdatestatusbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`CheckForUpdatesBadRequest`](./src/plex_api_client/models/errors/checkforupdatesbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`ApplyUpdatesBadRequest`](./src/plex_api_client/models/errors/applyupdatesbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetUsersBadRequest`](./src/plex_api_client/models/errors/getusersbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 84 methods.*
-* [`GetServerCapabilitiesUnauthorized`](./src/plex_api_client/models/errors/getservercapabilitiesunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetServerPreferencesUnauthorized`](./src/plex_api_client/models/errors/getserverpreferencesunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetAvailableClientsUnauthorized`](./src/plex_api_client/models/errors/getavailableclientsunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetDevicesUnauthorized`](./src/plex_api_client/models/errors/getdevicesunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetMyPlexAccountUnauthorized`](./src/plex_api_client/models/errors/getmyplexaccountunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetResizedPhotoUnauthorized`](./src/plex_api_client/models/errors/getresizedphotounauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetMediaProvidersUnauthorized`](./src/plex_api_client/models/errors/getmediaprovidersunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetServerListUnauthorized`](./src/plex_api_client/models/errors/getserverlistunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`MarkPlayedUnauthorized`](./src/plex_api_client/models/errors/markplayedunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`MarkUnplayedUnauthorized`](./src/plex_api_client/models/errors/markunplayedunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`UpdatePlayProgressUnauthorized`](./src/plex_api_client/models/errors/updateplayprogressunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetBannerImageUnauthorized`](./src/plex_api_client/models/errors/getbannerimageunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetThumbImageUnauthorized`](./src/plex_api_client/models/errors/getthumbimageunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetTimelineUnauthorized`](./src/plex_api_client/models/errors/gettimelineunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`StartUniversalTranscodeUnauthorized`](./src/plex_api_client/models/errors/startuniversaltranscodeunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetServerActivitiesUnauthorized`](./src/plex_api_client/models/errors/getserveractivitiesunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`CancelServerActivitiesUnauthorized`](./src/plex_api_client/models/errors/cancelserveractivitiesunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetButlerTasksUnauthorized`](./src/plex_api_client/models/errors/getbutlertasksunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`StartAllTasksUnauthorized`](./src/plex_api_client/models/errors/startalltasksunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`StopAllTasksUnauthorized`](./src/plex_api_client/models/errors/stopalltasksunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`StartTaskUnauthorized`](./src/plex_api_client/models/errors/starttaskunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`StopTaskUnauthorized`](./src/plex_api_client/models/errors/stoptaskunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetCompanionsDataUnauthorized`](./src/plex_api_client/models/errors/getcompanionsdataunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetUserFriendsUnauthorized`](./src/plex_api_client/models/errors/getuserfriendsunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetGeoDataUnauthorized`](./src/plex_api_client/models/errors/getgeodataunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetHomeDataUnauthorized`](./src/plex_api_client/models/errors/gethomedataunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetServerResourcesUnauthorized`](./src/plex_api_client/models/errors/getserverresourcesunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetGlobalHubsUnauthorized`](./src/plex_api_client/models/errors/getglobalhubsunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetLibraryHubsUnauthorized`](./src/plex_api_client/models/errors/getlibraryhubsunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`PerformSearchUnauthorized`](./src/plex_api_client/models/errors/performsearchunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`PerformVoiceSearchUnauthorized`](./src/plex_api_client/models/errors/performvoicesearchunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetSearchResultsUnauthorized`](./src/plex_api_client/models/errors/getsearchresultsunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetFileHashUnauthorized`](./src/plex_api_client/models/errors/getfilehashunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetRecentlyAddedLibraryUnauthorized`](./src/plex_api_client/models/errors/getrecentlyaddedlibraryunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetAllLibrariesUnauthorized`](./src/plex_api_client/models/errors/getalllibrariesunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetLibraryDetailsUnauthorized`](./src/plex_api_client/models/errors/getlibrarydetailsunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`DeleteLibraryUnauthorized`](./src/plex_api_client/models/errors/deletelibraryunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetLibraryItemsUnauthorized`](./src/plex_api_client/models/errors/getlibraryitemsunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetLibrarySectionsAllUnauthorized`](./src/plex_api_client/models/errors/getlibrarysectionsallunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetRefreshLibraryMetadataUnauthorized`](./src/plex_api_client/models/errors/getrefreshlibrarymetadataunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetSearchLibraryUnauthorized`](./src/plex_api_client/models/errors/getsearchlibraryunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetGenresLibraryUnauthorized`](./src/plex_api_client/models/errors/getgenreslibraryunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetCountriesLibraryUnauthorized`](./src/plex_api_client/models/errors/getcountrieslibraryunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetActorsLibraryUnauthorized`](./src/plex_api_client/models/errors/getactorslibraryunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetSearchAllLibrariesUnauthorized`](./src/plex_api_client/models/errors/getsearchalllibrariesunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetMediaMetaDataUnauthorized`](./src/plex_api_client/models/errors/getmediametadataunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetMetadataChildrenUnauthorized`](./src/plex_api_client/models/errors/getmetadatachildrenunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetTopWatchedContentUnauthorized`](./src/plex_api_client/models/errors/gettopwatchedcontentunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetWatchListUnauthorized`](./src/plex_api_client/models/errors/getwatchlistunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`LogLineUnauthorized`](./src/plex_api_client/models/errors/loglineunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`LogMultiLineUnauthorized`](./src/plex_api_client/models/errors/logmultilineunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`EnablePaperTrailUnauthorized`](./src/plex_api_client/models/errors/enablepapertrailunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`CreatePlaylistUnauthorized`](./src/plex_api_client/models/errors/createplaylistunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetPlaylistsUnauthorized`](./src/plex_api_client/models/errors/getplaylistsunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetPlaylistUnauthorized`](./src/plex_api_client/models/errors/getplaylistunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`DeletePlaylistUnauthorized`](./src/plex_api_client/models/errors/deleteplaylistunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`UpdatePlaylistUnauthorized`](./src/plex_api_client/models/errors/updateplaylistunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetPlaylistContentsUnauthorized`](./src/plex_api_client/models/errors/getplaylistcontentsunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`ClearPlaylistContentsUnauthorized`](./src/plex_api_client/models/errors/clearplaylistcontentsunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`AddPlaylistContentsUnauthorized`](./src/plex_api_client/models/errors/addplaylistcontentsunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`UploadPlaylistUnauthorized`](./src/plex_api_client/models/errors/uploadplaylistunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetTransientTokenUnauthorized`](./src/plex_api_client/models/errors/gettransienttokenunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetSourceConnectionInformationUnauthorized`](./src/plex_api_client/models/errors/getsourceconnectioninformationunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetTokenDetailsUnauthorized`](./src/plex_api_client/models/errors/gettokendetailsunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`PostUsersSignInDataUnauthorized`](./src/plex_api_client/models/errors/postuserssignindataunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetStatisticsUnauthorized`](./src/plex_api_client/models/errors/getstatisticsunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetResourcesStatisticsUnauthorized`](./src/plex_api_client/models/errors/getresourcesstatisticsunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetBandwidthStatisticsUnauthorized`](./src/plex_api_client/models/errors/getbandwidthstatisticsunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetSessionsUnauthorized`](./src/plex_api_client/models/errors/getsessionsunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetSessionHistoryUnauthorized`](./src/plex_api_client/models/errors/getsessionhistoryunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetTranscodeSessionsUnauthorized`](./src/plex_api_client/models/errors/gettranscodesessionsunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`StopTranscodeSessionUnauthorized`](./src/plex_api_client/models/errors/stoptranscodesessionunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetUpdateStatusUnauthorized`](./src/plex_api_client/models/errors/getupdatestatusunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`CheckForUpdatesUnauthorized`](./src/plex_api_client/models/errors/checkforupdatesunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`ApplyUpdatesUnauthorized`](./src/plex_api_client/models/errors/applyupdatesunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetUsersUnauthorized`](./src/plex_api_client/models/errors/getusersunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 84 methods.*
-* [`GetTokenByPinIDResponseBody`](./src/plex_api_client/models/errors/gettokenbypinidresponsebody.py): Not Found or Expired. Status code `404`. Applicable to 1 of 84 methods.*
-* [`GetServerIdentityRequestTimeout`](./src/plex_api_client/models/errors/getserveridentityrequesttimeout.py): Request Timeout. Status code `408`. Applicable to 1 of 84 methods.*
 * [`ResponseValidationError`](./src/plex_api_client/models/errors/responsevalidationerror.py): Type mismatch between the response data and the expected Pydantic model. Provides access to the Pydantic validation error via the `cause` attribute.
 
 </details>
-
-\* Check [the method documentation](#available-resources-and-operations) to see if the error is applicable.
 <!-- End Error Handling [errors] -->
 
 <!-- Start Server Selection [server] -->
 ## Server Selection
 
-### Server Variables
+### Select Server by Index
 
-The default server `{protocol}://{ip}:{port}` contains variables and is set to `https://10.10.10.47:32400` by default. To override default values, the following parameters are available when initializing the SDK client instance:
+You can override the default server globally by passing a server index to the `server_idx: int` optional parameter when initializing the SDK client instance. The selected server will then be used as the default on the operations that use it. This table lists the indexes associated with the available servers:
 
-| Variable   | Parameter                         | Supported Values           | Default         | Description                                    |
-| ---------- | --------------------------------- | -------------------------- | --------------- | ---------------------------------------------- |
-| `protocol` | `protocol: models.ServerProtocol` | - `"http"`<br/>- `"https"` | `"https"`       | The protocol to use for the server connection  |
-| `ip`       | `ip: str`                         | str                        | `"10.10.10.47"` | The IP address or hostname of your Plex Server |
-| `port`     | `port: str`                       | str                        | `"32400"`       | The port of your Plex Server                   |
+| #   | Server                                                     | Variables                                    | Description |
+| --- | ---------------------------------------------------------- | -------------------------------------------- | ----------- |
+| 0   | `https://{IP-description}.{identifier}.plex.direct:{port}` | `identifier`<br/>`IP-description`<br/>`port` |             |
+| 1   | `{protocol}://{host}:{port}`                               | `protocol`<br/>`host`<br/>`port`             |             |
+| 2   | `https://{server_url}`                                     | `server_url`                                 |             |
+
+If the selected server has variables, you may override its default values through the additional parameters made available in the SDK constructor:
+
+| Variable         | Parameter                | Default                              | Description                                                                                                                                                                                                                                                                                                                                                                          |
+| ---------------- | ------------------------ | ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `identifier`     | `identifier: str`        | `"0123456789abcdef0123456789abcdef"` | The unique identifier of this particular PMS                                                                                                                                                                                                                                                                                                                                         |
+| `IP-description` | `ip_description: str`    | `"1-2-3-4"`                          | A `-` separated string of the IPv4 or IPv6 address components                                                                                                                                                                                                                                                                                                                        |
+| `port`           | `port: str`              | `"32400"`                            | The Port number configured on the PMS. Typically (`32400`). <br/>If using a reverse proxy, this would be the port number configured on the proxy.<br/>                                                                                                                                                                                                                               |
+| `protocol`       | `protocol: str`          | `"http"`                             | The network protocol to use. Typically (`http` or `https`)                                                                                                                                                                                                                                                                                                                           |
+| `host`           | `host: str`              | `"localhost"`                        | The Host of the PMS.<br/>If using on a local network, this is the internal IP address of the server hosting the PMS.<br/>If using on an external network, this is the external IP address for your network, and requires port forwarding.<br/>If using a reverse proxy, this would be the external DNS domain for your network, and requires the proxy handle port forwarding. <br/> |
+| `server_url`     | `server_url_global: str` | `"http://localhost:32400"`           | The full manual URL to access the PMS                                                                                                                                                                                                                                                                                                                                                |
 
 #### Example
 
 ```python
 from plex_api_client import PlexAPI
+from plex_api_client.models import components
 
 
 with PlexAPI(
-    protocol="https"
-    ip="4982:bc2a:b4f8:efb5:2394:5bc3:ab4f:0e6d"
-    port="44765"
-    access_token="<YOUR_API_KEY_HERE>",
+    server_idx=1,
+    protocol="<value>"
+    host="electric-excess.name"
+    port="36393"
+    accepts=components.Accepts.APPLICATION_XML,
+    client_identifier="abc123",
+    product="Plex for Roku",
+    version="2.4.1",
+    platform="Roku",
+    platform_version="4.3 build 1057",
+    device="Roku 3",
+    model="4200X",
+    device_vendor="Roku",
+    device_name="Living Room TV",
+    marketplace="googlePlay",
+    token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
 
-    res = plex_api.server.get_server_capabilities()
+    res = plex_api.general.get_server_info(request={})
 
-    assert res.object is not None
+    assert res.media_container_with_directory is not None
 
     # Handle response
-    print(res.object)
+    print(res.media_container_with_directory)
 
 ```
 
 ### Override Server URL Per-Client
 
-The default server can be overridden globally by passing a URL to the `server_url: str` optional parameter when initializing the SDK client instance. For example:
+The default server can also be overridden globally by passing a URL to the `server_url: str` optional parameter when initializing the SDK client instance. For example:
 ```python
 from plex_api_client import PlexAPI
+from plex_api_client.models import components
 
 
 with PlexAPI(
-    server_url="https://10.10.10.47:32400",
-    access_token="<YOUR_API_KEY_HERE>",
+    server_url="https://http://localhost:32400",
+    accepts=components.Accepts.APPLICATION_XML,
+    client_identifier="abc123",
+    product="Plex for Roku",
+    version="2.4.1",
+    platform="Roku",
+    platform_version="4.3 build 1057",
+    device="Roku 3",
+    model="4200X",
+    device_vendor="Roku",
+    device_name="Living Room TV",
+    marketplace="googlePlay",
+    token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
 
-    res = plex_api.server.get_server_capabilities()
+    res = plex_api.general.get_server_info(request={})
 
-    assert res.object is not None
-
-    # Handle response
-    print(res.object)
-
-```
-
-### Override Server URL Per-Operation
-
-The server URL can also be overridden on a per-operation basis, provided a server list was specified for the operation. For example:
-```python
-from plex_api_client import PlexAPI
-
-
-with PlexAPI(
-    access_token="<YOUR_API_KEY_HERE>",
-) as plex_api:
-
-    res = plex_api.plex.get_companions_data(server_url="https://plex.tv/api/v2")
-
-    assert res.response_bodies is not None
+    assert res.media_container_with_directory is not None
 
     # Handle response
-    print(res.response_bodies)
+    print(res.media_container_with_directory)
 
 ```
 <!-- End Server Selection [server] -->
@@ -796,25 +926,37 @@ s = PlexAPI(async_client=CustomClient(httpx.AsyncClient()))
 
 This SDK supports the following security scheme globally:
 
-| Name           | Type   | Scheme  |
-| -------------- | ------ | ------- |
-| `access_token` | apiKey | API key |
+| Name    | Type   | Scheme  |
+| ------- | ------ | ------- |
+| `token` | apiKey | API key |
 
-To authenticate with the API the `access_token` parameter must be set when initializing the SDK client instance. For example:
+To authenticate with the API the `token` parameter must be set when initializing the SDK client instance. For example:
 ```python
 from plex_api_client import PlexAPI
+from plex_api_client.models import components
 
 
 with PlexAPI(
-    access_token="<YOUR_API_KEY_HERE>",
+    token="<YOUR_API_KEY_HERE>",
+    accepts=components.Accepts.APPLICATION_XML,
+    client_identifier="abc123",
+    product="Plex for Roku",
+    version="2.4.1",
+    platform="Roku",
+    platform_version="4.3 build 1057",
+    device="Roku 3",
+    model="4200X",
+    device_vendor="Roku",
+    device_name="Living Room TV",
+    marketplace="googlePlay",
 ) as plex_api:
 
-    res = plex_api.server.get_server_capabilities()
+    res = plex_api.general.get_server_info(request={})
 
-    assert res.object is not None
+    assert res.media_container_with_directory is not None
 
     # Handle response
-    print(res.object)
+    print(res.media_container_with_directory)
 
 ```
 <!-- End Authentication [security] -->
@@ -828,10 +970,22 @@ The `PlexAPI` class implements the context manager protocol and registers a fina
 
 ```python
 from plex_api_client import PlexAPI
+from plex_api_client.models import components
 def main():
 
     with PlexAPI(
-        access_token="<YOUR_API_KEY_HERE>",
+        accepts=components.Accepts.APPLICATION_XML,
+        client_identifier="abc123",
+        product="Plex for Roku",
+        version="2.4.1",
+        platform="Roku",
+        platform_version="4.3 build 1057",
+        device="Roku 3",
+        model="4200X",
+        device_vendor="Roku",
+        device_name="Living Room TV",
+        marketplace="googlePlay",
+        token="<YOUR_API_KEY_HERE>",
     ) as plex_api:
         # Rest of application here...
 
@@ -840,7 +994,18 @@ def main():
 async def amain():
 
     async with PlexAPI(
-        access_token="<YOUR_API_KEY_HERE>",
+        accepts=components.Accepts.APPLICATION_XML,
+        client_identifier="abc123",
+        product="Plex for Roku",
+        version="2.4.1",
+        platform="Roku",
+        platform_version="4.3 build 1057",
+        device="Roku 3",
+        model="4200X",
+        device_vendor="Roku",
+        device_name="Living Room TV",
+        marketplace="googlePlay",
+        token="<YOUR_API_KEY_HERE>",
     ) as plex_api:
         # Rest of application here...
 ```

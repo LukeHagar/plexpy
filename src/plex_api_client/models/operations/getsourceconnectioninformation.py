@@ -2,14 +2,147 @@
 
 from __future__ import annotations
 import httpx
+from plex_api_client.models.components import (
+    accepts as components_accepts,
+    boolint as components_boolint,
+)
 from plex_api_client.types import BaseModel
-from plex_api_client.utils import FieldMetadata, QueryParamMetadata
-from typing_extensions import Annotated, TypedDict
+from plex_api_client.utils import FieldMetadata, HeaderMetadata, QueryParamMetadata
+import pydantic
+from typing import List, Optional
+from typing_extensions import Annotated, NotRequired, TypedDict
+
+
+class GetSourceConnectionInformationGlobalsTypedDict(TypedDict):
+    accepts: NotRequired[components_accepts.Accepts]
+    r"""Indicates the client accepts the indicated media types"""
+    client_identifier: NotRequired[str]
+    r"""An opaque identifier unique to the client"""
+    product: NotRequired[str]
+    r"""The name of the client product"""
+    version: NotRequired[str]
+    r"""The version of the client application"""
+    platform: NotRequired[str]
+    r"""The platform of the client"""
+    platform_version: NotRequired[str]
+    r"""The version of the platform"""
+    device: NotRequired[str]
+    r"""A relatively friendly name for the client device"""
+    model: NotRequired[str]
+    r"""A potentially less friendly identifier for the device model"""
+    device_vendor: NotRequired[str]
+    r"""The device vendor"""
+    device_name: NotRequired[str]
+    r"""A friendly name for the client"""
+    marketplace: NotRequired[str]
+    r"""The marketplace on which the client application is distributed"""
+
+
+class GetSourceConnectionInformationGlobals(BaseModel):
+    accepts: Annotated[
+        Optional[components_accepts.Accepts],
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = components_accepts.Accepts.APPLICATION_XML
+    r"""Indicates the client accepts the indicated media types"""
+
+    client_identifier: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Client-Identifier"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""An opaque identifier unique to the client"""
+
+    product: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Product"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The name of the client product"""
+
+    version: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Version"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The version of the client application"""
+
+    platform: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Platform"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The platform of the client"""
+
+    platform_version: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Platform-Version"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The version of the platform"""
+
+    device: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Device"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""A relatively friendly name for the client device"""
+
+    model: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Model"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""A potentially less friendly identifier for the device model"""
+
+    device_vendor: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Device-Vendor"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The device vendor"""
+
+    device_name: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Device-Name"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""A friendly name for the client"""
+
+    marketplace: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Marketplace"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The marketplace on which the client application is distributed"""
 
 
 class GetSourceConnectionInformationRequestTypedDict(TypedDict):
     source: str
     r"""The source identifier with an included prefix."""
+    accepts: NotRequired[components_accepts.Accepts]
+    r"""Indicates the client accepts the indicated media types"""
+    client_identifier: NotRequired[str]
+    r"""An opaque identifier unique to the client"""
+    product: NotRequired[str]
+    r"""The name of the client product"""
+    version: NotRequired[str]
+    r"""The version of the client application"""
+    platform: NotRequired[str]
+    r"""The platform of the client"""
+    platform_version: NotRequired[str]
+    r"""The version of the platform"""
+    device: NotRequired[str]
+    r"""A relatively friendly name for the client device"""
+    model: NotRequired[str]
+    r"""A potentially less friendly identifier for the device model"""
+    device_vendor: NotRequired[str]
+    r"""The device vendor"""
+    device_name: NotRequired[str]
+    r"""A friendly name for the client"""
+    marketplace: NotRequired[str]
+    r"""The marketplace on which the client application is distributed"""
+    refresh: NotRequired[components_boolint.BoolInt]
+    r"""Force refresh"""
 
 
 class GetSourceConnectionInformationRequest(BaseModel):
@@ -17,6 +150,195 @@ class GetSourceConnectionInformationRequest(BaseModel):
         str, FieldMetadata(query=QueryParamMetadata(style="form", explode=True))
     ]
     r"""The source identifier with an included prefix."""
+
+    accepts: Annotated[
+        Optional[components_accepts.Accepts],
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = components_accepts.Accepts.APPLICATION_XML
+    r"""Indicates the client accepts the indicated media types"""
+
+    client_identifier: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Client-Identifier"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""An opaque identifier unique to the client"""
+
+    product: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Product"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The name of the client product"""
+
+    version: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Version"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The version of the client application"""
+
+    platform: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Platform"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The platform of the client"""
+
+    platform_version: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Platform-Version"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The version of the platform"""
+
+    device: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Device"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""A relatively friendly name for the client device"""
+
+    model: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Model"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""A potentially less friendly identifier for the device model"""
+
+    device_vendor: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Device-Vendor"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The device vendor"""
+
+    device_name: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Device-Name"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""A friendly name for the client"""
+
+    marketplace: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Marketplace"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The marketplace on which the client application is distributed"""
+
+    refresh: Annotated[
+        Optional[components_boolint.BoolInt],
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = None
+    r"""Force refresh"""
+
+
+class ConnectionTypedDict(TypedDict):
+    address: NotRequired[str]
+    local: NotRequired[bool]
+    r"""Indicates if the connection is the server's LAN address"""
+    port: NotRequired[int]
+    protocol: NotRequired[str]
+    relay: NotRequired[bool]
+    r"""Indicates the connection is over a relayed connection"""
+    uri: NotRequired[str]
+
+
+class Connection(BaseModel):
+    address: Optional[str] = None
+
+    local: Optional[bool] = None
+    r"""Indicates if the connection is the server's LAN address"""
+
+    port: Optional[int] = None
+
+    protocol: Optional[str] = None
+
+    relay: Optional[bool] = None
+    r"""Indicates the connection is over a relayed connection"""
+
+    uri: Optional[str] = None
+
+
+class DeviceTypedDict(TypedDict):
+    access_token: NotRequired[str]
+    client_identifier: NotRequired[str]
+    connection: NotRequired[List[ConnectionTypedDict]]
+    name: NotRequired[str]
+
+
+class Device(BaseModel):
+    access_token: Annotated[Optional[str], pydantic.Field(alias="accessToken")] = None
+
+    client_identifier: Annotated[
+        Optional[str], pydantic.Field(alias="clientIdentifier")
+    ] = None
+
+    connection: Annotated[
+        Optional[List[Connection]], pydantic.Field(alias="Connection")
+    ] = None
+
+    name: Optional[str] = None
+
+
+class GetSourceConnectionInformationMediaContainerTypedDict(TypedDict):
+    r"""`MediaContainer` is the root element of most Plex API responses. It serves as a generic container for various types of content (Metadata, Hubs, Directories, etc.) and includes pagination information (offset, size, totalSize) when applicable.
+    Common attributes: - identifier: Unique identifier for this container - size: Number of items in this response page - totalSize: Total number of items available (for pagination) - offset: Starting index of this page (for pagination)
+    The container often \"hoists\" common attributes from its children. For example, if all tracks in a container share the same album title, the `parentTitle` attribute may appear on the MediaContainer rather than being repeated on each track.
+
+    """
+
+    identifier: NotRequired[str]
+    offset: NotRequired[int]
+    r"""The offset of where this container page starts among the total objects available. Also provided in the `X-Plex-Container-Start` header.
+
+    """
+    size: NotRequired[int]
+    total_size: NotRequired[int]
+    r"""The total size of objects available. Also provided in the `X-Plex-Container-Total-Size` header.
+
+    """
+    device: NotRequired[DeviceTypedDict]
+
+
+class GetSourceConnectionInformationMediaContainer(BaseModel):
+    r"""`MediaContainer` is the root element of most Plex API responses. It serves as a generic container for various types of content (Metadata, Hubs, Directories, etc.) and includes pagination information (offset, size, totalSize) when applicable.
+    Common attributes: - identifier: Unique identifier for this container - size: Number of items in this response page - totalSize: Total number of items available (for pagination) - offset: Starting index of this page (for pagination)
+    The container often \"hoists\" common attributes from its children. For example, if all tracks in a container share the same album title, the `parentTitle` attribute may appear on the MediaContainer rather than being repeated on each track.
+
+    """
+
+    identifier: Optional[str] = None
+
+    offset: Optional[int] = None
+    r"""The offset of where this container page starts among the total objects available. Also provided in the `X-Plex-Container-Start` header.
+
+    """
+
+    size: Optional[int] = None
+
+    total_size: Annotated[Optional[int], pydantic.Field(alias="totalSize")] = None
+    r"""The total size of objects available. Also provided in the `X-Plex-Container-Total-Size` header.
+
+    """
+
+    device: Annotated[Optional[Device], pydantic.Field(alias="Device")] = None
+
+
+class GetSourceConnectionInformationResponseBodyTypedDict(TypedDict):
+    r"""OK"""
+
+    media_container: NotRequired[GetSourceConnectionInformationMediaContainerTypedDict]
+
+
+class GetSourceConnectionInformationResponseBody(BaseModel):
+    r"""OK"""
+
+    media_container: Annotated[
+        Optional[GetSourceConnectionInformationMediaContainer],
+        pydantic.Field(alias="MediaContainer"),
+    ] = None
 
 
 class GetSourceConnectionInformationResponseTypedDict(TypedDict):
@@ -26,6 +348,8 @@ class GetSourceConnectionInformationResponseTypedDict(TypedDict):
     r"""HTTP response status code for this operation"""
     raw_response: httpx.Response
     r"""Raw HTTP response; suitable for custom response parsing"""
+    object: NotRequired[GetSourceConnectionInformationResponseBodyTypedDict]
+    r"""OK"""
 
 
 class GetSourceConnectionInformationResponse(BaseModel):
@@ -37,3 +361,6 @@ class GetSourceConnectionInformationResponse(BaseModel):
 
     raw_response: httpx.Response
     r"""Raw HTTP response; suitable for custom response parsing"""
+
+    object: Optional[GetSourceConnectionInformationResponseBody] = None
+    r"""OK"""

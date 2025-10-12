@@ -2,102 +2,230 @@
 
 from __future__ import annotations
 import httpx
+from plex_api_client.models.components import (
+    accepts as components_accepts,
+    mediacontainerwithplaylistmetadata as components_mediacontainerwithplaylistmetadata,
+)
 from plex_api_client.types import BaseModel
-from plex_api_client.utils import FieldMetadata, PathParamMetadata
+from plex_api_client.utils import FieldMetadata, HeaderMetadata, PathParamMetadata
 import pydantic
-from typing import List, Optional
+from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
+class GetPlaylistGlobalsTypedDict(TypedDict):
+    accepts: NotRequired[components_accepts.Accepts]
+    r"""Indicates the client accepts the indicated media types"""
+    client_identifier: NotRequired[str]
+    r"""An opaque identifier unique to the client"""
+    product: NotRequired[str]
+    r"""The name of the client product"""
+    version: NotRequired[str]
+    r"""The version of the client application"""
+    platform: NotRequired[str]
+    r"""The platform of the client"""
+    platform_version: NotRequired[str]
+    r"""The version of the platform"""
+    device: NotRequired[str]
+    r"""A relatively friendly name for the client device"""
+    model: NotRequired[str]
+    r"""A potentially less friendly identifier for the device model"""
+    device_vendor: NotRequired[str]
+    r"""The device vendor"""
+    device_name: NotRequired[str]
+    r"""A friendly name for the client"""
+    marketplace: NotRequired[str]
+    r"""The marketplace on which the client application is distributed"""
+
+
+class GetPlaylistGlobals(BaseModel):
+    accepts: Annotated[
+        Optional[components_accepts.Accepts],
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = components_accepts.Accepts.APPLICATION_XML
+    r"""Indicates the client accepts the indicated media types"""
+
+    client_identifier: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Client-Identifier"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""An opaque identifier unique to the client"""
+
+    product: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Product"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The name of the client product"""
+
+    version: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Version"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The version of the client application"""
+
+    platform: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Platform"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The platform of the client"""
+
+    platform_version: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Platform-Version"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The version of the platform"""
+
+    device: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Device"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""A relatively friendly name for the client device"""
+
+    model: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Model"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""A potentially less friendly identifier for the device model"""
+
+    device_vendor: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Device-Vendor"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The device vendor"""
+
+    device_name: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Device-Name"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""A friendly name for the client"""
+
+    marketplace: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Marketplace"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The marketplace on which the client application is distributed"""
+
+
 class GetPlaylistRequestTypedDict(TypedDict):
-    playlist_id: float
-    r"""the ID of the playlist"""
+    playlist_id: int
+    r"""The ID of the playlist"""
+    accepts: NotRequired[components_accepts.Accepts]
+    r"""Indicates the client accepts the indicated media types"""
+    client_identifier: NotRequired[str]
+    r"""An opaque identifier unique to the client"""
+    product: NotRequired[str]
+    r"""The name of the client product"""
+    version: NotRequired[str]
+    r"""The version of the client application"""
+    platform: NotRequired[str]
+    r"""The platform of the client"""
+    platform_version: NotRequired[str]
+    r"""The version of the platform"""
+    device: NotRequired[str]
+    r"""A relatively friendly name for the client device"""
+    model: NotRequired[str]
+    r"""A potentially less friendly identifier for the device model"""
+    device_vendor: NotRequired[str]
+    r"""The device vendor"""
+    device_name: NotRequired[str]
+    r"""A friendly name for the client"""
+    marketplace: NotRequired[str]
+    r"""The marketplace on which the client application is distributed"""
 
 
 class GetPlaylistRequest(BaseModel):
     playlist_id: Annotated[
-        float,
-        pydantic.Field(alias="playlistID"),
+        int,
+        pydantic.Field(alias="playlistId"),
         FieldMetadata(path=PathParamMetadata(style="simple", explode=False)),
     ]
-    r"""the ID of the playlist"""
+    r"""The ID of the playlist"""
 
+    accepts: Annotated[
+        Optional[components_accepts.Accepts],
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = components_accepts.Accepts.APPLICATION_XML
+    r"""Indicates the client accepts the indicated media types"""
 
-class GetPlaylistMetadataTypedDict(TypedDict):
-    content: NotRequired[str]
-    rating_key: NotRequired[str]
-    key: NotRequired[str]
-    guid: NotRequired[str]
-    type: NotRequired[str]
-    title: NotRequired[str]
-    summary: NotRequired[str]
-    smart: NotRequired[bool]
-    playlist_type: NotRequired[str]
-    composite: NotRequired[str]
-    icon: NotRequired[str]
-    duration: NotRequired[int]
-    leaf_count: NotRequired[int]
-    added_at: NotRequired[int]
-    updated_at: NotRequired[int]
-
-
-class GetPlaylistMetadata(BaseModel):
-    content: Optional[str] = None
-
-    rating_key: Annotated[Optional[str], pydantic.Field(alias="ratingKey")] = None
-
-    key: Optional[str] = None
-
-    guid: Optional[str] = None
-
-    type: Optional[str] = None
-
-    title: Optional[str] = None
-
-    summary: Optional[str] = None
-
-    smart: Optional[bool] = None
-
-    playlist_type: Annotated[Optional[str], pydantic.Field(alias="playlistType")] = None
-
-    composite: Optional[str] = None
-
-    icon: Optional[str] = None
-
-    duration: Optional[int] = None
-
-    leaf_count: Annotated[Optional[int], pydantic.Field(alias="leafCount")] = None
-
-    added_at: Annotated[Optional[int], pydantic.Field(alias="addedAt")] = None
-
-    updated_at: Annotated[Optional[int], pydantic.Field(alias="updatedAt")] = None
-
-
-class GetPlaylistMediaContainerTypedDict(TypedDict):
-    size: NotRequired[int]
-    metadata: NotRequired[List[GetPlaylistMetadataTypedDict]]
-
-
-class GetPlaylistMediaContainer(BaseModel):
-    size: Optional[int] = None
-
-    metadata: Annotated[
-        Optional[List[GetPlaylistMetadata]], pydantic.Field(alias="Metadata")
+    client_identifier: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Client-Identifier"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
     ] = None
+    r"""An opaque identifier unique to the client"""
 
-
-class GetPlaylistResponseBodyTypedDict(TypedDict):
-    r"""The playlist"""
-
-    media_container: NotRequired[GetPlaylistMediaContainerTypedDict]
-
-
-class GetPlaylistResponseBody(BaseModel):
-    r"""The playlist"""
-
-    media_container: Annotated[
-        Optional[GetPlaylistMediaContainer], pydantic.Field(alias="MediaContainer")
+    product: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Product"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
     ] = None
+    r"""The name of the client product"""
+
+    version: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Version"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The version of the client application"""
+
+    platform: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Platform"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The platform of the client"""
+
+    platform_version: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Platform-Version"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The version of the platform"""
+
+    device: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Device"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""A relatively friendly name for the client device"""
+
+    model: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Model"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""A potentially less friendly identifier for the device model"""
+
+    device_vendor: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Device-Vendor"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The device vendor"""
+
+    device_name: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Device-Name"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""A friendly name for the client"""
+
+    marketplace: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Marketplace"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The marketplace on which the client application is distributed"""
 
 
 class GetPlaylistResponseTypedDict(TypedDict):
@@ -107,8 +235,10 @@ class GetPlaylistResponseTypedDict(TypedDict):
     r"""HTTP response status code for this operation"""
     raw_response: httpx.Response
     r"""Raw HTTP response; suitable for custom response parsing"""
-    object: NotRequired[GetPlaylistResponseBodyTypedDict]
-    r"""The playlist"""
+    media_container_with_playlist_metadata: NotRequired[
+        components_mediacontainerwithplaylistmetadata.MediaContainerWithPlaylistMetadataTypedDict
+    ]
+    r"""OK"""
 
 
 class GetPlaylistResponse(BaseModel):
@@ -121,5 +251,7 @@ class GetPlaylistResponse(BaseModel):
     raw_response: httpx.Response
     r"""Raw HTTP response; suitable for custom response parsing"""
 
-    object: Optional[GetPlaylistResponseBody] = None
-    r"""The playlist"""
+    media_container_with_playlist_metadata: Optional[
+        components_mediacontainerwithplaylistmetadata.MediaContainerWithPlaylistMetadata
+    ] = None
+    r"""OK"""

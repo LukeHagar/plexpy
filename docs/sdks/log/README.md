@@ -3,33 +3,87 @@
 
 ## Overview
 
-Submit logs to the Log Handler for Plex Media Server
-
+Logging mechanism to allow clients to log to the server
 
 ### Available Operations
 
-* [log_line](#log_line) - Logging a single line message.
-* [log_multi_line](#log_multi_line) - Logging a multi-line message
-* [enable_paper_trail](#enable_paper_trail) - Enabling Papertrail
+* [write_log](#write_log) - Logging a multi-line message to the Plex Media Server log
+* [write_message](#write_message) - Logging a single-line message to the Plex Media Server log
+* [enable_papertrail](#enable_papertrail) - Enabling Papertrail
 
-## log_line
+## write_log
+
+This endpoint will write multiple lines to the main Plex Media Server log in a single request. It takes a set of query strings as would normally sent to the above PUT endpoint as a linefeed-separated block of POST data. The parameters for each query string match as above.
+
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="writeLog" method="post" path="/log" -->
+```python
+from plex_api_client import PlexAPI
+
+
+with PlexAPI(
+    token="<YOUR_API_KEY_HERE>",
+) as plex_api:
+
+    res = plex_api.log.write_log(request=open("example.file", "rb"))
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `request`                                                           | [Union[bytes, IO[bytes], io.BufferedReader]](../../models/.md)      | :heavy_check_mark:                                                  | The request object to use for the request.                          |
+| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+
+### Response
+
+**[operations.WriteLogResponse](../../models/operations/writelogresponse.md)**
+
+### Errors
+
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
+
+## write_message
 
 This endpoint will write a single-line log message, including a level and source to the main Plex Media Server log.
 
+Note: This endpoint responds to all HTTP verbs **except POST** but PUT is preferred
+
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="logLine" method="get" path="/log" -->
+<!-- UsageSnippet language="python" operationID="writeMessage" method="put" path="/log" -->
 ```python
 from plex_api_client import PlexAPI
-from plex_api_client.models import operations
+from plex_api_client.models import components
 
 
 with PlexAPI(
-    access_token="<YOUR_API_KEY_HERE>",
+    accepts=components.Accepts.APPLICATION_XML,
+    client_identifier="abc123",
+    product="Plex for Roku",
+    version="2.4.1",
+    platform="Roku",
+    platform_version="4.3 build 1057",
+    device="Roku 3",
+    model="4200X",
+    device_vendor="Roku",
+    device_name="Living Room TV",
+    marketplace="googlePlay",
+    token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
 
-    res = plex_api.log.log_line(level=operations.Level.THREE, message="Test log message", source="Postman")
+    res = plex_api.log.write_message(request={})
 
     assert res is not None
 
@@ -40,64 +94,52 @@ with PlexAPI(
 
 ### Parameters
 
-| Parameter                                                                                           | Type                                                                                                | Required                                                                                            | Description                                                                                         | Example                                                                                             |
-| --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
-| `level`                                                                                             | [operations.Level](../../models/operations/level.md)                                                | :heavy_check_mark:                                                                                  | An integer log level to write to the PMS log with.<br/>0: Error<br/>1: Warning<br/>2: Info<br/>3: Debug<br/>4: Verbose<br/> |                                                                                                     |
-| `message`                                                                                           | *str*                                                                                               | :heavy_check_mark:                                                                                  | The text of the message to write to the log.                                                        | Test log message                                                                                    |
-| `source`                                                                                            | *str*                                                                                               | :heavy_check_mark:                                                                                  | a string indicating the source of the message.                                                      | Postman                                                                                             |
-| `retries`                                                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                    | :heavy_minus_sign:                                                                                  | Configuration to override the default retry behavior of the client.                                 |                                                                                                     |
+| Parameter                                                                        | Type                                                                             | Required                                                                         | Description                                                                      |
+| -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| `request`                                                                        | [operations.WriteMessageRequest](../../models/operations/writemessagerequest.md) | :heavy_check_mark:                                                               | The request object to use for the request.                                       |
+| `retries`                                                                        | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                 | :heavy_minus_sign:                                                               | Configuration to override the default retry behavior of the client.              |
 
 ### Response
 
-**[operations.LogLineResponse](../../models/operations/loglineresponse.md)**
+**[operations.WriteMessageResponse](../../models/operations/writemessageresponse.md)**
 
 ### Errors
 
-| Error Type                 | Status Code                | Content Type               |
-| -------------------------- | -------------------------- | -------------------------- |
-| errors.LogLineBadRequest   | 400                        | application/json           |
-| errors.LogLineUnauthorized | 401                        | application/json           |
-| errors.SDKError            | 4XX, 5XX                   | \*/\*                      |
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
-## log_multi_line
+## enable_papertrail
 
-This endpoint allows for the batch addition of log entries to the main Plex Media Server log.
-It accepts a text/plain request body, where each line represents a distinct log entry.
-Each log entry consists of URL-encoded key-value pairs, specifying log attributes such as 'level', 'message', and 'source'.
+This endpoint will enable all Plex Media Server logs to be sent to the Papertrail networked logging site for a period of time
 
-Log entries are separated by a newline character (`\n`).
-Each entry's parameters should be URL-encoded to ensure accurate parsing and handling of special characters.
-This method is efficient for logging multiple entries in a single API call, reducing the overhead of multiple individual requests.
-
-The 'level' parameter specifies the log entry's severity or importance, with the following integer values:
-- `0`: Error - Critical issues that require immediate attention.
-- `1`: Warning - Important events that are not critical but may indicate potential issues.
-- `2`: Info - General informational messages about system operation.
-- `3`: Debug - Detailed information useful for debugging purposes.
-- `4`: Verbose - Highly detailed diagnostic information for in-depth analysis.
-
-The 'message' parameter contains the log text, and 'source' identifies the log message's origin (e.g., an application name or module).
-
-Example of a single log entry format:
-`level=4&message=Sample%20log%20entry&source=applicationName`
-
-Ensure each parameter is properly URL-encoded to avoid interpretation issues.
+Note: This endpoint responds to all HTTP verbs but POST is preferred
 
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="logMultiLine" method="post" path="/log" -->
+<!-- UsageSnippet language="python" operationID="enablePapertrail" method="post" path="/log/networked" -->
 ```python
 from plex_api_client import PlexAPI
+from plex_api_client.models import components
 
 
 with PlexAPI(
-    access_token="<YOUR_API_KEY_HERE>",
+    accepts=components.Accepts.APPLICATION_XML,
+    client_identifier="abc123",
+    product="Plex for Roku",
+    version="2.4.1",
+    platform="Roku",
+    platform_version="4.3 build 1057",
+    device="Roku 3",
+    model="4200X",
+    device_vendor="Roku",
+    device_name="Living Room TV",
+    marketplace="googlePlay",
+    token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
 
-    res = plex_api.log.log_multi_line(request=("level=4&message=Test%20message%201&source=postman\n"
-    "level=3&message=Test%20message%202&source=postman\n"
-    "level=1&message=Test%20message%203&source=postman"))
+    res = plex_api.log.enable_papertrail(request={})
 
     assert res is not None
 
@@ -108,62 +150,17 @@ with PlexAPI(
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `request`                                                           | [str](../../models/.md)                                             | :heavy_check_mark:                                                  | The request object to use for the request.                          |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
+| Parameter                                                                                | Type                                                                                     | Required                                                                                 | Description                                                                              |
+| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `request`                                                                                | [operations.EnablePapertrailRequest](../../models/operations/enablepapertrailrequest.md) | :heavy_check_mark:                                                                       | The request object to use for the request.                                               |
+| `retries`                                                                                | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                         | :heavy_minus_sign:                                                                       | Configuration to override the default retry behavior of the client.                      |
 
 ### Response
 
-**[operations.LogMultiLineResponse](../../models/operations/logmultilineresponse.md)**
+**[operations.EnablePapertrailResponse](../../models/operations/enablepapertrailresponse.md)**
 
 ### Errors
 
-| Error Type                      | Status Code                     | Content Type                    |
-| ------------------------------- | ------------------------------- | ------------------------------- |
-| errors.LogMultiLineBadRequest   | 400                             | application/json                |
-| errors.LogMultiLineUnauthorized | 401                             | application/json                |
-| errors.SDKError                 | 4XX, 5XX                        | \*/\*                           |
-
-## enable_paper_trail
-
-This endpoint will enable all Plex Media Serverlogs to be sent to the Papertrail networked logging site for a period of time.
-
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="enablePaperTrail" method="get" path="/log/networked" -->
-```python
-from plex_api_client import PlexAPI
-
-
-with PlexAPI(
-    access_token="<YOUR_API_KEY_HERE>",
-) as plex_api:
-
-    res = plex_api.log.enable_paper_trail()
-
-    assert res is not None
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |
-
-### Response
-
-**[operations.EnablePaperTrailResponse](../../models/operations/enablepapertrailresponse.md)**
-
-### Errors
-
-| Error Type                          | Status Code                         | Content Type                        |
-| ----------------------------------- | ----------------------------------- | ----------------------------------- |
-| errors.EnablePaperTrailBadRequest   | 400                                 | application/json                    |
-| errors.EnablePaperTrailUnauthorized | 401                                 | application/json                    |
-| errors.SDKError                     | 4XX, 5XX                            | \*/\*                               |
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| errors.SDKError | 4XX, 5XX        | \*/\*           |

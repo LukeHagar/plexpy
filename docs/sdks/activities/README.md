@@ -3,36 +3,34 @@
 
 ## Overview
 
-Activities are awesome. They provide a way to monitor and control asynchronous operations on the server. In order to receive real-time updates for activities, a client would normally subscribe via either EventSource or Websocket endpoints.
+Activities provide a way to monitor and control asynchronous operations on the server. In order to receive real-time updates for activities, a client would normally subscribe via either EventSource or Websocket endpoints.
+
 Activities are associated with HTTP replies via a special `X-Plex-Activity` header which contains the UUID of the activity.
-Activities are optional cancellable. If cancellable, they may be cancelled via the `DELETE` endpoint. Other details:
-- They can contain a `progress` (from 0 to 100) marking the percent completion of the activity.
-- They must contain an `type` which is used by clients to distinguish the specific activity.
-- They may contain a `Context` object with attributes which associate the activity with various specific entities (items, libraries, etc.)
-- The may contain a `Response` object which attributes which represent the result of the asynchronous operation.
+
+Activities are optional cancellable. If cancellable, they may be cancelled via the `DELETE` endpoint.
 
 
 ### Available Operations
 
-* [get_server_activities](#get_server_activities) - Get Server Activities
-* [cancel_server_activities](#cancel_server_activities) - Cancel Server Activities
+* [list_activities](#list_activities) - Get all activities
+* [cancel_activity](#cancel_activity) - Cancel a running activity
 
-## get_server_activities
+## list_activities
 
-Get Server Activities
+List all activities on the server.  Admins can see all activities but other users can only see their own
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="getServerActivities" method="get" path="/activities" -->
+<!-- UsageSnippet language="python" operationID="listActivities" method="get" path="/activities" -->
 ```python
 from plex_api_client import PlexAPI
 
 
 with PlexAPI(
-    access_token="<YOUR_API_KEY_HERE>",
+    token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
 
-    res = plex_api.activities.get_server_activities()
+    res = plex_api.activities.list_activities()
 
     assert res.object is not None
 
@@ -49,32 +47,44 @@ with PlexAPI(
 
 ### Response
 
-**[operations.GetServerActivitiesResponse](../../models/operations/getserveractivitiesresponse.md)**
+**[operations.ListActivitiesResponse](../../models/operations/listactivitiesresponse.md)**
 
 ### Errors
 
-| Error Type                             | Status Code                            | Content Type                           |
-| -------------------------------------- | -------------------------------------- | -------------------------------------- |
-| errors.GetServerActivitiesBadRequest   | 400                                    | application/json                       |
-| errors.GetServerActivitiesUnauthorized | 401                                    | application/json                       |
-| errors.SDKError                        | 4XX, 5XX                               | \*/\*                                  |
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
 
-## cancel_server_activities
+## cancel_activity
 
-Cancel Server Activities
+Cancel a running activity.  Admins can cancel all activities but other users can only cancel their own
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="cancelServerActivities" method="delete" path="/activities/{activityUUID}" -->
+<!-- UsageSnippet language="python" operationID="cancelActivity" method="delete" path="/activities/{activityId}" -->
 ```python
 from plex_api_client import PlexAPI
+from plex_api_client.models import components
 
 
 with PlexAPI(
-    access_token="<YOUR_API_KEY_HERE>",
+    accepts=components.Accepts.APPLICATION_XML,
+    client_identifier="abc123",
+    product="Plex for Roku",
+    version="2.4.1",
+    platform="Roku",
+    platform_version="4.3 build 1057",
+    device="Roku 3",
+    model="4200X",
+    device_vendor="Roku",
+    device_name="Living Room TV",
+    marketplace="googlePlay",
+    token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
 
-    res = plex_api.activities.cancel_server_activities(activity_uuid="25b71ed5-0f9d-461c-baa7-d404e9e10d3e")
+    res = plex_api.activities.cancel_activity(request={
+        "activity_id": "d6199ba1-fb5e-4cae-bf17-1a5369c1cf1e",
+    })
 
     assert res is not None
 
@@ -85,19 +95,17 @@ with PlexAPI(
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `activity_uuid`                                                     | *str*                                                               | :heavy_check_mark:                                                  | The UUID of the activity to cancel.                                 | 25b71ed5-0f9d-461c-baa7-d404e9e10d3e                                |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
+| Parameter                                                                            | Type                                                                                 | Required                                                                             | Description                                                                          |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| `request`                                                                            | [operations.CancelActivityRequest](../../models/operations/cancelactivityrequest.md) | :heavy_check_mark:                                                                   | The request object to use for the request.                                           |
+| `retries`                                                                            | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                     | :heavy_minus_sign:                                                                   | Configuration to override the default retry behavior of the client.                  |
 
 ### Response
 
-**[operations.CancelServerActivitiesResponse](../../models/operations/cancelserveractivitiesresponse.md)**
+**[operations.CancelActivityResponse](../../models/operations/cancelactivityresponse.md)**
 
 ### Errors
 
-| Error Type                                | Status Code                               | Content Type                              |
-| ----------------------------------------- | ----------------------------------------- | ----------------------------------------- |
-| errors.CancelServerActivitiesBadRequest   | 400                                       | application/json                          |
-| errors.CancelServerActivitiesUnauthorized | 401                                       | application/json                          |
-| errors.SDKError                           | 4XX, 5XX                                  | \*/\*                                     |
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| errors.SDKError | 4XX, 5XX        | \*/\*           |

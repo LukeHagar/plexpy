@@ -22,13 +22,14 @@ generation:
     generateNewTests: false
     skipResponseBodyAssertions: false
 python:
-  version: 0.30.0
+  version: 0.31.0
   additionalDependencies:
     dev: {}
     main: {}
   allowedRedefinedBuiltins:
     - id
     - object
+  asyncMode: both
   author: LukeHagar
   authors:
     - Speakeasy
@@ -52,6 +53,7 @@ python:
       shared: models/components
       webhooks: models/webhooks
   inputModelSuffix: input
+  legacyPyright: true
   maxMethodParams: 4
   methodArguments: require-security-and-request
   moduleName: ""

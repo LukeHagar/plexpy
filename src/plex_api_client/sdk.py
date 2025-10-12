@@ -2,14 +2,14 @@
 
 from .basesdk import BaseSDK
 from .httpclient import AsyncHttpClient, ClientOwner, HttpClient, close_clients
-from .sdkconfiguration import SDKConfiguration, ServerProtocol
+from .sdkconfiguration import SDKConfiguration
 from .utils.logger import Logger, get_default_logger
 from .utils.retries import RetryConfig
 import httpx
 import importlib
 from plex_api_client import utils
 from plex_api_client._hooks import SDKHooks
-from plex_api_client.models import components
+from plex_api_client.models import components, internal
 from plex_api_client.types import OptionalNullable, UNSET
 import sys
 from typing import Any, Callable, Dict, List, Optional, TYPE_CHECKING, Union, cast
@@ -17,157 +17,208 @@ import weakref
 
 if TYPE_CHECKING:
     from plex_api_client.activities import Activities
-    from plex_api_client.authentication import Authentication
     from plex_api_client.butler import Butler
+    from plex_api_client.collections import Collections
+    from plex_api_client.content import Content
+    from plex_api_client.devices import Devices
+    from plex_api_client.download_queue import DownloadQueue
+    from plex_api_client.dvrs import DVRs
+    from plex_api_client.epg import Epg
+    from plex_api_client.events import Events
+    from plex_api_client.general import General
     from plex_api_client.hubs import Hubs
     from plex_api_client.library import Library
+    from plex_api_client.library_collections import LibraryCollections
+    from plex_api_client.library_playlists import LibraryPlaylists
+    from plex_api_client.live_tv import LiveTV
     from plex_api_client.log import Log
-    from plex_api_client.media import Media
-    from plex_api_client.playlists import Playlists
-    from plex_api_client.plex import Plex
+    from plex_api_client.play_queue import PlayQueue
+    from plex_api_client.playlist import Playlist
+    from plex_api_client.preferences import Preferences
+    from plex_api_client.provider import Provider
+    from plex_api_client.rate import Rate
     from plex_api_client.search import Search
-    from plex_api_client.server import Server
-    from plex_api_client.sessions import Sessions
-    from plex_api_client.statistics import Statistics
+    from plex_api_client.status import Status
+    from plex_api_client.subscriptions import Subscriptions
+    from plex_api_client.timeline import Timeline
+    from plex_api_client.transcoder import Transcoder
+    from plex_api_client.ultrablur import UltraBlur
     from plex_api_client.updater import Updater
-    from plex_api_client.users import Users
-    from plex_api_client.video import Video
-    from plex_api_client.watchlist import Watchlist
 
 
 class PlexAPI(BaseSDK):
-    r"""Plex-API: An Open API Spec for interacting with Plex.tv and Plex Media Server
+    general: "General"
+    r"""General endpoints for basic PMS operation not specific to any media provider"""
+    events: "Events"
+    r"""The server can notify clients in real-time of a wide range of events, from library scanning, to preferences being modified, to changes to media, and many other things. This is also the mechanism by which activity progress is reported.
 
-    # Plex Media Server OpenAPI Specification
-
-    An Open Source OpenAPI Specification for Plex Media Server
-
-    Automation and SDKs provided by [Speakeasy](https://speakeasyapi.dev/)
-
-    ## Documentation
-
-    [API Documentation](https://plexapi.dev)
-
-    ## SDKs
-
-    The following SDKs are generated from the OpenAPI Specification. They are automatically generated and may not be fully tested. If you find any issues, please open an issue on the [main specification Repository](https://github.com/LukeHagar/plex-api-spec).
-
-    | Language              | Repository                                        | Releases                                                                                         | Other                                                   |
-    | --------------------- | ------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------- |
-    | Python                | [GitHub](https://github.com/LukeHagar/plexpy)     | [PyPI](https://pypi.org/project/plex-api-client/)                                                | -                                                       |
-    | JavaScript/TypeScript | [GitHub](https://github.com/LukeHagar/plexjs)     | [NPM](https://www.npmjs.com/package/@lukehagar/plexjs) \ [JSR](https://jsr.io/@lukehagar/plexjs) | -                                                       |
-    | Go                    | [GitHub](https://github.com/LukeHagar/plexgo)     | [Releases](https://github.com/LukeHagar/plexgo/releases)                                         | [GoDoc](https://pkg.go.dev/github.com/LukeHagar/plexgo) |
-    | Ruby                  | [GitHub](https://github.com/LukeHagar/plexruby)   | [Releases](https://github.com/LukeHagar/plexruby/releases)                                       | -                                                       |
-    | Swift                 | [GitHub](https://github.com/LukeHagar/plexswift)  | [Releases](https://github.com/LukeHagar/plexswift/releases)                                      | -                                                       |
-    | PHP                   | [GitHub](https://github.com/LukeHagar/plexphp)    | [Releases](https://github.com/LukeHagar/plexphp/releases)                                        | -                                                       |
-    | Java                  | [GitHub](https://github.com/LukeHagar/plexjava)   | [Releases](https://github.com/LukeHagar/plexjava/releases)                                       | -                                                       |
-    | C#                    | [GitHub](https://github.com/LukeHagar/plexcsharp) | [Releases](https://github.com/LukeHagar/plexcsharp/releases)                                     | -
+    Two protocols for receiving the events are available: EventSource (also known as SSE), and WebSocket.
 
     """
-
-    server: "Server"
-    r"""Operations against the Plex Media Server System.
-
-    """
-    media: "Media"
-    r"""API Calls interacting with Plex Media Server Media
-
-    """
-    video: "Video"
-    r"""API Calls that perform operations with Plex Media Server Videos
-
-    """
+    preferences: "Preferences"
+    r"""API Operations against the Preferences"""
+    rate: "Rate"
+    r"""Operations for rating media items (thumbs up/down, star ratings, etc.)"""
+    timeline: "Timeline"
+    r"""The actions feature within a media provider"""
     activities: "Activities"
-    r"""Activities are awesome. They provide a way to monitor and control asynchronous operations on the server. In order to receive real-time updates for activities, a client would normally subscribe via either EventSource or Websocket endpoints.
+    r"""Activities provide a way to monitor and control asynchronous operations on the server. In order to receive real-time updates for activities, a client would normally subscribe via either EventSource or Websocket endpoints.
+
     Activities are associated with HTTP replies via a special `X-Plex-Activity` header which contains the UUID of the activity.
-    Activities are optional cancellable. If cancellable, they may be cancelled via the `DELETE` endpoint. Other details:
-    - They can contain a `progress` (from 0 to 100) marking the percent completion of the activity.
-    - They must contain an `type` which is used by clients to distinguish the specific activity.
-    - They may contain a `Context` object with attributes which associate the activity with various specific entities (items, libraries, etc.)
-    - The may contain a `Response` object which attributes which represent the result of the asynchronous operation.
+
+    Activities are optional cancellable. If cancellable, they may be cancelled via the `DELETE` endpoint.
 
     """
     butler: "Butler"
-    r"""Butler is the task manager of the Plex Media Server Ecosystem.
-
-    """
-    plex: "Plex"
-    r"""API Calls that perform operations directly against https://Plex.tv
-
-    """
+    r"""The butler is responsible for running periodic tasks.  Some tasks run daily, others every few days, and some weekly.  These includes database maintenance, metadata updating, thumbnail generation, media analysis, and other tasks."""
+    download_queue: "DownloadQueue"
+    r"""API Operations against the Download Queue"""
     hubs: "Hubs"
-    r"""Hubs are a structured two-dimensional container for media, generally represented by multiple horizontal rows.
-
-    """
+    r"""The hubs within a media provider"""
     search: "Search"
-    r"""API Calls that perform search operations with Plex Media Server
-
-    """
+    r"""The search feature within a media provider"""
     library: "Library"
-    r"""API Calls interacting with Plex Media Server Libraries
+    r"""Library endpoints which are outside of the Media Provider API.  Typically this is manipulation of the library (adding/removing sections, modifying preferences, etc)."""
+    collections: "Collections"
+    r"""API Operations against the Collections"""
+    dv_rs: "DVRs"
+    r"""The DVR provides means to watch and record live TV.  This section of endpoints describes how to setup the DVR itself
 
     """
-    watchlist: "Watchlist"
-    r"""API Calls that perform operations with Plex Media Server Watchlists
+    epg: "Epg"
+    r"""The EPG (Electronic Program Guide) is responsible for obtaining metadata for what is airing on each channel and when
+
+    """
+    live_tv: "LiveTV"
+    r"""LiveTV contains the playback sessions of a channel from a DVR device
 
     """
     log: "Log"
-    r"""Submit logs to the Log Handler for Plex Media Server
+    r"""Logging mechanism to allow clients to log to the server"""
+    devices: "Devices"
+    r"""Media grabbers provide ways for media to be obtained for a given protocol. The simplest ones are `stream` and `download`. More complex grabbers can have associated devices
+
+    Network tuners can present themselves on the network using the Simple Service Discovery Protocol and Plex Media Server will discover them. The following XML is an example of the data returned from SSDP. The `deviceType`, `serviceType`, and `serviceId` values must remain as they are in the example in order for PMS to properly discover the device. Other less-obvious fields are described in the parameters section below.
+
+    Example SSDP output
+    ```
+    <root xmlns=\"urn:schemas-upnp-org:device-1-0\">
+    <specVersion>
+    <major>1</major>
+    <minor>0</minor>
+    </specVersion>
+    <device>
+    <deviceType>urn:plex-tv:device:Media:1</deviceType>
+    <friendlyName>Turing Hopper 3000</friendlyName>
+    <manufacturer>Plex, Inc.</manufacturer>
+    <manufacturerURL>https://plex.tv/</manufacturerURL>
+    <modelDescription>Turing Hopper 3000 Media Grabber</modelDescription>
+    <modelName>Plex Media Grabber</modelName>
+    <modelNumber>1</modelNumber>
+    <modelURL>https://plex.tv</modelURL>
+    <UDN>uuid:42fde8e4-93b6-41e5-8a63-12d848655811</UDN>
+    <serviceList>
+    <service>
+    <URLBase>http://10.0.0.5:8088</URLBase>
+    <serviceType>urn:plex-tv:service:MediaGrabber:1</serviceType>
+    <serviceId>urn:plex-tv:serviceId:MediaGrabber</serviceId>
+    </service>
+    </serviceList>
+    </device>
+    </root>
+    ```
+
+    - UDN: (string) A UUID for the device. This should be unique across models of a device at minimum.
+    - URLBase: (string) The base HTTP URL for the device from which all of the other endpoints are hosted.
 
     """
-    playlists: "Playlists"
-    r"""Playlists are ordered collections of media. They can be dumb (just a list of media) or smart (based on a media query, such as \"all albums from 2017\").
-    They can be organized in (optionally nesting) folders.
-    Retrieving a playlist, or its items, will trigger a refresh of its metadata.
-    This may cause the duration and number of items to change.
+    provider: "Provider"
+    r"""Media providers are the starting points for the entire Plex Media Server media library API.  It defines the paths for the groups of endpoints.  The `/media/providers` should be the only hard-coded path in clients when accessing the media library.  Non-media library endpoints are outside the scope of the media provider.  See the description in See [the section in API Info](#section/API-Info/Media-Providers) for more information on how to use media providers."""
+    subscriptions: "Subscriptions"
+    r"""Subscriptions determine which media will be recorded and the criteria for selecting an airing when multiple are available
 
     """
-    authentication: "Authentication"
-    r"""API Calls regarding authentication for Plex Media Server
-
+    transcoder: "Transcoder"
+    r"""API Operations against the Transcoder"""
+    playlist: "Playlist"
+    r"""Media playlists that can be created and played back"""
+    library_playlists: "LibraryPlaylists"
+    r"""Endpoints for manipulating playlists."""
+    play_queue: "PlayQueue"
+    r"""The playqueue feature within a media provider
+    A play queue represents the current list of media for playback. Although queues are persisted by the server, they should be regarded by the user as a fairly lightweight, an ephemeral list of items queued up for playback in a session.  There is generally one active queue for each type of media (music, video, photos) that can be added to or destroyed and replaced with a fresh queue.
+    Play Queues has a region, which we refer to in this doc (partially for historical reasons) as \"Up Next\". This region is defined by `playQueueLastAddedItemID` existing on the media container. This follows iTunes' terminology. It is a special region after the currently playing item but before the originally-played items. This enables \"Party Mode\" listening/viewing, where items can be added on-the-fly, and normal queue playback resumed when completed.
+    You can visualize the play queue as a sliding window in the complete list of media queued for playback. This model is important when scaling to larger play queues (e.g. shuffling 40,000 audio tracks). The client only needs visibility into small areas of the queue at any given time, and the server can optimize access in this fashion.
+    All created play queues will have an empty \"Up Next\" area - unless the item is an album and no `key` is provided. In this case the \"Up Next\" area will be populated by the contents of the album. This is to allow queueing of multiple albums - since the 'Add to Up Next' will insert after all the tracks. This means that If you're creating a PQ from an album, you can only shuffle it if you set `key`. This is due to the above implicit queueing of albums when no `key` is provided as well as the current limitation that you cannot shuffle a PQ with an \"Up Next\" area.
+    The play queue window advances as the server receives timeline requests. The client needs to retrieve the play queue as the “now playing” item changes. There is no play queue API to update the playing item.
     """
-    statistics: "Statistics"
-    r"""API Calls that perform operations with Plex Media Server Statistics
-
-    """
-    sessions: "Sessions"
-    r"""API Calls that perform search operations with Plex Media Server Sessions
-
-    """
+    ultra_blur: "UltraBlur"
+    r"""Service provided to compute UltraBlur colors and images."""
+    status: "Status"
+    r"""The status endpoints give you information about current playbacks, play history, and even terminating sessions."""
     updater: "Updater"
     r"""This describes the API for searching and applying updates to the Plex Media Server.
     Updates to the status can be observed via the Event API.
 
     """
-    users: "Users"
+    content: "Content"
+    r"""The actual content of the media provider"""
+    library_collections: "LibraryCollections"
+    r"""Endpoints for manipulating collections.  In addition to these endpoints, `/library/collections/:collectionId/X` will be rerouted to `/library/metadata/:collectionId/X` and respond to those endpoints as well."""
     _sub_sdk_map = {
-        "server": ("plex_api_client.server", "Server"),
-        "media": ("plex_api_client.media", "Media"),
-        "video": ("plex_api_client.video", "Video"),
+        "general": ("plex_api_client.general", "General"),
+        "events": ("plex_api_client.events", "Events"),
+        "preferences": ("plex_api_client.preferences", "Preferences"),
+        "rate": ("plex_api_client.rate", "Rate"),
+        "timeline": ("plex_api_client.timeline", "Timeline"),
         "activities": ("plex_api_client.activities", "Activities"),
         "butler": ("plex_api_client.butler", "Butler"),
-        "plex": ("plex_api_client.plex", "Plex"),
+        "download_queue": ("plex_api_client.download_queue", "DownloadQueue"),
         "hubs": ("plex_api_client.hubs", "Hubs"),
         "search": ("plex_api_client.search", "Search"),
         "library": ("plex_api_client.library", "Library"),
-        "watchlist": ("plex_api_client.watchlist", "Watchlist"),
+        "collections": ("plex_api_client.collections", "Collections"),
+        "dv_rs": ("plex_api_client.dvrs", "DVRs"),
+        "epg": ("plex_api_client.epg", "Epg"),
+        "live_tv": ("plex_api_client.live_tv", "LiveTV"),
         "log": ("plex_api_client.log", "Log"),
-        "playlists": ("plex_api_client.playlists", "Playlists"),
-        "authentication": ("plex_api_client.authentication", "Authentication"),
-        "statistics": ("plex_api_client.statistics", "Statistics"),
-        "sessions": ("plex_api_client.sessions", "Sessions"),
+        "devices": ("plex_api_client.devices", "Devices"),
+        "provider": ("plex_api_client.provider", "Provider"),
+        "subscriptions": ("plex_api_client.subscriptions", "Subscriptions"),
+        "transcoder": ("plex_api_client.transcoder", "Transcoder"),
+        "playlist": ("plex_api_client.playlist", "Playlist"),
+        "library_playlists": ("plex_api_client.library_playlists", "LibraryPlaylists"),
+        "play_queue": ("plex_api_client.play_queue", "PlayQueue"),
+        "ultra_blur": ("plex_api_client.ultrablur", "UltraBlur"),
+        "status": ("plex_api_client.status", "Status"),
         "updater": ("plex_api_client.updater", "Updater"),
-        "users": ("plex_api_client.users", "Users"),
+        "content": ("plex_api_client.content", "Content"),
+        "library_collections": (
+            "plex_api_client.library_collections",
+            "LibraryCollections",
+        ),
     }
 
     def __init__(
         self,
-        access_token: Optional[
-            Union[Optional[str], Callable[[], Optional[str]]]
-        ] = None,
-        protocol: Optional[ServerProtocol] = None,
-        ip: Optional[str] = None,
+        token: Optional[Union[Optional[str], Callable[[], Optional[str]]]] = None,
+        accepts: Optional[components.Accepts] = None,
+        client_identifier: Optional[str] = None,
+        product: Optional[str] = None,
+        version: Optional[str] = None,
+        platform: Optional[str] = None,
+        platform_version: Optional[str] = None,
+        device: Optional[str] = None,
+        model: Optional[str] = None,
+        device_vendor: Optional[str] = None,
+        device_name: Optional[str] = None,
+        marketplace: Optional[str] = None,
+        identifier: Optional[str] = None,
+        ip_description: Optional[str] = None,
         port: Optional[str] = None,
+        protocol: Optional[str] = None,
+        host: Optional[str] = None,
+        server_url_server: Optional[str] = None,
         server_idx: Optional[int] = None,
         server_url: Optional[str] = None,
         url_params: Optional[Dict[str, str]] = None,
@@ -179,10 +230,24 @@ class PlexAPI(BaseSDK):
     ) -> None:
         r"""Instantiates the SDK configuring it with the provided parameters.
 
-        :param access_token: The access_token required for authentication
-        :param protocol: Allows setting the protocol variable for url substitution
-        :param ip: Allows setting the ip variable for url substitution
+        :param token: The token required for authentication
+        :param accepts: Configures the accepts parameter for all supported operations
+        :param client_identifier: Configures the client_identifier parameter for all supported operations
+        :param product: Configures the product parameter for all supported operations
+        :param version: Configures the version parameter for all supported operations
+        :param platform: Configures the platform parameter for all supported operations
+        :param platform_version: Configures the platform_version parameter for all supported operations
+        :param device: Configures the device parameter for all supported operations
+        :param model: Configures the model parameter for all supported operations
+        :param device_vendor: Configures the device_vendor parameter for all supported operations
+        :param device_name: Configures the device_name parameter for all supported operations
+        :param marketplace: Configures the marketplace parameter for all supported operations
+        :param identifier: Allows setting the identifier variable for url substitution
+        :param ip_description: Allows setting the IP-description variable for url substitution
         :param port: Allows setting the port variable for url substitution
+        :param protocol: Allows setting the protocol variable for url substitution
+        :param host: Allows setting the host variable for url substitution
+        :param server_url_server: Allows setting the server_url variable for url substitution
         :param server_idx: The index of the server to use for all methods
         :param server_url: The server URL to use for all methods
         :param url_params: Parameters to optionally template the server URL with
@@ -193,7 +258,7 @@ class PlexAPI(BaseSDK):
         """
         client_supplied = True
         if client is None:
-            client = httpx.Client()
+            client = httpx.Client(follow_redirects=True)
             client_supplied = False
 
         assert issubclass(
@@ -202,7 +267,7 @@ class PlexAPI(BaseSDK):
 
         async_client_supplied = True
         if async_client is None:
-            async_client = httpx.AsyncClient()
+            async_client = httpx.AsyncClient(follow_redirects=True)
             async_client_supplied = False
 
         if debug_logger is None:
@@ -213,22 +278,52 @@ class PlexAPI(BaseSDK):
         ), "The provided async_client must implement the AsyncHttpClient protocol."
 
         security: Any = None
-        if callable(access_token):
+        if callable(token):
             # pylint: disable=unnecessary-lambda-assignment
-            security = lambda: components.Security(access_token=access_token())
+            security = lambda: components.Security(token=token())
         else:
-            security = components.Security(access_token=access_token)
+            security = components.Security(token=token)
 
         if server_url is not None:
             if url_params is not None:
                 server_url = utils.template_url(server_url, url_params)
         server_defaults: List[Dict[str, str]] = [
             {
-                "protocol": protocol or "https",
-                "ip": ip or "10.10.10.47",
+                "identifier": identifier or "0123456789abcdef0123456789abcdef",
+                "IP-description": ip_description or "1-2-3-4",
                 "port": port or "32400",
             },
+            {
+                "protocol": protocol or "http",
+                "host": host or "localhost",
+                "port": port or "32400",
+            },
+            {
+                "server_url": server_url_server or "http://localhost:32400",
+            },
         ]
+
+        _globals = internal.Globals(
+            accepts=utils.get_global_from_env(
+                accepts, "ACCEPTS", utils.cast_partial(components.Accepts)
+            ),
+            client_identifier=utils.get_global_from_env(
+                client_identifier, "CLIENT_IDENTIFIER", str
+            ),
+            product=utils.get_global_from_env(product, "PRODUCT", str),
+            version=utils.get_global_from_env(version, "VERSION", str),
+            platform=utils.get_global_from_env(platform, "PLATFORM", str),
+            platform_version=utils.get_global_from_env(
+                platform_version, "PLATFORM_VERSION", str
+            ),
+            device=utils.get_global_from_env(device, "DEVICE", str),
+            model=utils.get_global_from_env(model, "MODEL", str),
+            device_vendor=utils.get_global_from_env(
+                device_vendor, "DEVICE_VENDOR", str
+            ),
+            device_name=utils.get_global_from_env(device_name, "DEVICE_NAME", str),
+            marketplace=utils.get_global_from_env(marketplace, "MARKETPLACE", str),
+        )
 
         BaseSDK.__init__(
             self,
@@ -237,6 +332,7 @@ class PlexAPI(BaseSDK):
                 client_supplied=client_supplied,
                 async_client=async_client,
                 async_client_supplied=async_client_supplied,
+                globals=_globals,
                 security=security,
                 server_url=server_url,
                 server_idx=server_idx,

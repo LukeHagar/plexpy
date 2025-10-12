@@ -3,27 +3,138 @@
 from __future__ import annotations
 from enum import Enum
 import httpx
-from plex_api_client import utils
+from plex_api_client.models.components import accepts as components_accepts
 from plex_api_client.types import BaseModel
-from plex_api_client.utils import FieldMetadata, PathParamMetadata, validate_open_enum
+from plex_api_client.utils import FieldMetadata, HeaderMetadata, PathParamMetadata
 import pydantic
-from pydantic.functional_validators import PlainValidator
-from typing_extensions import Annotated, TypedDict
+from typing import Optional
+from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class TaskName(str, Enum, metaclass=utils.OpenEnumMeta):
-    r"""the name of the task to be started."""
+class StartTaskGlobalsTypedDict(TypedDict):
+    accepts: NotRequired[components_accepts.Accepts]
+    r"""Indicates the client accepts the indicated media types"""
+    client_identifier: NotRequired[str]
+    r"""An opaque identifier unique to the client"""
+    product: NotRequired[str]
+    r"""The name of the client product"""
+    version: NotRequired[str]
+    r"""The version of the client application"""
+    platform: NotRequired[str]
+    r"""The platform of the client"""
+    platform_version: NotRequired[str]
+    r"""The version of the platform"""
+    device: NotRequired[str]
+    r"""A relatively friendly name for the client device"""
+    model: NotRequired[str]
+    r"""A potentially less friendly identifier for the device model"""
+    device_vendor: NotRequired[str]
+    r"""The device vendor"""
+    device_name: NotRequired[str]
+    r"""A friendly name for the client"""
+    marketplace: NotRequired[str]
+    r"""The marketplace on which the client application is distributed"""
 
+
+class StartTaskGlobals(BaseModel):
+    accepts: Annotated[
+        Optional[components_accepts.Accepts],
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = components_accepts.Accepts.APPLICATION_XML
+    r"""Indicates the client accepts the indicated media types"""
+
+    client_identifier: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Client-Identifier"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""An opaque identifier unique to the client"""
+
+    product: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Product"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The name of the client product"""
+
+    version: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Version"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The version of the client application"""
+
+    platform: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Platform"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The platform of the client"""
+
+    platform_version: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Platform-Version"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The version of the platform"""
+
+    device: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Device"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""A relatively friendly name for the client device"""
+
+    model: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Model"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""A potentially less friendly identifier for the device model"""
+
+    device_vendor: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Device-Vendor"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The device vendor"""
+
+    device_name: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Device-Name"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""A friendly name for the client"""
+
+    marketplace: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Marketplace"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The marketplace on which the client application is distributed"""
+
+
+class PathParamTask(str, Enum):
+    r"""The task name"""
+
+    AUTOMATIC_UPDATES = "AutomaticUpdates"
     BACKUP_DATABASE = "BackupDatabase"
-    BUILD_GRACENOTE_COLLECTIONS = "BuildGracenoteCollections"
-    CHECK_FOR_UPDATES = "CheckForUpdates"
+    BUTLER_TASK_GENERATE_AD_MARKERS = "ButlerTaskGenerateAdMarkers"
+    BUTLER_TASK_GENERATE_CREDITS_MARKERS = "ButlerTaskGenerateCreditsMarkers"
+    BUTLER_TASK_GENERATE_INTRO_MARKERS = "ButlerTaskGenerateIntroMarkers"
+    BUTLER_TASK_GENERATE_VOICE_ACTIVITY = "ButlerTaskGenerateVoiceActivity"
     CLEAN_OLD_BUNDLES = "CleanOldBundles"
     CLEAN_OLD_CACHE_FILES = "CleanOldCacheFiles"
     DEEP_MEDIA_ANALYSIS = "DeepMediaAnalysis"
-    GENERATE_AUTO_TAGS = "GenerateAutoTags"
+    GARBAGE_COLLECT_BLOBS = "GarbageCollectBlobs"
+    GARBAGE_COLLECT_LIBRARY_MEDIA = "GarbageCollectLibraryMedia"
+    GENERATE_BLUR_HASHES = "GenerateBlurHashes"
     GENERATE_CHAPTER_THUMBS = "GenerateChapterThumbs"
     GENERATE_MEDIA_INDEX_FILES = "GenerateMediaIndexFiles"
+    LOUDNESS_ANALYSIS = "LoudnessAnalysis"
+    MUSIC_ANALYSIS = "MusicAnalysis"
     OPTIMIZE_DATABASE = "OptimizeDatabase"
+    REFRESH_EPG_GUIDES = "RefreshEpgGuides"
     REFRESH_LIBRARIES = "RefreshLibraries"
     REFRESH_LOCAL_MEDIA = "RefreshLocalMedia"
     REFRESH_PERIODIC_METADATA = "RefreshPeriodicMetadata"
@@ -31,17 +142,114 @@ class TaskName(str, Enum, metaclass=utils.OpenEnumMeta):
 
 
 class StartTaskRequestTypedDict(TypedDict):
-    task_name: TaskName
-    r"""the name of the task to be started."""
+    task: PathParamTask
+    r"""The task name"""
+    accepts: NotRequired[components_accepts.Accepts]
+    r"""Indicates the client accepts the indicated media types"""
+    client_identifier: NotRequired[str]
+    r"""An opaque identifier unique to the client"""
+    product: NotRequired[str]
+    r"""The name of the client product"""
+    version: NotRequired[str]
+    r"""The version of the client application"""
+    platform: NotRequired[str]
+    r"""The platform of the client"""
+    platform_version: NotRequired[str]
+    r"""The version of the platform"""
+    device: NotRequired[str]
+    r"""A relatively friendly name for the client device"""
+    model: NotRequired[str]
+    r"""A potentially less friendly identifier for the device model"""
+    device_vendor: NotRequired[str]
+    r"""The device vendor"""
+    device_name: NotRequired[str]
+    r"""A friendly name for the client"""
+    marketplace: NotRequired[str]
+    r"""The marketplace on which the client application is distributed"""
 
 
 class StartTaskRequest(BaseModel):
-    task_name: Annotated[
-        Annotated[TaskName, PlainValidator(validate_open_enum(False))],
-        pydantic.Field(alias="taskName"),
+    task: Annotated[
+        PathParamTask,
         FieldMetadata(path=PathParamMetadata(style="simple", explode=False)),
     ]
-    r"""the name of the task to be started."""
+    r"""The task name"""
+
+    accepts: Annotated[
+        Optional[components_accepts.Accepts],
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = components_accepts.Accepts.APPLICATION_XML
+    r"""Indicates the client accepts the indicated media types"""
+
+    client_identifier: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Client-Identifier"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""An opaque identifier unique to the client"""
+
+    product: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Product"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The name of the client product"""
+
+    version: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Version"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The version of the client application"""
+
+    platform: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Platform"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The platform of the client"""
+
+    platform_version: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Platform-Version"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The version of the platform"""
+
+    device: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Device"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""A relatively friendly name for the client device"""
+
+    model: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Model"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""A potentially less friendly identifier for the device model"""
+
+    device_vendor: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Device-Vendor"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The device vendor"""
+
+    device_name: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Device-Name"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""A friendly name for the client"""
+
+    marketplace: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Marketplace"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The marketplace on which the client application is distributed"""
 
 
 class StartTaskResponseTypedDict(TypedDict):

@@ -9,25 +9,18 @@ from ._version import (
 from .httpclient import AsyncHttpClient, HttpClient
 from .utils import Logger, RetryConfig, remove_suffix
 from dataclasses import dataclass, field
-from enum import Enum
-from plex_api_client.models import components
+from plex_api_client.models import components, internal
 from plex_api_client.types import OptionalNullable, UNSET
 from pydantic import Field
 from typing import Callable, Dict, List, Optional, Tuple, Union
 
 
 SERVERS = [
-    "{protocol}://{ip}:{port}",
-    # The full address of your Plex Server
+    "https://{IP-description}.{identifier}.plex.direct:{port}",
+    "{protocol}://{host}:{port}",
+    "https://{server_url}",
 ]
 """Contains the list of servers available to the SDK"""
-
-
-class ServerProtocol(str, Enum):
-    r"""The protocol to use for the server connection"""
-
-    HTTP = "http"
-    HTTPS = "https"
 
 
 @dataclass
@@ -37,6 +30,7 @@ class SDKConfiguration:
     async_client: Union[AsyncHttpClient, None]
     async_client_supplied: bool
     debug_logger: Logger
+    globals: internal.Globals
     security: Optional[
         Union[components.Security, Callable[[], components.Security]]
     ] = None

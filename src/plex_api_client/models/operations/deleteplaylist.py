@@ -2,24 +2,227 @@
 
 from __future__ import annotations
 import httpx
+from plex_api_client.models.components import accepts as components_accepts
 from plex_api_client.types import BaseModel
-from plex_api_client.utils import FieldMetadata, PathParamMetadata
+from plex_api_client.utils import FieldMetadata, HeaderMetadata, PathParamMetadata
 import pydantic
-from typing_extensions import Annotated, TypedDict
+from typing import Optional
+from typing_extensions import Annotated, NotRequired, TypedDict
+
+
+class DeletePlaylistGlobalsTypedDict(TypedDict):
+    accepts: NotRequired[components_accepts.Accepts]
+    r"""Indicates the client accepts the indicated media types"""
+    client_identifier: NotRequired[str]
+    r"""An opaque identifier unique to the client"""
+    product: NotRequired[str]
+    r"""The name of the client product"""
+    version: NotRequired[str]
+    r"""The version of the client application"""
+    platform: NotRequired[str]
+    r"""The platform of the client"""
+    platform_version: NotRequired[str]
+    r"""The version of the platform"""
+    device: NotRequired[str]
+    r"""A relatively friendly name for the client device"""
+    model: NotRequired[str]
+    r"""A potentially less friendly identifier for the device model"""
+    device_vendor: NotRequired[str]
+    r"""The device vendor"""
+    device_name: NotRequired[str]
+    r"""A friendly name for the client"""
+    marketplace: NotRequired[str]
+    r"""The marketplace on which the client application is distributed"""
+
+
+class DeletePlaylistGlobals(BaseModel):
+    accepts: Annotated[
+        Optional[components_accepts.Accepts],
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = components_accepts.Accepts.APPLICATION_XML
+    r"""Indicates the client accepts the indicated media types"""
+
+    client_identifier: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Client-Identifier"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""An opaque identifier unique to the client"""
+
+    product: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Product"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The name of the client product"""
+
+    version: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Version"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The version of the client application"""
+
+    platform: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Platform"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The platform of the client"""
+
+    platform_version: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Platform-Version"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The version of the platform"""
+
+    device: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Device"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""A relatively friendly name for the client device"""
+
+    model: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Model"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""A potentially less friendly identifier for the device model"""
+
+    device_vendor: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Device-Vendor"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The device vendor"""
+
+    device_name: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Device-Name"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""A friendly name for the client"""
+
+    marketplace: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Marketplace"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The marketplace on which the client application is distributed"""
 
 
 class DeletePlaylistRequestTypedDict(TypedDict):
-    playlist_id: float
-    r"""the ID of the playlist"""
+    playlist_id: int
+    r"""The ID of the playlist"""
+    accepts: NotRequired[components_accepts.Accepts]
+    r"""Indicates the client accepts the indicated media types"""
+    client_identifier: NotRequired[str]
+    r"""An opaque identifier unique to the client"""
+    product: NotRequired[str]
+    r"""The name of the client product"""
+    version: NotRequired[str]
+    r"""The version of the client application"""
+    platform: NotRequired[str]
+    r"""The platform of the client"""
+    platform_version: NotRequired[str]
+    r"""The version of the platform"""
+    device: NotRequired[str]
+    r"""A relatively friendly name for the client device"""
+    model: NotRequired[str]
+    r"""A potentially less friendly identifier for the device model"""
+    device_vendor: NotRequired[str]
+    r"""The device vendor"""
+    device_name: NotRequired[str]
+    r"""A friendly name for the client"""
+    marketplace: NotRequired[str]
+    r"""The marketplace on which the client application is distributed"""
 
 
 class DeletePlaylistRequest(BaseModel):
     playlist_id: Annotated[
-        float,
-        pydantic.Field(alias="playlistID"),
+        int,
+        pydantic.Field(alias="playlistId"),
         FieldMetadata(path=PathParamMetadata(style="simple", explode=False)),
     ]
-    r"""the ID of the playlist"""
+    r"""The ID of the playlist"""
+
+    accepts: Annotated[
+        Optional[components_accepts.Accepts],
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = components_accepts.Accepts.APPLICATION_XML
+    r"""Indicates the client accepts the indicated media types"""
+
+    client_identifier: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Client-Identifier"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""An opaque identifier unique to the client"""
+
+    product: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Product"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The name of the client product"""
+
+    version: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Version"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The version of the client application"""
+
+    platform: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Platform"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The platform of the client"""
+
+    platform_version: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Platform-Version"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The version of the platform"""
+
+    device: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Device"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""A relatively friendly name for the client device"""
+
+    model: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Model"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""A potentially less friendly identifier for the device model"""
+
+    device_vendor: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Device-Vendor"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The device vendor"""
+
+    device_name: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Device-Name"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""A friendly name for the client"""
+
+    marketplace: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Marketplace"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The marketplace on which the client application is distributed"""
 
 
 class DeletePlaylistResponseTypedDict(TypedDict):

@@ -3,41 +3,306 @@
 from __future__ import annotations
 from enum import Enum
 import httpx
+from plex_api_client.models.components import accepts as components_accepts
 from plex_api_client.types import BaseModel
-from plex_api_client.utils import FieldMetadata, QueryParamMetadata
-from typing_extensions import Annotated, TypedDict
+from plex_api_client.utils import FieldMetadata, HeaderMetadata, QueryParamMetadata
+import pydantic
+from typing import Optional
+from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class GetTransientTokenQueryParamType(str, Enum):
-    r"""`delegation` - This is the only supported `type` parameter."""
+class GetTransientTokenGlobalsTypedDict(TypedDict):
+    accepts: NotRequired[components_accepts.Accepts]
+    r"""Indicates the client accepts the indicated media types"""
+    client_identifier: NotRequired[str]
+    r"""An opaque identifier unique to the client"""
+    product: NotRequired[str]
+    r"""The name of the client product"""
+    version: NotRequired[str]
+    r"""The version of the client application"""
+    platform: NotRequired[str]
+    r"""The platform of the client"""
+    platform_version: NotRequired[str]
+    r"""The version of the platform"""
+    device: NotRequired[str]
+    r"""A relatively friendly name for the client device"""
+    model: NotRequired[str]
+    r"""A potentially less friendly identifier for the device model"""
+    device_vendor: NotRequired[str]
+    r"""The device vendor"""
+    device_name: NotRequired[str]
+    r"""A friendly name for the client"""
+    marketplace: NotRequired[str]
+    r"""The marketplace on which the client application is distributed"""
+
+
+class GetTransientTokenGlobals(BaseModel):
+    accepts: Annotated[
+        Optional[components_accepts.Accepts],
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = components_accepts.Accepts.APPLICATION_XML
+    r"""Indicates the client accepts the indicated media types"""
+
+    client_identifier: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Client-Identifier"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""An opaque identifier unique to the client"""
+
+    product: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Product"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The name of the client product"""
+
+    version: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Version"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The version of the client application"""
+
+    platform: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Platform"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The platform of the client"""
+
+    platform_version: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Platform-Version"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The version of the platform"""
+
+    device: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Device"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""A relatively friendly name for the client device"""
+
+    model: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Model"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""A potentially less friendly identifier for the device model"""
+
+    device_vendor: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Device-Vendor"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The device vendor"""
+
+    device_name: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Device-Name"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""A friendly name for the client"""
+
+    marketplace: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Marketplace"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The marketplace on which the client application is distributed"""
+
+
+class QueryParamType(str, Enum):
+    r"""The value `delegation` is the only supported `type` parameter."""
 
     DELEGATION = "delegation"
 
 
 class Scope(str, Enum):
-    r"""`all` - This is the only supported `scope` parameter."""
+    r"""The value `all` is the only supported `scope` parameter."""
 
     ALL = "all"
 
 
 class GetTransientTokenRequestTypedDict(TypedDict):
-    type: GetTransientTokenQueryParamType
-    r"""`delegation` - This is the only supported `type` parameter."""
+    type: QueryParamType
+    r"""The value `delegation` is the only supported `type` parameter."""
     scope: Scope
-    r"""`all` - This is the only supported `scope` parameter."""
+    r"""The value `all` is the only supported `scope` parameter."""
+    accepts: NotRequired[components_accepts.Accepts]
+    r"""Indicates the client accepts the indicated media types"""
+    client_identifier: NotRequired[str]
+    r"""An opaque identifier unique to the client"""
+    product: NotRequired[str]
+    r"""The name of the client product"""
+    version: NotRequired[str]
+    r"""The version of the client application"""
+    platform: NotRequired[str]
+    r"""The platform of the client"""
+    platform_version: NotRequired[str]
+    r"""The version of the platform"""
+    device: NotRequired[str]
+    r"""A relatively friendly name for the client device"""
+    model: NotRequired[str]
+    r"""A potentially less friendly identifier for the device model"""
+    device_vendor: NotRequired[str]
+    r"""The device vendor"""
+    device_name: NotRequired[str]
+    r"""A friendly name for the client"""
+    marketplace: NotRequired[str]
+    r"""The marketplace on which the client application is distributed"""
 
 
 class GetTransientTokenRequest(BaseModel):
     type: Annotated[
-        GetTransientTokenQueryParamType,
+        QueryParamType,
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ]
-    r"""`delegation` - This is the only supported `type` parameter."""
+    r"""The value `delegation` is the only supported `type` parameter."""
 
     scope: Annotated[
         Scope, FieldMetadata(query=QueryParamMetadata(style="form", explode=True))
     ]
-    r"""`all` - This is the only supported `scope` parameter."""
+    r"""The value `all` is the only supported `scope` parameter."""
+
+    accepts: Annotated[
+        Optional[components_accepts.Accepts],
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = components_accepts.Accepts.APPLICATION_XML
+    r"""Indicates the client accepts the indicated media types"""
+
+    client_identifier: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Client-Identifier"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""An opaque identifier unique to the client"""
+
+    product: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Product"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The name of the client product"""
+
+    version: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Version"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The version of the client application"""
+
+    platform: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Platform"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The platform of the client"""
+
+    platform_version: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Platform-Version"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The version of the platform"""
+
+    device: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Device"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""A relatively friendly name for the client device"""
+
+    model: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Model"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""A potentially less friendly identifier for the device model"""
+
+    device_vendor: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Device-Vendor"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The device vendor"""
+
+    device_name: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Device-Name"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""A friendly name for the client"""
+
+    marketplace: Annotated[
+        Optional[str],
+        pydantic.Field(alias="X-Plex-Marketplace"),
+        FieldMetadata(header=HeaderMetadata(style="simple", explode=False)),
+    ] = None
+    r"""The marketplace on which the client application is distributed"""
+
+
+class GetTransientTokenMediaContainerTypedDict(TypedDict):
+    r"""`MediaContainer` is the root element of most Plex API responses. It serves as a generic container for various types of content (Metadata, Hubs, Directories, etc.) and includes pagination information (offset, size, totalSize) when applicable.
+    Common attributes: - identifier: Unique identifier for this container - size: Number of items in this response page - totalSize: Total number of items available (for pagination) - offset: Starting index of this page (for pagination)
+    The container often \"hoists\" common attributes from its children. For example, if all tracks in a container share the same album title, the `parentTitle` attribute may appear on the MediaContainer rather than being repeated on each track.
+
+    """
+
+    identifier: NotRequired[str]
+    offset: NotRequired[int]
+    r"""The offset of where this container page starts among the total objects available. Also provided in the `X-Plex-Container-Start` header.
+
+    """
+    size: NotRequired[int]
+    total_size: NotRequired[int]
+    r"""The total size of objects available. Also provided in the `X-Plex-Container-Total-Size` header.
+
+    """
+    token: NotRequired[str]
+    r"""The transient token"""
+
+
+class GetTransientTokenMediaContainer(BaseModel):
+    r"""`MediaContainer` is the root element of most Plex API responses. It serves as a generic container for various types of content (Metadata, Hubs, Directories, etc.) and includes pagination information (offset, size, totalSize) when applicable.
+    Common attributes: - identifier: Unique identifier for this container - size: Number of items in this response page - totalSize: Total number of items available (for pagination) - offset: Starting index of this page (for pagination)
+    The container often \"hoists\" common attributes from its children. For example, if all tracks in a container share the same album title, the `parentTitle` attribute may appear on the MediaContainer rather than being repeated on each track.
+
+    """
+
+    identifier: Optional[str] = None
+
+    offset: Optional[int] = None
+    r"""The offset of where this container page starts among the total objects available. Also provided in the `X-Plex-Container-Start` header.
+
+    """
+
+    size: Optional[int] = None
+
+    total_size: Annotated[Optional[int], pydantic.Field(alias="totalSize")] = None
+    r"""The total size of objects available. Also provided in the `X-Plex-Container-Total-Size` header.
+
+    """
+
+    token: Optional[str] = None
+    r"""The transient token"""
+
+
+class GetTransientTokenResponseBodyTypedDict(TypedDict):
+    r"""OK"""
+
+    media_container: NotRequired[GetTransientTokenMediaContainerTypedDict]
+
+
+class GetTransientTokenResponseBody(BaseModel):
+    r"""OK"""
+
+    media_container: Annotated[
+        Optional[GetTransientTokenMediaContainer],
+        pydantic.Field(alias="MediaContainer"),
+    ] = None
 
 
 class GetTransientTokenResponseTypedDict(TypedDict):
@@ -47,6 +312,8 @@ class GetTransientTokenResponseTypedDict(TypedDict):
     r"""HTTP response status code for this operation"""
     raw_response: httpx.Response
     r"""Raw HTTP response; suitable for custom response parsing"""
+    object: NotRequired[GetTransientTokenResponseBodyTypedDict]
+    r"""OK"""
 
 
 class GetTransientTokenResponse(BaseModel):
@@ -58,3 +325,6 @@ class GetTransientTokenResponse(BaseModel):
 
     raw_response: httpx.Response
     r"""Raw HTTP response; suitable for custom response parsing"""
+
+    object: Optional[GetTransientTokenResponseBody] = None
+    r"""OK"""

@@ -3,81 +3,54 @@
 
 ## Overview
 
-Hubs are a structured two-dimensional container for media, generally represented by multiple horizontal rows.
-
+The hubs within a media provider
 
 ### Available Operations
 
-* [get_global_hubs](#get_global_hubs) - Get Global Hubs
-* [get_recently_added](#get_recently_added) - Get Recently Added
-* [get_library_hubs](#get_library_hubs) - Get library specific hubs
+* [get_all_hubs](#get_all_hubs) - Get global hubs
+* [get_continue_watching](#get_continue_watching) - Get the continue watching hub
+* [get_hub_items](#get_hub_items) - Get a hub's items
+* [get_promoted_hubs](#get_promoted_hubs) - Get the hubs which are promoted
+* [get_metadata_hubs](#get_metadata_hubs) - Get hubs for section by metadata item
+* [get_postplay_hubs](#get_postplay_hubs) - Get postplay hubs
+* [get_related_hubs](#get_related_hubs) - Get related hubs
+* [get_section_hubs](#get_section_hubs) - Get section hubs
+* [reset_section_defaults](#reset_section_defaults) - Reset hubs to defaults
+* [list_hubs](#list_hubs) - Get hubs
+* [create_custom_hub](#create_custom_hub) - Create a custom hub
+* [move_hub](#move_hub) - Move Hub
+* [delete_custom_hub](#delete_custom_hub) - Delete a custom hub
+* [update_hub_visibility](#update_hub_visibility) - Change hub visibility
 
-## get_global_hubs
+## get_all_hubs
 
-Get Global Hubs filtered by the parameters provided.
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="getGlobalHubs" method="get" path="/hubs" -->
-```python
-from plex_api_client import PlexAPI
-
-
-with PlexAPI(
-    access_token="<YOUR_API_KEY_HERE>",
-) as plex_api:
-
-    res = plex_api.hubs.get_global_hubs()
-
-    assert res.object is not None
-
-    # Handle response
-    print(res.object)
-
-```
-
-### Parameters
-
-| Parameter                                                                                                                                             | Type                                                                                                                                                  | Required                                                                                                                                              | Description                                                                                                                                           |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `count`                                                                                                                                               | *Optional[float]*                                                                                                                                     | :heavy_minus_sign:                                                                                                                                    | The number of items to return with each hub.                                                                                                          |
-| `only_transient`                                                                                                                                      | [Optional[operations.OnlyTransient]](../../models/operations/onlytransient.md)                                                                        | :heavy_minus_sign:                                                                                                                                    | Only return hubs which are "transient", meaning those which are prone to changing after media playback or addition (e.g. On Deck, or Recently Added). |
-| `retries`                                                                                                                                             | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                      | :heavy_minus_sign:                                                                                                                                    | Configuration to override the default retry behavior of the client.                                                                                   |
-
-### Response
-
-**[operations.GetGlobalHubsResponse](../../models/operations/getglobalhubsresponse.md)**
-
-### Errors
-
-| Error Type                       | Status Code                      | Content Type                     |
-| -------------------------------- | -------------------------------- | -------------------------------- |
-| errors.GetGlobalHubsBadRequest   | 400                              | application/json                 |
-| errors.GetGlobalHubsUnauthorized | 401                              | application/json                 |
-| errors.SDKError                  | 4XX, 5XX                         | \*/\*                            |
-
-## get_recently_added
-
-This endpoint will return the recently added content.
-
+Get the global hubs in this PMS
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="get-recently-added" method="get" path="/hubs/home/recentlyAdded" -->
+<!-- UsageSnippet language="python" operationID="getAllHubs" method="get" path="/hubs" -->
 ```python
 from plex_api_client import PlexAPI
-from plex_api_client.models import operations
+from plex_api_client.models import components
 
 
 with PlexAPI(
-    access_token="<YOUR_API_KEY_HERE>",
+    accepts=components.Accepts.APPLICATION_XML,
+    client_identifier="abc123",
+    product="Plex for Roku",
+    version="2.4.1",
+    platform="Roku",
+    platform_version="4.3 build 1057",
+    device="Roku 3",
+    model="4200X",
+    device_vendor="Roku",
+    device_name="Living Room TV",
+    marketplace="googlePlay",
+    token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
 
-    res = plex_api.hubs.get_recently_added(request={
-        "content_directory_id": 39486,
-        "section_id": 2,
-        "type": operations.Type.TV_SHOW,
-        "include_meta": operations.IncludeMeta.ENABLE,
+    res = plex_api.hubs.get_all_hubs(request={
+        "only_transient": components.BoolInt.ONE,
     })
 
     assert res.object is not None
@@ -89,14 +62,14 @@ with PlexAPI(
 
 ### Parameters
 
-| Parameter                                                                                | Type                                                                                     | Required                                                                                 | Description                                                                              |
-| ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| `request`                                                                                | [operations.GetRecentlyAddedRequest](../../models/operations/getrecentlyaddedrequest.md) | :heavy_check_mark:                                                                       | The request object to use for the request.                                               |
-| `retries`                                                                                | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                         | :heavy_minus_sign:                                                                       | Configuration to override the default retry behavior of the client.                      |
+| Parameter                                                                    | Type                                                                         | Required                                                                     | Description                                                                  |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `request`                                                                    | [operations.GetAllHubsRequest](../../models/operations/getallhubsrequest.md) | :heavy_check_mark:                                                           | The request object to use for the request.                                   |
+| `retries`                                                                    | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)             | :heavy_minus_sign:                                                           | Configuration to override the default retry behavior of the client.          |
 
 ### Response
 
-**[operations.GetRecentlyAddedResponse](../../models/operations/getrecentlyaddedresponse.md)**
+**[operations.GetAllHubsResponse](../../models/operations/getallhubsresponse.md)**
 
 ### Errors
 
@@ -104,23 +77,34 @@ with PlexAPI(
 | --------------- | --------------- | --------------- |
 | errors.SDKError | 4XX, 5XX        | \*/\*           |
 
-## get_library_hubs
+## get_continue_watching
 
-This endpoint will return a list of library specific hubs
-
+Get the global continue watching hub
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="getLibraryHubs" method="get" path="/hubs/sections/{sectionId}" -->
+<!-- UsageSnippet language="python" operationID="getContinueWatching" method="get" path="/hubs/continueWatching" -->
 ```python
 from plex_api_client import PlexAPI
+from plex_api_client.models import components
 
 
 with PlexAPI(
-    access_token="<YOUR_API_KEY_HERE>",
+    accepts=components.Accepts.APPLICATION_XML,
+    client_identifier="abc123",
+    product="Plex for Roku",
+    version="2.4.1",
+    platform="Roku",
+    platform_version="4.3 build 1057",
+    device="Roku 3",
+    model="4200X",
+    device_vendor="Roku",
+    device_name="Living Room TV",
+    marketplace="googlePlay",
+    token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
 
-    res = plex_api.hubs.get_library_hubs(section_id=492.74)
+    res = plex_api.hubs.get_continue_watching(request={})
 
     assert res.object is not None
 
@@ -131,21 +115,693 @@ with PlexAPI(
 
 ### Parameters
 
-| Parameter                                                                                                                                             | Type                                                                                                                                                  | Required                                                                                                                                              | Description                                                                                                                                           |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `section_id`                                                                                                                                          | *float*                                                                                                                                               | :heavy_check_mark:                                                                                                                                    | the Id of the library to query                                                                                                                        |
-| `count`                                                                                                                                               | *Optional[float]*                                                                                                                                     | :heavy_minus_sign:                                                                                                                                    | The number of items to return with each hub.                                                                                                          |
-| `only_transient`                                                                                                                                      | [Optional[operations.QueryParamOnlyTransient]](../../models/operations/queryparamonlytransient.md)                                                    | :heavy_minus_sign:                                                                                                                                    | Only return hubs which are "transient", meaning those which are prone to changing after media playback or addition (e.g. On Deck, or Recently Added). |
-| `retries`                                                                                                                                             | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                                                                      | :heavy_minus_sign:                                                                                                                                    | Configuration to override the default retry behavior of the client.                                                                                   |
+| Parameter                                                                                      | Type                                                                                           | Required                                                                                       | Description                                                                                    |
+| ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `request`                                                                                      | [operations.GetContinueWatchingRequest](../../models/operations/getcontinuewatchingrequest.md) | :heavy_check_mark:                                                                             | The request object to use for the request.                                                     |
+| `retries`                                                                                      | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                               | :heavy_minus_sign:                                                                             | Configuration to override the default retry behavior of the client.                            |
 
 ### Response
 
-**[operations.GetLibraryHubsResponse](../../models/operations/getlibraryhubsresponse.md)**
+**[operations.GetContinueWatchingResponse](../../models/operations/getcontinuewatchingresponse.md)**
 
 ### Errors
 
-| Error Type                        | Status Code                       | Content Type                      |
-| --------------------------------- | --------------------------------- | --------------------------------- |
-| errors.GetLibraryHubsBadRequest   | 400                               | application/json                  |
-| errors.GetLibraryHubsUnauthorized | 401                               | application/json                  |
-| errors.SDKError                   | 4XX, 5XX                          | \*/\*                             |
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
+
+## get_hub_items
+
+Get the items within a single hub specified by identifier
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="getHubItems" method="get" path="/hubs/items" -->
+```python
+from plex_api_client import PlexAPI
+from plex_api_client.models import components
+
+
+with PlexAPI(
+    accepts=components.Accepts.APPLICATION_XML,
+    client_identifier="abc123",
+    product="Plex for Roku",
+    version="2.4.1",
+    platform="Roku",
+    platform_version="4.3 build 1057",
+    device="Roku 3",
+    model="4200X",
+    device_vendor="Roku",
+    device_name="Living Room TV",
+    marketplace="googlePlay",
+    token="<YOUR_API_KEY_HERE>",
+) as plex_api:
+
+    res = plex_api.hubs.get_hub_items(request={
+        "identifier": [
+            "<value 1>",
+            "<value 2>",
+            "<value 3>",
+        ],
+    })
+
+    assert res.object is not None
+
+    # Handle response
+    print(res.object)
+
+```
+
+### Parameters
+
+| Parameter                                                                      | Type                                                                           | Required                                                                       | Description                                                                    |
+| ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ | ------------------------------------------------------------------------------ |
+| `request`                                                                      | [operations.GetHubItemsRequest](../../models/operations/gethubitemsrequest.md) | :heavy_check_mark:                                                             | The request object to use for the request.                                     |
+| `retries`                                                                      | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)               | :heavy_minus_sign:                                                             | Configuration to override the default retry behavior of the client.            |
+
+### Response
+
+**[operations.GetHubItemsResponse](../../models/operations/gethubitemsresponse.md)**
+
+### Errors
+
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
+
+## get_promoted_hubs
+
+Get the global hubs which are promoted (should be displayed on the home screen)
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="getPromotedHubs" method="get" path="/hubs/promoted" -->
+```python
+from plex_api_client import PlexAPI
+from plex_api_client.models import components
+
+
+with PlexAPI(
+    accepts=components.Accepts.APPLICATION_XML,
+    client_identifier="abc123",
+    product="Plex for Roku",
+    version="2.4.1",
+    platform="Roku",
+    platform_version="4.3 build 1057",
+    device="Roku 3",
+    model="4200X",
+    device_vendor="Roku",
+    device_name="Living Room TV",
+    marketplace="googlePlay",
+    token="<YOUR_API_KEY_HERE>",
+) as plex_api:
+
+    res = plex_api.hubs.get_promoted_hubs(request={})
+
+    assert res.object is not None
+
+    # Handle response
+    print(res.object)
+
+```
+
+### Parameters
+
+| Parameter                                                                              | Type                                                                                   | Required                                                                               | Description                                                                            |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `request`                                                                              | [operations.GetPromotedHubsRequest](../../models/operations/getpromotedhubsrequest.md) | :heavy_check_mark:                                                                     | The request object to use for the request.                                             |
+| `retries`                                                                              | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                       | :heavy_minus_sign:                                                                     | Configuration to override the default retry behavior of the client.                    |
+
+### Response
+
+**[operations.GetPromotedHubsResponse](../../models/operations/getpromotedhubsresponse.md)**
+
+### Errors
+
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
+
+## get_metadata_hubs
+
+Get the hubs for a section by metadata item.  Currently only for music sections
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="getMetadataHubs" method="get" path="/hubs/metadata/{metadataId}" -->
+```python
+from plex_api_client import PlexAPI
+from plex_api_client.models import components
+
+
+with PlexAPI(
+    accepts=components.Accepts.APPLICATION_XML,
+    client_identifier="abc123",
+    product="Plex for Roku",
+    version="2.4.1",
+    platform="Roku",
+    platform_version="4.3 build 1057",
+    device="Roku 3",
+    model="4200X",
+    device_vendor="Roku",
+    device_name="Living Room TV",
+    marketplace="googlePlay",
+    token="<YOUR_API_KEY_HERE>",
+) as plex_api:
+
+    res = plex_api.hubs.get_metadata_hubs(request={
+        "metadata_id": 605482,
+        "only_transient": components.BoolInt.ONE,
+    })
+
+    assert res.media_container_with_hubs is not None
+
+    # Handle response
+    print(res.media_container_with_hubs)
+
+```
+
+### Parameters
+
+| Parameter                                                                              | Type                                                                                   | Required                                                                               | Description                                                                            |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `request`                                                                              | [operations.GetMetadataHubsRequest](../../models/operations/getmetadatahubsrequest.md) | :heavy_check_mark:                                                                     | The request object to use for the request.                                             |
+| `retries`                                                                              | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                       | :heavy_minus_sign:                                                                     | Configuration to override the default retry behavior of the client.                    |
+
+### Response
+
+**[operations.GetMetadataHubsResponse](../../models/operations/getmetadatahubsresponse.md)**
+
+### Errors
+
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
+
+## get_postplay_hubs
+
+Get the hubs for a metadata to be displayed in post play
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="getPostplayHubs" method="get" path="/hubs/metadata/{metadataId}/postplay" -->
+```python
+from plex_api_client import PlexAPI
+from plex_api_client.models import components
+
+
+with PlexAPI(
+    accepts=components.Accepts.APPLICATION_XML,
+    client_identifier="abc123",
+    product="Plex for Roku",
+    version="2.4.1",
+    platform="Roku",
+    platform_version="4.3 build 1057",
+    device="Roku 3",
+    model="4200X",
+    device_vendor="Roku",
+    device_name="Living Room TV",
+    marketplace="googlePlay",
+    token="<YOUR_API_KEY_HERE>",
+) as plex_api:
+
+    res = plex_api.hubs.get_postplay_hubs(request={
+        "metadata_id": 441419,
+        "only_transient": components.BoolInt.ONE,
+    })
+
+    assert res.media_container_with_hubs is not None
+
+    # Handle response
+    print(res.media_container_with_hubs)
+
+```
+
+### Parameters
+
+| Parameter                                                                              | Type                                                                                   | Required                                                                               | Description                                                                            |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `request`                                                                              | [operations.GetPostplayHubsRequest](../../models/operations/getpostplayhubsrequest.md) | :heavy_check_mark:                                                                     | The request object to use for the request.                                             |
+| `retries`                                                                              | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                       | :heavy_minus_sign:                                                                     | Configuration to override the default retry behavior of the client.                    |
+
+### Response
+
+**[operations.GetPostplayHubsResponse](../../models/operations/getpostplayhubsresponse.md)**
+
+### Errors
+
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
+
+## get_related_hubs
+
+Get the hubs for a metadata related to the provided metadata item
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="getRelatedHubs" method="get" path="/hubs/metadata/{metadataId}/related" -->
+```python
+from plex_api_client import PlexAPI
+from plex_api_client.models import components
+
+
+with PlexAPI(
+    accepts=components.Accepts.APPLICATION_XML,
+    client_identifier="abc123",
+    product="Plex for Roku",
+    version="2.4.1",
+    platform="Roku",
+    platform_version="4.3 build 1057",
+    device="Roku 3",
+    model="4200X",
+    device_vendor="Roku",
+    device_name="Living Room TV",
+    marketplace="googlePlay",
+    token="<YOUR_API_KEY_HERE>",
+) as plex_api:
+
+    res = plex_api.hubs.get_related_hubs(request={
+        "metadata_id": 8858,
+        "only_transient": components.BoolInt.ONE,
+    })
+
+    assert res.media_container_with_hubs is not None
+
+    # Handle response
+    print(res.media_container_with_hubs)
+
+```
+
+### Parameters
+
+| Parameter                                                                            | Type                                                                                 | Required                                                                             | Description                                                                          |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| `request`                                                                            | [operations.GetRelatedHubsRequest](../../models/operations/getrelatedhubsrequest.md) | :heavy_check_mark:                                                                   | The request object to use for the request.                                           |
+| `retries`                                                                            | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                     | :heavy_minus_sign:                                                                   | Configuration to override the default retry behavior of the client.                  |
+
+### Response
+
+**[operations.GetRelatedHubsResponse](../../models/operations/getrelatedhubsresponse.md)**
+
+### Errors
+
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
+
+## get_section_hubs
+
+Get the hubs for a single section
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="getSectionHubs" method="get" path="/hubs/sections/{sectionId}" -->
+```python
+from plex_api_client import PlexAPI
+from plex_api_client.models import components
+
+
+with PlexAPI(
+    accepts=components.Accepts.APPLICATION_XML,
+    client_identifier="abc123",
+    product="Plex for Roku",
+    version="2.4.1",
+    platform="Roku",
+    platform_version="4.3 build 1057",
+    device="Roku 3",
+    model="4200X",
+    device_vendor="Roku",
+    device_name="Living Room TV",
+    marketplace="googlePlay",
+    token="<YOUR_API_KEY_HERE>",
+) as plex_api:
+
+    res = plex_api.hubs.get_section_hubs(request={
+        "section_id": 336924,
+        "only_transient": components.BoolInt.ONE,
+    })
+
+    assert res.object is not None
+
+    # Handle response
+    print(res.object)
+
+```
+
+### Parameters
+
+| Parameter                                                                            | Type                                                                                 | Required                                                                             | Description                                                                          |
+| ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------ |
+| `request`                                                                            | [operations.GetSectionHubsRequest](../../models/operations/getsectionhubsrequest.md) | :heavy_check_mark:                                                                   | The request object to use for the request.                                           |
+| `retries`                                                                            | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                     | :heavy_minus_sign:                                                                   | Configuration to override the default retry behavior of the client.                  |
+
+### Response
+
+**[operations.GetSectionHubsResponse](../../models/operations/getsectionhubsresponse.md)**
+
+### Errors
+
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
+
+## reset_section_defaults
+
+Reset hubs for this section to defaults and delete custom hubs
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="resetSectionDefaults" method="delete" path="/hubs/sections/{sectionId}/manage" -->
+```python
+from plex_api_client import PlexAPI
+from plex_api_client.models import components
+
+
+with PlexAPI(
+    accepts=components.Accepts.APPLICATION_XML,
+    client_identifier="abc123",
+    product="Plex for Roku",
+    version="2.4.1",
+    platform="Roku",
+    platform_version="4.3 build 1057",
+    device="Roku 3",
+    model="4200X",
+    device_vendor="Roku",
+    device_name="Living Room TV",
+    marketplace="googlePlay",
+    token="<YOUR_API_KEY_HERE>",
+) as plex_api:
+
+    res = plex_api.hubs.reset_section_defaults(request={
+        "section_id": 383022,
+    })
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                                        | Type                                                                                             | Required                                                                                         | Description                                                                                      |
+| ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
+| `request`                                                                                        | [operations.ResetSectionDefaultsRequest](../../models/operations/resetsectiondefaultsrequest.md) | :heavy_check_mark:                                                                               | The request object to use for the request.                                                       |
+| `retries`                                                                                        | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                                 | :heavy_minus_sign:                                                                               | Configuration to override the default retry behavior of the client.                              |
+
+### Response
+
+**[operations.ResetSectionDefaultsResponse](../../models/operations/resetsectiondefaultsresponse.md)**
+
+### Errors
+
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
+
+## list_hubs
+
+Get the list of hubs including both built-in and custom
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="listHubs" method="get" path="/hubs/sections/{sectionId}/manage" -->
+```python
+from plex_api_client import PlexAPI
+from plex_api_client.models import components
+
+
+with PlexAPI(
+    accepts=components.Accepts.APPLICATION_XML,
+    client_identifier="abc123",
+    product="Plex for Roku",
+    version="2.4.1",
+    platform="Roku",
+    platform_version="4.3 build 1057",
+    device="Roku 3",
+    model="4200X",
+    device_vendor="Roku",
+    device_name="Living Room TV",
+    marketplace="googlePlay",
+    token="<YOUR_API_KEY_HERE>",
+) as plex_api:
+
+    res = plex_api.hubs.list_hubs(request={
+        "section_id": 442546,
+    })
+
+    assert res.object is not None
+
+    # Handle response
+    print(res.object)
+
+```
+
+### Parameters
+
+| Parameter                                                                | Type                                                                     | Required                                                                 | Description                                                              |
+| ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ | ------------------------------------------------------------------------ |
+| `request`                                                                | [operations.ListHubsRequest](../../models/operations/listhubsrequest.md) | :heavy_check_mark:                                                       | The request object to use for the request.                               |
+| `retries`                                                                | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)         | :heavy_minus_sign:                                                       | Configuration to override the default retry behavior of the client.      |
+
+### Response
+
+**[operations.ListHubsResponse](../../models/operations/listhubsresponse.md)**
+
+### Errors
+
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
+
+## create_custom_hub
+
+Create a custom hub based on a metadata item
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="createCustomHub" method="post" path="/hubs/sections/{sectionId}/manage" -->
+```python
+from plex_api_client import PlexAPI
+from plex_api_client.models import components, operations
+
+
+with PlexAPI(
+    accepts=components.Accepts.APPLICATION_XML,
+    client_identifier="abc123",
+    product="Plex for Roku",
+    version="2.4.1",
+    platform="Roku",
+    platform_version="4.3 build 1057",
+    device="Roku 3",
+    model="4200X",
+    device_vendor="Roku",
+    device_name="Living Room TV",
+    marketplace="googlePlay",
+    token="<YOUR_API_KEY_HERE>",
+) as plex_api:
+
+    res = plex_api.hubs.create_custom_hub(request=operations.CreateCustomHubRequest(
+        section_id=869922,
+        metadata_item_id=703843,
+        promoted_to_recommended=components.BoolInt.ONE,
+        promoted_to_own_home=components.BoolInt.ONE,
+        promoted_to_shared_home=components.BoolInt.ONE,
+    ))
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                              | Type                                                                                   | Required                                                                               | Description                                                                            |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `request`                                                                              | [operations.CreateCustomHubRequest](../../models/operations/createcustomhubrequest.md) | :heavy_check_mark:                                                                     | The request object to use for the request.                                             |
+| `retries`                                                                              | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                       | :heavy_minus_sign:                                                                     | Configuration to override the default retry behavior of the client.                    |
+
+### Response
+
+**[operations.CreateCustomHubResponse](../../models/operations/createcustomhubresponse.md)**
+
+### Errors
+
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
+
+## move_hub
+
+Changed the ordering of a hub among others hubs
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="moveHub" method="put" path="/hubs/sections/{sectionId}/manage/move" -->
+```python
+from plex_api_client import PlexAPI
+from plex_api_client.models import components
+
+
+with PlexAPI(
+    accepts=components.Accepts.APPLICATION_XML,
+    client_identifier="abc123",
+    product="Plex for Roku",
+    version="2.4.1",
+    platform="Roku",
+    platform_version="4.3 build 1057",
+    device="Roku 3",
+    model="4200X",
+    device_vendor="Roku",
+    device_name="Living Room TV",
+    marketplace="googlePlay",
+    token="<YOUR_API_KEY_HERE>",
+) as plex_api:
+
+    res = plex_api.hubs.move_hub(request={
+        "section_id": 755710,
+        "identifier": "<value>",
+    })
+
+    assert res.get_responses_200 is not None
+
+    # Handle response
+    print(res.get_responses_200)
+
+```
+
+### Parameters
+
+| Parameter                                                              | Type                                                                   | Required                                                               | Description                                                            |
+| ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| `request`                                                              | [operations.MoveHubRequest](../../models/operations/movehubrequest.md) | :heavy_check_mark:                                                     | The request object to use for the request.                             |
+| `retries`                                                              | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)       | :heavy_minus_sign:                                                     | Configuration to override the default retry behavior of the client.    |
+
+### Response
+
+**[operations.MoveHubResponse](../../models/operations/movehubresponse.md)**
+
+### Errors
+
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
+
+## delete_custom_hub
+
+Delete a custom hub from the server
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="deleteCustomHub" method="delete" path="/hubs/sections/{sectionId}/manage/{identifier}" -->
+```python
+from plex_api_client import PlexAPI
+from plex_api_client.models import components
+
+
+with PlexAPI(
+    accepts=components.Accepts.APPLICATION_XML,
+    client_identifier="abc123",
+    product="Plex for Roku",
+    version="2.4.1",
+    platform="Roku",
+    platform_version="4.3 build 1057",
+    device="Roku 3",
+    model="4200X",
+    device_vendor="Roku",
+    device_name="Living Room TV",
+    marketplace="googlePlay",
+    token="<YOUR_API_KEY_HERE>",
+) as plex_api:
+
+    res = plex_api.hubs.delete_custom_hub(request={
+        "section_id": 625677,
+        "identifier": "<value>",
+    })
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                              | Type                                                                                   | Required                                                                               | Description                                                                            |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `request`                                                                              | [operations.DeleteCustomHubRequest](../../models/operations/deletecustomhubrequest.md) | :heavy_check_mark:                                                                     | The request object to use for the request.                                             |
+| `retries`                                                                              | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                       | :heavy_minus_sign:                                                                     | Configuration to override the default retry behavior of the client.                    |
+
+### Response
+
+**[operations.DeleteCustomHubResponse](../../models/operations/deletecustomhubresponse.md)**
+
+### Errors
+
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
+
+## update_hub_visibility
+
+Changed the visibility of a hub for both the admin and shared users
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="updateHubVisibility" method="put" path="/hubs/sections/{sectionId}/manage/{identifier}" -->
+```python
+from plex_api_client import PlexAPI
+from plex_api_client.models import components, operations
+
+
+with PlexAPI(
+    accepts=components.Accepts.APPLICATION_XML,
+    client_identifier="abc123",
+    product="Plex for Roku",
+    version="2.4.1",
+    platform="Roku",
+    platform_version="4.3 build 1057",
+    device="Roku 3",
+    model="4200X",
+    device_vendor="Roku",
+    device_name="Living Room TV",
+    marketplace="googlePlay",
+    token="<YOUR_API_KEY_HERE>",
+) as plex_api:
+
+    res = plex_api.hubs.update_hub_visibility(request=operations.UpdateHubVisibilityRequest(
+        section_id=341650,
+        identifier="<value>",
+        promoted_to_recommended=components.BoolInt.ONE,
+        promoted_to_own_home=components.BoolInt.ONE,
+        promoted_to_shared_home=components.BoolInt.ONE,
+    ))
+
+    assert res is not None
+
+    # Handle response
+    print(res)
+
+```
+
+### Parameters
+
+| Parameter                                                                                      | Type                                                                                           | Required                                                                                       | Description                                                                                    |
+| ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `request`                                                                                      | [operations.UpdateHubVisibilityRequest](../../models/operations/updatehubvisibilityrequest.md) | :heavy_check_mark:                                                                             | The request object to use for the request.                                                     |
+| `retries`                                                                                      | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                               | :heavy_minus_sign:                                                                             | Configuration to override the default retry behavior of the client.                            |
+
+### Response
+
+**[operations.UpdateHubVisibilityResponse](../../models/operations/updatehubvisibilityresponse.md)**
+
+### Errors
+
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| errors.SDKError | 4XX, 5XX        | \*/\*           |

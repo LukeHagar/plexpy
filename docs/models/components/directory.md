@@ -1,0 +1,23 @@
+# Directory
+
+
+## Fields
+
+| Field                                                      | Type                                                       | Required                                                   | Description                                                |
+| ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- | ---------------------------------------------------------- |
+| `title`                                                    | *Optional[str]*                                            | :heavy_minus_sign:                                         | N/A                                                        |
+| `type`                                                     | *Optional[str]*                                            | :heavy_minus_sign:                                         | N/A                                                        |
+| `art`                                                      | *Optional[str]*                                            | :heavy_minus_sign:                                         | N/A                                                        |
+| `content`                                                  | *Optional[bool]*                                           | :heavy_minus_sign:                                         | N/A                                                        |
+| `filter_`                                                  | *Optional[str]*                                            | :heavy_minus_sign:                                         | N/A                                                        |
+| `has_prefs`                                                | *Optional[bool]*                                           | :heavy_minus_sign:                                         | N/A                                                        |
+| `has_store_services`                                       | *Optional[bool]*                                           | :heavy_minus_sign:                                         | N/A                                                        |
+| `hub_key`                                                  | *Optional[str]*                                            | :heavy_minus_sign:                                         | N/A                                                        |
+| `identifier`                                               | *Optional[str]*                                            | :heavy_minus_sign:                                         | N/A                                                        |
+| `key`                                                      | *Optional[str]*                                            | :heavy_minus_sign:                                         | N/A                                                        |
+| `last_accessed_at`                                         | *Optional[int]*                                            | :heavy_minus_sign:                                         | N/A                                                        |
+| `pivot`                                                    | List[[components.Pivot](../../models/components/pivot.md)] | :heavy_minus_sign:                                         | N/A                                                        |
+| `share`                                                    | *Optional[int]*                                            | :heavy_minus_sign:                                         | N/A                                                        |
+| `thumb`                                                    | *Optional[str]*                                            | :heavy_minus_sign:                                         | N/A                                                        |
+| `title_bar`                                                | *Optional[str]*                                            | :heavy_minus_sign:                                         | N/A                                                        |
+| `__pydantic_extra__`                                       | Dict[str, *Any*]                                           | :heavy_minus_sign:                                         | N/A                                                        |

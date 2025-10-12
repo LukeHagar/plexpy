@@ -3,16 +3,16 @@
 
 ## Overview
 
-API Calls that perform search operations with Plex Media Server
-
+The search feature within a media provider
 
 ### Available Operations
 
-* [perform_search](#perform_search) - Perform a search
-* [perform_voice_search](#perform_voice_search) - Perform a voice search
-* [get_search_results](#get_search_results) - Get Search Results
+* [search_hubs](#search_hubs) - Search Hub
+* [voice_search_hubs](#voice_search_hubs) - Voice Search Hub
 
-## perform_search
+## search_hubs
+
+Perform a search and get the result as hubs
 
 This endpoint performs a search across all library sections, or a single section, and returns matches as hubs, split up by type. It performs spell checking, looks for partial matches, and orders the hubs based on quality of results. In addition, based on matches, it will return other related matches (e.g. for a genre match, it may return movies in that genre, or for an actor match, movies with that actor).
 
@@ -30,110 +30,31 @@ This request is intended to be very fast, and called as the user types.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="performSearch" method="get" path="/hubs/search" -->
+<!-- UsageSnippet language="python" operationID="searchHubs" method="get" path="/hubs/search" -->
 ```python
 from plex_api_client import PlexAPI
+from plex_api_client.models import components
 
 
 with PlexAPI(
-    access_token="<YOUR_API_KEY_HERE>",
+    accepts=components.Accepts.APPLICATION_XML,
+    client_identifier="abc123",
+    product="Plex for Roku",
+    version="2.4.1",
+    platform="Roku",
+    platform_version="4.3 build 1057",
+    device="Roku 3",
+    model="4200X",
+    device_vendor="Roku",
+    device_name="Living Room TV",
+    marketplace="googlePlay",
+    token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
 
-    res = plex_api.search.perform_search(query="arnold", limit=5)
-
-    assert res is not None
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                                             | Type                                                                                  | Required                                                                              | Description                                                                           | Example                                                                               |
-| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| `query`                                                                               | *str*                                                                                 | :heavy_check_mark:                                                                    | The query term                                                                        | arnold                                                                                |
-| `section_id`                                                                          | *Optional[float]*                                                                     | :heavy_minus_sign:                                                                    | This gives context to the search, and can result in re-ordering of search result hubs |                                                                                       |
-| `limit`                                                                               | *Optional[float]*                                                                     | :heavy_minus_sign:                                                                    | The number of items to return per hub                                                 | 5                                                                                     |
-| `retries`                                                                             | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                      | :heavy_minus_sign:                                                                    | Configuration to override the default retry behavior of the client.                   |                                                                                       |
-
-### Response
-
-**[operations.PerformSearchResponse](../../models/operations/performsearchresponse.md)**
-
-### Errors
-
-| Error Type                       | Status Code                      | Content Type                     |
-| -------------------------------- | -------------------------------- | -------------------------------- |
-| errors.PerformSearchBadRequest   | 400                              | application/json                 |
-| errors.PerformSearchUnauthorized | 401                              | application/json                 |
-| errors.SDKError                  | 4XX, 5XX                         | \*/\*                            |
-
-## perform_voice_search
-
-This endpoint performs a search specifically tailored towards voice or other imprecise input which may work badly with the substring and spell-checking heuristics used by the `/hubs/search` endpoint. 
-It uses a [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance) heuristic to search titles, and as such is much slower than the other search endpoint. 
-Whenever possible, clients should limit the search to the appropriate type. 
-Results, as well as their containing per-type hubs, contain a `distance` attribute which can be used to judge result quality.
-
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="performVoiceSearch" method="get" path="/hubs/search/voice" -->
-```python
-from plex_api_client import PlexAPI
-
-
-with PlexAPI(
-    access_token="<YOUR_API_KEY_HERE>",
-) as plex_api:
-
-    res = plex_api.search.perform_voice_search(query="dead+poop", limit=5)
-
-    assert res is not None
-
-    # Handle response
-    print(res)
-
-```
-
-### Parameters
-
-| Parameter                                                                             | Type                                                                                  | Required                                                                              | Description                                                                           | Example                                                                               |
-| ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
-| `query`                                                                               | *str*                                                                                 | :heavy_check_mark:                                                                    | The query term                                                                        | dead+poop                                                                             |
-| `section_id`                                                                          | *Optional[float]*                                                                     | :heavy_minus_sign:                                                                    | This gives context to the search, and can result in re-ordering of search result hubs |                                                                                       |
-| `limit`                                                                               | *Optional[float]*                                                                     | :heavy_minus_sign:                                                                    | The number of items to return per hub                                                 | 5                                                                                     |
-| `retries`                                                                             | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                      | :heavy_minus_sign:                                                                    | Configuration to override the default retry behavior of the client.                   |                                                                                       |
-
-### Response
-
-**[operations.PerformVoiceSearchResponse](../../models/operations/performvoicesearchresponse.md)**
-
-### Errors
-
-| Error Type                            | Status Code                           | Content Type                          |
-| ------------------------------------- | ------------------------------------- | ------------------------------------- |
-| errors.PerformVoiceSearchBadRequest   | 400                                   | application/json                      |
-| errors.PerformVoiceSearchUnauthorized | 401                                   | application/json                      |
-| errors.SDKError                       | 4XX, 5XX                              | \*/\*                                 |
-
-## get_search_results
-
-This will search the database for the string provided.
-
-### Example Usage
-
-<!-- UsageSnippet language="python" operationID="getSearchResults" method="get" path="/search" -->
-```python
-from plex_api_client import PlexAPI
-
-
-with PlexAPI(
-    access_token="<YOUR_API_KEY_HERE>",
-) as plex_api:
-
-    res = plex_api.search.get_search_results(query="110")
+    res = plex_api.search.search_hubs(request={
+        "query": "<value>",
+        "section_id": 1,
+    })
 
     assert res.object is not None
 
@@ -144,19 +65,77 @@ with PlexAPI(
 
 ### Parameters
 
-| Parameter                                                           | Type                                                                | Required                                                            | Description                                                         | Example                                                             |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `query`                                                             | *str*                                                               | :heavy_check_mark:                                                  | The search query string to use                                      | 110                                                                 |
-| `retries`                                                           | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)    | :heavy_minus_sign:                                                  | Configuration to override the default retry behavior of the client. |                                                                     |
+| Parameter                                                                    | Type                                                                         | Required                                                                     | Description                                                                  |
+| ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `request`                                                                    | [operations.SearchHubsRequest](../../models/operations/searchhubsrequest.md) | :heavy_check_mark:                                                           | The request object to use for the request.                                   |
+| `retries`                                                                    | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)             | :heavy_minus_sign:                                                           | Configuration to override the default retry behavior of the client.          |
 
 ### Response
 
-**[operations.GetSearchResultsResponse](../../models/operations/getsearchresultsresponse.md)**
+**[operations.SearchHubsResponse](../../models/operations/searchhubsresponse.md)**
 
 ### Errors
 
-| Error Type                          | Status Code                         | Content Type                        |
-| ----------------------------------- | ----------------------------------- | ----------------------------------- |
-| errors.GetSearchResultsBadRequest   | 400                                 | application/json                    |
-| errors.GetSearchResultsUnauthorized | 401                                 | application/json                    |
-| errors.SDKError                     | 4XX, 5XX                            | \*/\*                               |
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| errors.SDKError | 4XX, 5XX        | \*/\*           |
+
+## voice_search_hubs
+
+Perform a search tailored to voice input and get the result as hubs
+
+This endpoint performs a search specifically tailored towards voice or other imprecise input which may work badly with the substring and spell-checking heuristics used by the `/hubs/search` endpoint. It uses a [Levenshtein distance](https://en.wikipedia.org/wiki/Levenshtein_distance) heuristic to search titles, and as such is much slower than the other search endpoint. Whenever possible, clients should limit the search to the appropriate type.
+
+Results, as well as their containing per-type hubs, contain a `distance` attribute which can be used to judge result quality.
+
+
+### Example Usage
+
+<!-- UsageSnippet language="python" operationID="voiceSearchHubs" method="get" path="/hubs/search/voice" -->
+```python
+from plex_api_client import PlexAPI
+from plex_api_client.models import components
+
+
+with PlexAPI(
+    accepts=components.Accepts.APPLICATION_XML,
+    client_identifier="abc123",
+    product="Plex for Roku",
+    version="2.4.1",
+    platform="Roku",
+    platform_version="4.3 build 1057",
+    device="Roku 3",
+    model="4200X",
+    device_vendor="Roku",
+    device_name="Living Room TV",
+    marketplace="googlePlay",
+    token="<YOUR_API_KEY_HERE>",
+) as plex_api:
+
+    res = plex_api.search.voice_search_hubs(request={
+        "query": "<value>",
+    })
+
+    assert res.object is not None
+
+    # Handle response
+    print(res.object)
+
+```
+
+### Parameters
+
+| Parameter                                                                              | Type                                                                                   | Required                                                                               | Description                                                                            |
+| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| `request`                                                                              | [operations.VoiceSearchHubsRequest](../../models/operations/voicesearchhubsrequest.md) | :heavy_check_mark:                                                                     | The request object to use for the request.                                             |
+| `retries`                                                                              | [Optional[utils.RetryConfig]](../../models/utils/retryconfig.md)                       | :heavy_minus_sign:                                                                     | Configuration to override the default retry behavior of the client.                    |
+
+### Response
+
+**[operations.VoiceSearchHubsResponse](../../models/operations/voicesearchhubsresponse.md)**
+
+### Errors
+
+| Error Type      | Status Code     | Content Type    |
+| --------------- | --------------- | --------------- |
+| errors.SDKError | 4XX, 5XX        | \*/\*           |

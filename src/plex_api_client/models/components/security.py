@@ -8,11 +8,11 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class SecurityTypedDict(TypedDict):
-    access_token: NotRequired[str]
+    token: NotRequired[str]
 
 
 class Security(BaseModel):
-    access_token: Annotated[
+    token: Annotated[
         Optional[str],
         FieldMetadata(
             security=SecurityMetadata(

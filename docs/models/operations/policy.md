@@ -1,0 +1,10 @@
+# Policy
+
+
+## Fields
+
+| Field                                                                              | Type                                                                               | Required                                                                           | Description                                                                        | Example                                                                            |
+| ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| `value`                                                                            | *Optional[int]*                                                                    | :heavy_minus_sign:                                                                 | N/A                                                                                |                                                                                    |
+| `scope`                                                                            | [Optional[operations.QueryParamScope]](../../models/operations/queryparamscope.md) | :heavy_minus_sign:                                                                 | N/A                                                                                |                                                                                    |
+| `unwatched`                                                                        | [Optional[components.BoolInt]](../../models/components/boolint.md)                 | :heavy_minus_sign:                                                                 | N/A                                                                                | 1                                                                                  |
