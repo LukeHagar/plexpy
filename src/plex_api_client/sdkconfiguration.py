@@ -18,7 +18,7 @@ from typing import Callable, Dict, List, Optional, Tuple, Union
 SERVERS = [
     "https://{IP-description}.{identifier}.plex.direct:{port}",
     "{protocol}://{host}:{port}",
-    "https://{server_url}",
+    "https://{full_server_url}",
 ]
 """Contains the list of servers available to the SDK"""
 
