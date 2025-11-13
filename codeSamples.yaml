@@ -3311,10 +3311,10 @@ actions:
 
                 res = plex_api.library.stop_all_refreshes()
 
-                assert res.request_handler_slash_get_responses_200 is not None
+                assert res.library_sections is not None
 
                 # Handle response
-                print(res.request_handler_slash_get_responses_200)
+                print(res.library_sections)
   - target: $["paths"]["/library/sections/prefs"]["get"]
     update:
       x-codeSamples:
@@ -3344,10 +3344,10 @@ actions:
                     "type": 460221,
                 })
 
-                assert res.request_handler_slash_get_responses_200 is not None
+                assert res.library_sections is not None
 
                 # Handle response
-                print(res.request_handler_slash_get_responses_200)
+                print(res.library_sections)
   - target: $["paths"]["/library/sections/refresh"]["post"]
     update:
       x-codeSamples:

@@ -7,14 +7,14 @@ from typing import Any, List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class RequestHandlerSlashGetResponses200DirectoryTypedDict(TypedDict):
+class LibrarySectionsDirectoryTypedDict(TypedDict):
     count: NotRequired[int]
     key: NotRequired[str]
     r"""The key where this directory is found"""
     title: NotRequired[str]
 
 
-class RequestHandlerSlashGetResponses200Directory(BaseModel):
+class LibrarySectionsDirectory(BaseModel):
     count: Optional[int] = None
 
     key: Optional[str] = None
@@ -23,7 +23,7 @@ class RequestHandlerSlashGetResponses200Directory(BaseModel):
     title: Optional[str] = None
 
 
-class RequestHandlerSlashGetResponses200MediaContainerTypedDict(TypedDict):
+class LibrarySectionsMediaContainerTypedDict(TypedDict):
     r"""`MediaContainer` is the root element of most Plex API responses. It serves as a generic container for various types of content (Metadata, Hubs, Directories, etc.) and includes pagination information (offset, size, totalSize) when applicable.
     Common attributes: - identifier: Unique identifier for this container - size: Number of items in this response page - totalSize: Total number of items available (for pagination) - offset: Starting index of this page (for pagination)
     The container often \"hoists\" common attributes from its children. For example, if all tracks in a container share the same album title, the `parentTitle` attribute may appear on the MediaContainer rather than being repeated on each track.
@@ -91,10 +91,10 @@ class RequestHandlerSlashGetResponses200MediaContainerTypedDict(TypedDict):
     updater: NotRequired[bool]
     version: NotRequired[str]
     voice_search: NotRequired[bool]
-    directory: NotRequired[List[RequestHandlerSlashGetResponses200DirectoryTypedDict]]
+    directory: NotRequired[List[LibrarySectionsDirectoryTypedDict]]
 
 
-class RequestHandlerSlashGetResponses200MediaContainer(BaseModel):
+class LibrarySectionsMediaContainer(BaseModel):
     r"""`MediaContainer` is the root element of most Plex API responses. It serves as a generic container for various types of content (Metadata, Hubs, Directories, etc.) and includes pagination information (offset, size, totalSize) when applicable.
     Common attributes: - identifier: Unique identifier for this container - size: Number of items in this response page - totalSize: Total number of items available (for pagination) - offset: Starting index of this page (for pagination)
     The container often \"hoists\" common attributes from its children. For example, if all tracks in a container share the same album title, the `parentTitle` attribute may appear on the MediaContainer rather than being repeated on each track.
@@ -275,23 +275,19 @@ class RequestHandlerSlashGetResponses200MediaContainer(BaseModel):
     voice_search: Annotated[Optional[bool], pydantic.Field(alias="voiceSearch")] = None
 
     directory: Annotated[
-        Optional[List[RequestHandlerSlashGetResponses200Directory]],
-        pydantic.Field(alias="Directory"),
+        Optional[List[LibrarySectionsDirectory]], pydantic.Field(alias="Directory")
     ] = None
 
 
-class RequestHandlerSlashGetResponses200TypedDict(TypedDict):
+class LibrarySectionsTypedDict(TypedDict):
     r"""OK"""
 
-    media_container: NotRequired[
-        RequestHandlerSlashGetResponses200MediaContainerTypedDict
-    ]
+    media_container: NotRequired[LibrarySectionsMediaContainerTypedDict]
 
 
-class RequestHandlerSlashGetResponses200(BaseModel):
+class LibrarySections(BaseModel):
     r"""OK"""
 
     media_container: Annotated[
-        Optional[RequestHandlerSlashGetResponses200MediaContainer],
-        pydantic.Field(alias="MediaContainer"),
+        Optional[LibrarySectionsMediaContainer], pydantic.Field(alias="MediaContainer")
     ] = None

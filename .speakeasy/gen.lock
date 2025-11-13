@@ -1,12 +1,12 @@
 lockVersion: 2.0.0
 id: 3eeea668-4ef4-464e-a888-bdfa023bedf5
 management:
-  docChecksum: 46ec1ce493542eb1a574ee88fc8b0895
+  docChecksum: e95c0e17d3e268dcd18d26ac8d0bfc98
   docVersion: 1.1.1
-  speakeasyVersion: 1.636.3
-  generationVersion: 2.723.11
-  releaseVersion: 0.31.1
-  configChecksum: d4b60d697d9adda801e645448c8c8682
+  speakeasyVersion: 1.656.1
+  generationVersion: 2.753.1
+  releaseVersion: 0.32.0
+  configChecksum: d3526d999dca0a302e02f1fda0407994
   repoURL: https://github.com/LukeHagar/plexpy.git
   repoSubDirectory: .
   installationURL: https://github.com/LukeHagar/plexpy.git
@@ -17,7 +17,7 @@ features:
     additionalDependencies: 1.0.0
     additionalProperties: 1.0.1
     constsAndDefaults: 1.0.5
-    core: 5.22.1
+    core: 5.23.6
     deepObjectParams: 0.1.0
     defaultEnabledRetries: 0.2.0
     downloadStreams: 1.0.1
@@ -27,7 +27,7 @@ features:
     globalSecurity: 3.0.4
     globalSecurityCallbacks: 1.0.0
     globalSecurityFlattening: 1.0.0
-    globalServerURLs: 3.1.1
+    globalServerURLs: 3.2.0
     globals: 3.0.0
     nameOverrides: 3.0.1
     responseFormat: 1.0.1
@@ -73,6 +73,9 @@ generatedFiles:
   - docs/models/components/items.md
   - docs/models/components/librarysection.md
   - docs/models/components/librarysectionlocation.md
+  - docs/models/components/librarysections.md
+  - docs/models/components/librarysectionsdirectory.md
+  - docs/models/components/librarysectionsmediacontainer.md
   - docs/models/components/lineup.md
   - docs/models/components/lineuptype.md
   - docs/models/components/location.md
@@ -124,9 +127,6 @@ generatedFiles:
   - docs/models/components/postresponses200type.md
   - docs/models/components/protocol.md
   - docs/models/components/recommendationsvisibility.md
-  - docs/models/components/requesthandlerslashgetresponses200.md
-  - docs/models/components/requesthandlerslashgetresponses200directory.md
-  - docs/models/components/requesthandlerslashgetresponses200mediacontainer.md
   - docs/models/components/security.md
   - docs/models/components/session.md
   - docs/models/components/sessionlocation.md
@@ -1125,6 +1125,7 @@ generatedFiles:
   - src/plex_api_client/models/components/image.py
   - src/plex_api_client/models/components/items.py
   - src/plex_api_client/models/components/librarysection.py
+  - src/plex_api_client/models/components/librarysections.py
   - src/plex_api_client/models/components/lineup.py
   - src/plex_api_client/models/components/location.py
   - src/plex_api_client/models/components/media.py
@@ -1148,7 +1149,6 @@ generatedFiles:
   - src/plex_api_client/models/components/player.py
   - src/plex_api_client/models/components/post_responses_200.py
   - src/plex_api_client/models/components/protocol.py
-  - src/plex_api_client/models/components/requesthandler_slash_get_responses_200.py
   - src/plex_api_client/models/components/security.py
   - src/plex_api_client/models/components/session.py
   - src/plex_api_client/models/components/setting.py

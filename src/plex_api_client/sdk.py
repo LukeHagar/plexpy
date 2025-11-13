@@ -218,7 +218,7 @@ class PlexAPI(BaseSDK):
         port: Optional[str] = None,
         protocol: Optional[str] = None,
         host: Optional[str] = None,
-        server_url_server: Optional[str] = None,
+        full_server_url: Optional[str] = None,
         server_idx: Optional[int] = None,
         server_url: Optional[str] = None,
         url_params: Optional[Dict[str, str]] = None,
@@ -247,7 +247,7 @@ class PlexAPI(BaseSDK):
         :param port: Allows setting the port variable for url substitution
         :param protocol: Allows setting the protocol variable for url substitution
         :param host: Allows setting the host variable for url substitution
-        :param server_url_server: Allows setting the server_url variable for url substitution
+        :param full_server_url: Allows setting the full_server_url variable for url substitution
         :param server_idx: The index of the server to use for all methods
         :param server_url: The server URL to use for all methods
         :param url_params: Parameters to optionally template the server URL with
@@ -299,7 +299,7 @@ class PlexAPI(BaseSDK):
                 "port": port or "32400",
             },
             {
-                "server_url": server_url_server or "http://localhost:32400",
+                "full_server_url": full_server_url or "http://localhost:32400",
             },
         ]
 

@@ -4,7 +4,7 @@ from __future__ import annotations
 import httpx
 from plex_api_client.models.components import (
     accepts as components_accepts,
-    requesthandler_slash_get_responses_200 as components_requesthandler_slash_get_responses_200,
+    librarysections as components_librarysections,
 )
 from plex_api_client.types import BaseModel
 from plex_api_client.utils import FieldMetadata, HeaderMetadata, QueryParamMetadata
@@ -241,9 +241,7 @@ class GetSectionsPrefsResponseTypedDict(TypedDict):
     r"""HTTP response status code for this operation"""
     raw_response: httpx.Response
     r"""Raw HTTP response; suitable for custom response parsing"""
-    request_handler_slash_get_responses_200: NotRequired[
-        components_requesthandler_slash_get_responses_200.RequestHandlerSlashGetResponses200TypedDict
-    ]
+    library_sections: NotRequired[components_librarysections.LibrarySectionsTypedDict]
     r"""OK"""
 
 
@@ -257,7 +255,5 @@ class GetSectionsPrefsResponse(BaseModel):
     raw_response: httpx.Response
     r"""Raw HTTP response; suitable for custom response parsing"""
 
-    request_handler_slash_get_responses_200: Optional[
-        components_requesthandler_slash_get_responses_200.RequestHandlerSlashGetResponses200
-    ] = None
+    library_sections: Optional[components_librarysections.LibrarySections] = None
     r"""OK"""

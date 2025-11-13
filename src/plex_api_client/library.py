@@ -1828,8 +1828,8 @@ class Library(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return operations.StopAllRefreshesResponse(
-                request_handler_slash_get_responses_200=unmarshal_json_response(
-                    Optional[components.RequestHandlerSlashGetResponses200], http_res
+                library_sections=unmarshal_json_response(
+                    Optional[components.LibrarySections], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
@@ -1909,8 +1909,8 @@ class Library(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return operations.StopAllRefreshesResponse(
-                request_handler_slash_get_responses_200=unmarshal_json_response(
-                    Optional[components.RequestHandlerSlashGetResponses200], http_res
+                library_sections=unmarshal_json_response(
+                    Optional[components.LibrarySections], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
@@ -2013,8 +2013,8 @@ class Library(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetSectionsPrefsResponse(
-                request_handler_slash_get_responses_200=unmarshal_json_response(
-                    Optional[components.RequestHandlerSlashGetResponses200], http_res
+                library_sections=unmarshal_json_response(
+                    Optional[components.LibrarySections], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
@@ -2117,8 +2117,8 @@ class Library(BaseSDK):
 
         if utils.match_response(http_res, "200", "application/json"):
             return operations.GetSectionsPrefsResponse(
-                request_handler_slash_get_responses_200=unmarshal_json_response(
-                    Optional[components.RequestHandlerSlashGetResponses200], http_res
+                library_sections=unmarshal_json_response(
+                    Optional[components.LibrarySections], http_res
                 ),
                 status_code=http_res.status_code,
                 content_type=http_res.headers.get("Content-Type") or "",
@@ -9968,8 +9968,8 @@ class Library(BaseSDK):
     ) -> operations.AutocompleteResponse:
         r"""Get autocompletions for search
 
-        The field to autocomplete on is specified by the {field}.query parameter. For example `genre.query` or `title.query`.
-        Returns a set of items from the filtered items whose {field} starts with {field}.query.  In the results, a {field}.queryRange will be present to express the range of the match
+        The field to autocomplete on is specified by the `{field}.query` parameter. For example `genre.query` or `title.query`.
+        Returns a set of items from the filtered items whose `{field}` starts with `{field}.query`.  In the results, a `{field}.queryRange` will be present to express the range of the match
 
         :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
@@ -10073,8 +10073,8 @@ class Library(BaseSDK):
     ) -> operations.AutocompleteResponse:
         r"""Get autocompletions for search
 
-        The field to autocomplete on is specified by the {field}.query parameter. For example `genre.query` or `title.query`.
-        Returns a set of items from the filtered items whose {field} starts with {field}.query.  In the results, a {field}.queryRange will be present to express the range of the match
+        The field to autocomplete on is specified by the `{field}.query` parameter. For example `genre.query` or `title.query`.
+        Returns a set of items from the filtered items whose `{field}` starts with `{field}.query`.  In the results, a `{field}.queryRange` will be present to express the range of the match
 
         :param request: The request object to send.
         :param retries: Override the default retry configuration for this method
