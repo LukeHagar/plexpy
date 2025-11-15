@@ -25,7 +25,7 @@ generation:
     generateNewTests: false
     skipResponseBodyAssertions: false
 python:
-  version: 0.32.0
+  version: 0.32.2
   additionalDependencies:
     dev: {}
     main: {}
@@ -57,6 +57,7 @@ python:
       webhooks: models/webhooks
   inputModelSuffix: input
   legacyPyright: true
+  license: ""
   maxMethodParams: 4
   methodArguments: require-security-and-request
   moduleName: ""
