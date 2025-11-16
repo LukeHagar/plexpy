@@ -5,8 +5,8 @@ management:
   docVersion: 1.1.1
   speakeasyVersion: 1.656.1
   generationVersion: 2.753.1
-  releaseVersion: 0.32.2
-  configChecksum: 210114937352cfcf629e6e87ee8ae464
+  releaseVersion: 0.32.4
+  configChecksum: 00eb08c0e236fc5771c7c1e63979b0bd
   repoURL: https://github.com/LukeHagar/plexpy.git
   repoSubDirectory: .
   installationURL: https://github.com/LukeHagar/plexpy.git
