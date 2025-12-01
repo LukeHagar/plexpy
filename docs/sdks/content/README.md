@@ -105,14 +105,14 @@ with PlexAPI(
 
     res = plex_api.content.get_metadata_item(request=operations.GetMetadataItemRequest(
         ids=[],
-        async_check_files=components.BoolInt.ONE,
-        async_refresh_local_media_agent=components.BoolInt.ONE,
-        async_refresh_analysis=components.BoolInt.ONE,
-        check_files=components.BoolInt.ONE,
-        skip_refresh=components.BoolInt.ONE,
-        check_file_availability=components.BoolInt.ONE,
-        async_augment_metadata=components.BoolInt.ONE,
-        augment_count=components.BoolInt.ONE,
+        async_check_files=components.BoolInt.TRUE,
+        async_refresh_local_media_agent=components.BoolInt.TRUE,
+        async_refresh_analysis=components.BoolInt.TRUE,
+        check_files=components.BoolInt.TRUE,
+        skip_refresh=components.BoolInt.TRUE,
+        check_file_availability=components.BoolInt.TRUE,
+        async_augment_metadata=components.BoolInt.TRUE,
+        augment_count=components.BoolInt.TRUE,
     ))
 
     assert res.media_container_with_metadata is not None
@@ -203,7 +203,7 @@ Get the items in a section, potentially filtering them
 <!-- UsageSnippet language="python" operationID="listContent" method="get" path="/library/sections/{sectionId}/all" -->
 ```python
 from plex_api_client import PlexAPI
-from plex_api_client.models import components
+from plex_api_client.models import components, operations
 
 
 with PlexAPI(
@@ -221,9 +221,16 @@ with PlexAPI(
     token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
 
-    res = plex_api.content.list_content(request={
-        "section_id": "<id>",
-    })
+    res = plex_api.content.list_content(request=operations.ListContentRequest(
+        media_query=components.MediaQuery(
+            type=components.MediaType.EPISODE,
+            source_type=2,
+            sort="duration:desc,index",
+        ),
+        include_meta=components.BoolInt.TRUE,
+        include_guids=components.BoolInt.TRUE,
+        section_id="<id>",
+    ))
 
     assert res.media_container_with_metadata is not None
 

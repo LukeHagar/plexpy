@@ -295,14 +295,14 @@ class AddSectionRequest(BaseModel):
     relative: Annotated[
         Optional[components_boolint.BoolInt],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""If set, paths are relative to `Media Upload` path"""
 
     import_fromi_tunes: Annotated[
         Optional[components_boolint.BoolInt],
         pydantic.Field(alias="importFromiTunes"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""If set, import media from iTunes."""
 
 

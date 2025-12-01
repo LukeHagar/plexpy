@@ -239,14 +239,14 @@ class GetSubscriptionRequest(BaseModel):
         Optional[components_boolint.BoolInt],
         pydantic.Field(alias="includeGrabs"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Indicates whether the active grabs should be included as well"""
 
     include_storage: Annotated[
         Optional[components_boolint.BoolInt],
         pydantic.Field(alias="includeStorage"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Compute the storage of recorded items desired by this subscription"""
 
 

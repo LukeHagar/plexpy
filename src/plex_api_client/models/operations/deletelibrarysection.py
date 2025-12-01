@@ -238,7 +238,7 @@ class DeleteLibrarySectionRequest(BaseModel):
         Optional[components_boolint.BoolInt],
         pydantic.Field(alias="async"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""If set, response will return an activity with the actual deletion process.  Otherwise request will return when deletion is complete"""
 
 

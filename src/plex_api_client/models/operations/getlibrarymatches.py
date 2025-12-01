@@ -6,6 +6,7 @@ from plex_api_client.models.components import (
     accepts as components_accepts,
     boolint as components_boolint,
     mediacontainerwithmetadata as components_mediacontainerwithmetadata,
+    mediatype as components_mediatype,
 )
 from plex_api_client.types import BaseModel
 from plex_api_client.utils import FieldMetadata, HeaderMetadata, QueryParamMetadata
@@ -140,8 +141,22 @@ class GetLibraryMatchesRequestTypedDict(TypedDict):
     r"""A friendly name for the client"""
     marketplace: NotRequired[str]
     r"""The marketplace on which the client application is distributed"""
-    type: NotRequired[int]
-    r"""The metadata type to filter by"""
+    type: NotRequired[components_mediatype.MediaType]
+    r"""The type of media to retrieve or filter by.
+
+    1 = movie
+    2 = show
+    3 = season
+    4 = episode
+    5 = artist
+    6 = album
+    7 = track
+    8 = photo_album
+    9 = photo
+
+    E.g. A movie library will not return anything with type 3 as there are no seasons for movie libraries
+
+    """
     include_full_metadata: NotRequired[components_boolint.BoolInt]
     include_ancestor_metadata: NotRequired[components_boolint.BoolInt]
     include_alternate_metadata_sources: NotRequired[components_boolint.BoolInt]
@@ -245,28 +260,42 @@ class GetLibraryMatchesRequest(BaseModel):
     r"""The marketplace on which the client application is distributed"""
 
     type: Annotated[
-        Optional[int],
+        Optional[components_mediatype.MediaType],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""The metadata type to filter by"""
+    r"""The type of media to retrieve or filter by.
+
+    1 = movie
+    2 = show
+    3 = season
+    4 = episode
+    5 = artist
+    6 = album
+    7 = track
+    8 = photo_album
+    9 = photo
+
+    E.g. A movie library will not return anything with type 3 as there are no seasons for movie libraries
+
+    """
 
     include_full_metadata: Annotated[
         Optional[components_boolint.BoolInt],
         pydantic.Field(alias="includeFullMetadata"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
 
     include_ancestor_metadata: Annotated[
         Optional[components_boolint.BoolInt],
         pydantic.Field(alias="includeAncestorMetadata"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
 
     include_alternate_metadata_sources: Annotated[
         Optional[components_boolint.BoolInt],
         pydantic.Field(alias="includeAlternateMetadataSources"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
 
     guid: Annotated[
         Optional[str],

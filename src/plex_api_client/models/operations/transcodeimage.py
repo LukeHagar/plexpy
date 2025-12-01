@@ -317,20 +317,20 @@ class TranscodeImageRequest(BaseModel):
     upscale: Annotated[
         Optional[components_boolint.BoolInt],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Indicates if image should be upscaled to the desired width/height.  Defaults to false"""
 
     min_size: Annotated[
         Optional[components_boolint.BoolInt],
         pydantic.Field(alias="minSize"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Indicates if image should be scaled to fit the smaller dimension.  By default (false) the image is scaled to fit within the width/height specified but if this parameter is true, it will allow overflowing one dimension to fit the other.  Essentially it is making the width/height minimum sizes of the image or sizing the image to fill the entire width/height even if it overflows one dimension."""
 
     rotate: Annotated[
         Optional[components_boolint.BoolInt],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Obey the rotation values specified in EXIF data.  Defaults to true."""
 
     blur: Annotated[

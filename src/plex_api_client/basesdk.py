@@ -61,6 +61,7 @@ class BaseSDK:
         ] = None,
         url_override: Optional[str] = None,
         http_headers: Optional[Mapping[str, str]] = None,
+        allow_empty_value: Optional[List[str]] = None,
     ) -> httpx.Request:
         client = self.sdk_configuration.async_client
         return self._build_request_with_client(
@@ -81,6 +82,7 @@ class BaseSDK:
             get_serialized_body,
             url_override,
             http_headers,
+            allow_empty_value,
         )
 
     def _build_request(
@@ -103,6 +105,7 @@ class BaseSDK:
         ] = None,
         url_override: Optional[str] = None,
         http_headers: Optional[Mapping[str, str]] = None,
+        allow_empty_value: Optional[List[str]] = None,
     ) -> httpx.Request:
         client = self.sdk_configuration.client
         return self._build_request_with_client(
@@ -123,6 +126,7 @@ class BaseSDK:
             get_serialized_body,
             url_override,
             http_headers,
+            allow_empty_value,
         )
 
     def _build_request_with_client(
@@ -146,6 +150,7 @@ class BaseSDK:
         ] = None,
         url_override: Optional[str] = None,
         http_headers: Optional[Mapping[str, str]] = None,
+        allow_empty_value: Optional[List[str]] = None,
     ) -> httpx.Request:
         query_params = {}
 
@@ -161,6 +166,7 @@ class BaseSDK:
             query_params = utils.get_query_params(
                 request if request_has_query_params else None,
                 _globals if request_has_query_params else None,
+                allow_empty_value,
             )
         else:
             # Pick up the query parameter from the override so they can be

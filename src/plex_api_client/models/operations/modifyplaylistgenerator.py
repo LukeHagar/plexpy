@@ -149,7 +149,7 @@ class Policy(BaseModel):
 
     unwatched: Annotated[
         Optional[components_boolint.BoolInt], FieldMetadata(query=True)
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
 
 
 class ItemTypedDict(TypedDict):

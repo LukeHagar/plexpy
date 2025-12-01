@@ -105,7 +105,7 @@ with PlexAPI(
 
     res = plex_api.library_playlists.upload_playlist(request={
         "path": "/home/barkley/playlist.m3u",
-        "force": components.BoolInt.ONE,
+        "force": components.BoolInt.TRUE,
     })
 
     assert res is not None
@@ -556,7 +556,6 @@ with PlexAPI(
             "location_id": -1,
             "policy": {
                 "scope": operations.QueryParamScope.ALL,
-                "unwatched": components.BoolInt.ZERO,
             },
             "target": "",
             "target_tag_id": 1,

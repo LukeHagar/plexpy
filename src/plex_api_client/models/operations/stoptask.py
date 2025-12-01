@@ -114,7 +114,7 @@ class StopTaskGlobals(BaseModel):
     r"""The marketplace on which the client application is distributed"""
 
 
-class Task(str, Enum):
+class ButlerTask(str, Enum):
     r"""The task name"""
 
     AUTOMATIC_UPDATES = "AutomaticUpdates"
@@ -142,7 +142,7 @@ class Task(str, Enum):
 
 
 class StopTaskRequestTypedDict(TypedDict):
-    task: Task
+    butler_task: ButlerTask
     r"""The task name"""
     accepts: NotRequired[components_accepts.Accepts]
     r"""Indicates the client accepts the indicated media types"""
@@ -169,8 +169,10 @@ class StopTaskRequestTypedDict(TypedDict):
 
 
 class StopTaskRequest(BaseModel):
-    task: Annotated[
-        Task, FieldMetadata(path=PathParamMetadata(style="simple", explode=False))
+    butler_task: Annotated[
+        ButlerTask,
+        pydantic.Field(alias="butlerTask"),
+        FieldMetadata(path=PathParamMetadata(style="simple", explode=False)),
     ]
     r"""The task name"""
 

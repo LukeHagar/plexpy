@@ -384,7 +384,7 @@ with PlexAPI(
 
     res = plex_api.devices.modify_device(request={
         "device_id": 879135,
-        "enabled": components.BoolInt.ONE,
+        "enabled": components.BoolInt.TRUE,
     })
 
     assert res.object is not None

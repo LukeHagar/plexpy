@@ -99,7 +99,7 @@ with PlexAPI(
         "bottom_left": "1c425d",
         "width": 1920,
         "height": 1080,
-        "noise": components.BoolInt.ONE,
+        "noise": components.BoolInt.TRUE,
     })
 
     assert res.response_stream is not None

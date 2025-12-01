@@ -147,7 +147,7 @@ This endpoint will stop a currently running task by name, or remove it from the 
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="stopTask" method="delete" path="/butler/{task}" -->
+<!-- UsageSnippet language="python" operationID="stopTask" method="delete" path="/butler/{butlerTask}" -->
 ```python
 from plex_api_client import PlexAPI
 from plex_api_client.models import components, operations
@@ -169,7 +169,7 @@ with PlexAPI(
 ) as plex_api:
 
     res = plex_api.butler.stop_task(request={
-        "task": operations.Task.CLEAN_OLD_BUNDLES,
+        "butler_task": operations.ButlerTask.CLEAN_OLD_BUNDLES,
     })
 
     assert res is not None
@@ -203,7 +203,7 @@ This endpoint will attempt to start a specific Butler task by name.
 
 ### Example Usage
 
-<!-- UsageSnippet language="python" operationID="startTask" method="post" path="/butler/{task}" -->
+<!-- UsageSnippet language="python" operationID="startTask" method="post" path="/butler/{butlerTask}" -->
 ```python
 from plex_api_client import PlexAPI
 from plex_api_client.models import components, operations
@@ -225,7 +225,7 @@ with PlexAPI(
 ) as plex_api:
 
     res = plex_api.butler.start_task(request={
-        "task": operations.PathParamTask.REFRESH_LOCAL_MEDIA,
+        "butler_task": operations.PathParamButlerTask.REFRESH_LOCAL_MEDIA,
     })
 
     assert res is not None

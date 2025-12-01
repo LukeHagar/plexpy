@@ -237,7 +237,7 @@ class ModifyDeviceRequest(BaseModel):
     enabled: Annotated[
         Optional[components_boolint.BoolInt],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Whether to enable the device"""
 
 

@@ -4,6 +4,7 @@ from __future__ import annotations
 import httpx
 from plex_api_client.models.components import (
     accepts as components_accepts,
+    boolint as components_boolint,
     mediacontainerwithmetadata as components_mediacontainerwithmetadata,
     mediaquery as components_mediaquery,
 )
@@ -147,8 +148,45 @@ class ListContentRequestTypedDict(TypedDict):
     r"""A friendly name for the client"""
     marketplace: NotRequired[str]
     r"""The marketplace on which the client application is distributed"""
+    x_plex_container_start: NotRequired[int]
+    r"""The index of the first item to return. If not specified, the first item will be returned.
+    If the number of items exceeds the limit, the response will be paginated.
+    By default this is 0
+
+    """
+    x_plex_container_size: NotRequired[int]
+    r"""The number of items to return. If not specified, all items will be returned.
+    If the number of items exceeds the limit, the response will be paginated.
+    By default this is 50
+
+    """
     media_query: NotRequired[components_mediaquery.MediaQueryTypedDict]
-    r"""This is a complex query built of several parameters.  See [API Info section](#section/API-Info/Media-Queries) for information on building media queries"""
+    r"""A querystring-based filtering language used to select subsets of media. Can be provided as an object with typed properties for type safety, or as a string for complex queries with operators and boolean logic.
+
+    The query supports:
+    - Fields: integer, boolean, tag, string, date, language
+    - Operators: =, !=, ==, !==, <=, >=, >>=, <<= (varies by field type)
+    - Boolean operators: & (AND), , (OR), push/pop (parentheses), or=1 (explicit OR)
+    - Sorting: sort parameter with :desc, :nullsLast modifiers
+    - Grouping: group parameter
+    - Limits: limit parameter
+
+    Examples:
+    - Object format: `{type: 4, sourceType: 2, title: \"24\"}` → `type=4&sourceType=2&title=24`
+    - String format: `type=4&sourceType=2&title==24` - type = 4 AND sourceType = 2 AND title = \"24\" 
+    - Complex: `push=1&index=1&or=1&rating=2&pop=1&duration=10` - (index = 1 OR rating = 2) AND duration = 10
+
+    See [API Info section](#section/API-Info/Media-Queries) for detailed information on building media queries.
+
+    """
+    include_meta: NotRequired[components_boolint.BoolInt]
+    r"""Adds the Meta object to the response
+
+    """
+    include_guids: NotRequired[components_boolint.BoolInt]
+    r"""Adds the Guid object to the response
+
+    """
 
 
 class ListContentRequest(BaseModel):
@@ -235,12 +273,69 @@ class ListContentRequest(BaseModel):
     ] = None
     r"""The marketplace on which the client application is distributed"""
 
+    x_plex_container_start: Annotated[
+        Optional[int],
+        pydantic.Field(alias="X-Plex-Container-Start"),
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = 0
+    r"""The index of the first item to return. If not specified, the first item will be returned.
+    If the number of items exceeds the limit, the response will be paginated.
+    By default this is 0
+
+    """
+
+    x_plex_container_size: Annotated[
+        Optional[int],
+        pydantic.Field(alias="X-Plex-Container-Size"),
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = 50
+    r"""The number of items to return. If not specified, all items will be returned.
+    If the number of items exceeds the limit, the response will be paginated.
+    By default this is 50
+
+    """
+
     media_query: Annotated[
         Optional[components_mediaquery.MediaQuery],
         pydantic.Field(alias="mediaQuery"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""This is a complex query built of several parameters.  See [API Info section](#section/API-Info/Media-Queries) for information on building media queries"""
+    r"""A querystring-based filtering language used to select subsets of media. Can be provided as an object with typed properties for type safety, or as a string for complex queries with operators and boolean logic.
+
+    The query supports:
+    - Fields: integer, boolean, tag, string, date, language
+    - Operators: =, !=, ==, !==, <=, >=, >>=, <<= (varies by field type)
+    - Boolean operators: & (AND), , (OR), push/pop (parentheses), or=1 (explicit OR)
+    - Sorting: sort parameter with :desc, :nullsLast modifiers
+    - Grouping: group parameter
+    - Limits: limit parameter
+
+    Examples:
+    - Object format: `{type: 4, sourceType: 2, title: \"24\"}` → `type=4&sourceType=2&title=24`
+    - String format: `type=4&sourceType=2&title==24` - type = 4 AND sourceType = 2 AND title = \"24\" 
+    - Complex: `push=1&index=1&or=1&rating=2&pop=1&duration=10` - (index = 1 OR rating = 2) AND duration = 10
+
+    See [API Info section](#section/API-Info/Media-Queries) for detailed information on building media queries.
+
+    """
+
+    include_meta: Annotated[
+        Optional[components_boolint.BoolInt],
+        pydantic.Field(alias="includeMeta"),
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = components_boolint.BoolInt.FALSE
+    r"""Adds the Meta object to the response
+
+    """
+
+    include_guids: Annotated[
+        Optional[components_boolint.BoolInt],
+        pydantic.Field(alias="includeGuids"),
+        FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
+    ] = components_boolint.BoolInt.FALSE
+    r"""Adds the Guid object to the response
+
+    """
 
 
 class ListContentResponseTypedDict(TypedDict):

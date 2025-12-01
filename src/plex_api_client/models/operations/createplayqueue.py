@@ -274,19 +274,19 @@ class CreatePlayQueueRequest(BaseModel):
     shuffle: Annotated[
         Optional[components_boolint.BoolInt],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Whether to shuffle the playlist, defaults to 0."""
 
     repeat: Annotated[
         Optional[components_boolint.BoolInt],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""If the PQ is bigger than the window, fill any empty space with wraparound items, defaults to 0."""
 
     continuous: Annotated[
         Optional[components_boolint.BoolInt],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Whether to create a continuous play queue (e.g. from an episode), defaults to 0."""
 
     extras_prefix_count: Annotated[
@@ -299,14 +299,14 @@ class CreatePlayQueueRequest(BaseModel):
     recursive: Annotated[
         Optional[components_boolint.BoolInt],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Only applies to queues of type photo, whether to retrieve all descendent photos from an album or section, defaults to 1."""
 
     on_deck: Annotated[
         Optional[components_boolint.BoolInt],
         pydantic.Field(alias="onDeck"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Only applies to queues of type show or seasons, whether to return a queue that is started on the On Deck episode if one exists. Otherwise begins the play queue on the beginning of the show or season."""
 
 

@@ -50,7 +50,7 @@ with PlexAPI(
 ) as plex_api:
 
     res = plex_api.hubs.get_all_hubs(request={
-        "only_transient": components.BoolInt.ONE,
+        "only_transient": components.BoolInt.TRUE,
     })
 
     assert res.object is not None
@@ -271,7 +271,7 @@ with PlexAPI(
 
     res = plex_api.hubs.get_metadata_hubs(request={
         "metadata_id": 605482,
-        "only_transient": components.BoolInt.ONE,
+        "only_transient": components.BoolInt.TRUE,
     })
 
     assert res.media_container_with_hubs is not None
@@ -327,7 +327,7 @@ with PlexAPI(
 
     res = plex_api.hubs.get_postplay_hubs(request={
         "metadata_id": 441419,
-        "only_transient": components.BoolInt.ONE,
+        "only_transient": components.BoolInt.TRUE,
     })
 
     assert res.media_container_with_hubs is not None
@@ -383,7 +383,7 @@ with PlexAPI(
 
     res = plex_api.hubs.get_related_hubs(request={
         "metadata_id": 8858,
-        "only_transient": components.BoolInt.ONE,
+        "only_transient": components.BoolInt.TRUE,
     })
 
     assert res.media_container_with_hubs is not None
@@ -439,7 +439,7 @@ with PlexAPI(
 
     res = plex_api.hubs.get_section_hubs(request={
         "section_id": 336924,
-        "only_transient": components.BoolInt.ONE,
+        "only_transient": components.BoolInt.TRUE,
     })
 
     assert res.object is not None
@@ -606,9 +606,9 @@ with PlexAPI(
     res = plex_api.hubs.create_custom_hub(request=operations.CreateCustomHubRequest(
         section_id=869922,
         metadata_item_id=703843,
-        promoted_to_recommended=components.BoolInt.ONE,
-        promoted_to_own_home=components.BoolInt.ONE,
-        promoted_to_shared_home=components.BoolInt.ONE,
+        promoted_to_recommended=components.BoolInt.TRUE,
+        promoted_to_own_home=components.BoolInt.TRUE,
+        promoted_to_shared_home=components.BoolInt.TRUE,
     ))
 
     assert res is not None
@@ -777,9 +777,9 @@ with PlexAPI(
     res = plex_api.hubs.update_hub_visibility(request=operations.UpdateHubVisibilityRequest(
         section_id=341650,
         identifier="<value>",
-        promoted_to_recommended=components.BoolInt.ONE,
-        promoted_to_own_home=components.BoolInt.ONE,
-        promoted_to_shared_home=components.BoolInt.ONE,
+        promoted_to_recommended=components.BoolInt.TRUE,
+        promoted_to_own_home=components.BoolInt.TRUE,
+        promoted_to_shared_home=components.BoolInt.TRUE,
     ))
 
     assert res is not None

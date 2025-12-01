@@ -230,7 +230,7 @@ class GetSourceConnectionInformationRequest(BaseModel):
     refresh: Annotated[
         Optional[components_boolint.BoolInt],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Force refresh"""
 
 

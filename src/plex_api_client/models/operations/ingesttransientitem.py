@@ -244,14 +244,14 @@ class IngestTransientItemRequest(BaseModel):
         Optional[components_boolint.BoolInt],
         pydantic.Field(alias="computeHashes"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Whether or not to compute Plex and OpenSubtitle hashes for the file. Defaults to 0."""
 
     ingest_non_matches: Annotated[
         Optional[components_boolint.BoolInt],
         pydantic.Field(alias="ingestNonMatches"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Whether or not non matching media should be stored. Defaults to 0."""
 
 

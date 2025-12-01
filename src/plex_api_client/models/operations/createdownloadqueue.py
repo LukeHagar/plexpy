@@ -9,7 +9,7 @@ from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class Status(str, Enum):
+class CreateDownloadQueueStatus(str, Enum):
     r"""The state of this queue
     - deciding: At least one item is still being decided
     - waiting: At least one item is waiting for transcode and none are currently transcoding
@@ -29,7 +29,7 @@ class Status(str, Enum):
 class DownloadQueueTypedDict(TypedDict):
     id: NotRequired[int]
     item_count: NotRequired[int]
-    status: NotRequired[Status]
+    status: NotRequired[CreateDownloadQueueStatus]
     r"""The state of this queue
     - deciding: At least one item is still being decided
     - waiting: At least one item is waiting for transcode and none are currently transcoding
@@ -45,7 +45,7 @@ class DownloadQueue(BaseModel):
 
     item_count: Annotated[Optional[int], pydantic.Field(alias="itemCount")] = None
 
-    status: Optional[Status] = None
+    status: Optional[CreateDownloadQueueStatus] = None
     r"""The state of this queue
     - deciding: At least one item is still being decided
     - waiting: At least one item is waiting for transcode and none are currently transcoding

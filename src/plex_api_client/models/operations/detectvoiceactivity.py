@@ -235,13 +235,13 @@ class DetectVoiceActivityRequest(BaseModel):
     force: Annotated[
         Optional[components_boolint.BoolInt],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Indicate whether detection should be re-run"""
 
     manual: Annotated[
         Optional[components_boolint.BoolInt],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Indicate whether detection is manually run"""
 
 

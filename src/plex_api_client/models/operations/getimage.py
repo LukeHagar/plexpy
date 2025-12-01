@@ -275,7 +275,7 @@ class GetImageRequest(BaseModel):
     noise: Annotated[
         Optional[components_boolint.BoolInt],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Whether to add noise to the ouput image. Noise can reduce color banding with the gradients. Image sizes with noise will be larger."""
 
 

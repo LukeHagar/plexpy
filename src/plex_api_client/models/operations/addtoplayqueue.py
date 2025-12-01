@@ -255,7 +255,7 @@ class AddToPlayQueueRequest(BaseModel):
     next: Annotated[
         Optional[components_boolint.BoolInt],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Play this item next (defaults to 0 - queueing at the end of manually queued items)."""
 
 

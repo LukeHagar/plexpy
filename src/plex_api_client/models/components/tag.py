@@ -3,54 +3,56 @@
 from __future__ import annotations
 from plex_api_client.types import BaseModel
 import pydantic
-from typing import Any, Optional
+from typing import Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class TagTypedDict(TypedDict):
     r"""A variety of extra information about a metadata item is included as tags. These tags use their own element names such as `Genre`, `Writer`, `Directory`, and `Role`. Individual tag types may introduce their own extra attributes."""
 
+    tag: str
+    r"""The value of the tag (the name)"""
     confidence: NotRequired[float]
     r"""Measure of the confidence of an automatic tag"""
     context: NotRequired[str]
-    filter_: NotRequired[Any]
+    filter_: NotRequired[str]
     r"""A filter parameter that can be used to query for more content that matches this tag value."""
     id: NotRequired[int]
     rating_key: NotRequired[str]
-    role: NotRequired[Any]
+    r"""The rating key (Media ID) of this media item. Note: Although this is always an integer, it is represented as a string in the API."""
+    role: NotRequired[str]
     r"""The role this actor played"""
-    tag: NotRequired[Any]
-    r"""The value of the tag (the name)"""
-    tag_key: NotRequired[Any]
+    tag_key: NotRequired[str]
     r"""Plex identifier for this tag which can be used to fetch additional information from plex.tv"""
     tag_type: NotRequired[int]
-    thumb: NotRequired[Any]
+    thumb: NotRequired[str]
 
 
 class Tag(BaseModel):
     r"""A variety of extra information about a metadata item is included as tags. These tags use their own element names such as `Genre`, `Writer`, `Directory`, and `Role`. Individual tag types may introduce their own extra attributes."""
+
+    tag: str
+    r"""The value of the tag (the name)"""
 
     confidence: Optional[float] = None
     r"""Measure of the confidence of an automatic tag"""
 
     context: Optional[str] = None
 
-    filter_: Annotated[Optional[Any], pydantic.Field(alias="filter")] = None
+    filter_: Annotated[Optional[str], pydantic.Field(alias="filter")] = None
     r"""A filter parameter that can be used to query for more content that matches this tag value."""
 
     id: Optional[int] = None
 
     rating_key: Annotated[Optional[str], pydantic.Field(alias="ratingKey")] = None
+    r"""The rating key (Media ID) of this media item. Note: Although this is always an integer, it is represented as a string in the API."""
 
-    role: Optional[Any] = None
+    role: Optional[str] = None
     r"""The role this actor played"""
 
-    tag: Optional[Any] = None
-    r"""The value of the tag (the name)"""
-
-    tag_key: Annotated[Optional[Any], pydantic.Field(alias="tagKey")] = None
+    tag_key: Annotated[Optional[str], pydantic.Field(alias="tagKey")] = None
     r"""Plex identifier for this tag which can be used to fetch additional information from plex.tv"""
 
     tag_type: Annotated[Optional[int], pydantic.Field(alias="tagType")] = None
 
-    thumb: Optional[Any] = None
+    thumb: Optional[str] = None

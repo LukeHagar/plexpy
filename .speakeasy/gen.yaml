@@ -25,7 +25,7 @@ generation:
     generateNewTests: false
     skipResponseBodyAssertions: false
 python:
-  version: 0.32.6
+  version: 0.33.0
   additionalDependencies:
     dev: {}
     main: {}
@@ -55,12 +55,14 @@ python:
       operations: models/operations
       shared: models/components
       webhooks: models/webhooks
+  inferUnionDiscriminators: true
   inputModelSuffix: input
   legacyPyright: true
   license: ""
   maxMethodParams: 4
   methodArguments: require-security-and-request
   moduleName: ""
+  multipartArrayFormat: legacy
   outputModelSuffix: output
   packageManager: poetry
   packageName: plex-api-client

@@ -7,11 +7,26 @@ from .items import Items, ItemsTypedDict
 from .media import Media, MediaTypedDict
 from .sort import Sort, SortTypedDict
 from .tag import Tag, TagTypedDict
+from datetime import date
 from plex_api_client.types import BaseModel
 import pydantic
 from pydantic import ConfigDict
 from typing import Any, Dict, List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
+
+
+class MediaContainerWithNestedMetadataGuidsTypedDict(TypedDict):
+    id: str
+    r"""The unique identifier for the Guid. Can be prefixed with imdb://, tmdb://, tvdb://
+
+    """
+
+
+class MediaContainerWithNestedMetadataGuids(BaseModel):
+    id: str
+    r"""The unique identifier for the Guid. Can be prefixed with imdb://, tmdb://, tvdb://
+
+    """
 
 
 class MetadataItemTypedDict(TypedDict):
@@ -23,28 +38,32 @@ class MetadataItemTypedDict(TypedDict):
 
     """
 
-    title: NotRequired[Any]
+    title: str
     r"""The title of the item (e.g. “300” or “The Simpsons”)"""
-    type: NotRequired[Any]
+    type: str
     r"""The type of the video item, such as `movie`, `episode`, or `clip`."""
+    added_at: int
+    r"""In units of seconds since the epoch, returns the time at which the item was added to the library."""
+    key: str
+    r"""The key at which the item's details can be fetched.  In many cases a metadata item may be passed without all the details (such as in a hub) and this key corresponds to the endpoint to fetch additional details."""
     absolute_index: NotRequired[int]
     r"""When present, contains the disc number for a track on multi-disc albums."""
-    added_at: NotRequired[int]
-    r"""In units of seconds since the epoch, returns the time at which the item was added to the library."""
-    art: NotRequired[Any]
+    art: NotRequired[str]
     r"""When present, the URL for the background artwork for the item."""
     audience_rating: NotRequired[float]
     r"""Some rating systems separate reviewer ratings from audience ratings"""
-    audience_rating_image: NotRequired[Any]
+    audience_rating_image: NotRequired[str]
     r"""A URI representing the image to be shown with the audience rating (e.g. rottentomatoes://image.rating.spilled)."""
     autotag: NotRequired[List[TagTypedDict]]
-    banner: NotRequired[Any]
+    banner: NotRequired[str]
     r"""When present, the URL for a banner graphic for the item."""
-    chapter_source: NotRequired[Any]
+    chapter_source: NotRequired[str]
     r"""When present, indicates the source for the chapters in the media file. Can be media (the chapters were embedded in the media itself), agent (a metadata agent computed them), or mixed (a combination of the two)."""
-    composite: NotRequired[Any]
+    child_count: NotRequired[int]
+    r"""The number of child items associated with this media item."""
+    composite: NotRequired[str]
     r"""When present, the URL for a composite image for descendent items (e.g. photo albums or playlists)."""
-    content_rating: NotRequired[Any]
+    content_rating: NotRequired[str]
     r"""If known, the content rating (e.g. MPAA) for an item."""
     country: NotRequired[List[TagTypedDict]]
     director: NotRequired[List[TagTypedDict]]
@@ -55,6 +74,8 @@ class MetadataItemTypedDict(TypedDict):
     genre: NotRequired[List[TagTypedDict]]
     grandparent_art: NotRequired[str]
     r"""The `art` of the grandparent"""
+    grandparent_guid: NotRequired[str]
+    r"""The GUID of the grandparent media item."""
     grandparent_hero: NotRequired[str]
     r"""The `hero` of the grandparent"""
     grandparent_key: NotRequired[str]
@@ -67,23 +88,24 @@ class MetadataItemTypedDict(TypedDict):
     r"""The `thumb` of the grandparent"""
     grandparent_title: NotRequired[str]
     r"""The `title` of the grandparent"""
-    guid: NotRequired[List[TagTypedDict]]
-    hero: NotRequired[Any]
+    guid: NotRequired[str]
+    r"""The globally unique identifier for the media item."""
+    guids: NotRequired[List[MediaContainerWithNestedMetadataGuidsTypedDict]]
+    hero: NotRequired[str]
     r"""When present, the URL for a hero image for the item."""
     image: NotRequired[List[ImageTypedDict]]
     index: NotRequired[int]
     r"""When present, this represents the episode number for episodes, season number for seasons, or track number for audio tracks."""
-    key: NotRequired[Any]
-    r"""The key at which the item's details can be fetched.  In many cases a metadata item may be passed without all the details (such as in a hub) and this key corresponds to the endpoint to fetch additional details."""
     last_viewed_at: NotRequired[int]
-    r"""When a user has watched or listened to an item, this contains a timestamp (epoch seconds) for that last consumption time."""
     leaf_count: NotRequired[int]
     r"""For shows and seasons, contains the number of total episodes."""
     media: NotRequired[List[MediaTypedDict]]
-    originally_available_at: NotRequired[Any]
+    originally_available_at: NotRequired[date]
     r"""When present, in the format YYYY-MM-DD [HH:MM:SS] (the hours/minutes/seconds part is not always present). The air date, or a higher resolution release date for an item, depending on type. For example, episodes usually have air date like 1979-08-10 (we don't use epoch seconds because media existed prior to 1970). In some cases, recorded over-the-air content has higher resolution air date which includes a time component. Albums and movies may have day-resolution release dates as well."""
-    original_title: NotRequired[Any]
+    original_title: NotRequired[str]
     r"""When present, used to indicate an item's original title, e.g. a movie's foreign title."""
+    parent_guid: NotRequired[str]
+    r"""The GUID of the parent media item."""
     parent_hero: NotRequired[str]
     r"""The `hero` of the parent"""
     parent_index: NotRequired[int]
@@ -96,7 +118,7 @@ class MetadataItemTypedDict(TypedDict):
     r"""The `thumb` of the parent"""
     parent_title: NotRequired[str]
     r"""The `title` of the parent"""
-    primary_extra_key: NotRequired[Any]
+    primary_extra_key: NotRequired[str]
     r"""Indicates that the item has a primary extra; for a movie, this is a trailer, and for a music track it is a music video. The URL points to the metadata details endpoint for the item."""
     prompt: NotRequired[str]
     r"""Prompt to give the user for this directory (such as `Search Movies`)"""
@@ -105,9 +127,9 @@ class MetadataItemTypedDict(TypedDict):
     rating_array: NotRequired[List[TagTypedDict]]
     rating_count: NotRequired[int]
     r"""Number of ratings under this metadata"""
-    rating_image: NotRequired[Any]
+    rating_image: NotRequired[str]
     r"""When present, indicates an image to be shown with the rating. This is passed back as a small set of defined URI values, e.g. rottentomatoes://image.rating.rotten."""
-    rating_key: NotRequired[Any]
+    rating_key: NotRequired[str]
     r"""This is the opaque string to be passed into timeline, scrobble, and rating endpoints to identify them.  While it often appears to be numeric, this is not guaranteed."""
     role: NotRequired[List[TagTypedDict]]
     search: NotRequired[bool]
@@ -120,19 +142,19 @@ class MetadataItemTypedDict(TypedDict):
     r"""When present on an episode or track item, indicates parent should be skipped in favor of grandparent (show)."""
     sort: NotRequired[List[SortTypedDict]]
     r"""Typically only seen in metadata at a library's top level"""
-    studio: NotRequired[Any]
+    studio: NotRequired[str]
     r"""When present, the studio or label which produced an item (e.g. movie studio for movies, record label for albums)."""
-    subtype: NotRequired[Any]
+    subtype: NotRequired[str]
     r"""The subtype of the video item, such as `photo` when the video item is in a photo library"""
-    summary: NotRequired[Any]
+    summary: NotRequired[str]
     r"""When present, the extended textual information about the item (e.g. movie plot, artist biography, album review)."""
-    tagline: NotRequired[Any]
+    tagline: NotRequired[str]
     r"""When present, a pithy one-liner about the item (usually only seen for movies)."""
-    theme: NotRequired[Any]
+    theme: NotRequired[str]
     r"""When present, the URL for theme music for the item (usually only for TV shows)."""
-    thumb: NotRequired[Any]
+    thumb: NotRequired[str]
     r"""When present, the URL for the poster or thumbnail for the item. When available for types like movie, it will be the poster graphic, but fall-back to the extracted media thumbnail."""
-    title_sort: NotRequired[Any]
+    title_sort: NotRequired[str]
     r"""Whene present, this is the string used for sorting the item. It's usually the title with any leading articles removed (e.g. “Simpsons”)."""
     updated_at: NotRequired[int]
     r"""In units of seconds since the epoch, returns the time at which the item was last changed (e.g. had its metadata updated)."""
@@ -164,21 +186,24 @@ class MetadataItem(BaseModel):
     )
     __pydantic_extra__: Dict[str, Any] = pydantic.Field(init=False)
 
-    title: Optional[Any] = None
+    title: str
     r"""The title of the item (e.g. “300” or “The Simpsons”)"""
 
-    type: Optional[Any] = None
+    type: str
     r"""The type of the video item, such as `movie`, `episode`, or `clip`."""
+
+    added_at: Annotated[int, pydantic.Field(alias="addedAt")]
+    r"""In units of seconds since the epoch, returns the time at which the item was added to the library."""
+
+    key: str
+    r"""The key at which the item's details can be fetched.  In many cases a metadata item may be passed without all the details (such as in a hub) and this key corresponds to the endpoint to fetch additional details."""
 
     absolute_index: Annotated[Optional[int], pydantic.Field(alias="absoluteIndex")] = (
         None
     )
     r"""When present, contains the disc number for a track on multi-disc albums."""
 
-    added_at: Annotated[Optional[int], pydantic.Field(alias="addedAt")] = None
-    r"""In units of seconds since the epoch, returns the time at which the item was added to the library."""
-
-    art: Optional[Any] = None
+    art: Optional[str] = None
     r"""When present, the URL for the background artwork for the item."""
 
     audience_rating: Annotated[
@@ -187,24 +212,27 @@ class MetadataItem(BaseModel):
     r"""Some rating systems separate reviewer ratings from audience ratings"""
 
     audience_rating_image: Annotated[
-        Optional[Any], pydantic.Field(alias="audienceRatingImage")
+        Optional[str], pydantic.Field(alias="audienceRatingImage")
     ] = None
     r"""A URI representing the image to be shown with the audience rating (e.g. rottentomatoes://image.rating.spilled)."""
 
     autotag: Annotated[Optional[List[Tag]], pydantic.Field(alias="Autotag")] = None
 
-    banner: Optional[Any] = None
+    banner: Optional[str] = None
     r"""When present, the URL for a banner graphic for the item."""
 
-    chapter_source: Annotated[Optional[Any], pydantic.Field(alias="chapterSource")] = (
+    chapter_source: Annotated[Optional[str], pydantic.Field(alias="chapterSource")] = (
         None
     )
     r"""When present, indicates the source for the chapters in the media file. Can be media (the chapters were embedded in the media itself), agent (a metadata agent computed them), or mixed (a combination of the two)."""
 
-    composite: Optional[Any] = None
+    child_count: Annotated[Optional[int], pydantic.Field(alias="childCount")] = None
+    r"""The number of child items associated with this media item."""
+
+    composite: Optional[str] = None
     r"""When present, the URL for a composite image for descendent items (e.g. photo albums or playlists)."""
 
-    content_rating: Annotated[Optional[Any], pydantic.Field(alias="contentRating")] = (
+    content_rating: Annotated[Optional[str], pydantic.Field(alias="contentRating")] = (
         None
     )
     r"""If known, the content rating (e.g. MPAA) for an item."""
@@ -225,6 +253,11 @@ class MetadataItem(BaseModel):
         Optional[str], pydantic.Field(alias="grandparentArt")
     ] = None
     r"""The `art` of the grandparent"""
+
+    grandparent_guid: Annotated[
+        Optional[str], pydantic.Field(alias="grandparentGuid")
+    ] = None
+    r"""The GUID of the grandparent media item."""
 
     grandparent_hero: Annotated[
         Optional[str], pydantic.Field(alias="grandparentHero")
@@ -256,9 +289,15 @@ class MetadataItem(BaseModel):
     ] = None
     r"""The `title` of the grandparent"""
 
-    guid: Annotated[Optional[List[Tag]], pydantic.Field(alias="Guid")] = None
+    guid: Optional[str] = None
+    r"""The globally unique identifier for the media item."""
 
-    hero: Optional[Any] = None
+    guids: Annotated[
+        Optional[List[MediaContainerWithNestedMetadataGuids]],
+        pydantic.Field(alias="Guid"),
+    ] = None
+
+    hero: Optional[str] = None
     r"""When present, the URL for a hero image for the item."""
 
     image: Annotated[Optional[List[Image]], pydantic.Field(alias="Image")] = None
@@ -266,13 +305,9 @@ class MetadataItem(BaseModel):
     index: Optional[int] = None
     r"""When present, this represents the episode number for episodes, season number for seasons, or track number for audio tracks."""
 
-    key: Optional[Any] = None
-    r"""The key at which the item's details can be fetched.  In many cases a metadata item may be passed without all the details (such as in a hub) and this key corresponds to the endpoint to fetch additional details."""
-
     last_viewed_at: Annotated[Optional[int], pydantic.Field(alias="lastViewedAt")] = (
         None
     )
-    r"""When a user has watched or listened to an item, this contains a timestamp (epoch seconds) for that last consumption time."""
 
     leaf_count: Annotated[Optional[int], pydantic.Field(alias="leafCount")] = None
     r"""For shows and seasons, contains the number of total episodes."""
@@ -280,14 +315,17 @@ class MetadataItem(BaseModel):
     media: Annotated[Optional[List[Media]], pydantic.Field(alias="Media")] = None
 
     originally_available_at: Annotated[
-        Optional[Any], pydantic.Field(alias="originallyAvailableAt")
+        Optional[date], pydantic.Field(alias="originallyAvailableAt")
     ] = None
     r"""When present, in the format YYYY-MM-DD [HH:MM:SS] (the hours/minutes/seconds part is not always present). The air date, or a higher resolution release date for an item, depending on type. For example, episodes usually have air date like 1979-08-10 (we don't use epoch seconds because media existed prior to 1970). In some cases, recorded over-the-air content has higher resolution air date which includes a time component. Albums and movies may have day-resolution release dates as well."""
 
-    original_title: Annotated[Optional[Any], pydantic.Field(alias="originalTitle")] = (
+    original_title: Annotated[Optional[str], pydantic.Field(alias="originalTitle")] = (
         None
     )
     r"""When present, used to indicate an item's original title, e.g. a movie's foreign title."""
+
+    parent_guid: Annotated[Optional[str], pydantic.Field(alias="parentGuid")] = None
+    r"""The GUID of the parent media item."""
 
     parent_hero: Annotated[Optional[str], pydantic.Field(alias="parentHero")] = None
     r"""The `hero` of the parent"""
@@ -310,7 +348,7 @@ class MetadataItem(BaseModel):
     r"""The `title` of the parent"""
 
     primary_extra_key: Annotated[
-        Optional[Any], pydantic.Field(alias="primaryExtraKey")
+        Optional[str], pydantic.Field(alias="primaryExtraKey")
     ] = None
     r"""Indicates that the item has a primary extra; for a movie, this is a trailer, and for a music track it is a music video. The URL points to the metadata details endpoint for the item."""
 
@@ -325,10 +363,10 @@ class MetadataItem(BaseModel):
     rating_count: Annotated[Optional[int], pydantic.Field(alias="ratingCount")] = None
     r"""Number of ratings under this metadata"""
 
-    rating_image: Annotated[Optional[Any], pydantic.Field(alias="ratingImage")] = None
+    rating_image: Annotated[Optional[str], pydantic.Field(alias="ratingImage")] = None
     r"""When present, indicates an image to be shown with the rating. This is passed back as a small set of defined URI values, e.g. rottentomatoes://image.rating.rotten."""
 
-    rating_key: Annotated[Optional[Any], pydantic.Field(alias="ratingKey")] = None
+    rating_key: Annotated[Optional[str], pydantic.Field(alias="ratingKey")] = None
     r"""This is the opaque string to be passed into timeline, scrobble, and rating endpoints to identify them.  While it often appears to be numeric, this is not guaranteed."""
 
     role: Annotated[Optional[List[Tag]], pydantic.Field(alias="Role")] = None
@@ -350,25 +388,25 @@ class MetadataItem(BaseModel):
     sort: Annotated[Optional[List[Sort]], pydantic.Field(alias="Sort")] = None
     r"""Typically only seen in metadata at a library's top level"""
 
-    studio: Optional[Any] = None
+    studio: Optional[str] = None
     r"""When present, the studio or label which produced an item (e.g. movie studio for movies, record label for albums)."""
 
-    subtype: Optional[Any] = None
+    subtype: Optional[str] = None
     r"""The subtype of the video item, such as `photo` when the video item is in a photo library"""
 
-    summary: Optional[Any] = None
+    summary: Optional[str] = None
     r"""When present, the extended textual information about the item (e.g. movie plot, artist biography, album review)."""
 
-    tagline: Optional[Any] = None
+    tagline: Optional[str] = None
     r"""When present, a pithy one-liner about the item (usually only seen for movies)."""
 
-    theme: Optional[Any] = None
+    theme: Optional[str] = None
     r"""When present, the URL for theme music for the item (usually only for TV shows)."""
 
-    thumb: Optional[Any] = None
+    thumb: Optional[str] = None
     r"""When present, the URL for the poster or thumbnail for the item. When available for types like movie, it will be the poster graphic, but fall-back to the extracted media thumbnail."""
 
-    title_sort: Annotated[Optional[Any], pydantic.Field(alias="titleSort")] = None
+    title_sort: Annotated[Optional[str], pydantic.Field(alias="titleSort")] = None
     r"""Whene present, this is the string used for sorting the item. It's usually the title with any leading articles removed (e.g. “Simpsons”)."""
 
     updated_at: Annotated[Optional[int], pydantic.Field(alias="updatedAt")] = None

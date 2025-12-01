@@ -12,23 +12,23 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 class MediaTypedDict(TypedDict):
     r"""`Media` represents an one or more media files (parts) and is a child of a metadata item. There aren't necessarily any guaranteed attributes on media elements since the attributes will vary based on the type. The possible attributes are not documented here, but they typically have self-evident names. High-level media information that can be used for badging and flagging, such as `videoResolution` and codecs, is included on the media element."""
 
+    id: int
     aspect_ratio: NotRequired[float]
     audio_channels: NotRequired[int]
-    audio_codec: NotRequired[Any]
-    audio_profile: NotRequired[Any]
+    audio_codec: NotRequired[str]
+    audio_profile: NotRequired[str]
     bitrate: NotRequired[int]
-    container: NotRequired[Any]
+    container: NotRequired[str]
     duration: NotRequired[int]
     has64bit_offsets: NotRequired[bool]
     has_voice_activity: NotRequired[bool]
     height: NotRequired[int]
-    id: NotRequired[int]
     optimized_for_streaming: NotRequired[bool]
     part: NotRequired[List[PartTypedDict]]
-    video_codec: NotRequired[Any]
-    video_frame_rate: NotRequired[Any]
-    video_profile: NotRequired[Any]
-    video_resolution: NotRequired[Any]
+    video_codec: NotRequired[str]
+    video_frame_rate: NotRequired[str]
+    video_profile: NotRequired[str]
+    video_resolution: NotRequired[str]
     width: NotRequired[int]
 
 
@@ -40,19 +40,21 @@ class Media(BaseModel):
     )
     __pydantic_extra__: Dict[str, Any] = pydantic.Field(init=False)
 
+    id: int
+
     aspect_ratio: Annotated[Optional[float], pydantic.Field(alias="aspectRatio")] = None
 
     audio_channels: Annotated[Optional[int], pydantic.Field(alias="audioChannels")] = (
         None
     )
 
-    audio_codec: Annotated[Optional[Any], pydantic.Field(alias="audioCodec")] = None
+    audio_codec: Annotated[Optional[str], pydantic.Field(alias="audioCodec")] = None
 
-    audio_profile: Annotated[Optional[Any], pydantic.Field(alias="audioProfile")] = None
+    audio_profile: Annotated[Optional[str], pydantic.Field(alias="audioProfile")] = None
 
     bitrate: Optional[int] = None
 
-    container: Optional[Any] = None
+    container: Optional[str] = None
 
     duration: Optional[int] = None
 
@@ -66,24 +68,22 @@ class Media(BaseModel):
 
     height: Optional[int] = None
 
-    id: Optional[int] = None
-
     optimized_for_streaming: Annotated[
         Optional[bool], pydantic.Field(alias="optimizedForStreaming")
     ] = None
 
     part: Annotated[Optional[List[Part]], pydantic.Field(alias="Part")] = None
 
-    video_codec: Annotated[Optional[Any], pydantic.Field(alias="videoCodec")] = None
+    video_codec: Annotated[Optional[str], pydantic.Field(alias="videoCodec")] = None
 
     video_frame_rate: Annotated[
-        Optional[Any], pydantic.Field(alias="videoFrameRate")
+        Optional[str], pydantic.Field(alias="videoFrameRate")
     ] = None
 
-    video_profile: Annotated[Optional[Any], pydantic.Field(alias="videoProfile")] = None
+    video_profile: Annotated[Optional[str], pydantic.Field(alias="videoProfile")] = None
 
     video_resolution: Annotated[
-        Optional[Any], pydantic.Field(alias="videoResolution")
+        Optional[str], pydantic.Field(alias="videoResolution")
     ] = None
 
     width: Optional[int] = None

@@ -224,7 +224,7 @@ class OptimizeDatabaseRequest(BaseModel):
         Optional[components_boolint.BoolInt],
         pydantic.Field(alias="async"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""If set, don't wait for completion but return an activity"""
 
 

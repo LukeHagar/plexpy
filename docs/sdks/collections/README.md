@@ -38,6 +38,7 @@ with PlexAPI(
 
     res = plex_api.collections.create_collection(request={
         "section_id": "<id>",
+        "type": components.MediaType.TV_SHOW,
     })
 
     assert res.media_container_with_metadata is not None

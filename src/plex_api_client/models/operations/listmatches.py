@@ -264,7 +264,7 @@ class ListMatchesRequest(BaseModel):
     manual: Annotated[
         Optional[components_boolint.BoolInt],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
 
 
 class ListMatchesResponseTypedDict(TypedDict):

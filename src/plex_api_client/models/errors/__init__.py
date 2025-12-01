@@ -7,14 +7,111 @@ import builtins
 import sys
 
 if TYPE_CHECKING:
+    from .get_server_resources import (
+        GetServerResourcesErrors,
+        GetServerResourcesErrorsTypedDict,
+        GetServerResourcesUnauthorized,
+        GetServerResourcesUnauthorizedData,
+    )
+    from .get_users import (
+        GetUsersBadRequest,
+        GetUsersBadRequestData,
+        GetUsersErrors,
+        GetUsersErrorsTypedDict,
+        GetUsersUnauthorized,
+        GetUsersUnauthorizedData,
+        GetUsersUsersErrors,
+        GetUsersUsersErrorsTypedDict,
+    )
+    from .gettokendetails import (
+        Errors,
+        ErrorsTypedDict,
+        GetTokenDetailsBadRequest,
+        GetTokenDetailsBadRequestData,
+        GetTokenDetailsErrors,
+        GetTokenDetailsErrorsTypedDict,
+        GetTokenDetailsUnauthorized,
+        GetTokenDetailsUnauthorizedData,
+    )
     from .no_response_error import NoResponseError
+    from .post_users_sign_in_data import (
+        PostUsersSignInDataAuthenticationErrors,
+        PostUsersSignInDataAuthenticationErrorsTypedDict,
+        PostUsersSignInDataBadRequest,
+        PostUsersSignInDataBadRequestData,
+        PostUsersSignInDataErrors,
+        PostUsersSignInDataErrorsTypedDict,
+        PostUsersSignInDataUnauthorized,
+        PostUsersSignInDataUnauthorizedData,
+    )
     from .responsevalidationerror import ResponseValidationError
     from .sdkerror import SDKError
 
-__all__ = ["NoResponseError", "PlexAPIError", "ResponseValidationError", "SDKError"]
+__all__ = [
+    "Errors",
+    "ErrorsTypedDict",
+    "GetServerResourcesErrors",
+    "GetServerResourcesErrorsTypedDict",
+    "GetServerResourcesUnauthorized",
+    "GetServerResourcesUnauthorizedData",
+    "GetTokenDetailsBadRequest",
+    "GetTokenDetailsBadRequestData",
+    "GetTokenDetailsErrors",
+    "GetTokenDetailsErrorsTypedDict",
+    "GetTokenDetailsUnauthorized",
+    "GetTokenDetailsUnauthorizedData",
+    "GetUsersBadRequest",
+    "GetUsersBadRequestData",
+    "GetUsersErrors",
+    "GetUsersErrorsTypedDict",
+    "GetUsersUnauthorized",
+    "GetUsersUnauthorizedData",
+    "GetUsersUsersErrors",
+    "GetUsersUsersErrorsTypedDict",
+    "NoResponseError",
+    "PlexAPIError",
+    "PostUsersSignInDataAuthenticationErrors",
+    "PostUsersSignInDataAuthenticationErrorsTypedDict",
+    "PostUsersSignInDataBadRequest",
+    "PostUsersSignInDataBadRequestData",
+    "PostUsersSignInDataErrors",
+    "PostUsersSignInDataErrorsTypedDict",
+    "PostUsersSignInDataUnauthorized",
+    "PostUsersSignInDataUnauthorizedData",
+    "ResponseValidationError",
+    "SDKError",
+]
 
 _dynamic_imports: dict[str, str] = {
+    "GetServerResourcesErrors": ".get_server_resources",
+    "GetServerResourcesErrorsTypedDict": ".get_server_resources",
+    "GetServerResourcesUnauthorized": ".get_server_resources",
+    "GetServerResourcesUnauthorizedData": ".get_server_resources",
+    "GetUsersBadRequest": ".get_users",
+    "GetUsersBadRequestData": ".get_users",
+    "GetUsersErrors": ".get_users",
+    "GetUsersErrorsTypedDict": ".get_users",
+    "GetUsersUnauthorized": ".get_users",
+    "GetUsersUnauthorizedData": ".get_users",
+    "GetUsersUsersErrors": ".get_users",
+    "GetUsersUsersErrorsTypedDict": ".get_users",
+    "Errors": ".gettokendetails",
+    "ErrorsTypedDict": ".gettokendetails",
+    "GetTokenDetailsBadRequest": ".gettokendetails",
+    "GetTokenDetailsBadRequestData": ".gettokendetails",
+    "GetTokenDetailsErrors": ".gettokendetails",
+    "GetTokenDetailsErrorsTypedDict": ".gettokendetails",
+    "GetTokenDetailsUnauthorized": ".gettokendetails",
+    "GetTokenDetailsUnauthorizedData": ".gettokendetails",
     "NoResponseError": ".no_response_error",
+    "PostUsersSignInDataAuthenticationErrors": ".post_users_sign_in_data",
+    "PostUsersSignInDataAuthenticationErrorsTypedDict": ".post_users_sign_in_data",
+    "PostUsersSignInDataBadRequest": ".post_users_sign_in_data",
+    "PostUsersSignInDataBadRequestData": ".post_users_sign_in_data",
+    "PostUsersSignInDataErrors": ".post_users_sign_in_data",
+    "PostUsersSignInDataErrorsTypedDict": ".post_users_sign_in_data",
+    "PostUsersSignInDataUnauthorized": ".post_users_sign_in_data",
+    "PostUsersSignInDataUnauthorizedData": ".post_users_sign_in_data",
     "ResponseValidationError": ".responsevalidationerror",
     "SDKError": ".sdkerror",
 }

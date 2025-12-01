@@ -256,7 +256,7 @@ class SetStreamSelectionRequest(BaseModel):
         Optional[components_boolint.BoolInt],
         pydantic.Field(alias="allParts"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Perform the same for all parts of this media selecting similar streams in each"""
 
 

@@ -262,7 +262,7 @@ class GetStreamRequest(BaseModel):
         Optional[components_boolint.BoolInt],
         pydantic.Field(alias="autoAdjustSubtitle"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Whether the server should attempt to automatically adjust the subtitle timestamps to match the media"""
 
 

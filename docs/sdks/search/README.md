@@ -114,6 +114,7 @@ with PlexAPI(
 
     res = plex_api.search.voice_search_hubs(request={
         "query": "<value>",
+        "type": components.MediaType.TV_SHOW,
     })
 
     assert res.object is not None

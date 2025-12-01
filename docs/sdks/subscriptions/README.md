@@ -47,8 +47,8 @@ with PlexAPI(
 ) as plex_api:
 
     res = plex_api.subscriptions.get_all_subscriptions(request=operations.GetAllSubscriptionsRequest(
-        include_grabs=components.BoolInt.ONE,
-        include_storage=components.BoolInt.ONE,
+        include_grabs=components.BoolInt.TRUE,
+        include_storage=components.BoolInt.TRUE,
     ))
 
     assert res.media_container_with_subscription is not None
@@ -410,8 +410,8 @@ with PlexAPI(
 
     res = plex_api.subscriptions.get_subscription(request=operations.GetSubscriptionRequest(
         subscription_id=186713,
-        include_grabs=components.BoolInt.ONE,
-        include_storage=components.BoolInt.ONE,
+        include_grabs=components.BoolInt.TRUE,
+        include_storage=components.BoolInt.TRUE,
     ))
 
     assert res.media_container_with_subscription is not None

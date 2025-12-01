@@ -58,6 +58,7 @@ class Log(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "raw", Union[bytes, IO[bytes], io.BufferedReader]
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -143,6 +144,7 @@ class Log(BaseSDK):
             get_serialized_body=lambda: utils.serialize_request_body(
                 request, False, False, "raw", Union[bytes, IO[bytes], io.BufferedReader]
             ),
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -246,6 +248,7 @@ class Log(BaseSDK):
                 marketplace=self.sdk_configuration.globals.marketplace,
             ),
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -349,6 +352,7 @@ class Log(BaseSDK):
                 marketplace=self.sdk_configuration.globals.marketplace,
             ),
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -453,6 +457,7 @@ class Log(BaseSDK):
                 marketplace=self.sdk_configuration.globals.marketplace,
             ),
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -557,6 +562,7 @@ class Log(BaseSDK):
                 marketplace=self.sdk_configuration.globals.marketplace,
             ),
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 

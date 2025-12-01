@@ -12,22 +12,27 @@ from typing_extensions import Annotated, NotRequired, TypedDict
 class PartTypedDict(TypedDict):
     r"""`Part` represents a particular file or \"part\" of a media item. The part is the playable unit of the media hierarchy. Suppose that a movie library contains a movie that is broken up into files, reminiscent of a movie split across two BDs. The metadata item represents information about the movie, the media item represents this instance of the movie at this resolution and quality, and the part items represent the two playable files.  If another media were added which contained the joining of these two parts transcoded down to a lower resolution, then this metadata would contain 2 medias, one with 2 parts and one with 1 part."""
 
-    audio_profile: NotRequired[Any]
-    container: NotRequired[Any]
+    id: int
+    key: str
+    r"""The key from which the media can be streamed"""
+    accessible: NotRequired[bool]
+    r"""Indicates if the part is accessible."""
+    audio_profile: NotRequired[str]
+    container: NotRequired[str]
     r"""The container of the media file, such as `mp4` or `mkv`"""
     duration: NotRequired[int]
     r"""The duration of the media item, in milliseconds"""
-    file: NotRequired[Any]
+    exists: NotRequired[bool]
+    r"""Indicates if the part exists."""
+    file: NotRequired[str]
     r"""The local file path at which the part is stored on the server"""
     has64bit_offsets: NotRequired[bool]
-    id: NotRequired[int]
-    key: NotRequired[Any]
-    r"""The key from which the media can be streamed"""
+    indexes: NotRequired[str]
     optimized_for_streaming: NotRequired[bool]
     size: NotRequired[int]
     r"""The size of the media, in bytes"""
     stream: NotRequired[List[StreamTypedDict]]
-    video_profile: NotRequired[Any]
+    video_profile: NotRequired[str]
 
 
 class Part(BaseModel):
@@ -38,25 +43,33 @@ class Part(BaseModel):
     )
     __pydantic_extra__: Dict[str, Any] = pydantic.Field(init=False)
 
-    audio_profile: Annotated[Optional[Any], pydantic.Field(alias="audioProfile")] = None
+    id: int
 
-    container: Optional[Any] = None
+    key: str
+    r"""The key from which the media can be streamed"""
+
+    accessible: Optional[bool] = None
+    r"""Indicates if the part is accessible."""
+
+    audio_profile: Annotated[Optional[str], pydantic.Field(alias="audioProfile")] = None
+
+    container: Optional[str] = None
     r"""The container of the media file, such as `mp4` or `mkv`"""
 
     duration: Optional[int] = None
     r"""The duration of the media item, in milliseconds"""
 
-    file: Optional[Any] = None
+    exists: Optional[bool] = None
+    r"""Indicates if the part exists."""
+
+    file: Optional[str] = None
     r"""The local file path at which the part is stored on the server"""
 
     has64bit_offsets: Annotated[
         Optional[bool], pydantic.Field(alias="has64bitOffsets")
     ] = None
 
-    id: Optional[int] = None
-
-    key: Optional[Any] = None
-    r"""The key from which the media can be streamed"""
+    indexes: Optional[str] = None
 
     optimized_for_streaming: Annotated[
         Optional[bool], pydantic.Field(alias="optimizedForStreaming")
@@ -67,7 +80,7 @@ class Part(BaseModel):
 
     stream: Annotated[Optional[List[Stream]], pydantic.Field(alias="Stream")] = None
 
-    video_profile: Annotated[Optional[Any], pydantic.Field(alias="videoProfile")] = None
+    video_profile: Annotated[Optional[str], pydantic.Field(alias="videoProfile")] = None
 
     @property
     def additional_properties(self):

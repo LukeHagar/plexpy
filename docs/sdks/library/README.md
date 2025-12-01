@@ -114,7 +114,13 @@ with PlexAPI(
     token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
 
-    res = plex_api.library.get_library_items(request={})
+    res = plex_api.library.get_library_items(request={
+        "media_query": {
+            "type": components.MediaType.EPISODE,
+            "source_type": 2,
+            "sort": "duration:desc,index",
+        },
+    })
 
     assert res.media_container_with_metadata is not None
 
@@ -251,8 +257,8 @@ with PlexAPI(
     res = plex_api.library.ingest_transient_item(request=operations.IngestTransientItemRequest(
         url="file:///storage%2Femulated%2F0%2FArcher-S01E01.mkv",
         virtual_file_path="/Avatar.mkv",
-        compute_hashes=components.BoolInt.ONE,
-        ingest_non_matches=components.BoolInt.ONE,
+        compute_hashes=components.BoolInt.TRUE,
+        ingest_non_matches=components.BoolInt.TRUE,
     ))
 
     assert res.media_container_with_metadata is not None
@@ -311,9 +317,10 @@ with PlexAPI(
 ) as plex_api:
 
     res = plex_api.library.get_library_matches(request=operations.GetLibraryMatchesRequest(
-        include_full_metadata=components.BoolInt.ONE,
-        include_ancestor_metadata=components.BoolInt.ONE,
-        include_alternate_metadata_sources=components.BoolInt.ONE,
+        type=components.MediaType.TV_SHOW,
+        include_full_metadata=components.BoolInt.TRUE,
+        include_ancestor_metadata=components.BoolInt.TRUE,
+        include_alternate_metadata_sources=components.BoolInt.TRUE,
     ))
 
     assert res.media_container_with_metadata is not None
@@ -368,7 +375,7 @@ with PlexAPI(
 ) as plex_api:
 
     res = plex_api.library.optimize_database(request={
-        "async_": components.BoolInt.ONE,
+        "async_": components.BoolInt.TRUE,
     })
 
     assert res is not None
@@ -534,8 +541,8 @@ with PlexAPI(
             "O:\fatboy\\Media\\My Music",
         ],
         prefs=operations.QueryParamPrefs(),
-        relative=components.BoolInt.ONE,
-        import_fromi_tunes=components.BoolInt.ONE,
+        relative=components.BoolInt.TRUE,
+        import_fromi_tunes=components.BoolInt.TRUE,
     ))
 
     assert res.slash_get_responses_200 is not None
@@ -737,7 +744,9 @@ with PlexAPI(
     token="<YOUR_API_KEY_HERE>",
 ) as plex_api:
 
-    res = plex_api.library.get_tags(request={})
+    res = plex_api.library.get_tags(request={
+        "type": components.MediaType.TV_SHOW,
+    })
 
     assert res.object is not None
 
@@ -792,7 +801,7 @@ with PlexAPI(
 
     res = plex_api.library.delete_metadata_item(request={
         "ids": "<value>",
-        "proxy": components.BoolInt.ONE,
+        "proxy": components.BoolInt.TRUE,
     })
 
     assert res is not None
@@ -1071,7 +1080,7 @@ with PlexAPI(
 
     res = plex_api.library.generate_thumbs(request={
         "ids": "<value>",
-        "force": components.BoolInt.ONE,
+        "force": components.BoolInt.TRUE,
     })
 
     assert res is not None
@@ -1127,8 +1136,8 @@ with PlexAPI(
 
     res = plex_api.library.detect_credits(request=operations.DetectCreditsRequest(
         ids="<value>",
-        force=components.BoolInt.ONE,
-        manual=components.BoolInt.ONE,
+        force=components.BoolInt.TRUE,
+        manual=components.BoolInt.TRUE,
     ))
 
     assert res is not None
@@ -1350,7 +1359,7 @@ with PlexAPI(
 
     res = plex_api.library.start_bif_generation(request={
         "ids": "<value>",
-        "force": components.BoolInt.ONE,
+        "force": components.BoolInt.TRUE,
     })
 
     assert res is not None
@@ -1406,7 +1415,7 @@ with PlexAPI(
 
     res = plex_api.library.detect_intros(request={
         "ids": "<value>",
-        "force": components.BoolInt.ONE,
+        "force": components.BoolInt.TRUE,
     })
 
     assert res is not None
@@ -1575,7 +1584,7 @@ with PlexAPI(
 
     res = plex_api.library.list_matches(request={
         "ids": "<value>",
-        "manual": components.BoolInt.ONE,
+        "manual": components.BoolInt.TRUE,
     })
 
     assert res.media_container_with_metadata is not None
@@ -1796,7 +1805,7 @@ with PlexAPI(
 
     res = plex_api.library.refresh_items_metadata(request={
         "ids": "<value>",
-        "mark_updated": components.BoolInt.ONE,
+        "mark_updated": components.BoolInt.TRUE,
     })
 
     assert res is not None
@@ -2017,8 +2026,8 @@ with PlexAPI(
 
     res = plex_api.library.add_subtitles(request=operations.AddSubtitlesRequest(
         ids="<value>",
-        forced=components.BoolInt.ONE,
-        hearing_impaired=components.BoolInt.ONE,
+        forced=components.BoolInt.TRUE,
+        hearing_impaired=components.BoolInt.TRUE,
     ))
 
     assert res is not None
@@ -2239,8 +2248,8 @@ with PlexAPI(
 
     res = plex_api.library.detect_voice_activity(request=operations.DetectVoiceActivityRequest(
         ids="<value>",
-        force=components.BoolInt.ONE,
-        manual=components.BoolInt.ONE,
+        force=components.BoolInt.TRUE,
+        manual=components.BoolInt.TRUE,
     ))
 
     assert res is not None
@@ -2296,7 +2305,7 @@ with PlexAPI(
 
     res = plex_api.library.get_augmentation_status(request={
         "augmentation_id": "<id>",
-        "wait": components.BoolInt.ONE,
+        "wait": components.BoolInt.TRUE,
     })
 
     assert res is not None
@@ -2352,7 +2361,7 @@ with PlexAPI(
 
     res = plex_api.library.set_stream_selection(request={
         "part_id": 360489,
-        "all_parts": components.BoolInt.ONE,
+        "all_parts": components.BoolInt.TRUE,
     })
 
     assert res is not None
@@ -2518,7 +2527,7 @@ with PlexAPI(
 
     res = plex_api.library.delete_library_section(request={
         "section_id": "<id>",
-        "async_": components.BoolInt.ONE,
+        "async_": components.BoolInt.TRUE,
     })
 
     assert res is not None
@@ -2574,7 +2583,7 @@ with PlexAPI(
 
     res = plex_api.library.get_library_details(request={
         "section_id": "<id>",
-        "include_details": components.BoolInt.ONE,
+        "include_details": components.BoolInt.TRUE,
     })
 
     assert res.object is not None
@@ -2735,7 +2744,7 @@ with PlexAPI(
 
     res = plex_api.library.update_items(request={
         "section_id": "<id>",
-        "field_locked": components.BoolInt.ONE,
+        "field_locked": components.BoolInt.TRUE,
     })
 
     assert res is not None
@@ -2847,6 +2856,11 @@ with PlexAPI(
 
     res = plex_api.library.autocomplete(request={
         "section_id": 942007,
+        "media_query": {
+            "type": components.MediaType.EPISODE,
+            "source_type": 2,
+            "sort": "duration:desc,index",
+        },
     })
 
     assert res.media_container_with_metadata is not None
@@ -2902,6 +2916,11 @@ with PlexAPI(
 
     res = plex_api.library.get_collections(request={
         "section_id": 348838,
+        "media_query": {
+            "type": components.MediaType.EPISODE,
+            "source_type": 2,
+            "sort": "duration:desc,index",
+        },
     })
 
     assert res.media_container_with_metadata is not None
@@ -2958,6 +2977,11 @@ with PlexAPI(
 
     res = plex_api.library.get_common(request={
         "section_id": 298154,
+        "media_query": {
+            "type": components.MediaType.EPISODE,
+            "source_type": 2,
+            "sort": "duration:desc,index",
+        },
     })
 
     assert res.media_container_with_metadata is not None
@@ -3123,6 +3147,11 @@ with PlexAPI(
 
     res = plex_api.library.get_first_characters(request={
         "section_id": 3947,
+        "media_query": {
+            "type": components.MediaType.EPISODE,
+            "source_type": 2,
+            "sort": "duration:desc,index",
+        },
     })
 
     assert res.object is not None
@@ -3454,7 +3483,7 @@ with PlexAPI(
 
     res = plex_api.library.refresh_section(request={
         "section_id": 450300,
-        "force": components.BoolInt.ONE,
+        "force": components.BoolInt.TRUE,
     })
 
     assert res is not None
@@ -3961,7 +3990,7 @@ with PlexAPI(
     res = plex_api.library.delete_media_item(request={
         "ids": "<value>",
         "media_item": "<value>",
-        "proxy": components.BoolInt.ONE,
+        "proxy": components.BoolInt.TRUE,
     })
 
     assert res is not None
@@ -4130,6 +4159,11 @@ with PlexAPI(
     res = plex_api.library.get_section_image(request={
         "section_id": 925611,
         "updated_at": 117413,
+        "media_query": {
+            "type": components.MediaType.EPISODE,
+            "source_type": 2,
+            "sort": "duration:desc,index",
+        },
     })
 
     assert res is not None
@@ -4242,7 +4276,7 @@ with PlexAPI(
     res = plex_api.library.get_stream(request={
         "stream_id": 314506,
         "ext": "<value>",
-        "auto_adjust_subtitle": components.BoolInt.ONE,
+        "auto_adjust_subtitle": components.BoolInt.TRUE,
     })
 
     assert res is not None
@@ -4416,7 +4450,7 @@ with PlexAPI(
         "part_id": 877105,
         "changestamp": 970622,
         "filename": "example.file",
-        "download": components.BoolInt.ONE,
+        "download": components.BoolInt.TRUE,
     })
 
     assert res is not None

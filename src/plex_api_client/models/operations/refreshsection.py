@@ -239,7 +239,7 @@ class RefreshSectionRequest(BaseModel):
     force: Annotated[
         Optional[components_boolint.BoolInt],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Whether the update of metadata and items should be performed even if modification dates indicate the items have not change"""
 
     path: Annotated[

@@ -2,51 +2,120 @@
 
 from __future__ import annotations
 from plex_api_client.types import BaseModel
+from plex_api_client.utils import validate_const
 import pydantic
 from pydantic import ConfigDict
-from typing import Any, Dict, Optional
+from pydantic.functional_validators import AfterValidator
+from typing import Any, Dict, Literal, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
 class StreamTypedDict(TypedDict):
     r"""`Stream` represents a particular stream from a media item, such as the video stream, audio stream, or subtitle stream. The stream may either be part of the file represented by the parent `Part` or, especially for subtitles, an external file. The stream contains more detailed information about the specific stream. For example, a video may include the `aspectRatio` at the `Media` level, but detailed information about the video stream like the color space will be included on the `Stream` for the video stream.  Note that photos do not have streams (mostly as an optimization)."""
 
+    codec: str
+    r"""Codec used by the stream."""
+    display_title: str
+    r"""Display title for the stream."""
+    id: int
+    r"""Unique stream identifier."""
+    key: str
+    r"""Key to access this stream part."""
     default: NotRequired[bool]
-    audio_channel_layout: NotRequired[Any]
+    r"""Indicates if this stream is default."""
+    audio_channel_layout: NotRequired[str]
+    r"""Audio channel layout."""
+    channels: NotRequired[int]
+    r"""Number of audio channels (for audio streams)."""
     bit_depth: NotRequired[int]
+    r"""Bit depth of the video stream."""
+    dovibl_compat_id: NotRequired[int]
+    r"""Dolby Vision BL compatibility ID."""
+    dovibl_present: NotRequired[bool]
+    r"""Indicates if Dolby Vision BL is present."""
+    doviel_present: NotRequired[bool]
+    r"""Indicates if Dolby Vision EL is present."""
+    dovi_level: NotRequired[int]
+    r"""Dolby Vision level."""
+    dovi_present: NotRequired[bool]
+    r"""Indicates if Dolby Vision is present."""
+    dovi_profile: NotRequired[int]
+    r"""Dolby Vision profile."""
+    dovirpu_present: NotRequired[bool]
+    r"""Indicates if Dolby Vision RPU is present."""
+    dovi_version: NotRequired[str]
+    r"""Dolby Vision version."""
     bitrate: NotRequired[int]
+    r"""Bitrate of the stream."""
     can_auto_sync: NotRequired[bool]
-    r"""For subtitle streams only. If `true` then the server can attempt to automatically sync the subtitle timestamps with the video."""
-    chroma_location: NotRequired[Any]
-    chroma_subsampling: NotRequired[Any]
-    codec: NotRequired[Any]
-    r"""The codec of the stream, such as `h264` or `aac`"""
-    color_primaries: NotRequired[Any]
-    color_range: NotRequired[Any]
-    color_space: NotRequired[Any]
-    color_trc: NotRequired[Any]
-    display_title: NotRequired[Any]
-    r"""A friendly name for the stream, often comprised of the language and codec information"""
+    r"""Indicates if the stream can auto-sync."""
+    chroma_location: NotRequired[str]
+    r"""Chroma sample location."""
+    chroma_subsampling: NotRequired[str]
+    r"""Chroma subsampling format."""
+    coded_height: NotRequired[int]
+    r"""Coded video height."""
+    coded_width: NotRequired[int]
+    r"""Coded video width."""
+    closed_captions: NotRequired[bool]
+    color_primaries: NotRequired[str]
+    r"""Color primaries used."""
+    color_range: NotRequired[str]
+    r"""Color range (e.g., tv)."""
+    color_space: NotRequired[str]
+    r"""Color space."""
+    color_trc: NotRequired[str]
+    r"""Color transfer characteristics."""
+    extended_display_title: NotRequired[str]
+    r"""Extended display title for the stream."""
     frame_rate: NotRequired[float]
-    has_scaling_matrix: NotRequired[Any]
+    r"""Frame rate of the stream."""
+    has_scaling_matrix: NotRequired[bool]
     height: NotRequired[int]
-    id: NotRequired[int]
+    r"""Height of the video stream."""
     index: NotRequired[int]
-    r"""If the stream is part of the `Part` and not an external resource, the index of the stream within that part"""
-    key: NotRequired[Any]
-    r"""If the stream is independently streamable, the key from which it can be streamed"""
-    language: NotRequired[Any]
-    language_code: NotRequired[Any]
-    r"""The three character language code for the stream contents"""
+    r"""Index of the stream."""
+    language: NotRequired[str]
+    r"""Language of the stream."""
+    language_code: NotRequired[str]
+    r"""ISO language code."""
+    language_tag: NotRequired[str]
+    r"""Language tag (e.g., en)."""
+    format_: NotRequired[str]
+    r"""Format of the stream (e.g., srt)."""
+    header_compression: NotRequired[bool]
+    r"""Indicates whether header compression is enabled."""
     level: NotRequired[int]
-    profile: NotRequired[Any]
+    r"""Video level."""
+    original: NotRequired[bool]
+    r"""Indicates if this is the original stream."""
+    profile: NotRequired[str]
+    r"""Video profile."""
     ref_frames: NotRequired[int]
+    r"""Number of reference frames."""
     sampling_rate: NotRequired[int]
+    r"""Sampling rate for the audio stream."""
+    scan_type: NotRequired[str]
+    embedded_in_video: NotRequired[str]
     selected: NotRequired[bool]
+    r"""Indicates if this stream is selected (applicable for audio streams)."""
+    forced: NotRequired[bool]
+    hearing_impaired: NotRequired[bool]
+    r"""Indicates if the stream is for the hearing impaired."""
+    dub: NotRequired[bool]
+    r"""Indicates if the stream is a dub."""
+    title: NotRequired[str]
+    r"""Optional title for the stream (e.g., language variant)."""
     stream_identifier: NotRequired[int]
-    stream_type: NotRequired[int]
-    r"""A number indicating the type of the stream. `1` for video, `2` for audio, `3` for subtitles, `4` for lyrics"""
+    stream_type: Literal[1]
+    r"""Stream type:
+    - VIDEO = 1
+    - AUDIO = 2
+    - SUBTITLE = 3
+
+    """
     width: NotRequired[int]
+    r"""Width of the video stream."""
 
 
 class Stream(BaseModel):
@@ -57,82 +126,193 @@ class Stream(BaseModel):
     )
     __pydantic_extra__: Dict[str, Any] = pydantic.Field(init=False)
 
+    codec: str
+    r"""Codec used by the stream."""
+
+    display_title: Annotated[str, pydantic.Field(alias="displayTitle")]
+    r"""Display title for the stream."""
+
+    id: int
+    r"""Unique stream identifier."""
+
+    key: str
+    r"""Key to access this stream part."""
+
     default: Optional[bool] = None
+    r"""Indicates if this stream is default."""
 
     audio_channel_layout: Annotated[
-        Optional[Any], pydantic.Field(alias="audioChannelLayout")
+        Optional[str], pydantic.Field(alias="audioChannelLayout")
     ] = None
+    r"""Audio channel layout."""
+
+    channels: Optional[int] = None
+    r"""Number of audio channels (for audio streams)."""
 
     bit_depth: Annotated[Optional[int], pydantic.Field(alias="bitDepth")] = None
+    r"""Bit depth of the video stream."""
+
+    dovibl_compat_id: Annotated[
+        Optional[int], pydantic.Field(alias="DOVIBLCompatID")
+    ] = None
+    r"""Dolby Vision BL compatibility ID."""
+
+    dovibl_present: Annotated[Optional[bool], pydantic.Field(alias="DOVIBLPresent")] = (
+        None
+    )
+    r"""Indicates if Dolby Vision BL is present."""
+
+    doviel_present: Annotated[Optional[bool], pydantic.Field(alias="DOVIELPresent")] = (
+        None
+    )
+    r"""Indicates if Dolby Vision EL is present."""
+
+    dovi_level: Annotated[Optional[int], pydantic.Field(alias="DOVILevel")] = None
+    r"""Dolby Vision level."""
+
+    dovi_present: Annotated[Optional[bool], pydantic.Field(alias="DOVIPresent")] = None
+    r"""Indicates if Dolby Vision is present."""
+
+    dovi_profile: Annotated[Optional[int], pydantic.Field(alias="DOVIProfile")] = None
+    r"""Dolby Vision profile."""
+
+    dovirpu_present: Annotated[
+        Optional[bool], pydantic.Field(alias="DOVIRPUPresent")
+    ] = None
+    r"""Indicates if Dolby Vision RPU is present."""
+
+    dovi_version: Annotated[Optional[str], pydantic.Field(alias="DOVIVersion")] = None
+    r"""Dolby Vision version."""
 
     bitrate: Optional[int] = None
+    r"""Bitrate of the stream."""
 
     can_auto_sync: Annotated[Optional[bool], pydantic.Field(alias="canAutoSync")] = None
-    r"""For subtitle streams only. If `true` then the server can attempt to automatically sync the subtitle timestamps with the video."""
+    r"""Indicates if the stream can auto-sync."""
 
     chroma_location: Annotated[
-        Optional[Any], pydantic.Field(alias="chromaLocation")
+        Optional[str], pydantic.Field(alias="chromaLocation")
     ] = None
+    r"""Chroma sample location."""
 
     chroma_subsampling: Annotated[
-        Optional[Any], pydantic.Field(alias="chromaSubsampling")
+        Optional[str], pydantic.Field(alias="chromaSubsampling")
     ] = None
+    r"""Chroma subsampling format."""
 
-    codec: Optional[Any] = None
-    r"""The codec of the stream, such as `h264` or `aac`"""
+    coded_height: Annotated[Optional[int], pydantic.Field(alias="codedHeight")] = None
+    r"""Coded video height."""
+
+    coded_width: Annotated[Optional[int], pydantic.Field(alias="codedWidth")] = None
+    r"""Coded video width."""
+
+    closed_captions: Annotated[
+        Optional[bool], pydantic.Field(alias="closedCaptions")
+    ] = None
 
     color_primaries: Annotated[
-        Optional[Any], pydantic.Field(alias="colorPrimaries")
+        Optional[str], pydantic.Field(alias="colorPrimaries")
     ] = None
+    r"""Color primaries used."""
 
-    color_range: Annotated[Optional[Any], pydantic.Field(alias="colorRange")] = None
+    color_range: Annotated[Optional[str], pydantic.Field(alias="colorRange")] = None
+    r"""Color range (e.g., tv)."""
 
-    color_space: Annotated[Optional[Any], pydantic.Field(alias="colorSpace")] = None
+    color_space: Annotated[Optional[str], pydantic.Field(alias="colorSpace")] = None
+    r"""Color space."""
 
-    color_trc: Annotated[Optional[Any], pydantic.Field(alias="colorTrc")] = None
+    color_trc: Annotated[Optional[str], pydantic.Field(alias="colorTrc")] = None
+    r"""Color transfer characteristics."""
 
-    display_title: Annotated[Optional[Any], pydantic.Field(alias="displayTitle")] = None
-    r"""A friendly name for the stream, often comprised of the language and codec information"""
+    extended_display_title: Annotated[
+        Optional[str], pydantic.Field(alias="extendedDisplayTitle")
+    ] = None
+    r"""Extended display title for the stream."""
 
     frame_rate: Annotated[Optional[float], pydantic.Field(alias="frameRate")] = None
+    r"""Frame rate of the stream."""
 
     has_scaling_matrix: Annotated[
-        Optional[Any], pydantic.Field(alias="hasScalingMatrix")
+        Optional[bool], pydantic.Field(alias="hasScalingMatrix")
     ] = None
 
     height: Optional[int] = None
-
-    id: Optional[int] = None
+    r"""Height of the video stream."""
 
     index: Optional[int] = None
-    r"""If the stream is part of the `Part` and not an external resource, the index of the stream within that part"""
+    r"""Index of the stream."""
 
-    key: Optional[Any] = None
-    r"""If the stream is independently streamable, the key from which it can be streamed"""
+    language: Optional[str] = None
+    r"""Language of the stream."""
 
-    language: Optional[Any] = None
+    language_code: Annotated[Optional[str], pydantic.Field(alias="languageCode")] = None
+    r"""ISO language code."""
 
-    language_code: Annotated[Optional[Any], pydantic.Field(alias="languageCode")] = None
-    r"""The three character language code for the stream contents"""
+    language_tag: Annotated[Optional[str], pydantic.Field(alias="languageTag")] = None
+    r"""Language tag (e.g., en)."""
+
+    format_: Annotated[Optional[str], pydantic.Field(alias="format")] = None
+    r"""Format of the stream (e.g., srt)."""
+
+    header_compression: Annotated[
+        Optional[bool], pydantic.Field(alias="headerCompression")
+    ] = None
+    r"""Indicates whether header compression is enabled."""
 
     level: Optional[int] = None
+    r"""Video level."""
 
-    profile: Optional[Any] = None
+    original: Optional[bool] = None
+    r"""Indicates if this is the original stream."""
+
+    profile: Optional[str] = None
+    r"""Video profile."""
 
     ref_frames: Annotated[Optional[int], pydantic.Field(alias="refFrames")] = None
+    r"""Number of reference frames."""
 
     sampling_rate: Annotated[Optional[int], pydantic.Field(alias="samplingRate")] = None
+    r"""Sampling rate for the audio stream."""
+
+    scan_type: Annotated[Optional[str], pydantic.Field(alias="scanType")] = None
+
+    embedded_in_video: Annotated[
+        Optional[str], pydantic.Field(alias="embeddedInVideo")
+    ] = None
 
     selected: Optional[bool] = None
+    r"""Indicates if this stream is selected (applicable for audio streams)."""
+
+    forced: Optional[bool] = None
+
+    hearing_impaired: Annotated[
+        Optional[bool], pydantic.Field(alias="hearingImpaired")
+    ] = None
+    r"""Indicates if the stream is for the hearing impaired."""
+
+    dub: Optional[bool] = None
+    r"""Indicates if the stream is a dub."""
+
+    title: Optional[str] = None
+    r"""Optional title for the stream (e.g., language variant)."""
 
     stream_identifier: Annotated[
         Optional[int], pydantic.Field(alias="streamIdentifier")
     ] = None
 
-    stream_type: Annotated[Optional[int], pydantic.Field(alias="streamType")] = None
-    r"""A number indicating the type of the stream. `1` for video, `2` for audio, `3` for subtitles, `4` for lyrics"""
+    STREAM_TYPE: Annotated[
+        Annotated[Literal[1], AfterValidator(validate_const(1))],
+        pydantic.Field(alias="streamType"),
+    ] = 1
+    r"""Stream type:
+    - VIDEO = 1
+    - AUDIO = 2
+    - SUBTITLE = 3
+
+    """
 
     width: Optional[int] = None
+    r"""Width of the video stream."""
 
     @property
     def additional_properties(self):

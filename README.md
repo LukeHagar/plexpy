@@ -143,13 +143,13 @@ with PlexAPI(
         advanced_subtitles=components.AdvancedSubtitles.BURN,
         audio_boost=50,
         audio_channel_count=5,
-        auto_adjust_quality=components.BoolInt.ONE,
-        auto_adjust_subtitle=components.BoolInt.ONE,
-        direct_play=components.BoolInt.ONE,
-        direct_stream=components.BoolInt.ONE,
-        direct_stream_audio=components.BoolInt.ONE,
-        disable_resolution_rotation=components.BoolInt.ONE,
-        has_mde=components.BoolInt.ONE,
+        auto_adjust_quality=components.BoolInt.TRUE,
+        auto_adjust_subtitle=components.BoolInt.TRUE,
+        direct_play=components.BoolInt.TRUE,
+        direct_stream=components.BoolInt.TRUE,
+        direct_stream_audio=components.BoolInt.TRUE,
+        disable_resolution_rotation=components.BoolInt.TRUE,
+        has_mde=components.BoolInt.TRUE,
         location=operations.StartTranscodeSessionQueryParamLocation.WAN,
         media_buffer_size=102400,
         media_index=0,
@@ -208,13 +208,13 @@ async def main():
             advanced_subtitles=components.AdvancedSubtitles.BURN,
             audio_boost=50,
             audio_channel_count=5,
-            auto_adjust_quality=components.BoolInt.ONE,
-            auto_adjust_subtitle=components.BoolInt.ONE,
-            direct_play=components.BoolInt.ONE,
-            direct_stream=components.BoolInt.ONE,
-            direct_stream_audio=components.BoolInt.ONE,
-            disable_resolution_rotation=components.BoolInt.ONE,
-            has_mde=components.BoolInt.ONE,
+            auto_adjust_quality=components.BoolInt.TRUE,
+            auto_adjust_subtitle=components.BoolInt.TRUE,
+            direct_play=components.BoolInt.TRUE,
+            direct_stream=components.BoolInt.TRUE,
+            direct_stream_audio=components.BoolInt.TRUE,
+            disable_resolution_rotation=components.BoolInt.TRUE,
+            has_mde=components.BoolInt.TRUE,
             location=operations.StartTranscodeSessionQueryParamLocation.WAN,
             media_buffer_size=102400,
             media_index=0,
@@ -253,6 +253,11 @@ asyncio.run(main())
 
 * [list_activities](docs/sdks/activities/README.md#list_activities) - Get all activities
 * [cancel_activity](docs/sdks/activities/README.md#cancel_activity) - Cancel a running activity
+
+### [authentication](docs/sdks/authentication/README.md)
+
+* [get_token_details](docs/sdks/authentication/README.md#get_token_details) - Get Token Details
+* [post_users_sign_in_data](docs/sdks/authentication/README.md#post_users_sign_in_data) - Get User Sign In Data
 
 ### [butler](docs/sdks/butler/README.md)
 
@@ -501,6 +506,10 @@ asyncio.run(main())
 * [get_playlist](docs/sdks/playlist/README.md#get_playlist) - Retrieve Playlist
 * [get_playlist_items](docs/sdks/playlist/README.md#get_playlist_items) - Retrieve Playlist Contents
 
+### [plex](docs/sdks/plex/README.md)
+
+* [get_server_resources](docs/sdks/plex/README.md#get_server_resources) - Get Server Resources
+
 ### [preferences](docs/sdks/preferences/README.md)
 
 * [get_all_preferences](docs/sdks/preferences/README.md#get_all_preferences) - Get all preferences
@@ -569,6 +578,10 @@ asyncio.run(main())
 * [apply_updates](docs/sdks/updater/README.md#apply_updates) - Applying updates
 * [check_updates](docs/sdks/updater/README.md#check_updates) - Checking for updates
 * [get_updates_status](docs/sdks/updater/README.md#get_updates_status) - Querying status of updates
+
+### [users](docs/sdks/users/README.md)
+
+* [get_users](docs/sdks/users/README.md#get_users) - Get list of all connected users
 
 </details>
 <!-- End Available Resources and Operations [operations] -->
@@ -676,13 +689,14 @@ with PlexAPI(
 
 [`PlexAPIError`](./src/plex_api_client/models/errors/plexapierror.py) is the base class for all HTTP error responses. It has the following properties:
 
-| Property           | Type             | Description                                            |
-| ------------------ | ---------------- | ------------------------------------------------------ |
-| `err.message`      | `str`            | Error message                                          |
-| `err.status_code`  | `int`            | HTTP response status code eg `404`                     |
-| `err.headers`      | `httpx.Headers`  | HTTP response headers                                  |
-| `err.body`         | `str`            | HTTP body. Can be empty string if no body is returned. |
-| `err.raw_response` | `httpx.Response` | Raw HTTP response                                      |
+| Property           | Type             | Description                                                                             |
+| ------------------ | ---------------- | --------------------------------------------------------------------------------------- |
+| `err.message`      | `str`            | Error message                                                                           |
+| `err.status_code`  | `int`            | HTTP response status code eg `404`                                                      |
+| `err.headers`      | `httpx.Headers`  | HTTP response headers                                                                   |
+| `err.body`         | `str`            | HTTP body. Can be empty string if no body is returned.                                  |
+| `err.raw_response` | `httpx.Response` | Raw HTTP response                                                                       |
+| `err.data`         |                  | Optional. Some errors may contain structured data. [See Error Classes](#error-classes). |
 
 ### Example
 ```python
@@ -707,12 +721,12 @@ with PlexAPI(
     res = None
     try:
 
-        res = plex_api.general.get_server_info(request={})
+        res = plex_api.authentication.get_token_details(request={})
 
-        assert res.media_container_with_directory is not None
+        assert res.user_plex_account is not None
 
         # Handle response
-        print(res.media_container_with_directory)
+        print(res.user_plex_account)
 
 
     except errors.PlexAPIError as e:
@@ -723,13 +737,17 @@ with PlexAPI(
         print(e.headers)
         print(e.raw_response)
 
+        # Depending on the method different errors may be thrown
+        if isinstance(e, errors.GetTokenDetailsBadRequest):
+            print(e.data.errors)  # Optional[List[errors.Errors]]
+            print(e.data.raw_response)  # Optional[httpx.Response]
 ```
 
 ### Error Classes
 **Primary error:**
 * [`PlexAPIError`](./src/plex_api_client/models/errors/plexapierror.py): The base class for HTTP error responses.
 
-<details><summary>Less common errors (5)</summary>
+<details><summary>Less common errors (12)</summary>
 
 <br />
 
@@ -740,9 +758,18 @@ with PlexAPI(
 
 
 **Inherit from [`PlexAPIError`](./src/plex_api_client/models/errors/plexapierror.py)**:
+* [`GetTokenDetailsBadRequest`](./src/plex_api_client/models/errors/gettokendetailsbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 241 methods.*
+* [`PostUsersSignInDataBadRequest`](./src/plex_api_client/models/errors/postuserssignindatabadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 241 methods.*
+* [`GetUsersBadRequest`](./src/plex_api_client/models/errors/getusersbadrequest.py): Bad Request - A parameter was not specified, or was specified incorrectly. Status code `400`. Applicable to 1 of 241 methods.*
+* [`GetTokenDetailsUnauthorized`](./src/plex_api_client/models/errors/gettokendetailsunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 241 methods.*
+* [`PostUsersSignInDataUnauthorized`](./src/plex_api_client/models/errors/postuserssignindataunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 241 methods.*
+* [`GetUsersUnauthorized`](./src/plex_api_client/models/errors/getusersunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 241 methods.*
+* [`GetServerResourcesUnauthorized`](./src/plex_api_client/models/errors/getserverresourcesunauthorized.py): Unauthorized - Returned if the X-Plex-Token is missing from the header or query. Status code `401`. Applicable to 1 of 241 methods.*
 * [`ResponseValidationError`](./src/plex_api_client/models/errors/responsevalidationerror.py): Type mismatch between the response data and the expected Pydantic model. Provides access to the Pydantic validation error via the `cause` attribute.
 
 </details>
+
+\* Check [the method documentation](#available-resources-and-operations) to see if the error is applicable.
 <!-- End Error Handling [errors] -->
 
 <!-- Start Server Selection [server] -->
@@ -834,6 +861,38 @@ with PlexAPI(
 
     # Handle response
     print(res.media_container_with_directory)
+
+```
+
+### Override Server URL Per-Operation
+
+The server URL can also be overridden on a per-operation basis, provided a server list was specified for the operation. For example:
+```python
+from plex_api_client import PlexAPI
+from plex_api_client.models import components
+
+
+with PlexAPI(
+    accepts=components.Accepts.APPLICATION_XML,
+    client_identifier="abc123",
+    product="Plex for Roku",
+    version="2.4.1",
+    platform="Roku",
+    platform_version="4.3 build 1057",
+    device="Roku 3",
+    model="4200X",
+    device_vendor="Roku",
+    device_name="Living Room TV",
+    marketplace="googlePlay",
+    token="<YOUR_API_KEY_HERE>",
+) as plex_api:
+
+    res = plex_api.authentication.get_token_details(request={}, server_url="https://plex.tv/api/v2")
+
+    assert res.user_plex_account is not None
+
+    # Handle response
+    print(res.user_plex_account)
 
 ```
 <!-- End Server Selection [server] -->

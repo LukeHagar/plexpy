@@ -52,11 +52,11 @@ with PlexAPI(
 
     res = plex_api.play_queue.create_play_queue(request=operations.CreatePlayQueueRequest(
         type=operations.Type.AUDIO,
-        shuffle=components.BoolInt.ONE,
-        repeat=components.BoolInt.ONE,
-        continuous=components.BoolInt.ONE,
-        recursive=components.BoolInt.ONE,
-        on_deck=components.BoolInt.ONE,
+        shuffle=components.BoolInt.TRUE,
+        repeat=components.BoolInt.TRUE,
+        continuous=components.BoolInt.TRUE,
+        recursive=components.BoolInt.TRUE,
+        on_deck=components.BoolInt.TRUE,
     ))
 
     assert res.object is not None
@@ -112,9 +112,9 @@ with PlexAPI(
 
     res = plex_api.play_queue.get_play_queue(request=operations.GetPlayQueueRequest(
         play_queue_id=210646,
-        own=components.BoolInt.ONE,
-        include_before=components.BoolInt.ONE,
-        include_after=components.BoolInt.ONE,
+        own=components.BoolInt.TRUE,
+        include_before=components.BoolInt.TRUE,
+        include_after=components.BoolInt.TRUE,
     ))
 
     assert res.media_container_with_playlist_metadata is not None
@@ -170,7 +170,7 @@ with PlexAPI(
 
     res = plex_api.play_queue.add_to_play_queue(request={
         "play_queue_id": 919248,
-        "next": components.BoolInt.ONE,
+        "next": components.BoolInt.TRUE,
     })
 
     assert res.media_container_with_playlist_metadata is not None

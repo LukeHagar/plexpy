@@ -1,0 +1,12 @@
+# Services
+
+
+## Fields
+
+| Field                                                  | Type                                                   | Required                                               | Description                                            | Example                                                |
+| ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ | ------------------------------------------------------ |
+| `identifier`                                           | *str*                                                  | :heavy_check_mark:                                     | N/A                                                    | metadata-dev                                           |
+| `endpoint`                                             | *str*                                                  | :heavy_check_mark:                                     | N/A                                                    | https://epg.provider.plex.tv                           |
+| `token`                                                | *Nullable[str]*                                        | :heavy_check_mark:                                     | N/A                                                    | DjoMtqFAGRL1uVtCyF1dKIorTbShJeqv                       |
+| `secret`                                               | *Nullable[str]*                                        | :heavy_check_mark:                                     | N/A                                                    |                                                        |
+| `status`                                               | [operations.Status](../../models/operations/status.md) | :heavy_check_mark:                                     | N/A                                                    | online                                                 |

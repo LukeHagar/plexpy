@@ -233,7 +233,7 @@ class DeleteMetadataItemRequest(BaseModel):
     proxy: Annotated[
         Optional[components_boolint.BoolInt],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Whether proxy items, such as media optimized versions, should also be deleted.  Defaults to false."""
 
 

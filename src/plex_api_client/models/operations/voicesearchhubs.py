@@ -5,6 +5,7 @@ import httpx
 from plex_api_client.models.components import (
     accepts as components_accepts,
     hub as components_hub,
+    mediatype as components_mediatype,
 )
 from plex_api_client.types import BaseModel
 from plex_api_client.utils import FieldMetadata, HeaderMetadata, QueryParamMetadata
@@ -141,8 +142,22 @@ class VoiceSearchHubsRequestTypedDict(TypedDict):
     r"""A friendly name for the client"""
     marketplace: NotRequired[str]
     r"""The marketplace on which the client application is distributed"""
-    type: NotRequired[int]
-    r"""The metadata type to filter by"""
+    type: NotRequired[components_mediatype.MediaType]
+    r"""The type of media to retrieve or filter by.
+
+    1 = movie
+    2 = show
+    3 = season
+    4 = episode
+    5 = artist
+    6 = album
+    7 = track
+    8 = photo_album
+    9 = photo
+
+    E.g. A movie library will not return anything with type 3 as there are no seasons for movie libraries
+
+    """
     limit: NotRequired[int]
     r"""The number of items to return per hub.  3 if not specified"""
 
@@ -230,10 +245,24 @@ class VoiceSearchHubsRequest(BaseModel):
     r"""The marketplace on which the client application is distributed"""
 
     type: Annotated[
-        Optional[int],
+        Optional[components_mediatype.MediaType],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
     ] = None
-    r"""The metadata type to filter by"""
+    r"""The type of media to retrieve or filter by.
+
+    1 = movie
+    2 = show
+    3 = season
+    4 = episode
+    5 = artist
+    6 = album
+    7 = track
+    8 = photo_album
+    9 = photo
+
+    E.g. A movie library will not return anything with type 3 as there are no seasons for movie libraries
+
+    """
 
     limit: Annotated[
         Optional[int],

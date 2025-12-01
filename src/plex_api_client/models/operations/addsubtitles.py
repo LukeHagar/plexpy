@@ -267,13 +267,13 @@ class AddSubtitlesRequest(BaseModel):
     forced: Annotated[
         Optional[components_boolint.BoolInt],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
 
     hearing_impaired: Annotated[
         Optional[components_boolint.BoolInt],
         pydantic.Field(alias="hearingImpaired"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
 
 
 class AddSubtitlesResponseTypedDict(TypedDict):

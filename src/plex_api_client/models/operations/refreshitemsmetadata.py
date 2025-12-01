@@ -239,7 +239,7 @@ class RefreshItemsMetadataRequest(BaseModel):
         Optional[components_boolint.BoolInt],
         pydantic.Field(alias="markUpdated"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
 
 
 class RefreshItemsMetadataResponseTypedDict(TypedDict):

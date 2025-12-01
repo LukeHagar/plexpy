@@ -249,21 +249,21 @@ class UpdateHubVisibilityRequest(BaseModel):
         Optional[components_boolint.BoolInt],
         pydantic.Field(alias="promotedToRecommended"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Whether this hub should be displayed in recommended"""
 
     promoted_to_own_home: Annotated[
         Optional[components_boolint.BoolInt],
         pydantic.Field(alias="promotedToOwnHome"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Whether this hub should be displayed in admin's home"""
 
     promoted_to_shared_home: Annotated[
         Optional[components_boolint.BoolInt],
         pydantic.Field(alias="promotedToSharedHome"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Whether this hub should be displayed in shared user's home"""
 
 

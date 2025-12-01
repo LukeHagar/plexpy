@@ -51,6 +51,7 @@ class Butler(BaseSDK):
             accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -129,6 +130,7 @@ class Butler(BaseSDK):
             accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -208,6 +210,7 @@ class Butler(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -290,6 +293,7 @@ class Butler(BaseSDK):
             accept_header_value="application/json",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -377,6 +381,7 @@ class Butler(BaseSDK):
             accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -461,6 +466,7 @@ class Butler(BaseSDK):
             accept_header_value="*/*",
             http_headers=http_headers,
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -536,7 +542,7 @@ class Butler(BaseSDK):
 
         req = self._build_request(
             method="DELETE",
-            path="/butler/{task}",
+            path="/butler/{butlerTask}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -560,6 +566,7 @@ class Butler(BaseSDK):
                 marketplace=self.sdk_configuration.globals.marketplace,
             ),
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -635,7 +642,7 @@ class Butler(BaseSDK):
 
         req = self._build_request_async(
             method="DELETE",
-            path="/butler/{task}",
+            path="/butler/{butlerTask}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -659,6 +666,7 @@ class Butler(BaseSDK):
                 marketplace=self.sdk_configuration.globals.marketplace,
             ),
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -736,7 +744,7 @@ class Butler(BaseSDK):
 
         req = self._build_request(
             method="POST",
-            path="/butler/{task}",
+            path="/butler/{butlerTask}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -760,6 +768,7 @@ class Butler(BaseSDK):
                 marketplace=self.sdk_configuration.globals.marketplace,
             ),
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -837,7 +846,7 @@ class Butler(BaseSDK):
 
         req = self._build_request_async(
             method="POST",
-            path="/butler/{task}",
+            path="/butler/{butlerTask}",
             base_url=base_url,
             url_variables=url_variables,
             request=request,
@@ -861,6 +870,7 @@ class Butler(BaseSDK):
                 marketplace=self.sdk_configuration.globals.marketplace,
             ),
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 

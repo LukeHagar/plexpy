@@ -132,7 +132,7 @@ with PlexAPI(
 
     res = plex_api.general.get_source_connection_information(request={
         "source": "server://client-identifier",
-        "refresh": components.BoolInt.ONE,
+        "refresh": components.BoolInt.TRUE,
     })
 
     assert res.object is not None

@@ -279,7 +279,7 @@ class UpdateItemsRequest(BaseModel):
         Optional[components_boolint.BoolInt],
         pydantic.Field(alias="field.locked"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Set the specified field to locked (or unlocked if set to 0)"""
 
     title_value: Annotated[

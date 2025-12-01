@@ -248,9 +248,9 @@ actions:
                     play_queue_item_id="123",
                     time=0,
                     duration=10000,
-                    continuing=components.BoolInt.ONE,
+                    continuing=components.BoolInt.TRUE,
                     updated=14200000,
-                    offline=components.BoolInt.ONE,
+                    offline=components.BoolInt.TRUE,
                     time_to_first_frame=1000,
                     time_stalled=1000,
                     bandwidth=100,
@@ -435,7 +435,7 @@ actions:
 
                 # Handle response
                 print(res)
-  - target: $["paths"]["/butler/{task}"]["delete"]
+  - target: $["paths"]["/butler/{butlerTask}"]["delete"]
     update:
       x-codeSamples:
         - lang: python
@@ -461,14 +461,14 @@ actions:
             ) as plex_api:
 
                 res = plex_api.butler.stop_task(request={
-                    "task": operations.Task.CLEAN_OLD_BUNDLES,
+                    "butler_task": operations.ButlerTask.CLEAN_OLD_BUNDLES,
                 })
 
                 assert res is not None
 
                 # Handle response
                 print(res)
-  - target: $["paths"]["/butler/{task}"]["post"]
+  - target: $["paths"]["/butler/{butlerTask}"]["post"]
     update:
       x-codeSamples:
         - lang: python
@@ -494,7 +494,7 @@ actions:
             ) as plex_api:
 
                 res = plex_api.butler.start_task(request={
-                    "task": operations.PathParamTask.REFRESH_LOCAL_MEDIA,
+                    "butler_task": operations.PathParamButlerTask.REFRESH_LOCAL_MEDIA,
                 })
 
                 assert res is not None
@@ -587,13 +587,13 @@ actions:
                     advanced_subtitles=components.AdvancedSubtitles.BURN,
                     audio_boost=50,
                     audio_channel_count=5,
-                    auto_adjust_quality=components.BoolInt.ONE,
-                    auto_adjust_subtitle=components.BoolInt.ONE,
-                    direct_play=components.BoolInt.ONE,
-                    direct_stream=components.BoolInt.ONE,
-                    direct_stream_audio=components.BoolInt.ONE,
-                    disable_resolution_rotation=components.BoolInt.ONE,
-                    has_mde=components.BoolInt.ONE,
+                    auto_adjust_quality=components.BoolInt.TRUE,
+                    auto_adjust_subtitle=components.BoolInt.TRUE,
+                    direct_play=components.BoolInt.TRUE,
+                    direct_stream=components.BoolInt.TRUE,
+                    direct_stream_audio=components.BoolInt.TRUE,
+                    disable_resolution_rotation=components.BoolInt.TRUE,
+                    has_mde=components.BoolInt.TRUE,
                     location=components.Location.WAN,
                     media_buffer_size=102400,
                     media_index=0,
@@ -856,7 +856,7 @@ actions:
             ) as plex_api:
 
                 res = plex_api.hubs.get_all_hubs(request={
-                    "only_transient": components.BoolInt.ONE,
+                    "only_transient": components.BoolInt.TRUE,
                 })
 
                 assert res.object is not None
@@ -958,7 +958,7 @@ actions:
 
                 res = plex_api.hubs.get_metadata_hubs(request={
                     "metadata_id": 605482,
-                    "only_transient": components.BoolInt.ONE,
+                    "only_transient": components.BoolInt.TRUE,
                 })
 
                 assert res.media_container_with_hubs is not None
@@ -992,7 +992,7 @@ actions:
 
                 res = plex_api.hubs.get_postplay_hubs(request={
                     "metadata_id": 441419,
-                    "only_transient": components.BoolInt.ONE,
+                    "only_transient": components.BoolInt.TRUE,
                 })
 
                 assert res.media_container_with_hubs is not None
@@ -1026,7 +1026,7 @@ actions:
 
                 res = plex_api.hubs.get_related_hubs(request={
                     "metadata_id": 8858,
-                    "only_transient": components.BoolInt.ONE,
+                    "only_transient": components.BoolInt.TRUE,
                 })
 
                 assert res.media_container_with_hubs is not None
@@ -1125,6 +1125,7 @@ actions:
 
                 res = plex_api.search.voice_search_hubs(request={
                     "query": "<value>",
+                    "type": components.MediaType.TV_SHOW,
                 })
 
                 assert res.object is not None
@@ -1158,7 +1159,7 @@ actions:
 
                 res = plex_api.hubs.get_section_hubs(request={
                     "section_id": 336924,
-                    "only_transient": components.BoolInt.ONE,
+                    "only_transient": components.BoolInt.TRUE,
                 })
 
                 assert res.object is not None
@@ -1259,9 +1260,9 @@ actions:
                 res = plex_api.hubs.create_custom_hub(request=operations.CreateCustomHubRequest(
                     section_id=869922,
                     metadata_item_id=703843,
-                    promoted_to_recommended=components.BoolInt.ONE,
-                    promoted_to_own_home=components.BoolInt.ONE,
-                    promoted_to_shared_home=components.BoolInt.ONE,
+                    promoted_to_recommended=components.BoolInt.TRUE,
+                    promoted_to_own_home=components.BoolInt.TRUE,
+                    promoted_to_shared_home=components.BoolInt.TRUE,
                 ))
 
                 assert res is not None
@@ -1364,9 +1365,9 @@ actions:
                 res = plex_api.hubs.update_hub_visibility(request=operations.UpdateHubVisibilityRequest(
                     section_id=341650,
                     identifier="<value>",
-                    promoted_to_recommended=components.BoolInt.ONE,
-                    promoted_to_own_home=components.BoolInt.ONE,
-                    promoted_to_shared_home=components.BoolInt.ONE,
+                    promoted_to_recommended=components.BoolInt.TRUE,
+                    promoted_to_own_home=components.BoolInt.TRUE,
+                    promoted_to_shared_home=components.BoolInt.TRUE,
                 ))
 
                 assert res is not None
@@ -1415,7 +1416,13 @@ actions:
                 token="<YOUR_API_KEY_HERE>",
             ) as plex_api:
 
-                res = plex_api.library.get_library_items(request={})
+                res = plex_api.library.get_library_items(request={
+                    "media_query": {
+                        "type": components.MediaType.EPISODE,
+                        "source_type": 2,
+                        "sort": "duration:desc,index",
+                    },
+                })
 
                 assert res.media_container_with_metadata is not None
 
@@ -1486,6 +1493,7 @@ actions:
 
                 res = plex_api.collections.create_collection(request={
                     "section_id": "<id>",
+                    "type": components.MediaType.TV_SHOW,
                 })
 
                 assert res.media_container_with_metadata is not None
@@ -1689,8 +1697,8 @@ actions:
                 res = plex_api.library.ingest_transient_item(request=operations.IngestTransientItemRequest(
                     url="file:///storage%2Femulated%2F0%2FArcher-S01E01.mkv",
                     virtual_file_path="/Avatar.mkv",
-                    compute_hashes=components.BoolInt.ONE,
-                    ingest_non_matches=components.BoolInt.ONE,
+                    compute_hashes=components.BoolInt.TRUE,
+                    ingest_non_matches=components.BoolInt.TRUE,
                 ))
 
                 assert res.media_container_with_metadata is not None
@@ -1723,9 +1731,10 @@ actions:
             ) as plex_api:
 
                 res = plex_api.library.get_library_matches(request=operations.GetLibraryMatchesRequest(
-                    include_full_metadata=components.BoolInt.ONE,
-                    include_ancestor_metadata=components.BoolInt.ONE,
-                    include_alternate_metadata_sources=components.BoolInt.ONE,
+                    type=components.MediaType.TV_SHOW,
+                    include_full_metadata=components.BoolInt.TRUE,
+                    include_ancestor_metadata=components.BoolInt.TRUE,
+                    include_alternate_metadata_sources=components.BoolInt.TRUE,
                 ))
 
                 assert res.media_container_with_metadata is not None
@@ -1793,7 +1802,7 @@ actions:
 
                 res = plex_api.library.get_augmentation_status(request={
                     "augmentation_id": "<id>",
-                    "wait": components.BoolInt.ONE,
+                    "wait": components.BoolInt.TRUE,
                 })
 
                 assert res is not None
@@ -1827,7 +1836,7 @@ actions:
 
                 res = plex_api.library.delete_metadata_item(request={
                     "ids": "<value>",
-                    "proxy": components.BoolInt.ONE,
+                    "proxy": components.BoolInt.TRUE,
                 })
 
                 assert res is not None
@@ -1861,14 +1870,14 @@ actions:
 
                 res = plex_api.content.get_metadata_item(request=operations.GetMetadataItemRequest(
                     ids=[],
-                    async_check_files=components.BoolInt.ONE,
-                    async_refresh_local_media_agent=components.BoolInt.ONE,
-                    async_refresh_analysis=components.BoolInt.ONE,
-                    check_files=components.BoolInt.ONE,
-                    skip_refresh=components.BoolInt.ONE,
-                    check_file_availability=components.BoolInt.ONE,
-                    async_augment_metadata=components.BoolInt.ONE,
-                    augment_count=components.BoolInt.ONE,
+                    async_check_files=components.BoolInt.TRUE,
+                    async_refresh_local_media_agent=components.BoolInt.TRUE,
+                    async_refresh_analysis=components.BoolInt.TRUE,
+                    check_files=components.BoolInt.TRUE,
+                    skip_refresh=components.BoolInt.TRUE,
+                    check_file_availability=components.BoolInt.TRUE,
+                    async_augment_metadata=components.BoolInt.TRUE,
+                    augment_count=components.BoolInt.TRUE,
                 ))
 
                 assert res.media_container_with_metadata is not None
@@ -2037,7 +2046,7 @@ actions:
 
                 res = plex_api.library.generate_thumbs(request={
                     "ids": "<value>",
-                    "force": components.BoolInt.ONE,
+                    "force": components.BoolInt.TRUE,
                 })
 
                 assert res is not None
@@ -2071,8 +2080,8 @@ actions:
 
                 res = plex_api.library.detect_credits(request=operations.DetectCreditsRequest(
                     ids="<value>",
-                    force=components.BoolInt.ONE,
-                    manual=components.BoolInt.ONE,
+                    force=components.BoolInt.TRUE,
+                    manual=components.BoolInt.TRUE,
                 ))
 
                 assert res is not None
@@ -2206,7 +2215,7 @@ actions:
 
                 res = plex_api.library.start_bif_generation(request={
                     "ids": "<value>",
-                    "force": components.BoolInt.ONE,
+                    "force": components.BoolInt.TRUE,
                 })
 
                 assert res is not None
@@ -2240,7 +2249,7 @@ actions:
 
                 res = plex_api.library.detect_intros(request={
                     "ids": "<value>",
-                    "force": components.BoolInt.ONE,
+                    "force": components.BoolInt.TRUE,
                 })
 
                 assert res is not None
@@ -2414,7 +2423,7 @@ actions:
 
                 res = plex_api.library.list_matches(request={
                     "ids": "<value>",
-                    "manual": components.BoolInt.ONE,
+                    "manual": components.BoolInt.TRUE,
                 })
 
                 assert res.media_container_with_metadata is not None
@@ -2449,7 +2458,7 @@ actions:
                 res = plex_api.library.delete_media_item(request={
                     "ids": "<value>",
                     "media_item": "<value>",
-                    "proxy": components.BoolInt.ONE,
+                    "proxy": components.BoolInt.TRUE,
                 })
 
                 assert res is not None
@@ -2582,7 +2591,7 @@ actions:
 
                 res = plex_api.library.refresh_items_metadata(request={
                     "ids": "<value>",
-                    "mark_updated": components.BoolInt.ONE,
+                    "mark_updated": components.BoolInt.TRUE,
                 })
 
                 assert res is not None
@@ -2715,8 +2724,8 @@ actions:
 
                 res = plex_api.library.add_subtitles(request=operations.AddSubtitlesRequest(
                     ids="<value>",
-                    forced=components.BoolInt.ONE,
-                    hearing_impaired=components.BoolInt.ONE,
+                    forced=components.BoolInt.TRUE,
+                    hearing_impaired=components.BoolInt.TRUE,
                 ))
 
                 assert res is not None
@@ -2849,8 +2858,8 @@ actions:
 
                 res = plex_api.library.detect_voice_activity(request=operations.DetectVoiceActivityRequest(
                     ids="<value>",
-                    force=components.BoolInt.ONE,
-                    manual=components.BoolInt.ONE,
+                    force=components.BoolInt.TRUE,
+                    manual=components.BoolInt.TRUE,
                 ))
 
                 assert res is not None
@@ -2986,7 +2995,7 @@ actions:
             ) as plex_api:
 
                 res = plex_api.library.optimize_database(request={
-                    "async_": components.BoolInt.ONE,
+                    "async_": components.BoolInt.TRUE,
                 })
 
                 assert res is not None
@@ -3020,7 +3029,7 @@ actions:
 
                 res = plex_api.library.set_stream_selection(request={
                     "part_id": 360489,
-                    "all_parts": components.BoolInt.ONE,
+                    "all_parts": components.BoolInt.TRUE,
                 })
 
                 assert res is not None
@@ -3125,7 +3134,7 @@ actions:
                     "part_id": 877105,
                     "changestamp": 970622,
                     "filename": "example.file",
-                    "download": components.BoolInt.ONE,
+                    "download": components.BoolInt.TRUE,
                 })
 
                 assert res is not None
@@ -3288,8 +3297,8 @@ actions:
                         "O:\fatboy\\Media\\My Music",
                     ],
                     prefs=operations.QueryParamPrefs(),
-                    relative=components.BoolInt.ONE,
-                    import_fromi_tunes=components.BoolInt.ONE,
+                    relative=components.BoolInt.TRUE,
+                    import_fromi_tunes=components.BoolInt.TRUE,
                 ))
 
                 assert res.slash_get_responses_200 is not None
@@ -3406,7 +3415,7 @@ actions:
 
                 res = plex_api.library.delete_library_section(request={
                     "section_id": "<id>",
-                    "async_": components.BoolInt.ONE,
+                    "async_": components.BoolInt.TRUE,
                 })
 
                 assert res is not None
@@ -3440,7 +3449,7 @@ actions:
 
                 res = plex_api.library.get_library_details(request={
                     "section_id": "<id>",
-                    "include_details": components.BoolInt.ONE,
+                    "include_details": components.BoolInt.TRUE,
                 })
 
                 assert res.object is not None
@@ -3526,7 +3535,7 @@ actions:
           label: PlexPy
           source: |-
             from plex_api_client import PlexAPI
-            from plex_api_client.models import components
+            from plex_api_client.models import components, operations
 
 
             with PlexAPI(
@@ -3544,9 +3553,16 @@ actions:
                 token="<YOUR_API_KEY_HERE>",
             ) as plex_api:
 
-                res = plex_api.content.list_content(request={
-                    "section_id": "<id>",
-                })
+                res = plex_api.content.list_content(request=operations.ListContentRequest(
+                    media_query=components.MediaQuery(
+                        type=components.MediaType.EPISODE,
+                        source_type=2,
+                        sort="duration:desc,index",
+                    ),
+                    include_meta=components.BoolInt.TRUE,
+                    include_guids=components.BoolInt.TRUE,
+                    section_id="<id>",
+                ))
 
                 assert res.media_container_with_metadata is not None
 
@@ -3579,7 +3595,7 @@ actions:
 
                 res = plex_api.library.update_items(request={
                     "section_id": "<id>",
-                    "field_locked": components.BoolInt.ONE,
+                    "field_locked": components.BoolInt.TRUE,
                 })
 
                 assert res is not None
@@ -3712,6 +3728,11 @@ actions:
 
                 res = plex_api.library.autocomplete(request={
                     "section_id": 942007,
+                    "media_query": {
+                        "type": components.MediaType.EPISODE,
+                        "source_type": 2,
+                        "sort": "duration:desc,index",
+                    },
                 })
 
                 assert res.media_container_with_metadata is not None
@@ -3845,6 +3866,11 @@ actions:
 
                 res = plex_api.library.get_collections(request={
                     "section_id": 348838,
+                    "media_query": {
+                        "type": components.MediaType.EPISODE,
+                        "source_type": 2,
+                        "sort": "duration:desc,index",
+                    },
                 })
 
                 assert res.media_container_with_metadata is not None
@@ -3878,6 +3904,11 @@ actions:
 
                 res = plex_api.library.get_common(request={
                     "section_id": 298154,
+                    "media_query": {
+                        "type": components.MediaType.EPISODE,
+                        "source_type": 2,
+                        "sort": "duration:desc,index",
+                    },
                 })
 
                 assert res.media_container_with_metadata is not None
@@ -3912,6 +3943,11 @@ actions:
                 res = plex_api.library.get_section_image(request={
                     "section_id": 925611,
                     "updated_at": 117413,
+                    "media_query": {
+                        "type": components.MediaType.EPISODE,
+                        "source_type": 2,
+                        "sort": "duration:desc,index",
+                    },
                 })
 
                 assert res is not None
@@ -4046,6 +4082,11 @@ actions:
 
                 res = plex_api.library.get_first_characters(request={
                     "section_id": 3947,
+                    "media_query": {
+                        "type": components.MediaType.EPISODE,
+                        "source_type": 2,
+                        "sort": "duration:desc,index",
+                    },
                 })
 
                 assert res.object is not None
@@ -4345,7 +4386,7 @@ actions:
 
                 res = plex_api.library.refresh_section(request={
                     "section_id": 450300,
-                    "force": components.BoolInt.ONE,
+                    "force": components.BoolInt.TRUE,
                 })
 
                 assert res is not None
@@ -4447,7 +4488,7 @@ actions:
                 res = plex_api.library.get_stream(request={
                     "stream_id": 314506,
                     "ext": "<value>",
-                    "auto_adjust_subtitle": components.BoolInt.ONE,
+                    "auto_adjust_subtitle": components.BoolInt.TRUE,
                 })
 
                 assert res is not None
@@ -4579,7 +4620,9 @@ actions:
                 token="<YOUR_API_KEY_HERE>",
             ) as plex_api:
 
-                res = plex_api.library.get_tags(request={})
+                res = plex_api.library.get_tags(request={
+                    "type": components.MediaType.TV_SHOW,
+                })
 
                 assert res.object is not None
 
@@ -5705,7 +5748,7 @@ actions:
 
                 res = plex_api.devices.modify_device(request={
                     "device_id": 879135,
-                    "enabled": components.BoolInt.ONE,
+                    "enabled": components.BoolInt.TRUE,
                 })
 
                 assert res.object is not None
@@ -6093,8 +6136,8 @@ actions:
             ) as plex_api:
 
                 res = plex_api.subscriptions.get_all_subscriptions(request=operations.GetAllSubscriptionsRequest(
-                    include_grabs=components.BoolInt.ONE,
-                    include_storage=components.BoolInt.ONE,
+                    include_grabs=components.BoolInt.TRUE,
+                    include_storage=components.BoolInt.TRUE,
                 ))
 
                 assert res.media_container_with_subscription is not None
@@ -6270,8 +6313,8 @@ actions:
 
                 res = plex_api.subscriptions.get_subscription(request=operations.GetSubscriptionRequest(
                     subscription_id=186713,
-                    include_grabs=components.BoolInt.ONE,
-                    include_storage=components.BoolInt.ONE,
+                    include_grabs=components.BoolInt.TRUE,
+                    include_storage=components.BoolInt.TRUE,
                 ))
 
                 assert res.media_container_with_subscription is not None
@@ -6373,9 +6416,9 @@ actions:
                 res = plex_api.transcoder.transcode_image(request=operations.TranscodeImageRequest(
                     url="/library/metadata/265/thumb/1715112705",
                     background="#ff5522",
-                    upscale=components.BoolInt.ONE,
-                    min_size=components.BoolInt.ONE,
-                    rotate=components.BoolInt.ONE,
+                    upscale=components.BoolInt.TRUE,
+                    min_size=components.BoolInt.TRUE,
+                    rotate=components.BoolInt.TRUE,
                     blend_color="#ff5522",
                 ))
 
@@ -6410,11 +6453,11 @@ actions:
 
                 res = plex_api.play_queue.create_play_queue(request=operations.CreatePlayQueueRequest(
                     type=operations.Type.AUDIO,
-                    shuffle=components.BoolInt.ONE,
-                    repeat=components.BoolInt.ONE,
-                    continuous=components.BoolInt.ONE,
-                    recursive=components.BoolInt.ONE,
-                    on_deck=components.BoolInt.ONE,
+                    shuffle=components.BoolInt.TRUE,
+                    repeat=components.BoolInt.TRUE,
+                    continuous=components.BoolInt.TRUE,
+                    recursive=components.BoolInt.TRUE,
+                    on_deck=components.BoolInt.TRUE,
                 ))
 
                 assert res.object is not None
@@ -6448,9 +6491,9 @@ actions:
 
                 res = plex_api.play_queue.get_play_queue(request=operations.GetPlayQueueRequest(
                     play_queue_id=210646,
-                    own=components.BoolInt.ONE,
-                    include_before=components.BoolInt.ONE,
-                    include_after=components.BoolInt.ONE,
+                    own=components.BoolInt.TRUE,
+                    include_before=components.BoolInt.TRUE,
+                    include_after=components.BoolInt.TRUE,
                 ))
 
                 assert res.media_container_with_playlist_metadata is not None
@@ -6484,7 +6527,7 @@ actions:
 
                 res = plex_api.play_queue.add_to_play_queue(request={
                     "play_queue_id": 919248,
-                    "next": components.BoolInt.ONE,
+                    "next": components.BoolInt.TRUE,
                 })
 
                 assert res.media_container_with_playlist_metadata is not None
@@ -6780,7 +6823,7 @@ actions:
 
                 res = plex_api.library_playlists.upload_playlist(request={
                     "path": "/home/barkley/playlist.m3u",
-                    "force": components.BoolInt.ONE,
+                    "force": components.BoolInt.TRUE,
                 })
 
                 assert res is not None
@@ -7121,7 +7164,6 @@ actions:
                         "location_id": -1,
                         "policy": {
                             "scope": operations.QueryParamScope.ALL,
-                            "unwatched": components.BoolInt.ZERO,
                         },
                         "target": "",
                         "target_tag_id": 1,
@@ -7238,6 +7280,32 @@ actions:
 
                 # Handle response
                 print(res.media_container_with_playlist_metadata)
+  - target: $["paths"]["/resources"]["get"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: PlexPy
+          source: |-
+            from plex_api_client import PlexAPI
+            from plex_api_client.models import components, operations
+
+
+            with PlexAPI(
+                accepts=components.Accepts.APPLICATION_XML,
+                client_identifier="abc123",
+                token="<YOUR_API_KEY_HERE>",
+            ) as plex_api:
+
+                res = plex_api.plex.get_server_resources(request={
+                    "include_https": operations.IncludeHTTPS.TRUE,
+                    "include_relay": operations.IncludeRelay.TRUE,
+                    "include_i_pv6": operations.IncludeIPv6.TRUE,
+                })
+
+                assert res.plex_devices is not None
+
+                # Handle response
+                print(res.plex_devices)
   - target: $["paths"]["/security/resources"]["get"]
     update:
       x-codeSamples:
@@ -7265,7 +7333,7 @@ actions:
 
                 res = plex_api.general.get_source_connection_information(request={
                     "source": "<value>",
-                    "refresh": components.BoolInt.ONE,
+                    "refresh": components.BoolInt.TRUE,
                 })
 
                 assert res.object is not None
@@ -7371,7 +7439,7 @@ actions:
                     "bottom_left": "1c425d",
                     "width": 1920,
                     "height": 1080,
-                    "noise": components.BoolInt.ONE,
+                    "noise": components.BoolInt.TRUE,
                 })
 
                 assert res.response_stream is not None
@@ -7599,8 +7667,8 @@ actions:
             ) as plex_api:
 
                 res = plex_api.updater.apply_updates(request=operations.ApplyUpdatesRequest(
-                    tonight=components.BoolInt.ONE,
-                    skip=components.BoolInt.ONE,
+                    tonight=components.BoolInt.TRUE,
+                    skip=components.BoolInt.TRUE,
                 ))
 
                 assert res is not None
@@ -7633,7 +7701,7 @@ actions:
             ) as plex_api:
 
                 res = plex_api.updater.check_updates(request={
-                    "download": components.BoolInt.ONE,
+                    "download": components.BoolInt.TRUE,
                 })
 
                 assert res is not None
@@ -7659,6 +7727,104 @@ actions:
 
                 # Handle response
                 print(res.object)
+  - target: $["paths"]["/user"]["get"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: PlexPy
+          source: |-
+            from plex_api_client import PlexAPI
+            from plex_api_client.models import components
+
+
+            with PlexAPI(
+                accepts=components.Accepts.APPLICATION_XML,
+                client_identifier="abc123",
+                product="Plex for Roku",
+                version="2.4.1",
+                platform="Roku",
+                platform_version="4.3 build 1057",
+                device="Roku 3",
+                model="4200X",
+                device_vendor="Roku",
+                device_name="Living Room TV",
+                marketplace="googlePlay",
+                token="<YOUR_API_KEY_HERE>",
+            ) as plex_api:
+
+                res = plex_api.authentication.get_token_details(request={})
+
+                assert res.user_plex_account is not None
+
+                # Handle response
+                print(res.user_plex_account)
+  - target: $["paths"]["/users"]["get"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: PlexPy
+          source: |-
+            from plex_api_client import PlexAPI
+            from plex_api_client.models import components
+
+
+            with PlexAPI(
+                accepts=components.Accepts.APPLICATION_XML,
+                client_identifier="abc123",
+                product="Plex for Roku",
+                version="2.4.1",
+                platform="Roku",
+                platform_version="4.3 build 1057",
+                device="Roku 3",
+                model="4200X",
+                device_vendor="Roku",
+                device_name="Living Room TV",
+                marketplace="googlePlay",
+                token="<YOUR_API_KEY_HERE>",
+            ) as plex_api:
+
+                res = plex_api.users.get_users(request={})
+
+                assert res.object is not None
+
+                # Handle response
+                print(res.object)
+  - target: $["paths"]["/users/signin"]["post"]
+    update:
+      x-codeSamples:
+        - lang: python
+          label: PlexPy
+          source: |-
+            from plex_api_client import PlexAPI
+            from plex_api_client.models import components
+
+
+            with PlexAPI(
+                accepts=components.Accepts.APPLICATION_XML,
+                client_identifier="abc123",
+                product="Plex for Roku",
+                version="2.4.1",
+                platform="Roku",
+                platform_version="4.3 build 1057",
+                device="Roku 3",
+                model="4200X",
+                device_vendor="Roku",
+                device_name="Living Room TV",
+                marketplace="googlePlay",
+            ) as plex_api:
+
+                res = plex_api.authentication.post_users_sign_in_data(request={
+                    "request_body": {
+                        "login": "username@email.com",
+                        "password": "password123",
+                        "verification_code": "123456",
+                    },
+                })
+
+                assert res.user_plex_account is not None
+
+                # Handle response
+                print(res.user_plex_account)
   - target: $["paths"]["/{transcodeType}/:/transcode/universal/decision"]["get"]
     update:
       x-codeSamples:
@@ -7689,13 +7855,13 @@ actions:
                     advanced_subtitles=components.AdvancedSubtitles.BURN,
                     audio_boost=50,
                     audio_channel_count=5,
-                    auto_adjust_quality=components.BoolInt.ONE,
-                    auto_adjust_subtitle=components.BoolInt.ONE,
-                    direct_play=components.BoolInt.ONE,
-                    direct_stream=components.BoolInt.ONE,
-                    direct_stream_audio=components.BoolInt.ONE,
-                    disable_resolution_rotation=components.BoolInt.ONE,
-                    has_mde=components.BoolInt.ONE,
+                    auto_adjust_quality=components.BoolInt.TRUE,
+                    auto_adjust_subtitle=components.BoolInt.TRUE,
+                    direct_play=components.BoolInt.TRUE,
+                    direct_stream=components.BoolInt.TRUE,
+                    direct_stream_audio=components.BoolInt.TRUE,
+                    disable_resolution_rotation=components.BoolInt.TRUE,
+                    has_mde=components.BoolInt.TRUE,
                     location=operations.Location.WAN,
                     media_buffer_size=102400,
                     media_index=0,
@@ -7783,13 +7949,13 @@ actions:
                     advanced_subtitles=components.AdvancedSubtitles.BURN,
                     audio_boost=50,
                     audio_channel_count=5,
-                    auto_adjust_quality=components.BoolInt.ONE,
-                    auto_adjust_subtitle=components.BoolInt.ONE,
-                    direct_play=components.BoolInt.ONE,
-                    direct_stream=components.BoolInt.ONE,
-                    direct_stream_audio=components.BoolInt.ONE,
-                    disable_resolution_rotation=components.BoolInt.ONE,
-                    has_mde=components.BoolInt.ONE,
+                    auto_adjust_quality=components.BoolInt.TRUE,
+                    auto_adjust_subtitle=components.BoolInt.TRUE,
+                    direct_play=components.BoolInt.TRUE,
+                    direct_stream=components.BoolInt.TRUE,
+                    direct_stream_audio=components.BoolInt.TRUE,
+                    disable_resolution_rotation=components.BoolInt.TRUE,
+                    has_mde=components.BoolInt.TRUE,
                     location=operations.StartTranscodeSessionQueryParamLocation.WAN,
                     media_buffer_size=102400,
                     media_index=0,
@@ -7843,13 +8009,13 @@ actions:
                     advanced_subtitles=components.AdvancedSubtitles.BURN,
                     audio_boost=50,
                     audio_channel_count=5,
-                    auto_adjust_quality=components.BoolInt.ONE,
-                    auto_adjust_subtitle=components.BoolInt.ONE,
-                    direct_play=components.BoolInt.ONE,
-                    direct_stream=components.BoolInt.ONE,
-                    direct_stream_audio=components.BoolInt.ONE,
-                    disable_resolution_rotation=components.BoolInt.ONE,
-                    has_mde=components.BoolInt.ONE,
+                    auto_adjust_quality=components.BoolInt.TRUE,
+                    auto_adjust_subtitle=components.BoolInt.TRUE,
+                    direct_play=components.BoolInt.TRUE,
+                    direct_stream=components.BoolInt.TRUE,
+                    direct_stream_audio=components.BoolInt.TRUE,
+                    disable_resolution_rotation=components.BoolInt.TRUE,
+                    has_mde=components.BoolInt.TRUE,
                     location=operations.QueryParamLocation.WAN,
                     media_buffer_size=102400,
                     media_index=0,

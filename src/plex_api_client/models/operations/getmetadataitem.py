@@ -249,56 +249,56 @@ class GetMetadataItemRequest(BaseModel):
         Optional[components_boolint.BoolInt],
         pydantic.Field(alias="asyncCheckFiles"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Determines if file check should be performed asynchronously.  An activity is created to indicate progress.  Default is false."""
 
     async_refresh_local_media_agent: Annotated[
         Optional[components_boolint.BoolInt],
         pydantic.Field(alias="asyncRefreshLocalMediaAgent"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Determines if local media agent refresh should be performed asynchronously.  An activity is created to indicate progress.  Default is false."""
 
     async_refresh_analysis: Annotated[
         Optional[components_boolint.BoolInt],
         pydantic.Field(alias="asyncRefreshAnalysis"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Determines if analysis refresh should be performed asynchronously.  An activity is created to indicate progress.  Default is false."""
 
     check_files: Annotated[
         Optional[components_boolint.BoolInt],
         pydantic.Field(alias="checkFiles"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Determines if file check should be performed synchronously.  Specifying `asyncCheckFiles` will cause this option to be ignored.  Default is false."""
 
     skip_refresh: Annotated[
         Optional[components_boolint.BoolInt],
         pydantic.Field(alias="skipRefresh"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Determines if synchronous local media agent and analysis refresh should be skipped.  Specifying async versions will cause synchronous versions to be skipped.  Default is false."""
 
     check_file_availability: Annotated[
         Optional[components_boolint.BoolInt],
         pydantic.Field(alias="checkFileAvailability"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Determines if file existence check should be performed synchronously.  Specifying `checkFiles` will imply this option.  Default is false."""
 
     async_augment_metadata: Annotated[
         Optional[components_boolint.BoolInt],
         pydantic.Field(alias="asyncAugmentMetadata"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Add metadata augmentations.  An activity is created to indicate progress.  Option will be ignored if specified by non-admin or if multiple metadata items are requested.  Default is false."""
 
     augment_count: Annotated[
         Optional[components_boolint.BoolInt],
         pydantic.Field(alias="augmentCount"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Number of augmentations to add.  Requires `asyncAugmentMetadata` to be specified."""
 
 

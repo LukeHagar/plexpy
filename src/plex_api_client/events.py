@@ -77,6 +77,7 @@ class Events(BaseSDK):
                 marketplace=self.sdk_configuration.globals.marketplace,
             ),
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -181,6 +182,7 @@ class Events(BaseSDK):
                 marketplace=self.sdk_configuration.globals.marketplace,
             ),
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -285,6 +287,7 @@ class Events(BaseSDK):
                 marketplace=self.sdk_configuration.globals.marketplace,
             ),
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 
@@ -389,6 +392,7 @@ class Events(BaseSDK):
                 marketplace=self.sdk_configuration.globals.marketplace,
             ),
             security=self.sdk_configuration.security,
+            allow_empty_value=None,
             timeout_ms=timeout_ms,
         )
 

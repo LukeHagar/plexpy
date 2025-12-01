@@ -1,13 +1,31 @@
 # ButlerTask
 
+The task name
 
-## Fields
 
-| Field                                                                                                  | Type                                                                                                   | Required                                                                                               | Description                                                                                            |
-| ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------ |
-| `description`                                                                                          | *Optional[str]*                                                                                        | :heavy_minus_sign:                                                                                     | A user-friendly description of the task                                                                |
-| `enabled`                                                                                              | *Optional[bool]*                                                                                       | :heavy_minus_sign:                                                                                     | Whether this task is enabled or not                                                                    |
-| `interval`                                                                                             | *Optional[int]*                                                                                        | :heavy_minus_sign:                                                                                     | The interval (in days) of when this task is run.  A value of 1 is run every day, 7 is every week, etc. |
-| `name`                                                                                                 | *Optional[str]*                                                                                        | :heavy_minus_sign:                                                                                     | The name of the task                                                                                   |
-| `schedule_randomized`                                                                                  | *Optional[bool]*                                                                                       | :heavy_minus_sign:                                                                                     | Indicates whether the timing of the task is randomized within the butler interval                      |
-| `title`                                                                                                | *Optional[str]*                                                                                        | :heavy_minus_sign:                                                                                     | A user-friendly title of the task                                                                      |
+## Values
+
+| Name                                   | Value                                  |
+| -------------------------------------- | -------------------------------------- |
+| `AUTOMATIC_UPDATES`                    | AutomaticUpdates                       |
+| `BACKUP_DATABASE`                      | BackupDatabase                         |
+| `BUTLER_TASK_GENERATE_AD_MARKERS`      | ButlerTaskGenerateAdMarkers            |
+| `BUTLER_TASK_GENERATE_CREDITS_MARKERS` | ButlerTaskGenerateCreditsMarkers       |
+| `BUTLER_TASK_GENERATE_INTRO_MARKERS`   | ButlerTaskGenerateIntroMarkers         |
+| `BUTLER_TASK_GENERATE_VOICE_ACTIVITY`  | ButlerTaskGenerateVoiceActivity        |
+| `CLEAN_OLD_BUNDLES`                    | CleanOldBundles                        |
+| `CLEAN_OLD_CACHE_FILES`                | CleanOldCacheFiles                     |
+| `DEEP_MEDIA_ANALYSIS`                  | DeepMediaAnalysis                      |
+| `GARBAGE_COLLECT_BLOBS`                | GarbageCollectBlobs                    |
+| `GARBAGE_COLLECT_LIBRARY_MEDIA`        | GarbageCollectLibraryMedia             |
+| `GENERATE_BLUR_HASHES`                 | GenerateBlurHashes                     |
+| `GENERATE_CHAPTER_THUMBS`              | GenerateChapterThumbs                  |
+| `GENERATE_MEDIA_INDEX_FILES`           | GenerateMediaIndexFiles                |
+| `LOUDNESS_ANALYSIS`                    | LoudnessAnalysis                       |
+| `MUSIC_ANALYSIS`                       | MusicAnalysis                          |
+| `OPTIMIZE_DATABASE`                    | OptimizeDatabase                       |
+| `REFRESH_EPG_GUIDES`                   | RefreshEpgGuides                       |
+| `REFRESH_LIBRARIES`                    | RefreshLibraries                       |
+| `REFRESH_LOCAL_MEDIA`                  | RefreshLocalMedia                      |
+| `REFRESH_PERIODIC_METADATA`            | RefreshPeriodicMetadata                |
+| `UPGRADE_MEDIA_ANALYSIS`               | UpgradeMediaAnalysis                   |

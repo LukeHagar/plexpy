@@ -223,7 +223,7 @@ class CheckUpdatesRequest(BaseModel):
     download: Annotated[
         Optional[components_boolint.BoolInt],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Indicate that you want to start download any updates found."""
 
 

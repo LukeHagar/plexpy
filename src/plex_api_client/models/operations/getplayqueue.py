@@ -246,7 +246,7 @@ class GetPlayQueueRequest(BaseModel):
     own: Annotated[
         Optional[components_boolint.BoolInt],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""If the server should transfer ownership to the requesting client (used in remote control scenarios)."""
 
     center: Annotated[
@@ -265,14 +265,14 @@ class GetPlayQueueRequest(BaseModel):
         Optional[components_boolint.BoolInt],
         pydantic.Field(alias="includeBefore"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Whether to include the items before the center (if 0, center is not included either), defaults to 1."""
 
     include_after: Annotated[
         Optional[components_boolint.BoolInt],
         pydantic.Field(alias="includeAfter"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Whether to include the items after the center (if 0, center is not included either), defaults to 1."""
 
 

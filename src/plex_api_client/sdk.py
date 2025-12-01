@@ -17,6 +17,7 @@ import weakref
 
 if TYPE_CHECKING:
     from plex_api_client.activities import Activities
+    from plex_api_client.authentication import Authentication
     from plex_api_client.butler import Butler
     from plex_api_client.collections import Collections
     from plex_api_client.content import Content
@@ -34,6 +35,7 @@ if TYPE_CHECKING:
     from plex_api_client.log import Log
     from plex_api_client.play_queue import PlayQueue
     from plex_api_client.playlist import Playlist
+    from plex_api_client.plex import Plex
     from plex_api_client.preferences import Preferences
     from plex_api_client.provider import Provider
     from plex_api_client.rate import Rate
@@ -44,6 +46,7 @@ if TYPE_CHECKING:
     from plex_api_client.transcoder import Transcoder
     from plex_api_client.ultrablur import UltraBlur
     from plex_api_client.updater import Updater
+    from plex_api_client.users import Users
 
 
 class PlexAPI(BaseSDK):
@@ -161,6 +164,9 @@ class PlexAPI(BaseSDK):
     Updates to the status can be observed via the Event API.
 
     """
+    authentication: "Authentication"
+    users: "Users"
+    plex: "Plex"
     content: "Content"
     r"""The actual content of the media provider"""
     library_collections: "LibraryCollections"
@@ -192,6 +198,9 @@ class PlexAPI(BaseSDK):
         "ultra_blur": ("plex_api_client.ultrablur", "UltraBlur"),
         "status": ("plex_api_client.status", "Status"),
         "updater": ("plex_api_client.updater", "Updater"),
+        "authentication": ("plex_api_client.authentication", "Authentication"),
+        "users": ("plex_api_client.users", "Users"),
+        "plex": ("plex_api_client.plex", "Plex"),
         "content": ("plex_api_client.content", "Content"),
         "library_collections": (
             "plex_api_client.library_collections",

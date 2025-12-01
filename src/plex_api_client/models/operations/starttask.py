@@ -114,7 +114,7 @@ class StartTaskGlobals(BaseModel):
     r"""The marketplace on which the client application is distributed"""
 
 
-class PathParamTask(str, Enum):
+class PathParamButlerTask(str, Enum):
     r"""The task name"""
 
     AUTOMATIC_UPDATES = "AutomaticUpdates"
@@ -142,7 +142,7 @@ class PathParamTask(str, Enum):
 
 
 class StartTaskRequestTypedDict(TypedDict):
-    task: PathParamTask
+    butler_task: PathParamButlerTask
     r"""The task name"""
     accepts: NotRequired[components_accepts.Accepts]
     r"""Indicates the client accepts the indicated media types"""
@@ -169,8 +169,9 @@ class StartTaskRequestTypedDict(TypedDict):
 
 
 class StartTaskRequest(BaseModel):
-    task: Annotated[
-        PathParamTask,
+    butler_task: Annotated[
+        PathParamButlerTask,
+        pydantic.Field(alias="butlerTask"),
         FieldMetadata(path=PathParamMetadata(style="simple", explode=False)),
     ]
     r"""The task name"""

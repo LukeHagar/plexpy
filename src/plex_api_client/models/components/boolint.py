@@ -5,5 +5,5 @@ from enum import Enum
 
 
 class BoolInt(int, Enum):
-    ZERO = 0
-    ONE = 1
+    FALSE = 0
+    TRUE = 1

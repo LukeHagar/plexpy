@@ -299,7 +299,7 @@ class ReportRequest(BaseModel):
     continuing: Annotated[
         Optional[components_boolint.BoolInt],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""When state is `stopped`, a flag indicating whether or not the client is going to continue playing anothe item."""
 
     updated: Annotated[
@@ -311,7 +311,7 @@ class ReportRequest(BaseModel):
     offline: Annotated[
         Optional[components_boolint.BoolInt],
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Also used by sync clients, used to indicate that a timeline is being synced from being offline, as opposed to being \"live\"."""
 
     time_to_first_frame: Annotated[

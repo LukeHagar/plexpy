@@ -41,8 +41,8 @@ with PlexAPI(
 ) as plex_api:
 
     res = plex_api.updater.apply_updates(request=operations.ApplyUpdatesRequest(
-        tonight=components.BoolInt.ONE,
-        skip=components.BoolInt.ONE,
+        tonight=components.BoolInt.TRUE,
+        skip=components.BoolInt.TRUE,
     ))
 
     assert res is not None
@@ -97,7 +97,7 @@ with PlexAPI(
 ) as plex_api:
 
     res = plex_api.updater.check_updates(request={
-        "download": components.BoolInt.ONE,
+        "download": components.BoolInt.TRUE,
     })
 
     assert res is not None

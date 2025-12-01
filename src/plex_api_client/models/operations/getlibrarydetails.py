@@ -239,7 +239,7 @@ class GetLibraryDetailsRequest(BaseModel):
         Optional[components_boolint.BoolInt],
         pydantic.Field(alias="includeDetails"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Whether or not to include details for a section (types, filters, and sorts). Only exists for backwards compatibility, media providers other than the server libraries have it on always."""
 
 

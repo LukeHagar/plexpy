@@ -8,7 +8,7 @@ from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
-class ButlerTaskTypedDict(TypedDict):
+class GetTasksButlerTaskTypedDict(TypedDict):
     description: NotRequired[str]
     r"""A user-friendly description of the task"""
     enabled: NotRequired[bool]
@@ -23,7 +23,7 @@ class ButlerTaskTypedDict(TypedDict):
     r"""A user-friendly title of the task"""
 
 
-class ButlerTask(BaseModel):
+class GetTasksButlerTask(BaseModel):
     description: Optional[str] = None
     r"""A user-friendly description of the task"""
 
@@ -46,12 +46,12 @@ class ButlerTask(BaseModel):
 
 
 class ButlerTasksTypedDict(TypedDict):
-    butler_task: NotRequired[List[ButlerTaskTypedDict]]
+    butler_task: NotRequired[List[GetTasksButlerTaskTypedDict]]
 
 
 class ButlerTasks(BaseModel):
     butler_task: Annotated[
-        Optional[List[ButlerTask]], pydantic.Field(alias="ButlerTask")
+        Optional[List[GetTasksButlerTask]], pydantic.Field(alias="ButlerTask")
     ] = None
 
 

@@ -328,49 +328,49 @@ class AddDownloadQueueItemsRequest(BaseModel):
         Optional[components_boolint.BoolInt],
         pydantic.Field(alias="autoAdjustQuality"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Indicates the client supports ABR."""
 
     auto_adjust_subtitle: Annotated[
         Optional[components_boolint.BoolInt],
         pydantic.Field(alias="autoAdjustSubtitle"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Indicates if the server should adjust subtitles based on Voice Activity Data."""
 
     direct_play: Annotated[
         Optional[components_boolint.BoolInt],
         pydantic.Field(alias="directPlay"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Indicates the client supports direct playing the indicated content."""
 
     direct_stream: Annotated[
         Optional[components_boolint.BoolInt],
         pydantic.Field(alias="directStream"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Indicates the client supports direct streaming the video of the indicated content."""
 
     direct_stream_audio: Annotated[
         Optional[components_boolint.BoolInt],
         pydantic.Field(alias="directStreamAudio"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Indicates the client supports direct streaming the audio of the indicated content."""
 
     disable_resolution_rotation: Annotated[
         Optional[components_boolint.BoolInt],
         pydantic.Field(alias="disableResolutionRotation"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Indicates if resolution should be adjusted for orientation."""
 
     has_mde: Annotated[
         Optional[components_boolint.BoolInt],
         pydantic.Field(alias="hasMDE"),
         FieldMetadata(query=QueryParamMetadata(style="form", explode=True)),
-    ] = None
+    ] = components_boolint.BoolInt.FALSE
     r"""Ignore client profiles when determining if direct play is possible. Only has an effect when directPlay=1 and both mediaIndex and partIndex are specified and neither are -1"""
 
     location: Annotated[
