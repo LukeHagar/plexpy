@@ -11,6 +11,7 @@ class ImageType(str, Enum):
     r"""Describes both the purpose and intended presentation of the image."""
 
     BACKGROUND = "background"
+    BACKGROUND_SQUARE = "backgroundSquare"
     BANNER = "banner"
     CLEAR_LOGO = "clearLogo"
     COVER_POSTER = "coverPoster"

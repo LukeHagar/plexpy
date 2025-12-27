@@ -26,7 +26,6 @@ class GetUsersUsersErrors(BaseModel):
 
 class GetUsersUnauthorizedData(BaseModel):
     errors: Optional[List[GetUsersUsersErrors]] = None
-
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
         None
     )
@@ -66,7 +65,6 @@ class GetUsersErrors(BaseModel):
 
 class GetUsersBadRequestData(BaseModel):
     errors: Optional[List[GetUsersErrors]] = None
-
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
         None
     )

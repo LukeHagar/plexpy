@@ -1,5 +1,4 @@
 # Library
-(*library*)
 
 ## Overview
 
@@ -537,8 +536,8 @@ with PlexAPI(
         agent="<value>",
         language="<value>",
         locations=[
-            "O:\fatboy\\Media\\Ripped\\Music",
-            "O:\fatboy\\Media\\My Music",
+            "O:\\fatboy\\Media\\Ripped\\Music",
+            "O:\\fatboy\\Media\\My Music",
         ],
         prefs=operations.QueryParamPrefs(),
         relative=components.BoolInt.TRUE,
@@ -2641,8 +2640,8 @@ with PlexAPI(
         "section_id": "<id>",
         "agent": "<value>",
         "locations": [
-            "O:\fatboy\\Media\\Ripped\\Music",
-            "O:\fatboy\\Media\\My Music",
+            "O:\\fatboy\\Media\\Ripped\\Music",
+            "O:\\fatboy\\Media\\My Music",
         ],
         "prefs": {},
     })

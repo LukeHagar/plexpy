@@ -249,17 +249,17 @@ asyncio.run(main())
 <details open>
 <summary>Available methods</summary>
 
-### [activities](docs/sdks/activities/README.md)
+### [Activities](docs/sdks/activities/README.md)
 
 * [list_activities](docs/sdks/activities/README.md#list_activities) - Get all activities
 * [cancel_activity](docs/sdks/activities/README.md#cancel_activity) - Cancel a running activity
 
-### [authentication](docs/sdks/authentication/README.md)
+### [Authentication](docs/sdks/authentication/README.md)
 
 * [get_token_details](docs/sdks/authentication/README.md#get_token_details) - Get Token Details
 * [post_users_sign_in_data](docs/sdks/authentication/README.md#post_users_sign_in_data) - Get User Sign In Data
 
-### [butler](docs/sdks/butler/README.md)
+### [Butler](docs/sdks/butler/README.md)
 
 * [stop_tasks](docs/sdks/butler/README.md#stop_tasks) - Stop all Butler tasks
 * [get_tasks](docs/sdks/butler/README.md#get_tasks) - Get all Butler tasks
@@ -267,11 +267,11 @@ asyncio.run(main())
 * [stop_task](docs/sdks/butler/README.md#stop_task) - Stop a single Butler task
 * [start_task](docs/sdks/butler/README.md#start_task) - Start a single Butler task
 
-### [collections](docs/sdks/collections/README.md)
+### [Collections](docs/sdks/collections/README.md)
 
 * [create_collection](docs/sdks/collections/README.md#create_collection) - Create collection
 
-### [content](docs/sdks/content/README.md)
+### [Content](docs/sdks/content/README.md)
 
 * [get_collection_items](docs/sdks/content/README.md#get_collection_items) - Get items in a collection
 * [get_metadata_item](docs/sdks/content/README.md#get_metadata_item) - Get a metadata item
@@ -287,7 +287,7 @@ asyncio.run(main())
 * [get_sonically_similar](docs/sdks/content/README.md#get_sonically_similar) - The nearest audio tracks
 * [get_collection_image](docs/sdks/content/README.md#get_collection_image) - Get a collection's image
 
-### [devices](docs/sdks/devices/README.md)
+### [Devices](docs/sdks/devices/README.md)
 
 * [get_available_grabbers](docs/sdks/devices/README.md#get_available_grabbers) - Get available grabbers
 * [list_devices](docs/sdks/devices/README.md#list_devices) - Get all devices
@@ -303,7 +303,7 @@ asyncio.run(main())
 * [scan](docs/sdks/devices/README.md#scan) - Tell a device to scan for channels
 * [get_thumb](docs/sdks/devices/README.md#get_thumb) - Get device thumb
 
-### [download_queue](docs/sdks/downloadqueue/README.md)
+### [DownloadQueue](docs/sdks/downloadqueue/README.md)
 
 * [create_download_queue](docs/sdks/downloadqueue/README.md#create_download_queue) - Create download queue
 * [get_download_queue](docs/sdks/downloadqueue/README.md#get_download_queue) - Get a download queue
@@ -315,7 +315,7 @@ asyncio.run(main())
 * [get_download_queue_items](docs/sdks/downloadqueue/README.md#get_download_queue_items) - Get download queue items
 * [restart_processing_download_queue_items](docs/sdks/downloadqueue/README.md#restart_processing_download_queue_items) - Restart processing of items from the decision
 
-### [dv_rs](docs/sdks/dvrs/README.md)
+### [DVRs](docs/sdks/dvrs/README.md)
 
 * [list_dv_rs](docs/sdks/dvrs/README.md#list_dv_rs) - Get DVRs
 * [create_dvr](docs/sdks/dvrs/README.md#create_dvr) - Create a DVR
@@ -330,7 +330,7 @@ asyncio.run(main())
 * [remove_device_from_dvr](docs/sdks/dvrs/README.md#remove_device_from_dvr) - Remove a device from an existing DVR
 * [add_device_to_dvr](docs/sdks/dvrs/README.md#add_device_to_dvr) - Add a device to an existing DVR
 
-### [epg](docs/sdks/epg/README.md)
+### [Epg](docs/sdks/epg/README.md)
 
 * [compute_channel_map](docs/sdks/epg/README.md#compute_channel_map) - Compute the best channel map
 * [get_channels](docs/sdks/epg/README.md#get_channels) - Get channels for a lineup
@@ -342,19 +342,19 @@ asyncio.run(main())
 * [get_country_regions](docs/sdks/epg/README.md#get_country_regions) - Get regions for a country
 * [list_lineups](docs/sdks/epg/README.md#list_lineups) - Get lineups for a region
 
-### [events](docs/sdks/events/README.md)
+### [Events](docs/sdks/events/README.md)
 
 * [get_notifications](docs/sdks/events/README.md#get_notifications) - Connect to Eventsource
 * [connect_web_socket](docs/sdks/events/README.md#connect_web_socket) - Connect to WebSocket
 
-### [general](docs/sdks/general/README.md)
+### [General](docs/sdks/general/README.md)
 
 * [get_server_info](docs/sdks/general/README.md#get_server_info) - Get PMS info
 * [get_identity](docs/sdks/general/README.md#get_identity) - Get PMS identity
 * [get_source_connection_information](docs/sdks/general/README.md#get_source_connection_information) - Get Source Connection Information
 * [get_transient_token](docs/sdks/general/README.md#get_transient_token) - Get Transient Tokens
 
-### [hubs](docs/sdks/hubs/README.md)
+### [Hubs](docs/sdks/hubs/README.md)
 
 * [get_all_hubs](docs/sdks/hubs/README.md#get_all_hubs) - Get global hubs
 * [get_continue_watching](docs/sdks/hubs/README.md#get_continue_watching) - Get the continue watching hub
@@ -371,7 +371,7 @@ asyncio.run(main())
 * [delete_custom_hub](docs/sdks/hubs/README.md#delete_custom_hub) - Delete a custom hub
 * [update_hub_visibility](docs/sdks/hubs/README.md#update_hub_visibility) - Change hub visibility
 
-### [library](docs/sdks/library/README.md)
+### [Library](docs/sdks/library/README.md)
 
 * [get_library_items](docs/sdks/library/README.md#get_library_items) - Get all items in library
 * [delete_caches](docs/sdks/library/README.md#delete_caches) - Delete library caches
@@ -453,13 +453,13 @@ asyncio.run(main())
 * [get_media_part](docs/sdks/library/README.md#get_media_part) - Get a media part
 * [get_image_from_bif](docs/sdks/library/README.md#get_image_from_bif) - Get an image from part BIF
 
-### [library_collections](docs/sdks/librarycollections/README.md)
+### [LibraryCollections](docs/sdks/librarycollections/README.md)
 
 * [add_collection_items](docs/sdks/librarycollections/README.md#add_collection_items) - Add items to a collection
 * [delete_collection_item](docs/sdks/librarycollections/README.md#delete_collection_item) - Delete an item from a collection
 * [move_collection_item](docs/sdks/librarycollections/README.md#move_collection_item) - Reorder an item in the collection
 
-### [library_playlists](docs/sdks/libraryplaylists/README.md)
+### [LibraryPlaylists](docs/sdks/libraryplaylists/README.md)
 
 * [create_playlist](docs/sdks/libraryplaylists/README.md#create_playlist) - Create a Playlist
 * [upload_playlist](docs/sdks/libraryplaylists/README.md#upload_playlist) - Upload
@@ -475,20 +475,20 @@ asyncio.run(main())
 * [move_playlist_item](docs/sdks/libraryplaylists/README.md#move_playlist_item) - Moving items in a playlist
 * [refresh_playlist](docs/sdks/libraryplaylists/README.md#refresh_playlist) - Reprocess a generator
 
-### [live_tv](docs/sdks/livetv/README.md)
+### [LiveTV](docs/sdks/livetv/README.md)
 
 * [get_sessions](docs/sdks/livetv/README.md#get_sessions) - Get all sessions
 * [get_live_tv_session](docs/sdks/livetv/README.md#get_live_tv_session) - Get a single session
 * [get_session_playlist_index](docs/sdks/livetv/README.md#get_session_playlist_index) - Get a session playlist index
 * [get_session_segment](docs/sdks/livetv/README.md#get_session_segment) - Get a single session segment
 
-### [log](docs/sdks/log/README.md)
+### [Log](docs/sdks/log/README.md)
 
 * [write_log](docs/sdks/log/README.md#write_log) - Logging a multi-line message to the Plex Media Server log
 * [write_message](docs/sdks/log/README.md#write_message) - Logging a single-line message to the Plex Media Server log
 * [enable_papertrail](docs/sdks/log/README.md#enable_papertrail) - Enabling Papertrail
 
-### [play_queue](docs/sdks/playqueue/README.md)
+### [PlayQueue](docs/sdks/playqueue/README.md)
 
 * [create_play_queue](docs/sdks/playqueue/README.md#create_play_queue) - Create a play queue
 * [get_play_queue](docs/sdks/playqueue/README.md#get_play_queue) - Retrieve a play queue
@@ -500,39 +500,39 @@ asyncio.run(main())
 * [delete_play_queue_item](docs/sdks/playqueue/README.md#delete_play_queue_item) - Delete an item from a play queue
 * [move_play_queue_item](docs/sdks/playqueue/README.md#move_play_queue_item) - Move an item in a play queue
 
-### [playlist](docs/sdks/playlist/README.md)
+### [Playlist](docs/sdks/playlist/README.md)
 
 * [list_playlists](docs/sdks/playlist/README.md#list_playlists) - List playlists
 * [get_playlist](docs/sdks/playlist/README.md#get_playlist) - Retrieve Playlist
 * [get_playlist_items](docs/sdks/playlist/README.md#get_playlist_items) - Retrieve Playlist Contents
 
-### [plex](docs/sdks/plex/README.md)
+### [Plex](docs/sdks/plex/README.md)
 
 * [get_server_resources](docs/sdks/plex/README.md#get_server_resources) - Get Server Resources
 
-### [preferences](docs/sdks/preferences/README.md)
+### [Preferences](docs/sdks/preferences/README.md)
 
 * [get_all_preferences](docs/sdks/preferences/README.md#get_all_preferences) - Get all preferences
 * [set_preferences](docs/sdks/preferences/README.md#set_preferences) - Set preferences
 * [get_preference](docs/sdks/preferences/README.md#get_preference) - Get a preferences
 
-### [provider](docs/sdks/provider/README.md)
+### [Provider](docs/sdks/provider/README.md)
 
 * [list_providers](docs/sdks/provider/README.md#list_providers) - Get the list of available media providers
 * [add_provider](docs/sdks/provider/README.md#add_provider) - Add a media provider
 * [refresh_providers](docs/sdks/provider/README.md#refresh_providers) - Refresh media providers
 * [delete_media_provider](docs/sdks/provider/README.md#delete_media_provider) - Delete a media provider
 
-### [rate](docs/sdks/rate/README.md)
+### [Rate](docs/sdks/rate/README.md)
 
 * [set_rating](docs/sdks/rate/README.md#set_rating) - Rate an item
 
-### [search](docs/sdks/search/README.md)
+### [Search](docs/sdks/search/README.md)
 
 * [search_hubs](docs/sdks/search/README.md#search_hubs) - Search Hub
 * [voice_search_hubs](docs/sdks/search/README.md#voice_search_hubs) - Voice Search Hub
 
-### [status](docs/sdks/status/README.md)
+### [Status](docs/sdks/status/README.md)
 
 * [list_sessions](docs/sdks/status/README.md#list_sessions) - List Sessions
 * [get_background_tasks](docs/sdks/status/README.md#get_background_tasks) - Get background tasks
@@ -541,7 +541,7 @@ asyncio.run(main())
 * [delete_history](docs/sdks/status/README.md#delete_history) - Delete Single History Item
 * [get_history_item](docs/sdks/status/README.md#get_history_item) - Get Single History Item
 
-### [subscriptions](docs/sdks/subscriptions/README.md)
+### [Subscriptions](docs/sdks/subscriptions/README.md)
 
 * [get_all_subscriptions](docs/sdks/subscriptions/README.md#get_all_subscriptions) - Get all subscriptions
 * [create_subscription](docs/sdks/subscriptions/README.md#create_subscription) - Create a subscription
@@ -554,13 +554,13 @@ asyncio.run(main())
 * [edit_subscription_preferences](docs/sdks/subscriptions/README.md#edit_subscription_preferences) - Edit a subscription
 * [reorder_subscription](docs/sdks/subscriptions/README.md#reorder_subscription) - Re-order a subscription
 
-### [timeline](docs/sdks/timeline/README.md)
+### [Timeline](docs/sdks/timeline/README.md)
 
 * [mark_played](docs/sdks/timeline/README.md#mark_played) - Mark an item as played
 * [report](docs/sdks/timeline/README.md#report) - Report media timeline
 * [unscrobble](docs/sdks/timeline/README.md#unscrobble) - Mark an item as unplayed
 
-### [transcoder](docs/sdks/transcoder/README.md)
+### [Transcoder](docs/sdks/transcoder/README.md)
 
 * [transcode_image](docs/sdks/transcoder/README.md#transcode_image) - Transcode an image
 * [make_decision](docs/sdks/transcoder/README.md#make_decision) - Make a decision on media playback
@@ -568,18 +568,18 @@ asyncio.run(main())
 * [transcode_subtitles](docs/sdks/transcoder/README.md#transcode_subtitles) - Transcode subtitles
 * [start_transcode_session](docs/sdks/transcoder/README.md#start_transcode_session) - Start A Transcoding Session
 
-### [ultra_blur](docs/sdks/ultrablur/README.md)
+### [UltraBlur](docs/sdks/ultrablur/README.md)
 
 * [get_colors](docs/sdks/ultrablur/README.md#get_colors) - Get UltraBlur Colors
 * [get_image](docs/sdks/ultrablur/README.md#get_image) - Get UltraBlur Image
 
-### [updater](docs/sdks/updater/README.md)
+### [Updater](docs/sdks/updater/README.md)
 
 * [apply_updates](docs/sdks/updater/README.md#apply_updates) - Applying updates
 * [check_updates](docs/sdks/updater/README.md#check_updates) - Checking for updates
 * [get_updates_status](docs/sdks/updater/README.md#get_updates_status) - Querying status of updates
 
-### [users](docs/sdks/users/README.md)
+### [Users](docs/sdks/users/README.md)
 
 * [get_users](docs/sdks/users/README.md#get_users) - Get list of all connected users
 

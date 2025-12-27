@@ -26,7 +26,6 @@ class GetTokenDetailsErrors(BaseModel):
 
 class GetTokenDetailsUnauthorizedData(BaseModel):
     errors: Optional[List[GetTokenDetailsErrors]] = None
-
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
         None
     )
@@ -66,7 +65,6 @@ class Errors(BaseModel):
 
 class GetTokenDetailsBadRequestData(BaseModel):
     errors: Optional[List[Errors]] = None
-
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
         None
     )

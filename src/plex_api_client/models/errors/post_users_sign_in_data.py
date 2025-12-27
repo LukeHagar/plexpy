@@ -26,7 +26,6 @@ class PostUsersSignInDataAuthenticationErrors(BaseModel):
 
 class PostUsersSignInDataUnauthorizedData(BaseModel):
     errors: Optional[List[PostUsersSignInDataAuthenticationErrors]] = None
-
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
         None
     )
@@ -66,7 +65,6 @@ class PostUsersSignInDataErrors(BaseModel):
 
 class PostUsersSignInDataBadRequestData(BaseModel):
     errors: Optional[List[PostUsersSignInDataErrors]] = None
-
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
         None
     )

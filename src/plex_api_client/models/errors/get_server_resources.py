@@ -26,7 +26,6 @@ class GetServerResourcesErrors(BaseModel):
 
 class GetServerResourcesUnauthorizedData(BaseModel):
     errors: Optional[List[GetServerResourcesErrors]] = None
-
     raw_response: Annotated[Optional[httpx.Response], pydantic.Field(exclude=True)] = (
         None
     )

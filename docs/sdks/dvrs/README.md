@@ -1,5 +1,4 @@
 # DVRs
-(*dv_rs*)
 
 ## Overview
 

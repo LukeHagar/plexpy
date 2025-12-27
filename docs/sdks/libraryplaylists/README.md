@@ -1,5 +1,4 @@
 # LibraryPlaylists
-(*library_playlists*)
 
 ## Overview
 
