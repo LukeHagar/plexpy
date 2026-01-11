@@ -89,6 +89,7 @@ if TYPE_CHECKING:
         MediaContainerWithDecisionPart,
         MediaContainerWithDecisionPartTypedDict,
         MediaContainerWithDecisionStream,
+        MediaContainerWithDecisionStreamType,
         MediaContainerWithDecisionStreamTypedDict,
         MediaContainerWithDecisionTypedDict,
     )
@@ -213,7 +214,7 @@ if TYPE_CHECKING:
         SortPivotTypedDict,
         SortTypedDict,
     )
-    from .stream import Stream, StreamTypedDict
+    from .stream import Stream, StreamType, StreamTypedDict
     from .subtitles import Subtitles
     from .tag import Tag, TagTypedDict
     from .transcodesession import TranscodeSession, TranscodeSessionTypedDict
@@ -347,6 +348,7 @@ __all__ = [
     "MediaContainerWithDecisionPart",
     "MediaContainerWithDecisionPartTypedDict",
     "MediaContainerWithDecisionStream",
+    "MediaContainerWithDecisionStreamType",
     "MediaContainerWithDecisionStreamTypedDict",
     "MediaContainerWithDecisionTypedDict",
     "MediaContainerWithDevice",
@@ -444,6 +446,7 @@ __all__ = [
     "SortTypedDict",
     "Status",
     "Stream",
+    "StreamType",
     "StreamTypedDict",
     "Subscription",
     "SubscriptionTypedDict",
@@ -564,6 +567,7 @@ _dynamic_imports: dict[str, str] = {
     "MediaContainerWithDecisionPart": ".mediacontainerwithdecision",
     "MediaContainerWithDecisionPartTypedDict": ".mediacontainerwithdecision",
     "MediaContainerWithDecisionStream": ".mediacontainerwithdecision",
+    "MediaContainerWithDecisionStreamType": ".mediacontainerwithdecision",
     "MediaContainerWithDecisionStreamTypedDict": ".mediacontainerwithdecision",
     "MediaContainerWithDecisionTypedDict": ".mediacontainerwithdecision",
     "MediaContainerWithDevice": ".mediacontainerwithdevice",
@@ -665,6 +669,7 @@ _dynamic_imports: dict[str, str] = {
     "SortPivotTypedDict": ".sort",
     "SortTypedDict": ".sort",
     "Stream": ".stream",
+    "StreamType": ".stream",
     "StreamTypedDict": ".stream",
     "Subtitles": ".subtitles",
     "Tag": ".tag",

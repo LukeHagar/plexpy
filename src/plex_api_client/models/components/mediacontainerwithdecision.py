@@ -8,11 +8,9 @@ from .tag import Tag, TagTypedDict
 from datetime import date
 from enum import Enum
 from plex_api_client.types import BaseModel
-from plex_api_client.utils import validate_const
 import pydantic
 from pydantic import ConfigDict
-from pydantic.functional_validators import AfterValidator
-from typing import Any, Dict, List, Literal, Optional
+from typing import Any, Dict, List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
 
@@ -28,6 +26,19 @@ class MediaContainerWithDecisionGuids(BaseModel):
     r"""The unique identifier for the Guid. Can be prefixed with imdb://, tmdb://, tvdb://
 
     """
+
+
+class MediaContainerWithDecisionStreamType(int, Enum):
+    r"""Stream type:
+    - VIDEO = 1 (Video stream)
+    - AUDIO = 2 (Audio stream)
+    - SUBTITLE = 3 (Subtitle stream)
+
+    """
+
+    VIDEO = 1
+    AUDIO = 2
+    SUBTITLE = 3
 
 
 class MediaContainerWithDecisionDecision(str, Enum):
@@ -61,6 +72,7 @@ class MediaContainerWithDecisionStreamTypedDict(TypedDict):
     r"""Unique stream identifier."""
     key: str
     r"""Key to access this stream part."""
+    stream_type: MediaContainerWithDecisionStreamType
     default: NotRequired[bool]
     r"""Indicates if this stream is default."""
     audio_channel_layout: NotRequired[str]
@@ -147,13 +159,6 @@ class MediaContainerWithDecisionStreamTypedDict(TypedDict):
     title: NotRequired[str]
     r"""Optional title for the stream (e.g., language variant)."""
     stream_identifier: NotRequired[int]
-    stream_type: Literal[1]
-    r"""Stream type:
-    - VIDEO = 1
-    - AUDIO = 2
-    - SUBTITLE = 3
-
-    """
     width: NotRequired[int]
     r"""Width of the video stream."""
     decision: NotRequired[MediaContainerWithDecisionDecision]
@@ -179,6 +184,10 @@ class MediaContainerWithDecisionStream(BaseModel):
 
     key: str
     r"""Key to access this stream part."""
+
+    stream_type: Annotated[
+        MediaContainerWithDecisionStreamType, pydantic.Field(alias="streamType")
+    ]
 
     default: Optional[bool] = None
     r"""Indicates if this stream is default."""
@@ -341,17 +350,6 @@ class MediaContainerWithDecisionStream(BaseModel):
     stream_identifier: Annotated[
         Optional[int], pydantic.Field(alias="streamIdentifier")
     ] = None
-
-    STREAM_TYPE: Annotated[
-        Annotated[Literal[1], AfterValidator(validate_const(1))],
-        pydantic.Field(alias="streamType"),
-    ] = 1
-    r"""Stream type:
-    - VIDEO = 1
-    - AUDIO = 2
-    - SUBTITLE = 3
-
-    """
 
     width: Optional[int] = None
     r"""Width of the video stream."""

@@ -16,15 +16,9 @@ from plex_api_client.types import (
     UNSET,
     UNSET_SENTINEL,
 )
-from plex_api_client.utils import (
-    FieldMetadata,
-    HeaderMetadata,
-    RequestMetadata,
-    validate_open_enum,
-)
+from plex_api_client.utils import FieldMetadata, HeaderMetadata, RequestMetadata
 import pydantic
 from pydantic import field_serializer, model_serializer
-from pydantic.functional_validators import PlainValidator
 from typing import List, Optional
 from typing_extensions import Annotated, NotRequired, TypedDict
 
@@ -307,7 +301,7 @@ class Services(BaseModel):
 
     secret: Nullable[str]
 
-    status: Annotated[Status, PlainValidator(validate_open_enum(False))]
+    status: Status
 
     @field_serializer("status")
     def serialize_status(self, value):
@@ -387,9 +381,7 @@ class Subscription(BaseModel):
     ] = UNSET
     r"""Date the account subscribed to Plex Pass"""
 
-    status: Annotated[
-        Optional[PostUsersSignInDataStatus], PlainValidator(validate_open_enum(False))
-    ] = None
+    status: Optional[PostUsersSignInDataStatus] = None
     r"""String representation of subscriptionActive"""
 
     payment_service: Annotated[
@@ -481,10 +473,7 @@ class PostUsersSignInDataSubscription(BaseModel):
     ] = UNSET
     r"""Date the account subscribed to Plex Pass"""
 
-    status: Annotated[
-        Optional[PostUsersSignInDataAuthenticationStatus],
-        PlainValidator(validate_open_enum(False)),
-    ] = None
+    status: Optional[PostUsersSignInDataAuthenticationStatus] = None
     r"""String representation of subscriptionActive"""
 
     payment_service: Annotated[
@@ -628,9 +617,7 @@ class PastSubscription(BaseModel):
 
     transfer: Nullable[str]
 
-    state: Annotated[
-        PostUsersSignInDataState, PlainValidator(validate_open_enum(False))
-    ]
+    state: PostUsersSignInDataState
 
     billing: Billing
 
